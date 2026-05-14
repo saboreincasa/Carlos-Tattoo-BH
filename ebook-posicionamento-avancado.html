@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Posicionamento de Alta Valor — Tutorial Completo 2026 | Carlos Tattoo BH</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Raleway',sans-serif;background:#f5f0e8;color:#1a0a00;font-size:16px;line-height:1.8;}
+@media print{.no-print{display:none!important;}.pb{page-break-after:always;}body{background:#fff;font-size:11pt;}}
+.wm{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;}
+.wm-grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(7,1fr);}
+.wm-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transform:rotate(-25deg);opacity:.04;}
+.wm-cell img{width:52px;height:52px;object-fit:contain;}
+.wm-cell span{font-family:'Cinzel',serif;font-size:8px;letter-spacing:2px;color:#C9A84C;text-transform:uppercase;white-space:nowrap;}
+.capa{background:linear-gradient(160deg,#050301 0%,#1a1000 38%,#2a1a00 65%,#050301 100%);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;position:relative;overflow:hidden;}
+.capa::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 45%,rgba(201,168,76,.15) 0%,rgba(139,26,26,.08) 60%,transparent 100%);}
+.c-line{position:absolute;left:50%;transform:translateX(-50%);width:220px;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.5),transparent);}
+.c-line.top{top:36px;}.c-line.bot{bottom:36px;}
+.c-logo{height:90px;object-fit:contain;filter:drop-shadow(0 0 24px rgba(201,168,76,.6));margin-bottom:28px;position:relative;z-index:1;}
+.c-tag{display:inline-block;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.4);padding:7px 24px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;color:#E8B800;text-transform:uppercase;margin-bottom:24px;position:relative;z-index:1;}
+.c-h1{font-family:'Cinzel Decorative',cursive;font-size:clamp(28px,5vw,56px);color:#fff;line-height:1.05;margin-bottom:12px;position:relative;z-index:1;}
+.c-h1 b{color:#E8B800;}
+.c-sub{font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:rgba(201,168,76,.55);margin-bottom:52px;position:relative;z-index:1;}
+.c-div{width:140px;height:1px;background:linear-gradient(90deg,transparent,#E8B800,transparent);margin:0 auto 38px;}
+.c-autor-name{font-family:'Cinzel Decorative',cursive;font-size:20px;color:#E8B800;margin-bottom:4px;position:relative;z-index:1;}
+.c-autor-role{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:rgba(201,168,76,.45);text-transform:uppercase;position:relative;z-index:1;}
+.c-badge{position:absolute;bottom:48px;right:48px;width:94px;height:94px;border-radius:50%;background:rgba(201,168,76,.09);border:1.5px solid rgba(201,168,76,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:1;}
+.c-badge b{font-family:'Cinzel Decorative',cursive;font-size:23px;color:#E8B800;display:block;line-height:1;}
+.c-badge span{font-family:'Cinzel',serif;font-size:8px;letter-spacing:1px;color:rgba(201,168,76,.45);margin-top:3px;}
+.c-pages{position:absolute;bottom:52px;left:48px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(201,168,76,.35);text-transform:uppercase;z-index:1;}
+.indice{background:#FAF4E8;padding:72px 96px;min-height:100vh;}
+.mh{background:linear-gradient(135deg,#1a1000,#2a1a00);padding:56px 96px 48px;position:relative;overflow:hidden;border-bottom:3px solid #C9A84C;}
+.mh::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 80% 50%,rgba(201,168,76,.08) 0%,transparent 70%);}
+.mh-bg-n{font-family:'Cinzel Decorative',cursive;font-size:130px;color:rgba(201,168,76,.05);position:absolute;right:56px;top:10px;line-height:1;}
+.mh-lbl{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;color:rgba(201,168,76,.5);text-transform:uppercase;margin-bottom:10px;position:relative;z-index:1;}
+.mh-title{font-family:'Cinzel Decorative',cursive;font-size:clamp(24px,3.5vw,42px);color:#fff;position:relative;z-index:1;line-height:1.15;}
+.mh-title b{color:#E8B800;}
+.mh-desc{font-size:16px;color:rgba(237,228,212,.6);margin-top:14px;position:relative;z-index:1;max-width:620px;line-height:1.7;}
+.mh-logo{position:absolute;right:96px;bottom:24px;height:44px;opacity:.35;z-index:1;}
+.page{background:#fff;padding:68px 92px 84px;min-height:100vh;position:relative;}
+.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;padding-bottom:14px;border-bottom:2px solid #f0e6cc;}
+.ph img{height:30px;object-fit:contain;opacity:.65;}
+.ph span{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:#8A6030;text-transform:uppercase;}
+.pf{position:absolute;bottom:30px;left:92px;right:92px;display:flex;justify-content:space-between;align-items:center;font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;color:#C9A84C;border-top:1px solid #f0e6cc;padding-top:12px;}
+.bg-n{font-family:'Cinzel Decorative',cursive;font-size:120px;color:rgba(201,168,76,.05);position:absolute;top:56px;right:76px;line-height:1;pointer-events:none;}
+.lbl{font-family:'Cinzel',serif;font-size:9px;letter-spacing:4px;color:#C9A84C;text-transform:uppercase;margin-bottom:8px;display:block;}
+.h2{font-family:'Cinzel Decorative',cursive;font-size:clamp(20px,2.8vw,34px);color:#1a0a00;margin-bottom:16px;line-height:1.2;}
+.h2 b{color:#C9A84C;}
+.h3{font-family:'Cinzel',serif;font-size:17px;color:#1a0a00;font-weight:700;margin:32px 0 14px;display:flex;align-items:center;gap:10px;}
+.h3::before{content:'◆';color:#C9A84C;font-size:9px;flex-shrink:0;}
+p{font-size:15px;color:#2a1408;line-height:1.9;margin-bottom:16px;}
+strong{color:#1a0a00;}
+.steps{display:flex;flex-direction:column;gap:14px;margin:18px 0;}
+.step{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1.5px solid rgba(201,168,76,.16);border-radius:12px;padding:20px 22px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.sn{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#A07830,#E8B800);display:flex;align-items:center;justify-content:center;font-family:'Cinzel Decorative',cursive;font-size:14px;color:#0a0500;flex-shrink:0;font-weight:900;}
+.st h4{font-family:'Cinzel',serif;font-size:14px;color:#1a0a00;font-weight:700;margin-bottom:6px;}
+.st p{font-size:14px;color:#4a3018;line-height:1.75;margin:0;}
+.code{background:#1C1208;border-radius:8px;padding:14px 18px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:#E8B800;letter-spacing:.5px;border-left:3px solid #C9A84C;}
+.box-warn{background:#fffbeb;border:1.5px solid #f59e0b;border-radius:10px;padding:18px 22px;margin:22px 0;display:flex;gap:14px;}
+.box-warn-i{font-size:22px;flex-shrink:0;}
+.box-warn p{font-size:14px;color:#78350f;line-height:1.75;margin:0;}
+.box-tip{background:#eff6ff;border:1.5px solid #60a5fa;border-radius:10px;padding:18px 22px;margin:22px 0;display:flex;gap:14px;}
+.box-tip-i{font-size:22px;flex-shrink:0;}
+.box-tip p{font-size:14px;color:#1e3a5f;line-height:1.75;margin:0;}
+.box-ok{background:#f0fdf4;border:1.5px solid #4ade80;border-radius:10px;padding:18px 22px;margin:22px 0;display:flex;gap:14px;}
+.box-ok-i{font-size:22px;flex-shrink:0;}
+.box-ok p{font-size:14px;color:#14532d;line-height:1.75;margin:0;}
+.box-gold{background:linear-gradient(135deg,#FAF4E8,#F0E6CC);border:1px solid rgba(201,168,76,.22);border-left:5px solid #C9A84C;padding:20px 26px;margin:22px 0;border-radius:0 12px 12px 0;}
+.box-gold p{font-size:15px;color:#2a1408;margin:0;line-height:1.8;}
+.box-dark{background:linear-gradient(135deg,#1C1208,#0A0702);border-radius:14px;padding:26px 30px;margin:22px 0;border:1px solid rgba(201,168,76,.18);}
+.box-dark p,.box-dark li{color:#EDE4D4;font-size:15px;line-height:1.85;margin-bottom:10px;}
+.box-dark h4{font-family:'Cinzel',serif;font-size:15px;color:#E8B800;margin-bottom:14px;}
+.ul{list-style:none;margin:14px 0 22px;}
+.ul li{display:flex;align-items:flex-start;gap:12px;font-size:15px;color:#2a1408;margin-bottom:13px;line-height:1.75;}
+.ul li::before{content:'◆';color:#C9A84C;font-size:8px;flex-shrink:0;margin-top:7px;}
+.ol{list-style:none;margin:14px 0 22px;counter-reset:n;}
+.ol li{display:flex;align-items:flex-start;gap:14px;font-size:15px;color:#2a1408;margin-bottom:14px;line-height:1.75;counter-increment:n;}
+.ol li::before{content:counter(n);min-width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#A07830,#C9A84C);color:#fff;font-family:'Cinzel Decorative',cursive;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.tb{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px;}
+.tb th{background:linear-gradient(135deg,#1a1000,#2a1a00);color:#C9A84C;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:13px 16px;text-align:left;}
+.tb td{padding:11px 16px;border-bottom:1px solid #f0e6cc;color:#2a1408;line-height:1.6;}
+.tb tr:hover td{background:#FAF4E8;}
+.tb tr:last-child td{border-bottom:none;}
+.script{background:#1C1208;border-radius:12px;padding:24px 28px;margin:18px 0;}
+.script-lbl{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:#C9A84C;text-transform:uppercase;margin-bottom:14px;display:block;}
+.sl{font-size:14px;color:#EDE4D4;line-height:1.9;margin-bottom:10px;}
+.sl b{color:#E8B800;}
+.sl em{color:rgba(201,168,76,.5);font-style:italic;}
+.ck{background:linear-gradient(135deg,#1a1000,#2a1a00);border-radius:16px;padding:30px;margin:22px 0;}
+.ck h4{font-family:'Cinzel Decorative',cursive;font-size:17px;color:#E8B800;margin-bottom:20px;}
+.ck-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.ci{display:flex;align-items:center;gap:10px;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.1);border-radius:7px;padding:11px 14px;font-size:14px;color:#EDE4D4;line-height:1.5;}
+.cbox{width:18px;height:18px;border:2px solid rgba(201,168,76,.4);border-radius:4px;flex-shrink:0;}
+.idx-mod{margin-bottom:26px;}
+.idx-mod-lbl{font-family:'Cinzel Decorative',cursive;font-size:12px;color:#C9A84C;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:10px;}
+.idx-mod-lbl::after{content:'';flex:1;height:1px;background:rgba(201,168,76,.2);}
+.idx-item{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid rgba(160,120,56,.1);}
+.idx-n{font-family:'Cinzel Decorative',cursive;font-size:17px;color:#C9A84C;min-width:30px;}
+.idx-t{flex:1;}
+.idx-t h3{font-family:'Cinzel',serif;font-size:14px;color:#1a0a00;font-weight:700;}
+.idx-t p{font-size:11px;color:#8A6030;margin-top:2px;}
+.idx-pg{font-family:'Cinzel',serif;font-size:10px;color:#C9A84C;}
+.cback{background:linear-gradient(160deg,#050301,#1a1000,#050301);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;position:relative;}
+.preco-destaque{background:linear-gradient(135deg,#FAF4E8,#F0E6CC);border:2px solid rgba(201,168,76,.3);border-radius:14px;padding:24px 28px;margin:22px 0;text-align:center;}
+.preco-destaque .antes{font-size:14px;color:#8A6030;text-decoration:line-through;}
+.preco-destaque .preco{font-family:'Cinzel Decorative',cursive;font-size:44px;color:#A07830;line-height:1;}
+.preco-destaque .parcelas{font-family:'Cinzel',serif;font-size:12px;color:#8A6030;}
+</style>
+</head>
+<body>
+<!-- MARCA D'ÁGUA -->
+<div class="wm" aria-hidden="true">
+  <div class="wm-grid">
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+  </div>
+</div>
+
+<!-- CAPA -->
+<div class="capa pb">
+  <div class="c-line top"></div>
+  <img src="IPJP8350.JPG" class="c-logo" alt="Carlos Tattoo BH">
+  <div class="c-tag">Nível Avançado · 2026 · 200+ Páginas</div>
+  <h1 class="c-h1">Posicionamento de<br><b>Alta Valor</b></h1>
+  <p class="c-sub">Como cobrar mais caro, ter fila de espera e ser referência no mercado</p>
+  <div class="c-div"></div>
+  <div class="c-autor-name">Carlos Henrique</div>
+  <div class="c-autor-role">Tatuador · Mentor · @carlostattoo.bh · Belo Horizonte, MG</div>
+  <div class="c-badge"><b>R$97</b><span>Exclusivo</span></div>
+  <div class="c-pages">200+ páginas de conteúdo avançado</div>
+  <div class="c-line bot"></div>
+</div>
+
+<!-- ÍNDICE -->
+<div class="indice pb">
+  <img src="IPJP8350.JPG" style="height:44px;object-fit:contain;opacity:.6;margin-bottom:28px;display:block;" alt="">
+  <span class="lbl">Sumário</span>
+  <h2 class="h2" style="color:#1a0a00;margin-bottom:38px;">Do tatuador bom ao <b>referência de mercado</b></h2>
+
+  <div class="idx-mod">
+    <div class="idx-mod-lbl">Módulo 1 — Mentalidade e Identidade Premium</div>
+    <div class="idx-item"><span class="idx-n">01</span><div class="idx-t"><h3>Por que você está cobrando barato</h3><p>A psicologia do preço e como o mercado percebe seu valor</p></div><span class="idx-pg">06</span></div>
+    <div class="idx-item"><span class="idx-n">02</span><div class="idx-t"><h3>Construindo sua identidade de marca</h3><p>Nome, logo, paleta, fontes — como criar visual profissional</p></div><span class="idx-pg">12</span></div>
+    <div class="idx-item"><span class="idx-n">03</span><div class="idx-t"><h3>Escolhendo sua especialidade e se tornando referência</h3><p>Por que generalista tem preço médio e especialista tem preço premium</p></div><span class="idx-pg">18</span></div>
+  </div>
+  <div class="idx-mod">
+    <div class="idx-mod-lbl">Módulo 2 — Precificação Estratégica</div>
+    <div class="idx-item"><span class="idx-n">04</span><div class="idx-t"><h3>Como calcular seu preço real</h3><p>Custo por hora, materiais, overhead, margem — cálculo completo</p></div><span class="idx-pg">24</span></div>
+    <div class="idx-item"><span class="idx-n">05</span><div class="idx-t"><h3>Tabela de preços premium por estilo e tamanho</h3><p>Referências de mercado premium em 2026</p></div><span class="idx-pg">30</span></div>
+    <div class="idx-item"><span class="idx-n">06</span><div class="idx-t"><h3>Como reajustar preços sem perder clientes</h3><p>Estratégia de aumento gradual e comunicação correta</p></div><span class="idx-pg">36</span></div>
+    <div class="idx-item"><span class="idx-n">07</span><div class="idx-t"><h3>Sinal, parcelamento e política de cancelamento</h3><p>Como estruturar financeiramente seu negócio</p></div><span class="idx-pg">42</span></div>
+  </div>
+  <div class="idx-mod">
+    <div class="idx-mod-lbl">Módulo 3 — Scripts VIP de Atendimento</div>
+    <div class="idx-item"><span class="idx-n">08</span><div class="idx-t"><h3>O sistema completo de atendimento premium</h3><p>Da primeira mensagem ao pós-sessão — cada etapa detalhada</p></div><span class="idx-pg">50</span></div>
+    <div class="idx-item"><span class="idx-n">09</span><div class="idx-t"><h3>Scripts para cada situação — 20 modelos prontos</h3><p>Primeira mensagem, orçamento, objeções, follow-up, pós-venda</p></div><span class="idx-pg">58</span></div>
+    <div class="idx-item"><span class="idx-n">10</span><div class="idx-t"><h3>Como fechar orçamentos de alto valor</h3><p>A psicologia da decisão de compra para serviços premium</p></div><span class="idx-pg">66</span></div>
+    <div class="idx-item"><span class="idx-n">11</span><div class="idx-t"><h3>Lidando com objeções — scripts testados</h3><p>Respostas para "tá caro", "vou pensar", "vi mais barato"</p></div><span class="idx-pg">72</span></div>
+  </div>
+  <div class="idx-mod">
+    <div class="idx-mod-lbl">Módulo 4 — Branding Premium</div>
+    <div class="idx-item"><span class="idx-n">12</span><div class="idx-t"><h3>Criando experiência premium do primeiro contato</h3><p>Como cada touchpoint comunica valor antes da sessão</p></div><span class="idx-pg">80</span></div>
+    <div class="idx-item"><span class="idx-n">13</span><div class="idx-t"><h3>O estúdio como ferramenta de vendas</h3><p>Ambiente, materiais e apresentação que justificam preço alto</p></div><span class="idx-pg">86</span></div>
+    <div class="idx-item"><span class="idx-n">14</span><div class="idx-t"><h3>Como criar escassez real e fila de espera</h3><p>Estratégias de agenda fechada e lista VIP</p></div><span class="idx-pg">92</span></div>
+  </div>
+  <div class="idx-mod">
+    <div class="idx-mod-lbl">Módulo 5 — Funil de Vendas Completo</div>
+    <div class="idx-item"><span class="idx-n">15</span><div class="idx-t"><h3>Mapeando a jornada do cliente premium</h3><p>Do primeiro contato ao cliente fidelizado — cada etapa</p></div><span class="idx-pg">100</span></div>
+    <div class="idx-item"><span class="idx-n">16</span><div class="idx-t"><h3>Sistema de follow-up que não parece desesperado</h3><p>Como acompanhar leads sem pressionar</p></div><span class="idx-pg">106</span></div>
+    <div class="idx-item"><span class="idx-n">17</span><div class="idx-t"><h3>Fidelização — transformando cliente em fã</h3><p>Como fazer cada cliente voltar e indicar outros</p></div><span class="idx-pg">112</span></div>
+  </div>
+  <div class="idx-mod">
+    <div class="idx-mod-lbl">Módulo 6 — Gestão e Expansão</div>
+    <div class="idx-item"><span class="idx-n">18</span><div class="idx-t"><h3>Gestão financeira do estúdio</h3><p>Controle de receita, despesas, metas e reserva</p></div><span class="idx-pg">120</span></div>
+    <div class="idx-item"><span class="idx-n">19</span><div class="idx-t"><h3>Como contratar e treinar um assistente</h3><p>Quando e como expandir sem perder qualidade</p></div><span class="idx-pg">126</span></div>
+    <div class="idx-item"><span class="idx-n">20</span><div class="idx-t"><h3>Construindo autoridade no mercado tattoo</h3><p>Eventos, colaborações, mídia e presença estratégica</p></div><span class="idx-pg">132</span></div>
+  </div>
+  <div class="idx-mod">
+    <div class="idx-mod-lbl">Módulo 7 — Plano de Ação e Bônus</div>
+    <div class="idx-item"><span class="idx-n">21</span><div class="idx-t"><h3>Plano de reposicionamento 90 dias</h3><p>Como migrar de preço médio para preço premium sem perder clientes</p></div><span class="idx-pg">140</span></div>
+    <div class="idx-item"><span class="idx-n">22</span><div class="idx-t"><h3>Contrato de tatuagem completo — modelo editável</h3><p>Cláusulas essenciais, direitos e responsabilidades</p></div><span class="idx-pg">148</span></div>
+    <div class="idx-item"><span class="idx-n">23</span><div class="idx-t"><h3>Planilha de controle financeiro</h3><p>Como organizar suas finanças do estúdio</p></div><span class="idx-pg">158</span></div>
+    <div class="idx-item"><span class="idx-n">24</span><div class="idx-t"><h3>Checklist completo do profissional premium</h3><p>Tudo que precisa estar no lugar para cobrar mais caro</p></div><span class="idx-pg">165</span></div>
+  </div>
+</div>
+
+<!-- MÓDULO 1 -->
+<div class="mh pb">
+  <div class="mh-bg-n">01</div>
+  <div class="mh-lbl">Módulo 01</div>
+  <div class="mh-title">Mentalidade e<br><b>Identidade Premium</b></div>
+  <div class="mh-desc">Você não cobra mais caro aprendendo uma técnica nova. Você cobra mais caro mudando como o mercado te percebe. Este módulo é sobre construir a base de uma marca premium.</div>
+  <img src="IPJP8350.JPG" class="mh-logo" alt="">
+</div>
+
+<!-- CAP 1 -->
+<div class="page pb">
+  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Módulo 01 · Capítulo 01</span></div>
+  <div class="bg-n">01</div>
+  <span class="lbl">Capítulo 01</span>
+  <h2 class="h2">Por que você está <b>cobrando barato</b></h2>
+  <p>A maioria dos tatuadores precifica baseado no que o vizinho cobra. Isso cria uma corrida para o fundo — todo mundo vai diminuindo o preço para não perder o cliente, e todo mundo perde no final.</p>
+  <p>O preço que você cobra é uma comunicação. Ele diz ao cliente o que esperar antes de ele ver seu trabalho. Um preço baixo comunica: "meu trabalho não é assim tão especial". Um preço alto comunica: "o que faço tem valor e quem me escolhe sabe disso."</p>
+
+  <h3 class="h3">As 5 crenças que te mantêm cobrando barato</h3>
+  <div class="steps">
+    <div class="step"><div class="sn">1</div><div class="st"><h4>"Meu trabalho não é bom o suficiente para cobrar mais"</h4><p>Falso. Sempre existe um mercado para cada nível de técnica. A questão não é ser o melhor tatuador do mundo — é se posicionar corretamente para o público que valoriza o que você faz. Hoje você pode ter clientes pagando R$200 enquanto outros tatuadores com técnica similar cobram R$500 pelo mesmo trabalho.</p></div></div>
+    <div class="step"><div class="sn">2</div><div class="st"><h4>"Se eu subir o preço, vou perder clientes"</h4><p>Você vai perder clientes sensíveis a preço — que são exatamente os que mais dão trabalho, mais reclamam e menos indicam. E vai atrair clientes que valorizam qualidade, respeitam seu trabalho e ficam satisfeitos mais facilmente.</p></div></div>
+    <div class="step"><div class="sn">3</div><div class="st"><h4>"Concorrência cobra menos — não posso cobrar mais"</h4><p>Ferrari e Chevrolet vendem carros na mesma cidade. Restaurante estrelado e lanchonete ficam na mesma rua. O mercado tem espaço para todos os níveis de preço. A questão é qual nível você quer ocupar.</p></div></div>
+    <div class="step"><div class="sn">4</div><div class="st"><h4>"Clientes de BH não pagam caro por tatuagem"</h4><p>BH tem estúdios cobrando R$1.000+/hora com agenda fechada meses à frente. O problema nunca é a cidade — é o posicionamento.</p></div></div>
+    <div class="step"><div class="sn">5</div><div class="st"><h4>"Preciso de mais seguidores para cobrar mais"</h4><p>Não precisa. Conheço tatuadores com 2.000 seguidores cobrando R$800/sessão e tatuadores com 50.000 seguidores que ainda cobram R$150. Seguidores não vendem — posicionamento vende.</p></div></div>
+  </div>
+
+  <h3 class="h3">A equação do preço percebido</h3>
+  <div class="box-dark">
+    <h4>Preço percebido = Qualidade + Apresentação + Escassez + Prova social</h4>
+    <ul class="ul">
+      <li><strong>Qualidade:</strong> Seu trabalho técnico — o que você pode melhorar continuamente</li>
+      <li><strong>Apresentação:</strong> Como você se apresenta ao mundo — perfil, estúdio, comunicação</li>
+      <li><strong>Escassez:</strong> Quanto você é difícil de conseguir — agenda aberta vs lista de espera</li>
+      <li><strong>Prova social:</strong> O que outros dizem sobre você — avaliações, depoimentos, portfólio</li>
+    </ul>
+    <p>Você pode ter qualidade 10/10 mas se apresentação, escassez e prova social estiverem em 4/10, seu preço percebido vai ser de nível médio. <strong>Todos os 4 elementos precisam estar alinhados.</strong></p>
+  </div>
+  <div class="pf"><span>Carlos Tattoo BH — Posicionamento de Alta Valor 2026</span><span>Página 06-11</span></div>
+</div>
+
+<!-- CAP 2 - IDENTIDADE DE MARCA -->
+<div class="page pb">
+  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Módulo 01 · Capítulo 02</span></div>
+  <div class="bg-n">02</div>
+  <span class="lbl">Capítulo 02</span>
+  <h2 class="h2">Construindo sua <b>identidade de marca</b></h2>
+  <p>Marca não é só logo. É a sensação que as pessoas têm quando pensam em você. É o que faz alguém escolher você mesmo pagando mais caro — porque confiam, porque admiram, porque se identificam.</p>
+
+  <h3 class="h3">Os elementos da identidade visual</h3>
+  <div class="steps">
+    <div class="step"><div class="sn">1</div><div class="st"><h4>Nome profissional</h4><p>Seu nome de marca deve ser fácil de lembrar, fácil de buscar e consistente em todos os canais. Seja seu nome pessoal + especialidade ou o nome do estúdio. O importante é escolher e manter — não mudar toda hora.</p><p><strong>Exemplos que funcionam:</strong> "Carlos Tattoo BH", "Carlos | Realismo BH", "Carlos Henrique Tattoo". Simples, direto, com localização.</p></div></div>
+    <div class="step"><div class="sn">2</div><div class="st"><h4>Paleta de cores</h4><p>Escolha 3-4 cores e use em tudo: Instagram, site, cartão de visita, embalagem do sinal, fundo das fotos. Consistência visual cria reconhecimento de marca. Quando alguém rolar o feed e ver sua post, deve reconhecer antes de ler o @.</p><p><strong>Para tattoo premium:</strong> Preto, dourado e branco é uma combinação que comunica luxo e expertise. Preto e vermelho comunica poder e tradição.</p></div></div>
+    <div class="step"><div class="sn">3</div><div class="st"><h4>Tipografia consistente</h4><p>Escolha 2 fontes no máximo: uma para títulos (serifada, mais formal) e uma para textos (sans-serif, mais limpa). Use as mesmas em todo o material visual. Misturar muitas fontes passa imagem de amadorismo.</p></div></div>
+    <div class="step"><div class="sn">4</div><div class="st"><h4>Tom de voz</h4><p>Como você escreve suas legendas, como você responde DMs, como você atende no telefone — tudo isso é seu tom de voz. Defina: você é mais formal ou informal? Mais técnico ou mais emocional? Mais sério ou mais descontraído? Escolha e mantenha consistente.</p></div></div>
+    <div class="step"><div class="sn">5</div><div class="st"><h4>Logo profissional</h4><p>Uma logo bem feita valida sua profissionalidade. Se você não tem, não invente uma ruim. Contrate um designer no Workana ou 99Freelas (R$200-500 para um logo decente). Uma logo profissional se paga na primeira sessão de cliente que chegou pela credibilidade visual.</p></div></div>
+  </div>
+
+  <div class="box-tip">
+    <span class="box-tip-i">💡</span>
+    <p><strong>Ação prática:</strong> Abra o Canva e crie um arquivo chamado "Identidade Visual". Defina sua paleta (anote os códigos hexadecimais), suas fontes e cole exemplos do tom de voz que você quer ter. Compartilhe esse arquivo com qualquer designer ou agência que você contratar — isso acelera muito o processo e garante consistência.</p>
+  </div>
+  <div class="pf"><span>Carlos Tattoo BH — Posicionamento de Alta Valor 2026</span><span>Página 12-17</span></div>
+</div>
+
+<!-- MÓDULO 2 -->
+<div class="mh pb">
+  <div class="mh-bg-n">02</div>
+  <div class="mh-lbl">Módulo 02</div>
+  <div class="mh-title">Precificação<br><b>Estratégica</b></div>
+  <div class="mh-desc">Aqui você aprende a calcular o preço real do seu trabalho, a tabela premium do mercado em 2026 e como reajustar preços sem drama.</div>
+  <img src="IPJP8350.JPG" class="mh-logo" alt="">
+</div>
+
+<!-- CAP 4 - CALCULANDO PREÇO -->
+<div class="page pb">
+  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Módulo 02 · Capítulo 04</span></div>
+  <div class="bg-n">04</div>
+  <span class="lbl">Capítulo 04</span>
+  <h2 class="h2">Como calcular seu <b>preço real</b></h2>
+  <p>A maioria dos tatuadores nunca fez essa conta. Eles cobram o que acham justo, sem saber se estão tendo lucro ou prejuízo. Vamos mudar isso agora.</p>
+
+  <h3 class="h3">Fórmula completa de precificação</h3>
+  <div class="box-dark">
+    <h4>Preço mínimo por sessão = (Custos fixos mensais ÷ Sessões por mês) + Custo variável da sessão + Sua hora de trabalho + Margem de lucro</h4>
+  </div>
+
+  <h3 class="h3">Calculando cada componente</h3>
+  <div class="steps">
+    <div class="step"><div class="sn">1</div><div class="st"><h4>Custos fixos mensais</h4><p>Some tudo que você paga todo mês independente de quantas sessões fizer:</p>
+      <ul class="ul" style="margin-top:8px;">
+        <li>Aluguel do estúdio ou sua parte proporcional</li>
+        <li>Energia elétrica, água, internet</li>
+        <li>Software (agendamento, edição, etc)</li>
+        <li>Seguro do equipamento</li>
+        <li>Contador</li>
+        <li>Marketing (anúncios, etc)</li>
+        <li>Salário de funcionários (se tiver)</li>
+      </ul>
+      <p><strong>Exemplo:</strong> R$2.800/mês em custos fixos ÷ 20 sessões/mês = R$140 de custo fixo por sessão</p>
+    </div></div>
+    <div class="step"><div class="sn">2</div><div class="st"><h4>Custo variável por sessão</h4><p>O que você gasta especificamente em cada sessão:</p>
+      <ul class="ul" style="margin-top:8px;">
+        <li>Agulhas (R$5-15 dependendo da sessão)</li>
+        <li>Tinta (R$10-30 para sessões coloridas)</li>
+        <li>EPI (luvas, máscaras, plástico filme)</li>
+        <li>Creme de cicatrização que você dá para o cliente</li>
+        <li>Papel e impressão do projeto</li>
+      </ul>
+      <p><strong>Média:</strong> R$30-60 por sessão padrão</p>
+    </div></div>
+    <div class="step"><div class="sn">3</div><div class="st"><h4>Sua hora de trabalho</h4><p>Defina quanto você quer ganhar por hora de trabalho. Para referência: um tatuador técnico médio em BH deveria ganhar pelo menos R$80-150/hora. Um especialista premium, R$200-400/hora.</p><p>Multiplique pela duração da sessão. Sessão de 3 horas a R$120/hora = R$360 só pela sua hora.</p></div></div>
+    <div class="step"><div class="sn">4</div><div class="st"><h4>Margem de lucro do negócio</h4><p>Adicione 20-30% sobre o total calculado. Isso é o lucro do negócio — diferente do seu salário. Esse dinheiro vai para reserva, reinvestimento em equipamentos e expansão.</p></div></div>
+  </div>
+
+  <h3 class="h3">Exemplo prático completo</h3>
+  <div class="box-gold">
+    <p><strong>Sessão de realismo de 4 horas:</strong><br><br>
+    Custo fixo proporcional: R$140<br>
+    Custo variável: R$50<br>
+    Sua hora (R$120 × 4h): R$480<br>
+    Subtotal: R$670<br>
+    Margem de lucro (25%): R$167<br>
+    <strong>Preço mínimo: R$837 → Arredonde para R$850-900</strong><br><br>
+    Se você está cobrando R$300-400 por esse mesmo trabalho, está trabalhando de graça ou com prejuízo.</p>
+  </div>
+
+  <span class="lbl" style="margin-top:28px;">Capítulo 05</span>
+  <h2 class="h2">Tabela de preços <b>premium 2026</b></h2>
+  <div class="tb">
+    <table class="tb">
+      <tr><th>Estilo</th><th>Tamanho</th><th>Mercado básico</th><th>Mercado médio</th><th>Mercado premium</th></tr>
+      <tr><td><strong>Fineline</strong></td><td>5-10cm</td><td>R$100-180</td><td>R$200-350</td><td>R$400-600</td></tr>
+      <tr><td><strong>Black & Grey</strong></td><td>10-20cm</td><td>R$250-400</td><td>R$450-700</td><td>R$750-1.200</td></tr>
+      <tr><td><strong>Realismo</strong></td><td>15-25cm</td><td>R$400-600</td><td>R$700-1.100</td><td>R$1.200-2.500</td></tr>
+      <tr><td><strong>Cover Up</strong></td><td>variável</td><td>R$300-500</td><td>R$600-900</td><td>R$1.000-2.000</td></tr>
+      <tr><td><strong>Colorida</strong></td><td>15-25cm</td><td>R$350-550</td><td>R$600-900</td><td>R$1.000-1.800</td></tr>
+      <tr><td><strong>Manga completa</strong></td><td>full arm</td><td>R$1.500-3.000</td><td>R$3.500-6.000</td><td>R$7.000-15.000</td></tr>
+    </table>
+  </div>
+
+  <div class="box-warn">
+    <span class="box-warn-i">⚠️</span>
+    <p><strong>Importante:</strong> Esses valores são referências do mercado, não verdades absolutas. Preço premium não é só sobre valor — é sobre percepção de valor. Você pode cobrar R$1.500 num realismo e não conseguir fechar, ou cobrar R$1.500 e ter fila de espera. A diferença está no posicionamento, não no número.</p>
+  </div>
+  <div class="pf"><span>Carlos Tattoo BH — Posicionamento de Alta Valor 2026</span><span>Página 24-41</span></div>
+</div>
+
+<!-- CAP 6 - REAJUSTE DE PREÇOS -->
+<div class="page pb">
+  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Módulo 02 · Capítulo 06</span></div>
+  <div class="bg-n">06</div>
+  <span class="lbl">Capítulo 06</span>
+  <h2 class="h2">Como reajustar preços <b>sem perder clientes</b></h2>
+  <p>Aumentar preço é assustador. Mas é necessário — tanto pelo crescimento natural do negócio quanto pela inflação dos custos. A estratégia certa garante que você suba de patamar sem perder os bons clientes.</p>
+
+  <h3 class="h3">A estratégia dos 3 passos</h3>
+  <div class="steps">
+    <div class="step"><div class="sn">1</div><div class="st"><h4>Aumento gradual a cada 3-4 meses</h4><p>Nunca aumente 50% de uma vez. Aumentos graduais de 10-15% a cada 3-4 meses são quase imperceptíveis para o cliente mas fazem diferença enorme ao longo de 12 meses. De R$300 para R$340 em 3 meses parece pouco. Mas em 12 meses você vai de R$300 para R$466 — um aumento de 55%.</p></div></div>
+    <div class="step"><div class="sn">2</div><div class="st"><h4>Comunicação proativa com clientes frequentes</h4><p>Para clientes que voltam com frequência, comunique o reajuste com antecedência:</p>
+      <div class="script" style="margin-top:10px;">
+        <span class="script-lbl">Mensagem de comunicação de reajuste</span>
+        <div class="sl">Olá, <b>[nome]</b>! 😊 Passando para te avisar que a partir de [data], vou reajustar meus valores para acompanhar os custos de materiais e manter a qualidade que você já conhece.</div>
+        <div class="sl">Se você quiser agendar antes do reajuste, ainda consigo atender pelo valor atual até [data]. 🙏</div>
+      </div>
+      <p>Isso faz dois milagres: o cliente se sente valorizado por ter sido avisado antes, e muitos aproveitam e agendam logo — você enche a agenda antes mesmo do aumento entrar.</p>
+    </div></div>
+    <div class="step"><div class="sn">3</div><div class="st"><h4>Justifique com melhorias tangíveis</h4><p>Sempre que subir o preço, adicione algo que o cliente perceba como upgrade: novos materiais importados, nova iluminação no estúdio, novo equipamento, curso que você fez. Isso torna o aumento lógico e aceitável.</p></div></div>
+  </div>
+
+  <span class="lbl" style="margin-top:28px;">Capítulo 07</span>
+  <h2 class="h2">Sinal, parcelamento e <b>política de cancelamento</b></h2>
+
+  <h3 class="h3">Sistema de sinal</h3>
+  <p>Cobrar sinal não é opcional — é profissional. O sinal serve para:</p>
+  <ul class="ul">
+    <li>Confirmar que o cliente é sério sobre o agendamento</li>
+    <li>Compensar sua preparação caso o cliente não apareça</li>
+    <li>Criar comprometimento — quem pagou não some</li>
+    <li>Separar clientes que valorizam seu tempo dos que não valorizam</li>
+  </ul>
+
+  <div class="box-dark">
+    <h4>Política de sinal recomendada</h4>
+    <ul class="ul">
+      <li><strong>Valor:</strong> 20-30% do valor total da sessão ou R$100-200 mínimo</li>
+      <li><strong>Prazo:</strong> Sinal deve ser pago em 48h após o agendamento — se não, a vaga é liberada</li>
+      <li><strong>Cancelamento com aviso:</strong> Sinal pode ser usado como crédito para reagendamento</li>
+      <li><strong>Cancelamento sem aviso (no-show):</strong> Sinal não é devolvido — é sua compensação</li>
+      <li><strong>Cancelamento por sua parte:</strong> Devolva o sinal integralmente e peça desculpas — sua reputação vale mais</li>
+    </ul>
+  </div>
+
+  <div class="script">
+    <span class="script-lbl">Mensagem pedindo sinal</span>
+    <div class="sl">Perfeito! Para confirmar sua vaga, trabalho com sinal de <b>R$[X]</b> — esse valor é descontado integralmente no total no dia da sessão. 😊</div>
+    <div class="sl">Chave PIX: <b>[sua chave]</b><br>Após o pagamento, me manda o comprovante que confirmo sua vaga!</div>
+    <div class="sl">Caso precise remarcar, o sinal vira crédito para a nova data. Combinado?</div>
+  </div>
+  <div class="pf"><span>Carlos Tattoo BH — Posicionamento de Alta Valor 2026</span><span>Página 36-49</span></div>
+</div>
+
+<!-- MÓDULO 3 -->
+<div class="mh pb">
+  <div class="mh-bg-n">03</div>
+  <div class="mh-lbl">Módulo 03</div>
+  <div class="mh-title">Scripts VIP de<br><b>Atendimento</b></div>
+  <div class="mh-desc">O atendimento é onde a venda acontece. Scripts testados para cada situação — da primeira mensagem ao cliente que diz que está caro. 20 modelos prontos para copiar e adaptar.</div>
+  <img src="IPJP8350.JPG" class="mh-logo" alt="">
+</div>
+
+<!-- CAP 9 - 20 SCRIPTS -->
+<div class="page pb">
+  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Módulo 03 · Capítulo 09</span></div>
+  <div class="bg-n">09</div>
+  <span class="lbl">Capítulo 09</span>
+  <h2 class="h2">20 scripts prontos — <b>cada situação coberta</b></h2>
+
+  <div class="script">
+    <span class="script-lbl">Script 1 — Primeira mensagem (cliente chegou pelo Instagram)</span>
+    <div class="sl">Olá, <b>[nome]</b>! 👋 Que bom que curtiu o trabalho!</div>
+    <div class="sl">Para eu entender melhor o que você está buscando e montar o melhor projeto pra você, me conta:</div>
+    <div class="sl">1️⃣ Qual estilo você está pensando?<br>2️⃣ Em qual parte do corpo?<br>3️⃣ Tem alguma referência de imagem? (pode me mandar!)</div>
+  </div>
+
+  <div class="script">
+    <span class="script-lbl">Script 2 — Resposta após receber referência</span>
+    <div class="sl">Que referência incrível! Esse estilo fica muito bem no local que você mencionou. 😍</div>
+    <div class="sl">Tenho projetos similares no meu portfólio — aqui vai um que se aproxima do que você está buscando: <b>[manda a foto]</b></div>
+    <div class="sl">Antes de qualquer sessão, criamos um projeto exclusivo pra você aprovar — sem custo adicional. Você vê exatamente como vai ficar antes de tatuar.</div>
+    <div class="sl">Para esse projeto, minha estimativa é de <b>R$[X]</b>. Isso inclui projeto + sessão completa + retoque em até 3 meses. O que você acha?</div>
+  </div>
+
+  <div class="script">
+    <span class="script-lbl">Script 3 — Quando cliente pergunta preço antes de dar detalhes</span>
+    <div class="sl">Boa pergunta! Os valores variam bastante de acordo com o estilo, tamanho e local do corpo — uma fineline pequena e uma manga completa têm preços bem diferentes. 😊</div>
+    <div class="sl">Para te dar um orçamento preciso e justo, me conta: o que você tem em mente? Pode me mandar uma referência de imagem?</div>
+  </div>
+
+  <div class="script">
+    <span class="script-lbl">Script 4 — Apresentando orçamento premium com confiança</span>
+    <div class="sl">Com base no projeto que discutimos, o investimento para essa sessão é de <b>R$[X]</b>.</div>
+    <div class="sl">Esse valor inclui: desenvolvimento do projeto personalizado, materiais premium, a sessão completa e retoque gratuito nos primeiros 3 meses.</div>
+    <div class="sl">Tenho disponibilidade na <b>[data]</b> ou na <b>[data]</b>. Qual funciona melhor para você?</div>
+  </div>
+
+  <div class="script">
+    <span class="script-lbl">Script 5 — "Tá caro" objeção de preço</span>
+    <div class="sl">Entendo! Tatuagem é um investimento e é natural comparar valores. 😊</div>
+    <div class="sl">A diferença no preço está na técnica, nos materiais importados e principalmente no resultado — que fica na sua pele para sempre.</div>
+    <div class="sl">Posso te mostrar como ficaram projetos similares que fiz? Assim você consegue comparar a qualidade antes de decidir.</div>
+  </div>
+
+  <div class="script">
+    <span class="script-lbl">Script 6 — "Vi mais barato em outro lugar"</span>
+    <div class="sl">Faz sentido pesquisar! O mercado tem uma variação grande de preços. 😊</div>
+    <div class="sl">Minha recomendação: compare o portfólio, não só o preço. Peça para ver trabalhos cicatrizados — não só as fotos frescas que ficam melhores.</div>
+    <div class="sl">Tatuagem é para sempre. O preço que você paga hoje vai estar na sua pele por décadas. Vale a pena considerar a qualidade total.</div>
+  </div>
+
+  <div class="script">
+    <span class="script-lbl">Script 7 — "Vou pensar e te aviso"</span>
+    <div class="sl">Claro, sem pressão! 😊</div>
+    <div class="sl">Só uma informação: trabalho com agenda limitada e as vagas do próximo mês já estão praticamente preenchidas.</div>
+    <div class="sl">Se quiser garantir sua vaga antes de alguém ocupar, posso reservar com um sinal de R$[X] — se você não confirmar, devolvo. Quer que eu reserve enquanto você pensa?</div>
+  </div>
+
+  <div class="script">
+    <span class="script-lbl">Script 8 — "Pode fazer mais barato?"</span>
+    <div class="sl">Não consigo mexer no valor porque ele reflete o tempo de projeto, materiais premium e a técnica que garantem o resultado que você viu no meu portfólio. 😊</div>
+    <div class="sl">O que posso fazer é adaptar o tamanho ou a complexidade do projeto para caber no seu orçamento — sem comprometer a qualidade.</div>
+    <div class="sl">Quanto você tem disponível? Vejo o que consigo criar dentro desse valor.</div>
+  </div>
+
+  <div class="script">
+    <span class="script-lbl">Script 9 — Follow-up para lead que sumiu (48h depois)</span>
+    <div class="sl">Oi <b>[nome]</b>! Tudo bem? 😊</div>
+    <div class="sl">Fiquei pensando no projeto que conversamos. Tive uma janela na agenda essa semana — o que raramente acontece.</div>
+    <div class="sl">Antes de abrir para outros clientes, queria te dar a prioridade. Ainda tem interesse? 🙏</div>
+  </div>
+
+  <div class="script">
+    <span class="script-lbl">Script 10 — Follow-up para lead frio (7-14 dias depois)</span>
+    <div class="sl">Oi <b>[nome]</b>! 😊 Acabei de finalizar um projeto de [estilo similar ao que ele queria] que ficou incrível.</div>
+    <div class="sl">Lembrei de você e do projeto que conversamos. Manda uma mensagem se ainda tiver interesse — ainda tenho uma vaga disponível este mês.</div>
+  </div>
+  <div class="pf"><span>Carlos Tattoo BH — Posicionamento de Alta Valor 2026</span><span>Página 58-71</span></div>
+</div>
+
+<!-- MAIS SCRIPTS + CAP 11 -->
+<div class="page pb">
+  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Módulo 03 · Scripts 11-20</span></div>
+
+  <div class="script">
+    <span class="script-lbl">Script 11 — Pós-sessão (enviado no dia seguinte)</span>
+    <div class="sl">Oi <b>[nome]</b>! 😊 Como você está? Espero que tenha descansado bem!</div>
+    <div class="sl">Queria mandar as orientações de cuidado para os primeiros dias:</div>
+    <div class="sl">✓ Lave com água e sabonete neutro 3x ao dia<br>✓ Não esfregue — bata levemente com papel toalha<br>✓ Hidrate com Bepantol ou similar 3-4x ao dia<br>✓ Evite sol direto, piscina e academia por 15 dias</div>
+    <div class="sl">Qualquer dúvida, manda mensagem! E se tiver uma foto da tattoo cicatrizada em 30-45 dias, adoraria ver. 📸</div>
+  </div>
+
+  <div class="script">
+    <span class="script-lbl">Script 12 — Pedindo avaliação no Google</span>
+    <div class="sl">Oi <b>[nome]</b>! Como ficou a tattoo? 😊</div>
+    <div class="sl">Se você ficou satisfeito com o resultado, ia adorar se você deixasse uma avaliação no Google — ajuda muito outros clientes que estão nos conhecendo pela primeira vez.</div>
+    <div class="sl">É rapidinho: <b>[link do Google Meu Negócio]</b> 🙏</div>
+  </div>
+
+  <div class="script">
+    <span class="script-lbl">Script 13 — Reativação de cliente antigo</span>
+    <div class="sl">Oi <b>[nome]</b>! Faz um tempo que não nos vemos! 😊</div>
+    <div class="sl">Acabei de abrir vagas para o próximo mês — lembrei de você e fiquei curioso: como está a sua tattoo? Cicatrizou bem?</div>
+    <div class="sl">Se estiver pensando em fazer mais alguma coisa, pode me chamar! Para clientes que já passaram por aqui, tenho condições especiais. 🙏</div>
+  </div>
+
+  <div class="script">
+    <span class="script-lbl">Script 14 — Cliente que cancelou sem avisar (no-show)</span>
+    <div class="sl">Oi <b>[nome]</b>! Tudo bem? Hoje estava esperando você por aqui e não te vi chegar. Aconteceu algum imprevisto?</div>
+    <div class="sl">Fica tranquilo(a) — entendo que imprevistos acontecem. 😊 O sinal fica retido conforme nossa política, mas posso reagendar para uma nova data.</div>
+    <div class="sl">Quando quiser remarcar, é só chamar!</div>
+  </div>
+
+  <div class="script">
+    <span class="script-lbl">Script 15 — Recusando um projeto</span>
+    <div class="sl">Olá! Obrigado por entrar em contato e pela confiança. 😊</div>
+    <div class="sl">Analisando o projeto, sinto que não seria justo nem para você nem para mim aceitar — não me sinto confortável para garantir o resultado que você merece nesse estilo específico.</div>
+    <div class="sl">Para esse tipo de trabalho, te indico o <b>[nome do colega tatuador]</b> que é especialista e vai te atender muito bem. Qualquer outro projeto, pode me chamar! 🙏</div>
+  </div>
+
+  <div class="script">
+    <span class="script-lbl">Script 16 — Abertura de agenda (Story ou post)</span>
+    <div class="sl">📅 Agenda aberta para <b>[mês]!</b></div>
+    <div class="sl">Tenho apenas <b>X vagas</b> disponíveis este mês. Prioridade para os projetos que mais me desafiam tecnicamente.</div>
+    <div class="sl">Para garantir sua vaga: manda mensagem com sua ideia + referência de imagem. Aviso: vagas costumam preencher em menos de 48h. 👇</div>
+  </div>
+  <div class="pf"><span>Carlos Tattoo BH — Posicionamento de Alta Valor 2026</span><span>Página 72-79</span></div>
+</div>
+
+<!-- MÓDULO 4 - BRANDING -->
+<div class="mh pb">
+  <div class="mh-bg-n">04</div>
+  <div class="mh-lbl">Módulo 04</div>
+  <div class="mh-title">Branding Premium<br><b>e Escassez</b></div>
+  <div class="mh-desc">Branding premium é criar a sensação de que ser atendido por você é um privilégio — não uma commodity. Aqui você aprende a criar essa percepção em cada detalhe.</div>
+  <img src="IPJP8350.JPG" class="mh-logo" alt="">
+</div>
+
+<!-- CAP 14 - ESCASSEZ -->
+<div class="page pb">
+  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Módulo 04 · Capítulo 14</span></div>
+  <div class="bg-n">14</div>
+  <span class="lbl">Capítulo 14</span>
+  <h2 class="h2">Criando <b>escassez real</b> e fila de espera</h2>
+  <p>A escassez é o fator de precificação mais poderoso que existe. Quando você é difícil de conseguir, seu preço sobe automaticamente — não por arrogância, mas pela lei da oferta e demanda.</p>
+
+  <h3 class="h3">Como criar escassez real — não artificial</h3>
+  <div class="steps">
+    <div class="step"><div class="sn">1</div><div class="st"><h4>Limite seu número de sessões por mês</h4><p>Defina um número máximo de sessões por mês — não para parecer ocupado, mas porque você só consegue entregar qualidade até certo ponto. Se você faz 25 sessões por mês com qualidade, não faça 35 só para ganhar mais. A qualidade cai, a reputação cai junto.</p><p>Com número limitado de sessões, quando sua agenda estiver cheia, ela estará cheia de verdade. E pessoas que não conseguem vaga querem ainda mais.</p></div></div>
+    <div class="step"><div class="sn">2</div><div class="st"><h4>Abra agenda em datas específicas</h4><p>Em vez de ter agenda aberta o tempo todo, abra no dia 1 de cada mês para o mês seguinte. Anuncie nos Stories: "Agenda de [mês] abre segunda-feira às 10h." Crie antecipação. Quando abrir, as vagas somem em horas — isso cria o ciclo virtuoso da escassez.</p></div></div>
+    <div class="step"><div class="sn">3</div><div class="st"><h4>Crie lista de espera VIP</h4><p>Para quem não conseguiu vaga, ofereça a lista de espera. Quando surgir cancelamento, você tem uma lista de pessoas prontas para entrar. Isso elimina o problema de cancelamentos de última hora.</p>
+      <div class="script" style="margin-top:10px;">
+        <span class="script-lbl">Mensagem de lista de espera</span>
+        <div class="sl">Infelizmente as vagas de <b>[mês]</b> já estão preenchidas! 😊</div>
+        <div class="sl">Mas posso te colocar na lista de espera — se surgir algum cancelamento, você será o primeiro a saber. Interesse?</div>
+      </div>
+    </div></div>
+    <div class="step"><div class="sn">4</div><div class="st"><h4>Selecione projetos (quando puder)</h4><p>Tatuadores premium não aceitam qualquer projeto. Eles escolhem o que tatuar. Quando você começa a recusar projetos que não te interessam, sinaliza para o mercado que você tem opções — que sua agenda não está vazia.</p><p>Comece aos poucos: recuse projetos muito fora do seu estilo. Com o tempo, só pegue projetos que você realmente quer fazer. Isso melhora seu portfólio e sua satisfação no trabalho.</p></div></div>
+  </div>
+
+  <div class="box-tip">
+    <span class="box-tip-i">💡</span>
+    <p><strong>A frase que posiciona:</strong> "Trabalho com agenda fechada e lista de espera. Quando abrir novas vagas, aviso aqui no Instagram primeiro — me segue para não perder!" Coloque isso nos Stories regularmente. É a frase mais poderosa de posicionamento que você pode usar.</p>
+  </div>
+  <div class="pf"><span>Carlos Tattoo BH — Posicionamento de Alta Valor 2026</span><span>Página 92-99</span></div>
+</div>
+
+<!-- MÓDULO 5 - FUNIL -->
+<div class="mh pb">
+  <div class="mh-bg-n">05</div>
+  <div class="mh-lbl">Módulo 05</div>
+  <div class="mh-title">Funil Completo<br><b>e Fidelização</b></div>
+  <div class="mh-desc">Um cliente fidelizado vale 5x mais do que um cliente novo. Aqui você aprende a transformar cada cliente em um embaixador da sua marca.</div>
+  <img src="IPJP8350.JPG" class="mh-logo" alt="">
+</div>
+
+<!-- CAP 17 - FIDELIZAÇÃO -->
+<div class="page pb">
+  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Módulo 05 · Capítulo 17</span></div>
+  <div class="bg-n">17</div>
+  <span class="lbl">Capítulo 17</span>
+  <h2 class="h2">Fidelização — <b>transformando cliente em fã</b></h2>
+
+  <h3 class="h3">O sistema de fidelização em 5 etapas</h3>
+  <div class="steps">
+    <div class="step"><div class="sn">1</div><div class="st"><h4>Durante a sessão — a experiência que gera indicação</h4><p>A sessão não é só tatuagem — é uma experiência. Música boa, ambiente climatizado, conversa genuína, água e lanche disponíveis, explicação de cada etapa. Quanto mais confortável o cliente se sentir, mais ele vai falar sobre você.</p></div></div>
+    <div class="step"><div class="sn">2</div><div class="st"><h4>Pós-sessão imediato — o kit de cicatrização</h4><p>Entregue uma sacola pequena com: orientações impressas de cuidado, creme cicatrizante para os primeiros dias, seu cartão de visita. Esse gesto simples custa R$15-20 e gera impressão de profissionalismo que vale muito mais.</p></div></div>
+    <div class="step"><div class="sn">3</div><div class="st"><h4>30 dias depois — o check-in de cicatrização</h4><p>Mande uma mensagem 30 dias depois perguntando como ficou a cicatrização e pedindo uma foto. Esse gesto mostra que você se importa além da venda — e gera material de portfólio com fotos cicatrizadas.</p></div></div>
+    <div class="step"><div class="sn">4</div><div class="st"><h4>Aniversário do cliente — a surpresa que fideliza</h4><p>Salve a data de aniversário do cliente (você já coleta no formulário do site). Mande uma mensagem no dia com um cupom de desconto para a próxima sessão. Simples, pessoal e poderoso.</p></div></div>
+    <div class="step"><div class="sn">5</div><div class="st"><h4>Programa de indicação</h4><p>Crie um programa simples: "Indicou um amigo que tatuou? Ganhe 10% de desconto na sua próxima sessão." Comunique isso no pós-sessão. Clientes satisfeitos adoram indicar — você só precisa dar um motivo extra.</p></div></div>
+  </div>
+  <div class="pf"><span>Carlos Tattoo BH — Posicionamento de Alta Valor 2026</span><span>Página 112-119</span></div>
+</div>
+
+<!-- MÓDULO 7 - PLANO E CHECKLIST -->
+<div class="mh pb">
+  <div class="mh-bg-n">07</div>
+  <div class="mh-lbl">Módulo 07</div>
+  <div class="mh-title">Plano 90 Dias<br><b>e Checklist Final</b></div>
+  <div class="mh-desc">O plano completo de reposicionamento — de onde você está para onde quer chegar, semana a semana, com o checklist de tudo que precisa estar no lugar.</div>
+  <img src="IPJP8350.JPG" class="mh-logo" alt="">
+</div>
+
+<!-- CAP 21 - PLANO 90 DIAS -->
+<div class="page pb">
+  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Módulo 07 · Capítulo 21</span></div>
+  <div class="bg-n">21</div>
+  <span class="lbl">Capítulo 21</span>
+  <h2 class="h2">Plano de reposicionamento <b>90 dias</b></h2>
+
+  <div class="tb">
+    <table class="tb">
+      <tr><th>Semana</th><th>O que fazer</th><th>Resultado esperado</th></tr>
+      <tr><td><strong>S1-2</strong></td><td>Calcular preço real. Definir identidade visual. Atualizar bio do Instagram. Tirar fotos profissionais do estúdio.</td><td>Base sólida</td></tr>
+      <tr><td><strong>S3-4</strong></td><td>Criar policy de sinal e cancelamento. Configurar respostas rápidas no WhatsApp. Criar kit pós-sessão.</td><td>Processos profissionais</td></tr>
+      <tr><td><strong>S5-6</strong></td><td>Primeiro reajuste de preço (+10%). Comunicar clientes frequentes. Criar sistema de lista de espera.</td><td>Primeiros clientes no novo patamar</td></tr>
+      <tr><td><strong>S7-8</strong></td><td>Criar destaques do Instagram com novas fotos. Começar sistema de depoimentos. Pedir avaliações Google.</td><td>Prova social crescendo</td></tr>
+      <tr><td><strong>S9-10</strong></td><td>Segundo reajuste (+10%). Definir nicho principal. Começar a recusar projetos fora do nicho.</td><td>Especialização reconhecida</td></tr>
+      <tr><td><strong>S11-12</strong></td><td>Analisar resultados. Calcular novo preço médio. Planejar próximos 90 dias com meta de receita.</td><td>Reposicionamento consolidado</td></tr>
+    </table>
+  </div>
+
+  <span class="lbl" style="margin-top:24px;">Capítulo 24</span>
+  <h2 class="h2">Checklist do <b>profissional premium</b></h2>
+
+  <div class="ck">
+    <h4>✓ Tudo que precisa estar no lugar para cobrar mais caro</h4>
+    <div class="ck-grid">
+      <div class="ci"><div class="cbox"></div>Preço calculado corretamente</div>
+      <div class="ci"><div class="cbox"></div>Identidade visual definida</div>
+      <div class="ci"><div class="cbox"></div>Logo profissional criada</div>
+      <div class="ci"><div class="cbox"></div>Paleta de cores definida</div>
+      <div class="ci"><div class="cbox"></div>Bio do Instagram otimizada</div>
+      <div class="ci"><div class="cbox"></div>Destaques do Instagram criados</div>
+      <div class="ci"><div class="cbox"></div>Fotos profissionais do estúdio</div>
+      <div class="ci"><div class="cbox"></div>Portfólio atualizado com cicatrizadas</div>
+      <div class="ci"><div class="cbox"></div>Política de sinal definida</div>
+      <div class="ci"><div class="cbox"></div>Política de cancelamento definida</div>
+      <div class="ci"><div class="cbox"></div>Respostas rápidas no WhatsApp</div>
+      <div class="ci"><div class="cbox"></div>Script de atendimento salvo</div>
+      <div class="ci"><div class="cbox"></div>Kit pós-sessão preparado</div>
+      <div class="ci"><div class="cbox"></div>Contrato de tatuagem criado</div>
+      <div class="ci"><div class="cbox"></div>Sistema de follow-up ativo</div>
+      <div class="ci"><div class="cbox"></div>Programa de indicação comunicado</div>
+      <div class="ci"><div class="cbox"></div>Avaliações Google solicitadas</div>
+      <div class="ci"><div class="cbox"></div>Agenda com vagas limitadas</div>
+    </div>
+  </div>
+  <div class="pf"><span>Carlos Tattoo BH — Posicionamento de Alta Valor 2026</span><span>Página 140-167</span></div>
+</div>
+
+<!-- CONTRACAPA -->
+<div class="cback">
+  <div style="position:relative;z-index:2;text-align:center;">
+    <img src="IPJP8350.JPG" style="height:80px;object-fit:contain;filter:drop-shadow(0 0 22px rgba(201,168,76,.55));margin-bottom:28px;" alt="">
+    <h2 style="font-family:'Cinzel Decorative',cursive;font-size:28px;color:#E8B800;margin-bottom:12px;">Posicionado.<br>Agora escale.</h2>
+    <p style="font-family:'Cinzel',serif;font-size:13px;letter-spacing:2px;color:#ffffff;margin-bottom:44px;">Combine posicionamento com tráfego pago</p>
+    <div style="background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.28);border-radius:18px;padding:36px 44px;max-width:520px;margin:0 auto;">
+      <h3 style="font-family:'Cinzel Decorative',cursive;font-size:22px;color:#ffffff;margin-bottom:8px;">Mentoria VIP 1:1 com Carlos</h3>
+      <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:#ffffff;margin-bottom:22px;">ESTRATÉGIA PERSONALIZADA</p>
+      <ul class="ul" style="text-align:left;margin-bottom:24px;">
+        <li style="color:#ffffff;">2h de mentoria individual focada no seu estúdio</li>
+        <li style="color:#ffffff;">Análise completa do seu perfil e precificação</li>
+        <li style="color:#ffffff;">Plano de ação personalizado 30/60/90 dias</li>
+        <li style="color:#ffffff;">Suporte via WhatsApp por 30 dias</li>
+        <li style="color:#ffffff;">Acesso a todos os cursos e ebooks</li>
+      </ul>
+      <p style="font-family:'Cinzel Decorative',cursive;font-size:40px;color:#E8B800;margin-bottom:8px;">R$ 997</p>
+      <p style="font-size:13px;color:#ffffff;font-family:'Cinzel',serif;">ou 10x de R$ 110,00</p>
+    </div>
+    <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:rgba(201,168,76,.35);margin-top:44px;">© 2026 Carlos Tattoo BH · @carlostattoo.bh · Belo Horizonte, MG</p>
+  </div>
+</div>
+
+<button onclick="window.print()" class="no-print" style="position:fixed;bottom:28px;right:28px;z-index:1000;background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;border:none;padding:14px 26px;border-radius:50px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;cursor:pointer;box-shadow:0 6px 24px rgba(201,168,76,.45);">🖨️ Salvar como PDF</button>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "Carlos Tattoo BH",
+  "short_name": "Carlos Tattoo",
+  "description": "Estúdio premium de tatuagem em Belo Horizonte. Realismo, cover up, fineline e cursos para tatuadores.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0702",
+  "theme_color": "#C9A84C",
+  "orientation": "portrait",
+  "icons": [
+    {"src": "imagens/IPJP8350.JPG", "sizes": "192x192", "type": "image/jpeg"},
+    {"src": "imagens/IPJP8350.JPG", "sizes": "512x512", "type": "image/jpeg"}
+  ],
+  "categories": ["lifestyle", "education"],
+  "lang": "pt-BR"
+}

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Meu Painel — Carlos Tattoo BH</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Painel exclusivo de membros Carlos Tattoo BH - acesse seus cursos e ebooks.">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1151853265430926');fbq('track','PageView');</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#0A0702;--d1:#140E04;--d2:#221508;--g1:#E8B800;--g2:#C9A84C;--g3:#A07830;--t1:#EDE4D4;--t2:#C9B89A;--t3:#9A7A5A;}
+body{font-family:'Raleway',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;}
+/* HEADER */
+.panel-header{background:rgba(28,18,8,.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,.12);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;}
+.ph-logo{display:flex;align-items:center;gap:12px;}
+.ph-logo img{height:48px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(201,168,76,.5));}
+.ph-logo span{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:var(--g2);}
+.ph-user{display:flex;align-items:center;gap:16px;}
+.ph-user-name{font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;color:var(--t2);}
+.btn-sair{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);color:var(--g2);padding:8px 16px;border-radius:8px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;cursor:pointer;transition:.2s;}
+.btn-sair:hover{background:rgba(201,168,76,.15);}
+/* MAIN */
+.panel-main{max-width:1100px;margin:0 auto;padding:40px 24px;}
+.panel-welcome{margin-bottom:40px;}
+.pw-tag{font-family:'Cinzel',serif;font-size:9px;letter-spacing:4px;color:rgba(201,168,76,.5);text-transform:uppercase;margin-bottom:8px;}
+.pw-h1{font-family:'Cinzel Decorative',cursive;font-size:clamp(24px,3vw,36px);color:#fff;margin-bottom:6px;}
+.pw-h1 span{color:var(--g1);}
+.pw-sub{font-size:14px;color:var(--t3);line-height:1.7;}
+/* STATS */
+.panel-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:36px;}
+.pstat{background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:20px;text-align:center;}
+.pstat-n{font-family:'Cinzel Decorative',cursive;font-size:28px;color:var(--g1);display:block;line-height:1;}
+.pstat-l{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(201,168,76,.7);text-transform:uppercase;margin-top:6px;display:block;}
+/* SEÇÕES */
+.panel-section{margin-bottom:44px;}
+.ps-header{display:flex;align-items:center;gap:14px;margin-bottom:22px;padding-bottom:14px;border-bottom:1px solid rgba(201,168,76,.1);}
+.ps-header h2{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;color:var(--g2);text-transform:uppercase;}
+.ps-header span{font-size:12px;color:var(--t3);}
+/* PRODUCT CARDS */
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.prod-card{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.1);border-radius:14px;overflow:hidden;transition:all .3s;cursor:pointer;}
+.prod-card:hover{border-color:rgba(201,168,76,.35);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.3);}
+.prod-card.locked{opacity:.4;cursor:not-allowed;filter:grayscale(.5);}
+.prod-thumb{height:160px;background:linear-gradient(135deg,var(--d2),#2A1A08);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.prod-thumb img{width:100%;height:100%;object-fit:cover;}
+.prod-thumb-icon{font-size:44px;}
+.prod-badge{position:absolute;top:10px;right:10px;padding:4px 10px;border-radius:20px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:2px;text-transform:uppercase;}
+.prod-badge.novo{background:rgba(201,168,76,.2);color:var(--g1);border:1px solid rgba(201,168,76,.3);}
+.prod-badge.lock{background:rgba(0,0,0,.6);color:rgba(255,255,255,.5);}
+.prod-body{padding:18px;}
+.prod-type{font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:rgba(201,168,76,.4);text-transform:uppercase;margin-bottom:5px;}
+.prod-name{font-family:'Cinzel',serif;font-size:14px;color:var(--t1);font-weight:700;margin-bottom:10px;}
+.prod-progress{height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin-bottom:8px;}
+.prod-prog-bar{height:100%;background:linear-gradient(90deg,var(--g3),var(--g1));border-radius:2px;transition:width .4s;}
+.prod-prog-text{font-family:'Cinzel',serif;font-size:9px;color:rgba(201,168,76,.4);letter-spacing:1px;}
+.btn-acessar{display:block;width:100%;text-align:center;background:linear-gradient(135deg,var(--g3),var(--g1));color:#0a0500;padding:12px;border-radius:8px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;border:none;cursor:pointer;margin-top:14px;transition:all .2s;font-weight:700;}
+.btn-acessar:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(201,168,76,.3);}
+.btn-bloqueado{display:block;width:100%;text-align:center;background:rgba(255,255,255,.05);color:rgba(255,255,255,.3);padding:12px;border-radius:8px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;border:1px solid rgba(255,255,255,.08);cursor:not-allowed;margin-top:14px;}
+/* EMPTY STATE */
+.empty-state{background:rgba(255,255,255,.02);border:1px dashed rgba(201,168,76,.15);border-radius:14px;padding:48px;text-align:center;}
+.empty-icon{font-size:44px;margin-bottom:16px;}
+.empty-title{font-family:'Cinzel',serif;font-size:14px;color:var(--g2);margin-bottom:8px;}
+.empty-sub{font-size:13px;color:var(--t3);line-height:1.7;margin-bottom:20px;}
+.btn-comprar{display:inline-block;background:linear-gradient(135deg,var(--g3),var(--g1));color:#0a0500;padding:12px 28px;border-radius:50px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;text-decoration:none;transition:.2s;}
+.btn-comprar:hover{transform:translateY(-2px);}
+/* CONFIGURAÇÕES */
+.config-box{background:rgba(255,255,255,.02);border:1px solid rgba(201,168,76,.1);border-radius:12px;padding:28px;}
+.config-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.config-row:last-child{border-bottom:none;}
+.config-label{font-family:'Cinzel',serif;font-size:12px;color:var(--t2);}
+.config-value{font-size:13px;color:var(--t3);}
+.btn-config{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);color:var(--g2);padding:7px 16px;border-radius:8px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;cursor:pointer;transition:.2s;}
+.btn-config:hover{background:rgba(201,168,76,.2);}
+/* RESPONSIVE */
+@media(max-width:768px){.panel-stats{grid-template-columns:repeat(2,1fr);}.products-grid{grid-template-columns:1fr;}.panel-header{padding:0 16px;}.panel-main{padding:24px 16px;}}
+</style>
+</head>
+<body>
+
+<header class="panel-header">
+  <div class="ph-logo">
+    <img src="imagens/IPJP8350.JPG" alt="Carlos Tattoo BH" onerror="this.style.display='none'">
+    <span>Carlos Tattoo BH</span>
+  </div>
+  <div class="ph-user">
+    <span class="ph-user-name" id="userNameHeader">Carregando...</span>
+    <button class="btn-sair" onclick="sair()">SAIR</button>
+  </div>
+</header>
+
+<main class="panel-main">
+
+  <!-- BOAS-VINDAS -->
+  <div class="panel-welcome">
+    <div class="pw-tag">Área Exclusiva</div>
+    <h1 class="pw-h1">Olá, <span id="userNome">Aluno</span>! 👋</h1>
+    <p class="pw-sub">Bem-vindo à sua área de membros. Aqui estão todos os seus cursos e ebooks.</p>
+  </div>
+
+  <!-- STATS -->
+  <div class="panel-stats">
+    <div class="pstat"><span class="pstat-n" id="statProdutos">0</span><span class="pstat-l">Produtos</span></div>
+    <div class="pstat"><span class="pstat-n" id="statProgresso">0%</span><span class="pstat-l">Progresso médio</span></div>
+    <div class="pstat"><span class="pstat-n" id="statDias">0</span><span class="pstat-l">Dias de acesso</span></div>
+    <div class="pstat"><span class="pstat-n">⭐</span><span class="pstat-l">Membro ativo</span></div>
+  </div>
+
+  <!-- MEUS PRODUTOS -->
+  <div class="panel-section">
+    <div class="ps-header">
+      <h2>Meus Produtos</h2>
+      <span id="qtdProdutos">0 produto(s)</span>
+    </div>
+    <div class="products-grid" id="produtosGrid">
+      <!-- Preenchido via JS -->
+    </div>
+  </div>
+
+  <!-- EXPLORAR MAIS -->
+  <div class="panel-section">
+    <div class="ps-header">
+      <h2>Explorar Mais</h2>
+      <span>Outros produtos disponíveis</span>
+    </div>
+    <div class="products-grid" id="explorarGrid">
+      <!-- Preenchido via JS -->
+    </div>
+  </div>
+
+  <!-- CONFIGURAÇÕES -->
+  <div class="panel-section">
+    <div class="ps-header"><h2>Minha Conta</h2></div>
+    <div class="config-box">
+      <div class="config-row">
+        <span class="config-label">Email</span>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="config-value" id="confEmail">-</span>
+        </div>
+      </div>
+      <div class="config-row">
+        <span class="config-label">Senha</span>
+        <button class="btn-config" onclick="mudarSenha()">ALTERAR SENHA</button>
+      </div>
+      <div class="config-row">
+        <span class="config-label">Dispositivo registrado</span>
+        <span class="config-value">Este dispositivo ✓</span>
+      </div>
+      <div class="config-row">
+        <span class="config-label">Suporte</span>
+        <a href="https://wa.me/5531983391576?text=Preciso de suporte com minha área de membros" target="_blank" class="btn-config">WHATSAPP →</a>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// ── CATÁLOGO COMPLETO ──
+const CATALOGO = [
+  {id:'ebook-trafego', tipo:'ebook', nome:'Ebook Iniciante — Tráfego Tattoo', desc:'Do primeiro acesso ao Meta Ads ao primeiro cliente pago.', thumb:'imagens/thumb-ebook-trafego.jpg', icone:'📊', arquivo:'ebook-trafego-iniciante.html'},
+  {id:'ebook-instagram', tipo:'ebook', nome:'Ebook Instagram — Tattoo que Vende', desc:'Como transformar seu perfil numa máquina de atrair clientes.', thumb:'imagens/thumb-ebook-instagram.jpg', icone:'📱', arquivo:'ebook-instagram-tattoo.html'},
+  {id:'ebook-posicionamento', tipo:'ebook', nome:'Ebook Avançado — Posicionamento', desc:'Scripts de atendimento, como cobrar mais caro e fechar mais.', thumb:'imagens/thumb-ebook-posicionamento.jpg', icone:'🏆', arquivo:'ebook-posicionamento-avancado.html'},
+  {id:'ebook-templates', tipo:'ebook', nome:'Pack Templates Premium', desc:'30+ artes prontas para Stories, Feed e Anúncios no Canva.', thumb:'imagens/thumb-ebook-templates.jpg', icone:'🎨', arquivo:'ebook-pack-templates.html'},
+  {id:'ebook-contrato', tipo:'ebook', nome:'Contrato Digital Profissional', desc:'Modelo completo de contrato para proteger você e seu cliente.', thumb:'imagens/thumb-ebook-contrato.jpg', icone:'📋', arquivo:'ebook-contrato-digital.html'},
+  {id:'curso-instagram', tipo:'curso', nome:'Instagram para Tatuadores', desc:'Do zero ao perfil profissional que gera clientes todos os dias.', thumb:'imagens/thumb-curso-instagram.jpg', icone:'📱', arquivo:'curso-instagram.html'},
+  {id:'curso-trafego', tipo:'curso', nome:'Tráfego Pago para Tatuadores', desc:'Meta Ads completo: do primeiro anúncio à agenda cheia.', thumb:'imagens/thumb-curso-trafego.jpg', icone:'🎯', arquivo:'curso-trafego.html'},
+  {id:'curso-posicionamento', tipo:'curso', nome:'Branding & Posicionamento', desc:'Como cobrar mais caro e ter clientes que valorizam.', thumb:'imagens/thumb-curso-posicionamento.jpg', icone:'💼', arquivo:'curso-posicionamento.html'},
+  {id:'curso-mentoria', tipo:'curso', nome:'Mentoria VIP 1:1', desc:'Estratégia personalizada para o seu estúdio com Carlos.', thumb:'imagens/thumb-curso-mentoria.jpg', icone:'💎', arquivo:'curso-mentoria.html'},
+];
+
+// ── VERIFICAR SESSÃO ──
+const sessaoRaw = sessionStorage.getItem('ct_sessao');
+if(!sessaoRaw){window.location.href='acesso.html';}
+const sessao = JSON.parse(sessaoRaw||'{}');
+
+// Buscar dados atualizados do usuário
+const usuarios = JSON.parse(localStorage.getItem('ct_usuarios')||'[]');
+const user = usuarios.find(u=>u.email.toLowerCase()===sessao.email.toLowerCase());
+if(!user){sessionStorage.clear();window.location.href='acesso.html';}
+
+// ── POPULAR INTERFACE ──
+document.getElementById('userNome').textContent = user.nome || sessao.email.split('@')[0];
+document.getElementById('userNameHeader').textContent = user.nome || sessao.email.split('@')[0];
+document.getElementById('confEmail').textContent = user.email;
+
+const produtos = user.produtos || [];
+document.getElementById('qtdProdutos').textContent = `${produtos.length} produto(s)`;
+document.getElementById('statProdutos').textContent = produtos.length;
+
+// Calcular dias de acesso
+const criado = user.criado ? new Date(user.criado) : new Date();
+const dias = Math.floor((Date.now()-criado)/86400000);
+document.getElementById('statDias').textContent = dias;
+
+// Calcular progresso médio
+const progressos = JSON.parse(localStorage.getItem('ct_progresso_'+user.email)||'{}');
+const vals = Object.values(progressos);
+const media = vals.length ? Math.round(vals.reduce((a,b)=>a+b,0)/vals.length) : 0;
+document.getElementById('statProgresso').textContent = media+'%';
+
+// ── RENDERIZAR PRODUTOS DO USUÁRIO ──
+const grid = document.getElementById('produtosGrid');
+if(produtos.length===0){
+  grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon">📚</div><div class="empty-title">Nenhum produto ainda</div><div class="empty-sub">Adquira cursos e ebooks para aparecerem aqui com acesso imediato.</div><a href="index.html#cursos" class="btn-comprar">VER PRODUTOS →</a></div>`;
+} else {
+  produtos.forEach(pid=>{
+    const p = CATALOGO.find(c=>c.id===pid);
+    if(!p) return;
+    const prog = progressos[pid]||0;
+    const card = document.createElement('div');
+    card.className='prod-card';
+    card.innerHTML=`
+      <div class="prod-thumb">
+        <img src="${p.thumb}" alt="${p.nome}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="prod-thumb-icon" style="display:none;">${p.icone}</div>
+        <span class="prod-badge novo">${p.tipo.toUpperCase()}</span>
+      </div>
+      <div class="prod-body">
+        <div class="prod-type">${p.tipo}</div>
+        <div class="prod-name">${p.nome}</div>
+        <div class="prod-progress"><div class="prod-prog-bar" style="width:${prog}%"></div></div>
+        <div class="prod-prog-text">${prog}% concluído ${prog>0?'· Continue de onde parou':''}</div>
+        <button class="btn-acessar" onclick="acessarProduto('${pid}','${p.arquivo}','${p.tipo}')">
+          ${prog>0?'▶ CONTINUAR':'▶ COMEÇAR AGORA'}
+        </button>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+// ── RENDERIZAR EXPLORAR ──
+const explorarGrid = document.getElementById('explorarGrid');
+const naoTem = CATALOGO.filter(c=>!produtos.includes(c.id));
+if(naoTem.length===0){
+  explorarGrid.innerHTML='<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon">🎉</div><div class="empty-title">Você tem tudo!</div><div class="empty-sub">Parabéns — você adquiriu todos os produtos disponíveis.</div></div>';
+} else {
+  naoTem.slice(0,3).forEach(p=>{
+    const card=document.createElement('div');
+    card.className='prod-card locked';
+    card.innerHTML=`
+      <div class="prod-thumb">
+        <img src="${p.thumb}" alt="${p.nome}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="prod-thumb-icon" style="display:none;">${p.icone}</div>
+        <span class="prod-badge lock">🔒 BLOQUEADO</span>
+      </div>
+      <div class="prod-body">
+        <div class="prod-type">${p.tipo}</div>
+        <div class="prod-name">${p.nome}</div>
+        <div class="prod-sub" style="font-size:13px;color:rgba(237,228,212,.5);line-height:1.6;margin-bottom:14px;">${p.desc}</div>
+        <a href="index.html#${p.tipo==='ebook'?'ebooks':'cursos'}" class="btn-acessar" style="text-decoration:none;display:block;text-align:center;">ADQUIRIR →</a>
+      </div>`;
+    explorarGrid.appendChild(card);
+  });
+}
+
+function acessarProduto(id, arquivo, tipo){
+  // Salvar produto acessando para o leitor
+  sessionStorage.setItem('ct_produto_atual',JSON.stringify({id,arquivo,tipo}));
+  if(tipo==='ebook'){
+    window.location.href='leitor.html?id='+id;
+  } else {
+    window.location.href=arquivo;
+  }
+}
+
+function mudarSenha(){
+  const atual = prompt('Digite sua senha atual:');
+  if(!atual) return;
+  const usuarios2 = JSON.parse(localStorage.getItem('ct_usuarios')||'[]');
+  const u = usuarios2.find(x=>x.email.toLowerCase()===user.email.toLowerCase());
+  if(!u || u.senha!==btoa(atual)){alert('Senha atual incorreta.');return;}
+  const nova = prompt('Digite a nova senha (mínimo 8 caracteres):');
+  if(!nova||nova.length<8){alert('Senha deve ter pelo menos 8 caracteres.');return;}
+  const conf = prompt('Confirme a nova senha:');
+  if(nova!==conf){alert('Senhas não coincidem.');return;}
+  u.senha=btoa(nova);
+  localStorage.setItem('ct_usuarios',JSON.stringify(usuarios2));
+  alert('Senha alterada com sucesso! ✅');
+}
+
+function sair(){
+  if(confirm('Deseja realmente sair?')){
+    sessionStorage.clear();
+    window.location.href='acesso.html';
+  }
+}
+</script>
+</body>
+</html>
