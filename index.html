@@ -1297,8 +1297,8 @@ footer p { color:#9A7A5A !important; }
 }
 .scta:hover{transform:translateY(-2px) !important;box-shadow:0 6px 16px rgba(201,168,76,.4) !important;}
 .scard:hover .scta{color:#1a0a00 !important;}
-.sdesc{font-size:14px !important;color:#2a1408 !important;line-height:1.8 !important;}
-.sname{font-size:18px !important;color:#1a0a00 !important;}
+.sdesc{font-size:14px !important;color:#EDE4D4 !important;line-height:1.8 !important;}
+.sname{font-size:18px !important;color:#ffffff !important;}
 
 /* ═══ GALERIA LIGHTBOX ═══ */
 .galeria-overlay{
@@ -1363,7 +1363,7 @@ footer p { color:#9A7A5A !important; }
 /* ═══ CARDS SERVIÇOS COM FOTO ═══ */
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px;}
 .scard{
-  background:var(--p2);border:1px solid rgba(160,120,56,.16);
+  background:linear-gradient(160deg,#1C1208,#0A0702);border:1px solid rgba(160,120,56,.16);
   border-top:3px solid transparent;
   border-radius:14px;overflow:hidden;
   position:relative;transition:all .4s;cursor:pointer;
@@ -1391,8 +1391,8 @@ footer p { color:#9A7A5A !important; }
   line-height:1;transition:.4s;pointer-events:none;
 }
 .scard:hover .snum{color:rgba(160,120,56,.15);}
-.sname{font-family:'Cinzel',serif;font-size:18px;color:#1a0a00;font-weight:700;margin-bottom:10px;}
-.sdesc{font-size:14px;color:#2a1408 !important;line-height:1.8;margin-bottom:16px;}
+.sname{font-family:'Cinzel',serif;font-size:18px;color:#ffffff;font-weight:700;margin-bottom:10px;}
+.sdesc{font-size:14px;color:#EDE4D4 !important;line-height:1.8;margin-bottom:16px;}
 .scta{
   display:inline-flex !important;align-items:center !important;gap:8px !important;
   font-family:'Cinzel',serif !important;font-size:10px !important;
@@ -1693,7 +1693,7 @@ footer p { color:#9A7A5A !important; }
 /* ─── SKULL BOT FLUTUANTE ─── */
 #skullBtn{
   position:fixed;bottom:80px;right:20px;z-index:8000;
-  width:60px;height:60px;border-radius:50%;
+  width:72px;height:72px;border-radius:50%;
   background:linear-gradient(135deg,#0a0702,#1C1208);
   border:2px solid rgba(201,168,76,.4);
   cursor:pointer;display:flex;align-items:center;justify-content:center;
@@ -1706,7 +1706,7 @@ footer p { color:#9A7A5A !important; }
   0%,100%{box-shadow:0 6px 24px rgba(0,0,0,.5),0 0 0 0 rgba(201,168,76,.3);}
   50%{box-shadow:0 6px 24px rgba(0,0,0,.5),0 0 0 10px rgba(201,168,76,.0);}
 }
-.skull-svg{width:34px;height:34px;}
+.skull-svg{width:44px;height:44px;}
 .skull-badge{
   position:absolute;top:-4px;right:-4px;
   background:#E8B800;color:#0a0500;
@@ -1792,7 +1792,7 @@ footer p { color:#9A7A5A !important; }
   body{padding-bottom:70px;}
 
   /* Skull bot acima do bottom nav */
-  #skullBtn{bottom:86px !important;right:16px;}
+  #skullBtn{bottom:86px !important;right:16px;width:64px !important;height:64px !important;}
 
   /* Skull panel tela quase cheia no mobile */
   #skullPanel{
@@ -1905,6 +1905,14 @@ footer p { color:#9A7A5A !important; }
   .calc-local-opts{grid-template-columns:repeat(3,1fr) !important;}
   .copt{padding:8px 4px !important;font-size:9px !important;letter-spacing:.5px !important;}
 }
+
+
+/* ═══ CARDS SERVIÇO — TEXTO BRANCO ═══ */
+.scard { background:linear-gradient(160deg,#1C1208,#0A0702) !important; }
+.sname { color:#ffffff !important; }
+.sdesc { color:#EDE4D4 !important; }
+.scard-body .sname { color:#ffffff !important; }
+.scard-body .sdesc { color:#C9B89A !important; }
 
 /* ═══ RESPONSIVE NOVAS SEÇÕES ═══ */
 
@@ -3211,8 +3219,8 @@ footer p { color:#9A7A5A !important; }
 }
 .scta:hover{transform:translateY(-2px) !important;box-shadow:0 6px 16px rgba(201,168,76,.4) !important;}
 .scard:hover .scta{color:#1a0a00 !important;}
-.sdesc{font-size:14px !important;color:#2a1408 !important;line-height:1.8 !important;}
-.sname{font-size:18px !important;color:#1a0a00 !important;}
+.sdesc{font-size:14px !important;color:#EDE4D4 !important;line-height:1.8 !important;}
+.sname{font-size:18px !important;color:#ffffff !important;}
 
 /* ═══ GALERIA LIGHTBOX ═══ */
 .galeria-overlay{
@@ -3277,7 +3285,7 @@ footer p { color:#9A7A5A !important; }
 /* ═══ CARDS SERVIÇOS COM FOTO ═══ */
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px;}
 .scard{
-  background:var(--p2);border:1px solid rgba(160,120,56,.16);
+  background:linear-gradient(160deg,#1C1208,#0A0702);border:1px solid rgba(160,120,56,.16);
   border-top:3px solid transparent;
   border-radius:14px;overflow:hidden;
   position:relative;transition:all .4s;cursor:pointer;
@@ -3305,8 +3313,8 @@ footer p { color:#9A7A5A !important; }
   line-height:1;transition:.4s;pointer-events:none;
 }
 .scard:hover .snum{color:rgba(160,120,56,.15);}
-.sname{font-family:'Cinzel',serif;font-size:18px;color:#1a0a00;font-weight:700;margin-bottom:10px;}
-.sdesc{font-size:14px;color:#2a1408 !important;line-height:1.8;margin-bottom:16px;}
+.sname{font-family:'Cinzel',serif;font-size:18px;color:#ffffff;font-weight:700;margin-bottom:10px;}
+.sdesc{font-size:14px;color:#EDE4D4 !important;line-height:1.8;margin-bottom:16px;}
 .scta{
   display:inline-flex !important;align-items:center !important;gap:8px !important;
   font-family:'Cinzel',serif !important;font-size:10px !important;
@@ -3607,7 +3615,7 @@ footer p { color:#9A7A5A !important; }
 /* ─── SKULL BOT FLUTUANTE ─── */
 #skullBtn{
   position:fixed;bottom:80px;right:20px;z-index:8000;
-  width:60px;height:60px;border-radius:50%;
+  width:72px;height:72px;border-radius:50%;
   background:linear-gradient(135deg,#0a0702,#1C1208);
   border:2px solid rgba(201,168,76,.4);
   cursor:pointer;display:flex;align-items:center;justify-content:center;
@@ -3620,7 +3628,7 @@ footer p { color:#9A7A5A !important; }
   0%,100%{box-shadow:0 6px 24px rgba(0,0,0,.5),0 0 0 0 rgba(201,168,76,.3);}
   50%{box-shadow:0 6px 24px rgba(0,0,0,.5),0 0 0 10px rgba(201,168,76,.0);}
 }
-.skull-svg{width:34px;height:34px;}
+.skull-svg{width:44px;height:44px;}
 .skull-badge{
   position:absolute;top:-4px;right:-4px;
   background:#E8B800;color:#0a0500;
@@ -3706,7 +3714,7 @@ footer p { color:#9A7A5A !important; }
   body{padding-bottom:70px;}
 
   /* Skull bot acima do bottom nav */
-  #skullBtn{bottom:86px !important;right:16px;}
+  #skullBtn{bottom:86px !important;right:16px;width:64px !important;height:64px !important;}
 
   /* Skull panel tela quase cheia no mobile */
   #skullPanel{
@@ -3819,6 +3827,14 @@ footer p { color:#9A7A5A !important; }
   .calc-local-opts{grid-template-columns:repeat(3,1fr) !important;}
   .copt{padding:8px 4px !important;font-size:9px !important;letter-spacing:.5px !important;}
 }
+
+
+/* ═══ CARDS SERVIÇO — TEXTO BRANCO ═══ */
+.scard { background:linear-gradient(160deg,#1C1208,#0A0702) !important; }
+.sname { color:#ffffff !important; }
+.sdesc { color:#EDE4D4 !important; }
+.scard-body .sname { color:#ffffff !important; }
+.scard-body .sdesc { color:#C9B89A !important; }
 
 /* ═══ RESPONSIVE NOVAS SEÇÕES ═══ */
 
@@ -7188,19 +7204,45 @@ function confirmarPix(){
      SKULL BOT 💀
      ════════════════════════════════════ -->
 <button id="skullBtn" onclick="toggleSkull()" aria-label="Assistente Skull">
-  <svg class="skull-svg" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <ellipse cx="30" cy="25" rx="18" ry="17" fill="#C9A84C" opacity=".15"/>
-    <ellipse cx="30" cy="24" rx="15" ry="14" fill="#E8B800" opacity=".9"/>
-    <ellipse cx="23" cy="22" rx="4.5" ry="5" fill="#0a0702"/>
-    <ellipse cx="37" cy="22" rx="4.5" ry="5" fill="#0a0702"/>
-    <ellipse cx="23" cy="22" rx="2" ry="2.5" fill="#E8B800" opacity=".3"/>
-    <ellipse cx="37" cy="22" rx="2" ry="2.5" fill="#E8B800" opacity=".3"/>
-    <path d="M24 31 Q30 29 36 31" stroke="#0a0702" stroke-width="1.5" stroke-linecap="round"/>
-    <rect x="21" y="33" width="4" height="5" rx="1" fill="#0a0702"/>
-    <rect x="28" y="33" width="4" height="5" rx="1" fill="#0a0702"/>
-    <rect x="35" y="33" width="4" height="5" rx="1" fill="#0a0702"/>
-    <path d="M19 32 Q19 38 22 40 Q30 43 38 40 Q41 38 41 32" fill="#C9A84C" opacity=".6"/>
-    <path d="M15 26 Q12 20 15 14 Q20 5 30 4 Q40 5 45 14 Q48 20 45 26" stroke="#C9A84C" stroke-width="1" fill="none" opacity=".4"/>
+  <svg class="skull-svg" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Brilho externo -->
+    <ellipse cx="40" cy="36" rx="26" ry="24" fill="#C9A84C" opacity=".08"/>
+    <!-- Crânio principal -->
+    <path d="M40 6 C22 6 14 18 14 30 C14 40 18 46 24 50 L24 58 C24 60 26 62 28 62 L52 62 C54 62 56 60 56 58 L56 50 C62 46 66 40 66 30 C66 18 58 6 40 6Z" fill="#D4A017"/>
+    <!-- Sombra crânio -->
+    <path d="M40 8 C24 8 16 19 16 30 C16 39 20 45 26 49" stroke="#A07830" stroke-width="1.5" fill="none" opacity=".5"/>
+    <!-- Rachadura 1 -->
+    <path d="M40 8 L37 18 L40 22 L38 30" stroke="#0a0702" stroke-width="1.5" stroke-linecap="round" opacity=".7"/>
+    <!-- Rachadura 2 -->
+    <path d="M52 14 L48 22 L51 26" stroke="#0a0702" stroke-width="1" stroke-linecap="round" opacity=".5"/>
+    <!-- Sobrancelhas agressivas (cara de mal) -->
+    <path d="M18 28 L29 32" stroke="#0a0702" stroke-width="3" stroke-linecap="round"/>
+    <path d="M51 32 L62 28" stroke="#0a0702" stroke-width="3" stroke-linecap="round"/>
+    <!-- Órbitas oculares -->
+    <ellipse cx="29" cy="36" rx="8" ry="9" fill="#0a0702"/>
+    <ellipse cx="51" cy="36" rx="8" ry="9" fill="#0a0702"/>
+    <!-- Brilho vermelho nos olhos -->
+    <ellipse cx="29" cy="35" rx="4" ry="5" fill="#8B0000" opacity=".9"/>
+    <ellipse cx="51" cy="35" rx="4" ry="5" fill="#8B0000" opacity=".9"/>
+    <!-- Pupila vermelha brilhante -->
+    <ellipse cx="29" cy="35" rx="2" ry="2.5" fill="#FF2020" opacity=".8"/>
+    <ellipse cx="51" cy="35" rx="2" ry="2.5" fill="#FF2020" opacity=".8"/>
+    <!-- Nariz -->
+    <path d="M37 44 L40 40 L43 44 Z" fill="#0a0702" opacity=".7"/>
+    <!-- Mandíbula base -->
+    <path d="M24 54 L24 58 C24 60 26 62 28 62 L52 62 C54 62 56 60 56 58 L56 54Z" fill="#B8900F"/>
+    <!-- Dentes irregulares agressivos -->
+    <rect x="27" y="50" width="5" height="9" rx="1" fill="#0a0702"/>
+    <rect x="34" y="48" width="4" height="11" rx="1" fill="#0a0702"/>
+    <rect x="40" y="48" width="4" height="11" rx="1" fill="#0a0702"/>
+    <rect x="46" y="50" width="5" height="9" rx="1" fill="#0a0702"/>
+    <!-- Dente partido -->
+    <path d="M34 48 L36 52 L38 48" fill="#D4A017"/>
+    <!-- Contorno blackwork -->
+    <path d="M40 6 C22 6 14 18 14 30 C14 40 18 46 24 50 L24 62 L56 62 L56 50 C62 46 66 40 66 30 C66 18 58 6 40 6Z" stroke="#0a0702" stroke-width="2" fill="none"/>
+    <!-- Detalhes laterais estilo tattoo -->
+    <path d="M14 28 C10 26 8 22 10 18" stroke="#C9A84C" stroke-width="1" fill="none" opacity=".4"/>
+    <path d="M66 28 C70 26 72 22 70 18" stroke="#C9A84C" stroke-width="1" fill="none" opacity=".4"/>
   </svg>
   <div class="skull-badge">IA</div>
 </button>
@@ -7215,27 +7257,31 @@ function confirmarPix(){
 <div id="skullPanel">
   <div class="skull-panel-header">
     <div class="skull-avatar">
-      <svg width="28" height="28" viewBox="0 0 60 60" fill="none">
-        <ellipse cx="30" cy="24" rx="15" ry="14" fill="#E8B800" opacity=".9"/>
-        <ellipse cx="23" cy="22" rx="4.5" ry="5" fill="#0a0702"/>
-        <ellipse cx="37" cy="22" rx="4.5" ry="5" fill="#0a0702"/>
-        <path d="M24 31 Q30 29 36 31" stroke="#0a0702" stroke-width="1.5" stroke-linecap="round"/>
-        <rect x="21" y="33" width="4" height="5" rx="1" fill="#0a0702"/>
-        <rect x="28" y="33" width="4" height="5" rx="1" fill="#0a0702"/>
-        <rect x="35" y="33" width="4" height="5" rx="1" fill="#0a0702"/>
-        <path d="M19 32 Q19 38 22 40 Q30 43 38 40 Q41 38 41 32" fill="#C9A84C" opacity=".6"/>
+      <svg width="32" height="32" viewBox="0 0 80 80" fill="none">
+        <path d="M40 6 C22 6 14 18 14 30 C14 40 18 46 24 50 L24 62 L56 62 L56 50 C62 46 66 40 66 30 C66 18 58 6 40 6Z" fill="#D4A017"/>
+        <path d="M18 28 L29 32" stroke="#0a0702" stroke-width="3" stroke-linecap="round"/>
+        <path d="M51 32 L62 28" stroke="#0a0702" stroke-width="3" stroke-linecap="round"/>
+        <ellipse cx="29" cy="36" rx="8" ry="9" fill="#0a0702"/>
+        <ellipse cx="51" cy="36" rx="8" ry="9" fill="#0a0702"/>
+        <ellipse cx="29" cy="35" rx="3" ry="3.5" fill="#FF2020" opacity=".8"/>
+        <ellipse cx="51" cy="35" rx="3" ry="3.5" fill="#FF2020" opacity=".8"/>
+        <rect x="27" y="50" width="5" height="9" rx="1" fill="#0a0702"/>
+        <rect x="34" y="48" width="4" height="11" rx="1" fill="#0a0702"/>
+        <rect x="40" y="48" width="4" height="11" rx="1" fill="#0a0702"/>
+        <rect x="46" y="50" width="5" height="9" rx="1" fill="#0a0702"/>
+        <path d="M40 6 C22 6 14 18 14 30 C14 40 18 46 24 50 L24 62 L56 62 L56 50 C62 46 66 40 66 30 C66 18 58 6 40 6Z" stroke="#0a0702" stroke-width="2" fill="none"/>
       </svg>
     </div>
     <div class="skull-header-info">
-      <h4>💀 Skull — Carlos Tattoo BH</h4>
+      <h4>💀 Rabisco — Carlos Tattoo BH</h4>
       <div class="skull-online"><div class="skull-online-dot"></div>Online agora</div>
     </div>
     <button class="skull-panel-close" onclick="toggleSkull()">✕</button>
   </div>
   <div class="skull-msgs" id="skullMsgs">
     <div class="skull-msg bot">
-      <div class="skull-msg-name">SKULL IA</div>
-      Fala! 🖤 Sou o Skull, assistente do Carlos Tattoo BH. Posso te ajudar com tatuagens, preços, cursos ou qualquer dúvida. O que tá rolando?
+      <div class="skull-msg-name">RABISCO</div>
+      Fala! 🖤 Sou o Rabisco, assistente do Carlos Tattoo BH. Posso te ajudar com tatuagens, preços, cursos ou qualquer dúvida. O que tá rolando?
     </div>
   </div>
   <div class="skull-sugs" id="skullSugs">
@@ -7375,7 +7421,7 @@ if('IntersectionObserver' in window){
 // Frase inicial após 10s
 setTimeout(()=>{
   if(!skullAberto && !skullBubbleAtivo && skullMsgCount===0){
-    mostrarBubble('Fala! 🖤 Posso te ajudar a encontrar o que procura no site?');
+    mostrarBubble('Fala! 🖤 Sou o Rabisco — posso te ajudar a encontrar o que procura?');
   }
 }, 10000);
 
@@ -7450,13 +7496,13 @@ async function skullPergunta(pergunta){
     adicionarSkullMsg(pergunta, 'user');
     skullLeadColetado = true;
     const leads = JSON.parse(localStorage.getItem('ct_leads')||'[]');
-    leads.push({nome:skullLeadNome, wpp:pergunta, origem:'skull_ia', tipo:'tatuagem', data:new Date().toISOString()});
+    leads.push({nome:skullLeadNome, wpp:pergunta, origem:'rabisco', tipo:'tatuagem', data:new Date().toISOString()});
     localStorage.setItem('ct_leads', JSON.stringify(leads));
     const perguntaOriginal = skullHistorico[0].content;
     skullHistorico = [];
     adicionarSkullMsg(`Perfeito, ${skullLeadNome}! Agora me conta mais sobre: "${perguntaOriginal}"`, 'bot');
     skullHistorico.push({role:'user', content:perguntaOriginal});
-    if(typeof fbq!=='undefined') fbq('track','Lead',{content_name:'Skull Bot'});
+    if(typeof fbq!=='undefined') fbq('track','Lead',{content_name:'Rabisco'});
     return;
   }
 
@@ -7472,11 +7518,11 @@ async function skullPergunta(pergunta){
       body:JSON.stringify({
         model:'claude-sonnet-4-20250514',
         max_tokens:600,
-        system:`Você é o Skull, assistente virtual do Carlos Tattoo BH — estúdio premium de tatuagem em Belo Horizonte, MG.
+        system:`Você é o Rabisco, assistente virtual do Carlos Tattoo BH — estúdio premium de tatuagem em Belo Horizonte, MG.
 
 PERSONALIDADE:
 - Tom: descontraído, direto, usa linguagem do universo tattoo
-- Apelido: Skull 💀
+- Apelido: Rabisco 💀
 - Nunca enrola — resposta objetiva e útil
 - Máximo 3 parágrafos curtos por resposta
 - Use 1-2 emojis por resposta (não exagere)
@@ -7545,7 +7591,7 @@ function adicionarSkullMsg(texto, tipo, id){
   div.className = 'skull-msg ' + tipo;
   if(id) div.id = id;
   if(tipo==='bot'){
-    div.innerHTML = '<div class="skull-msg-name">SKULL IA</div>' + texto;
+    div.innerHTML = '<div class="skull-msg-name">RABISCO</div>' + texto;
   } else {
     div.textContent = texto;
   }
