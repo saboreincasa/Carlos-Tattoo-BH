@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contrato Digital Profissional — Carlos Tattoo BH</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Raleway',sans-serif;background:#f5f0e8;color:#1a0a00;font-size:16px;line-height:1.8;}
+@media print{.no-print{display:none!important;}.pb{page-break-after:always;}body{background:#fff;font-size:11pt;}}
+.wm{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;}
+.wm-grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(7,1fr);}
+.wm-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transform:rotate(-25deg);opacity:.04;}
+.wm-cell img{width:52px;height:52px;object-fit:contain;}
+.wm-cell span{font-family:'Cinzel',serif;font-size:8px;letter-spacing:2px;color:#C9A84C;text-transform:uppercase;white-space:nowrap;}
+.capa{background:linear-gradient(160deg,#050301 0%,#1C1208 38%,#2A1A08 65%,#050301 100%);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;position:relative;overflow:hidden;}
+.capa::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 45%,rgba(201,168,76,.13) 0%,transparent 70%);}
+.c-line{position:absolute;left:50%;transform:translateX(-50%);width:220px;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.5),transparent);}
+.c-line.top{top:36px;}.c-line.bot{bottom:36px;}
+.c-logo{height:90px;object-fit:contain;filter:drop-shadow(0 0 24px rgba(201,168,76,.55));margin-bottom:28px;position:relative;z-index:1;}
+.c-tag{display:inline-block;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);padding:7px 24px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;color:#E8B800;text-transform:uppercase;margin-bottom:24px;position:relative;z-index:1;}
+.c-h1{font-family:'Cinzel Decorative',cursive;font-size:clamp(28px,5vw,54px);color:#fff;line-height:1.05;margin-bottom:12px;position:relative;z-index:1;}
+.c-h1 b{color:#E8B800;}
+.c-sub{font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:rgba(201,168,76,.55);margin-bottom:52px;position:relative;z-index:1;}
+.c-div{width:140px;height:1px;background:linear-gradient(90deg,transparent,#E8B800,transparent);margin:0 auto 38px;}
+.c-autor-name{font-family:'Cinzel Decorative',cursive;font-size:20px;color:#E8B800;margin-bottom:4px;position:relative;z-index:1;}
+.c-autor-role{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:rgba(201,168,76,.45);text-transform:uppercase;position:relative;z-index:1;}
+.c-badge{position:absolute;bottom:48px;right:48px;width:94px;height:94px;border-radius:50%;background:rgba(201,168,76,.09);border:1.5px solid rgba(201,168,76,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:1;}
+.c-badge b{font-family:'Cinzel Decorative',cursive;font-size:23px;color:#E8B800;display:block;line-height:1;}
+.c-badge span{font-family:'Cinzel',serif;font-size:8px;letter-spacing:1px;color:rgba(201,168,76,.45);margin-top:3px;}
+.page{background:#fff;padding:68px 92px 84px;min-height:100vh;position:relative;}
+.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;padding-bottom:14px;border-bottom:2px solid #f0e6cc;}
+.ph img{height:30px;object-fit:contain;opacity:.65;}
+.ph span{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:#8A6030;text-transform:uppercase;}
+.pf{position:absolute;bottom:30px;left:92px;right:92px;display:flex;justify-content:space-between;align-items:center;font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;color:#C9A84C;border-top:1px solid #f0e6cc;padding-top:12px;}
+.lbl{font-family:'Cinzel',serif;font-size:9px;letter-spacing:4px;color:#C9A84C;text-transform:uppercase;margin-bottom:8px;display:block;}
+.h2{font-family:'Cinzel Decorative',cursive;font-size:clamp(20px,2.8vw,34px);color:#1a0a00;margin-bottom:16px;line-height:1.2;}
+.h2 b{color:#C9A84C;}
+.h3{font-family:'Cinzel',serif;font-size:17px;color:#1a0a00;font-weight:700;margin:28px 0 12px;}
+p{font-size:15px;color:#2a1408;line-height:1.9;margin-bottom:14px;}
+strong{color:#1a0a00;}
+.box-warn{background:#fffbeb;border:1.5px solid #f59e0b;border-radius:10px;padding:18px 22px;margin:22px 0;display:flex;gap:14px;}
+.box-warn-i{font-size:22px;flex-shrink:0;}
+.box-warn p{font-size:14px;color:#78350f;line-height:1.75;margin:0;}
+.box-gold{background:linear-gradient(135deg,#FAF4E8,#F0E6CC);border:1px solid rgba(201,168,76,.22);border-left:5px solid #C9A84C;padding:20px 26px;margin:22px 0;border-radius:0 12px 12px 0;}
+.box-gold p{font-size:15px;color:#2a1408;margin:0;line-height:1.8;}
+/* CONTRATO */
+.contrato{background:#fff;border:2px solid #1a0a00;padding:60px 72px;margin:20px 0;}
+.contrato-header{text-align:center;margin-bottom:48px;padding-bottom:28px;border-bottom:2px solid #1a0a00;}
+.contrato-header img{height:70px;object-fit:contain;margin-bottom:16px;opacity:.8;}
+.contrato-titulo{font-family:'Cinzel Decorative',cursive;font-size:20px;color:#1a0a00;margin-bottom:6px;}
+.contrato-subtitulo{font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;color:#5a3c18;text-transform:uppercase;}
+.cl{margin-bottom:24px;}
+.cl-titulo{font-family:'Cinzel',serif;font-size:14px;color:#1a0a00;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.cl-titulo::before{content:'';width:20px;height:2px;background:#C9A84C;flex-shrink:0;}
+.cl p{font-size:14px;color:#2a1408;line-height:1.9;text-align:justify;}
+.campo-contrato{border:none;border-bottom:1px solid #1a0a00;padding:2px 4px;font-size:14px;color:#1a0a00;font-family:'Raleway',sans-serif;min-width:150px;background:transparent;}
+.assinaturas{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px;padding-top:28px;border-top:2px solid #1a0a00;}
+.ass-bloco{text-align:center;}
+.ass-linha{height:1px;background:#1a0a00;margin-bottom:8px;}
+.ass-nome{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:#5a3c18;text-transform:uppercase;}
+.ul{list-style:none;margin:10px 0 16px;}
+.ul li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:#2a1408;margin-bottom:10px;line-height:1.7;}
+.ul li::before{content:'◆';color:#C9A84C;font-size:8px;flex-shrink:0;margin-top:6px;}
+.cback{background:linear-gradient(160deg,#050301,#1C1208,#050301);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;position:relative;}
+</style>
+</head>
+<body>
+
+<!-- MARCA D'ÁGUA -->
+<div class="wm" aria-hidden="true">
+  <div class="wm-grid">
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+  </div>
+</div>
+
+<!-- CAPA -->
+<div class="capa pb">
+  <div class="c-line top"></div>
+  <img src="IPJP8350.JPG" class="c-logo" alt="Carlos Tattoo BH">
+  <div class="c-tag">Material Jurídico · 2026 · Editável em Word</div>
+  <h1 class="c-h1">Contrato Digital<br><b>Profissional</b></h1>
+  <p class="c-sub">Modelo completo para proteger você e seu cliente — todas as cláusulas essenciais</p>
+  <div class="c-div"></div>
+  <div class="c-autor-name">Carlos Henrique</div>
+  <div class="c-autor-role">Tatuador · Mentor · @carlostattoo.bh</div>
+  <div class="c-badge"><b>R$27</b><span>Exclusivo</span></div>
+  <div class="c-line bot"></div>
+</div>
+
+<!-- GUIA DE USO -->
+<div class="page pb">
+  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Guia de uso do contrato</span></div>
+  <span class="lbl">Antes de usar</span>
+  <h2 class="h2">Como usar este <b>contrato corretamente</b></h2>
+
+  <div class="box-warn">
+    <span class="box-warn-i">⚖️</span>
+    <p><strong>Aviso importante:</strong> Este contrato é um modelo profissional baseado nas melhores práticas do mercado tattoo. Para casos específicos ou disputas judiciais, recomendamos consultar um advogado. Este material é educativo e não substitui assessoria jurídica especializada.</p>
+  </div>
+
+  <h3 class="h3">Por que usar contrato é essencial</h3>
+  <ul class="ul">
+    <li>Protege você contra clientes que mudam de ideia após a sessão</li>
+    <li>Define claramente as responsabilidades de cada parte</li>
+    <li>Documenta que o cliente aprovou o projeto antes de tatuar</li>
+    <li>Estabelece política de sinal, cancelamento e retoque</li>
+    <li>Autoriza o uso das fotos para portfólio e marketing</li>
+    <li>Declara que o cliente está em boas condições de saúde</li>
+    <li>Protege seus direitos autorais sobre o projeto criado</li>
+  </ul>
+
+  <h3 class="h3">Como personalizar o contrato</h3>
+  <p>Substitua todos os campos entre colchetes <strong>[COMO ESTE]</strong> com as informações reais:</p>
+  <ul class="ul">
+    <li><strong>[NOME DO ESTÚDIO]:</strong> Carlos Tattoo BH</li>
+    <li><strong>[NOME DO TATUADOR]:</strong> Carlos Henrique</li>
+    <li><strong>[CPF DO TATUADOR]:</strong> Seu CPF</li>
+    <li><strong>[CNPJ]:</strong> Seu CNPJ (se tiver empresa)</li>
+    <li><strong>[ENDEREÇO DO ESTÚDIO]:</strong> Rua Maria de Lourdes da Cruz, 378 — Mantiqueira, BH</li>
+    <li><strong>[CONTATO]:</strong> Seu WhatsApp</li>
+  </ul>
+
+  <h3 class="h3">Como usar na prática</h3>
+  <ul class="ul">
+    <li><strong>Opção A — Digital:</strong> Envie o contrato preenchido por WhatsApp ou email. Peça para o cliente responder "Li e concordo com todos os termos" antes da sessão. Guarde essa mensagem — ela tem validade como aceite digital.</li>
+    <li><strong>Opção B — Impresso:</strong> Imprima em duas vias. Assine os dois, dê uma ao cliente e guarde a outra.</li>
+    <li><strong>Opção C — Assinatura digital:</strong> Use DocuSign (gratuito para uso limitado) ou similar para assinatura digital com validade jurídica.</li>
+  </ul>
+
+  <div class="box-gold">
+    <p><strong>Dica prática:</strong> Envie o contrato junto com a confirmação do sinal. "Aqui está o comprovante do sinal e o contrato da nossa sessão. Leia, e se concordar com todos os termos, responda com 'Concordo' para confirmar." Simples, profissional e juridicamente válido.</p>
+  </div>
+  <div class="pf"><span>Carlos Tattoo BH — Contrato Digital Profissional 2026</span><span>Guia de uso</span></div>
+</div>
+
+<!-- CONTRATO COMPLETO -->
+<div class="page pb">
+  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Contrato de Prestação de Serviços — Tatuagem</span></div>
+
+  <div class="contrato">
+    <div class="contrato-header">
+      <img src="IPJP8350.JPG" alt="Carlos Tattoo BH">
+      <div class="contrato-titulo">Contrato de Prestação de Serviços de Tatuagem</div>
+      <div class="contrato-subtitulo">Documento de compromisso entre tatuador e cliente</div>
+    </div>
+
+    <div class="cl">
+      <div class="cl-titulo">Identificação das Partes</div>
+      <p><strong>CONTRATADO (Tatuador):</strong><br>
+      Nome: <input class="campo-contrato" value="Carlos Henrique" readonly><br>
+      Estúdio: <input class="campo-contrato" value="Carlos Tattoo BH" readonly><br>
+      CPF/CNPJ: <input class="campo-contrato" placeholder="[SEU CPF/CNPJ]"><br>
+      Endereço: <input class="campo-contrato" style="min-width:300px;" value="Rua Maria de Lourdes da Cruz, 378 — Mantiqueira, BH" readonly><br>
+      Contato: <input class="campo-contrato" placeholder="[SEU WHATSAPP]"></p>
+
+      <p style="margin-top:16px;"><strong>CONTRATANTE (Cliente):</strong><br>
+      Nome completo: <input class="campo-contrato" style="min-width:250px;" placeholder="Nome do cliente"><br>
+      CPF: <input class="campo-contrato" placeholder="000.000.000-00"><br>
+      Data de nascimento: <input class="campo-contrato" type="date"><br>
+      Telefone/WhatsApp: <input class="campo-contrato" placeholder="(00) 0 0000-0000"><br>
+      Email: <input class="campo-contrato" style="min-width:200px;" placeholder="email@email.com"><br>
+      Endereço: <input class="campo-contrato" style="min-width:300px;" placeholder="Endereço completo"></p>
+    </div>
+
+    <div class="cl">
+      <div class="cl-titulo">Cláusula 1 — Objeto do Contrato</div>
+      <p>O presente contrato tem como objeto a prestação de serviços de tatuagem pelo CONTRATADO ao CONTRATANTE, conforme projeto aprovado e detalhes descritos abaixo:</p>
+      <p>
+      Estilo: <input class="campo-contrato" placeholder="Realismo / Fineline / Cobertura / etc"><br>
+      Local do corpo: <input class="campo-contrato" placeholder="Braço, perna, costas, etc"><br>
+      Tamanho aproximado: <input class="campo-contrato" placeholder="Ex: 15cm x 10cm"><br>
+      Valor total acordado: R$ <input class="campo-contrato" placeholder="0,00"><br>
+      Valor do sinal pago: R$ <input class="campo-contrato" placeholder="0,00"><br>
+      Data e horário da sessão: <input class="campo-contrato" type="datetime-local">
+      </p>
+    </div>
+
+    <div class="cl">
+      <div class="cl-titulo">Cláusula 2 — Aprovação do Projeto</div>
+      <p>O CONTRATANTE declara ter visto, analisado e aprovado o projeto de tatuagem apresentado pelo CONTRATADO antes do início da sessão. Qualquer alteração significativa no projeto após o início da tatuagem está sujeita a cobrança adicional, a ser acordada entre as partes.</p>
+      <p>O CONTRATANTE entende que pequenas variações entre o projeto aprovado e o resultado final são inerentes à natureza artística do processo de tatuagem e não constituem motivo para reclamação ou recusa de pagamento.</p>
+    </div>
+
+    <div class="cl">
+      <div class="cl-titulo">Cláusula 3 — Sinal e Condições de Pagamento</div>
+      <p>O CONTRATANTE realizou o pagamento de sinal no valor descrito na Cláusula 1, que será descontado do valor total na data da sessão. O pagamento restante deverá ser realizado ao final da sessão, antes da saída do estúdio.</p>
+      <p>Formas de pagamento aceitas: PIX, cartão de débito, cartão de crédito (parcelamento sujeito a acordo prévio).</p>
+    </div>
+
+    <div class="cl">
+      <div class="cl-titulo">Cláusula 4 — Cancelamento e Reagendamento</div>
+      <p><strong>4.1</strong> Cancelamento com aviso mínimo de 48 horas antes da sessão: o sinal será convertido em crédito para uso em sessão futura dentro de 90 dias.</p>
+      <p><strong>4.2</strong> Cancelamento com menos de 48 horas de aviso ou não comparecimento (no-show): o sinal não será devolvido, sendo retido como compensação pelo bloqueio da agenda e preparação do projeto.</p>
+      <p><strong>4.3</strong> Reagendamento com aviso mínimo de 48 horas: permitido uma vez sem cobrança adicional. Reagendamentos subsequentes ou com prazo inferior a 48h poderão estar sujeitos a nova cobrança de sinal.</p>
+      <p><strong>4.4</strong> Cancelamento por parte do CONTRATADO: o sinal será devolvido integralmente ao CONTRATANTE em até 3 dias úteis.</p>
+    </div>
+
+    <div class="cl">
+      <div class="cl-titulo">Cláusula 5 — Retoque</div>
+      <p>O CONTRATADO oferece um retoque gratuito nos primeiros <input class="campo-contrato" placeholder="90" style="min-width:40px;"> dias após a sessão, caso necessário e dentro das condições normais de cicatrização.</p>
+      <p>O retoque gratuito não se aplica nos seguintes casos:</p>
+      <p>a) O CONTRATANTE não seguiu as orientações de cuidado pós-tatuagem fornecidas;<br>
+      b) A tatuagem foi exposta excessivamente ao sol sem protetor durante a cicatrização;<br>
+      c) O CONTRATANTE realizou atividades contraindicadas durante o período de cicatrização (piscina, academia excessiva, exposição ao sol);<br>
+      d) O CONTRATANTE possui condição de pele que dificulta a absorção de tinta (quelóide, pele muito seca, etc.), condição informada ou não previamente.</p>
+    </div>
+
+    <div class="cl">
+      <div class="cl-titulo">Cláusula 6 — Declaração de Saúde</div>
+      <p>O CONTRATANTE declara que:</p>
+      <p>a) Está em bom estado de saúde e não apresenta condições que contraindiquem a realização de tatuagem;<br>
+      b) Não possui doenças que afetem a coagulação do sangue sem tratamento adequado;<br>
+      c) Não está em uso de medicamentos anticoagulantes sem autorização médica;<br>
+      d) Não está grávida ou amamentando;<br>
+      e) Não possui alergia conhecida a materiais utilizados em tatuagem (tintas, luvas de látex, etc.);<br>
+      f) Não está sob efeito de álcool ou substâncias psicoativas;<br>
+      g) É maior de 18 anos, ou apresentará autorização dos pais/responsáveis se menor de idade.</p>
+      <p>O CONTRATANTE isenta o CONTRATADO de qualquer responsabilidade por reações adversas decorrentes de informações omitidas nesta declaração.</p>
+    </div>
+
+    <div class="cl">
+      <div class="cl-titulo">Cláusula 7 — Direitos de Imagem e Autoria</div>
+      <p><strong>7.1 Uso de imagens:</strong> O CONTRATANTE autoriza o CONTRATADO a fotografar e/ou filmar o processo e o resultado da tatuagem para uso em portfólio, redes sociais, material publicitário e outros fins comerciais do CONTRATADO. O CONTRATANTE poderá solicitar que seu rosto não seja divulgado, devendo fazer essa solicitação expressamente.</p>
+      <p><strong>7.2 Direitos autorais do projeto:</strong> O projeto de tatuagem criado pelo CONTRATADO é obra intelectual de sua autoria, protegida pela Lei 9.610/98. O CONTRATANTE tem direito ao uso do projeto em seu corpo, porém não pode reproduzir, comercializar ou ceder o projeto a terceiros sem autorização expressa do CONTRATADO.</p>
+    </div>
+
+    <div class="cl">
+      <div class="cl-titulo">Cláusula 8 — Higiene e Biossegurança</div>
+      <p>O CONTRATADO declara que:</p>
+      <p>a) Todos os materiais perfuro-cortantes utilizados são descartáveis e utilizados exclusivamente no atendimento do CONTRATANTE;<br>
+      b) O estúdio mantém práticas de higienização e esterilização adequadas;<br>
+      c) Utiliza Equipamentos de Proteção Individual (EPI) durante todo o procedimento;<br>
+      d) O descarte de resíduos é realizado conforme normas da Anvisa e legislação vigente.</p>
+    </div>
+
+    <div class="cl">
+      <div class="cl-titulo">Cláusula 9 — Cuidados Pós-Tatuagem</div>
+      <p>O CONTRATANTE declara ter recebido e compreendido as orientações de cuidado pós-tatuagem fornecidas pelo CONTRATADO. O não cumprimento dessas orientações é de responsabilidade exclusiva do CONTRATANTE e pode comprometer o resultado final da tatuagem, não cabendo ao CONTRATADO qualquer responsabilidade por resultados insatisfatórios decorrentes de cuidados inadequados.</p>
+      <p><strong>Orientações básicas:</strong> Lavar com água e sabonete neutro 3x ao dia; não esfregar; secar com papel toalha limpo; aplicar hidratante sem perfume 3-4x ao dia; evitar sol direto por 30 dias; evitar piscina, mar e academia por 15 dias; não arrancar a casca durante a descamação.</p>
+    </div>
+
+    <div class="cl">
+      <div class="cl-titulo">Cláusula 10 — Disposições Gerais</div>
+      <p><strong>10.1</strong> Este contrato é regido pelas leis brasileiras, especialmente o Código de Defesa do Consumidor (Lei 8.078/90).</p>
+      <p><strong>10.2</strong> Fica eleito o foro da comarca de Belo Horizonte/MG para dirimir quaisquer dúvidas ou litígios decorrentes deste contrato.</p>
+      <p><strong>10.3</strong> Qualquer alteração a este contrato deve ser feita por escrito e assinada por ambas as partes.</p>
+      <p><strong>10.4</strong> A aceitação digital (resposta de "Concordo" por WhatsApp ou email) tem a mesma validade jurídica da assinatura física, conforme art. 10 da Medida Provisória 2.200-2/2001.</p>
+    </div>
+
+    <p style="text-align:center;margin:24px 0;">Belo Horizonte, <input class="campo-contrato" style="min-width:60px;" placeholder="dia"> de <input class="campo-contrato" placeholder="mês"> de <input class="campo-contrato" style="min-width:50px;" placeholder="ano">.</p>
+
+    <div class="assinaturas">
+      <div class="ass-bloco">
+        <div class="ass-linha"></div>
+        <div class="ass-nome">Carlos Henrique — Contratado<br>Carlos Tattoo BH</div>
+      </div>
+      <div class="ass-bloco">
+        <div class="ass-linha"></div>
+        <div class="ass-nome">_________________________<br>Cliente — Contratante</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span>Carlos Tattoo BH — Contrato Digital Profissional 2026</span><span>Modelo completo</span></div>
+</div>
+
+<!-- VERSÃO SIMPLIFICADA WHATSAPP -->
+<div class="page pb">
+  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Versão simplificada para WhatsApp</span></div>
+  <span class="lbl">Versão rápida</span>
+  <h2 class="h2">Contrato simplificado <b>para WhatsApp</b></h2>
+  <p>Para clientes que preferem algo mais rápido, este modelo resumido tem os pontos essenciais e pode ser enviado por WhatsApp para aceite digital.</p>
+
+  <div style="background:#FAF4E8;border:2px solid rgba(201,168,76,.2);border-radius:14px;padding:28px 32px;margin:20px 0;">
+    <span class="lbl">Modelo de mensagem — copie e envie pelo WhatsApp</span>
+    <p style="font-size:14px;color:#2a1408;line-height:1.9;">
+      📋 <strong>CONFIRMAÇÃO DE SESSÃO — CARLOS TATTOO BH</strong><br><br>
+      Olá, [NOME DO CLIENTE]! Para confirmar sua sessão, preciso que você leia e confirme os termos abaixo respondendo <strong>"Concordo"</strong>.<br><br>
+      <strong>📅 SESSÃO AGENDADA</strong><br>
+      Data: [DATA]<br>
+      Horário: [HORÁRIO]<br>
+      Estilo: [ESTILO]<br>
+      Local: [LOCAL DO CORPO]<br>
+      Valor total: R$ [VALOR]<br>
+      Sinal pago: R$ [SINAL]<br><br>
+      <strong>✅ TERMOS QUE VOCÊ ESTÁ CONFIRMANDO:</strong><br><br>
+      1. Vi e aprovei o projeto antes da sessão<br>
+      2. Estou em bom estado de saúde, não grávida e sem uso de anticoagulantes<br>
+      3. Tenho 18 anos ou mais (ou tenho autorização dos responsáveis)<br>
+      4. Entendo que cancelamento com menos de 48h resulta em perda do sinal<br>
+      5. Seguirei as orientações de cuidado pós-tatuagem<br>
+      6. Autorizo o uso das fotos para portfólio do Carlos Tattoo BH<br>
+      7. Estou ciente que retoques dentro de 90 dias são gratuitos, desde que os cuidados sejam seguidos<br><br>
+      Para confirmar, responda: <strong>LI E CONCORDO COM TODOS OS TERMOS ✅</strong><br><br>
+      Qualquer dúvida, pode perguntar! Te vejo na [DATA]! 🎨
+    </p>
+  </div>
+
+  <div class="box-gold">
+    <p><strong>Como guardar o aceite:</strong> Após o cliente responder "Concordo", tire um print da conversa com data e hora visíveis. Salve em uma pasta organizada por nome de cliente e data. Esse print é seu comprovante de aceite digital em caso de qualquer disputa futura.</p>
+  </div>
+
+  <h3 class="h3">Dicas extras de proteção jurídica</h3>
+  <ul class="ul">
+    <li><strong>Fotografe SEMPRE o projeto aprovado</strong> antes de começar — isso comprova o que foi acordado</li>
+    <li><strong>Filme o início da sessão</strong> por 10 segundos — mostra que o cliente entrou no estúdio conscientemente</li>
+    <li><strong>Guarde todas as conversas do WhatsApp</strong> por pelo menos 1 ano após a sessão</li>
+    <li><strong>Nunca delete conversas</strong> com clientes mesmo após anos — podem ser necessárias</li>
+    <li><strong>Se o cliente reclamar do resultado</strong>, ofereça o retoque antes de qualquer discussão. 90% dos problemas se resolvem com boa vontade</li>
+    <li><strong>Para projetos acima de R$1.500</strong>, sempre use o contrato completo — não só a versão de WhatsApp</li>
+  </ul>
+  <div class="pf"><span>Carlos Tattoo BH — Contrato Digital Profissional 2026</span><span>Versão simplificada</span></div>
+</div>
+
+<!-- CONTRACAPA -->
+<div class="cback">
+  <div style="position:relative;z-index:2;text-align:center;">
+    <img src="IPJP8350.JPG" style="height:80px;object-fit:contain;filter:drop-shadow(0 0 22px rgba(201,168,76,.55));margin-bottom:28px;" alt="">
+    <h2 style="font-family:'Cinzel Decorative',cursive;font-size:28px;color:#E8B800;margin-bottom:12px;">Protegido.<br>Agora cresça.</h2>
+    <div style="background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.28);border-radius:18px;padding:36px 44px;max-width:520px;margin:0 auto;">
+      <h3 style="font-family:'Cinzel Decorative',cursive;font-size:20px;color:#ffffff;margin-bottom:8px;">Kit Completo de Conhecimento</h3>
+      <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:#ffffff;margin-bottom:20px;">TODOS OS EBOOKS + PACK TEMPLATES</p>
+      <ul style="list-style:none;text-align:left;margin-bottom:24px;">
+        <li style="color:#ffffff;font-size:14px;margin-bottom:8px;display:flex;gap:8px;"><span style="color:#E8B800;">✓</span>Ebook Tráfego Pago — Tutorial completo</li>
+        <li style="color:#ffffff;font-size:14px;margin-bottom:8px;display:flex;gap:8px;"><span style="color:#E8B800;">✓</span>Ebook Instagram — Do zero ao avançado</li>
+        <li style="color:#ffffff;font-size:14px;margin-bottom:8px;display:flex;gap:8px;"><span style="color:#E8B800;">✓</span>Ebook Posicionamento — Scripts e precificação</li>
+        <li style="color:#ffffff;font-size:14px;margin-bottom:8px;display:flex;gap:8px;"><span style="color:#E8B800;">✓</span>Pack Templates — 30+ artes no Canva</li>
+        <li style="color:#ffffff;font-size:14px;margin-bottom:8px;display:flex;gap:8px;"><span style="color:#E8B800;">✓</span>Contrato Digital — Modelo completo</li>
+      </ul>
+      <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;color:#ffffff;margin-bottom:8px;">Valor separado: R$265 — Kit completo:</p>
+      <p style="font-family:'Cinzel Decorative',cursive;font-size:40px;color:#E8B800;margin-bottom:8px;">R$ 197</p>
+      <p style="font-size:13px;color:#ffffff;font-family:'Cinzel',serif;">Economia de R$68 · Pagamento único</p>
+    </div>
+    <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:rgba(201,168,76,.35);margin-top:44px;">© 2026 Carlos Tattoo BH · @carlostattoo.bh · Belo Horizonte, MG</p>
+  </div>
+</div>
+
+<button onclick="window.print()" class="no-print" style="position:fixed;bottom:28px;right:28px;z-index:1000;background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;border:none;padding:14px 26px;border-radius:50px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;cursor:pointer;box-shadow:0 6px 24px rgba(201,168,76,.45);">🖨️ Salvar como PDF</button>
+</body>
+</html>

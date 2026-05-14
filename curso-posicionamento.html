@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Branding & Posicionamento — Carlos Tattoo BH</title>
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#0A0702;--d1:#1C1208;--d2:#2A1A08;--g1:#E8B800;--g2:#C9A84C;--g3:#A07830;--t1:#EDE4D4;--t2:#C9B89A;--t3:#9A7A5A;}
+body{font-family:'Raleway',sans-serif;background:var(--bg);color:var(--t1);display:flex;min-height:100vh;}
+.sidebar{width:300px;background:rgba(28,18,8,.97);border-right:1px solid rgba(201,168,76,.1);position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:100;display:flex;flex-direction:column;}
+.sb-header{padding:20px;border-bottom:1px solid rgba(201,168,76,.1);}
+.sb-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.sb-logo img{height:36px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(201,168,76,.4));}
+.sb-titulo{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:var(--g2);text-transform:uppercase;line-height:1.4;}
+.sb-progress-wrap{margin-top:12px;}
+.sb-progress-label{display:flex;justify-content:space-between;font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;color:rgba(201,168,76,.5);text-transform:uppercase;margin-bottom:6px;}
+.sb-progress-bar{height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;}
+.sb-progress-fill{height:100%;background:linear-gradient(90deg,var(--g3),var(--g1));transition:width .5s;}
+.sb-modulos{padding:8px 0;flex:1;}
+.sb-mod-titulo{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:rgba(201,168,76,.35);text-transform:uppercase;padding:12px 20px 4px;}
+.sb-aula{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;transition:.2s;border-left:3px solid transparent;}
+.sb-aula:hover{background:rgba(201,168,76,.05);border-left-color:rgba(201,168,76,.3);}
+.sb-aula.active{background:rgba(201,168,76,.08);border-left-color:var(--g2);}
+.sb-aula.done .sb-aula-nome{color:rgba(201,168,76,.5);}
+.sb-aula-num{font-family:'Cinzel Decorative',cursive;font-size:10px;color:var(--g2);width:22px;flex-shrink:0;}
+.sb-aula-nome{font-size:12px;color:var(--t2);line-height:1.3;flex:1;}
+.sb-aula-check{font-size:11px;color:var(--g2);flex-shrink:0;}
+.sb-footer{padding:16px 20px;border-top:1px solid rgba(201,168,76,.1);}
+.btn-voltar{display:flex;align-items:center;gap:8px;color:rgba(201,168,76,.5);font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;text-decoration:none;transition:.2s;}
+.btn-voltar:hover{color:var(--g2);}
+.main{margin-left:300px;flex:1;display:flex;flex-direction:column;}
+.main-header{background:rgba(28,18,8,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,.1);padding:14px 36px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;gap:12px;}
+.mh-titulo{font-family:'Cinzel',serif;font-size:13px;color:var(--t1);flex:1;}
+.mh-nav{display:flex;gap:8px;flex-shrink:0;}
+.btn-nav-a{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);color:var(--g2);padding:8px 16px;border-radius:8px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;transition:.2s;}
+.btn-nav-a:hover{background:rgba(201,168,76,.2);}
+.btn-nav-a:disabled{opacity:.3;cursor:not-allowed;}
+.btn-concluir{background:linear-gradient(135deg,var(--g3),var(--g1));color:#0a0500;border:none;padding:8px 16px;border-radius:8px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;font-weight:700;transition:.2s;}
+.btn-concluir:hover{transform:translateY(-1px);}
+.aula-wrap{flex:1;padding:36px 40px;max-width:900px;}
+.aula-tag{font-family:'Cinzel',serif;font-size:9px;letter-spacing:4px;color:rgba(201,168,76,.4);text-transform:uppercase;margin-bottom:10px;}
+.aula-h1{font-family:'Cinzel Decorative',cursive;font-size:clamp(20px,2.8vw,34px);color:#fff;margin-bottom:18px;line-height:1.2;}
+.aula-h1 span{color:var(--g1);}
+.aula-intro{font-size:15px;color:var(--t2);line-height:1.9;margin-bottom:28px;padding:18px 22px;background:rgba(201,168,76,.05);border-left:4px solid var(--g2);border-radius:0 10px 10px 0;}
+h2.ah2{font-family:'Cinzel',serif;font-size:17px;color:#fff;font-weight:700;margin:32px 0 12px;padding-bottom:10px;border-bottom:1px solid rgba(201,168,76,.12);display:flex;align-items:center;gap:8px;}
+h2.ah2::before{content:'◆';color:var(--g2);font-size:9px;}
+h3.ah3{font-family:'Cinzel',serif;font-size:14px;color:var(--g2);font-weight:700;margin:20px 0 8px;}
+p.ap{font-size:14px;color:var(--t2);line-height:1.9;margin-bottom:14px;}
+.passo{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.1);border-radius:12px;padding:20px 22px;margin:12px 0;display:flex;gap:14px;}
+.passo-n{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--g3),var(--g2));display:flex;align-items:center;justify-content:center;font-family:'Cinzel Decorative',cursive;font-size:12px;color:#fff;flex-shrink:0;font-weight:900;}
+.passo-body h4{font-family:'Cinzel',serif;font-size:13px;color:#fff;font-weight:700;margin-bottom:6px;}
+.passo-body p{font-size:13px;color:var(--t2);line-height:1.8;margin:0;}
+.passo-body code{font-family:'Courier New',monospace;background:rgba(201,168,76,.1);padding:2px 7px;border-radius:4px;font-size:12px;color:var(--g1);}
+.destaque{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:16px 20px;margin:16px 0;}
+.destaque p{font-size:13px;color:var(--t1);line-height:1.8;margin:0;}
+.destaque strong{color:var(--g1);}
+.alerta{background:rgba(231,76,60,.05);border:1px solid rgba(231,76,60,.2);border-radius:10px;padding:14px 18px;margin:14px 0;}
+.alerta p{font-size:13px;color:#fca5a5;line-height:1.8;margin:0;}
+.dica{background:rgba(39,174,96,.05);border:1px solid rgba(39,174,96,.2);border-radius:10px;padding:14px 18px;margin:14px 0;}
+.dica p{font-size:13px;color:#86efac;line-height:1.8;margin:0;}
+.checklist{list-style:none;margin:12px 0;}
+.checklist li{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--t2);margin-bottom:8px;line-height:1.7;}
+.checklist li::before{content:'✓';color:var(--g2);font-weight:700;flex-shrink:0;}
+.exemplo{background:rgba(52,152,219,.05);border:1px solid rgba(52,152,219,.2);border-radius:10px;padding:16px 20px;margin:14px 0;}
+.exemplo-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(52,152,219,.6);text-transform:uppercase;margin-bottom:8px;}
+.exemplo p{font-size:13px;color:#bfdbfe;line-height:1.8;margin:0;font-style:italic;}
+.aula-nav-bottom{display:flex;gap:12px;justify-content:space-between;margin-top:44px;padding-top:24px;border-top:1px solid rgba(201,168,76,.1);}
+.btn-ant-b{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.15);color:var(--t2);padding:12px 22px;border-radius:10px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;transition:.2s;}
+.btn-ant-b:hover{border-color:rgba(201,168,76,.4);color:var(--g2);}
+.btn-prox-b{background:linear-gradient(135deg,var(--g3),var(--g1));color:#0a0500;padding:12px 24px;border-radius:10px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;cursor:pointer;font-weight:700;border:none;transition:.2s;}
+.btn-prox-b:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(201,168,76,.3);}
+@media(max-width:900px){.sidebar{width:260px;transform:translateX(-100%);transition:transform .3s;}.sidebar.open{transform:translateX(0);}.main{margin-left:0;}.aula-wrap{padding:20px 16px;}.main-header{padding:12px 16px;}}
+</style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sb-header">
+    <div class="sb-logo">
+      <img src="imagens/IPJP8350.JPG" alt="Carlos Tattoo BH" onerror="this.style.display='none'">
+      <span class="sb-titulo">Branding & Posicionamento</span>
+    </div>
+    <div class="sb-progress-wrap">
+      <div class="sb-progress-label"><span>PROGRESSO</span><span id="progressoPct">0%</span></div>
+      <div class="sb-progress-bar"><div class="sb-progress-fill" id="progressoFill" style="width:0%"></div></div>
+    </div>
+  </div>
+  <div class="sb-modulos" id="sbModulos"></div>
+  <div class="sb-footer"><a href="painel.html" class="btn-voltar">← Voltar ao painel</a></div>
+</aside>
+
+<div class="main">
+  <header class="main-header">
+    <span class="mh-titulo" id="mhTitulo">Carregando...</span>
+    <div class="mh-nav">
+      <button class="btn-nav-a" id="btnAnt" onclick="navAula(-1)" disabled>← Anterior</button>
+      <button class="btn-concluir" onclick="concluirAula()">✓ Concluir</button>
+      <button class="btn-nav-a" id="btnProx" onclick="navAula(1)">Próxima →</button>
+    </div>
+  </header>
+  <div class="aula-wrap" id="aulaContent"></div>
+</div>
+
+<script>
+const sessao = JSON.parse(sessionStorage.getItem('ct_sessao')||'null');
+if(!sessao) window.location.href='acesso.html';
+const CURSO_ID = 'curso-posicionamento';
+const prog = JSON.parse(localStorage.getItem('ct_progresso_'+(sessao?.email||''))||'{}');
+let aulaAtual = prog['aula_'+CURSO_ID]||0;
+
+const MODULOS = [
+  {mod:'MÓDULO 1 — MENTALIDADE PREMIUM', aulas:[
+    {t:'Por que você precisa cobrar mais', c:`
+<div class="aula-tag">Módulo 1 · Aula 1</div>
+<h1 class="aula-h1">Por que você precisa <span>cobrar mais</span></h1>
+<p class="aula-intro">Tatuadores que cobram barato trabalham mais, ganham menos e ficam esgotados. Tatuadores que cobram o preço justo trabalham com clientes melhores, têm mais tempo e ganham mais. Esse curso vai reprogramar sua mentalidade e te dar as ferramentas para essa transição.</p>
+<h2 class="ah2">O paradoxo do preço baixo</h2>
+<ul class="checklist">
+  <li>Cliente que busca o mais barato raramente fica satisfeito</li>
+  <li>Preço baixo atrai cliente difícil, exigente e que não valoriza</li>
+  <li>Preço alto atrai cliente que confia no profissional e respeita o processo</li>
+  <li>Cobrar barato é uma escolha, não uma necessidade</li>
+</ul>
+<div class="destaque"><p><strong>Reflexão:</strong> Um tatuador que cobra R$200 e faz 15 tatuagens por mês = R$3.000. Um que cobra R$600 e faz 8 tatuagens = R$4.800. Menos trabalho, mais dinheiro, clientes melhores.</p></div>
+<h2 class="ah2">A virada de chave</h2>
+<p class="ap">Você não vende tatuagem. Você vende uma experiência premium, uma obra de arte permanente, a expressão da identidade de uma pessoa. Quem entende isso cobra diferente.</p>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)" disabled>← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
+    {t:'Precificação estratégica na prática', c:`
+<div class="aula-tag">Módulo 1 · Aula 2</div>
+<h1 class="aula-h1">Precificação Estratégica <span>na Prática</span></h1>
+<p class="aula-intro">Aqui você aprende a calcular seu preço de forma profissional — baseado em custos reais, tempo e valor percebido. Não em achismo ou no que o concorrente cobra.</p>
+<h2 class="ah2">Calculando seu custo real por hora</h2>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Some seus custos fixos mensais</h4><p>Aluguel do estúdio + materiais (tintas, agulhas, luvas, plástico) + energia + internet + contador + plataformas digitais. Divida por 20 dias úteis = custo diário.</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Defina quantas horas você trabalha por dia</h4><p>Considere: sessões + tempo de desenho + atendimento + estudo + deslocamento. Média real: 6-8h produtivas por dia.</p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Calcule o mínimo por hora</h4><p>Custo diário ÷ horas produtivas = custo/hora. Sobre isso, adicione sua margem de lucro (recomendado: 60-100% sobre o custo).</p></div></div>
+<div class="exemplo"><div class="exemplo-label">Exemplo de cálculo</div><p>Custos fixos: R$2.500/mês ÷ 20 dias = R$125/dia<br>6h produtivas/dia → custo: R$20/hora<br>Margem 100% → preço mínimo: R$40/hora<br>Tatuagem de 3h → mínimo: R$120 (só para cobrir custos)<br>Com posicionamento premium: R$200-300/hora = R$600-900 por essa mesma tatuagem</p></div>
+<h2 class="ah2">Tabela de referência para BH — 2026</h2>
+<ul class="checklist">
+  <li><strong>Mercado básico:</strong> R$80-120/hora</li>
+  <li><strong>Mercado intermediário:</strong> R$150-220/hora</li>
+  <li><strong>Mercado premium:</strong> R$250-450/hora</li>
+  <li><strong>Top artistas referência:</strong> R$500+/hora</li>
+</ul>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`}
+  ]},
+  {mod:'MÓDULO 2 — BRANDING PREMIUM', aulas:[
+    {t:'Construindo sua identidade visual', c:`
+<div class="aula-tag">Módulo 2 · Aula 3</div>
+<h1 class="aula-h1">Construindo sua <span>Identidade Visual</span></h1>
+<p class="aula-intro">Identidade visual profissional não é luxo — é investimento. Um estúdio com visual coeso e premium justifica preços mais altos e atrai um perfil de cliente completamente diferente.</p>
+<h2 class="ah2">Os 4 elementos da identidade visual</h2>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Logo profissional</h4><p>Invista em um designer ou use o Canva Pro para criar uma logo limpa. Evite logos genéricas com fontes padrão. Uma boa logo custa entre R$150-500 e dura anos.</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Paleta de cores</h4><p>Máximo 3 cores. Escolha cores que transmitam o que quer: <strong>preto + dourado = luxo e exclusividade</strong>. <strong>preto + vermelho = intensidade e arte</strong>. <strong>preto + branco = minimalismo premium</strong>.</p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Tipografia consistente</h4><p>Escolha 2 fontes: uma para títulos (serifada ou script elegante) e uma para texto (sem serifa limpa). Use as mesmas em todos os materiais.</p></div></div>
+<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Tom de voz</h4><p>Como você escreve define sua marca. Defina: formal ou informal? Técnico ou acessível? Emocional ou direto? E mantenha esse tom em todas as comunicações.</p></div></div>
+<h2 class="ah2">Aplicando no dia a dia</h2>
+<ul class="checklist">
+  <li>Uniforme ou roupa padrão nas fotos e atendimentos</li>
+  <li>Estúdio organizado e fotogênico — clientes fotografam e postam</li>
+  <li>Embalagem do cuidado pós-tattoo com sua logo</li>
+  <li>Cartão de visita premium (papel espesso, acabamento fosco)</li>
+  <li>Templates do Canva com sua identidade para Stories e posts</li>
+</ul>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
+    {t:'Scripts VIP de atendimento e fechamento', c:`
+<div class="aula-tag">Módulo 2 · Aula 4</div>
+<h1 class="aula-h1">Scripts VIP de <span>Atendimento e Fechamento</span></h1>
+<p class="aula-intro">O atendimento é parte da marca. Um cliente que recebe um atendimento premium paga mais, indica mais e volta mais. Aqui estão os scripts testados que aumentaram a taxa de fechamento de clientes premium.</p>
+<h2 class="ah2">Script de primeiro contato (WhatsApp)</h2>
+<div class="exemplo"><div class="exemplo-label">Quando o cliente manda a primeira mensagem</div><p>"Olá [nome], que prazer ter você aqui! Sou o Carlos e trabalho com tatuagem há 7 anos em BH, especializado em [estilo]. Para criar algo realmente único para você, me conta: qual é a ideia, onde no corpo você imagina e tem alguma referência?"</p></div>
+<h2 class="ah2">Script de apresentação do orçamento</h2>
+<div class="exemplo"><div class="exemplo-label">Nunca dê preço sem contexto</div><p>"Baseado na referência que você mandou e no que conversamos, esse projeto tem um investimento de R$[valor]. Isso inclui: projeto exclusivo criado especificamente para você, sessão com [X]h de duração, tintas importadas premium e retoque gratuito em 90 dias. Para a data que você quer, tenho disponibilidade em [opções]."</p></div>
+<h2 class="ah2">Lidando com "tá caro"</h2>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Não justifique o preço — explique o valor</h4><p>Errado: <em>"É que tem muitos detalhes..."</em><br>Certo: <em>"Entendo. Esse projeto exige [X]h de trabalho com materiais importados. O resultado vai durar a vida toda. Posso parcelar em [X]x para facilitar?"</em></p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Ofereça uma alternativa menor (não menor preço)</h4><p><em>"Posso fazer uma versão um pouco menor que cabe melhor no orçamento de vocês. Mantemos a qualidade, ajustamos o tamanho. Faz sentido?"</em></p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Aceite perder clientes que não são seu público</h4><p>Cliente que só quer o mais barato não é seu cliente. Agradeça e indique outro profissional. Isso libera sua agenda para clientes que valorizam seu trabalho.</p></div></div>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`}
+  ]},
+  {mod:'MÓDULO 3 — PLANO DE CRESCIMENTO', aulas:[
+    {t:'Plano 90 dias para dobrar o ticket', c:`
+<div class="aula-tag">Módulo 3 · Aula 5 — Final</div>
+<h1 class="aula-h1">Plano 90 dias para <span>dobrar o ticket médio</span></h1>
+<p class="aula-intro">Com a mentalidade certa e as ferramentas que você aprendeu, aqui está o plano concreto para dobrar seu ticket médio em 90 dias sem perder toda sua base de clientes.</p>
+<h2 class="ah2">Mês 1 — Fundação</h2>
+<ul class="checklist">
+  <li>Refazer identidade visual (logo, cores, tipografia)</li>
+  <li>Atualizar bio do Instagram com posicionamento premium</li>
+  <li>Fotografar 10 melhores trabalhos profissionalmente</li>
+  <li>Começar a testar preços 20% mais altos em novos orçamentos</li>
+  <li>Criar tabela de preços clara e enviar por escrito nos orçamentos</li>
+</ul>
+<h2 class="ah2">Mês 2 — Transição</h2>
+<ul class="checklist">
+  <li>Aumentar 40% sobre o preço atual para novos clientes</li>
+  <li>Manter preços antigos apenas para clientes fidelizados</li>
+  <li>Criar política de sinal (40-50% antecipado para confirmar sessão)</li>
+  <li>Implementar o script de atendimento premium no WhatsApp</li>
+  <li>Montar kit de boas-vindas para clientes (cuidados + contato)</li>
+</ul>
+<h2 class="ah2">Mês 3 — Consolidação</h2>
+<ul class="checklist">
+  <li>Preços 60-80% acima do ponto de partida</li>
+  <li>Agenda com 30-40% menos clientes mas faturamento igual ou maior</li>
+  <li>Portfólio selecionado mostrando apenas trabalhos premium</li>
+  <li>Primeiros depoimentos de clientes que pagaram mais e ficaram satisfeitos</li>
+</ul>
+<div style="background:linear-gradient(135deg,var(--d1),var(--d2));border:2px solid rgba(201,168,76,.3);border-radius:16px;padding:36px;text-align:center;margin-top:28px;">
+  <div style="font-size:48px;margin-bottom:14px;">💼</div>
+  <h3 style="font-family:'Cinzel Decorative',cursive;font-size:22px;color:#fff;margin-bottom:10px;">Curso Concluído!</h3>
+  <p style="font-size:14px;color:var(--t2);line-height:1.8;margin-bottom:20px;">Você tem as ferramentas para cobrar o que vale. Agora é executar.</p>
+  <button onclick="concluirAula()" class="btn-concluir" style="padding:14px 28px;font-size:12px;letter-spacing:2px;">✓ CONCLUIR CURSO</button>
+</div>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)" disabled>Curso completo ✓</button></div>`}
+  ]}
+];
+
+// ── LÓGICA DO CURSO ──
+function totalAulas(){return MODULOS.reduce((s,m)=>s+m.aulas.length,0);}
+
+function getAula(idx){
+  let n=0;
+  for(const m of MODULOS){
+    for(const a of m.aulas){
+      if(n===idx) return {...a,mod:m.mod};
+      n++;
+    }
+  }
+  return null;
+}
+
+function renderSidebar(){
+  const c=document.getElementById('sbModulos');
+  c.innerHTML='';
+  let n=0;
+  MODULOS.forEach(mod=>{
+    const div=document.createElement('div');
+    const mt=document.createElement('div');
+    mt.className='sb-mod-titulo';
+    mt.textContent=mod.mod;
+    div.appendChild(mt);
+    mod.aulas.forEach((a,ai)=>{
+      const idx=n;
+      const done=(prog['done_'+CURSO_ID]||[]).includes(idx);
+      const li=document.createElement('div');
+      li.className='sb-aula'+(idx===aulaAtual?' active':'')+(done?' done':'');
+      li.innerHTML=`<span class="sb-aula-num">${String(idx+1).padStart(2,'0')}</span><span class="sb-aula-nome">${a.t}</span>${done?'<span class="sb-aula-check">✓</span>':''}`;
+      li.onclick=()=>irAula(idx);
+      div.appendChild(li);
+      n++;
+    });
+    c.appendChild(div);
+  });
+  const total=totalAulas();
+  const done=(prog['done_'+CURSO_ID]||[]).length;
+  const pct=Math.round((done/total)*100);
+  document.getElementById('progressoPct').textContent=pct+'%';
+  document.getElementById('progressoFill').style.width=pct+'%';
+}
+
+function renderAula(){
+  const a=getAula(aulaAtual);
+  if(!a) return;
+  document.getElementById('mhTitulo').textContent=a.t;
+  document.getElementById('aulaContent').innerHTML=a.c;
+  document.getElementById('btnAnt').disabled=aulaAtual===0;
+  document.getElementById('btnProx').disabled=aulaAtual>=totalAulas()-1;
+  window.scrollTo(0,0);
+}
+
+function irAula(idx){
+  aulaAtual=idx;
+  prog['aula_'+CURSO_ID]=idx;
+  salvar();
+  renderSidebar();
+  renderAula();
+}
+
+function navAula(dir){
+  const n=aulaAtual+dir;
+  if(n>=0&&n<totalAulas()) irAula(n);
+}
+
+function concluirAula(){
+  if(!prog['done_'+CURSO_ID]) prog['done_'+CURSO_ID]=[];
+  if(!prog['done_'+CURSO_ID].includes(aulaAtual)) prog['done_'+CURSO_ID].push(aulaAtual);
+  salvar();
+  renderSidebar();
+  if(aulaAtual<totalAulas()-1) navAula(1);
+  else{alert('🎉 Parabéns! Você concluiu o curso Branding & Posicionamento!');}
+}
+
+function salvar(){
+  const total=totalAulas();
+  const done=(prog['done_'+CURSO_ID]||[]).length;
+  prog[CURSO_ID]=Math.round((done/total)*100);
+  localStorage.setItem('ct_progresso_'+(sessao?.email||''),JSON.stringify(prog));
+}
+
+renderSidebar();
+renderAula();
+</script>
+</body>
+</html>

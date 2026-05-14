@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Carlos Tattoo BH — Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;600;700&family=Raleway:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Raleway',sans-serif;background:#0f0d08;color:#EDE4D4;min-height:100vh;font-size:15px;}
+*{cursor:default;}
+
+/* LOGIN */
+#loginScreen{position:fixed;inset:0;background:linear-gradient(135deg,#0a0702,#1a1208);display:flex;justify-content:center;align-items:center;z-index:99999;padding:20px;}
+.login-box{background:#1f1a10;border:1px solid rgba(201,168,76,.25);border-radius:16px;padding:44px 36px;width:100%;max-width:400px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.8);animation:appear .3s ease;}
+@keyframes appear{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
+.login-logo{font-size:44px;margin-bottom:10px;}
+.login-box h2{font-family:'Cinzel Decorative',cursive;font-size:20px;color:#C9A84C;margin-bottom:6px;}
+.login-box p{font-size:13px;color:rgba(200,184,152,.5);margin-bottom:28px;}
+.login-input{width:100%;padding:15px 18px;background:#2a2010;border:2px solid rgba(201,168,76,.2);color:#EDE4D4;font-size:17px;font-family:'Raleway',sans-serif;font-weight:600;outline:none;border-radius:8px;text-align:center;letter-spacing:4px;margin-bottom:14px;transition:border-color .2s;}
+.login-input:focus{border-color:#C9A84C;}
+.login-input::placeholder{letter-spacing:0;font-weight:400;color:rgba(200,184,152,.3);}
+.btn-login{width:100%;background:linear-gradient(135deg,#A07830,#C9A84C);color:#0a0500;font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;font-weight:700;padding:16px;border:none;border-radius:8px;cursor:pointer;box-shadow:0 6px 0 #4A3410;transition:all .15s;text-transform:uppercase;}
+.btn-login:hover{transform:translateY(-2px);box-shadow:0 8px 0 #4A3410;}
+.btn-login:active{transform:translateY(4px);box-shadow:0 2px 0 #4A3410;}
+.login-erro{color:#fca5a5;font-size:13px;margin-top:10px;min-height:18px;font-weight:700;}
+.login-hint{color:rgba(200,184,152,.3);font-size:12px;margin-top:10px;}
+
+/* ADMIN PANEL */
+#adminPanel{display:none;}
+.admin-header{background:linear-gradient(135deg,#C9A84C,#E8C96A);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.admin-header h1{font-family:'Cinzel Decorative',cursive;font-size:18px;color:#0a0500;}
+.admin-header-btns{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.btn-sair{background:rgba(0,0,0,.2);color:#0a0500;border:none;padding:8px 16px;border-radius:6px;font-weight:700;font-size:13px;cursor:pointer;font-family:'Raleway',sans-serif;}
+.btn-back{color:#0a0500;font-weight:700;font-size:13px;text-decoration:none;background:rgba(0,0,0,.15);padding:8px 14px;border-radius:6px;}
+
+.admin-body{padding:24px;max-width:1100px;margin:auto;}
+
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:26px;}
+.stat-card{background:#1f1a10;border-radius:12px;padding:18px;text-align:center;border:1px solid rgba(201,168,76,.18);}
+.stat-num{font-family:'Cinzel Decorative',cursive;font-size:34px;color:#C9A84C;display:block;line-height:1;}
+.stat-label{font-size:12px;color:rgba(200,184,152,.55);margin-top:4px;}
+
+.section{background:#1f1a10;border-radius:12px;padding:22px;margin-bottom:20px;border:1px solid rgba(201,168,76,.18);}
+.section h2{font-family:'Cinzel',serif;font-size:16px;margin-bottom:16px;color:#C9A84C;text-transform:uppercase;letter-spacing:2px;}
+
+.aniv-card{background:#1a2a1a;border:1px solid rgba(46,204,113,.3);border-radius:10px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.aniv-hoje{background:#2a2a0a;border-color:rgba(255,215,0,.4);}
+.aniv-info b{font-size:15px;display:block;margin-bottom:2px;}
+.aniv-info span{font-size:12px;color:rgba(200,184,152,.55);}
+.aniv-badge{border-radius:20px;padding:4px 12px;font-weight:800;font-size:12px;}
+.badge-hoje{background:#ffd700;color:#000;}
+.badge-dias{background:#2ecc71;color:#000;}
+.btn-wpp{background:#25D366;color:#fff;border:none;padding:9px 16px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:'Raleway',sans-serif;}
+.btn-wpp:hover{background:#1ebe5d;}
+
+.search-inp{width:100%;padding:12px 16px;border-radius:8px;border:2px solid rgba(201,168,76,.2);background:#2a2010;color:#EDE4D4;font-size:15px;font-family:'Raleway',sans-serif;outline:none;margin-bottom:16px;}
+.search-inp:focus{border-color:#C9A84C;}
+.search-inp::placeholder{color:rgba(200,184,152,.35);}
+
+.btn-export{background:#C9A84C;color:#0a0500;border:none;padding:12px 22px;border-radius:8px;font-weight:800;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;margin-bottom:14px;font-family:'Raleway',sans-serif;}
+.btn-export:hover{background:#E8C96A;}
+.btn-clear{background:transparent;color:#e53935;border:2px solid #e53935;padding:10px 16px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;margin-left:8px;font-family:'Raleway',sans-serif;}
+
+.cl-table{width:100%;border-collapse:collapse;font-size:13px;}
+.cl-table th{background:#2a2010;padding:12px 14px;text-align:left;font-size:12px;color:rgba(200,184,152,.55);font-weight:700;border-bottom:2px solid rgba(201,168,76,.15);font-family:'Cinzel',serif;letter-spacing:1px;text-transform:uppercase;}
+.cl-table td{padding:12px 14px;border-bottom:1px solid rgba(201,168,76,.08);vertical-align:top;}
+.cl-table tr:hover td{background:rgba(201,168,76,.03);}
+.aniv-warn{color:#ffd700;font-weight:800;}
+.vazio{color:rgba(200,184,152,.4);font-size:14px;text-align:center;padding:30px;}
+
+@media(max-width:600px){
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .admin-body{padding:14px;}
+  .cl-table th:nth-child(3),.cl-table td:nth-child(3){display:none;}
+}
+
+/* GESTÃO USUÁRIOS */
+.tabs-admin{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;}
+.tab-btn{background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.15);color:rgba(201,168,76,.55);padding:10px 18px;border-radius:8px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;cursor:pointer;transition:.2s;text-transform:uppercase;}
+.tab-btn.active{background:rgba(201,168,76,.15);border-color:rgba(201,168,76,.4);color:#E8B800;}
+.badge-tipo{padding:4px 10px;border-radius:20px;font-size:10px;font-family:'Cinzel',serif;letter-spacing:1px;text-transform:uppercase;display:inline-block;}
+.badge-tattoo{background:rgba(139,26,26,.2);color:#e74c3c;}
+.badge-curso{background:rgba(201,168,76,.15);color:#E8B800;}
+.badge-areola{background:rgba(201,160,160,.15);color:#C9A0A0;}
+.badge-queimadura{background:rgba(255,140,0,.15);color:#ff8c00;}
+.btn-acao{padding:6px 12px;border-radius:6px;font-size:10px;font-family:'Cinzel',serif;letter-spacing:1px;cursor:pointer;border:1px solid;transition:.2s;text-transform:uppercase;background:none;}
+.btn-liberar{border-color:rgba(39,174,96,.4);color:#27ae60;}
+.btn-bloquear{border-color:rgba(231,76,60,.4);color:#e74c3c;}
+.btn-reset{border-color:rgba(52,152,219,.4);color:#3498db;}
+.btn-wpp-s{border-color:rgba(37,211,102,.4);color:#25d366;}
+.filtro-bar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.filtro-select{background:#1f1a10;border:1px solid rgba(201,168,76,.2);color:#C9A84C;padding:8px 14px;border-radius:8px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;}
+.modal-u{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:999;align-items:center;justify-content:center;padding:20px;}
+.modal-u.open{display:flex;}
+.modal-u-box{background:#1f1a10;border:1px solid rgba(201,168,76,.25);border-radius:16px;padding:32px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;}
+.mu-title{font-family:'Cinzel Decorative',cursive;font-size:18px;color:#C9A84C;margin-bottom:20px;}
+.mu-f{margin-bottom:14px;}
+.mu-f label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(201,168,76,.5);text-transform:uppercase;display:block;margin-bottom:6px;}
+.mu-f input,.mu-f select{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.15);border-radius:8px;padding:12px;color:#EDE4D4;font-size:14px;font-family:'Raleway',sans-serif;}
+.mu-prods{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;}
+.mu-pc{display:flex;align-items:center;gap:8px;font-size:12px;color:#C9B89A;}
+.mu-pc input{width:14px;height:14px;flex-shrink:0;}
+.btn-criar-u{background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;border:none;padding:14px;border-radius:10px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;cursor:pointer;width:100%;margin-top:12px;}
+.senha-box{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:8px;padding:14px;margin-top:14px;display:none;}
+.senha-box p{font-family:'Cinzel',serif;font-size:11px;color:#C9A84C;margin-bottom:4px;}
+.senha-box strong{font-size:18px;color:#E8B800;display:block;margin:6px 0;letter-spacing:2px;}
+.btn-cp-senha{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.2);color:#C9A84C;padding:8px 14px;border-radius:6px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;cursor:pointer;margin-right:8px;}
+
+
+/* ═══ CONTADOR DE ACESSOS ═══ */
+.acesso-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;}
+.acesso-card{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.15);border-radius:12px;padding:20px;text-align:center;}
+.acesso-n{font-family:'Cinzel Decorative',cursive;font-size:32px;color:#E8B800;display:block;line-height:1;}
+.acesso-l{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(201,168,76,.5);text-transform:uppercase;margin-top:6px;display:block;}
+.acesso-chart{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.1);border-radius:12px;padding:24px;margin-bottom:20px;}
+.acesso-chart-title{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:rgba(201,168,76,.6);text-transform:uppercase;margin-bottom:16px;}
+.acesso-bar-wrap{display:flex;flex-direction:column;gap:10px;}
+.acesso-bar-row{display:flex;align-items:center;gap:12px;}
+.acesso-bar-label{font-family:'Cinzel',serif;font-size:10px;color:rgba(201,168,76,.5);width:80px;text-align:right;flex-shrink:0;}
+.acesso-bar-bg{flex:1;height:20px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden;}
+.acesso-bar-fill{height:100%;border-radius:4px;transition:width .8s ease;}
+.acesso-bar-fill.tattoo{background:linear-gradient(90deg,#A07830,#E8B800);}
+.acesso-bar-fill.cursos{background:linear-gradient(90deg,#1a7a4a,#27ae60);}
+.acesso-bar-val{font-family:'Cinzel',serif;font-size:10px;color:#E8B800;width:36px;flex-shrink:0;}
+.acesso-lista{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.1);border-radius:12px;padding:16px;}
+.acesso-lista-title{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:rgba(201,168,76,.6);text-transform:uppercase;margin-bottom:12px;}
+.acesso-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.acesso-row:last-child{border-bottom:none;}
+.acesso-data{font-family:'Cinzel',serif;font-size:10px;color:rgba(237,228,212,.6);}
+.acesso-vals{display:flex;gap:16px;}
+.acesso-val-t{font-family:'Cinzel',serif;font-size:10px;color:#E8B800;}
+.acesso-val-c{font-family:'Cinzel',serif;font-size:10px;color:#27ae60;}
+.acesso-total{font-family:'Cinzel',serif;font-size:10px;color:rgba(201,168,76,.4);}
+
+
+/* ═══ GRÁFICO VENDAS ═══ */
+.grafico-wrap{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.1);border-radius:12px;padding:24px;margin-bottom:20px;}
+.grafico-titulo{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:rgba(201,168,76,.6);text-transform:uppercase;margin-bottom:20px;}
+.grafico-bars{display:flex;align-items:flex-end;gap:8px;height:120px;}
+.grafico-bar-col{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;}
+.grafico-bar{width:100%;border-radius:4px 4px 0 0;transition:height .5s;min-height:4px;background:linear-gradient(to top,#A07830,#E8B800);}
+.grafico-bar-label{font-family:'Cinzel',serif;font-size:8px;color:rgba(201,168,76,.4);letter-spacing:1px;white-space:nowrap;}
+.grafico-bar-val{font-family:'Cinzel',serif;font-size:9px;color:rgba(201,168,76,.6);}
+.resumo-mes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
+.rm-card{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.12);border-radius:10px;padding:16px;text-align:center;}
+.rm-n{font-family:'Cinzel Decorative',cursive;font-size:22px;color:#E8B800;display:block;line-height:1;}
+.rm-l{font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;color:rgba(201,168,76,.4);text-transform:uppercase;margin-top:4px;display:block;}
+
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">🔐</div>
+    <h2>Carlos Tattoo BH</h2>
+    <p>Painel Administrativo — Acesso Restrito</p>
+    <input class="login-input" id="senhaInput" type="password" placeholder="Digite a senha"
+      autocomplete="off" onkeydown="if(event.key==='Enter')tentarLogin()">
+    <button class="btn-login" onclick="tentarLogin()">ENTRAR NO PAINEL</button>
+    <div class="login-erro" id="loginErro"></div>
+    <div class="login-hint" id="loginHint"></div>
+  </div>
+</div>
+
+<!-- PAINEL ADMIN -->
+<div id="adminPanel">
+  <div class="admin-header">
+    <h1>Painel Admin — Carlos Tattoo BH</h1>
+    <div class="admin-header-btns">
+      <a href="index.html" class="btn-back">← Voltar ao Site</a>
+      <button class="btn-sair" onclick="sair()">Sair</button>
+    </div>
+  </div>
+  <div class="admin-body">
+    <div class="stats-grid" id="statsGrid"></div>
+
+    <!-- ABAS PRINCIPAIS -->
+    <div class="tabs-admin">
+      <button class="tab-btn active" onclick="mudaTab('leads')" id="tab-leads">👥 Leads Tatuagem</button>
+      <button class="tab-btn" onclick="mudaTab('acessos')" id="tab-acessos">📊 Acessos</button>
+      <button class="tab-btn" onclick="mudaTab('vendas')" id="tab-vendas">💰 Vendas</button>
+      <button class="tab-btn" onclick="mudaTab('cursos')" id="tab-cursos">🎓 Leads Cursos</button>
+      <button class="tab-btn" onclick="mudaTab('usuarios')" id="tab-usuarios">🔐 Membros</button>
+      <button class="tab-btn" onclick="mudaTab('especiais')" id="tab-especiais">💗 Atend. Especial</button>
+      <button class="tab-btn" onclick="mudaTab('depoimentos')" id="tab-depoimentos">💬 Depoimentos</button>
+      <button class="tab-btn" onclick="mudaTab('aniversarios')" id="tab-aniversarios">🎂 Aniversários</button>
+    </div>
+
+    <!-- ABA LEADS TATUAGEM -->
+    <div id="aba-leads" class="aba-section">
+      <div class="section">
+        <h2>👥 Leads de Tatuagem</h2>
+        <div class="filtro-bar">
+          <button class="btn-export" onclick="exportarCSV()">📥 Exportar .csv</button>
+          <button class="btn-clear" onclick="confirmarLimpar()">🗑️ Limpar</button>
+        </div>
+        <input class="search-inp" id="searchInp" placeholder="Buscar por nome, WhatsApp ou cidade..." oninput="renderTabela()">
+        <div id="tabelaClientes"></div>
+      </div>
+    </div>
+
+    <!-- ABA LEADS CURSOS -->
+    <div id="aba-cursos" class="aba-section" style="display:none;">
+      <div class="section">
+        <h2>🎓 Leads de Cursos & Ebooks</h2>
+        <div class="filtro-bar">
+          <select class="filtro-select" id="filtroCurso" onchange="renderLeadsCursos()">
+            <option value="">Todos os produtos</option>
+            <option>Instagram para Tatuadores</option>
+            <option>Tráfego Pago para Tatuadores</option>
+            <option>Branding & Posicionamento</option>
+            <option>Mentoria VIP 1:1</option>
+            <option>Ebook Iniciante — Tráfego Tattoo</option>
+            <option>Ebook Instagram — Tattoo que Vende</option>
+            <option>Ebook Avançado — Posicionamento</option>
+            <option>Pack Templates — Tatuadores</option>
+            <option>Contrato Digital — Tatuadores</option>
+          </select>
+          <button class="btn-export" onclick="exportarCSVCursos()">📥 Exportar .csv</button>
+        </div>
+        <div id="tabelaCursos"></div>
+      </div>
+    </div>
+
+    <!-- ABA MEMBROS -->
+    <div id="aba-usuarios" class="aba-section" style="display:none;">
+      <div class="section">
+        <h2>🔐 Gestão de Membros</h2>
+        <div class="filtro-bar">
+          <button class="btn-export" style="background:linear-gradient(135deg,#27ae60,#2ecc71);color:#fff;border:none;padding:10px 18px;border-radius:8px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;cursor:pointer;" onclick="abrirCriarUsuario()">+ CRIAR MEMBRO</button>
+          <select class="filtro-select" id="filtroStatus" onchange="renderUsuarios()">
+            <option value="">Todos</option>
+            <option value="ativo">Ativos</option>
+            <option value="bloqueado">Bloqueados</option>
+          </select>
+          <button class="btn-export" onclick="exportarCSVUsuarios()">📥 Exportar .csv</button>
+        </div>
+        <div id="tabelaUsuarios"></div>
+      </div>
+    </div>
+
+    <!-- ABA ATENDIMENTO ESPECIAL -->
+    <div id="aba-especiais" class="aba-section" style="display:none;">
+      <div class="section">
+        <h2>💗 Leads Especiais — Confidenciais</h2>
+        <div class="filtro-bar">
+          <select class="filtro-select" id="filtroEspecial" onchange="renderEspeciais()">
+            <option value="">Todos</option>
+            <option value="areola">🎀 Aréolas</option>
+            <option value="queimadura">🔥 Queimaduras</option>
+          </select>
+          <button class="btn-export" onclick="exportarCSVEspeciais()">📥 Exportar .csv</button>
+        </div>
+        <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;color:rgba(201,168,76,.4);margin-bottom:16px;">⚠️ Dados sensíveis — tratar com máximo respeito e discrição</p>
+        <div id="tabelaEspeciais"></div>
+      </div>
+    </div>
+
+
+    <!-- ABA ACESSOS -->
+    <div id="aba-acessos" class="aba-section" style="display:none;">
+      <div class="section">
+        <h2>📊 Contador de Acessos ao Site</h2>
+        <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;color:rgba(201,168,76,.4);margin-bottom:20px;">Dados registrados localmente via navegador. Atualizados em tempo real.</p>
+
+        <!-- STATS HOJE -->
+        <div class="acesso-grid" id="acessoStats">
+          <div class="acesso-card"><span class="acesso-n" id="ac-hoje-total">0</span><span class="acesso-l">Hoje — Total</span></div>
+          <div class="acesso-card"><span class="acesso-n" id="ac-hoje-tattoo">0</span><span class="acesso-l">Hoje — Tatuagem</span></div>
+          <div class="acesso-card"><span class="acesso-n" id="ac-hoje-cursos">0</span><span class="acesso-l">Hoje — Cursos</span></div>
+          <div class="acesso-card"><span class="acesso-n" id="ac-total-geral">0</span><span class="acesso-l">Total Geral (30 dias)</span></div>
+        </div>
+
+        <!-- BARRAS HOJE -->
+        <div class="acesso-chart">
+          <div class="acesso-chart-title">Distribuição de Hoje</div>
+          <div class="acesso-bar-wrap">
+            <div class="acesso-bar-row">
+              <span class="acesso-bar-label">Tatuagem</span>
+              <div class="acesso-bar-bg"><div class="acesso-bar-fill tattoo" id="bar-tattoo" style="width:0%"></div></div>
+              <span class="acesso-bar-val" id="barval-tattoo">0</span>
+            </div>
+            <div class="acesso-bar-row">
+              <span class="acesso-bar-label">Cursos</span>
+              <div class="acesso-bar-bg"><div class="acesso-bar-fill cursos" id="bar-cursos" style="width:0%"></div></div>
+              <span class="acesso-bar-val" id="barval-cursos">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- HISTÓRICO 30 DIAS -->
+        <div class="acesso-lista">
+          <div class="acesso-lista-title">Histórico — Últimos 30 dias</div>
+          <div id="acessoHistorico"></div>
+        </div>
+
+        <div style="margin-top:16px;display:flex;gap:10px;">
+          <button class="btn-export" onclick="exportarAcessos()">📥 Exportar CSV</button>
+          <button class="btn-clear" onclick="limparAcessos()">🗑️ Limpar histórico</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ABA VENDAS -->
+    <div id="aba-vendas" class="aba-section" style="display:none;">
+      <div class="section">
+        <h2>💰 Painel de Vendas</h2>
+        <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;color:rgba(201,168,76,.4);margin-bottom:20px;">Baseado nos leads registrados via modal PIX. Atualize manualmente quando confirmar pagamentos.</p>
+        
+        <div class="resumo-mes">
+          <div class="rm-card"><span class="rm-n" id="vd-mes-total">R$0</span><span class="rm-l">Este mês</span></div>
+          <div class="rm-card"><span class="rm-n" id="vd-qtd">0</span><span class="rm-l">Vendas confirmadas</span></div>
+          <div class="rm-card"><span class="rm-n" id="vd-ticket">R$0</span><span class="rm-l">Ticket médio</span></div>
+        </div>
+
+        <div class="grafico-wrap">
+          <div class="grafico-titulo">Vendas por produto — últimos registros</div>
+          <div class="grafico-bars" id="graficoBars"></div>
+        </div>
+
+        <div class="section" style="margin-top:16px;">
+          <h2>Registrar venda manual</h2>
+          <p style="font-family:'Cinzel',serif;font-size:10px;color:rgba(201,168,76,.4);margin-bottom:14px;">Quando confirmar um PIX manualmente, registre aqui para o painel ficar atualizado.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;">
+            <select class="filtro-select" id="vendaProduto">
+              <option value="Instagram para Tatuadores|147">Instagram para Tatuadores — R$147</option>
+              <option value="Tráfego Pago para Tatuadores|297">Tráfego Pago — R$297</option>
+              <option value="Branding & Posicionamento|197">Branding & Posicionamento — R$197</option>
+              <option value="Mentoria VIP 1:1|997">Mentoria VIP — R$997</option>
+              <option value="Ebook Tráfego|47">Ebook Tráfego — R$47</option>
+              <option value="Ebook Instagram|47">Ebook Instagram — R$47</option>
+              <option value="Ebook Posicionamento|97">Ebook Posicionamento — R$97</option>
+              <option value="Pack Templates|47">Pack Templates — R$47</option>
+              <option value="Contrato Digital|27">Contrato Digital — R$27</option>
+            </select>
+            <button class="btn-export" style="background:linear-gradient(135deg,#27ae60,#2ecc71);color:#fff;border:none;" onclick="registrarVenda()">+ REGISTRAR VENDA</button>
+          </div>
+          <div id="listaVendas"></div>
+          <button class="btn-export" onclick="exportarVendas()" style="margin-top:12px;">📥 Exportar vendas CSV</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABA DEPOIMENTOS -->
+    <div id="aba-depoimentos" class="aba-section" style="display:none;">
+      <div class="section">
+        <h2>💬 Depoimentos Pendentes de Aprovação</h2>
+        <div id="depPendentes"></div>
+      </div>
+    </div>
+
+    <!-- ABA ANIVERSÁRIOS -->
+    <div id="aba-aniversarios" class="aba-section" style="display:none;">
+      <div class="section">
+        <h2>🎂 Aniversariantes Próximos (2 dias)</h2>
+        <div id="aniversariantes"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SENHA='459fyg59';
+let tentativas=0;
+
+if(sessionStorage.getItem('ctbh_admin')==='ok'){
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('adminPanel').style.display='block';
+  renderAll();
+}
+
+function tentarLogin(){
+  const s=document.getElementById('senhaInput').value;
+  if(tentativas>=5){document.getElementById('loginErro').textContent='Muitas tentativas. Recarregue a página.';return;}
+  if(s===SENHA){
+    sessionStorage.setItem('ctbh_admin','ok');
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('adminPanel').style.display='block';
+    renderAll();
+  } else {
+    tentativas++;
+    const rest=5-tentativas;
+    document.getElementById('loginErro').textContent='Senha incorreta.';
+    document.getElementById('loginHint').textContent=rest>0?`${rest} tentativa(s) restante(s)`:'';
+    if(tentativas>=5){document.getElementById('senhaInput').disabled=true;document.getElementById('loginErro').textContent='Muitas tentativas.';}
+    document.getElementById('senhaInput').value='';
+    document.getElementById('senhaInput').focus();
+    // shake
+    const b=document.querySelector('.login-box');
+    b.style.transform='translateX(-8px)';setTimeout(()=>b.style.transform='translateX(8px)',100);setTimeout(()=>b.style.transform='translateX(0)',200);
+  }
+}
+
+function sair(){sessionStorage.removeItem('ctbh_admin');location.reload();}
+
+function getClientes(){return JSON.parse(localStorage.getItem('ctbh_leads')||'[]');}
+
+function diasAniversario(anivStr){
+  if(!anivStr)return null;
+  const hoje=new Date();
+  const p=anivStr.split('-');
+  let mes,dia;
+  if(p.length===3){mes=Number(p[1]);dia=Number(p[2]);}
+  else{mes=Number(p[0]);dia=Number(p[1]);}
+  if(isNaN(mes)||isNaN(dia))return null;
+  const anivEsteAno=new Date(hoje.getFullYear(),mes-1,dia);
+  return Math.ceil((anivEsteAno-hoje)/(1000*60*60*24));
+}
+
+function fmtData(str){if(!str)return '-';try{return new Date(str).toLocaleDateString('pt-BR');}catch(e){return str;}}
+
+function renderStats(){
+  const lista=getClientes();
+  const c=lista.filter(x=>x.aniversario);
+  let hoje=0;lista.forEach(x=>{if(diasAniversario(x.aniversario)===0)hoje++;});
+  document.getElementById('statsGrid').innerHTML=`
+    <div class="stat-card"><span class="stat-num">${lista.length}</span><span class="stat-label">Clientes cadastrados</span></div>
+    <div class="stat-card"><span class="stat-num">${c.length}</span><span class="stat-label">Com aniversário</span></div>
+    <div class="stat-card"><span class="stat-num">${hoje}</span><span class="stat-label">Aniversário hoje</span></div>
+    <div class="stat-card"><span class="stat-num">${lista.filter(x=>x.tel||x.whatsapp).length}</span><span class="stat-label">Com WhatsApp</span></div>`;
+}
+
+function renderAniversariantes(){
+  const lista=getClientes();
+  const prox=lista.filter(c=>{const d=diasAniversario(c.aniversario);return d!==null&&d>=0&&d<=2;}).sort((a,b)=>diasAniversario(a.aniversario)-diasAniversario(b.aniversario));
+  const el=document.getElementById('aniversariantes');
+  if(!prox.length){el.innerHTML='<div class="vazio">Nenhum aniversariante nos próximos 2 dias</div>';return;}
+  el.innerHTML=prox.map(c=>{
+    const d=diasAniversario(c.aniversario);
+    const badge=d===0?`<span class="aniv-badge badge-hoje">🎉 HOJE!</span>`:`<span class="aniv-badge badge-dias">${d} dia(s)</span>`;
+    const tel=c.tel||c.whatsapp||'';
+    const msg=encodeURIComponent(`Oi ${(c.nome||'').split(' ')[0]}! Feliz Aniversário! 🎂🎉\n\nO Carlos Tattoo BH tem um presente especial para você!\n\nUse o cupom *SABOREANIV* e ganhe 10% de desconto!\n\nAcesse: https://carlostattoo.com.br`);
+    const wppBtn=tel?`<button class="btn-wpp" onclick="window.open('https://wa.me/55${tel.replace(/\D/g,'')}?text=${msg}')">📲 Enviar mensagem</button>`:`<span style="color:rgba(200,184,152,.35);font-size:12px;">Sem WhatsApp</span>`;
+    return `<div class="aniv-card ${d===0?'aniv-hoje':''}">
+      <div class="aniv-info"><b>${c.nome||'—'}</b><span>📱 ${tel||'Não informado'} | ${d===0?'🎂 Hoje!':d+' dia(s)'}</span></div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">${badge}${wppBtn}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderTabela(){
+  const lista=getClientes();
+  const busca=(document.getElementById('searchInp')?.value||'').toLowerCase();
+  const filtrado=lista.filter(c=>(c.nome||'').toLowerCase().includes(busca)||(c.tel||'').includes(busca)||(c.cidade||'').toLowerCase().includes(busca)||(c.email||'').toLowerCase().includes(busca)).reverse();
+  const el=document.getElementById('tabelaClientes');
+  if(!filtrado.length){el.innerHTML=`<div class="vazio">${lista.length===0?'Nenhum cliente cadastrado ainda':'Nenhum cliente encontrado'}</div>`;return;}
+  el.innerHTML=`<table class="cl-table"><thead><tr><th>Nome</th><th>WhatsApp</th><th>Cidade</th><th>Aniversário</th><th>Cadastro</th><th>Ação</th></tr></thead><tbody>
+    ${filtrado.map(c=>{
+      const d=diasAniversario(c.aniversario);
+      const anivTexto=c.aniversario?(d===0?`${fmtData(c.aniversario)} 🎂`:d!==null&&d<=2?`${fmtData(c.aniversario)} (${d}d)`:fmtData(c.aniversario)):'-';
+      const anivStyle=d!==null&&d<=2?'class="aniv-warn"':'';
+      const tel=c.tel||c.whatsapp||'';
+      const msgPad=encodeURIComponent(`Oi ${(c.nome||'').split(' ')[0]}! Tudo bem?\n\nSentimos sua falta no Carlos Tattoo BH! 🎨\n\nTemos novidades incríveis esperando por você!\n\nAcesse: https://carlostattoo.com.br`);
+      return `<tr><td><b>${c.nome||'—'}</b></td><td>${tel||'-'}</td><td>${c.cidade||'-'}</td><td ${anivStyle}>${anivTexto}</td><td>${fmtData(c.dataCadastro)}</td><td>${tel?`<button class="btn-wpp" style="padding:6px 12px;font-size:12px" onclick="window.open('https://wa.me/55${tel.replace(/\D/g,'')}?text=${msgPad}')">📲 Msg</button>`:'-'}</td></tr>`;
+    }).join('')}
+  </tbody></table>`;
+}
+
+function exportarCSV(){
+  const lista=getClientes();
+  if(!lista.length){alert('Nenhum cliente para exportar!');return;}
+  const cab=['Nome','WhatsApp','Email','Cidade','Endereço','Aniversário','Estilo','Ideia','Orçamento','Como Encontrou','Data de Cadastro'];
+  const linhas=lista.map(c=>[
+    `"${(c.nome||'').replace(/"/g,'""')}"`,`"${c.tel||c.whatsapp||''}"`,`"${c.email||''}"`,
+    `"${c.cidade||''}"`,`"${c.endereco||''}"`,
+    `"${c.aniversario?new Date(c.aniversario+'T00:00:00').toLocaleDateString('pt-BR'):''}"`,
+    `"${c.estilo||''}"`,`"${(c.ideia||'').replace(/"/g,'""').substring(0,100)}"`,
+    `"${c.orcamento||''}"`,`"${c.como||c.origem||''}"`,
+    `"${c.dataCadastro?new Date(c.dataCadastro).toLocaleDateString('pt-BR'):''}"`,
+  ].join(','));
+  const csv=[cab.join(','),...linhas].join('\n');
+  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download=`clientes_carlos_tattoo_${new Date().toLocaleDateString('pt-BR').replace(/\//g,'-')}.csv`;a.click();URL.revokeObjectURL(url);
+}
+
+function confirmarLimpar(){
+  if(confirm('Tem certeza? Esta ação apaga TODOS os clientes e não pode ser desfeita!')){
+    localStorage.removeItem('ctbh_leads');renderAll();alert('Todos os clientes foram removidos.');
+  }
+}
+
+function renderDepoimentos(){
+  const el=document.getElementById('depPendentes');
+  if(!el)return;
+  const todos=JSON.parse(localStorage.getItem('ctbh_deps_pendentes')||'[]');
+  const pendentes=todos.filter(d=>!d.aprovado);
+  const aprovados=todos.filter(d=>d.aprovado);
+
+  if(!todos.length){el.innerHTML='<div class="vazio">Nenhum depoimento ainda.</div>';return;}
+
+  let html='';
+
+  if(pendentes.length){
+    html+=`<h3 style="font-family:'Cinzel',serif;font-size:13px;letter-spacing:2px;color:#ff9800;text-transform:uppercase;margin-bottom:12px;">⏳ Aguardando aprovação (${pendentes.length})</h3>`;
+    html+=pendentes.map(d=>`
+      <div style="background:#1a1a0a;border:1px solid rgba(255,152,0,.3);border-radius:10px;padding:16px;margin-bottom:10px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:10px;">
+          <div>
+            <b style="font-size:15px;">${d.nome}</b>
+            <span style="color:#888;font-size:12px;margin-left:8px;">📍 ${d.cidade}</span>
+            <span style="color:#ff9800;margin-left:8px;font-size:14px;">${'★'.repeat(d.estrelas)}</span>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button onclick="aprovarDep(${d.id})" style="background:#2ecc71;color:#fff;border:none;padding:8px 16px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;">✓ Aprovar</button>
+            <button onclick="rejeitarDep(${d.id})" style="background:#e53935;color:#fff;border:none;padding:8px 16px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;">✕ Rejeitar</button>
+          </div>
+        </div>
+        <p style="font-size:14px;color:#ccc;line-height:1.6;font-style:italic;">"${d.texto}"</p>
+        <span style="font-size:11px;color:#555;">${new Date(d.data).toLocaleDateString('pt-BR')}</span>
+      </div>`).join('');
+  }
+
+  if(aprovados.length){
+    html+=`<h3 style="font-family:'Cinzel',serif;font-size:13px;letter-spacing:2px;color:#2ecc71;text-transform:uppercase;margin:20px 0 12px;">✓ Aprovados e publicados (${aprovados.length})</h3>`;
+    html+=aprovados.map(d=>`
+      <div style="background:#0a1a0a;border:1px solid rgba(46,204,113,.2);border-radius:10px;padding:14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+        <div>
+          <b>${d.nome}</b> — <span style="color:#888;font-size:12px;">${d.cidade}</span>
+          <span style="color:#ffd700;margin-left:8px;font-size:13px;">${'★'.repeat(d.estrelas)}</span>
+          <p style="font-size:13px;color:#aaa;margin-top:4px;font-style:italic;">"${d.texto.substring(0,80)}..."</p>
+        </div>
+        <button onclick="rejeitarDep(${d.id})" style="background:transparent;color:#e53935;border:1px solid #e53935;padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer;flex-shrink:0;">Remover</button>
+      </div>`).join('');
+  }
+
+  el.innerHTML=html||'<div class="vazio">Nenhum depoimento ainda.</div>';
+}
+
+function aprovarDep(id){
+  const todos=JSON.parse(localStorage.getItem('ctbh_deps_pendentes')||'[]');
+  const idx=todos.findIndex(d=>d.id===id);
+  if(idx>=0)todos[idx].aprovado=true;
+  localStorage.setItem('ctbh_deps_pendentes',JSON.stringify(todos));
+  renderAll();
+}
+
+function rejeitarDep(id){
+  if(!confirm('Remover este depoimento?'))return;
+  const todos=JSON.parse(localStorage.getItem('ctbh_deps_pendentes')||'[]');
+  localStorage.setItem('ctbh_deps_pendentes',JSON.stringify(todos.filter(d=>d.id!==id)));
+  renderAll();
+}
+
+function renderAll(){renderStats();renderAniversariantes();renderTabela();renderDepoimentos();}
+setInterval(()=>{if(sessionStorage.getItem('ctbh_admin')==='ok')renderAll();},30000);
+
+// ── ABAS ──
+function mudaTab(tab){
+  ['leads','cursos','usuarios','especiais','depoimentos','aniversarios'].forEach(t=>{
+    const el=document.getElementById('aba-'+t);
+    const btn=document.getElementById('tab-'+t);
+    if(el) el.style.display=t===tab?'block':'none';
+    if(btn) btn.classList.toggle('active',t===tab);
+  });
+  if(tab==='usuarios') renderUsuarios();
+  if(tab==='cursos') renderLeadsCursos();
+  if(tab==='especiais') renderEspeciais();
+}
+
+// ── GESTÃO DE USUÁRIOS ──
+let usuarioEditando=null;
+
+function abrirCriarUsuario(){
+  usuarioEditando=null;
+  document.getElementById('modalUsuarioTitle').textContent='Criar Novo Membro';
+  document.getElementById('muNome').value='';
+  document.getElementById('muEmail').value='';
+  document.querySelectorAll('.mu-prods input').forEach(c=>c.checked=false);
+  document.getElementById('senhaBox').style.display='none';
+  document.getElementById('btnSalvarU').textContent='CRIAR MEMBRO E GERAR SENHA →';
+  document.getElementById('modalUsuario').classList.add('open');
+}
+function fecharModalUsuario(){document.getElementById('modalUsuario').classList.remove('open');}
+
+function gerarSenha(){
+  const chars='ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+  let s='Tattoo@';
+  for(let i=0;i<6;i++) s+=chars[Math.floor(Math.random()*chars.length)];
+  return s;
+}
+
+let _credenciais={};
+
+function salvarUsuario(){
+  const nome=document.getElementById('muNome').value.trim();
+  const email=document.getElementById('muEmail').value.trim().toLowerCase();
+  if(!nome||!email){alert('Preencha nome e email.');return;}
+  const produtos=[...document.querySelectorAll('.mu-prods input:checked')].map(c=>c.value);
+  const usuarios=JSON.parse(localStorage.getItem('ct_usuarios')||'[]');
+
+  if(usuarioEditando){
+    const u=usuarios.find(x=>x.email===usuarioEditando);
+    if(u){u.nome=nome;u.produtos=produtos;}
+    localStorage.setItem('ct_usuarios',JSON.stringify(usuarios));
+    fecharModalUsuario();renderUsuarios();alert('Membro atualizado!');return;
+  }
+
+  if(usuarios.find(u=>u.email===email)){alert('Email já cadastrado.');return;}
+  const senha=gerarSenha();
+  const novoUser={nome,email,senha:btoa(senha),produtos,criado:new Date().toISOString(),firstLogin:true,bloqueado:false,tentativas:0};
+  usuarios.push(novoUser);
+  localStorage.setItem('ct_usuarios',JSON.stringify(usuarios));
+
+  _credenciais={nome,email,senha};
+  document.getElementById('senhaGerada').textContent=`Login: ${email}  |  Senha: ${senha}`;
+  document.getElementById('senhaBox').style.display='block';
+  document.getElementById('btnSalvarU').textContent='✓ MEMBRO CRIADO';
+  renderUsuarios();
+}
+
+function copiarCredenciais(){
+  const txt=`Olá ${_credenciais.nome}! Seu acesso à área de membros Carlos Tattoo BH:
+
+Site: carlostattoo.com.br/acesso.html
+Login: ${_credenciais.email}
+Senha: ${_credenciais.senha}
+
+No primeiro acesso você precisará criar uma senha pessoal. 🔒`;
+  navigator.clipboard.writeText(txt).then(()=>alert('Copiado!')).catch(()=>{});
+}
+
+function enviarWppCredenciais(){
+  const txt=`Olá ${_credenciais.nome}! Seu acesso à área de membros Carlos Tattoo BH está pronto! 🎉
+
+📍 Acesse: carlostattoo.com.br/acesso.html
+📧 Login: ${_credenciais.email}
+🔑 Senha: ${_credenciais.senha}
+
+No primeiro acesso crie uma senha pessoal. Qualquer dúvida me chame! 😊`;
+  window.open(`https://wa.me/55${_credenciais.email.replace(/[^0-9]/g,'')}?text=${encodeURIComponent(txt)}`,'_blank');
+}
+
+function renderUsuarios(){
+  const usuarios=JSON.parse(localStorage.getItem('ct_usuarios')||'[]');
+  const filtro=document.getElementById('filtroStatus')?document.getElementById('filtroStatus').value:'';
+  const lista=filtro?usuarios.filter(u=>filtro==='bloqueado'?u.bloqueado:!u.bloqueado):usuarios;
+  const el=document.getElementById('tabelaUsuarios');
+  if(!el) return;
+  if(lista.length===0){el.innerHTML='<p style="color:rgba(201,168,76,.4);font-family:Cinzel,serif;font-size:12px;padding:20px;">Nenhum membro cadastrado ainda.</p>';return;}
+  el.innerHTML=`<table class="cl-table"><thead><tr><th>Nome</th><th>Email</th><th>Produtos</th><th>Status</th><th>Último acesso</th><th>Ações</th></tr></thead><tbody>${
+    lista.map(u=>`<tr>
+      <td><strong>${u.nome||'-'}</strong></td>
+      <td style="font-size:12px;">${u.email}</td>
+      <td style="font-size:11px;max-width:160px;">${(u.produtos||[]).join(', ')||'Nenhum'}</td>
+      <td><span style="color:${u.bloqueado?'#e74c3c':'#27ae60'};font-family:Cinzel,serif;font-size:10px;">${u.bloqueado?'🔴 BLOQUEADO':'🟢 ATIVO'}</span></td>
+      <td style="font-size:11px;">${u.lastLogin?new Date(u.lastLogin).toLocaleDateString('pt-BR'):'-'}</td>
+      <td style="display:flex;gap:6px;flex-wrap:wrap;">
+        <button class="btn-acao btn-reset" onclick="resetarSenha('${u.email}')">🔑 Reset</button>
+        <button class="btn-acao ${u.bloqueado?'btn-liberar':'btn-bloquear'}" onclick="toggleBloqueio('${u.email}')">${u.bloqueado?'✓ Liberar':'⛔ Bloquear'}</button>
+        <button class="btn-acao btn-wpp-s" onclick="abrirWppUser('${u.email}','${u.nome||''}')">📱 WPP</button>
+        <button class="btn-acao btn-reset" onclick="editarUsuario('${u.email}')">✏️ Editar</button>
+      </td>
+    </tr>`).join('')
+  }</tbody></table>`;
+}
+
+function resetarSenha(email){
+  const usuarios=JSON.parse(localStorage.getItem('ct_usuarios')||'[]');
+  const u=usuarios.find(x=>x.email===email);
+  if(!u){alert('Usuário não encontrado.');return;}
+  const nova=gerarSenha();
+  u.senha=btoa(nova);u.firstLogin=true;u.tentativas=0;u.bloqueado=false;
+  localStorage.setItem('ct_usuarios',JSON.stringify(usuarios));
+  _credenciais={nome:u.nome,email,senha:nova};
+  if(confirm(`Nova senha gerada: ${nova}
+
+Copiar para área de transferência?`)){
+    navigator.clipboard.writeText(`Login: ${email} | Senha: ${nova}`).then(()=>alert('Copiado!'));
+  }
+  renderUsuarios();
+}
+
+function toggleBloqueio(email){
+  const usuarios=JSON.parse(localStorage.getItem('ct_usuarios')||'[]');
+  const u=usuarios.find(x=>x.email===email);
+  if(!u) return;
+  u.bloqueado=!u.bloqueado;u.tentativas=0;
+  localStorage.setItem('ct_usuarios',JSON.stringify(usuarios));
+  renderUsuarios();
+}
+
+function editarUsuario(email){
+  const usuarios=JSON.parse(localStorage.getItem('ct_usuarios')||'[]');
+  const u=usuarios.find(x=>x.email===email);
+  if(!u) return;
+  usuarioEditando=email;
+  document.getElementById('modalUsuarioTitle').textContent='Editar Membro';
+  document.getElementById('muNome').value=u.nome||'';
+  document.getElementById('muEmail').value=u.email;
+  document.querySelectorAll('.mu-prods input').forEach(c=>c.checked=(u.produtos||[]).includes(c.value));
+  document.getElementById('senhaBox').style.display='none';
+  document.getElementById('btnSalvarU').textContent='SALVAR ALTERAÇÕES →';
+  document.getElementById('modalUsuario').classList.add('open');
+}
+
+function abrirWppUser(email,nome){
+  const tel=email.replace(/[^0-9]/g,'');
+  if(tel) window.open(`https://wa.me/55${tel}`,'_blank');
+  else alert('Email não é um número. Use o WhatsApp manualmente para: '+nome+' ('+email+')');
+}
+
+// ── LEADS DE CURSOS ──
+function renderLeadsCursos(){
+  const leads=JSON.parse(localStorage.getItem('ct_leads')||'[]').filter(l=>l.tipo==='curso'||l.origem==='pix'||l.origem==='cartao');
+  const filtro=document.getElementById('filtroCurso')?document.getElementById('filtroCurso').value:'';
+  const lista=filtro?leads.filter(l=>l.produto&&l.produto.toLowerCase().includes(filtro.toLowerCase())):leads;
+  const el=document.getElementById('tabelaCursos');
+  if(!el) return;
+  if(lista.length===0){el.innerHTML='<p style="color:rgba(201,168,76,.4);font-family:Cinzel,serif;font-size:12px;padding:20px;">Nenhum lead de curso ainda.</p>';return;}
+  el.innerHTML=`<table class="cl-table"><thead><tr><th>Nome</th><th>Email</th><th>Produto</th><th>Origem</th><th>Data</th><th>Ação</th></tr></thead><tbody>${
+    lista.map(l=>`<tr>
+      <td><strong>${l.nome||'-'}</strong></td>
+      <td style="font-size:12px;">${l.email||'-'}</td>
+      <td><span style="font-size:12px;color:#E8B800;">${l.produto||'-'}</span></td>
+      <td><span class="badge-tipo ${l.origem==='pix'?'badge-curso':'badge-tattoo'}">${l.origem||'site'}</span></td>
+      <td style="font-size:11px;">${l.data?new Date(l.data).toLocaleDateString('pt-BR'):'-'}</td>
+      <td><button class="btn-acao btn-liberar" onclick="criarAcessoRapido('${l.email}','${l.nome}','${l.produto}')">🔐 Liberar acesso</button></td>
+    </tr>`).join('')
+  }</tbody></table>`;
+}
+
+function criarAcessoRapido(email,nome,produto){
+  if(!email||email==='-'){alert('Email não disponível para este lead.');return;}
+  const map={'Ebook Iniciante — Tráfego Tattoo':'ebook-trafego','Ebook Instagram — Tattoo que Vende':'ebook-instagram','Ebook Avançado — Posicionamento':'ebook-posicionamento','Pack Templates — Tatuadores':'ebook-templates','Contrato Digital — Tatuadores':'ebook-contrato','Instagram para Tatuadores':'curso-instagram','Tráfego Pago para Tatuadores':'curso-trafego','Branding & Posicionamento':'curso-posicionamento','Mentoria VIP 1:1':'curso-mentoria'};
+  const pid=map[produto]||'ebook-trafego';
+  const usuarios=JSON.parse(localStorage.getItem('ct_usuarios')||'[]');
+  let u=usuarios.find(x=>x.email.toLowerCase()===email.toLowerCase());
+  if(u){
+    if(!u.produtos.includes(pid)){u.produtos.push(pid);}
+    localStorage.setItem('ct_usuarios',JSON.stringify(usuarios));
+    alert(`Produto "${produto}" adicionado ao acesso de ${nome||email}.`);
+  } else {
+    const senha=gerarSenha();
+    usuarios.push({nome:nome||email.split('@')[0],email:email.toLowerCase(),senha:btoa(senha),produtos:[pid],criado:new Date().toISOString(),firstLogin:true,bloqueado:false,tentativas:0});
+    localStorage.setItem('ct_usuarios',JSON.stringify(usuarios));
+    _credenciais={nome:nome||email,email:email.toLowerCase(),senha};
+    const txt=`Acesso criado!
+Login: ${email}
+Senha: ${senha}`;
+    if(confirm(txt+'\n\nCopiar credenciais?')){navigator.clipboard.writeText(`Login: ${email} | Senha: ${senha}`);}
+  }
+  mudaTab('usuarios');
+}
+
+// ── LEADS ESPECIAIS ──
+function renderEspeciais(){
+  const areola=JSON.parse(localStorage.getItem('ct_leads_areola')||'[]');
+  const filtro=document.getElementById('filtroEspecial')?document.getElementById('filtroEspecial').value:'';
+  const lista=filtro==='areola'?areola:filtro==='queimadura'?[]:areola;
+  const el=document.getElementById('tabelaEspeciais');
+  if(!el) return;
+  if(lista.length===0){el.innerHTML='<p style="color:rgba(201,168,76,.4);font-family:Cinzel,serif;font-size:12px;padding:20px;">Nenhum lead especial ainda.</p>';return;}
+  el.innerHTML=`<table class="cl-table"><thead><tr><th>Nome</th><th>WhatsApp</th><th>Email</th><th>Tipo</th><th>Data</th><th>Ação</th></tr></thead><tbody>${
+    lista.map(l=>`<tr>
+      <td><strong>${l.nome||'-'}</strong></td>
+      <td>${l.wpp||'-'}</td>
+      <td style="font-size:12px;">${l.email||'-'}</td>
+      <td><span class="badge-tipo badge-areola">🎀 Aréola</span></td>
+      <td style="font-size:11px;">${l.data?new Date(l.data).toLocaleDateString('pt-BR'):'-'}</td>
+      <td><button class="btn-acao btn-wpp-s" onclick="window.open('https://wa.me/55'+('${l.wpp||''}').replace(/[^0-9]/g,''),'_blank')">📱 WPP</button></td>
+    </tr>`).join('')
+  }</tbody></table>`;
+}
+
+function exportarCSVCursos(){
+  const leads=JSON.parse(localStorage.getItem('ct_leads')||'[]').filter(l=>l.tipo==='curso'||l.origem==='pix'||l.origem==='cartao');
+  const csv=['Nome,Email,Produto,Origem,Data',...leads.map(l=>`"${l.nome||''}","${l.email||''}","${l.produto||''}","${l.origem||''}","${l.data||''}"`)].join('
+');
+  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download='leads_cursos.csv';a.click();
+}
+
+function exportarCSVUsuarios(){
+  const u=JSON.parse(localStorage.getItem('ct_usuarios')||'[]');
+  const csv=['Nome,Email,Produtos,Status,Criado',...u.map(x=>`"${x.nome||''}","${x.email}","${(x.produtos||[]).join('|')}","${x.bloqueado?'Bloqueado':'Ativo'}","${x.criado||''}"`)].join('
+');
+  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download='membros.csv';a.click();
+}
+
+function exportarCSVEspeciais(){
+  const l=JSON.parse(localStorage.getItem('ct_leads_areola')||'[]');
+  const csv=['Nome,WhatsApp,Email,Tipo,Data',...l.map(x=>`"${x.nome||''}","${x.wpp||''}","${x.email||''}","${x.tipo||'areola'}","${x.data||''}"`)].join('
+');
+  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download='leads_especiais.csv';a.click();
+}
+
+// Atualizar stats para incluir membros
+const _origRenderStats=window.renderStats;
+setTimeout(()=>{
+  const stats=document.getElementById('statsGrid');
+  if(stats){
+    const usuarios=JSON.parse(localStorage.getItem('ct_usuarios')||'[]');
+    const membros=document.createElement('div');
+    membros.className='stat-card';
+    membros.innerHTML=`<div class="stat-n">${usuarios.length}</div><div class="stat-l">Membros Ativos</div>`;
+    stats.appendChild(membros);
+  }
+},500);
+
+
+// ════════════════════════════════════════
+// CONTADOR DE ACESSOS
+// ════════════════════════════════════════
+function carregarAcessos(){
+  const hoje = new Date().toISOString().split('T')[0];
+  const dadosHoje = JSON.parse(localStorage.getItem('ct_acessos_'+hoje)||'{"tatuagem":0,"cursos":0,"total":0}');
+  const hist = JSON.parse(localStorage.getItem('ct_acessos_hist')||'[]');
+
+  // Stats hoje
+  document.getElementById('ac-hoje-total').textContent = dadosHoje.total||0;
+  document.getElementById('ac-hoje-tattoo').textContent = dadosHoje.tatuagem||0;
+  document.getElementById('ac-hoje-cursos').textContent = dadosHoje.cursos||0;
+
+  // Total 30 dias
+  const total30 = hist.reduce((s,d)=>s+(d.total||0),0);
+  document.getElementById('ac-total-geral').textContent = total30;
+
+  // Barras
+  const maxVal = Math.max(dadosHoje.tatuagem||0, dadosHoje.cursos||0, 1);
+  const pctTattoo = Math.round(((dadosHoje.tatuagem||0)/maxVal)*100);
+  const pctCursos = Math.round(((dadosHoje.cursos||0)/maxVal)*100);
+  document.getElementById('bar-tattoo').style.width = pctTattoo+'%';
+  document.getElementById('bar-cursos').style.width = pctCursos+'%';
+  document.getElementById('barval-tattoo').textContent = dadosHoje.tatuagem||0;
+  document.getElementById('barval-cursos').textContent = dadosHoje.cursos||0;
+
+  // Histórico
+  const histEl = document.getElementById('acessoHistorico');
+  if(!histEl) return;
+  if(hist.length===0){
+    histEl.innerHTML='<p style="font-family:Cinzel,serif;font-size:11px;color:rgba(201,168,76,.3);padding:12px 0;">Nenhum acesso registrado ainda. Os dados aparecem quando alguém visita o site.</p>';
+    return;
+  }
+  const sorted = [...hist].sort((a,b)=>b.data.localeCompare(a.data));
+  histEl.innerHTML = sorted.map(d=>`
+    <div class="acesso-row">
+      <span class="acesso-data">${formatarData(d.data)}</span>
+      <div class="acesso-vals">
+        <span class="acesso-val-t">🖤 ${d.tatuagem||0} tattoo</span>
+        <span class="acesso-val-c">📚 ${d.cursos||0} cursos</span>
+        <span class="acesso-total">Total: ${d.total||0}</span>
+      </div>
+    </div>`).join('');
+}
+
+function formatarData(iso){
+  const [y,m,d] = iso.split('-');
+  const meses = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  return `${d} ${meses[parseInt(m)-1]} ${y}`;
+}
+
+function exportarAcessos(){
+  const hist = JSON.parse(localStorage.getItem('ct_acessos_hist')||'[]');
+  const csv = ['Data,Tatuagem,Cursos,Total',
+    ...hist.map(d=>`${d.data},${d.tatuagem||0},${d.cursos||0},${d.total||0}`)
+  ].join('
+');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'acessos-carlostattoo.csv';
+  a.click();
+}
+
+function limparAcessos(){
+  if(confirm('Limpar todo o histórico de acessos?')){
+    const keys = Object.keys(localStorage).filter(k=>k.startsWith('ct_acessos'));
+    keys.forEach(k=>localStorage.removeItem(k));
+    carregarAcessos();
+    alert('Histórico limpo.');
+  }
+}
+
+// Carregar quando mudar para aba de acessos
+const _mudaTabOrig = mudaTab;
+function mudaTab(tab){
+  _mudaTabOrig(tab);
+  if(tab==='acessos') carregarAcessos();
+}
+
+
+// ═══ VENDAS ═══
+function carregarVendas(){
+  const vendas = JSON.parse(localStorage.getItem('ct_vendas')||'[]');
+  const agora = new Date();
+  const mesAtual = vendas.filter(v=>new Date(v.data).getMonth()===agora.getMonth());
+  const totalMes = mesAtual.reduce((s,v)=>s+(v.valor||0),0);
+  const ticket = mesAtual.length ? Math.round(totalMes/mesAtual.length) : 0;
+  
+  document.getElementById('vd-mes-total').textContent = 'R$'+totalMes.toLocaleString('pt-BR');
+  document.getElementById('vd-qtd').textContent = mesAtual.length;
+  document.getElementById('vd-ticket').textContent = 'R$'+ticket.toLocaleString('pt-BR');
+  
+  // Gráfico por produto
+  const contagem = {};
+  vendas.forEach(v=>{ contagem[v.produto] = (contagem[v.produto]||0) + (v.valor||0); });
+  const maxVal = Math.max(...Object.values(contagem), 1);
+  const bars = document.getElementById('graficoBars');
+  if(bars){
+    bars.innerHTML = Object.entries(contagem).slice(0,8).map(([p,v])=>`
+      <div class="grafico-bar-col">
+        <span class="grafico-bar-val">R$${v}</span>
+        <div class="grafico-bar" style="height:${Math.round((v/maxVal)*100)}px"></div>
+        <span class="grafico-bar-label">${p.split(' ')[0]}</span>
+      </div>`).join('') || '<p style="color:rgba(201,168,76,.3);font-family:Cinzel,serif;font-size:11px;">Nenhuma venda registrada ainda.</p>';
+  }
+  
+  // Lista de vendas
+  const lista = document.getElementById('listaVendas');
+  if(lista){
+    if(!vendas.length){ lista.innerHTML='<p style="color:rgba(201,168,76,.3);font-family:Cinzel,serif;font-size:11px;padding:12px 0;">Nenhuma venda registrada.</p>'; return; }
+    lista.innerHTML = `<table class="cl-table"><thead><tr><th>Produto</th><th>Valor</th><th>Data</th></tr></thead><tbody>${
+      [...vendas].reverse().slice(0,20).map(v=>`<tr>
+        <td>${v.produto}</td>
+        <td style="color:#E8B800;font-family:Cinzel,serif;font-size:11px;">R$${v.valor}</td>
+        <td style="font-size:11px;">${new Date(v.data).toLocaleDateString('pt-BR')}</td>
+      </tr>`).join('')
+    }</tbody></table>`;
+  }
+}
+
+function registrarVenda(){
+  const sel = document.getElementById('vendaProduto').value.split('|');
+  const produto = sel[0], valor = parseInt(sel[1]);
+  const vendas = JSON.parse(localStorage.getItem('ct_vendas')||'[]');
+  vendas.push({produto, valor, data: new Date().toISOString()});
+  localStorage.setItem('ct_vendas', JSON.stringify(vendas));
+  carregarVendas();
+}
+
+function exportarVendas(){
+  const v = JSON.parse(localStorage.getItem('ct_vendas')||'[]');
+  const csv = ['Produto,Valor,Data',...v.map(x=>`"${x.produto}",${x.valor},"${x.data}"`)].join('\n');
+  const a = document.createElement('a'); a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='vendas-carlostattoo.csv'; a.click();
+}
+
+// Estender mudaTab para vendas
+const _mudaTabBase = mudaTab;
+function mudaTab(tab){
+  _mudaTabBase(tab);
+  if(tab==='vendas') carregarVendas();
+  const tabEl = document.getElementById('aba-vendas');
+  if(tabEl) tabEl.style.display = tab==='vendas' ? 'block' : 'none';
+  const btnEl = document.getElementById('tab-vendas');
+  if(btnEl) btnEl.classList.toggle('active', tab==='vendas');
+}
+
+</script>
+
+<!-- MODAL CRIAR USUÁRIO -->
+<div class="modal-u" id="modalUsuario">
+  <div class="modal-u-box">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+      <div class="mu-title" id="modalUsuarioTitle">Criar Novo Membro</div>
+      <button onclick="fecharModalUsuario()" style="background:none;border:none;color:rgba(201,168,76,.5);font-size:22px;cursor:pointer;">✕</button>
+    </div>
+    <div class="mu-f"><label>Nome completo</label><input type="text" id="muNome" placeholder="Nome do cliente"></div>
+    <div class="mu-f"><label>Email (login)</label><input type="email" id="muEmail" placeholder="email@exemplo.com"></div>
+    <div class="mu-f">
+      <label>Produtos liberados</label>
+      <div class="mu-prods">
+        <label class="mu-pc"><input type="checkbox" value="ebook-trafego"> Ebook Tráfego</label>
+        <label class="mu-pc"><input type="checkbox" value="ebook-instagram"> Ebook Instagram</label>
+        <label class="mu-pc"><input type="checkbox" value="ebook-posicionamento"> Ebook Posicionamento</label>
+        <label class="mu-pc"><input type="checkbox" value="ebook-templates"> Pack Templates</label>
+        <label class="mu-pc"><input type="checkbox" value="ebook-contrato"> Contrato Digital</label>
+        <label class="mu-pc"><input type="checkbox" value="curso-instagram"> Curso Instagram</label>
+        <label class="mu-pc"><input type="checkbox" value="curso-trafego"> Curso Tráfego</label>
+        <label class="mu-pc"><input type="checkbox" value="curso-posicionamento"> Curso Posicionamento</label>
+        <label class="mu-pc"><input type="checkbox" value="curso-mentoria"> Mentoria VIP</label>
+      </div>
+    </div>
+    <button class="btn-criar-u" onclick="salvarUsuario()" id="btnSalvarU">CRIAR MEMBRO E GERAR SENHA →</button>
+    <div class="senha-box" id="senhaBox">
+      <p>✅ Membro criado! Envie essas credenciais pelo WhatsApp:</p>
+      <strong id="senhaGerada">-</strong>
+      <div style="margin-top:8px;">
+        <button class="btn-cp-senha" onclick="copiarCredenciais()">📋 Copiar</button>
+        <button class="btn-cp-senha" onclick="enviarWppCredenciais()">📱 Enviar no WhatsApp</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Instagram para Tatuadores — Carlos Tattoo BH</title>
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#0A0702;--d1:#1C1208;--d2:#2A1A08;--g1:#E8B800;--g2:#C9A84C;--g3:#A07830;--t1:#EDE4D4;--t2:#C9B89A;--t3:#9A7A5A;}
+body{font-family:'Raleway',sans-serif;background:var(--bg);color:var(--t1);display:flex;min-height:100vh;}
+.sidebar{width:300px;background:rgba(28,18,8,.97);border-right:1px solid rgba(201,168,76,.1);position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:100;display:flex;flex-direction:column;}
+.sb-header{padding:20px;border-bottom:1px solid rgba(201,168,76,.1);}
+.sb-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.sb-logo img{height:36px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(201,168,76,.4));}
+.sb-titulo{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:var(--g2);text-transform:uppercase;line-height:1.4;}
+.sb-progress-wrap{margin-top:12px;}
+.sb-progress-label{display:flex;justify-content:space-between;font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;color:rgba(201,168,76,.5);text-transform:uppercase;margin-bottom:6px;}
+.sb-progress-bar{height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;}
+.sb-progress-fill{height:100%;background:linear-gradient(90deg,var(--g3),var(--g1));transition:width .5s;}
+.sb-modulos{padding:8px 0;flex:1;}
+.sb-mod-titulo{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:rgba(201,168,76,.35);text-transform:uppercase;padding:12px 20px 4px;}
+.sb-aula{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;transition:.2s;border-left:3px solid transparent;}
+.sb-aula:hover{background:rgba(201,168,76,.05);border-left-color:rgba(201,168,76,.3);}
+.sb-aula.active{background:rgba(201,168,76,.08);border-left-color:var(--g2);}
+.sb-aula.done .sb-aula-nome{color:rgba(201,168,76,.5);}
+.sb-aula-num{font-family:'Cinzel Decorative',cursive;font-size:10px;color:var(--g2);width:22px;flex-shrink:0;}
+.sb-aula-nome{font-size:12px;color:var(--t2);line-height:1.3;flex:1;}
+.sb-aula-check{font-size:11px;color:var(--g2);flex-shrink:0;}
+.sb-footer{padding:16px 20px;border-top:1px solid rgba(201,168,76,.1);}
+.btn-voltar{display:flex;align-items:center;gap:8px;color:rgba(201,168,76,.5);font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;text-decoration:none;transition:.2s;}
+.btn-voltar:hover{color:var(--g2);}
+.main{margin-left:300px;flex:1;display:flex;flex-direction:column;}
+.main-header{background:rgba(28,18,8,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,.1);padding:14px 36px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;gap:12px;}
+.mh-titulo{font-family:'Cinzel',serif;font-size:13px;color:var(--t1);flex:1;}
+.mh-nav{display:flex;gap:8px;flex-shrink:0;}
+.btn-nav-a{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);color:var(--g2);padding:8px 16px;border-radius:8px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;transition:.2s;}
+.btn-nav-a:hover{background:rgba(201,168,76,.2);}
+.btn-nav-a:disabled{opacity:.3;cursor:not-allowed;}
+.btn-concluir{background:linear-gradient(135deg,var(--g3),var(--g1));color:#0a0500;border:none;padding:8px 16px;border-radius:8px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;font-weight:700;transition:.2s;}
+.btn-concluir:hover{transform:translateY(-1px);}
+.aula-wrap{flex:1;padding:36px 40px;max-width:900px;}
+.aula-tag{font-family:'Cinzel',serif;font-size:9px;letter-spacing:4px;color:rgba(201,168,76,.4);text-transform:uppercase;margin-bottom:10px;}
+.aula-h1{font-family:'Cinzel Decorative',cursive;font-size:clamp(20px,2.8vw,34px);color:#fff;margin-bottom:18px;line-height:1.2;}
+.aula-h1 span{color:var(--g1);}
+.aula-intro{font-size:15px;color:var(--t2);line-height:1.9;margin-bottom:28px;padding:18px 22px;background:rgba(201,168,76,.05);border-left:4px solid var(--g2);border-radius:0 10px 10px 0;}
+h2.ah2{font-family:'Cinzel',serif;font-size:17px;color:#fff;font-weight:700;margin:32px 0 12px;padding-bottom:10px;border-bottom:1px solid rgba(201,168,76,.12);display:flex;align-items:center;gap:8px;}
+h2.ah2::before{content:'◆';color:var(--g2);font-size:9px;}
+h3.ah3{font-family:'Cinzel',serif;font-size:14px;color:var(--g2);font-weight:700;margin:20px 0 8px;}
+p.ap{font-size:14px;color:var(--t2);line-height:1.9;margin-bottom:14px;}
+.passo{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.1);border-radius:12px;padding:20px 22px;margin:12px 0;display:flex;gap:14px;}
+.passo-n{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--g3),var(--g2));display:flex;align-items:center;justify-content:center;font-family:'Cinzel Decorative',cursive;font-size:12px;color:#fff;flex-shrink:0;font-weight:900;}
+.passo-body h4{font-family:'Cinzel',serif;font-size:13px;color:#fff;font-weight:700;margin-bottom:6px;}
+.passo-body p{font-size:13px;color:var(--t2);line-height:1.8;margin:0;}
+.passo-body code{font-family:'Courier New',monospace;background:rgba(201,168,76,.1);padding:2px 7px;border-radius:4px;font-size:12px;color:var(--g1);}
+.destaque{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:16px 20px;margin:16px 0;}
+.destaque p{font-size:13px;color:var(--t1);line-height:1.8;margin:0;}
+.destaque strong{color:var(--g1);}
+.alerta{background:rgba(231,76,60,.05);border:1px solid rgba(231,76,60,.2);border-radius:10px;padding:14px 18px;margin:14px 0;}
+.alerta p{font-size:13px;color:#fca5a5;line-height:1.8;margin:0;}
+.dica{background:rgba(39,174,96,.05);border:1px solid rgba(39,174,96,.2);border-radius:10px;padding:14px 18px;margin:14px 0;}
+.dica p{font-size:13px;color:#86efac;line-height:1.8;margin:0;}
+.checklist{list-style:none;margin:12px 0;}
+.checklist li{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--t2);margin-bottom:8px;line-height:1.7;}
+.checklist li::before{content:'✓';color:var(--g2);font-weight:700;flex-shrink:0;}
+.exemplo{background:rgba(52,152,219,.05);border:1px solid rgba(52,152,219,.2);border-radius:10px;padding:16px 20px;margin:14px 0;}
+.exemplo-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(52,152,219,.6);text-transform:uppercase;margin-bottom:8px;}
+.exemplo p{font-size:13px;color:#bfdbfe;line-height:1.8;margin:0;font-style:italic;}
+.aula-nav-bottom{display:flex;gap:12px;justify-content:space-between;margin-top:44px;padding-top:24px;border-top:1px solid rgba(201,168,76,.1);}
+.btn-ant-b{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.15);color:var(--t2);padding:12px 22px;border-radius:10px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;transition:.2s;}
+.btn-ant-b:hover{border-color:rgba(201,168,76,.4);color:var(--g2);}
+.btn-prox-b{background:linear-gradient(135deg,var(--g3),var(--g1));color:#0a0500;padding:12px 24px;border-radius:10px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;cursor:pointer;font-weight:700;border:none;transition:.2s;}
+.btn-prox-b:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(201,168,76,.3);}
+@media(max-width:900px){.sidebar{width:260px;transform:translateX(-100%);transition:transform .3s;}.sidebar.open{transform:translateX(0);}.main{margin-left:0;}.aula-wrap{padding:20px 16px;}.main-header{padding:12px 16px;}}
+</style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sb-header">
+    <div class="sb-logo">
+      <img src="imagens/IPJP8350.JPG" alt="Carlos Tattoo BH" onerror="this.style.display='none'">
+      <span class="sb-titulo">Instagram para Tatuadores</span>
+    </div>
+    <div class="sb-progress-wrap">
+      <div class="sb-progress-label"><span>PROGRESSO</span><span id="progressoPct">0%</span></div>
+      <div class="sb-progress-bar"><div class="sb-progress-fill" id="progressoFill" style="width:0%"></div></div>
+    </div>
+  </div>
+  <div class="sb-modulos" id="sbModulos"></div>
+  <div class="sb-footer"><a href="painel.html" class="btn-voltar">← Voltar ao painel</a></div>
+</aside>
+
+<div class="main">
+  <header class="main-header">
+    <span class="mh-titulo" id="mhTitulo">Carregando...</span>
+    <div class="mh-nav">
+      <button class="btn-nav-a" id="btnAnt" onclick="navAula(-1)" disabled>← Anterior</button>
+      <button class="btn-concluir" onclick="concluirAula()">✓ Concluir</button>
+      <button class="btn-nav-a" id="btnProx" onclick="navAula(1)">Próxima →</button>
+    </div>
+  </header>
+  <div class="aula-wrap" id="aulaContent"></div>
+</div>
+
+<script>
+const sessao = JSON.parse(sessionStorage.getItem('ct_sessao')||'null');
+if(!sessao) window.location.href='acesso.html';
+const CURSO_ID = 'curso-instagram';
+const prog = JSON.parse(localStorage.getItem('ct_progresso_'+(sessao?.email||''))||'{}');
+let aulaAtual = prog['aula_'+CURSO_ID]||0;
+
+const MODULOS = [
+  {mod:'MÓDULO 1 — FUNDAÇÃO DO PERFIL', aulas:[
+    {t:'Boas-vindas ao curso', c:`
+<div class="aula-tag">Módulo 1 · Aula 1</div>
+<h1 class="aula-h1">Boas-vindas ao <span>Instagram para Tatuadores</span></h1>
+<p class="aula-intro">Você está prestes a transformar seu Instagram de um simples portfólio para uma máquina de atrair clientes todo dia. Esse curso foi criado com base em mais de 7 anos de experiência no mercado tattoo de BH e nas estratégias que realmente funcionam em 2026.</p>
+<h2 class="ah2">O que você vai aprender</h2>
+<ul class="checklist">
+  <li>Como configurar seu perfil profissional do zero</li>
+  <li>A estratégia de conteúdo que atrai clientes (não apenas seguidores)</li>
+  <li>Como criar Reels que viralizam e geram agendamentos</li>
+  <li>Stories estratégicos que vendem todos os dias</li>
+  <li>Como usar SEO do Instagram para aparecer nas buscas</li>
+  <li>Hashtags que funcionam de verdade em 2026</li>
+  <li>Análise de métricas para tomar decisões certas</li>
+</ul>
+<div class="destaque"><p><strong>Importante:</strong> Esse curso é 100% prático. Cada aula tem passos específicos para você executar. Não é teoria — é o que funciona no dia a dia de um estúdio real.</p></div>
+<h2 class="ah2">Como aproveitar ao máximo</h2>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Execute cada aula antes de avançar</h4><p>Não adianta consumir o conteúdo sem aplicar. Após cada aula, execute o que foi ensinado no seu perfil.</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Tenha seu celular ao lado</h4><p>A maioria das ações será feita pelo aplicativo do Instagram. Deixe o app aberto enquanto assiste.</p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Marque as aulas como concluídas</h4><p>Use o botão "Concluir" para acompanhar seu progresso e o sistema salvar onde você parou.</p></div></div>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)" disabled>← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima aula →</button></div>`},
+    {t:'Configurando o perfil comercial', c:`
+<div class="aula-tag">Módulo 1 · Aula 2</div>
+<h1 class="aula-h1">Configurando o <span>Perfil Comercial</span></h1>
+<p class="aula-intro">Antes de postar qualquer conteúdo, seu perfil precisa estar configurado para converter. Um perfil mal configurado desperdiça todo o esforço de criação de conteúdo.</p>
+<h2 class="ah2">Passo 1 — Trocar para conta profissional</h2>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Abra o Instagram no celular</h4><p>Toque no ícone do Instagram. Certifique-se de estar logado na conta certa.</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Acesse seu perfil</h4><p>Toque no ícone do seu perfil no canto inferior direito da tela.</p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Abra as configurações</h4><p>Toque nas <strong>3 linhas horizontais</strong> (≡) no canto superior direito → toque em <code>Configurações e privacidade</code>.</p></div></div>
+<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Acesse "Tipo de conta"</h4><p>Role a tela → toque em <code>Tipo de conta e ferramentas</code> → toque em <code>Mudar para conta profissional</code>.</p></div></div>
+<div class="passo"><div class="passo-n">5</div><div class="passo-body"><h4>Selecione a categoria</h4><p>O Instagram vai pedir que você escolha uma categoria. Digite <code>Tatuagem e Piercing</code> na busca → selecione → toque em <code>Avançar</code>.</p></div></div>
+<div class="passo"><div class="passo-n">6</div><div class="passo-body"><h4>Escolha "Empresa" (não Criador)</h4><p>Selecione <code>Empresa</code> → toque em <code>Avançar</code> → pule as etapas opcionais → toque em <code>Concluído</code>.</p></div></div>
+<div class="dica"><p>✅ <strong>Dica:</strong> A conta Empresa dá acesso a mais dados de análise, botão de contato direto e possibilidade de agendar posts pelo Meta Business Suite.</p></div>
+<h2 class="ah2">Passo 2 — Foto de perfil profissional</h2>
+<p class="ap">A foto de perfil é a primeira coisa que o cliente vê. Ela precisa transmitir profissionalismo e identidade.</p>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Use sua logo OU sua foto profissional</h4><p>Se você tem uma logo bem feita → use a logo. Se não tem → use uma foto sua em ambiente de trabalho com boa iluminação. <strong>Nunca use foto com fundo bagunçado.</strong></p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Tamanho correto</h4><p>A foto de perfil aparece em círculo de <code>110x110px</code> no mobile. Salve sua imagem em <code>400x400px</code> para garantir qualidade. Evite textos pequenos que ficam ilegíveis.</p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Como trocar no app</h4><p>Vá ao seu perfil → toque em <code>Editar perfil</code> → toque em <code>Foto ou avatar do perfil</code> → selecione a imagem da galeria → centralize → salve.</p></div></div>
+<h2 class="ah2">Passo 3 — Nome de usuário otimizado</h2>
+<p class="ap">Seu @username precisa ser fácil de encontrar e lembrar. Siga essas regras:</p>
+<ul class="checklist">
+  <li>Use seu nome + "tattoo" + cidade: <code>@nometattoo.bh</code> ou <code>@nome_tattoo_bh</code></li>
+  <li>Sem números aleatórios: <code>@tatuador1234</code> parece amador</li>
+  <li>Sem pontos excessivos: <code>@nome.tattoo.bh.oficial</code> é difícil de digitar</li>
+  <li>Máximo de 20 caracteres para caber completo nas buscas</li>
+</ul>
+<div class="alerta"><p>⚠️ <strong>Atenção:</strong> Mudar de username frequentemente faz você perder posicionamento nas buscas do Instagram. Escolha bem e mantenha.</p></div>
+<h2 class="ah2">Passo 4 — Nome de exibição (SEO do Instagram)</h2>
+<p class="ap">O nome de exibição (não o @) é indexado pelo algoritmo de busca. É diferente do username.</p>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Acesse Editar perfil</h4><p>Vá ao perfil → toque <code>Editar perfil</code>.</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Preencha o campo "Nome"</h4><p>Coloque: <code>Seu Nome | Tatuador BH</code> ou <code>Estúdio de Tatuagem BH | Sua Cidade</code>. Esse campo aparece nas buscas quando alguém digita "tatuador BH" no Instagram.</p></div></div>
+<div class="destaque"><p><strong>Exemplo real:</strong> Nome: <code>Carlos Tattoo BH | Realismo e Cover Up</code> — quando alguém busca "tatuagem realismo BH" no Instagram, esse perfil aparece.</p></div>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima aula →</button></div>`},
+    {t:'Bio que converte em agendamentos', c:`
+<div class="aula-tag">Módulo 1 · Aula 3</div>
+<h1 class="aula-h1">Bio que <span>Converte em Agendamentos</span></h1>
+<p class="aula-intro">Você tem 150 caracteres na bio para convencer um desconhecido a te contatar. Essa é sua vitrine. A maioria dos tatuadores desperdiça esse espaço com frases genéricas que não convertem.</p>
+<h2 class="ah2">A fórmula da bio que converte</h2>
+<div class="destaque"><p><strong>Estrutura:</strong><br>Linha 1: O que você faz + especialidade<br>Linha 2: Prova social (número de trabalhos, anos de exp, estrelas)<br>Linha 3: Localização<br>Linha 4: CTA (call to action) com link</p></div>
+<div class="exemplo"><div class="exemplo-label">Exemplo real</div><p>🖤 Realismo & Cover Up em BH<br>2.400+ tatuagens · 7 anos · ⭐5.0 Google<br>📍 Mantiqueira, Belo Horizonte<br>👇 Agende sua consulta gratuita</p></div>
+<h2 class="ah2">Como editar sua bio</h2>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Acesse "Editar perfil"</h4><p>Perfil → <code>Editar perfil</code> → campo <code>Bio</code>.</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Para quebrar linha na bio</h4><p>No iPhone: pressione <code>Return</code>. No Android: pressione <code>Enter</code>. Se não funcionar, escreva a bio no bloco de notas e copie.</p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Configure o link na bio</h4><p>Use o campo <code>Website</code> ou <code>Link na bio</code> para colocar o link do seu site ou um link do WhatsApp:<br><code>https://wa.me/5531983391576?text=Quero+agendar</code></p></div></div>
+<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Botão de contato</h4><p>Como conta empresa: <code>Editar perfil</code> → <code>Opções de contato</code> → adicione seu número de WhatsApp. Um botão "Ligar" ou "Email" aparece no perfil.</p></div></div>
+<h2 class="ah2">Destaques — os 5 obrigatórios</h2>
+<p class="ap">Os destaques ficam logo abaixo da bio e são a segunda coisa que o cliente vê. Crie esses 5:</p>
+<ul class="checklist">
+  <li><strong>Portfólio</strong> — seus melhores trabalhos por estilo</li>
+  <li><strong>Processo</strong> — vídeos do processo de tatuar (gera autoridade)</li>
+  <li><strong>Depoimentos</strong> — prints de mensagens e avaliações positivas</li>
+  <li><strong>Preços</strong> — tabela de preços ou como funciona o orçamento</li>
+  <li><strong>Sobre mim</strong> — sua história, sua técnica, seu estúdio</li>
+</ul>
+<div class="dica"><p>✅ <strong>Dica de capa dos destaques:</strong> Use capas com fundo preto e ícone dourado/branco. Mantém a identidade visual e parece muito mais profissional do que capas aleatórias.</p></div>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima aula →</button></div>`}
+  ]},
+  {mod:'MÓDULO 2 — ESTRATÉGIA DE CONTEÚDO', aulas:[
+    {t:'Os 4 tipos de conteúdo que vendem', c:`
+<div class="aula-tag">Módulo 2 · Aula 4</div>
+<h1 class="aula-h1">Os 4 tipos de conteúdo <span>que vendem</span></h1>
+<p class="aula-intro">Não é sobre postar mais — é sobre postar certo. Tatuadores que lotam agenda não postam todo dia aleatoriamente. Eles seguem um sistema com 4 tipos de conteúdo que trabalham juntos para atrair, engajar e converter.</p>
+<h2 class="ah2">Tipo 1 — Conteúdo de Portfólio (40% do feed)</h2>
+<p class="ap">Mostra o seu trabalho. É a prova de que você é bom. Sem isso, não existe confiança.</p>
+<ul class="checklist">
+  <li>Foto do trabalho finalizado com boa iluminação</li>
+  <li>Vídeo do processo + resultado final em Reel</li>
+  <li>Antes e depois (funciona muito bem para cover up)</li>
+  <li>Zoom em detalhes técnicos difíceis (sombra, textura, olhos realistas)</li>
+</ul>
+<div class="exemplo"><div class="exemplo-label">Legenda modelo — portfólio</div><p>"Retrato realista no braço. 4h de sessão, tinta Eternal Ink importada. Cada detalhe foi desenhado especificamente para esse cliente. 🖤 Agende sua consulta gratuita — link na bio."</p></div>
+<h2 class="ah2">Tipo 2 — Conteúdo Educativo (25% do feed)</h2>
+<p class="ap">Ensina algo útil para o seu público. Gera autoridade e é compartilhado.</p>
+<ul class="checklist">
+  <li>"3 coisas que você precisa saber antes de tatuar"</li>
+  <li>"Por que tatuagem barata sai caro" — explica qualidade</li>
+  <li>"Como cuidar da tatuagem nas primeiras 2 semanas"</li>
+  <li>"O que é cover up e quando é possível fazer"</li>
+</ul>
+<h2 class="ah2">Tipo 3 — Conteúdo de Bastidores (20% do feed)</h2>
+<p class="ap">Mostra o ser humano por trás da tatuagem. Conecta emocionalmente.</p>
+<ul class="checklist">
+  <li>Você desenhando o stencil antes da sessão</li>
+  <li>Setup do estúdio antes de começar o dia</li>
+  <li>Reação do cliente ao ver o resultado</li>
+  <li>Seu processo de estudo e desenvolvimento técnico</li>
+</ul>
+<h2 class="ah2">Tipo 4 — Conteúdo de Prova Social (15% do feed)</h2>
+<p class="ap">Depoimentos, avaliações, comentários positivos. Elimina objeções.</p>
+<ul class="checklist">
+  <li>Print de mensagem elogiando o trabalho (com autorização)</li>
+  <li>Avaliação no Google em formato de post</li>
+  <li>Cliente mostrando a tatuagem cicatrizada meses depois</li>
+</ul>
+<div class="destaque"><p><strong>Frequência ideal:</strong> 4-5 posts por semana no feed. 1-2 Reels por semana. Stories todo dia (mínimo 3 por dia).</p></div>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima aula →</button></div>`},
+    {t:'Calendário editorial semanal', c:`
+<div class="aula-tag">Módulo 2 · Aula 5</div>
+<h1 class="aula-h1">Calendário Editorial <span>Semanal</span></h1>
+<p class="aula-intro">Consistência é mais importante que perfeição. Um calendário editorial tira a pressão de "o que postar hoje" e garante que você nunca fique sem conteúdo.</p>
+<h2 class="ah2">Calendário modelo — semana padrão</h2>
+<div class="passo"><div class="passo-n">S</div><div class="passo-body"><h4>Segunda-feira — Motivação/Início de semana</h4><p>Post de portfólio com legenda inspiradora. Stories mostrando a agenda da semana.</p></div></div>
+<div class="passo"><div class="passo-n">T</div><div class="passo-body"><h4>Terça-feira — Educativo</h4><p>Carrossel ensinando algo sobre tatuagem. Stories com pergunta para engajamento.</p></div></div>
+<div class="passo"><div class="passo-n">Q</div><div class="passo-body"><h4>Quarta-feira — Reel de processo</h4><p>Vídeo do processo de tatuar + resultado. É o melhor dia da semana para Reels (maior alcance).</p></div></div>
+<div class="passo"><div class="passo-n">Q</div><div class="passo-body"><h4>Quinta-feira — Bastidores</h4><p>Stories mostrando o setup, stencil, preparação para sessão. Post mais pessoal.</p></div></div>
+<div class="passo"><div class="passo-n">S</div><div class="passo-body"><h4>Sexta-feira — Portfólio premium</h4><p>Seu melhor trabalho da semana. Sexta tem mais engajamento. Use hashtags de alcance.</p></div></div>
+<div class="passo"><div class="passo-n">S</div><div class="passo-body"><h4>Sábado — Prova social</h4><p>Depoimento de cliente ou resultado cicatrizado. Muito compartilhado nos fins de semana.</p></div></div>
+<h2 class="ah2">Como montar seu calendário agora</h2>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Abra o Google Agenda ou Notion</h4><p>Crie um calendário chamado "Instagram" e preencha com os tipos de conteúdo para as próximas 2 semanas.</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Fotografe em lote</h4><p>Separe 1h por semana para fotografar 5-7 trabalhos. Isso garante conteúdo para a semana toda sem precisar fotografar todo dia.</p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Use o agendamento do Instagram</h4><p>No app: crie o post → antes de publicar toque em <code>Programar</code> → escolha data e hora → confirme. O post vai automaticamente no horário marcado.</p></div></div>
+<div class="dica"><p>✅ <strong>Melhores horários para postar:</strong> 11h-13h (horário de almoço) e 19h-21h (horário pós-trabalho). Teste nos seus dados de Insights depois de 30 dias.</p></div>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima aula →</button></div>`}
+  ]},
+  {mod:'MÓDULO 3 — REELS QUE VIRALIZAM', aulas:[
+    {t:'Estrutura de um Reel que gera clientes', c:`
+<div class="aula-tag">Módulo 3 · Aula 6</div>
+<h1 class="aula-h1">Estrutura de um Reel <span>que gera clientes</span></h1>
+<p class="aula-intro">Reels são o formato com maior alcance orgânico do Instagram em 2026. Um único Reel bem feito pode trazer dezenas de novos seguidores e vários orçamentos em uma semana.</p>
+<h2 class="ah2">A estrutura dos 3 segundos</h2>
+<p class="ap">Os primeiros 3 segundos determinam se a pessoa vai assistir ou passar. Você precisa prender a atenção imediatamente.</p>
+<ul class="checklist">
+  <li><strong>Gancho visual:</strong> comece com o resultado mais impressionante (não o processo)</li>
+  <li><strong>Texto na tela:</strong> coloque uma pergunta ou afirmação impactante nos primeiros 2 segundos</li>
+  <li><strong>Sem introdução:</strong> nunca comece dizendo "Olá, sou o Carlos..." — o Instagram penaliza</li>
+</ul>
+<h2 class="ah2">Tipos de Reels que mais funcionam para tatuadores</h2>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Antes e depois com transição</h4><p>Filme a pele antes → aplique uma transição → mostre a tatuagem finalizada. Gera curiosidade e é muito compartilhado. Duração ideal: 15-30 segundos.</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Time-lapse do processo</h4><p>Acelere um vídeo de 2h de sessão para 30-60 segundos. Mostra técnica e dedicação. Adicione música que combine com o estilo da tatuagem.</p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Reação do cliente</h4><p>Filme o momento em que o cliente vê o resultado pela primeira vez. Emoção gera engajamento e compartilhamento.</p></div></div>
+<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Zoom em detalhes técnicos</h4><p>Mostre um close extremo de textura, sombra ou detalhe que impressiona. Adicione texto: "Isso é tatuagem ou fotografia?"</p></div></div>
+<h2 class="ah2">Passo a passo para criar e publicar um Reel</h2>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Abra o Instagram → toque no "+"</h4><p>Na tela inicial do Instagram, toque no ícone <code>+</code> → selecione <code>Reel</code>.</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Selecione os vídeos da galeria</h4><p>Toque no ícone de galeria (canto inferior esquerdo) → selecione seus clipes na ordem que quer que apareçam.</p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Edite e adicione música</h4><p>Toque em <code>Músicas</code> → busque por trending ou escolha por gênero → selecione o trecho mais impactante. Use músicas sem letra para trabalhos mais sombrios.</p></div></div>
+<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Adicione texto na tela</h4><p>Toque em <code>Aa</code> → digite seu gancho → posicione nos primeiros 2-3 segundos. Fonte recomendada: <code>Modern</code> ou <code>Neon</code> no Instagram.</p></div></div>
+<div class="passo"><div class="passo-n">5</div><div class="passo-body"><h4>Capa do Reel</h4><p>Escolha um frame que mostre o melhor momento → ou carregue uma imagem criada no Canva com o resultado e seu @. A capa aparece no feed do perfil.</p></div></div>
+<div class="passo"><div class="passo-n">6</div><div class="passo-body"><h4>Escreva a legenda</h4><p>Máximo 3 parágrafos: 1) descreva o trabalho 2) dado técnico (estilo, horas, tinta) 3) CTA direto ("Link na bio para agendar").</p></div></div>
+<div class="passo"><div class="passo-n">7</div><div class="passo-body"><h4>Publique e monitore as primeiras 1h</h4><p>Responda todos os comentários nas primeiras 60 minutos. O algoritmo distribui mais para quem tem engajamento rápido.</p></div></div>
+<div class="alerta"><p>⚠️ <strong>Nunca use músicas com direitos autorais restritos</strong> — o Reel pode ser removido ou bloqueado em alguns países. Use a biblioteca de músicas do próprio Instagram.</p></div>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima aula →</button></div>`}
+  ]},
+  {mod:'MÓDULO 4 — STORIES QUE VENDEM', aulas:[
+    {t:'Stories diários que geram agendamentos', c:`
+<div class="aula-tag">Módulo 4 · Aula 7</div>
+<h1 class="aula-h1">Stories Diários <span>que geram agendamentos</span></h1>
+<p class="aula-intro">Stories são o canal de relacionamento do Instagram. Quem assiste seus Stories regularmente tem 3x mais chance de entrar em contato. Aqui está o sistema para usar Stories para vender todos os dias.</p>
+<h2 class="ah2">Os 5 Stories diários obrigatórios</h2>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Story de presença (bom dia / início do dia)</h4><p>Mostre que você está no estúdio. Uma foto do setup, do stencil sendo desenhado ou simplesmente "Bom dia! Sessões de hoje..." Humaniza e cria hábito de consumo.</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Story de processo (durante o dia)</h4><p>Foto ou vídeo rápido de 5-10 segundos de uma sessão acontecendo. Não precisa mostrar o trabalho completo — a curiosidade faz o seguidor esperar o resultado.</p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Story de resultado (ao finalizar)</h4><p>"Finalizamos! O que acharam?" com enquete ou caixinha de perguntas. Gera resposta e o algoritmo entende que seu conteúdo é relevante.</p></div></div>
+<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Story de agenda/disponibilidade</h4><p>"Tenho 2 horários disponíveis essa semana. Quem se interessar me chama no direct ou no link da bio." — direto ao ponto, gera clique.</p></div></div>
+<div class="passo"><div class="passo-n">5</div><div class="passo-body"><h4>Story de encerramento (fim do dia)</h4><p>Foto do resultado final do dia ou bastidor de encerramento. "Foi um dia incrível! Amanhã tenho 1 horário disponível às 14h..."</p></div></div>
+<h2 class="ah2">Ferramentas de Stories que geram mais engajamento</h2>
+<ul class="checklist">
+  <li><strong>Enquete (Sim/Não):</strong> "Você prefere tatuagem realista ou fineline?" — simples e muito respondida</li>
+  <li><strong>Caixinha de perguntas:</strong> "Me pergunta qualquer coisa sobre tatuagem" — gera conteúdo e conversas</li>
+  <li><strong>Contagem regressiva:</strong> "Abro agenda para o mês que vem em 2 dias" — cria urgência</li>
+  <li><strong>Link no Stories:</strong> Cole o link do WhatsApp direto no Story com o adesivo de link</li>
+</ul>
+<div class="dica"><p>✅ <strong>Atalho importante:</strong> Salve nos Destaques os Stories de depoimentos e resultados. Eles continuam trabalhando para você mesmo depois das 24h.</p></div>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima aula →</button></div>`}
+  ]},
+  {mod:'MÓDULO 5 — SEO E HASHTAGS', aulas:[
+    {t:'SEO do Instagram para aparecer nas buscas', c:`
+<div class="aula-tag">Módulo 5 · Aula 8</div>
+<h1 class="aula-h1">SEO do Instagram — <span>apareça nas buscas</span></h1>
+<p class="aula-intro">Em 2026 o Instagram funciona como um mecanismo de busca. Quando alguém digita "tatuador BH" ou "tatuagem realista belo horizonte", perfis otimizados aparecem primeiro. Veja como entrar nessas buscas.</p>
+<h2 class="ah2">Os 4 lugares onde o algoritmo lê texto</h2>
+<ul class="checklist">
+  <li><strong>Nome de exibição:</strong> inclua "Tatuador" + sua cidade</li>
+  <li><strong>Bio:</strong> mencione sua especialidade + localização</li>
+  <li><strong>Legendas dos posts:</strong> use palavras-chave naturalmente</li>
+  <li><strong>Alt text das fotos:</strong> descrição que o Instagram usa para indexação</li>
+</ul>
+<h2 class="ah2">Como adicionar Alt Text nas fotos</h2>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Ao criar um post</h4><p>Após escrever a legenda, role para baixo → toque em <code>Configurações avançadas</code> → toque em <code>Escrever texto alternativo</code>.</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Descreva a imagem com palavras-chave</h4><p>Exemplo: <code>Tatuagem realista de retrato feminino no braço feita em Belo Horizonte por Carlos Tattoo BH</code>. Inclua estilo, local do corpo e cidade.</p></div></div>
+<h2 class="ah2">Hashtags que funcionam em 2026</h2>
+<p class="ap">A estratégia de hashtags mudou. Usar 30 hashtags genéricas não funciona mais. Use de 5 a 10 hashtags específicas e estratégicas:</p>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>3 hashtags de nicho específico</h4><p><code>#tatuagembh</code> <code>#tatuadorBH</code> <code>#tatuagemrealismo</code> — volume médio, menos competição.</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>3 hashtags de estilo</h4><p><code>#realismotatuagem</code> <code>#blackandgreytattoo</code> <code>#finelinetattoo</code> — para alcançar quem busca pelo estilo.</p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>2 hashtags de localização</h4><p><code>#belohorizonte</code> <code>#bh</code> — para aparecer para pessoas da sua cidade.</p></div></div>
+<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>2 hashtags de volume alto (alcance)</h4><p><code>#tattoo</code> <code>#tattoobrasil</code> — para exposição para novos públicos.</p></div></div>
+<div class="alerta"><p>⚠️ <strong>Evite:</strong> <code>#tattoooftheday</code>, <code>#instatattoo</code>, <code>#tattooed</code> — são tão saturadas que seu post some em segundos.</p></div>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima aula →</button></div>`}
+  ]},
+  {mod:'MÓDULO 6 — ANÁLISE E CRESCIMENTO', aulas:[
+    {t:'Lendo as métricas para crescer', c:`
+<div class="aula-tag">Módulo 6 · Aula 9</div>
+<h1 class="aula-h1">Lendo as métricas <span>para crescer</span></h1>
+<p class="aula-intro">O que não é medido não pode ser melhorado. Aqui você aprende a ler os dados do Instagram e tomar decisões baseadas em evidência, não em achismo.</p>
+<h2 class="ah2">Como acessar os Insights</h2>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>No app Instagram</h4><p>Vá ao seu perfil → toque em <code>Insights</code> (ícone de gráfico) → você verá um resumo das últimas 30 dias.</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>No Meta Business Suite (desktop)</h4><p>Acesse business.facebook.com → selecione seu Instagram → clique em <code>Insights</code> para dados mais detalhados.</p></div></div>
+<h2 class="ah2">As 5 métricas que importam</h2>
+<ul class="checklist">
+  <li><strong>Alcance:</strong> quantas pessoas únicas viram seu conteúdo. Meta: crescer 10% ao mês.</li>
+  <li><strong>Taxa de engajamento:</strong> (curtidas+comentários+salvamentos)/alcance × 100. Acima de 3% é bom.</li>
+  <li><strong>Salvamentos:</strong> a métrica mais valiosa. Post salvo = conteúdo que o algoritmo distribui mais.</li>
+  <li><strong>Cliques no link da bio:</strong> indica quantas pessoas foram até seu WhatsApp ou site.</li>
+  <li><strong>Crescimento de seguidores:</strong> monitore semana a semana após cada tipo de conteúdo.</li>
+</ul>
+<h2 class="ah2">Rotina de análise semanal (15 minutos)</h2>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Todo domingo — revise a semana</h4><p>Abra os Insights → veja os 3 posts com maior alcance → identifique o que eles têm em comum (formato, tema, horário).</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Anote o que funcionou</h4><p>Crie uma nota no celular: "Posts que funcionaram essa semana: [tipo de conteúdo] com [tema] postado às [horário]".</p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Repita e melhore</h4><p>O conteúdo que funcionou → faça mais parecido. O que não funcionou → mude uma variável por vez (horário, formato ou tema).</p></div></div>
+<div class="destaque"><p><strong>Regra de ouro:</strong> Nunca mude tudo de uma vez. Mude uma coisa por vez e meça o resultado por 2 semanas antes de mudar outra.</p></div>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima aula →</button></div>`},
+    {t:'Plano de ação — próximos 30 dias', c:`
+<div class="aula-tag">Módulo 6 · Aula 10 — Final</div>
+<h1 class="aula-h1">Plano de Ação — <span>Próximos 30 Dias</span></h1>
+<p class="aula-intro">Parabéns por chegar até aqui! Agora é hora de transformar tudo que você aprendeu em ação. Aqui está seu plano detalhado para os próximos 30 dias.</p>
+<h2 class="ah2">Semana 1 — Fundação</h2>
+<ul class="checklist">
+  <li>Configurar perfil comercial com todos os campos preenchidos</li>
+  <li>Escrever e publicar a bio otimizada</li>
+  <li>Criar 5 Destaques com as capas profissionais</li>
+  <li>Fazer um audit dos últimos 9 posts — deletar os ruins</li>
+  <li>Fotografar 10 trabalhos para ter estoque de conteúdo</li>
+</ul>
+<h2 class="ah2">Semana 2 — Ativação</h2>
+<ul class="checklist">
+  <li>Criar e publicar o primeiro Reel de antes/depois</li>
+  <li>Iniciar routine de Stories diários (5 por dia)</li>
+  <li>Montar calendário editorial das próximas 2 semanas</li>
+  <li>Fazer 3 posts de portfólio com legendas otimizadas</li>
+</ul>
+<h2 class="ah2">Semana 3 e 4 — Crescimento</h2>
+<ul class="checklist">
+  <li>Manter ritmo de 5 posts/semana + Stories diários</li>
+  <li>Publicar 2 Reels por semana</li>
+  <li>Analisar Insights semanalmente e ajustar</li>
+  <li>Coletar e publicar 3 depoimentos de clientes</li>
+  <li>Testar pelo menos 2 formatos novos de conteúdo</li>
+</ul>
+<div class="destaque"><p><strong>Meta realista para 30 dias:</strong> +15-25% de alcance, +50-100 seguidores qualificados e pelo menos 5-10 mensagens novas de interesse por semana.</p></div>
+<div style="background:linear-gradient(135deg,var(--d1),var(--d2));border:2px solid rgba(201,168,76,.3);border-radius:16px;padding:36px;text-align:center;margin-top:28px;">
+  <div style="font-size:48px;margin-bottom:14px;">🏆</div>
+  <h3 style="font-family:'Cinzel Decorative',cursive;font-size:22px;color:#fff;margin-bottom:10px;">Curso Concluído!</h3>
+  <p style="font-size:14px;color:var(--t2);line-height:1.8;margin-bottom:20px;">Você completou o curso Instagram para Tatuadores. Agora execute e transforme seu perfil em uma máquina de clientes.</p>
+  <button onclick="concluirAula()" class="btn-concluir" style="padding:14px 28px;font-size:12px;letter-spacing:2px;">✓ MARCAR COMO CONCLUÍDO</button>
+</div>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)" disabled>Curso completo ✓</button></div>`}
+  ]}
+];
+
+// ── LÓGICA DO CURSO ──
+function totalAulas(){return MODULOS.reduce((s,m)=>s+m.aulas.length,0);}
+
+function getAula(idx){
+  let n=0;
+  for(const m of MODULOS){
+    for(const a of m.aulas){
+      if(n===idx) return {...a,mod:m.mod};
+      n++;
+    }
+  }
+  return null;
+}
+
+function renderSidebar(){
+  const c=document.getElementById('sbModulos');
+  c.innerHTML='';
+  let n=0;
+  MODULOS.forEach(mod=>{
+    const div=document.createElement('div');
+    const mt=document.createElement('div');
+    mt.className='sb-mod-titulo';
+    mt.textContent=mod.mod;
+    div.appendChild(mt);
+    mod.aulas.forEach((a,ai)=>{
+      const idx=n;
+      const done=(prog['done_'+CURSO_ID]||[]).includes(idx);
+      const li=document.createElement('div');
+      li.className='sb-aula'+(idx===aulaAtual?' active':'')+(done?' done':'');
+      li.innerHTML=`<span class="sb-aula-num">${String(idx+1).padStart(2,'0')}</span><span class="sb-aula-nome">${a.t}</span>${done?'<span class="sb-aula-check">✓</span>':''}`;
+      li.onclick=()=>irAula(idx);
+      div.appendChild(li);
+      n++;
+    });
+    c.appendChild(div);
+  });
+  const total=totalAulas();
+  const done=(prog['done_'+CURSO_ID]||[]).length;
+  const pct=Math.round((done/total)*100);
+  document.getElementById('progressoPct').textContent=pct+'%';
+  document.getElementById('progressoFill').style.width=pct+'%';
+}
+
+function renderAula(){
+  const a=getAula(aulaAtual);
+  if(!a) return;
+  document.getElementById('mhTitulo').textContent=a.t;
+  document.getElementById('aulaContent').innerHTML=a.c;
+  document.getElementById('btnAnt').disabled=aulaAtual===0;
+  document.getElementById('btnProx').disabled=aulaAtual>=totalAulas()-1;
+  window.scrollTo(0,0);
+}
+
+function irAula(idx){
+  aulaAtual=idx;
+  prog['aula_'+CURSO_ID]=idx;
+  salvar();
+  renderSidebar();
+  renderAula();
+}
+
+function navAula(dir){
+  const n=aulaAtual+dir;
+  if(n>=0&&n<totalAulas()) irAula(n);
+}
+
+function concluirAula(){
+  if(!prog['done_'+CURSO_ID]) prog['done_'+CURSO_ID]=[];
+  if(!prog['done_'+CURSO_ID].includes(aulaAtual)) prog['done_'+CURSO_ID].push(aulaAtual);
+  salvar();
+  renderSidebar();
+  if(aulaAtual<totalAulas()-1) navAula(1);
+  else{alert('🎉 Parabéns! Você concluiu o curso Instagram para Tatuadores!');}
+}
+
+function salvar(){
+  const total=totalAulas();
+  const done=(prog['done_'+CURSO_ID]||[]).length;
+  prog[CURSO_ID]=Math.round((done/total)*100);
+  localStorage.setItem('ct_progresso_'+(sessao?.email||''),JSON.stringify(prog));
+}
+
+renderSidebar();
+renderAula();
+</script>
+</body>
+</html>

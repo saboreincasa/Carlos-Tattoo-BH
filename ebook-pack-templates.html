@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pack Templates Premium — Carlos Tattoo BH</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Raleway',sans-serif;background:#f5f0e8;color:#1a0a00;font-size:16px;line-height:1.8;}
+@media print{.no-print{display:none!important;}.pb{page-break-after:always;}body{background:#fff;font-size:11pt;}}
+.wm{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;}
+.wm-grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(7,1fr);}
+.wm-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transform:rotate(-25deg);opacity:.04;}
+.wm-cell img{width:52px;height:52px;object-fit:contain;}
+.wm-cell span{font-family:'Cinzel',serif;font-size:8px;letter-spacing:2px;color:#C9A84C;text-transform:uppercase;white-space:nowrap;}
+.capa{background:linear-gradient(160deg,#050301 0%,#1C1208 38%,#2A1A08 65%,#050301 100%);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;position:relative;overflow:hidden;}
+.capa::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 45%,rgba(201,168,76,.13) 0%,transparent 70%);}
+.c-line{position:absolute;left:50%;transform:translateX(-50%);width:220px;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.5),transparent);}
+.c-line.top{top:36px;}.c-line.bot{bottom:36px;}
+.c-logo{height:90px;object-fit:contain;filter:drop-shadow(0 0 24px rgba(201,168,76,.55));margin-bottom:28px;position:relative;z-index:1;}
+.c-tag{display:inline-block;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);padding:7px 24px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;color:#E8B800;text-transform:uppercase;margin-bottom:24px;position:relative;z-index:1;}
+.c-h1{font-family:'Cinzel Decorative',cursive;font-size:clamp(30px,5vw,56px);color:#fff;line-height:1.05;margin-bottom:12px;position:relative;z-index:1;}
+.c-h1 b{color:#E8B800;}
+.c-sub{font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:rgba(201,168,76,.55);margin-bottom:52px;position:relative;z-index:1;}
+.c-div{width:140px;height:1px;background:linear-gradient(90deg,transparent,#E8B800,transparent);margin:0 auto 38px;}
+.c-autor-name{font-family:'Cinzel Decorative',cursive;font-size:20px;color:#E8B800;margin-bottom:4px;position:relative;z-index:1;}
+.c-autor-role{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:rgba(201,168,76,.45);text-transform:uppercase;position:relative;z-index:1;}
+.c-badge{position:absolute;bottom:48px;right:48px;width:94px;height:94px;border-radius:50%;background:rgba(201,168,76,.09);border:1.5px solid rgba(201,168,76,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:1;}
+.c-badge b{font-family:'Cinzel Decorative',cursive;font-size:23px;color:#E8B800;display:block;line-height:1;}
+.c-badge span{font-family:'Cinzel',serif;font-size:8px;letter-spacing:1px;color:rgba(201,168,76,.45);margin-top:3px;}
+.page{background:#fff;padding:68px 92px 84px;min-height:100vh;position:relative;}
+.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;padding-bottom:14px;border-bottom:2px solid #f0e6cc;}
+.ph img{height:30px;object-fit:contain;opacity:.65;}
+.ph span{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:#8A6030;text-transform:uppercase;}
+.pf{position:absolute;bottom:30px;left:92px;right:92px;display:flex;justify-content:space-between;align-items:center;font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;color:#C9A84C;border-top:1px solid #f0e6cc;padding-top:12px;}
+.mh{background:linear-gradient(135deg,#1C1208,#2A1A08);padding:56px 96px 48px;position:relative;overflow:hidden;border-bottom:3px solid #C9A84C;}
+.mh-bg-n{font-family:'Cinzel Decorative',cursive;font-size:130px;color:rgba(201,168,76,.05);position:absolute;right:56px;top:10px;line-height:1;}
+.mh-lbl{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;color:rgba(201,168,76,.5);text-transform:uppercase;margin-bottom:10px;position:relative;z-index:1;}
+.mh-title{font-family:'Cinzel Decorative',cursive;font-size:clamp(24px,3.5vw,42px);color:#fff;position:relative;z-index:1;line-height:1.15;}
+.mh-title b{color:#E8B800;}
+.mh-desc{font-size:16px;color:rgba(237,228,212,.6);margin-top:14px;position:relative;z-index:1;max-width:620px;line-height:1.7;}
+.mh-logo{position:absolute;right:96px;bottom:24px;height:44px;opacity:.35;z-index:1;}
+.lbl{font-family:'Cinzel',serif;font-size:9px;letter-spacing:4px;color:#C9A84C;text-transform:uppercase;margin-bottom:8px;display:block;}
+.h2{font-family:'Cinzel Decorative',cursive;font-size:clamp(20px,2.8vw,34px);color:#1a0a00;margin-bottom:16px;line-height:1.2;}
+.h2 b{color:#C9A84C;}
+.h3{font-family:'Cinzel',serif;font-size:17px;color:#1a0a00;font-weight:700;margin:32px 0 14px;display:flex;align-items:center;gap:10px;}
+.h3::before{content:'◆';color:#C9A84C;font-size:9px;flex-shrink:0;}
+p{font-size:15px;color:#2a1408;line-height:1.9;margin-bottom:16px;}
+strong{color:#1a0a00;}
+.steps{display:flex;flex-direction:column;gap:14px;margin:18px 0;}
+.step{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1.5px solid rgba(201,168,76,.16);border-radius:12px;padding:20px 22px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.sn{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#A07830,#E8B800);display:flex;align-items:center;justify-content:center;font-family:'Cinzel Decorative',cursive;font-size:14px;color:#0a0500;flex-shrink:0;font-weight:900;}
+.st h4{font-family:'Cinzel',serif;font-size:14px;color:#1a0a00;font-weight:700;margin-bottom:6px;}
+.st p{font-size:14px;color:#4a3018;line-height:1.75;margin:0;}
+.box-gold{background:linear-gradient(135deg,#FAF4E8,#F0E6CC);border:1px solid rgba(201,168,76,.22);border-left:5px solid #C9A84C;padding:20px 26px;margin:22px 0;border-radius:0 12px 12px 0;}
+.box-gold p{font-size:15px;color:#2a1408;margin:0;line-height:1.8;}
+.box-dark{background:linear-gradient(135deg,#1C1208,#0A0702);border-radius:14px;padding:26px 30px;margin:22px 0;border:1px solid rgba(201,168,76,.18);}
+.box-dark p,.box-dark li{color:#EDE4D4;font-size:15px;line-height:1.85;margin-bottom:10px;}
+.box-dark h4{font-family:'Cinzel',serif;font-size:15px;color:#E8B800;margin-bottom:14px;}
+.box-tip{background:#eff6ff;border:1.5px solid #60a5fa;border-radius:10px;padding:18px 22px;margin:22px 0;display:flex;gap:14px;}
+.box-tip-i{font-size:22px;flex-shrink:0;}
+.box-tip p{font-size:14px;color:#1e3a5f;line-height:1.75;margin:0;}
+.ul{list-style:none;margin:14px 0 22px;}
+.ul li{display:flex;align-items:flex-start;gap:12px;font-size:15px;color:#2a1408;margin-bottom:13px;line-height:1.75;}
+.ul li::before{content:'◆';color:#C9A84C;font-size:8px;flex-shrink:0;margin-top:7px;}
+.tb{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px;}
+.tb th{background:linear-gradient(135deg,#1C1208,#2A1A08);color:#C9A84C;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:13px 16px;text-align:left;}
+.tb td{padding:11px 16px;border-bottom:1px solid #f0e6cc;color:#2a1408;line-height:1.6;}
+.tb tr:hover td{background:#FAF4E8;}
+.tb tr:last-child td{border-bottom:none;}
+.template-card{background:#fff;border:2px solid rgba(201,168,76,.2);border-radius:16px;padding:28px;margin:16px 0;box-shadow:0 4px 18px rgba(0,0,0,.06);}
+.tc-header{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.tc-num{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#A07830,#C9A84C);display:flex;align-items:center;justify-content:center;font-family:'Cinzel Decorative',cursive;font-size:16px;color:#fff;flex-shrink:0;}
+.tc-info h4{font-family:'Cinzel',serif;font-size:15px;color:#1a0a00;font-weight:700;margin-bottom:3px;}
+.tc-info span{font-size:12px;color:#8A6030;font-family:'Cinzel',serif;letter-spacing:1px;}
+.tc-formato{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.tc-tag{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);padding:4px 10px;border-radius:20px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;color:#7A5A20;text-transform:uppercase;}
+.tc-body p{font-size:14px;color:#3a2010;line-height:1.8;margin-bottom:10px;}
+.tc-copy{background:#FAF4E8;border:1px solid rgba(160,120,56,.2);border-radius:8px;padding:14px 16px;margin-top:12px;}
+.tc-copy-lbl{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:#7A5A20;text-transform:uppercase;margin-bottom:8px;display:block;}
+.tc-copy p{font-size:13px;color:#3a2010;line-height:1.75;margin:0;}
+.cback{background:linear-gradient(160deg,#050301,#1C1208,#050301);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;position:relative;}
+</style>
+</head>
+<body>
+
+<!-- MARCA D'ÁGUA -->
+<div class="wm" aria-hidden="true">
+  <div class="wm-grid">
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
+  </div>
+</div>
+
+<!-- CAPA -->
+<div class="capa pb">
+  <div class="c-line top"></div>
+  <img src="IPJP8350.JPG" class="c-logo" alt="Carlos Tattoo BH">
+  <div class="c-tag">Material Exclusivo · 2026 · Editável no Canva</div>
+  <h1 class="c-h1">Pack Templates<br><b>Premium</b></h1>
+  <p class="c-sub">30+ artes prontas para Stories, Feed e Anúncios — editável no Canva</p>
+  <div class="c-div"></div>
+  <div class="c-autor-name">Carlos Henrique</div>
+  <div class="c-autor-role">Tatuador · Mentor · @carlostattoo.bh</div>
+  <div class="c-badge"><b>R$47</b><span>Exclusivo</span></div>
+  <div class="c-line bot"></div>
+</div>
+
+<!-- COMO ACESSAR -->
+<div class="page pb">
+  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Como acessar e usar os templates</span></div>
+  <span class="lbl">Guia de acesso</span>
+  <h2 class="h2">Como acessar seus <b>templates no Canva</b></h2>
+  <p>Após confirmar seu pagamento, você recebe por email o link de acesso à pasta de templates no Canva. Este guia explica como usar cada template para máximo resultado.</p>
+
+  <h3 class="h3">Passo a passo para acessar</h3>
+  <div class="steps">
+    <div class="step"><div class="sn">1</div><div class="st"><h4>Crie sua conta no Canva (grátis)</h4><p>Acesse canva.com e crie uma conta gratuita com seu email. O Canva tem versão gratuita que funciona perfeitamente para usar todos os templates deste pack.</p></div></div>
+    <div class="step"><div class="sn">2</div><div class="st"><h4>Acesse o link enviado por email</h4><p>Após o pagamento confirmado, você recebe um email com o link da pasta de templates. Clique no link — o Canva vai abrir a pasta automaticamente.</p></div></div>
+    <div class="step"><div class="sn">3</div><div class="st"><h4>Faça uma cópia do template</h4><p>Para cada template que for usar, clique nos três pontos (⋯) → <strong>"Fazer uma cópia"</strong>. NUNCA edite o template original — edite sempre a cópia. Assim o template original fica preservado para uso futuro.</p></div></div>
+    <div class="step"><div class="sn">4</div><div class="st"><h4>Personalize com suas informações</h4><p>Substitua os textos de placeholder pelo conteúdo do seu estúdio. Adicione suas fotos clicando na imagem e selecionando "Substituir". Ajuste cores para sua paleta se quiser.</p></div></div>
+    <div class="step"><div class="sn">5</div><div class="st"><h4>Exporte no formato correto</h4><p>Clique em <strong>"Compartilhar"</strong> → <strong>"Baixar"</strong>. Para posts e stories: PNG. Para anúncios com múltiplas páginas: PDF ou exportar cada página como PNG separado.</p></div></div>
+  </div>
+
+  <div class="box-gold">
+    <p><strong>Tamanhos dos templates incluídos:</strong><br><br>
+    📱 Stories e Reels: 1080 × 1920px (9:16 vertical)<br>
+    📷 Feed quadrado: 1080 × 1080px (1:1)<br>
+    📺 Feed paisagem: 1080 × 566px (1.91:1)<br>
+    🎯 Anúncios: 1080 × 1080px e 1080 × 1920px</p>
+  </div>
+
+  <h3 class="h3">Como substituir textos</h3>
+  <div class="steps">
+    <div class="step"><div class="sn">1</div><div class="st"><h4>Clique duas vezes no texto</h4><p>Qualquer texto em qualquer template pode ser editado. Clique uma vez para selecionar o elemento, depois clique duas vezes para entrar no modo de edição. Selecione todo o texto (Ctrl+A ou Cmd+A) e digite o seu.</p></div></div>
+    <div class="step"><div class="sn">2</div><div class="st"><h4>Mantendo a formatação</h4><p>Após selecionar o texto placeholder e digitar o seu, o tamanho e estilo da fonte são mantidos automaticamente. Se quiser ajustar o tamanho, use o campo de tamanho no menu superior.</p></div></div>
+  </div>
+
+  <h3 class="h3">Como substituir imagens</h3>
+  <div class="steps">
+    <div class="step"><div class="sn">1</div><div class="st"><h4>Clique na imagem placeholder</h4><p>No Canva, clique na imagem que quer substituir. Um menu vai aparecer no topo. Clique em <strong>"Substituir"</strong> → <strong>"Fazer upload"</strong> → selecione sua foto do celular ou computador.</p></div></div>
+    <div class="step"><div class="sn">2</div><div class="st"><h4>Ajustando o enquadramento</h4><p>Após substituir, clique duas vezes na imagem para entrar no modo de recorte. Arraste a imagem para enquadrar o ponto principal (a tattoo, seu rosto, etc) no centro do elemento.</p></div></div>
+  </div>
+  <div class="pf"><span>Carlos Tattoo BH — Pack Templates Premium 2026</span><span>Página 02-07</span></div>
+</div>
+
+<!-- MÓDULO 1 - STORIES -->
+<div class="mh pb">
+  <div class="mh-bg-n">01</div>
+  <div class="mh-lbl">Categoria 01</div>
+  <div class="mh-title">Templates de<br><b>Stories</b></div>
+  <div class="mh-desc">12 templates de Stories prontos — do anúncio de vaga ao depoimento de cliente. Cada um com instrução de uso e copy sugerida.</div>
+  <img src="IPJP8350.JPG" class="mh-logo" alt="">
+</div>
+
+<!-- TEMPLATES STORIES -->
+<div class="page pb">
+  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Categoria 01 · Templates de Stories</span></div>
+  <span class="lbl">Stories — 12 templates</span>
+  <h2 class="h2">Templates de <b>Stories com estratégia</b></h2>
+
+  <div class="template-card">
+    <div class="tc-header">
+      <div class="tc-num">01</div>
+      <div class="tc-info"><h4>Abertura de Agenda</h4><span>Story de urgência e escassez</span></div>
+    </div>
+    <div class="tc-formato"><span class="tc-tag">Story 9:16</span><span class="tc-tag">Conversão</span><span class="tc-tag">Alta prioridade</span></div>
+    <div class="tc-body">
+      <p><strong>Quando usar:</strong> No dia 1 de cada mês quando abrir a agenda. Ou quando tiver vagas específicas disponíveis.</p>
+      <p><strong>Como personalizar:</strong> Substitua [MÊS], [NÚMERO DE VAGAS] e a imagem de fundo por uma foto do seu portfólio.</p>
+    </div>
+    <div class="tc-copy">
+      <span class="tc-copy-lbl">Copy sugerida</span>
+      <p>📅 AGENDA DE [MÊS] ABERTA<br><br>Apenas [X] vagas disponíveis este mês.<br>Prioridade para projetos de realismo e cobertura.<br><br>👇 Manda mensagem com sua ideia agora</p>
+    </div>
+  </div>
+
+  <div class="template-card">
+    <div class="tc-header">
+      <div class="tc-num">02</div>
+      <div class="tc-info"><h4>Antes e Depois — Story</h4><span>Prova social visual poderosa</span></div>
+    </div>
+    <div class="tc-formato"><span class="tc-tag">Story 9:16</span><span class="tc-tag">Portfólio</span><span class="tc-tag">Cobertura</span></div>
+    <div class="tc-body">
+      <p><strong>Quando usar:</strong> Sempre que finalizar uma cobertura ou transformação importante. É o formato com maior taxa de resposta nos Stories.</p>
+      <p><strong>Como personalizar:</strong> Coloque a foto do antes no espaço esquerdo e o depois no direito. Adicione o estilo e sua localização.</p>
+    </div>
+    <div class="tc-copy">
+      <span class="tc-copy-lbl">Copy sugerida</span>
+      <p>ANTES → DEPOIS 🖤<br><br>[Estilo] · [Tamanho] · [Sessões]<br><br>Consulta gratuita de cobertura — chama no direct</p>
+    </div>
+  </div>
+
+  <div class="template-card">
+    <div class="tc-header">
+      <div class="tc-num">03</div>
+      <div class="tc-info"><h4>Depoimento de Cliente</h4><span>Prova social em destaque</span></div>
+    </div>
+    <div class="tc-formato"><span class="tc-tag">Story 9:16</span><span class="tc-tag">Social Proof</span><span class="tc-tag">Confiança</span></div>
+    <div class="tc-body">
+      <p><strong>Quando usar:</strong> Após receber uma avaliação 5 estrelas no Google ou uma mensagem de cliente satisfeito. Poste imediatamente — emoção fresca converte mais.</p>
+      <p><strong>Como personalizar:</strong> Cole o texto do depoimento no campo de texto. Adicione o nome e cidade do cliente (com autorização). Fundo com foto da tattoo realizada.</p>
+    </div>
+    <div class="tc-copy">
+      <span class="tc-copy-lbl">Copy sugerida (no Story)</span>
+      <p>"[Texto do depoimento do cliente]"<br><br>— [Nome], [Cidade] ⭐⭐⭐⭐⭐<br><br>Quer uma experiência assim? Link na bio 👇</p>
+    </div>
+  </div>
+
+  <div class="template-card">
+    <div class="tc-header">
+      <div class="tc-num">04</div>
+      <div class="tc-info"><h4>Enquete de Estilo</h4><span>Engajamento + qualificação de público</span></div>
+    </div>
+    <div class="tc-formato"><span class="tc-tag">Story 9:16</span><span class="tc-tag">Engajamento</span><span class="tc-tag">Interativo</span></div>
+    <div class="tc-body">
+      <p><strong>Quando usar:</strong> Uma vez por semana. Além de gerar engajamento, te diz qual estilo seu público mais quer — informação valiosa para criar conteúdo.</p>
+    </div>
+    <div class="tc-copy">
+      <span class="tc-copy-lbl">Enquetes que funcionam</span>
+      <p>Qual você prefere? FINELINE vs REALISMO<br>Para a próxima tattoo: PRETO E CINZA vs COLORIDA<br>Onde tatuaria? BRAÇO vs COSTAS<br>Estilo dos sonhos: FLORAL vs GEOMÉTRICO</p>
+    </div>
+  </div>
+  <div class="pf"><span>Carlos Tattoo BH — Pack Templates Premium 2026</span><span>Página 08-17</span></div>
+</div>
+
+<!-- MÓDULO 2 - FEED -->
+<div class="mh pb">
+  <div class="mh-bg-n">02</div>
+  <div class="mh-lbl">Categoria 02</div>
+  <div class="mh-title">Templates de<br><b>Feed</b></div>
+  <div class="mh-desc">10 templates de feed quadrado e paisagem — portfólio, educativo, depoimento e promoção. Com copy estratégica para cada um.</div>
+  <img src="IPJP8350.JPG" class="mh-logo" alt="">
+</div>
+
+<!-- TEMPLATES FEED -->
+<div class="page pb">
+  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Categoria 02 · Templates de Feed</span></div>
+  <span class="lbl">Feed — 10 templates</span>
+  <h2 class="h2">Templates de <b>Feed com legendas</b></h2>
+
+  <div class="template-card">
+    <div class="tc-header">
+      <div class="tc-num">05</div>
+      <div class="tc-info"><h4>Portfólio Premium</h4><span>Apresentação de trabalho com moldura elegante</span></div>
+    </div>
+    <div class="tc-formato"><span class="tc-tag">Feed 1:1</span><span class="tc-tag">Portfólio</span><span class="tc-tag">Identidade visual</span></div>
+    <div class="tc-body">
+      <p><strong>Quando usar:</strong> Para apresentar qualquer trabalho finalizado. A moldura dourada e o espaço para informações técnicas posicionam seu trabalho como premium.</p>
+      <p><strong>Como personalizar:</strong> Substitua a imagem central pela foto da tattoo. Preencha: estilo, número de sessões, localização.</p>
+    </div>
+    <div class="tc-copy">
+      <span class="tc-copy-lbl">Legenda sugerida</span>
+      <p>[Estilo] · [Local do corpo] · [Cidade] 🖤<br><br>[Conta a história por trás da tattoo em 2-3 parágrafos]<br><br>Para agendar sua consulta gratuita: link na bio ou responde esse post com sua ideia.<br><br>#tattooBH #tatuagemBH #[estilo]tattoo</p>
+    </div>
+  </div>
+
+  <div class="template-card">
+    <div class="tc-header">
+      <div class="tc-num">06</div>
+      <div class="tc-info"><h4>Antes e Depois — Feed</h4><span>Carrossel de transformação</span></div>
+    </div>
+    <div class="tc-formato"><span class="tc-tag">Feed 1:1</span><span class="tc-tag">Carrossel</span><span class="tc-tag">Alta conversão</span></div>
+    <div class="tc-body">
+      <p><strong>Quando usar:</strong> Para coberturas e transformações. O carrossel faz o usuário arrastar — cada arraste é um sinal de engajamento para o algoritmo.</p>
+      <p><strong>Slides sugeridos:</strong> Slide 1: depois (foto final impactante). Slide 2: antes (tattoo antiga). Slide 3: detalhe da cobertura. Slide 4: detalhe técnico. Slide 5: CTA com seu @ e "consulta gratuita".</p>
+    </div>
+    <div class="tc-copy">
+      <span class="tc-copy-lbl">Legenda sugerida</span>
+      <p>Ela escondia esse braço há anos. Arrasta para ver o que mudou. 👉<br><br>[História emocional da cobertura]<br><br>Avaliação gratuita de cobertura: link na bio.</p>
+    </div>
+  </div>
+
+  <div class="template-card">
+    <div class="tc-header">
+      <div class="tc-num">07</div>
+      <div class="tc-info"><h4>Post Educativo — Carrossel</h4><span>Conteúdo que gera salvamento</span></div>
+    </div>
+    <div class="tc-formato"><span class="tc-tag">Feed 1:1</span><span class="tc-tag">Educativo</span><span class="tc-tag">Salvamentos</span></div>
+    <div class="tc-body">
+      <p><strong>Quando usar:</strong> 1-2 vezes por semana. Conteúdo educativo é salvo e compartilhado — cada salvamento sinaliza ao algoritmo que seu conteúdo tem valor, aumentando a distribuição.</p>
+      <p><strong>Temas que funcionam:</strong> "5 coisas sobre cuidado pós-tattoo", "Como escolher seu estilo", "Diferença entre estilos", "Erros mais comuns antes de tatuar".</p>
+    </div>
+    <div class="tc-copy">
+      <span class="tc-copy-lbl">Estrutura do carrossel educativo</span>
+      <p>Slide 1: Título impactante "X coisas que ninguém te conta sobre [tema]"<br>Slides 2-6: Um ponto por slide com imagem relevante<br>Slide final: "Salva esse post para não esquecer" + seu @ + CTA</p>
+    </div>
+  </div>
+
+  <div class="template-card">
+    <div class="tc-header">
+      <div class="tc-num">08</div>
+      <div class="tc-info"><h4>Abertura de Agenda — Feed</h4><span>Post de urgência com vagas limitadas</span></div>
+    </div>
+    <div class="tc-formato"><span class="tc-tag">Feed 1:1</span><span class="tc-tag">Conversão</span><span class="tc-tag">Urgência</span></div>
+    <div class="tc-body">
+      <p><strong>Quando usar:</strong> No início de cada mês quando abrir a agenda. Combine com o Story de abertura para máximo impacto.</p>
+    </div>
+    <div class="tc-copy">
+      <span class="tc-copy-lbl">Legenda sugerida</span>
+      <p>📅 [MÊS] — Vagas abertas<br><br>Trabalho com agenda limitada. São apenas [X] vagas para o próximo mês, e a prioridade vai para os projetos que mais me desafiam tecnicamente.<br><br>Se você tem uma ideia guardada há tempo, esse é o momento. Manda mensagem com sua referência que respondo todos.<br><br>Link na bio para mais informações. 👇</p>
+    </div>
+  </div>
+  <div class="pf"><span>Carlos Tattoo BH — Pack Templates Premium 2026</span><span>Página 18-29</span></div>
+</div>
+
+<!-- MÓDULO 3 - ANÚNCIOS -->
+<div class="mh pb">
+  <div class="mh-bg-n">03</div>
+  <div class="mh-lbl">Categoria 03</div>
+  <div class="mh-title">Templates de<br><b>Anúncios</b></div>
+  <div class="mh-desc">8 templates otimizados para Meta Ads — prontos para usar no Gerenciador de Anúncios com textos que convertem.</div>
+  <img src="IPJP8350.JPG" class="mh-logo" alt="">
+</div>
+
+<!-- TEMPLATES ANÚNCIOS -->
+<div class="page pb">
+  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Categoria 03 · Templates de Anúncios</span></div>
+  <span class="lbl">Anúncios — 8 templates</span>
+  <h2 class="h2">Templates de <b>Anúncios que convertem</b></h2>
+
+  <div class="template-card">
+    <div class="tc-header">
+      <div class="tc-num">09</div>
+      <div class="tc-info"><h4>Anúncio de Cobertura</h4><span>Alta conversão — público com objeção de tattoo antiga</span></div>
+    </div>
+    <div class="tc-formato"><span class="tc-tag">Story 9:16</span><span class="tc-tag">Anúncio</span><span class="tc-tag">Cobertura</span></div>
+    <div class="tc-body">
+      <p><strong>Formato:</strong> Imagem única ou vídeo vertical 9:16. Use uma imagem de antes/depois impactante ou um vídeo timelapse de cobertura.</p>
+      <p><strong>Objetivo no Meta Ads:</strong> Mensagens para WhatsApp.</p>
+    </div>
+    <div class="tc-copy">
+      <span class="tc-copy-lbl">Texto principal do anúncio</span>
+      <p>Você ainda esconde aquela tatuagem debaixo da manga todos os dias? 😬<br><br>Em 7 anos, nunca recusei uma cobertura. Nenhuma tattoo antiga é impossível de transformar.<br><br>✓ Avaliação 100% gratuita<br>✓ Projeto exclusivo para sua cobertura<br>✓ Estúdio em BH — Mantiqueira<br><br>👇 Manda mensagem e descobre o que posso fazer</p>
+    </div>
+  </div>
+
+  <div class="template-card">
+    <div class="tc-header">
+      <div class="tc-num">10</div>
+      <div class="tc-info"><h4>Anúncio de Realismo</h4><span>Para quem quer homenagear alguém</span></div>
+    </div>
+    <div class="tc-formato"><span class="tc-tag">Feed 1:1</span><span class="tc-tag">Anúncio</span><span class="tc-tag">Realismo</span></div>
+    <div class="tc-body">
+      <p><strong>Formato:</strong> Imagem de realismo impressionante — retrato, animal ou objeto com máximo detalhe e sombra.</p>
+    </div>
+    <div class="tc-copy">
+      <span class="tc-copy-lbl">Texto principal do anúncio</span>
+      <p>Quer eternizar alguém especial na sua pele mas tem medo de escolher o profissional errado?<br><br>Retratos realistas são arte — e merece ser tratado com o respeito que essa memória merece.<br><br>✓ Projeto apresentado antes de tatuar<br>✓ 7 anos de realismo em BH<br>✓ 5 estrelas Google · +2.400 tatuagens<br><br>💬 Manda mensagem — vamos criar juntos</p>
+    </div>
+  </div>
+
+  <div class="template-card">
+    <div class="tc-header">
+      <div class="tc-num">11</div>
+      <div class="tc-info"><h4>Anúncio Geral — Vagas limitadas</h4><span>Urgência com escassez real</span></div>
+    </div>
+    <div class="tc-formato"><span class="tc-tag">Story 9:16</span><span class="tc-tag">Anúncio</span><span class="tc-tag">Urgência</span></div>
+    <div class="tc-copy">
+      <span class="tc-copy-lbl">Texto principal</span>
+      <p>⚡ Últimas 3 vagas disponíveis para este mês no Carlos Tattoo BH<br><br>✓ Realismo · Fineline · Black & Grey · Cover Up · Colorida<br>✓ Projeto personalizado antes de cada sessão<br>✓ +2.400 tatuagens · 5⭐ Google · Mantiqueira, BH<br><br>📅 Reserve sua vaga antes que esgote</p>
+    </div>
+  </div>
+
+  <h3 class="h3">Como usar os templates de anúncio no Meta Ads</h3>
+  <div class="steps">
+    <div class="step"><div class="sn">1</div><div class="st"><h4>Exporte em alta resolução</h4><p>No Canva, exporte o template como PNG em qualidade máxima. O Meta Ads aceita imagens até 30MB. Resolução mínima: 1080px no menor lado.</p></div></div>
+    <div class="step"><div class="sn">2</div><div class="st"><h4>Atenção ao texto sobre imagem</h4><p>O Meta Ads penaliza imagens com mais de 20% de área coberta por texto. Nos templates de anúncio, os textos estão posicionados para respeitar esse limite. Não adicione mais texto sobre a imagem.</p></div></div>
+    <div class="step"><div class="sn">3</div><div class="st"><h4>Use a copy no campo "Texto principal"</h4><p>O texto sugerido em cada template vai no campo "Texto principal" do anúncio no Gerenciador — não precisa estar na imagem. A imagem deve ser visual e impactante; o texto longo vai no campo de copy.</p></div></div>
+  </div>
+  <div class="pf"><span>Carlos Tattoo BH — Pack Templates Premium 2026</span><span>Página 30-45</span></div>
+</div>
+
+<!-- CONTRACAPA -->
+<div class="cback">
+  <div style="position:relative;z-index:2;text-align:center;">
+    <img src="IPJP8350.JPG" style="height:80px;object-fit:contain;filter:drop-shadow(0 0 22px rgba(201,168,76,.55));margin-bottom:28px;" alt="">
+    <h2 style="font-family:'Cinzel Decorative',cursive;font-size:28px;color:#E8B800;margin-bottom:12px;">Templates prontos.<br>Agora aprenda a anunciar.</h2>
+    <div style="background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.28);border-radius:18px;padding:36px 44px;max-width:520px;margin:0 auto;">
+      <h3 style="font-family:'Cinzel Decorative',cursive;font-size:20px;color:#ffffff;margin-bottom:8px;">Tráfego Pago para Tatuadores</h3>
+      <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:#ffffff;margin-bottom:20px;">CURSO COMPLETO 2026</p>
+      <p style="font-family:'Cinzel Decorative',cursive;font-size:36px;color:#E8B800;margin-bottom:8px;">R$ 297</p>
+      <p style="font-size:14px;color:#ffffff;font-family:'Raleway',sans-serif;">ou 6x de R$ 52,00</p>
+    </div>
+    <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:rgba(201,168,76,.35);margin-top:40px;">© 2026 Carlos Tattoo BH · @carlostattoo.bh</p>
+  </div>
+</div>
+
+<button onclick="window.print()" class="no-print" style="position:fixed;bottom:28px;right:28px;z-index:1000;background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;border:none;padding:14px 26px;border-radius:50px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;cursor:pointer;box-shadow:0 6px 24px rgba(201,168,76,.45);">🖨️ Salvar como PDF</button>
+</body>
+</html>

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /acesso.html
+Disallow: /painel.html
+Disallow: /leitor.html
+
+Sitemap: https://carlostattoo.com.br/sitemap.xml

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tráfego Pago para Tatuadores — Carlos Tattoo BH</title>
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#0A0702;--d1:#1C1208;--d2:#2A1A08;--g1:#E8B800;--g2:#C9A84C;--g3:#A07830;--t1:#EDE4D4;--t2:#C9B89A;--t3:#9A7A5A;}
+body{font-family:'Raleway',sans-serif;background:var(--bg);color:var(--t1);display:flex;min-height:100vh;}
+.sidebar{width:300px;background:rgba(28,18,8,.97);border-right:1px solid rgba(201,168,76,.1);position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:100;display:flex;flex-direction:column;}
+.sb-header{padding:20px;border-bottom:1px solid rgba(201,168,76,.1);}
+.sb-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.sb-logo img{height:36px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(201,168,76,.4));}
+.sb-titulo{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:var(--g2);text-transform:uppercase;line-height:1.4;}
+.sb-progress-wrap{margin-top:12px;}
+.sb-progress-label{display:flex;justify-content:space-between;font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;color:rgba(201,168,76,.5);text-transform:uppercase;margin-bottom:6px;}
+.sb-progress-bar{height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;}
+.sb-progress-fill{height:100%;background:linear-gradient(90deg,var(--g3),var(--g1));transition:width .5s;}
+.sb-modulos{padding:8px 0;flex:1;}
+.sb-mod-titulo{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:rgba(201,168,76,.35);text-transform:uppercase;padding:12px 20px 4px;}
+.sb-aula{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;transition:.2s;border-left:3px solid transparent;}
+.sb-aula:hover{background:rgba(201,168,76,.05);border-left-color:rgba(201,168,76,.3);}
+.sb-aula.active{background:rgba(201,168,76,.08);border-left-color:var(--g2);}
+.sb-aula.done .sb-aula-nome{color:rgba(201,168,76,.5);}
+.sb-aula-num{font-family:'Cinzel Decorative',cursive;font-size:10px;color:var(--g2);width:22px;flex-shrink:0;}
+.sb-aula-nome{font-size:12px;color:var(--t2);line-height:1.3;flex:1;}
+.sb-aula-check{font-size:11px;color:var(--g2);flex-shrink:0;}
+.sb-footer{padding:16px 20px;border-top:1px solid rgba(201,168,76,.1);}
+.btn-voltar{display:flex;align-items:center;gap:8px;color:rgba(201,168,76,.5);font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;text-decoration:none;transition:.2s;}
+.btn-voltar:hover{color:var(--g2);}
+.main{margin-left:300px;flex:1;display:flex;flex-direction:column;}
+.main-header{background:rgba(28,18,8,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,.1);padding:14px 36px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;gap:12px;}
+.mh-titulo{font-family:'Cinzel',serif;font-size:13px;color:var(--t1);flex:1;}
+.mh-nav{display:flex;gap:8px;flex-shrink:0;}
+.btn-nav-a{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);color:var(--g2);padding:8px 16px;border-radius:8px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;transition:.2s;}
+.btn-nav-a:hover{background:rgba(201,168,76,.2);}
+.btn-nav-a:disabled{opacity:.3;cursor:not-allowed;}
+.btn-concluir{background:linear-gradient(135deg,var(--g3),var(--g1));color:#0a0500;border:none;padding:8px 16px;border-radius:8px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;font-weight:700;transition:.2s;}
+.btn-concluir:hover{transform:translateY(-1px);}
+.aula-wrap{flex:1;padding:36px 40px;max-width:900px;}
+.aula-tag{font-family:'Cinzel',serif;font-size:9px;letter-spacing:4px;color:rgba(201,168,76,.4);text-transform:uppercase;margin-bottom:10px;}
+.aula-h1{font-family:'Cinzel Decorative',cursive;font-size:clamp(20px,2.8vw,34px);color:#fff;margin-bottom:18px;line-height:1.2;}
+.aula-h1 span{color:var(--g1);}
+.aula-intro{font-size:15px;color:var(--t2);line-height:1.9;margin-bottom:28px;padding:18px 22px;background:rgba(201,168,76,.05);border-left:4px solid var(--g2);border-radius:0 10px 10px 0;}
+h2.ah2{font-family:'Cinzel',serif;font-size:17px;color:#fff;font-weight:700;margin:32px 0 12px;padding-bottom:10px;border-bottom:1px solid rgba(201,168,76,.12);display:flex;align-items:center;gap:8px;}
+h2.ah2::before{content:'◆';color:var(--g2);font-size:9px;}
+h3.ah3{font-family:'Cinzel',serif;font-size:14px;color:var(--g2);font-weight:700;margin:20px 0 8px;}
+p.ap{font-size:14px;color:var(--t2);line-height:1.9;margin-bottom:14px;}
+.passo{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.1);border-radius:12px;padding:20px 22px;margin:12px 0;display:flex;gap:14px;}
+.passo-n{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--g3),var(--g2));display:flex;align-items:center;justify-content:center;font-family:'Cinzel Decorative',cursive;font-size:12px;color:#fff;flex-shrink:0;font-weight:900;}
+.passo-body h4{font-family:'Cinzel',serif;font-size:13px;color:#fff;font-weight:700;margin-bottom:6px;}
+.passo-body p{font-size:13px;color:var(--t2);line-height:1.8;margin:0;}
+.passo-body code{font-family:'Courier New',monospace;background:rgba(201,168,76,.1);padding:2px 7px;border-radius:4px;font-size:12px;color:var(--g1);}
+.destaque{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:16px 20px;margin:16px 0;}
+.destaque p{font-size:13px;color:var(--t1);line-height:1.8;margin:0;}
+.destaque strong{color:var(--g1);}
+.alerta{background:rgba(231,76,60,.05);border:1px solid rgba(231,76,60,.2);border-radius:10px;padding:14px 18px;margin:14px 0;}
+.alerta p{font-size:13px;color:#fca5a5;line-height:1.8;margin:0;}
+.dica{background:rgba(39,174,96,.05);border:1px solid rgba(39,174,96,.2);border-radius:10px;padding:14px 18px;margin:14px 0;}
+.dica p{font-size:13px;color:#86efac;line-height:1.8;margin:0;}
+.checklist{list-style:none;margin:12px 0;}
+.checklist li{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--t2);margin-bottom:8px;line-height:1.7;}
+.checklist li::before{content:'✓';color:var(--g2);font-weight:700;flex-shrink:0;}
+.exemplo{background:rgba(52,152,219,.05);border:1px solid rgba(52,152,219,.2);border-radius:10px;padding:16px 20px;margin:14px 0;}
+.exemplo-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(52,152,219,.6);text-transform:uppercase;margin-bottom:8px;}
+.exemplo p{font-size:13px;color:#bfdbfe;line-height:1.8;margin:0;font-style:italic;}
+.aula-nav-bottom{display:flex;gap:12px;justify-content:space-between;margin-top:44px;padding-top:24px;border-top:1px solid rgba(201,168,76,.1);}
+.btn-ant-b{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.15);color:var(--t2);padding:12px 22px;border-radius:10px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;transition:.2s;}
+.btn-ant-b:hover{border-color:rgba(201,168,76,.4);color:var(--g2);}
+.btn-prox-b{background:linear-gradient(135deg,var(--g3),var(--g1));color:#0a0500;padding:12px 24px;border-radius:10px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;cursor:pointer;font-weight:700;border:none;transition:.2s;}
+.btn-prox-b:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(201,168,76,.3);}
+@media(max-width:900px){.sidebar{width:260px;transform:translateX(-100%);transition:transform .3s;}.sidebar.open{transform:translateX(0);}.main{margin-left:0;}.aula-wrap{padding:20px 16px;}.main-header{padding:12px 16px;}}
+</style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sb-header">
+    <div class="sb-logo">
+      <img src="imagens/IPJP8350.JPG" alt="Carlos Tattoo BH" onerror="this.style.display='none'">
+      <span class="sb-titulo">Tráfego Pago para Tatuadores</span>
+    </div>
+    <div class="sb-progress-wrap">
+      <div class="sb-progress-label"><span>PROGRESSO</span><span id="progressoPct">0%</span></div>
+      <div class="sb-progress-bar"><div class="sb-progress-fill" id="progressoFill" style="width:0%"></div></div>
+    </div>
+  </div>
+  <div class="sb-modulos" id="sbModulos"></div>
+  <div class="sb-footer"><a href="painel.html" class="btn-voltar">← Voltar ao painel</a></div>
+</aside>
+
+<div class="main">
+  <header class="main-header">
+    <span class="mh-titulo" id="mhTitulo">Carregando...</span>
+    <div class="mh-nav">
+      <button class="btn-nav-a" id="btnAnt" onclick="navAula(-1)" disabled>← Anterior</button>
+      <button class="btn-concluir" onclick="concluirAula()">✓ Concluir</button>
+      <button class="btn-nav-a" id="btnProx" onclick="navAula(1)">Próxima →</button>
+    </div>
+  </header>
+  <div class="aula-wrap" id="aulaContent"></div>
+</div>
+
+<script>
+const sessao = JSON.parse(sessionStorage.getItem('ct_sessao')||'null');
+if(!sessao) window.location.href='acesso.html';
+const CURSO_ID = 'curso-trafego';
+const prog = JSON.parse(localStorage.getItem('ct_progresso_'+(sessao?.email||''))||'{}');
+let aulaAtual = prog['aula_'+CURSO_ID]||0;
+
+const MODULOS = [
+  {mod:'MÓDULO 1 — FUNDAMENTOS DO META ADS', aulas:[
+    {t:'Por que Meta Ads para tatuadores', c:`
+<div class="aula-tag">Módulo 1 · Aula 1</div>
+<h1 class="aula-h1">Por que <span>Meta Ads para Tatuadores</span></h1>
+<p class="aula-intro">Tráfego pago é o único jeito previsível de lotar sua agenda todo mês. Indicação é ótima mas não escala. Esse curso vai te ensinar a criar um sistema de aquisição de clientes que funciona enquanto você tatua.</p>
+<h2 class="ah2">A diferença entre impulsionar e anunciar</h2>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Botão "Impulsionar" do Instagram</h4><p>Limitado, caro e pouco segmentado. O Instagram decide quem vê. <strong>Nunca use para vender.</strong></p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Gerenciador de Anúncios (Meta Ads)</h4><p>Você controla: público, orçamento, objetivo, criativo, horário. É aqui que se faz dinheiro. Acesse em: <code>business.facebook.com</code></p></div></div>
+<h2 class="ah2">Quanto investir para começar</h2>
+<ul class="checklist">
+  <li>Mínimo recomendado: R$15/dia (R$450/mês)</li>
+  <li>Para testar e aprender: R$300-500/mês</li>
+  <li>Para escalar com resultados: R$800-1.500/mês</li>
+</ul>
+<div class="destaque"><p><strong>Retorno esperado:</strong> Com R$500/mês bem investidos, um tatuador de BH pode receber de 15 a 30 mensagens de interesse por mês. Convertendo 30%, isso é 5-10 agendamentos novos.</p></div>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)" disabled>← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
+    {t:'Criando sua conta no Meta Business', c:`
+<div class="aula-tag">Módulo 1 · Aula 2</div>
+<h1 class="aula-h1">Criando sua conta no <span>Meta Business Suite</span></h1>
+<p class="aula-intro">Antes de criar qualquer anúncio, você precisa configurar sua conta corretamente. Um erro aqui pode bloquear sua conta. Siga cada passo com atenção.</p>
+<h2 class="ah2">Passo a passo completo</h2>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Acesse business.facebook.com</h4><p>No computador (não no celular). Faça login com seu Facebook pessoal.</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Crie uma conta Business</h4><p>Clique em <code>Criar conta</code> → nome do negócio: <code>Carlos Tattoo BH</code> → seu nome → e-mail profissional → clique em <code>Avançar</code>.</p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Adicione seu Instagram</h4><p>No menu lateral → <code>Configurações</code> → <code>Contas do Instagram</code> → <code>Adicionar</code> → faça login no Instagram do estúdio.</p></div></div>
+<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Crie uma página do Facebook</h4><p>Obrigatório para anunciar. Menu lateral → <code>Páginas</code> → <code>Adicionar</code> → <code>Criar nova página</code> → nome: <code>Carlos Tattoo BH</code> → categoria: <code>Estúdio de Tatuagem</code>.</p></div></div>
+<div class="passo"><div class="passo-n">5</div><div class="passo-body"><h4>Configure o método de pagamento</h4><p>Menu lateral → <code>Configurações de pagamento</code> → <code>Adicionar método de pagamento</code> → cartão de crédito (recomendado) ou PIX automático.</p></div></div>
+<div class="passo"><div class="passo-n">6</div><div class="passo-body"><h4>Instale o Pixel do Meta</h4><p>Menu lateral → <code>Fontes de dados</code> → <code>Pixels</code> → <code>Adicionar</code> → nome: <code>Pixel Carlos Tattoo</code> → copie o código e cole no seu site.</p></div></div>
+<div class="alerta"><p>⚠️ <strong>Não use VPN</strong> ao configurar sua conta. O Meta detecta e pode bloquear a conta por "atividade suspeita". Use sempre sua rede normal.</p></div>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
+    {t:'Entendendo a estrutura de campanhas', c:`
+<div class="aula-tag">Módulo 1 · Aula 3</div>
+<h1 class="aula-h1">Estrutura de <span>Campanhas no Meta Ads</span></h1>
+<p class="aula-intro">O Meta Ads tem 3 níveis. Entender isso é fundamental para não desperdiçar dinheiro. A maioria dos iniciantes erra porque não entende essa hierarquia.</p>
+<h2 class="ah2">Os 3 níveis — Campanha, Conjunto e Anúncio</h2>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>CAMPANHA — O objetivo</h4><p>É onde você define O QUE quer: Tráfego, Engajamento, Mensagens, Conversão. Para tatuagem: use <strong>Mensagens</strong> (gera WhatsApp) ou <strong>Tráfego</strong> (leva ao site).</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>CONJUNTO DE ANÚNCIOS — O público</h4><p>É onde você define PARA QUEM: localização, idade, gênero, interesses, orçamento e horário. Um campanha pode ter vários conjuntos testando públicos diferentes.</p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>ANÚNCIO — O criativo</h4><p>É o que o cliente vê: imagem ou vídeo + texto + botão de ação. Um conjunto pode ter vários anúncios testando criativos diferentes.</p></div></div>
+<div class="destaque"><p><strong>Estrutura recomendada para começar:</strong><br>1 Campanha → 2 Conjuntos (2 públicos diferentes) → 2 Anúncios por conjunto (2 criativos diferentes) = 4 anúncios rodando simultaneamente.</p></div>
+<h2 class="ah2">Qual objetivo escolher</h2>
+<ul class="checklist">
+  <li><strong>Mensagens:</strong> melhor para tatuagem. Cliente envia WhatsApp diretamente.</li>
+  <li><strong>Tráfego:</strong> leva para o site. Use se tiver landing page ou formulário.</li>
+  <li><strong>Alcance:</strong> para aparecer para o máximo de pessoas. Bom para reconhecimento.</li>
+  <li><strong>Engajamento:</strong> para curtidas e comentários. Menos indicado para venda direta.</li>
+</ul>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`}
+  ]},
+  {mod:'MÓDULO 2 — CRIANDO SUA PRIMEIRA CAMPANHA', aulas:[
+    {t:'Criando campanha de Mensagens passo a passo', c:`
+<div class="aula-tag">Módulo 2 · Aula 4</div>
+<h1 class="aula-h1">Criando sua primeira <span>Campanha de Mensagens</span></h1>
+<p class="aula-intro">Vamos criar agora a campanha que gera mensagens no WhatsApp. Siga cada clique exatamente como descrito aqui.</p>
+<h2 class="ah2">Passo a passo completo no Gerenciador</h2>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Acesse o Gerenciador de Anúncios</h4><p>business.facebook.com → menu lateral → <code>Gerenciador de Anúncios</code> → clique no botão verde <code>+ Criar</code>.</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Selecione o objetivo "Engajamento"</h4><p>Na nova interface do Meta (2024+), Mensagens fica dentro de <code>Engajamento</code>. Clique em <code>Engajamento</code> → no nível do conjunto, mude para <code>Mensagens</code>.</p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Nome da campanha</h4><p>Use um nome descritivo: <code>Tatuagem BH - Mensagens - [Mês/Ano]</code>. Isso facilita a gestão quando você tiver várias campanhas.</p></div></div>
+<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Orçamento da campanha</h4><p>Selecione <code>Orçamento da campanha Advantage+</code> → defina R$20/dia para começar. O Meta distribui entre os conjuntos automaticamente.</p></div></div>
+<div class="passo"><div class="passo-n">5</div><div class="passo-body"><h4>Clique em "Avançar"</h4><p>Você vai para o nível de Conjunto de Anúncios.</p></div></div>
+<h2 class="ah2">Configurando o Conjunto de Anúncios</h2>
+<div class="passo"><div class="passo-n">6</div><div class="passo-body"><h4>Destino das mensagens</h4><p>Selecione <code>WhatsApp</code> → conecte seu número do WhatsApp Business. O botão do anúncio vai abrir uma conversa direto no WhatsApp.</p></div></div>
+<div class="passo"><div class="passo-n">7</div><div class="passo-body"><h4>Localização do público</h4><p>Em <code>Localizações</code>: selecione <code>Pessoas que vivem neste local</code> → adicione <code>Belo Horizonte, Brasil</code> → raio de 30km. Isso atinge toda a Grande BH.</p></div></div>
+<div class="passo"><div class="passo-n">8</div><div class="passo-body"><h4>Idade e gênero</h4><p>Idade: <code>20 a 45</code>. Gênero: <code>Todos</code> (teste separado depois se quiser). O tamanho do público aparece no lado direito — ideal entre 200.000 e 800.000.</p></div></div>
+<div class="passo"><div class="passo-n">9</div><div class="passo-body"><h4>Interesses (segmentação detalhada)</h4><p>Em <code>Segmentação detalhada</code> adicione: <code>Tatuagem</code>, <code>Body art</code>, <code>Arte</code>, <code>Moda alternativa</code>. Evite interesses genéricos como "Compras".</p></div></div>
+<div class="passo"><div class="passo-n">10</div><div class="passo-body"><h4>Posicionamentos</h4><p>Selecione <code>Posicionamentos manuais</code> → desmarque tudo → mantenha apenas: <code>Feed do Instagram</code> e <code>Reels do Instagram</code>. Isso garante que seu anúncio aparece onde importa.</p></div></div>
+<div class="passo"><div class="passo-n">11</div><div class="passo-body"><h4>Clique em "Avançar"</h4><p>Você vai para o nível do Anúncio.</p></div></div>
+<div class="dica"><p>✅ <strong>Dica:</strong> Não ative o botão <code>Advantage+ audience</code> no começo. Ele funciona melhor depois que o Pixel tem dados suficientes (mais de 50 conversões).</p></div>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
+    {t:'Criando o criativo do anúncio', c:`
+<div class="aula-tag">Módulo 2 · Aula 5</div>
+<h1 class="aula-h1">Criando o <span>Criativo do Anúncio</span></h1>
+<p class="aula-intro">O criativo é responsável por 70% do resultado. Um anúncio com foto ruim não converte mesmo com o melhor texto. Aqui você aprende a criar criativos que param o scroll.</p>
+<h2 class="ah2">Configurando o anúncio</h2>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Identidade do anúncio</h4><p>Selecione sua Página do Facebook e seu perfil do Instagram. O anúncio vai aparecer como publicado por essas contas.</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Formato do criativo</h4><p>Selecione <code>Imagem ou vídeo único</code>. Para começar, use uma foto de alta qualidade do seu melhor trabalho. Depois teste vídeo.</p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Faça upload da imagem</h4><p>Tamanho ideal: <code>1080x1080px</code> (quadrado) ou <code>1080x1350px</code> (vertical — ocupa mais tela no celular). JPG ou PNG, máximo 30MB.</p></div></div>
+<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Texto principal (copy)</h4><p>Use a fórmula: Problema/Desejo → Credencial → CTA.<br>Exemplo:<br><em>"Sua próxima tatuagem pode ser a melhor que você já fez. 7 anos, 2.400+ tatuagens em BH. 👇 Clique e mande sua referência."</em></p></div></div>
+<div class="passo"><div class="passo-n">5</div><div class="passo-body"><h4>Título (headline)</h4><p>Máximo 40 caracteres. Aparece em destaque. Use: <code>Tatuagem Realista em BH</code> ou <code>Consulta Gratuita</code>.</p></div></div>
+<div class="passo"><div class="passo-n">6</div><div class="passo-body"><h4>Botão de ação (CTA)</h4><p>Para campanha de mensagens: selecione <code>Enviar mensagem</code>. Configure a mensagem automática: <em>"Olá! Vi seu anúncio e quero saber mais sobre tatuagem."</em></p></div></div>
+<div class="passo"><div class="passo-n">7</div><div class="passo-body"><h4>Publicar o anúncio</h4><p>Clique em <code>Publicar</code>. O anúncio entra em revisão (geralmente aprovado em 1-24h). Você receberá um e-mail quando estiver ativo.</p></div></div>
+<div class="alerta"><p>⚠️ <strong>Não mexa na campanha nas primeiras 72h.</strong> O algoritmo precisa desse tempo para aprender e distribuir para as pessoas certas. Alterar durante o período de aprendizado reinicia tudo.</p></div>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`}
+  ]},
+  {mod:'MÓDULO 3 — PÚBLICOS AVANÇADOS', aulas:[
+    {t:'Remarketing — anunciar para quem já te viu', c:`
+<div class="aula-tag">Módulo 3 · Aula 6</div>
+<h1 class="aula-h1">Remarketing — <span>anunciar para quem já te viu</span></h1>
+<p class="aula-intro">Remarketing é anunciar para pessoas que já tiveram contato com você: visitaram seu perfil, assistiram seus Reels ou visitaram seu site. Esse público converte 3-5x mais que público frio.</p>
+<h2 class="ah2">Criando público de remarketing do Instagram</h2>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Acesse Públicos</h4><p>Gerenciador de Anúncios → menu hambúrguer (≡) → <code>Públicos</code> → clique em <code>+ Criar público</code> → <code>Público personalizado</code>.</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Selecione a fonte</h4><p>Clique em <code>Conta do Instagram</code> → selecione seu perfil.</p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Defina os eventos</h4><p>Selecione: <code>Pessoas que interagiram com qualquer publicação ou anúncio</code> + <code>Pessoas que visitaram seu perfil</code> + <code>Pessoas que enviaram uma mensagem</code>. Período: <code>90 dias</code>.</p></div></div>
+<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Nomeie e salve</h4><p>Nome: <code>Remarketing Instagram 90d</code> → clique em <code>Criar público</code>. O público leva 24-48h para popular.</p></div></div>
+<h2 class="ah2">Público Lookalike (semelhante)</h2>
+<p class="ap">Lookalike é um público criado pelo Meta que encontra pessoas parecidas com seus clientes atuais. É muito poderoso após o Pixel ter dados.</p>
+<div class="passo"><div class="passo-n">5</div><div class="passo-body"><h4>Criar Lookalike</h4><p>Públicos → <code>+ Criar público</code> → <code>Público semelhante</code> → fonte: selecione seu público de remarketing → país: <code>Brasil</code> → tamanho: <code>1%</code> (mais similar) → criar.</p></div></div>
+<div class="destaque"><p><strong>Estratégia completa:</strong> Campanha 1 → público frio (interesses) para atrair novos. Campanha 2 → remarketing para reengajar quem já conhece. Campanha 3 → lookalike para escalar.</p></div>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`}
+  ]},
+  {mod:'MÓDULO 4 — ANÁLISE E OTIMIZAÇÃO', aulas:[
+    {t:'Lendo os dados e otimizando campanhas', c:`
+<div class="aula-tag">Módulo 4 · Aula 7</div>
+<h1 class="aula-h1">Lendo os dados e <span>otimizando campanhas</span></h1>
+<p class="aula-intro">Criar a campanha é apenas 30% do trabalho. Os outros 70% é analisar e otimizar. Aqui você aprende a ler os números e tomar decisões que aumentam o retorno.</p>
+<h2 class="ah2">As métricas principais</h2>
+<ul class="checklist">
+  <li><strong>CPM:</strong> Custo por 1.000 impressões. Abaixo de R$15 é bom para BH.</li>
+  <li><strong>CTR:</strong> Taxa de clique. Acima de 1% é bom. Abaixo = mude o criativo.</li>
+  <li><strong>Custo por mensagem:</strong> quanto você pagou por cada conversa no WhatsApp. Meta: abaixo de R$15.</li>
+  <li><strong>Frequência:</strong> quantas vezes a mesma pessoa viu seu anúncio. Acima de 3 = troque o criativo.</li>
+</ul>
+<h2 class="ah2">Quando pausar um anúncio</h2>
+<ul class="checklist">
+  <li>CTR abaixo de 0.5% após 5 dias e R$75 gastos</li>
+  <li>Custo por mensagem acima de R$30 por mais de 7 dias</li>
+  <li>Frequência acima de 4 sem resultados</li>
+  <li>Zero mensagens após R$100 investidos</li>
+</ul>
+<h2 class="ah2">O que fazer quando a campanha para de funcionar</h2>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Troque o criativo primeiro</h4><p>Mantenha a mesma segmentação e mude apenas a imagem ou vídeo. Criativos se "cansam" após 1-3 semanas.</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Amplie o público</h4><p>Se o público ficou pequeno (menos de 100.000), aumente o raio geográfico ou adicione mais interesses.</p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Teste um novo objetivo</h4><p>Se Mensagens parou de funcionar, tente Tráfego por 7 dias. Às vezes o algoritmo precisa de um "reset".</p></div></div>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
+    {t:'Script de atendimento e plano 30 dias', c:`
+<div class="aula-tag">Módulo 4 · Aula 8 — Final</div>
+<h1 class="aula-h1">Script de Atendimento e <span>Plano 30 Dias</span></h1>
+<p class="aula-intro">De nada adianta gerar mensagens se o atendimento não converte. Aqui está o script testado que fecha mais agendamentos — e seu plano de ação para o primeiro mês.</p>
+<h2 class="ah2">Script de atendimento WhatsApp</h2>
+<div class="exemplo"><div class="exemplo-label">Mensagem 1 — Responda em até 30 minutos</div><p>"Olá [nome]! 😊 Que ótimo que entrou em contato! Sou o Carlos, especializado em [estilo] aqui em BH. Me conta: que tipo de tatuagem você está pensando?"</p></div>
+<div class="exemplo"><div class="exemplo-label">Mensagem 2 — Após resposta</div><p>"Adorei! Tenho bastante experiência com isso. Você tem alguma referência de imagem para me mandar? Assim consigo te dar uma estimativa mais precisa. 🎨"</p></div>
+<div class="exemplo"><div class="exemplo-label">Mensagem 3 — Após ver a referência</div><p>"Ficou ótimo na minha cabeça! Para esse projeto, o investimento seria entre R$X e R$Y. Tenho horários disponíveis [dia] às [hora]. Você toparia uma consulta gratuita para planejarmos juntos?"</p></div>
+<h2 class="ah2">Plano de ação — 30 dias</h2>
+<ul class="checklist">
+  <li><strong>Semana 1:</strong> Configurar conta, criar primeira campanha, definir criativo</li>
+  <li><strong>Semana 2:</strong> Analisar primeiros dados, ajustar público se necessário</li>
+  <li><strong>Semana 3:</strong> Criar variação do criativo, ativar remarketing</li>
+  <li><strong>Semana 4:</strong> Avaliar resultado total, escalar o que funcionou</li>
+</ul>
+<div style="background:linear-gradient(135deg,var(--d1),var(--d2));border:2px solid rgba(201,168,76,.3);border-radius:16px;padding:36px;text-align:center;margin-top:28px;">
+  <div style="font-size:48px;margin-bottom:14px;">🎯</div>
+  <h3 style="font-family:'Cinzel Decorative',cursive;font-size:22px;color:#fff;margin-bottom:10px;">Curso Concluído!</h3>
+  <p style="font-size:14px;color:var(--t2);line-height:1.8;margin-bottom:20px;">Você completou o curso Tráfego Pago para Tatuadores. Agora crie sua primeira campanha e lote sua agenda!</p>
+  <button onclick="concluirAula()" class="btn-concluir" style="padding:14px 28px;font-size:12px;letter-spacing:2px;">✓ CONCLUIR CURSO</button>
+</div>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)" disabled>Curso completo ✓</button></div>`}
+  ]}
+];
+
+// ── LÓGICA DO CURSO ──
+function totalAulas(){return MODULOS.reduce((s,m)=>s+m.aulas.length,0);}
+
+function getAula(idx){
+  let n=0;
+  for(const m of MODULOS){
+    for(const a of m.aulas){
+      if(n===idx) return {...a,mod:m.mod};
+      n++;
+    }
+  }
+  return null;
+}
+
+function renderSidebar(){
+  const c=document.getElementById('sbModulos');
+  c.innerHTML='';
+  let n=0;
+  MODULOS.forEach(mod=>{
+    const div=document.createElement('div');
+    const mt=document.createElement('div');
+    mt.className='sb-mod-titulo';
+    mt.textContent=mod.mod;
+    div.appendChild(mt);
+    mod.aulas.forEach((a,ai)=>{
+      const idx=n;
+      const done=(prog['done_'+CURSO_ID]||[]).includes(idx);
+      const li=document.createElement('div');
+      li.className='sb-aula'+(idx===aulaAtual?' active':'')+(done?' done':'');
+      li.innerHTML=`<span class="sb-aula-num">${String(idx+1).padStart(2,'0')}</span><span class="sb-aula-nome">${a.t}</span>${done?'<span class="sb-aula-check">✓</span>':''}`;
+      li.onclick=()=>irAula(idx);
+      div.appendChild(li);
+      n++;
+    });
+    c.appendChild(div);
+  });
+  const total=totalAulas();
+  const done=(prog['done_'+CURSO_ID]||[]).length;
+  const pct=Math.round((done/total)*100);
+  document.getElementById('progressoPct').textContent=pct+'%';
+  document.getElementById('progressoFill').style.width=pct+'%';
+}
+
+function renderAula(){
+  const a=getAula(aulaAtual);
+  if(!a) return;
+  document.getElementById('mhTitulo').textContent=a.t;
+  document.getElementById('aulaContent').innerHTML=a.c;
+  document.getElementById('btnAnt').disabled=aulaAtual===0;
+  document.getElementById('btnProx').disabled=aulaAtual>=totalAulas()-1;
+  window.scrollTo(0,0);
+}
+
+function irAula(idx){
+  aulaAtual=idx;
+  prog['aula_'+CURSO_ID]=idx;
+  salvar();
+  renderSidebar();
+  renderAula();
+}
+
+function navAula(dir){
+  const n=aulaAtual+dir;
+  if(n>=0&&n<totalAulas()) irAula(n);
+}
+
+function concluirAula(){
+  if(!prog['done_'+CURSO_ID]) prog['done_'+CURSO_ID]=[];
+  if(!prog['done_'+CURSO_ID].includes(aulaAtual)) prog['done_'+CURSO_ID].push(aulaAtual);
+  salvar();
+  renderSidebar();
+  if(aulaAtual<totalAulas()-1) navAula(1);
+  else{alert('🎉 Parabéns! Você concluiu o curso Tráfego Pago para Tatuadores!');}
+}
+
+function salvar(){
+  const total=totalAulas();
+  const done=(prog['done_'+CURSO_ID]||[]).length;
+  prog[CURSO_ID]=Math.round((done/total)*100);
+  localStorage.setItem('ct_progresso_'+(sessao?.email||''),JSON.stringify(prog));
+}
+
+renderSidebar();
+renderAula();
+</script>
+</body>
+</html>
