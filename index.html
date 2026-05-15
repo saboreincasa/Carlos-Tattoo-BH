@@ -2417,6 +2417,125 @@ html { scroll-behavior: smooth; }
   .fp-orcamentos{grid-template-columns:repeat(2,1fr);}
 }
 
+
+/* ══════════════════════════════════════════
+   LEGIBILIDADE CIRÚRGICA FINAL
+   ══════════════════════════════════════════ */
+
+/* CURSOS — tudo legível */
+.ccard { background:linear-gradient(160deg,#1C1208,#0f0a02) !important; border:1px solid rgba(201,168,76,.2) !important; }
+.ctitle, .curso-titulo { color:#ffffff !important; font-size:17px !important; font-weight:700 !important; line-height:1.3 !important; }
+.curso-sub, .csubtitle { color:rgba(201,168,76,.7) !important; font-size:10px !important; letter-spacing:2px !important; }
+.cdesc, .curso-desc { color:#EDE4D4 !important; font-size:13px !important; line-height:1.8 !important; }
+.cfeature, .cfeature li { color:#C9B89A !important; font-size:13px !important; line-height:1.9 !important; }
+.cfeature li::before, .cfeature .check { color:#E8B800 !important; }
+.cpreco-de { color:rgba(237,228,212,.35) !important; font-size:13px !important; text-decoration:line-through !important; }
+.cpreco { color:#E8B800 !important; font-size:clamp(24px,3vw,34px) !important; font-weight:700 !important; }
+.cparcela { color:rgba(201,168,76,.55) !important; font-size:12px !important; }
+.cbtn, .curso-btn { color:#0a0500 !important; font-weight:700 !important; }
+
+/* CAPA DOS CURSOS */
+.ccover {
+  width:100%;height:200px;
+  object-fit:cover;display:block;
+  background:linear-gradient(135deg,#1C1208,#2A1A08);
+  position:relative;overflow:hidden;
+}
+.ccover img {
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .5s ease;
+}
+.ccard:hover .ccover img { transform:scale(1.05); }
+.ccover-placeholder {
+  width:100%;height:200px;
+  background:linear-gradient(135deg,#1C1208,#2A1A08);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:8px;border-bottom:1px solid rgba(201,168,76,.1);
+}
+.ccover-placeholder span {
+  font-family:'Cinzel',serif;font-size:9px;
+  letter-spacing:2px;color:rgba(201,168,76,.3);
+  text-transform:uppercase;text-align:center;
+  padding:0 16px;
+}
+
+/* EBOOKS — legibilidade */
+.ebook-card { background:linear-gradient(160deg,#1C1208,#0f0a02) !important; }
+.etitle { color:#ffffff !important; font-size:15px !important; font-weight:700 !important; line-height:1.4 !important; }
+.esubtitle { color:rgba(201,168,76,.6) !important; font-size:10px !important; letter-spacing:2px !important; }
+.edesc { color:#C9B89A !important; font-size:13px !important; line-height:1.75 !important; }
+.epreco { color:#E8B800 !important; font-size:24px !important; font-weight:700 !important; }
+.epreco-de { color:rgba(237,228,212,.3) !important; font-size:12px !important; text-decoration:line-through !important; }
+.edownload { color:rgba(201,168,76,.5) !important; font-size:11px !important; }
+.ebtn { color:#0a0500 !important; font-weight:700 !important; }
+
+/* ARÉOLA — depoimentos */
+.ar-dep-card, .areola-dep {
+  background:rgba(255,255,255,.04) !important;
+  border:1px solid rgba(201,120,120,.15) !important;
+  border-radius:14px !important;
+  padding:24px !important;
+}
+.ar-dep-text { color:#EDE4D4 !important; font-size:15px !important; line-height:1.9 !important; font-style:italic !important; }
+.ar-dep-name { color:rgba(201,150,150,.7) !important; font-size:12px !important; letter-spacing:1px !important; }
+
+/* BOTÃO SOBREVIVENTE — mais impactante */
+.btn-areola-cta, [onclick*="modalAreola"] {
+  background:linear-gradient(135deg,#6d2b2b,#a85050,#6d2b2b) !important;
+  background-size:200% !important;
+  animation:btnAreolaPulse 3s ease infinite !important;
+  color:#ffffff !important;
+  border:1px solid rgba(255,180,180,.2) !important;
+  font-size:14px !important;
+  letter-spacing:3px !important;
+  padding:20px 40px !important;
+  border-radius:50px !important;
+  box-shadow:0 8px 30px rgba(168,80,80,.4) !important;
+}
+@keyframes btnAreolaPulse {
+  0%,100%{background-position:0%;box-shadow:0 8px 30px rgba(168,80,80,.4);}
+  50%{background-position:100%;box-shadow:0 8px 50px rgba(168,80,80,.7);}
+}
+
+/* TEXTO APOIO ABAIXO DO BOTÃO ARÉOLA */
+.areola-cta-sub {
+  color:rgba(237,228,212,.6) !important;
+  font-size:12px !important;
+  letter-spacing:2px !important;
+  margin-top:12px !important;
+}
+
+/* COMPARTILHAMENTO */
+.share-bar {
+  display:flex;align-items:center;gap:10px;
+  margin-top:20px;padding-top:16px;
+  border-top:1px solid rgba(201,168,76,.1);
+  flex-wrap:wrap;
+}
+.share-label {
+  font-family:'Cinzel',serif;font-size:10px;
+  letter-spacing:2px;color:rgba(201,168,76,.5);
+  text-transform:uppercase;margin-right:4px;
+}
+.share-btn {
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 14px;border-radius:20px;
+  font-family:'Cinzel',serif;font-size:10px;
+  letter-spacing:1px;cursor:pointer;
+  text-decoration:none;transition:.2s;border:none;
+}
+.share-wpp { background:rgba(37,211,102,.12);color:#25d366;border:1px solid rgba(37,211,102,.25); }
+.share-wpp:hover { background:rgba(37,211,102,.22); }
+.share-fb { background:rgba(66,103,178,.12);color:#6b9fff;border:1px solid rgba(66,103,178,.25); }
+.share-fb:hover { background:rgba(66,103,178,.22); }
+.share-copy { background:rgba(201,168,76,.08);color:#C9A84C;border:1px solid rgba(201,168,76,.2); }
+.share-copy:hover { background:rgba(201,168,76,.18); }
+
+/* RABISCO — fundo escuro para caveira branca aparecer bem */
+#skullBtn { background:linear-gradient(135deg,#0A0702,#1C1208) !important; border:2px solid rgba(201,168,76,.35) !important; }
+#skullBtn:hover { border-color:rgba(201,168,76,.6) !important; }
+
 /* ═══ RESPONSIVE NOVAS SEÇÕES ═══ */
 
 /* ═══ RESPONSIVE ═══ */
@@ -4842,6 +4961,125 @@ html { scroll-behavior: smooth; }
   .fp-orcamentos{grid-template-columns:repeat(2,1fr);}
 }
 
+
+/* ══════════════════════════════════════════
+   LEGIBILIDADE CIRÚRGICA FINAL
+   ══════════════════════════════════════════ */
+
+/* CURSOS — tudo legível */
+.ccard { background:linear-gradient(160deg,#1C1208,#0f0a02) !important; border:1px solid rgba(201,168,76,.2) !important; }
+.ctitle, .curso-titulo { color:#ffffff !important; font-size:17px !important; font-weight:700 !important; line-height:1.3 !important; }
+.curso-sub, .csubtitle { color:rgba(201,168,76,.7) !important; font-size:10px !important; letter-spacing:2px !important; }
+.cdesc, .curso-desc { color:#EDE4D4 !important; font-size:13px !important; line-height:1.8 !important; }
+.cfeature, .cfeature li { color:#C9B89A !important; font-size:13px !important; line-height:1.9 !important; }
+.cfeature li::before, .cfeature .check { color:#E8B800 !important; }
+.cpreco-de { color:rgba(237,228,212,.35) !important; font-size:13px !important; text-decoration:line-through !important; }
+.cpreco { color:#E8B800 !important; font-size:clamp(24px,3vw,34px) !important; font-weight:700 !important; }
+.cparcela { color:rgba(201,168,76,.55) !important; font-size:12px !important; }
+.cbtn, .curso-btn { color:#0a0500 !important; font-weight:700 !important; }
+
+/* CAPA DOS CURSOS */
+.ccover {
+  width:100%;height:200px;
+  object-fit:cover;display:block;
+  background:linear-gradient(135deg,#1C1208,#2A1A08);
+  position:relative;overflow:hidden;
+}
+.ccover img {
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .5s ease;
+}
+.ccard:hover .ccover img { transform:scale(1.05); }
+.ccover-placeholder {
+  width:100%;height:200px;
+  background:linear-gradient(135deg,#1C1208,#2A1A08);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:8px;border-bottom:1px solid rgba(201,168,76,.1);
+}
+.ccover-placeholder span {
+  font-family:'Cinzel',serif;font-size:9px;
+  letter-spacing:2px;color:rgba(201,168,76,.3);
+  text-transform:uppercase;text-align:center;
+  padding:0 16px;
+}
+
+/* EBOOKS — legibilidade */
+.ebook-card { background:linear-gradient(160deg,#1C1208,#0f0a02) !important; }
+.etitle { color:#ffffff !important; font-size:15px !important; font-weight:700 !important; line-height:1.4 !important; }
+.esubtitle { color:rgba(201,168,76,.6) !important; font-size:10px !important; letter-spacing:2px !important; }
+.edesc { color:#C9B89A !important; font-size:13px !important; line-height:1.75 !important; }
+.epreco { color:#E8B800 !important; font-size:24px !important; font-weight:700 !important; }
+.epreco-de { color:rgba(237,228,212,.3) !important; font-size:12px !important; text-decoration:line-through !important; }
+.edownload { color:rgba(201,168,76,.5) !important; font-size:11px !important; }
+.ebtn { color:#0a0500 !important; font-weight:700 !important; }
+
+/* ARÉOLA — depoimentos */
+.ar-dep-card, .areola-dep {
+  background:rgba(255,255,255,.04) !important;
+  border:1px solid rgba(201,120,120,.15) !important;
+  border-radius:14px !important;
+  padding:24px !important;
+}
+.ar-dep-text { color:#EDE4D4 !important; font-size:15px !important; line-height:1.9 !important; font-style:italic !important; }
+.ar-dep-name { color:rgba(201,150,150,.7) !important; font-size:12px !important; letter-spacing:1px !important; }
+
+/* BOTÃO SOBREVIVENTE — mais impactante */
+.btn-areola-cta, [onclick*="modalAreola"] {
+  background:linear-gradient(135deg,#6d2b2b,#a85050,#6d2b2b) !important;
+  background-size:200% !important;
+  animation:btnAreolaPulse 3s ease infinite !important;
+  color:#ffffff !important;
+  border:1px solid rgba(255,180,180,.2) !important;
+  font-size:14px !important;
+  letter-spacing:3px !important;
+  padding:20px 40px !important;
+  border-radius:50px !important;
+  box-shadow:0 8px 30px rgba(168,80,80,.4) !important;
+}
+@keyframes btnAreolaPulse {
+  0%,100%{background-position:0%;box-shadow:0 8px 30px rgba(168,80,80,.4);}
+  50%{background-position:100%;box-shadow:0 8px 50px rgba(168,80,80,.7);}
+}
+
+/* TEXTO APOIO ABAIXO DO BOTÃO ARÉOLA */
+.areola-cta-sub {
+  color:rgba(237,228,212,.6) !important;
+  font-size:12px !important;
+  letter-spacing:2px !important;
+  margin-top:12px !important;
+}
+
+/* COMPARTILHAMENTO */
+.share-bar {
+  display:flex;align-items:center;gap:10px;
+  margin-top:20px;padding-top:16px;
+  border-top:1px solid rgba(201,168,76,.1);
+  flex-wrap:wrap;
+}
+.share-label {
+  font-family:'Cinzel',serif;font-size:10px;
+  letter-spacing:2px;color:rgba(201,168,76,.5);
+  text-transform:uppercase;margin-right:4px;
+}
+.share-btn {
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 14px;border-radius:20px;
+  font-family:'Cinzel',serif;font-size:10px;
+  letter-spacing:1px;cursor:pointer;
+  text-decoration:none;transition:.2s;border:none;
+}
+.share-wpp { background:rgba(37,211,102,.12);color:#25d366;border:1px solid rgba(37,211,102,.25); }
+.share-wpp:hover { background:rgba(37,211,102,.22); }
+.share-fb { background:rgba(66,103,178,.12);color:#6b9fff;border:1px solid rgba(66,103,178,.25); }
+.share-fb:hover { background:rgba(66,103,178,.22); }
+.share-copy { background:rgba(201,168,76,.08);color:#C9A84C;border:1px solid rgba(201,168,76,.2); }
+.share-copy:hover { background:rgba(201,168,76,.18); }
+
+/* RABISCO — fundo escuro para caveira branca aparecer bem */
+#skullBtn { background:linear-gradient(135deg,#0A0702,#1C1208) !important; border:2px solid rgba(201,168,76,.35) !important; }
+#skullBtn:hover { border-color:rgba(201,168,76,.6) !important; }
+
 /* ═══ RESPONSIVE NOVAS SEÇÕES ═══ */
 
 /* ═══ RESPONSIVE ═══ */
@@ -6448,7 +6686,7 @@ html { scroll-behavior: smooth; }
     <div class="courses-grid">
       <div class="ccard rv">
         <div class="ccover" style="padding:0;overflow:hidden;height:200px;">
-          <img src="imagens/thumb-curso-instagram.jpg" alt="Curso Instagram para Tatuadores" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<span class=ccov-icon>📱</span><div class=ccov-title>Instagram que Atrai e Vende</div><div class=ccov-sub>CARLOS TATTOO BH</div>'">
+          <img src="imagens/capa-curso-instagram.jpg" alt="Curso Instagram para Tatuadores" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<span class=ccov-icon>📱</span><div class=ccov-title>Instagram que Atrai e Vende</div><div class=ccov-sub>CARLOS TATTOO BH</div>'">
         </div>
         <div class="cbody">
           <div class="cname">Instagram para Tatuadores</div>
@@ -6460,7 +6698,7 @@ html { scroll-behavior: smooth; }
       </div>
       <div class="ccard feat rv">
         <div class="cbadge">MAIS VENDIDO</div>
-        <div class="ccover" style="padding:0;overflow:hidden;height:200px;"><img src="imagens/thumb-curso-trafego.jpg" alt="Curso Tráfego" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<span class=ccov-icon>🎯</span><div class=ccov-title>Tráfego Tattoo do Zero</div>'"></div>
+        <div class="ccover" style="padding:0;overflow:hidden;height:200px;"><img src="imagens/capa-curso-trafego.jpg" alt="Curso Tráfego" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<span class=ccov-icon>🎯</span><div class=ccov-title>Tráfego Tattoo do Zero</div>'"></div>
         <div class="cbody">
           <div class="cname">Tráfego Pago para Tatuadores</div>
           <div class="cdesc">Meta Ads completo: do primeiro anúncio à agenda cheia todo mês.</div>
@@ -6470,7 +6708,7 @@ html { scroll-behavior: smooth; }
         </div>
       </div>
       <div class="ccard rv">
-        <div class="ccover" style="padding:0;overflow:hidden;height:200px;"><img src="imagens/thumb-curso-posicionamento.jpg" alt="Curso Posicionamento" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<span class=ccov-icon>🏆</span><div class=ccov-title>Posicionamento de Alta Valor</div>'"></div>
+        <div class="ccover" style="padding:0;overflow:hidden;height:200px;"><img src="imagens/capa-curso-posicionamento.jpg" alt="Curso Posicionamento" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<span class=ccov-icon>🏆</span><div class=ccov-title>Posicionamento de Alta Valor</div>'"></div>
         <div class="cbody">
           <div class="cname">Branding & Posicionamento</div>
           <div class="cdesc">Como cobrar mais caro e ter clientes que valorizam seu trabalho.</div>
@@ -6481,7 +6719,7 @@ html { scroll-behavior: smooth; }
       </div>
       <div class="ccard rv" style="border:2px solid var(--g4);">
         <div class="cbadge" style="background:var(--r3);">VIP</div>
-        <div class="ccover" style="padding:0;overflow:hidden;height:200px;"><img src="imagens/thumb-curso-mentoria.jpg" alt="Mentoria VIP" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<span class=ccov-icon>💎</span><div class=ccov-title>Mentoria VIP 1:1</div>'"></div>
+        <div class="ccover" style="padding:0;overflow:hidden;height:200px;"><img src="imagens/capa-curso-mentoria.jpg" alt="Mentoria VIP" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<span class=ccov-icon>💎</span><div class=ccov-title>Mentoria VIP 1:1</div>'"></div>
         <div class="cbody">
           <div class="cname">Mentoria VIP 1:1</div>
           <div class="cdesc">Estratégia personalizada para o seu estúdio com Carlos.</div>
@@ -6757,6 +6995,12 @@ html { scroll-behavior: smooth; }
           <div class="btitle">Quanto custa uma tatuagem realista em BH? Guia completo 2026</div>
           <p class="bexc">Descubra tudo sobre preços, fatores que influenciam e como garantir qualidade na sua tatuagem em Belo Horizonte. O guia mais completo do mercado tattoo de MG.</p>
           <a href="blog-quanto-custa-tatuagem-bh.html" class="bmore">LER ARTIGO →</a>
+          <div class="share-bar">
+            <span class="share-label">Compartilhar</span>
+            <a class="share-btn share-wpp" href="https://wa.me/?text=Quanto%20custa%20uma%20tatuagem%20em%20BH?%20https%3A%2F%2Fcarlostattoo.com.br%2Fblog-quanto-custa-tatuagem-bh.html" target="_blank">📱 WhatsApp</a>
+            <a class="share-btn share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://carlostattoo.com.br/blog-quanto-custa-tatuagem-bh.html" target="_blank">📘 Facebook</a>
+            <button class="share-btn share-copy" onclick="copiarLink('blog-quanto-custa-tatuagem-bh.html')">🔗 Copiar</button>
+          </div>
           
         </div>
       </div>
@@ -6771,6 +7015,12 @@ html { scroll-behavior: smooth; }
           <div class="btitle">Como conseguir clientes para tatuagem usando tráfego pago em 2026</div>
           <p class="bexc">Estratégias que realmente funcionam para lotar sua agenda com Meta Ads em 2026.</p>
           <a href="blog-trafego-pago-tatuadores.html" class="bmore">LER →</a>
+          <div class="share-bar">
+            <span class="share-label">Compartilhar</span>
+            <a class="share-btn share-wpp" href="https://wa.me/?text=Tráfego%20pago%20para%20tatuadores%20https%3A%2F%2Fcarlostattoo.com.br%2Fblog-trafego-pago-tatuadores.html" target="_blank">📱 WhatsApp</a>
+            <a class="share-btn share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://carlostattoo.com.br/blog-trafego-pago-tatuadores.html" target="_blank">📘 Facebook</a>
+            <button class="share-btn share-copy" onclick="copiarLink('blog-trafego-pago-tatuadores.html')">🔗 Copiar</button>
+          </div>
         </div>
       </div>
       <div class="bcard">
@@ -6784,6 +7034,12 @@ html { scroll-behavior: smooth; }
           <div class="btitle">Cover up em BH: tudo que você precisa saber antes de cobrir sua tattoo</div>
           <p class="bexc">Processo, limitações, expectativas e como escolher o tatuador certo para sua cobertura.</p>
           <a href="blog-cover-up-bh.html" class="bmore">LER →</a>
+          <div class="share-bar">
+            <span class="share-label">Compartilhar</span>
+            <a class="share-btn share-wpp" href="https://wa.me/?text=Cover%20Up%20em%20BH%20—%20Transforme%20sua%20tatuagem%20https%3A%2F%2Fcarlostattoo.com.br%2Fblog-cover-up-bh.html" target="_blank">📱 WhatsApp</a>
+            <a class="share-btn share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://carlostattoo.com.br/blog-cover-up-bh.html" target="_blank">📘 Facebook</a>
+            <button class="share-btn share-copy" onclick="copiarLink('blog-cover-up-bh.html')">🔗 Copiar</button>
+          </div>
         </div>
       </div>
     </div>
@@ -7354,16 +7610,7 @@ function closePix(){
 
 function copyPix(){copiarChave();}
 
-function confirmarPix(){
-  const email=document.getElementById('pix-email').value.trim();
-  if(!email){alert('Por favor, informe seu email para receber o acesso.');return;}
-  addLead({nome:'Comprador PIX',email,produto:pixProduto,origem:'pix',tipo:'curso'});
-  // Evento Meta Ads
-  if(typeof fbq !== 'undefined') fbq('track','Purchase',{content_name:pixProduto,currency:'BRL'});
-  closePix();
-  const msg=`Olá Carlos! Realizei o pagamento via PIX.\n\n*Produto:* ${pixProduto}\n*Email para receber acesso:* ${email}\n\nSegue o comprovante!`;
-  window.open(`https://wa.me/5531983391576?text=${encodeURIComponent(msg)}`,'_blank');
-}
+
 
 function registrarCompraCartao(){
   const email=document.getElementById('card-email')?document.getElementById('card-email').value.trim():'';
@@ -8352,14 +8599,7 @@ function comprarUpsell(){
 
 // Interceptar confirmarPix para mostrar upsell
 const _origConfirmarPix = confirmarPix;
-function confirmarPix(){
-  _origConfirmarPix();
-  // Mostrar upsell após 3s para ebooks
-  const ebooksSemUpsell = Object.keys(UPSELL_MAP);
-  if(ebooksSemUpsell.includes(pixProduto)){
-    setTimeout(()=>mostrarUpsell(pixProduto), 3000);
-  }
-}
+
 </script>
 
 
@@ -8424,67 +8664,39 @@ function confirmarPix(){
      ════════════════════════════════════ -->
 <button id="skullBtn" onclick="toggleSkull()" aria-label="Assistente Skull">
   <svg class="skull-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- Coroa dourada -->
-    <path d="M28 22 L32 14 L38 20 L44 11 L50 20 L56 11 L62 20 L68 14 L72 22Z" fill="#E8B800" opacity=".9"/>
-    <path d="M28 22 L72 22 L70 28 L30 28Z" fill="#C9A84C"/>
-    <!-- Pedras da coroa -->
-    <circle cx="38" cy="17" r="2" fill="#ff4444" opacity=".8"/>
-    <circle cx="50" cy="14" r="2.5" fill="#4444ff" opacity=".8"/>
-    <circle cx="62" cy="17" r="2" fill="#44ff44" opacity=".8"/>
-    <!-- Crânio principal -->
-    <path d="M50 30 C32 30 20 42 20 54 C20 64 26 72 35 76 L35 86 C35 88 37 90 39 90 L61 90 C63 90 65 88 65 86 L65 76 C74 72 80 64 80 54 C80 42 68 30 50 30Z" fill="#D4A017"/>
-    <!-- Sombra/profundidade crânio -->
-    <path d="M50 32 C34 32 22 43 22 54 C22 63 27 71 36 75" stroke="#A07830" stroke-width="1.5" fill="none" opacity=".4"/>
-    <!-- Rachaduras blackwork -->
-    <path d="M50 32 L47 42 L50 46 L48 56" stroke="#0a0702" stroke-width="2" stroke-linecap="round" opacity=".8"/>
-    <path d="M63 38 L59 46 L62 50" stroke="#0a0702" stroke-width="1.2" stroke-linecap="round" opacity=".5"/>
-    <path d="M37 40 L40 48" stroke="#0a0702" stroke-width="1" stroke-linecap="round" opacity=".4"/>
-    <!-- Sobrancelhas agressivas -->
-    <path d="M24 50 L36 55" stroke="#0a0702" stroke-width="4" stroke-linecap="round"/>
-    <path d="M64 55 L76 50" stroke="#0a0702" stroke-width="4" stroke-linecap="round"/>
-    <!-- Órbitas -->
-    <ellipse cx="36" cy="58" rx="10" ry="11" fill="#0a0702"/>
-    <ellipse cx="64" cy="58" rx="10" ry="11" fill="#0a0702"/>
-    <!-- Olhos vermelhos -->
-    <ellipse cx="36" cy="57" rx="5.5" ry="6.5" fill="#8B0000" opacity=".95"/>
-    <ellipse cx="64" cy="57" rx="5.5" ry="6.5" fill="#8B0000" opacity=".95"/>
-    <!-- Brilho vermelho intenso -->
-    <ellipse cx="36" cy="57" rx="2.5" ry="3" fill="#FF2020"/>
-    <ellipse cx="64" cy="57" rx="2.5" ry="3" fill="#FF2020"/>
-    <!-- Reflexo nos olhos -->
-    <ellipse cx="34" cy="55" rx="1" ry="1.2" fill="rgba(255,255,255,.4)"/>
-    <ellipse cx="62" cy="55" rx="1" ry="1.2" fill="rgba(255,255,255,.4)"/>
-    <!-- Nariz -->
-    <path d="M47 67 L50 62 L53 67Z" fill="#0a0702" opacity=".8"/>
-    <!-- Mandíbula -->
-    <path d="M35 78 L35 86 C35 88 37 90 39 90 L61 90 C63 90 65 88 65 86 L65 78Z" fill="#B8900F"/>
-    <!-- Dentes irregulares -->
-    <rect x="37" y="74" width="6" height="11" rx="1.5" fill="#0a0702"/>
-    <rect x="45" y="72" width="5" height="13" rx="1.5" fill="#0a0702"/>
-    <rect x="52" y="72" width="5" height="13" rx="1.5" fill="#0a0702"/>
-    <rect x="59" y="74" width="6" height="11" rx="1.5" fill="#0a0702"/>
-    <!-- Dente partido -->
-    <path d="M45 72 L47 77 L50 72" fill="#D4A017"/>
-    <!-- MÁQUINA DE TATUAR -->
-    <!-- Corpo da máquina -->
-    <rect x="66" y="68" width="22" height="12" rx="3" fill="#2a2a2a" transform="rotate(-35 66 68)"/>
-    <rect x="67" y="69" width="20" height="10" rx="2" fill="#3a3a3a" transform="rotate(-35 67 69)"/>
-    <!-- Grip da máquina -->
-    <rect x="78" y="78" width="8" height="18" rx="4" fill="#1a1a1a" transform="rotate(-35 78 78)"/>
-    <!-- Detalhes metálicos -->
-    <rect x="68" y="70" width="18" height="3" rx="1" fill="#555" transform="rotate(-35 68 70)" opacity=".7"/>
-    <!-- Agulha -->
-    <line x1="65" y1="72" x2="57" y2="82" stroke="#C0C0C0" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="57" y1="82" x2="55" y2="87" stroke="#C0C0C0" stroke-width="1" stroke-linecap="round"/>
-    <!-- Ponta da agulha com brilho -->
-    <circle cx="55" cy="87" r="1.5" fill="#E8E8E8"/>
-    <!-- Tinta saindo da agulha -->
-    <path d="M55 87 Q53 90 54 93" stroke="#0a0702" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
-    <!-- Fio da máquina -->
-    <path d="M85 88 Q90 95 88 100" stroke="#333" stroke-width="2" stroke-linecap="round" fill="none"/>
-    <!-- Contorno blackwork geral -->
-    <path d="M50 30 C32 30 20 42 20 54 C20 64 26 72 35 76 L35 90 L65 90 L65 76 C74 72 80 64 80 54 C80 42 68 30 50 30Z" stroke="#0a0702" stroke-width="2.5" fill="none"/>
-  </svg>
+  <!-- Crânio principal — branco -->
+  <path d="M50 8 C28 8 16 24 16 40 C16 54 24 64 36 70 L36 72 L64 72 L64 70 C76 64 84 54 84 40 C84 24 72 8 50 8Z" fill="#F5F5F5" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Sombra lateral esquerda -->
+  <path d="M20 38 C18 44 20 54 28 62" stroke="#cccccc" stroke-width="1.5" fill="none" opacity=".5"/>
+  <!-- Rachadura 1 -->
+  <path d="M50 10 L47 22 L50 27 L48 38" stroke="#888" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Rachadura 2 -->
+  <path d="M65 18 L61 28 L63 33" stroke="#aaa" stroke-width="1" stroke-linecap="round"/>
+  <!-- Sobrancelhas agressivas -->
+  <path d="M20 36 L34 42" stroke="#1a1a1a" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M66 42 L80 36" stroke="#1a1a1a" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Órbitas — preto sólido -->
+  <ellipse cx="35" cy="48" rx="10" ry="11" fill="#1a1a1a"/>
+  <ellipse cx="65" cy="48" rx="10" ry="11" fill="#1a1a1a"/>
+  <!-- Reflexo branco nos olhos -->
+  <ellipse cx="32" cy="45" rx="3" ry="3.5" fill="#ffffff" opacity=".2"/>
+  <ellipse cx="62" cy="45" rx="3" ry="3.5" fill="#ffffff" opacity=".2"/>
+  <!-- Nariz -->
+  <path d="M46 60 L50 54 L54 60Z" fill="#cccccc" opacity=".7"/>
+  <!-- BOCA ABERTA -->
+  <path d="M30 70 Q30 85 50 90 Q70 85 70 70Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Dentes superiores irregulares -->
+  <rect x="33" y="70" width="6" height="9" rx="1.5" fill="#F5F5F5"/>
+  <rect x="41" y="68" width="5" height="11" rx="1.5" fill="#F5F5F5"/>
+  <rect x="48" y="68" width="5" height="11" rx="1.5" fill="#F5F5F5"/>
+  <rect x="55" y="70" width="6" height="9" rx="1.5" fill="#F5F5F5"/>
+  <!-- Dente partido -->
+  <path d="M41 68 L43 73 L46 68" fill="#ddd"/>
+  <!-- Língua -->
+  <ellipse cx="50" cy="84" rx="8" ry="5" fill="#cc4444" opacity=".8"/>
+  <!-- Contorno final -->
+  <path d="M50 8 C28 8 16 24 16 40 C16 54 24 64 36 70 L36 72 L64 72 L64 70 C76 64 84 54 84 40 C84 24 72 8 50 8Z" stroke="#1a1a1a" stroke-width="2.5" fill="none"/>
+</svg>
   <div class="skull-badge">IA</div>
 </button>
 
@@ -8498,20 +8710,18 @@ function confirmarPix(){
 <div id="skullPanel">
   <div class="skull-panel-header">
     <div class="skull-avatar">
-      <svg width="32" height="32" viewBox="0 0 80 80" fill="none">
-        <path d="M40 6 C22 6 14 18 14 30 C14 40 18 46 24 50 L24 62 L56 62 L56 50 C62 46 66 40 66 30 C66 18 58 6 40 6Z" fill="#D4A017"/>
-        <path d="M18 28 L29 32" stroke="#0a0702" stroke-width="3" stroke-linecap="round"/>
-        <path d="M51 32 L62 28" stroke="#0a0702" stroke-width="3" stroke-linecap="round"/>
-        <ellipse cx="29" cy="36" rx="8" ry="9" fill="#0a0702"/>
-        <ellipse cx="51" cy="36" rx="8" ry="9" fill="#0a0702"/>
-        <ellipse cx="29" cy="35" rx="3" ry="3.5" fill="#FF2020" opacity=".8"/>
-        <ellipse cx="51" cy="35" rx="3" ry="3.5" fill="#FF2020" opacity=".8"/>
-        <rect x="27" y="50" width="5" height="9" rx="1" fill="#0a0702"/>
-        <rect x="34" y="48" width="4" height="11" rx="1" fill="#0a0702"/>
-        <rect x="40" y="48" width="4" height="11" rx="1" fill="#0a0702"/>
-        <rect x="46" y="50" width="5" height="9" rx="1" fill="#0a0702"/>
-        <path d="M40 6 C22 6 14 18 14 30 C14 40 18 46 24 50 L24 62 L56 62 L56 50 C62 46 66 40 66 30 C66 18 58 6 40 6Z" stroke="#0a0702" stroke-width="2" fill="none"/>
-      </svg>
+      <svg width="32" height="32" viewBox="0 0 100 100" fill="none">
+  <path d="M50 8 C28 8 16 24 16 40 C16 54 24 64 36 70 L36 72 L64 72 L64 70 C76 64 84 54 84 40 C84 24 72 8 50 8Z" fill="#F5F5F5" stroke="#1a1a1a" stroke-width="2.5"/>
+  <path d="M20 36 L34 42" stroke="#1a1a1a" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M66 42 L80 36" stroke="#1a1a1a" stroke-width="3.5" stroke-linecap="round"/>
+  <ellipse cx="35" cy="48" rx="10" ry="11" fill="#1a1a1a"/>
+  <ellipse cx="65" cy="48" rx="10" ry="11" fill="#1a1a1a"/>
+  <path d="M30 70 Q30 85 50 90 Q70 85 70 70Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="33" y="70" width="6" height="9" rx="1.5" fill="#F5F5F5"/>
+  <rect x="41" y="68" width="5" height="11" rx="1.5" fill="#F5F5F5"/>
+  <rect x="48" y="68" width="5" height="11" rx="1.5" fill="#F5F5F5"/>
+  <rect x="55" y="70" width="6" height="9" rx="1.5" fill="#F5F5F5"/>
+</svg>
     </div>
     <div class="skull-header-info">
       <h4>💀 Rabisco — Carlos Tattoo BH</h4>
@@ -9632,6 +9842,83 @@ function mostrarObrigado(){
   },{threshold:0.4});
   obs.observe(contatoSection);
 })();
+</script>
+
+
+<script>
+// ════════════════════════════════════════
+// COMPARTILHAMENTO
+// ════════════════════════════════════════
+function copiarLink(url){
+  const link = `https://carlostattoo.com.br/${url || ''}`;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(link).then(()=>{
+      mostrarToastShare('🔗 Link copiado!');
+    });
+  } else {
+    const el = document.createElement('textarea');
+    el.value = link;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    mostrarToastShare('🔗 Link copiado!');
+  }
+}
+
+function mostrarToastShare(msg){
+  const t = document.createElement('div');
+  t.style.cssText = `position:fixed;bottom:100px;left:50%;transform:translateX(-50%);
+    background:linear-gradient(135deg,#1C1208,#2A1A08);border:1px solid rgba(201,168,76,.3);
+    color:#E8B800;padding:12px 24px;border-radius:50px;
+    font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;
+    z-index:99999;box-shadow:0 8px 24px rgba(0,0,0,.4);
+    animation:popIn .3s ease;`;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(), 2500);
+}
+
+// Botão flutuante de compartilhamento após 90s
+setTimeout(()=>{
+  if(sessionStorage.getItem('share_shown')) return;
+  sessionStorage.setItem('share_shown','1');
+  const shareFloat = document.createElement('div');
+  shareFloat.style.cssText = `
+    position:fixed;bottom:${window.innerWidth<=768?'160px':'100px'};
+    right:100px;z-index:7400;
+    background:linear-gradient(135deg,#1C1208,#2A1A08);
+    border:1px solid rgba(201,168,76,.25);border-radius:14px;
+    padding:14px 18px;max-width:260px;
+    box-shadow:0 8px 28px rgba(0,0,0,.4);
+    animation:slideInRight .4s ease;
+  `;
+  shareFloat.innerHTML = `
+    <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:rgba(201,168,76,.6);text-transform:uppercase;margin-bottom:10px;">Gostou do site?</div>
+    <div style="font-size:13px;color:#EDE4D4;margin-bottom:12px;line-height:1.6;">Compartilhe com alguém que quer tatuar em BH 🖤</div>
+    <div style="display:flex;gap:8px;">
+      <a href="https://wa.me/?text=Olha%20esse%20tatuador%20incrível%20em%20BH!%20https://carlostattoo.com.br" target="_blank"
+        style="flex:1;text-align:center;background:rgba(37,211,102,.15);border:1px solid rgba(37,211,102,.25);color:#25d366;padding:9px;border-radius:8px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;text-decoration:none;">📱 WhatsApp</a>
+      <button onclick="this.closest('div[style]').remove()"
+        style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.4);width:34px;border-radius:8px;cursor:pointer;font-size:14px;">✕</button>
+    </div>
+  `;
+  document.body.appendChild(shareFloat);
+  setTimeout(()=>{
+    shareFloat.style.opacity='0';
+    shareFloat.style.transition='opacity .4s';
+    setTimeout(()=>shareFloat.remove(), 400);
+  }, 12000);
+}, 90000);
+
+const styleShare = document.createElement('style');
+styleShare.textContent = `
+  @keyframes slideInRight {
+    from { transform:translateX(120%); opacity:0; }
+    to { transform:translateX(0); opacity:1; }
+  }
+`;
+document.head.appendChild(styleShare);
 </script>
 
 </body>
