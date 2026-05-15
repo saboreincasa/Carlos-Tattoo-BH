@@ -1914,6 +1914,103 @@ footer p { color:#9A7A5A !important; }
 .scard-body .sname { color:#ffffff !important; }
 .scard-body .sdesc { color:#C9B89A !important; }
 
+
+/* ═══ ORDER BUMP ═══ */
+.order-bump{
+  background:rgba(201,168,76,.06);border:2px dashed rgba(201,168,76,.3);
+  border-radius:12px;padding:16px 18px;margin:16px 0;
+  display:flex;align-items:center;gap:14px;cursor:pointer;transition:.2s;
+}
+.order-bump:hover{background:rgba(201,168,76,.1);}
+.order-bump.checked{background:rgba(39,174,96,.08);border-color:rgba(39,174,96,.4);}
+.ob-check{width:24px;height:24px;border-radius:6px;border:2px solid rgba(201,168,76,.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.2s;font-size:14px;color:#27ae60;}
+.ob-check.active{background:#27ae60;border-color:#27ae60;color:#fff;}
+.ob-info{flex:1;}
+.ob-title{font-family:'Cinzel',serif;font-size:12px;color:#E8B800;font-weight:700;margin-bottom:3px;}
+.ob-desc{font-size:11px;color:rgba(237,228,212,.6);line-height:1.5;}
+.ob-preco{font-family:'Cinzel Decorative',cursive;font-size:16px;color:#ffffff;flex-shrink:0;}
+.ob-de{font-size:10px;color:rgba(237,228,212,.35);text-decoration:line-through;text-align:right;}
+
+/* ═══ CONTADOR DE VAGAS ═══ */
+.vagas-counter{
+  background:rgba(139,26,26,.1);border:1px solid rgba(139,26,26,.3);
+  border-radius:10px;padding:12px 16px;margin:12px 0;
+  display:flex;align-items:center;gap:10px;
+}
+.vagas-dot{width:8px;height:8px;border-radius:50%;background:#e74c3c;animation:blink 1s ease infinite;flex-shrink:0;}
+.vagas-txt{font-family:'Cinzel',serif;font-size:11px;color:#fca5a5;letter-spacing:1px;}
+.vagas-barra{flex:1;height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;}
+.vagas-fill{height:100%;background:linear-gradient(90deg,#e74c3c,#c0392b);border-radius:3px;}
+
+/* ═══ VISITAS AO VIVO ═══ */
+.live-views{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2);
+  border-radius:20px;padding:5px 12px;
+  font-family:'Cinzel',serif;font-size:10px;color:#86efac;letter-spacing:1px;
+}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#27ae60;animation:blink 1.5s ease infinite;}
+
+/* ═══ BARRA DE PROGRESSO LEITURA ═══ */
+#read-progress{
+  position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#A07830,#E8B800);
+  z-index:99999;transition:width .1s;width:0%;
+}
+
+
+/* ═══ MOBILE NAV 3 FILEIRAS ═══ */
+.mobile-nav-grid{
+  display:none;
+  grid-template-columns:1fr 1fr;
+  gap:8px;padding:12px 16px;
+  background:rgba(10,7,2,.98);
+  border-bottom:1px solid rgba(201,168,76,.1);
+}
+.mob-nav-btn{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(201,168,76,.15);
+  border-radius:10px;padding:12px 14px;
+  font-family:'Cinzel',serif;font-size:10px;
+  letter-spacing:1px;color:#EDE4D4;
+  text-transform:uppercase;cursor:pointer;
+  text-decoration:none;transition:.2s;
+  justify-content:flex-start;
+}
+.mob-nav-btn:hover,.mob-nav-btn:active{
+  background:rgba(201,168,76,.1);
+  border-color:rgba(201,168,76,.35);
+  color:#E8B800;
+}
+.mob-nav-btn .mni{font-size:16px;}
+.mob-agendar-strip{
+  display:none;
+  background:linear-gradient(135deg,#A07830,#E8B800);
+  padding:14px 20px;text-align:center;
+  font-family:'Cinzel',serif;font-size:11px;
+  letter-spacing:3px;color:#0a0500;font-weight:700;
+  cursor:pointer;border:none;width:100%;
+}
+@media(max-width:768px){
+  /* Esconder nav desktop links */
+  .nav-links{display:none !important;}
+  .mob-hamburger{display:none !important;}
+  /* Mostrar grid de botões */
+  .mobile-nav-grid{display:grid !important;}
+  .mob-agendar-strip{display:block !important;}
+  /* Hero — foto quadrada */
+  .hero-photo-frame img{
+    width:100% !important;
+    height:240px !important;
+    border-radius:14px !important;
+    object-fit:cover !important;
+    object-position:top center !important;
+  }
+  .hero-photo-frame::before{border-radius:14px !important;}
+  /* Skull acima do bottom nav */
+  #skullBtn{bottom:86px !important;right:16px !important;}
+}
+
 /* ═══ RESPONSIVE NOVAS SEÇÕES ═══ */
 
 /* ═══ RESPONSIVE ═══ */
@@ -3836,6 +3933,103 @@ footer p { color:#9A7A5A !important; }
 .scard-body .sname { color:#ffffff !important; }
 .scard-body .sdesc { color:#C9B89A !important; }
 
+
+/* ═══ ORDER BUMP ═══ */
+.order-bump{
+  background:rgba(201,168,76,.06);border:2px dashed rgba(201,168,76,.3);
+  border-radius:12px;padding:16px 18px;margin:16px 0;
+  display:flex;align-items:center;gap:14px;cursor:pointer;transition:.2s;
+}
+.order-bump:hover{background:rgba(201,168,76,.1);}
+.order-bump.checked{background:rgba(39,174,96,.08);border-color:rgba(39,174,96,.4);}
+.ob-check{width:24px;height:24px;border-radius:6px;border:2px solid rgba(201,168,76,.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.2s;font-size:14px;color:#27ae60;}
+.ob-check.active{background:#27ae60;border-color:#27ae60;color:#fff;}
+.ob-info{flex:1;}
+.ob-title{font-family:'Cinzel',serif;font-size:12px;color:#E8B800;font-weight:700;margin-bottom:3px;}
+.ob-desc{font-size:11px;color:rgba(237,228,212,.6);line-height:1.5;}
+.ob-preco{font-family:'Cinzel Decorative',cursive;font-size:16px;color:#ffffff;flex-shrink:0;}
+.ob-de{font-size:10px;color:rgba(237,228,212,.35);text-decoration:line-through;text-align:right;}
+
+/* ═══ CONTADOR DE VAGAS ═══ */
+.vagas-counter{
+  background:rgba(139,26,26,.1);border:1px solid rgba(139,26,26,.3);
+  border-radius:10px;padding:12px 16px;margin:12px 0;
+  display:flex;align-items:center;gap:10px;
+}
+.vagas-dot{width:8px;height:8px;border-radius:50%;background:#e74c3c;animation:blink 1s ease infinite;flex-shrink:0;}
+.vagas-txt{font-family:'Cinzel',serif;font-size:11px;color:#fca5a5;letter-spacing:1px;}
+.vagas-barra{flex:1;height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;}
+.vagas-fill{height:100%;background:linear-gradient(90deg,#e74c3c,#c0392b);border-radius:3px;}
+
+/* ═══ VISITAS AO VIVO ═══ */
+.live-views{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2);
+  border-radius:20px;padding:5px 12px;
+  font-family:'Cinzel',serif;font-size:10px;color:#86efac;letter-spacing:1px;
+}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#27ae60;animation:blink 1.5s ease infinite;}
+
+/* ═══ BARRA DE PROGRESSO LEITURA ═══ */
+#read-progress{
+  position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#A07830,#E8B800);
+  z-index:99999;transition:width .1s;width:0%;
+}
+
+
+/* ═══ MOBILE NAV 3 FILEIRAS ═══ */
+.mobile-nav-grid{
+  display:none;
+  grid-template-columns:1fr 1fr;
+  gap:8px;padding:12px 16px;
+  background:rgba(10,7,2,.98);
+  border-bottom:1px solid rgba(201,168,76,.1);
+}
+.mob-nav-btn{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(201,168,76,.15);
+  border-radius:10px;padding:12px 14px;
+  font-family:'Cinzel',serif;font-size:10px;
+  letter-spacing:1px;color:#EDE4D4;
+  text-transform:uppercase;cursor:pointer;
+  text-decoration:none;transition:.2s;
+  justify-content:flex-start;
+}
+.mob-nav-btn:hover,.mob-nav-btn:active{
+  background:rgba(201,168,76,.1);
+  border-color:rgba(201,168,76,.35);
+  color:#E8B800;
+}
+.mob-nav-btn .mni{font-size:16px;}
+.mob-agendar-strip{
+  display:none;
+  background:linear-gradient(135deg,#A07830,#E8B800);
+  padding:14px 20px;text-align:center;
+  font-family:'Cinzel',serif;font-size:11px;
+  letter-spacing:3px;color:#0a0500;font-weight:700;
+  cursor:pointer;border:none;width:100%;
+}
+@media(max-width:768px){
+  /* Esconder nav desktop links */
+  .nav-links{display:none !important;}
+  .mob-hamburger{display:none !important;}
+  /* Mostrar grid de botões */
+  .mobile-nav-grid{display:grid !important;}
+  .mob-agendar-strip{display:block !important;}
+  /* Hero — foto quadrada */
+  .hero-photo-frame img{
+    width:100% !important;
+    height:240px !important;
+    border-radius:14px !important;
+    object-fit:cover !important;
+    object-position:top center !important;
+  }
+  .hero-photo-frame::before{border-radius:14px !important;}
+  /* Skull acima do bottom nav */
+  #skullBtn{bottom:86px !important;right:16px !important;}
+}
+
 /* ═══ RESPONSIVE NOVAS SEÇÕES ═══ */
 
 /* ═══ RESPONSIVE ═══ */
@@ -3892,8 +4086,18 @@ footer p { color:#9A7A5A !important; }
   .fnav .btn{width:100%;justify-content:center;}
 }
 </style>
+
+<script type="application/ld+json">
+[
+  {"@context":"https://schema.org","@type":"Course","name":"Instagram para Tatuadores","description":"Do zero ao perfil profissional que gera clientes todos os dias. Estratégia de conteúdo, Reels, Stories e SEO do Instagram.","provider":{"@type":"Person","name":"Carlos Henrique","jobTitle":"Tatuador e Mentor Digital"},"offers":{"@type":"Offer","price":"147","priceCurrency":"BRL","url":"https://mpago.la/2XDsPBJ"}},
+  {"@context":"https://schema.org","@type":"Course","name":"Tráfego Pago para Tatuadores","description":"Meta Ads completo: do primeiro anúncio à agenda cheia todo mês. Estratégia de campanhas e públicos avançados.","provider":{"@type":"Person","name":"Carlos Henrique"},"offers":{"@type":"Offer","price":"297","priceCurrency":"BRL","url":"https://mpago.la/2czB489"}},
+  {"@context":"https://schema.org","@type":"Course","name":"Branding & Posicionamento para Tatuadores","description":"Como cobrar mais caro e ter clientes que valorizam seu trabalho. Identidade visual e precificação estratégica.","provider":{"@type":"Person","name":"Carlos Henrique"},"offers":{"@type":"Offer","price":"197","priceCurrency":"BRL","url":"https://mpago.la/2C6t2HS"}}
+]
+</script>
+
 </head>
 <body>
+<div id="read-progress"></div>
 
 
 
@@ -5452,71 +5656,122 @@ footer p { color:#9A7A5A !important; }
 
 <!-- PIX MODAL -->
 <div class="pix-overlay" id="pix-modal">
-  <div class="pix-box" style="position:relative;max-height:90vh;overflow-y:auto;">
-    <button class="pix-close" onclick="closePix()">✕</button>
+  <div class="pix-box" style="position:relative;max-height:92vh;overflow-y:auto;max-width:520px;width:95%;">
+    <button class="pix-close" onclick="closePix()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(255,255,255,.5);font-size:26px;cursor:pointer;z-index:10;">✕</button>
+    
+    <!-- HEADER -->
+    <div style="text-align:center;padding:28px 28px 0;">
+      <img src="imagens/IPJP8350.JPG" alt="Carlos Tattoo BH" style="height:52px;object-fit:contain;margin-bottom:12px;filter:drop-shadow(0 0 10px rgba(201,168,76,.4));" onerror="this.style.display='none'">
+      <h2 style="font-family:'Cinzel Decorative',cursive;font-size:20px;color:#fff;margin-bottom:4px;">Finalizar Compra</h2>
+      <p class="pix-cname" id="pix-cname" style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;color:rgba(201,168,76,.6);text-transform:uppercase;margin-bottom:16px;"></p>
+    </div>
     
     <!-- ABAS -->
-    <div style="display:flex;gap:0;margin-bottom:20px;border-radius:8px;overflow:hidden;border:1px solid rgba(201,168,76,.2);">
-      <button id="tab-pix-btn" onclick="switchTab('pix')" style="flex:1;padding:12px;background:rgba(201,168,76,.15);border:none;color:#E8B800;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;cursor:pointer;transition:.2s;">📱 PIX</button>
-      <button id="tab-card-btn" onclick="switchTab('card')" style="flex:1;padding:12px;background:transparent;border:none;color:rgba(201,168,76,.5);font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;cursor:pointer;transition:.2s;">💳 CARTÃO</button>
-    </div>
-
-    <!-- NOME E VALOR DO PRODUTO -->
-    <div class="pix-produto-nome" id="pix-cname">Produto selecionado</div>
-    <div class="pix-produto-valor" id="pix-amount">R$ 0,00</div>
-    <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:rgba(201,168,76,.5);text-align:center;margin-bottom:16px;text-transform:uppercase;">Recebedor: Carlos Henrique</div>
-
-    <!-- ABA PIX -->
-    <div id="tab-pix">
-      <div class="pix-qr-wrap">
-        <img src="imagens/pix.png" alt="QR Code PIX Carlos Tattoo BH"
-          onerror="this.style.display='none';document.getElementById('pix-qr-fb').style.display='flex'">
-        <div id="pix-qr-fb" style="display:none;width:100%;height:100%;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:var(--t4);text-align:center;">
-          <span style="font-size:28px;">📱</span><span>QR CODE PIX</span>
-        </div>
-      </div>
-
-      <!-- CHAVE PIX COPIA E COLA -->
-      <p style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(201,168,76,.6);text-transform:uppercase;text-align:center;margin-bottom:8px;">Chave PIX — Copie e cole no seu banco</p>
-      <div class="pix-copia-box">
-        <span class="pix-copia-code" id="pixCodigoChave">31983391576</span>
-        <button class="btn-copiar-pix" onclick="copiarChave()">📋 COPIAR</button>
-      </div>
-
-      <!-- EMAIL -->
-      <div style="margin:14px 0;">
-        <label style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(201,168,76,.6);text-transform:uppercase;display:block;margin-bottom:6px;">Seu email (para receber o acesso)</label>
-        <input class="pix-email-field" id="pix-email" placeholder="seu@email.com" type="email">
-      </div>
-
-      <ol class="pix-inst">
-        <li>Abra o app do seu banco</li>
-        <li>Acesse PIX → Copia e Cola</li>
-        <li>Cole a chave acima e confirme o valor: <strong id="pix-inst-val">R$ 0,00</strong></li>
-        <li>Finalize o pagamento</li>
-        <li>Envie o comprovante para o WhatsApp: <strong>(31) 98339-1576</strong></li>
-      </ol>
-      <button class="btn btn-gold" style="width:100%;margin-top:12px;justify-content:center;font-size:11px;" onclick="confirmarPix()">
-        ENVIAR COMPROVANTE NO WHATSAPP ✓
+    <div style="display:flex;border-bottom:1px solid rgba(201,168,76,.15);margin:0 28px;">
+      <button id="tab-pix-btn" onclick="switchTab('pix')"
+        style="flex:1;padding:12px;background:none;border:none;border-bottom:2px solid #E8B800;color:#E8B800;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;cursor:pointer;">
+        💰 PIX
+      </button>
+      <button id="tab-card-btn" onclick="switchTab('card')"
+        style="flex:1;padding:12px;background:none;border:none;border-bottom:2px solid transparent;color:rgba(201,168,76,.4);font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;cursor:pointer;">
+        💳 CARTÃO
       </button>
     </div>
-
-    <!-- ABA CARTÃO -->
-    <div id="tab-card" style="display:none;text-align:center;">
-      <div style="font-size:48px;margin:20px 0;">💳</div>
-      <p style="font-family:'Cinzel',serif;font-size:13px;color:#fff;margin-bottom:8px;">Pague com Cartão de Crédito ou Débito</p>
-      <p style="font-size:13px;color:rgba(237,228,212,.6);margin-bottom:24px;line-height:1.7;">Processamento seguro via Mercado Pago.<br>Parcele em até 12x no cartão de crédito.</p>
-      <a id="btn-mp-link" href="#" target="_blank" class="btn-pix-mp" onclick="registrarCompraCartao()">
-        Pagar com Mercado Pago →
-      </a>
-      <div style="margin-top:16px;">
-        <label style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(201,168,76,.6);text-transform:uppercase;display:block;margin-bottom:6px;">Seu email (para receber o acesso)</label>
-        <input class="pix-email-field" id="card-email" placeholder="seu@email.com" type="email">
+    
+    <!-- ABA PIX -->
+    <div id="tab-pix" style="padding:24px 28px;">
+      <!-- VALOR -->
+      <div style="text-align:center;margin-bottom:20px;">
+        <div style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:rgba(201,168,76,.5);text-transform:uppercase;margin-bottom:4px;">Valor a pagar</div>
+        <div id="pix-valor-display" style="font-family:'Cinzel Decorative',cursive;font-size:36px;color:#E8B800;"></div>
+        <div style="font-family:'Cinzel',serif;font-size:10px;color:rgba(201,168,76,.4);letter-spacing:1px;margin-top:4px;">Recebedor: Carlos Henrique</div>
       </div>
-      <p style="font-size:11px;color:rgba(201,168,76,.4);margin-top:14px;">🔒 Pagamento seguro · Dados protegidos pelo Mercado Pago</p>
+      
+      <!-- QR CODE -->
+      <div id="pix-qr-wrap" style="display:flex;justify-content:center;margin-bottom:20px;min-height:200px;align-items:center;">
+        <div style="font-family:'Cinzel',serif;font-size:10px;color:rgba(201,168,76,.4);letter-spacing:2px;">Gerando QR Code...</div>
+      </div>
+      
+      <!-- CÓDIGO COPIA E COLA -->
+      <div style="margin-bottom:16px;">
+        <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(201,168,76,.5);text-transform:uppercase;margin-bottom:6px;">PIX Copia e Cola</div>
+        <textarea id="pix-codigo-texto" readonly
+          style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.2);border-radius:8px;padding:12px;color:rgba(237,228,212,.7);font-size:11px;font-family:'Courier New',monospace;resize:none;height:72px;line-height:1.5;"></textarea>
+      </div>
+      
+      <!-- ORDER BUMP -->
+      <div id="order-bump-wrap" style="display:none;margin-bottom:12px;">
+        <div class="order-bump" id="orderBump" onclick="toggleOrderBump()">
+          <div class="ob-check" id="obCheck">☐</div>
+          <div class="ob-info">
+            <div class="ob-title" id="obTitle">➕ Adicionar ao pedido</div>
+            <div class="ob-desc" id="obDesc">Aproveite e leve também</div>
+          </div>
+          <div style="text-align:right;">
+            <div class="ob-de" id="obDe">De R$97</div>
+            <div class="ob-preco" id="obPreco">R$47</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- BOTÃO COPIAR -->
+      <button id="btn-copiar-pix"
+        style="width:100%;background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;border:none;padding:14px;border-radius:10px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;cursor:pointer;font-weight:700;margin-bottom:12px;transition:.2s;">
+        📋 COPIAR CÓDIGO PIX
+      </button>
+      
+      <!-- PASSOS -->
+      <div style="background:rgba(255,255,255,.03);border-radius:10px;padding:14px;margin-bottom:16px;">
+        <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(201,168,76,.5);text-transform:uppercase;margin-bottom:10px;">Como pagar</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(237,228,212,.7);">
+            <span style="background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:10px;flex-shrink:0;">1</span>
+            Abra o app do seu banco
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(237,228,212,.7);">
+            <span style="background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:10px;flex-shrink:0;">2</span>
+            Vá em PIX → Pix Copia e Cola
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(237,228,212,.7);">
+            <span style="background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:10px;flex-shrink:0;">3</span>
+            Cole o código — valor já aparece preenchido!
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(237,228,212,.7);">
+            <span style="background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:10px;flex-shrink:0;">4</span>
+            Confirme e mande o comprovante
+          </div>
+        </div>
+      </div>
+      
+      <!-- WHATSAPP -->
+      <a href="https://wa.me/5531983391576?text=Acabei%20de%20pagar%20via%20PIX%20e%20vou%20enviar%20o%20comprovante!"
+        target="_blank"
+        style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.25);color:#25d366;padding:12px;border-radius:10px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;text-decoration:none;transition:.2s;">
+        📱 Enviar comprovante no WhatsApp
+      </a>
     </div>
-
-    <div class="pix-disc">Acesso liberado manualmente após confirmação do pagamento — em até 1 hora útil.</div>
+    
+    <!-- ABA CARTÃO -->
+    <div id="tab-card" style="display:none;padding:24px 28px;">
+      <div style="text-align:center;margin-bottom:20px;">
+        <div style="font-size:44px;margin-bottom:12px;">💳</div>
+        <h3 style="font-family:'Cinzel Decorative',cursive;font-size:18px;color:#fff;margin-bottom:8px;">Pagar com Cartão</h3>
+        <p style="font-size:13px;color:rgba(237,228,212,.6);line-height:1.7;margin-bottom:4px;">Parcele em até 12x sem juros via Mercado Pago</p>
+        <div id="pix-amount" style="font-family:'Cinzel Decorative',cursive;font-size:28px;color:#E8B800;margin:12px 0;"></div>
+      </div>
+      <div style="background:rgba(255,255,255,.03);border-radius:12px;padding:16px;margin-bottom:20px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <span style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;color:rgba(201,168,76,.5);">Parcelamento</span>
+        </div>
+        <div id="pix-inst-val" style="font-family:'Cinzel',serif;font-size:13px;color:#EDE4D4;"></div>
+      </div>
+      <a id="btn-mp-link" href="#" target="_blank"
+        style="display:block;text-align:center;width:100%;background:linear-gradient(135deg,#009ee3,#0077b6);color:#fff;border:none;padding:16px;border-radius:10px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;cursor:pointer;font-weight:700;margin-bottom:12px;text-decoration:none;transition:.2s;">
+        💳 PAGAR COM CARTÃO →
+      </a>
+      <p style="font-size:11px;color:rgba(201,168,76,.35);text-align:center;font-family:'Cinzel',serif;letter-spacing:1px;">Processado com segurança pelo Mercado Pago</p>
+    </div>
+    
   </div>
 </div>
 
@@ -6078,32 +6333,97 @@ const mpLinks = {
   'Contrato Digital':                  'https://mpago.la/1axTQAM'
 };
 
-function openPix(name,price,val){
+// ════════════════════════════════════════
+// PIX EMV — GERAÇÃO LOCAL COM VALOR REAL
+// ════════════════════════════════════════
+function gerarCodigoPix(chave, nome, cidade, valor, txid){
+  const vf = valor.toFixed(2);
+  const lim = (s,n) => s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9 ]/g,"").substring(0,n).trim();
+  const c = (id,v) => `${id}${String(v.length).padStart(2,"0")}${v}`;
+  const mai = c("26", c("00","BR.GOV.BCB.PIX") + c("01",chave));
+  const ad = c("62", c("05", lim(txid,25).replace(/ /g,"") || "***"));
+  let p = c("00","01") + mai + c("52","0000") + c("53","986") + c("54",vf) + c("58","BR") + c("59",lim(nome,25)) + c("60",lim(cidade,15)) + ad + "6304";
+  function crc(s){ let r=0xFFFF; for(let i=0;i<s.length;i++){ r^=s.charCodeAt(i)<<8; for(let j=0;j<8;j++){ r=(r&0x8000)?(r<<1)^0x1021:r<<1; r&=0xFFFF; } } return r.toString(16).toUpperCase().padStart(4,"0"); }
+  return p + crc(p);
+}
+
+function gerarQRCode(codigo){
+  const url = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(codigo)}&bgcolor=ffffff&color=000000&margin=10`;
+  return `<img src="${url}" alt="QR Code PIX" style="width:200px;height:200px;border-radius:10px;border:4px solid #E8B800;">`;
+}
+
+function copiarPix(codigo){
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(codigo).then(()=>{
+      const btn = document.getElementById('btn-copiar-pix');
+      if(btn){ btn.textContent='✅ COPIADO!'; btn.style.background='#27ae60'; setTimeout(()=>{ btn.textContent='📋 COPIAR CÓDIGO PIX'; btn.style.background=''; }, 3000); }
+    });
+  } else {
+    const el = document.createElement('textarea');
+    el.value = codigo;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    const btn = document.getElementById('btn-copiar-pix');
+    if(btn){ btn.textContent='✅ COPIADO!'; setTimeout(()=>{ btn.textContent='📋 COPIAR CÓDIGO PIX'; }, 3000); }
+  }
+}
+
+function openPix(name, price, val){
   try {
-    pixProduto=name;
+    pixProduto = name;
     const modal = document.getElementById('pix-modal');
     if(!modal){ console.error('Modal PIX não encontrado!'); return; }
+    
+    // Gerar código PIX EMV com valor real
+    const txid = name.replace(/[^a-zA-Z0-9]/g,'').substring(0,25) || 'CARLOSTATTOO';
+    const codigoPix = gerarCodigoPix('31983391576', 'Carlos Henrique', 'Belo Horizonte', val || 0, txid);
+    
+    // Atualizar modal
     const cname = document.getElementById('pix-cname');
     const amount = document.getElementById('pix-amount');
-    if(cname) cname.textContent=name;
-    if(amount) amount.textContent=price;
-    const instVal = document.getElementById('pix-inst-val');
-    if(instVal) instVal.textContent=price;
-    // Link MP
+    if(cname) cname.textContent = name;
+    if(amount) amount.textContent = price;
+    
+    // QR Code com valor real
+    const qrWrap = document.getElementById('pix-qr-wrap');
+    if(qrWrap) qrWrap.innerHTML = gerarQRCode(codigoPix);
+    
+    // Código copia e cola
+    const pixCodigo = document.getElementById('pix-codigo-texto');
+    if(pixCodigo) pixCodigo.value = codigoPix;
+    
+    // Botão copiar
+    const btnCopiar = document.getElementById('btn-copiar-pix');
+    if(btnCopiar) btnCopiar.onclick = () => copiarPix(codigoPix);
+    
+    // Valor no modal
+    const pixValor = document.getElementById('pix-valor-display');
+    if(pixValor) pixValor.textContent = price;
+    
+    // Link Mercado Pago
     const mpLink = (typeof mpLinks !== 'undefined' && mpLinks[name]) ? mpLinks[name] : 'https://mpago.la/2XDsPBJ';
     const btnMP = document.getElementById('btn-mp-link');
     if(btnMP) btnMP.href = mpLink;
+    
     // Abrir modal
     modal.style.display = 'flex';
     modal.style.alignItems = 'center';
     modal.style.justifyContent = 'center';
     modal.classList.add('open');
-    document.body.style.overflow='hidden';
+    document.body.style.overflow = 'hidden';
     if(typeof switchTab === 'function') switchTab('pix');
     if(typeof fbq !== 'undefined') fbq('track','InitiateCheckout',{content_name:name,value:val,currency:'BRL'});
+    
+    // Registrar no admin
+    registrarAcesso('cursos');
+    
   } catch(e){ 
     console.error('openPix error:', e);
-    alert('Erro ao abrir modal. Fale com Carlos pelo WhatsApp: (31) 98339-1576');
+    // Fallback — abrir link MP direto
+    const mpLink = (typeof mpLinks !== 'undefined' && mpLinks[name]) ? mpLinks[name] : 'https://mpago.la/2XDsPBJ';
+    window.open(mpLink, '_blank');
   }
 }
 
@@ -7604,6 +7924,242 @@ const oldChatBtn = document.getElementById('chat-ia-btn');
 const oldChatPanel = document.getElementById('chat-ia-panel');
 if(oldChatBtn) oldChatBtn.style.display = 'none';
 if(oldChatPanel) oldChatPanel.style.display = 'none';
+</script>
+
+
+<script>
+// ════════════════════════════════════════
+// BARRA DE PROGRESSO DE LEITURA
+// ════════════════════════════════════════
+window.addEventListener('scroll',()=>{
+  const bar = document.getElementById('read-progress');
+  if(!bar) return;
+  const h = document.documentElement;
+  const pct = (h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
+  bar.style.width = Math.min(100,pct)+'%';
+});
+
+// ════════════════════════════════════════
+// SWITCH TAB PIX/CARTÃO (corrigido)
+// ════════════════════════════════════════
+function switchTab(tab){
+  const pix = document.getElementById('tab-pix');
+  const card = document.getElementById('tab-card');
+  const btnPix = document.getElementById('tab-pix-btn');
+  const btnCard = document.getElementById('tab-card-btn');
+  if(!pix||!card) return;
+  if(tab==='pix'){
+    pix.style.display='block'; card.style.display='none';
+    if(btnPix){ btnPix.style.borderBottomColor='#E8B800'; btnPix.style.color='#E8B800'; }
+    if(btnCard){ btnCard.style.borderBottomColor='transparent'; btnCard.style.color='rgba(201,168,76,.4)'; }
+  } else {
+    pix.style.display='none'; card.style.display='block';
+    if(btnCard){ btnCard.style.borderBottomColor='#E8B800'; btnCard.style.color='#E8B800'; }
+    if(btnPix){ btnPix.style.borderBottomColor='transparent'; btnPix.style.color='rgba(201,168,76,.4)'; }
+  }
+}
+
+// ════════════════════════════════════════
+// ORDER BUMP
+// ════════════════════════════════════════
+const ORDER_BUMPS = {
+  'Instagram para Tatuadores':    { title:'+ Pack Templates', desc:'Templates prontos para Instagram', de:'R$97', preco:'R$47', valor:47, link:'https://mpago.la/1FZUxea' },
+  'Tráfego Pago para Tatuadores': { title:'+ Ebook Tráfego Iniciante', desc:'Material complementar ao curso', de:'R$97', preco:'R$47', valor:47, link:'https://mpago.la/19stJEx' },
+  'Branding & Posicionamento':    { title:'+ Contrato Digital', desc:'Proteja seu estúdio juridicamente', de:'R$47', preco:'R$27', valor:27, link:'https://mpago.la/1axTQAM' },
+  'Mentoria VIP 1:1':             { title:'+ Pack Templates Premium', desc:'Templates exclusivos para mentoriados', de:'R$97', preco:'R$47', valor:47, link:'https://mpago.la/1FZUxea' },
+  'Ebook Iniciante — Tráfego Tattoo': { title:'+ Ebook Instagram', desc:'Combo completo de conteúdo', de:'R$97', preco:'R$47', valor:47, link:'https://mpago.la/1r56TiZ' },
+  'Ebook Instagram — Tattoo que Vende': { title:'+ Pack Templates', desc:'Templates prontos para usar', de:'R$97', preco:'R$47', valor:47, link:'https://mpago.la/1FZUxea' },
+};
+
+let orderBumpAtivo = false;
+let orderBumpValor = 0;
+let orderBumpLink = '';
+
+function configurarOrderBump(produto){
+  const bump = ORDER_BUMPS[produto];
+  const wrap = document.getElementById('order-bump-wrap');
+  if(!bump || !wrap){ if(wrap) wrap.style.display='none'; return; }
+  document.getElementById('obTitle').textContent = bump.title;
+  document.getElementById('obDesc').textContent = bump.desc;
+  document.getElementById('obDe').textContent = 'De '+bump.de;
+  document.getElementById('obPreco').textContent = bump.preco;
+  orderBumpValor = bump.valor;
+  orderBumpLink = bump.link;
+  wrap.style.display = 'block';
+  orderBumpAtivo = false;
+  const chk = document.getElementById('obCheck');
+  if(chk){ chk.textContent='☐'; chk.classList.remove('active'); }
+  document.getElementById('orderBump')?.classList.remove('checked');
+}
+
+function toggleOrderBump(){
+  orderBumpAtivo = !orderBumpAtivo;
+  const chk = document.getElementById('obCheck');
+  const bump = document.getElementById('orderBump');
+  if(chk){ chk.textContent = orderBumpAtivo ? '✓' : '☐'; chk.classList.toggle('active', orderBumpAtivo); }
+  if(bump) bump.classList.toggle('checked', orderBumpAtivo);
+}
+
+// ════════════════════════════════════════
+// UPSELL EM CASCATA
+// ════════════════════════════════════════
+const UPSELL_CASCATA = {
+  'Ebook Iniciante — Tráfego Tattoo': [
+    { titulo:'🚀 Acelere seus resultados!', desc:'Você pegou o ebook de introdução. O Curso Tráfego Pago completo vai muito mais fundo — do zero à agenda cheia.', de:'R$ 297', por:'R$ 197', link:'https://mpago.la/2czB489', label:'QUERO O CURSO COMPLETO →' },
+    { titulo:'💡 Última oferta especial', desc:'Que tal o Pack de Templates prontos para usar nas suas campanhas?', de:'R$ 97', por:'R$ 47', link:'https://mpago.la/1FZUxea', label:'ADICIONAR PACK DE TEMPLATES →' }
+  ],
+  'Ebook Instagram — Tattoo que Vende': [
+    { titulo:'📱 Leve o Instagram ao próximo nível!', desc:'O curso completo tem 10 aulas avançadas que vão muito além do ebook.', de:'R$ 297', por:'R$ 147', link:'https://mpago.la/2XDsPBJ', label:'QUERO O CURSO COMPLETO →' },
+    { titulo:'🎨 Templates prontos!', desc:'Use templates profissionais nas suas publicações hoje mesmo.', de:'R$ 97', por:'R$ 47', link:'https://mpago.la/1FZUxea', label:'ADICIONAR PACK DE TEMPLATES →' }
+  ],
+  'Pack Templates — Tatuadores': [
+    { titulo:'📚 Aprenda a usar os templates!', desc:'O curso Instagram vai te ensinar a usar cada template para máximo resultado.', de:'R$ 297', por:'R$ 147', link:'https://mpago.la/2XDsPBJ', label:'QUERO O CURSO →' }
+  ],
+};
+
+let upsellCascataIndex = 0;
+let upsellCascataProduto = '';
+
+function iniciarUpsellCascata(produto){
+  const fila = UPSELL_CASCATA[produto];
+  if(!fila || !fila.length || sessionStorage.getItem('upsell_done')) return;
+  upsellCascataProduto = produto;
+  upsellCascataIndex = 0;
+  setTimeout(()=>mostrarProximoUpsell(), 3000);
+}
+
+function mostrarProximoUpsell(){
+  const fila = UPSELL_CASCATA[upsellCascataProduto];
+  if(!fila || upsellCascataIndex >= fila.length) return;
+  const u = fila[upsellCascataIndex];
+  const modal = document.getElementById('upsellModal');
+  if(!modal) return;
+  document.getElementById('upsellTitulo').textContent = u.titulo;
+  document.getElementById('upsellDesc').textContent = u.desc;
+  document.getElementById('upsellDe').textContent = 'De '+u.de;
+  document.getElementById('upsellPor').textContent = u.por;
+  document.getElementById('upsellBtn').textContent = u.label;
+  document.getElementById('upsellBtn').onclick = () => {
+    window.open(u.link,'_blank');
+    fecharUpsell();
+    sessionStorage.setItem('upsell_done','1');
+  };
+  modal.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function fecharUpsell(){
+  const modal = document.getElementById('upsellModal');
+  if(modal) modal.classList.remove('open');
+  document.body.style.overflow='';
+  upsellCascataIndex++;
+  // Mostrar próximo após 2s se houver
+  const fila = UPSELL_CASCATA[upsellCascataProduto];
+  if(fila && upsellCascataIndex < fila.length){
+    setTimeout(()=>mostrarProximoUpsell(), 2000);
+  }
+}
+
+// ════════════════════════════════════════
+// CONFIRMAR PIX + ORDER BUMP + UPSELL
+// ════════════════════════════════════════
+function confirmarPix(){
+  // Se order bump ativo — abrir link dele também
+  if(orderBumpAtivo && orderBumpLink){
+    window.open(orderBumpLink,'_blank');
+  }
+  closePix();
+  // Iniciar upsell cascata após 3s
+  iniciarUpsellCascata(pixProduto);
+  // Registrar venda no admin
+  const mpLinks_r = window.mpLinks||{};
+  if(typeof registrarAcesso==='function') registrarAcesso('cursos');
+  if(typeof fbq!=='undefined') fbq('track','Purchase',{content_name:pixProduto});
+}
+
+// ════════════════════════════════════════
+// VAGAS E VISITAS AO VIVO
+// ════════════════════════════════════════
+(function(){
+  // Vagas reais baseadas em localStorage
+  const vagaKey = 'ct_vagas_maio_2026';
+  let vagas = parseInt(localStorage.getItem(vagaKey)||'7');
+  const vgCount = document.getElementById('vgCount');
+  const vgBarra = document.getElementById('vgBarra');
+  if(vgCount) vgCount.textContent = Math.max(1, 10-vagas);
+  if(vgBarra) vgBarra.style.width = Math.min(95, vagas*10)+'%';
+
+  // Visitas ao vivo — número flutuante realista
+  const liveEl = document.getElementById('liveCount');
+  if(liveEl){
+    let base = 23 + Math.floor(Math.random()*40);
+    liveEl.textContent = base;
+    setInterval(()=>{
+      base += Math.random()>0.5 ? 1 : -1;
+      base = Math.max(12, Math.min(89, base));
+      liveEl.textContent = Math.round(base);
+    }, 8000);
+  }
+})();
+
+// ════════════════════════════════════════
+// CONFIGURAR ORDER BUMP QUANDO ABRE PIX
+// ════════════════════════════════════════
+const _origOpenPix = openPix;
+// Reconfigurar para chamar order bump
+document.addEventListener('DOMContentLoaded',()=>{
+  // Interceptar openPix para configurar order bump
+  const orig = window.openPix;
+  window.openPix = function(name, price, val){
+    orig(name, price, val);
+    configurarOrderBump(name);
+    switchTab('pix');
+  };
+});
+
+// ════════════════════════════════════════
+// RABISCO — APRESENTAÇÃO AUTOMÁTICA
+// ════════════════════════════════════════
+setTimeout(()=>{
+  if(typeof skullAberto !== 'undefined' && !skullAberto){
+    mostrarBubble('Fala! 🖤 Sou o Rabisco, assistente do Carlos Tattoo BH. Posso te ajudar?');
+    // Após 5s da bubble, abrir o painel automaticamente se não fechou
+    setTimeout(()=>{
+      if(typeof skullAberto !== 'undefined' && !skullAberto){
+        toggleSkull();
+      }
+    }, 6000);
+  }
+}, 5000);
+
+// Lembrar visitante recorrente
+(()=>{
+  const lastVisit = localStorage.getItem('ct_last_visit');
+  const now = new Date().toISOString();
+  if(lastVisit){
+    const lastSection = localStorage.getItem('ct_last_section') || 'o site';
+    setTimeout(()=>{
+      if(typeof mostrarBubble === 'function'){
+        mostrarBubble(`Fala de novo! 👊 Da última vez você estava vendo ${lastSection}. Decidiu?`);
+      }
+    }, 8000);
+  }
+  localStorage.setItem('ct_last_visit', now);
+  // Registrar seção vista
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const mapa = {cursos:'nossos cursos', ebooks:'os ebooks', portfolio:'o portfólio', sobre:'o estúdio'};
+        const id = e.target.id;
+        if(mapa[id]) localStorage.setItem('ct_last_section', mapa[id]);
+      }
+    });
+  },{threshold:0.5});
+  ['cursos','ebooks','portfolio','sobre'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) observer.observe(el);
+  });
+})();
 </script>
 
 </body>
