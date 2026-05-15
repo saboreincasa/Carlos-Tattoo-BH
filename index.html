@@ -1693,7 +1693,7 @@ footer p { color:#9A7A5A !important; }
 /* ─── SKULL BOT FLUTUANTE ─── */
 #skullBtn{
   position:fixed;bottom:80px;right:20px;z-index:8000;
-  width:72px;height:72px;border-radius:50%;
+  width:78px;height:78px;border-radius:50%;
   background:linear-gradient(135deg,#0a0702,#1C1208);
   border:2px solid rgba(201,168,76,.4);
   cursor:pointer;display:flex;align-items:center;justify-content:center;
@@ -1703,10 +1703,10 @@ footer p { color:#9A7A5A !important; }
 }
 #skullBtn:hover{transform:scale(1.1);}
 @keyframes skullPulse{
-  0%,100%{box-shadow:0 6px 24px rgba(0,0,0,.5),0 0 0 0 rgba(201,168,76,.3);}
-  50%{box-shadow:0 6px 24px rgba(0,0,0,.5),0 0 0 10px rgba(201,168,76,.0);}
+  0%,100%{box-shadow:0 8px 28px rgba(0,0,0,.6),0 0 0 0 rgba(201,168,76,.4);}
+  50%{box-shadow:0 8px 28px rgba(0,0,0,.6),0 0 0 14px rgba(201,168,76,.0),0 0 20px rgba(201,168,76,.2);}
 }
-.skull-svg{width:44px;height:44px;}
+.skull-svg{width:52px;height:52px;}
 .skull-badge{
   position:absolute;top:-4px;right:-4px;
   background:#E8B800;color:#0a0500;
@@ -2009,6 +2009,412 @@ footer p { color:#9A7A5A !important; }
   .hero-photo-frame::before{border-radius:14px !important;}
   /* Skull acima do bottom nav */
   #skullBtn{bottom:86px !important;right:16px !important;}
+}
+
+
+/* ══════════════════════════════════════════
+   CONTRASTE GLOBAL — LEGIBILIDADE MÁXIMA
+   ══════════════════════════════════════════ */
+
+/* REGRA UNIVERSAL: fundo escuro = texto claro */
+section, .sec, .sec.dark { color: var(--t1); }
+
+/* FAQ */
+.faq-item { border-color: rgba(201,168,76,.12) !important; }
+.faq-q { color: #ffffff !important; font-size: 16px !important; font-weight: 600 !important; }
+.faq-ans, .faq-body, .faq-ans p { color: #C9B89A !important; font-size: 14px !important; line-height: 1.85 !important; }
+
+/* DEPOIMENTOS — fundo claro */
+.nf-card { background: #ffffff !important; box-shadow: 0 4px 20px rgba(0,0,0,.08) !important; border: 1px solid rgba(201,168,76,.1) !important; border-radius: 16px !important; }
+.nf-name { color: #1a0a00 !important; font-size: 15px !important; font-weight: 700 !important; }
+.nf-city { color: #5a3c18 !important; font-size: 12px !important; }
+.nf-msg { color: #2a1408 !important; font-size: 14px !important; line-height: 1.85 !important; font-style: italic !important; }
+.nf-stars, .dep-stars { color: #C9A84C !important; font-size: 16px !important; }
+.nf-badge { font-size: 10px !important; font-weight: 700 !important; letter-spacing: 1px !important; }
+
+/* BLOG */
+.bcard { background: linear-gradient(160deg,#1C1208,#140e04) !important; border: 1px solid rgba(201,168,76,.15) !important; border-radius: 14px !important; overflow: hidden; }
+.btitle { color: #ffffff !important; font-size: 16px !important; font-weight: 700 !important; line-height: 1.4 !important; }
+.bexc, .bcard p { color: #C9B89A !important; font-size: 13px !important; line-height: 1.75 !important; }
+.bdate { color: #C9A84C !important; font-size: 10px !important; letter-spacing: 1px !important; }
+.bmore { color: #1a0a00 !important; }
+
+/* CALCULADORA */
+.calc-wrap { background: linear-gradient(135deg,#f5efe0,#ede4d0) !important; }
+.copt { color: #1a0a00 !important; font-weight: 600 !important; border-color: rgba(160,120,56,.25) !important; }
+.copt:hover, .copt.selected { background: linear-gradient(135deg,#A07830,#E8B800) !important; color: #0a0500 !important; border-color: #E8B800 !important; }
+.calc-result-wrap { background: linear-gradient(135deg,#1C1208,#0A0702) !important; }
+.calc-result-val { color: #E8B800 !important; }
+.calc-section-label { color: #5a3c18 !important; font-weight: 700 !important; font-size: 11px !important; letter-spacing: 2px !important; }
+
+/* RODAPÉ */
+.footer-col h4 { color: #E8B800 !important; font-size: 13px !important; letter-spacing: 2px !important; }
+.footer-col a, .footer-col p, .footer-col li { color: #C9B89A !important; font-size: 13px !important; line-height: 1.8 !important; }
+.footer-col a:hover { color: #E8B800 !important; }
+footer .copy { color: rgba(201,168,76,.4) !important; font-size: 11px !important; }
+
+/* STATS BAR */
+.evid-stat .num, .evid-n { color: #E8B800 !important; font-size: clamp(28px,4vw,48px) !important; }
+.evid-stat .lbl, .evid-l, .evid-stat small { color: rgba(237,228,212,.7) !important; font-size: 11px !important; letter-spacing: 2px !important; }
+
+/* CURSOS */
+.ccard { background: linear-gradient(160deg,#1C1208,#0A0702) !important; border: 1px solid rgba(201,168,76,.15) !important; border-radius: 16px !important; overflow: hidden; }
+.ctitle { color: #ffffff !important; font-size: 17px !important; font-weight: 700 !important; }
+.cdesc { color: #C9B89A !important; font-size: 13px !important; line-height: 1.75 !important; }
+.cfeature li, .cfeature { color: #EDE4D4 !important; font-size: 13px !important; }
+.cpreco-de { color: rgba(237,228,212,.4) !important; }
+.cpreco { color: #E8B800 !important; font-size: clamp(22px,3vw,32px) !important; }
+.cparcela { color: rgba(201,168,76,.5) !important; font-size: 11px !important; }
+
+/* EBOOKS */
+.ebook-card { background: linear-gradient(160deg,#1C1208,#0A0702) !important; border: 1px solid rgba(201,168,76,.12) !important; border-radius: 14px !important; }
+.etitle { color: #ffffff !important; font-size: 14px !important; font-weight: 700 !important; }
+.edesc { color: #C9B89A !important; font-size: 12px !important; line-height: 1.7 !important; }
+.epreco { color: #E8B800 !important; font-size: 22px !important; font-weight: 700 !important; }
+
+/* SEÇÃO SOBRE */
+.sobre-text p, .sobre-desc { color: #C9B89A !important; font-size: 15px !important; line-height: 1.9 !important; }
+.sobre-skill-label { color: #EDE4D4 !important; font-size: 12px !important; }
+.sobre-skill-pct { color: #E8B800 !important; }
+
+/* COBERTURA */
+.cob-item p, .cob-desc { color: #C9B89A !important; font-size: 14px !important; line-height: 1.8 !important; }
+.cob-titulo { color: #ffffff !important; font-size: 18px !important; }
+.cob-num { color: rgba(201,168,76,.12) !important; }
+
+/* QUEIMADURAS */
+.q-text, .q-desc { color: #C9B89A !important; font-size: 15px !important; line-height: 1.9 !important; }
+.q-titulo { color: #ffffff !important; }
+
+/* ARÉOLA */
+.ar-text, .ar-desc { color: #C9B89A !important; font-size: 15px !important; line-height: 1.9 !important; }
+
+/* FORMULÁRIO */
+.finput, .fselect, .ftextarea {
+  background: rgba(255,255,255,.07) !important;
+  border: 1.5px solid rgba(201,168,76,.2) !important;
+  color: #ffffff !important;
+  font-size: 14px !important;
+}
+.finput:focus, .fselect:focus, .ftextarea:focus {
+  border-color: rgba(201,168,76,.6) !important;
+  background: rgba(255,255,255,.1) !important;
+  outline: none !important;
+}
+.finput::placeholder, .ftextarea::placeholder { color: rgba(255,255,255,.35) !important; }
+.flabel { color: #E8B800 !important; font-size: 10px !important; letter-spacing: 2px !important; font-weight: 700 !important; }
+
+/* URGENCY BAR */
+.urg-bar {
+  background: linear-gradient(135deg,#8B1A1A,#C0392B) !important;
+  font-size: 13px !important;
+  letter-spacing: 1px !important;
+  padding: 12px 20px !important;
+  color: #ffffff !important;
+}
+
+/* TICKER */
+.ticker-wrap { background: rgba(201,168,76,.06) !important; border-bottom: 1px solid rgba(201,168,76,.12) !important; }
+.ticker-text { color: #EDE4D4 !important; font-size: 12px !important; }
+
+/* SEÇÃO CONTATO */
+.contato-info h3, .ci-titulo { color: #E8B800 !important; }
+.contato-info p, .ci-texto { color: #C9B89A !important; font-size: 14px !important; }
+
+/* CARDS SERVIÇO — GARANTIR BRANCO */
+.scard { background: linear-gradient(160deg,#1C1208,#0A0702) !important; }
+.sname { color: #ffffff !important; font-weight: 700 !important; }
+.sdesc { color: #EDE4D4 !important; }
+
+/* COMO FUNCIONA */
+.como-grid > div { background: rgba(255,255,255,.04) !important; border-color: rgba(201,168,76,.12) !important; }
+.como-grid h4, .como-titulo { color: #E8B800 !important; font-weight: 700 !important; }
+.como-grid p, .como-desc { color: #C9B89A !important; font-size: 12px !important; line-height: 1.7 !important; }
+
+/* GERAL — NUNCA TEXTO CINZA EM FUNDO ESCURO */
+[style*="color:rgba(237,228,212,.5)"] { color: rgba(237,228,212,.75) !important; }
+[style*="color:rgba(201,168,76,.3)"] { color: rgba(201,168,76,.55) !important; }
+
+
+/* ══════════════════════════════════════════
+   ANIMAÇÕES PREMIUM
+   ══════════════════════════════════════════ */
+
+/* CONTADORES ANIMADOS */
+@keyframes countUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+.evid-n, .evid-stat .num { animation: countUp .6s ease forwards; }
+
+/* HOVER DOURADO NOS CARDS */
+.scard, .ccard, .ebook-card, .bcard, .nf-card {
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease !important;
+}
+.scard:hover { transform: translateY(-6px) !important; box-shadow: 0 20px 50px rgba(201,168,76,.2) !important; border-color: rgba(201,168,76,.4) !important; }
+.ccard:hover { transform: translateY(-4px) !important; box-shadow: 0 16px 40px rgba(201,168,76,.2) !important; border-color: rgba(201,168,76,.3) !important; }
+.ebook-card:hover { transform: translateY(-4px) !important; box-shadow: 0 12px 32px rgba(201,168,76,.2) !important; }
+.bcard:hover { transform: translateY(-4px) !important; box-shadow: 0 12px 32px rgba(0,0,0,.3) !important; }
+.nf-card:hover { transform: translateY(-3px) !important; box-shadow: 0 12px 30px rgba(0,0,0,.15) !important; }
+
+/* BRILHO DOURADO NO HOVER */
+.scard::after, .ccard::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,.06), transparent);
+  transition: left .5s ease;
+  pointer-events: none;
+}
+.scard:hover::after, .ccard:hover::after { left: 100%; }
+
+/* CTA HERO COM PULSO */
+.btn-gold {
+  animation: btnPulse 3s ease infinite !important;
+}
+@keyframes btnPulse {
+  0%,100% { box-shadow: 0 4px 15px rgba(201,168,76,.3); }
+  50% { box-shadow: 0 4px 30px rgba(201,168,76,.6), 0 0 0 8px rgba(201,168,76,.08); }
+}
+
+/* PARALLAX SUTIL NO HERO */
+.hero-section { overflow: hidden; }
+
+/* SKELETON LOADING NAS IMAGENS */
+img[data-src] {
+  background: linear-gradient(90deg, #1C1208 25%, #2A1A08 50%, #1C1208 75%);
+  background-size: 200% 100%;
+  animation: skeleton 1.5s ease infinite;
+}
+@keyframes skeleton { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+/* OVERLAY GRADIENTE NAS FOTOS DOS CARDS */
+.scard-foto { transition: transform .5s ease !important; }
+.scard:hover .scard-foto { transform: scale(1.05) !important; }
+
+/* SCROLL SUAVE EM TODA A PÁGINA */
+html { scroll-behavior: smooth; }
+
+/* EFEITO DE ENTRADA MAIS SUAVE */
+.rv { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+.rv.visible, .rv.animated { opacity: 1 !important; transform: translateY(0) !important; }
+.rvl { opacity: 0; transform: translateX(-24px); transition: opacity .6s ease, transform .6s ease; }
+.rvl.visible { opacity: 1 !important; transform: translateX(0) !important; }
+.rvr { opacity: 0; transform: translateX(24px); transition: opacity .6s ease, transform .6s ease; }
+.rvr.visible { opacity: 1 !important; transform: translateX(0) !important; }
+
+/* BOTÕES GERAIS */
+.btn, .btn-gold, .btn-wpp, .scta, .btn-glass {
+  transition: transform .2s ease, box-shadow .2s ease !important;
+}
+.btn:hover, .btn-gold:hover, .btn-wpp:hover {
+  transform: translateY(-2px) !important;
+}
+
+/* PORTFÓLIO HOVER */
+.pv-item { transition: transform .3s, box-shadow .3s !important; overflow: hidden; }
+.pv-item:hover { transform: scale(1.03) !important; box-shadow: 0 12px 32px rgba(0,0,0,.5) !important; }
+
+
+/* ══════════════════════════════════════════
+   MOBILE CIRÚRGICO — FIXES FINAIS
+   ══════════════════════════════════════════ */
+
+@media(max-width:768px){
+
+  /* CALCULADORA — botões maiores para toque */
+  .copt {
+    padding:14px 8px !important;
+    font-size:11px !important;
+    min-height:48px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+  }
+  
+  /* FORMULÁRIO — feedback visual */
+  .finput:focus, .fselect:focus, .ftextarea:focus {
+    border-color: #E8B800 !important;
+    box-shadow: 0 0 0 3px rgba(201,168,76,.15) !important;
+  }
+  
+  /* CARROSSEL — dots maiores */
+  .carrossel-dot {
+    width: 14px !important;
+    height: 14px !important;
+    margin: 4px !important;
+  }
+  
+  /* QUEIMADURAS — sem overflow */
+  .sec-emocional, #queimaduras {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    overflow-x: hidden !important;
+  }
+  .sec-emocional * { max-width: 100% !important; }
+  
+  /* MODAL PIX — scroll melhorado */
+  .pix-box {
+    max-height: 88vh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 20px 16px !important;
+  }
+  
+  /* BOTTOM NAV — acima de tudo */
+  .mobile-bottom-nav { z-index: 8400 !important; }
+  
+  /* RABISCO — não conflita com bottom nav */
+  #skullBtn { bottom: 90px !important; right: 16px !important; }
+  #skullPanel {
+    bottom: 160px !important;
+    left: 8px !important;
+    right: 8px !important;
+    width: auto !important;
+    max-height: 60vh !important;
+  }
+  
+  /* BOTÃO TOPO — não conflita */
+  #btnTopo { bottom: 90px !important; right: 108px !important; }
+  
+  /* HERO — foto quadrada bonita */
+  .hero-photo-frame {
+    width: 100% !important;
+    max-width: 340px !important;
+    margin: 0 auto !important;
+  }
+  .hero-photo-frame img {
+    width: 100% !important;
+    height: 260px !important;
+    border-radius: 16px !important;
+    object-fit: cover !important;
+    object-position: top center !important;
+  }
+  
+  /* STATS — 2 colunas com mais espaço */
+  .evid-stat {
+    padding: 16px 12px !important;
+    border-radius: 12px !important;
+  }
+  
+  /* URGENCY BAR — texto legível */
+  .urg-bar {
+    font-size: 12px !important;
+    padding: 10px 16px !important;
+    text-align: center !important;
+    line-height: 1.6 !important;
+  }
+  
+  /* PORTFÓLIO FILTROS */
+  #portfolio-filtros {
+    gap: 6px !important;
+    padding: 0 16px !important;
+  }
+  .pfiltro {
+    padding: 8px 12px !important;
+    font-size: 9px !important;
+  }
+}
+
+@media(max-width:480px){
+  /* HERO MENOR */
+  .hero-photo-frame img { height: 220px !important; }
+  
+  /* CARDS EBOOK — 1 coluna em telas muito pequenas */
+  .ebooks-grid { grid-template-columns: 1fr !important; }
+  
+  /* MODAL TELA CHEIA */
+  .pix-box { padding: 16px 12px !important; }
+}
+
+
+/* ══════════════════════════════════════════
+   FORMULÁRIO PREMIUM — 3 PASSOS
+   ══════════════════════════════════════════ */
+.funil-box{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.15);border-radius:20px;padding:36px;max-width:680px;margin:0 auto;}
+.fp-step-header{display:flex;align-items:center;gap:14px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid rgba(201,168,76,.1);}
+.fp-step-icon{font-size:36px;}
+.fp-step-titulo{font-family:'Cinzel Decorative',cursive;font-size:18px;color:#fff;margin-bottom:4px;}
+.fp-step-sub{font-size:13px;color:rgba(237,228,212,.5);font-family:'Cinzel',serif;letter-spacing:1px;}
+
+/* BARRA DE PROGRESSO */
+.funil-progress-wrap{max-width:680px;margin:0 auto 32px;}
+.funil-steps-nav{display:flex;align-items:center;justify-content:center;gap:0;}
+.fsn-item{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;}
+.fsn-circle{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.06);border:2px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:13px;color:rgba(201,168,76,.4);transition:.3s;}
+.fsn-item span{font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;color:rgba(201,168,76,.4);text-transform:uppercase;transition:.3s;}
+.fsn-item.active .fsn-circle{background:linear-gradient(135deg,#A07830,#E8B800);border-color:#E8B800;color:#0a0500;font-weight:700;}
+.fsn-item.active span{color:#E8B800;}
+.fsn-item.done .fsn-circle{background:rgba(39,174,96,.2);border-color:#27ae60;color:#27ae60;}
+.fsn-item.done span{color:#27ae60;}
+.fsn-line{flex:1;height:2px;background:rgba(201,168,76,.12);min-width:40px;max-width:80px;margin:0 8px;margin-bottom:22px;transition:.3s;}
+.fsn-line.done{background:linear-gradient(90deg,#A07830,#E8B800);}
+
+/* CAMPOS */
+.fp-field{margin-bottom:18px;}
+.fp-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:#E8B800;text-transform:uppercase;display:block;margin-bottom:8px;font-weight:700;}
+.fp-input-wrap{position:relative;display:flex;align-items:center;}
+.fp-icon{position:absolute;left:14px;font-size:16px;z-index:1;}
+.fp-input{width:100%;background:rgba(255,255,255,.06);border:1.5px solid rgba(201,168,76,.2);border-radius:10px;padding:14px 16px 14px 44px;color:#fff;font-size:14px;font-family:'Raleway',sans-serif;outline:none;transition:.2s;}
+.fp-input:focus{border-color:#E8B800;background:rgba(255,255,255,.1);box-shadow:0 0 0 3px rgba(201,168,76,.1);}
+.fp-input::placeholder{color:rgba(255,255,255,.3);}
+.fp-textarea{width:100%;background:rgba(255,255,255,.06);border:1.5px solid rgba(201,168,76,.2);border-radius:10px;padding:14px 16px;color:#fff;font-size:14px;font-family:'Raleway',sans-serif;outline:none;resize:vertical;min-height:100px;transition:.2s;}
+.fp-textarea:focus{border-color:#E8B800;background:rgba(255,255,255,.1);box-shadow:0 0 0 3px rgba(201,168,76,.1);}
+.fp-textarea::placeholder{color:rgba(255,255,255,.3);}
+.fp-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+/* SELETOR DE ESTILO */
+.fp-estilos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8px;}
+.fp-estilo-card{background:rgba(255,255,255,.04);border:2px solid rgba(201,168,76,.12);border-radius:12px;padding:12px 8px;text-align:center;cursor:pointer;transition:.2s;}
+.fp-estilo-card:hover{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.06);}
+.fp-estilo-card.selected{border-color:#E8B800;background:rgba(201,168,76,.1);}
+.fp-estilo-card span{font-family:'Cinzel',serif;font-size:10px;color:#EDE4D4;letter-spacing:1px;display:block;margin-top:6px;}
+.fp-estilo-img{width:100%;height:60px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:4px;}
+
+/* LOCAIS */
+.fp-locais-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.fp-local-btn{background:rgba(255,255,255,.04);border:1.5px solid rgba(201,168,76,.12);border-radius:8px;padding:10px 6px;font-family:'Cinzel',serif;font-size:9px;color:#EDE4D4;letter-spacing:1px;cursor:pointer;transition:.2s;text-align:center;}
+.fp-local-btn:hover,.fp-local-btn.selected{background:rgba(201,168,76,.1);border-color:#E8B800;color:#E8B800;}
+
+/* TAMANHOS */
+.fp-tamanhos{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:8px;}
+.fp-tam-btn{background:rgba(255,255,255,.04);border:2px solid rgba(201,168,76,.12);border-radius:10px;padding:14px 8px;font-family:'Cinzel',serif;font-size:11px;color:#EDE4D4;cursor:pointer;transition:.2s;text-align:center;line-height:1.4;}
+.fp-tam-btn small{font-size:9px;color:rgba(237,228,212,.5);letter-spacing:1px;}
+.fp-tam-btn:hover,.fp-tam-btn.selected{background:rgba(201,168,76,.1);border-color:#E8B800;color:#E8B800;}
+.fp-tam-btn.selected small{color:rgba(201,168,76,.6);}
+
+/* ESTIMATIVA */
+.fp-estimativa-box{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.25);border-radius:12px;padding:16px 20px;margin:16px 0;text-align:center;}
+.fp-est-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:rgba(201,168,76,.6);text-transform:uppercase;margin-bottom:6px;}
+.fp-est-valor{font-family:'Cinzel Decorative',cursive;font-size:22px;color:#E8B800;}
+.fp-est-obs{font-size:10px;color:rgba(237,228,212,.4);margin-top:4px;font-family:'Cinzel',serif;}
+
+/* RESUMO */
+.fp-resumo{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.1);border-radius:12px;padding:20px;}
+.fp-resumo-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(201,168,76,.06);}
+.fp-resumo-item:last-child{border-bottom:none;}
+.fp-resumo-label{font-family:'Cinzel',serif;font-size:10px;color:rgba(201,168,76,.5);letter-spacing:1px;text-transform:uppercase;}
+.fp-resumo-valor{font-family:'Cinzel',serif;font-size:12px;color:#EDE4D4;font-weight:600;text-align:right;max-width:60%;}
+
+/* ORÇAMENTO */
+.fp-orcamentos{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:4px;}
+.fp-orc-btn{background:rgba(255,255,255,.04);border:1.5px solid rgba(201,168,76,.12);border-radius:8px;padding:10px 6px;font-family:'Cinzel',serif;font-size:9px;color:#EDE4D4;letter-spacing:1px;cursor:pointer;transition:.2s;text-align:center;}
+.fp-orc-btn:hover,.fp-orc-btn.selected{background:rgba(201,168,76,.1);border-color:#E8B800;color:#E8B800;}
+
+/* BOTÕES */
+.fp-btn-next{width:100%;background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;border:none;padding:16px;border-radius:12px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;cursor:pointer;font-weight:700;transition:.2s;margin-top:8px;}
+.fp-btn-next:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,.4);}
+.fp-btn-back{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.15);color:rgba(237,228,212,.6);padding:12px 20px;border-radius:10px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;transition:.2s;}
+.fp-btn-back:hover{border-color:rgba(201,168,76,.4);color:#E8B800;}
+.fp-btn-enviar{width:100%;background:linear-gradient(135deg,#8B1A1A,#C0392B,#8B1A1A);background-size:200%;animation:btnEnviarPulse 3s ease infinite;color:#fff;border:none;padding:18px;border-radius:12px;font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;cursor:pointer;font-weight:700;transition:.2s;margin-top:8px;border:1px solid rgba(255,255,255,.1);}
+.fp-btn-enviar:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(139,26,26,.5);}
+@keyframes btnEnviarPulse{0%,100%{background-position:0%;}50%{background-position:100%;}}
+
+/* RESPONSIVO */
+@media(max-width:600px){
+  .funil-box{padding:20px 16px;}
+  .fp-grid2{grid-template-columns:1fr;}
+  .fp-estilos-grid{grid-template-columns:repeat(3,1fr);}
+  .fp-locais-grid{grid-template-columns:repeat(2,1fr);}
+  .fp-tamanhos{grid-template-columns:repeat(2,1fr);}
+  .fp-orcamentos{grid-template-columns:repeat(2,1fr);}
 }
 
 /* ═══ RESPONSIVE NOVAS SEÇÕES ═══ */
@@ -3712,7 +4118,7 @@ footer p { color:#9A7A5A !important; }
 /* ─── SKULL BOT FLUTUANTE ─── */
 #skullBtn{
   position:fixed;bottom:80px;right:20px;z-index:8000;
-  width:72px;height:72px;border-radius:50%;
+  width:78px;height:78px;border-radius:50%;
   background:linear-gradient(135deg,#0a0702,#1C1208);
   border:2px solid rgba(201,168,76,.4);
   cursor:pointer;display:flex;align-items:center;justify-content:center;
@@ -3722,10 +4128,10 @@ footer p { color:#9A7A5A !important; }
 }
 #skullBtn:hover{transform:scale(1.1);}
 @keyframes skullPulse{
-  0%,100%{box-shadow:0 6px 24px rgba(0,0,0,.5),0 0 0 0 rgba(201,168,76,.3);}
-  50%{box-shadow:0 6px 24px rgba(0,0,0,.5),0 0 0 10px rgba(201,168,76,.0);}
+  0%,100%{box-shadow:0 8px 28px rgba(0,0,0,.6),0 0 0 0 rgba(201,168,76,.4);}
+  50%{box-shadow:0 8px 28px rgba(0,0,0,.6),0 0 0 14px rgba(201,168,76,.0),0 0 20px rgba(201,168,76,.2);}
 }
-.skull-svg{width:44px;height:44px;}
+.skull-svg{width:52px;height:52px;}
 .skull-badge{
   position:absolute;top:-4px;right:-4px;
   background:#E8B800;color:#0a0500;
@@ -4028,6 +4434,412 @@ footer p { color:#9A7A5A !important; }
   .hero-photo-frame::before{border-radius:14px !important;}
   /* Skull acima do bottom nav */
   #skullBtn{bottom:86px !important;right:16px !important;}
+}
+
+
+/* ══════════════════════════════════════════
+   CONTRASTE GLOBAL — LEGIBILIDADE MÁXIMA
+   ══════════════════════════════════════════ */
+
+/* REGRA UNIVERSAL: fundo escuro = texto claro */
+section, .sec, .sec.dark { color: var(--t1); }
+
+/* FAQ */
+.faq-item { border-color: rgba(201,168,76,.12) !important; }
+.faq-q { color: #ffffff !important; font-size: 16px !important; font-weight: 600 !important; }
+.faq-ans, .faq-body, .faq-ans p { color: #C9B89A !important; font-size: 14px !important; line-height: 1.85 !important; }
+
+/* DEPOIMENTOS — fundo claro */
+.nf-card { background: #ffffff !important; box-shadow: 0 4px 20px rgba(0,0,0,.08) !important; border: 1px solid rgba(201,168,76,.1) !important; border-radius: 16px !important; }
+.nf-name { color: #1a0a00 !important; font-size: 15px !important; font-weight: 700 !important; }
+.nf-city { color: #5a3c18 !important; font-size: 12px !important; }
+.nf-msg { color: #2a1408 !important; font-size: 14px !important; line-height: 1.85 !important; font-style: italic !important; }
+.nf-stars, .dep-stars { color: #C9A84C !important; font-size: 16px !important; }
+.nf-badge { font-size: 10px !important; font-weight: 700 !important; letter-spacing: 1px !important; }
+
+/* BLOG */
+.bcard { background: linear-gradient(160deg,#1C1208,#140e04) !important; border: 1px solid rgba(201,168,76,.15) !important; border-radius: 14px !important; overflow: hidden; }
+.btitle { color: #ffffff !important; font-size: 16px !important; font-weight: 700 !important; line-height: 1.4 !important; }
+.bexc, .bcard p { color: #C9B89A !important; font-size: 13px !important; line-height: 1.75 !important; }
+.bdate { color: #C9A84C !important; font-size: 10px !important; letter-spacing: 1px !important; }
+.bmore { color: #1a0a00 !important; }
+
+/* CALCULADORA */
+.calc-wrap { background: linear-gradient(135deg,#f5efe0,#ede4d0) !important; }
+.copt { color: #1a0a00 !important; font-weight: 600 !important; border-color: rgba(160,120,56,.25) !important; }
+.copt:hover, .copt.selected { background: linear-gradient(135deg,#A07830,#E8B800) !important; color: #0a0500 !important; border-color: #E8B800 !important; }
+.calc-result-wrap { background: linear-gradient(135deg,#1C1208,#0A0702) !important; }
+.calc-result-val { color: #E8B800 !important; }
+.calc-section-label { color: #5a3c18 !important; font-weight: 700 !important; font-size: 11px !important; letter-spacing: 2px !important; }
+
+/* RODAPÉ */
+.footer-col h4 { color: #E8B800 !important; font-size: 13px !important; letter-spacing: 2px !important; }
+.footer-col a, .footer-col p, .footer-col li { color: #C9B89A !important; font-size: 13px !important; line-height: 1.8 !important; }
+.footer-col a:hover { color: #E8B800 !important; }
+footer .copy { color: rgba(201,168,76,.4) !important; font-size: 11px !important; }
+
+/* STATS BAR */
+.evid-stat .num, .evid-n { color: #E8B800 !important; font-size: clamp(28px,4vw,48px) !important; }
+.evid-stat .lbl, .evid-l, .evid-stat small { color: rgba(237,228,212,.7) !important; font-size: 11px !important; letter-spacing: 2px !important; }
+
+/* CURSOS */
+.ccard { background: linear-gradient(160deg,#1C1208,#0A0702) !important; border: 1px solid rgba(201,168,76,.15) !important; border-radius: 16px !important; overflow: hidden; }
+.ctitle { color: #ffffff !important; font-size: 17px !important; font-weight: 700 !important; }
+.cdesc { color: #C9B89A !important; font-size: 13px !important; line-height: 1.75 !important; }
+.cfeature li, .cfeature { color: #EDE4D4 !important; font-size: 13px !important; }
+.cpreco-de { color: rgba(237,228,212,.4) !important; }
+.cpreco { color: #E8B800 !important; font-size: clamp(22px,3vw,32px) !important; }
+.cparcela { color: rgba(201,168,76,.5) !important; font-size: 11px !important; }
+
+/* EBOOKS */
+.ebook-card { background: linear-gradient(160deg,#1C1208,#0A0702) !important; border: 1px solid rgba(201,168,76,.12) !important; border-radius: 14px !important; }
+.etitle { color: #ffffff !important; font-size: 14px !important; font-weight: 700 !important; }
+.edesc { color: #C9B89A !important; font-size: 12px !important; line-height: 1.7 !important; }
+.epreco { color: #E8B800 !important; font-size: 22px !important; font-weight: 700 !important; }
+
+/* SEÇÃO SOBRE */
+.sobre-text p, .sobre-desc { color: #C9B89A !important; font-size: 15px !important; line-height: 1.9 !important; }
+.sobre-skill-label { color: #EDE4D4 !important; font-size: 12px !important; }
+.sobre-skill-pct { color: #E8B800 !important; }
+
+/* COBERTURA */
+.cob-item p, .cob-desc { color: #C9B89A !important; font-size: 14px !important; line-height: 1.8 !important; }
+.cob-titulo { color: #ffffff !important; font-size: 18px !important; }
+.cob-num { color: rgba(201,168,76,.12) !important; }
+
+/* QUEIMADURAS */
+.q-text, .q-desc { color: #C9B89A !important; font-size: 15px !important; line-height: 1.9 !important; }
+.q-titulo { color: #ffffff !important; }
+
+/* ARÉOLA */
+.ar-text, .ar-desc { color: #C9B89A !important; font-size: 15px !important; line-height: 1.9 !important; }
+
+/* FORMULÁRIO */
+.finput, .fselect, .ftextarea {
+  background: rgba(255,255,255,.07) !important;
+  border: 1.5px solid rgba(201,168,76,.2) !important;
+  color: #ffffff !important;
+  font-size: 14px !important;
+}
+.finput:focus, .fselect:focus, .ftextarea:focus {
+  border-color: rgba(201,168,76,.6) !important;
+  background: rgba(255,255,255,.1) !important;
+  outline: none !important;
+}
+.finput::placeholder, .ftextarea::placeholder { color: rgba(255,255,255,.35) !important; }
+.flabel { color: #E8B800 !important; font-size: 10px !important; letter-spacing: 2px !important; font-weight: 700 !important; }
+
+/* URGENCY BAR */
+.urg-bar {
+  background: linear-gradient(135deg,#8B1A1A,#C0392B) !important;
+  font-size: 13px !important;
+  letter-spacing: 1px !important;
+  padding: 12px 20px !important;
+  color: #ffffff !important;
+}
+
+/* TICKER */
+.ticker-wrap { background: rgba(201,168,76,.06) !important; border-bottom: 1px solid rgba(201,168,76,.12) !important; }
+.ticker-text { color: #EDE4D4 !important; font-size: 12px !important; }
+
+/* SEÇÃO CONTATO */
+.contato-info h3, .ci-titulo { color: #E8B800 !important; }
+.contato-info p, .ci-texto { color: #C9B89A !important; font-size: 14px !important; }
+
+/* CARDS SERVIÇO — GARANTIR BRANCO */
+.scard { background: linear-gradient(160deg,#1C1208,#0A0702) !important; }
+.sname { color: #ffffff !important; font-weight: 700 !important; }
+.sdesc { color: #EDE4D4 !important; }
+
+/* COMO FUNCIONA */
+.como-grid > div { background: rgba(255,255,255,.04) !important; border-color: rgba(201,168,76,.12) !important; }
+.como-grid h4, .como-titulo { color: #E8B800 !important; font-weight: 700 !important; }
+.como-grid p, .como-desc { color: #C9B89A !important; font-size: 12px !important; line-height: 1.7 !important; }
+
+/* GERAL — NUNCA TEXTO CINZA EM FUNDO ESCURO */
+[style*="color:rgba(237,228,212,.5)"] { color: rgba(237,228,212,.75) !important; }
+[style*="color:rgba(201,168,76,.3)"] { color: rgba(201,168,76,.55) !important; }
+
+
+/* ══════════════════════════════════════════
+   ANIMAÇÕES PREMIUM
+   ══════════════════════════════════════════ */
+
+/* CONTADORES ANIMADOS */
+@keyframes countUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+.evid-n, .evid-stat .num { animation: countUp .6s ease forwards; }
+
+/* HOVER DOURADO NOS CARDS */
+.scard, .ccard, .ebook-card, .bcard, .nf-card {
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease !important;
+}
+.scard:hover { transform: translateY(-6px) !important; box-shadow: 0 20px 50px rgba(201,168,76,.2) !important; border-color: rgba(201,168,76,.4) !important; }
+.ccard:hover { transform: translateY(-4px) !important; box-shadow: 0 16px 40px rgba(201,168,76,.2) !important; border-color: rgba(201,168,76,.3) !important; }
+.ebook-card:hover { transform: translateY(-4px) !important; box-shadow: 0 12px 32px rgba(201,168,76,.2) !important; }
+.bcard:hover { transform: translateY(-4px) !important; box-shadow: 0 12px 32px rgba(0,0,0,.3) !important; }
+.nf-card:hover { transform: translateY(-3px) !important; box-shadow: 0 12px 30px rgba(0,0,0,.15) !important; }
+
+/* BRILHO DOURADO NO HOVER */
+.scard::after, .ccard::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,.06), transparent);
+  transition: left .5s ease;
+  pointer-events: none;
+}
+.scard:hover::after, .ccard:hover::after { left: 100%; }
+
+/* CTA HERO COM PULSO */
+.btn-gold {
+  animation: btnPulse 3s ease infinite !important;
+}
+@keyframes btnPulse {
+  0%,100% { box-shadow: 0 4px 15px rgba(201,168,76,.3); }
+  50% { box-shadow: 0 4px 30px rgba(201,168,76,.6), 0 0 0 8px rgba(201,168,76,.08); }
+}
+
+/* PARALLAX SUTIL NO HERO */
+.hero-section { overflow: hidden; }
+
+/* SKELETON LOADING NAS IMAGENS */
+img[data-src] {
+  background: linear-gradient(90deg, #1C1208 25%, #2A1A08 50%, #1C1208 75%);
+  background-size: 200% 100%;
+  animation: skeleton 1.5s ease infinite;
+}
+@keyframes skeleton { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+/* OVERLAY GRADIENTE NAS FOTOS DOS CARDS */
+.scard-foto { transition: transform .5s ease !important; }
+.scard:hover .scard-foto { transform: scale(1.05) !important; }
+
+/* SCROLL SUAVE EM TODA A PÁGINA */
+html { scroll-behavior: smooth; }
+
+/* EFEITO DE ENTRADA MAIS SUAVE */
+.rv { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+.rv.visible, .rv.animated { opacity: 1 !important; transform: translateY(0) !important; }
+.rvl { opacity: 0; transform: translateX(-24px); transition: opacity .6s ease, transform .6s ease; }
+.rvl.visible { opacity: 1 !important; transform: translateX(0) !important; }
+.rvr { opacity: 0; transform: translateX(24px); transition: opacity .6s ease, transform .6s ease; }
+.rvr.visible { opacity: 1 !important; transform: translateX(0) !important; }
+
+/* BOTÕES GERAIS */
+.btn, .btn-gold, .btn-wpp, .scta, .btn-glass {
+  transition: transform .2s ease, box-shadow .2s ease !important;
+}
+.btn:hover, .btn-gold:hover, .btn-wpp:hover {
+  transform: translateY(-2px) !important;
+}
+
+/* PORTFÓLIO HOVER */
+.pv-item { transition: transform .3s, box-shadow .3s !important; overflow: hidden; }
+.pv-item:hover { transform: scale(1.03) !important; box-shadow: 0 12px 32px rgba(0,0,0,.5) !important; }
+
+
+/* ══════════════════════════════════════════
+   MOBILE CIRÚRGICO — FIXES FINAIS
+   ══════════════════════════════════════════ */
+
+@media(max-width:768px){
+
+  /* CALCULADORA — botões maiores para toque */
+  .copt {
+    padding:14px 8px !important;
+    font-size:11px !important;
+    min-height:48px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+  }
+  
+  /* FORMULÁRIO — feedback visual */
+  .finput:focus, .fselect:focus, .ftextarea:focus {
+    border-color: #E8B800 !important;
+    box-shadow: 0 0 0 3px rgba(201,168,76,.15) !important;
+  }
+  
+  /* CARROSSEL — dots maiores */
+  .carrossel-dot {
+    width: 14px !important;
+    height: 14px !important;
+    margin: 4px !important;
+  }
+  
+  /* QUEIMADURAS — sem overflow */
+  .sec-emocional, #queimaduras {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    overflow-x: hidden !important;
+  }
+  .sec-emocional * { max-width: 100% !important; }
+  
+  /* MODAL PIX — scroll melhorado */
+  .pix-box {
+    max-height: 88vh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 20px 16px !important;
+  }
+  
+  /* BOTTOM NAV — acima de tudo */
+  .mobile-bottom-nav { z-index: 8400 !important; }
+  
+  /* RABISCO — não conflita com bottom nav */
+  #skullBtn { bottom: 90px !important; right: 16px !important; }
+  #skullPanel {
+    bottom: 160px !important;
+    left: 8px !important;
+    right: 8px !important;
+    width: auto !important;
+    max-height: 60vh !important;
+  }
+  
+  /* BOTÃO TOPO — não conflita */
+  #btnTopo { bottom: 90px !important; right: 108px !important; }
+  
+  /* HERO — foto quadrada bonita */
+  .hero-photo-frame {
+    width: 100% !important;
+    max-width: 340px !important;
+    margin: 0 auto !important;
+  }
+  .hero-photo-frame img {
+    width: 100% !important;
+    height: 260px !important;
+    border-radius: 16px !important;
+    object-fit: cover !important;
+    object-position: top center !important;
+  }
+  
+  /* STATS — 2 colunas com mais espaço */
+  .evid-stat {
+    padding: 16px 12px !important;
+    border-radius: 12px !important;
+  }
+  
+  /* URGENCY BAR — texto legível */
+  .urg-bar {
+    font-size: 12px !important;
+    padding: 10px 16px !important;
+    text-align: center !important;
+    line-height: 1.6 !important;
+  }
+  
+  /* PORTFÓLIO FILTROS */
+  #portfolio-filtros {
+    gap: 6px !important;
+    padding: 0 16px !important;
+  }
+  .pfiltro {
+    padding: 8px 12px !important;
+    font-size: 9px !important;
+  }
+}
+
+@media(max-width:480px){
+  /* HERO MENOR */
+  .hero-photo-frame img { height: 220px !important; }
+  
+  /* CARDS EBOOK — 1 coluna em telas muito pequenas */
+  .ebooks-grid { grid-template-columns: 1fr !important; }
+  
+  /* MODAL TELA CHEIA */
+  .pix-box { padding: 16px 12px !important; }
+}
+
+
+/* ══════════════════════════════════════════
+   FORMULÁRIO PREMIUM — 3 PASSOS
+   ══════════════════════════════════════════ */
+.funil-box{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.15);border-radius:20px;padding:36px;max-width:680px;margin:0 auto;}
+.fp-step-header{display:flex;align-items:center;gap:14px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid rgba(201,168,76,.1);}
+.fp-step-icon{font-size:36px;}
+.fp-step-titulo{font-family:'Cinzel Decorative',cursive;font-size:18px;color:#fff;margin-bottom:4px;}
+.fp-step-sub{font-size:13px;color:rgba(237,228,212,.5);font-family:'Cinzel',serif;letter-spacing:1px;}
+
+/* BARRA DE PROGRESSO */
+.funil-progress-wrap{max-width:680px;margin:0 auto 32px;}
+.funil-steps-nav{display:flex;align-items:center;justify-content:center;gap:0;}
+.fsn-item{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;}
+.fsn-circle{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.06);border:2px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:13px;color:rgba(201,168,76,.4);transition:.3s;}
+.fsn-item span{font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;color:rgba(201,168,76,.4);text-transform:uppercase;transition:.3s;}
+.fsn-item.active .fsn-circle{background:linear-gradient(135deg,#A07830,#E8B800);border-color:#E8B800;color:#0a0500;font-weight:700;}
+.fsn-item.active span{color:#E8B800;}
+.fsn-item.done .fsn-circle{background:rgba(39,174,96,.2);border-color:#27ae60;color:#27ae60;}
+.fsn-item.done span{color:#27ae60;}
+.fsn-line{flex:1;height:2px;background:rgba(201,168,76,.12);min-width:40px;max-width:80px;margin:0 8px;margin-bottom:22px;transition:.3s;}
+.fsn-line.done{background:linear-gradient(90deg,#A07830,#E8B800);}
+
+/* CAMPOS */
+.fp-field{margin-bottom:18px;}
+.fp-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:#E8B800;text-transform:uppercase;display:block;margin-bottom:8px;font-weight:700;}
+.fp-input-wrap{position:relative;display:flex;align-items:center;}
+.fp-icon{position:absolute;left:14px;font-size:16px;z-index:1;}
+.fp-input{width:100%;background:rgba(255,255,255,.06);border:1.5px solid rgba(201,168,76,.2);border-radius:10px;padding:14px 16px 14px 44px;color:#fff;font-size:14px;font-family:'Raleway',sans-serif;outline:none;transition:.2s;}
+.fp-input:focus{border-color:#E8B800;background:rgba(255,255,255,.1);box-shadow:0 0 0 3px rgba(201,168,76,.1);}
+.fp-input::placeholder{color:rgba(255,255,255,.3);}
+.fp-textarea{width:100%;background:rgba(255,255,255,.06);border:1.5px solid rgba(201,168,76,.2);border-radius:10px;padding:14px 16px;color:#fff;font-size:14px;font-family:'Raleway',sans-serif;outline:none;resize:vertical;min-height:100px;transition:.2s;}
+.fp-textarea:focus{border-color:#E8B800;background:rgba(255,255,255,.1);box-shadow:0 0 0 3px rgba(201,168,76,.1);}
+.fp-textarea::placeholder{color:rgba(255,255,255,.3);}
+.fp-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+/* SELETOR DE ESTILO */
+.fp-estilos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8px;}
+.fp-estilo-card{background:rgba(255,255,255,.04);border:2px solid rgba(201,168,76,.12);border-radius:12px;padding:12px 8px;text-align:center;cursor:pointer;transition:.2s;}
+.fp-estilo-card:hover{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.06);}
+.fp-estilo-card.selected{border-color:#E8B800;background:rgba(201,168,76,.1);}
+.fp-estilo-card span{font-family:'Cinzel',serif;font-size:10px;color:#EDE4D4;letter-spacing:1px;display:block;margin-top:6px;}
+.fp-estilo-img{width:100%;height:60px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:4px;}
+
+/* LOCAIS */
+.fp-locais-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.fp-local-btn{background:rgba(255,255,255,.04);border:1.5px solid rgba(201,168,76,.12);border-radius:8px;padding:10px 6px;font-family:'Cinzel',serif;font-size:9px;color:#EDE4D4;letter-spacing:1px;cursor:pointer;transition:.2s;text-align:center;}
+.fp-local-btn:hover,.fp-local-btn.selected{background:rgba(201,168,76,.1);border-color:#E8B800;color:#E8B800;}
+
+/* TAMANHOS */
+.fp-tamanhos{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:8px;}
+.fp-tam-btn{background:rgba(255,255,255,.04);border:2px solid rgba(201,168,76,.12);border-radius:10px;padding:14px 8px;font-family:'Cinzel',serif;font-size:11px;color:#EDE4D4;cursor:pointer;transition:.2s;text-align:center;line-height:1.4;}
+.fp-tam-btn small{font-size:9px;color:rgba(237,228,212,.5);letter-spacing:1px;}
+.fp-tam-btn:hover,.fp-tam-btn.selected{background:rgba(201,168,76,.1);border-color:#E8B800;color:#E8B800;}
+.fp-tam-btn.selected small{color:rgba(201,168,76,.6);}
+
+/* ESTIMATIVA */
+.fp-estimativa-box{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.25);border-radius:12px;padding:16px 20px;margin:16px 0;text-align:center;}
+.fp-est-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:rgba(201,168,76,.6);text-transform:uppercase;margin-bottom:6px;}
+.fp-est-valor{font-family:'Cinzel Decorative',cursive;font-size:22px;color:#E8B800;}
+.fp-est-obs{font-size:10px;color:rgba(237,228,212,.4);margin-top:4px;font-family:'Cinzel',serif;}
+
+/* RESUMO */
+.fp-resumo{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.1);border-radius:12px;padding:20px;}
+.fp-resumo-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(201,168,76,.06);}
+.fp-resumo-item:last-child{border-bottom:none;}
+.fp-resumo-label{font-family:'Cinzel',serif;font-size:10px;color:rgba(201,168,76,.5);letter-spacing:1px;text-transform:uppercase;}
+.fp-resumo-valor{font-family:'Cinzel',serif;font-size:12px;color:#EDE4D4;font-weight:600;text-align:right;max-width:60%;}
+
+/* ORÇAMENTO */
+.fp-orcamentos{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:4px;}
+.fp-orc-btn{background:rgba(255,255,255,.04);border:1.5px solid rgba(201,168,76,.12);border-radius:8px;padding:10px 6px;font-family:'Cinzel',serif;font-size:9px;color:#EDE4D4;letter-spacing:1px;cursor:pointer;transition:.2s;text-align:center;}
+.fp-orc-btn:hover,.fp-orc-btn.selected{background:rgba(201,168,76,.1);border-color:#E8B800;color:#E8B800;}
+
+/* BOTÕES */
+.fp-btn-next{width:100%;background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;border:none;padding:16px;border-radius:12px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;cursor:pointer;font-weight:700;transition:.2s;margin-top:8px;}
+.fp-btn-next:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,.4);}
+.fp-btn-back{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.15);color:rgba(237,228,212,.6);padding:12px 20px;border-radius:10px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;transition:.2s;}
+.fp-btn-back:hover{border-color:rgba(201,168,76,.4);color:#E8B800;}
+.fp-btn-enviar{width:100%;background:linear-gradient(135deg,#8B1A1A,#C0392B,#8B1A1A);background-size:200%;animation:btnEnviarPulse 3s ease infinite;color:#fff;border:none;padding:18px;border-radius:12px;font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;cursor:pointer;font-weight:700;transition:.2s;margin-top:8px;border:1px solid rgba(255,255,255,.1);}
+.fp-btn-enviar:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(139,26,26,.5);}
+@keyframes btnEnviarPulse{0%,100%{background-position:0%;}50%{background-position:100%;}}
+
+/* RESPONSIVO */
+@media(max-width:600px){
+  .funil-box{padding:20px 16px;}
+  .fp-grid2{grid-template-columns:1fr;}
+  .fp-estilos-grid{grid-template-columns:repeat(3,1fr);}
+  .fp-locais-grid{grid-template-columns:repeat(2,1fr);}
+  .fp-tamanhos{grid-template-columns:repeat(2,1fr);}
+  .fp-orcamentos{grid-template-columns:repeat(2,1fr);}
 }
 
 /* ═══ RESPONSIVE NOVAS SEÇÕES ═══ */
@@ -4959,137 +5771,225 @@ footer p { color:#9A7A5A !important; }
   </div>
 </section>
 
-<!-- ═══ FORMULÁRIO FUNIL ═══ -->
+<!-- ═══ FORMULÁRIO FUNIL PREMIUM ═══ -->
 <section class="sec parch" id="contato">
   <div class="si-inner">
     <div class="sec-head">
       <div class="tag rv">AGENDAR TATUAGEM</div>
       <h2 class="h2 rv">Vamos criar sua <span class="g">arte juntos?</span></h2>
-      <p class="h2-sub rv" style="color:var(--t3);font-size:16px;font-family:'Cinzel',serif;letter-spacing:1px;font-style:normal;"><span style="color:#ffffff;font-family:'Cinzel',serif;font-size:15px;">Preencha abaixo — seus dados ficam salvos com segurança.</span><br>Você será direcionado ao WhatsApp do Carlos para finalizar.</p>
+      <p class="h2-sub rv" style="color:#EDE4D4;font-size:15px;font-family:'Cinzel',serif;letter-spacing:1px;">Preencha o formulário — Carlos responde em até 24h úteis</p>
     </div>
-    <div class="funnel rv">
-      <div class="step-track" id="stepTrack">
-        <div class="sb on" id="sb1"><div class="sdot">1</div><div class="snm">Seus dados</div></div>
-        <div class="sb" id="sb2"><div class="sdot">2</div><div class="snm">Seu projeto</div></div>
-        <div class="sb" id="sb3"><div class="sdot">3</div><div class="snm">Confirmar</div></div>
+
+    <!-- BARRA DE PROGRESSO -->
+    <div class="funil-progress-wrap rv">
+      <div class="funil-steps-nav">
+        <div class="fsn-item active" id="fsn-1">
+          <div class="fsn-circle">1</div>
+          <span>Seus dados</span>
+        </div>
+        <div class="fsn-line" id="fline-1"></div>
+        <div class="fsn-item" id="fsn-2">
+          <div class="fsn-circle">2</div>
+          <span>Sua tattoo</span>
+        </div>
+        <div class="fsn-line" id="fline-2"></div>
+        <div class="fsn-item" id="fsn-3">
+          <div class="fsn-circle">3</div>
+          <span>Confirmar</span>
+        </div>
       </div>
-      <div id="fboxEl">
-        <div class="fbox">
-          <!-- PASSO 1 -->
-          <div class="fp on" id="fp1">
-            <div class="form-progress">
-              <div class="fp-label"><span>Progresso do agendamento</span><span class="fp-pct" id="fp-pct">33%</span></div>
-              <div class="fp-track"><div class="fp-fill" id="fp-fill" style="width:33%"></div></div>
-              <div class="fp-msg" id="fp-msg">Você está 33% mais perto da sua tatuagem dos sonhos! ✨</div>
-            </div>
-            <div class="ft">Seus dados pessoais</div>
-            <div class="fs">Informe seus dados para personalizarmos seu atendimento.</div>
-            <div class="frow">
-              <div class="fg"><label>Nome completo *</label><input id="fn" placeholder="Seu nome completo" type="text"></div>
-              <div class="fg"><label>WhatsApp *</label><input id="fp_tel" placeholder="(31) 9 9999-9999" type="tel"></div>
-            </div>
-            <div class="frow">
-              <div class="fg"><label>Email</label><input id="fp_email" placeholder="seu@email.com" type="email"></div>
-              <div class="fg"><label>Data de nascimento</label><input id="fp_aniv" type="date"></div>
-            </div>
-            <div class="frow">
-              <div class="fg"><label>Endereço</label><input id="fp_end" placeholder="Rua, número, bairro" type="text"></div>
-              <div class="fg"><label>Cidade</label>
-                <select id="fp_cidade">
-                  <option value="">Selecione sua cidade</option>
-                  <option>Belo Horizonte</option><option>Contagem</option><option>Santa Luzia</option>
-                  <option>Venda Nova</option><option>Pampulha</option><option>Ribeirão das Neves</option>
-                  <option>Betim</option><option>Lagoa Santa</option><option>Vespasiano</option><option>Outra cidade</option>
-                </select>
-              </div>
-            </div>
-            <div class="frow">
-              <div class="fg"><label>Como me encontrou?</label>
-                <select id="fsrc">
-                  <option>Instagram</option><option>Google</option><option>Indicação de amigo</option>
-                  <option>TikTok</option><option>YouTube</option><option>Outro</option>
-                </select>
-              </div>
-              <div class="fg"><label>Experiência com tatuagem</label>
-                <div class="ropts" id="rg1">
-                  <div class="ropt" data-v="Nunca tatuei" onclick="pick(this,'rg1')"><div class="rmrk"></div><span class="rtxt">Nunca me tatuei — será minha primeira</span></div>
-                  <div class="ropt" data-v="Tenho algumas" onclick="pick(this,'rg1')"><div class="rmrk"></div><span class="rtxt">Tenho algumas tatuagens</span></div>
-                  <div class="ropt" data-v="Muito tatuado" onclick="pick(this,'rg1')"><div class="rmrk"></div><span class="rtxt">Sou bastante tatuado(a)</span></div>
-                </div>
-              </div>
-            </div>
-            <div class="fnav" style="justify-content:flex-end;">
-              <button class="btn btn-parch" onclick="step(2)">PRÓXIMO PASSO →</button>
+    </div>
+
+    <div class="funil-box rv">
+
+      <!-- ═══ PASSO 1 — DADOS PESSOAIS ═══ -->
+      <div id="fp-step1" class="fp-step">
+        <div class="fp-step-header">
+          <span class="fp-step-icon">👤</span>
+          <div>
+            <h3 class="fp-step-titulo">Seus dados</h3>
+            <p class="fp-step-sub">Rápido e simples — só o essencial</p>
+          </div>
+        </div>
+
+        <div class="fp-grid2">
+          <div class="fp-field">
+            <label class="fp-label">Como você se chama? *</label>
+            <div class="fp-input-wrap">
+              <span class="fp-icon">👤</span>
+              <input id="fp-nome" type="text" placeholder="Seu nome completo" class="fp-input" required>
             </div>
           </div>
-          <!-- PASSO 2 -->
-          <div class="fp" id="fp2">
-            <div class="ft">Seu projeto de tatuagem</div>
-            <div class="fs">Conte-nos sobre a tatuagem dos seus sonhos.</div>
-            <div class="fg"><label>Estilo desejado *</label>
-              <div class="ropts" id="rg2">
-                <div class="ropt" data-v="Realismo" onclick="pick(this,'rg2')"><div class="rmrk"></div><span class="rtxt">Realismo</span></div>
-                <div class="ropt" data-v="Black & Grey" onclick="pick(this,'rg2')"><div class="rmrk"></div><span class="rtxt">Black & Grey</span></div>
-                <div class="ropt" data-v="Fineline" onclick="pick(this,'rg2')"><div class="rmrk"></div><span class="rtxt">Fineline</span></div>
-                <div class="ropt" data-v="Cover Up / Cobertura" onclick="pick(this,'rg2')"><div class="rmrk"></div><span class="rtxt">Cover Up / Cobertura</span></div>
-                <div class="ropt" data-v="Colorida" onclick="pick(this,'rg2')"><div class="rmrk"></div><span class="rtxt">Colorida</span></div>
-                <div class="ropt" data-v="Não sei ainda" onclick="pick(this,'rg2')"><div class="rmrk"></div><span class="rtxt">Não sei ainda — preciso de sugestão</span></div>
-              </div>
-            </div>
-            <div class="frow">
-              <div class="fg"><label>Local do corpo</label>
-                <select id="fbody">
-                  <option>Braço</option><option>Antebraço</option><option>Perna</option>
-                  <option>Costas</option><option>Peito</option><option>Costela</option>
-                  <option>Pescoço</option><option>Mão/Pé</option><option>Outro</option>
-                </select>
-              </div>
-              <div class="fg"><label>Tamanho aproximado</label>
-                <select id="fsize">
-                  <option>Pequena (até 5cm)</option><option>Média (5-15cm)</option>
-                  <option>Grande (15-25cm)</option><option>Muito grande (25cm+)</option><option>Manga completa</option>
-                </select>
-              </div>
-            </div>
-            <div class="fg"><label>Descreva sua ideia *</label>
-              <textarea id="fidea" placeholder="Descreva sua ideia com o máximo de detalhes possível..."></textarea>
-            </div>
-            <div class="fg"><label>Orçamento estimado</label>
-              <select id="fbudget">
-                <option>Até R$ 300</option><option>R$ 300 – R$ 600</option>
-                <option>R$ 600 – R$ 1.000</option><option>R$ 1.000 – R$ 2.000</option>
-                <option>Acima de R$ 2.000</option><option>Sem limite definido</option>
-              </select>
-            </div>
-            <div class="fnav">
-              <button class="btn btn-glass" onclick="step(1)">← VOLTAR</button>
-              <button class="btn btn-parch" onclick="step(3)">PRÓXIMO →</button>
-            </div>
-          </div>
-          <!-- PASSO 3 -->
-          <div class="fp" id="fp3">
-            <div class="ft">Confirmar informações</div>
-            <div class="fs">Verifique seus dados antes de enviar para o WhatsApp.</div>
-            <div class="sumbox" id="sumEl"></div>
-            <p style="font-size:14px;color:var(--t3);margin-bottom:18px;">✅ Ao clicar em Enviar, seus dados são salvos com segurança e você será direcionado ao WhatsApp do Carlos.</p>
-            <div class="fnav">
-              <button class="btn btn-glass" onclick="step(2)">← VOLTAR</button>
-              <button class="btn btn-wpp" onclick="goWA()" style="clip-path:none;border-radius:4px;">💬 ENVIAR NO WHATSAPP</button>
+          <div class="fp-field">
+            <label class="fp-label">Seu WhatsApp *</label>
+            <div class="fp-input-wrap">
+              <span class="fp-icon">📱</span>
+              <input id="fp-tel" type="tel" placeholder="(31) 9 0000-0000" class="fp-input" required>
             </div>
           </div>
         </div>
+
+        <div class="fp-field">
+          <label class="fp-label">Email (opcional)</label>
+          <div class="fp-input-wrap">
+            <span class="fp-icon">✉️</span>
+            <input id="fp-email" type="email" placeholder="seu@email.com" class="fp-input">
+          </div>
+        </div>
+
+        <div class="fp-field">
+          <label class="fp-label">Cidade / Bairro *</label>
+          <div class="fp-input-wrap">
+            <span class="fp-icon">📍</span>
+            <input id="fp-cidade" type="text" placeholder="Ex: BH — Mantiqueira" class="fp-input" required>
+          </div>
+        </div>
+
+        <button class="fp-btn-next" onclick="fpProximo(2)">
+          Próximo passo → Sua Tattoo
+        </button>
       </div>
-      <div class="sucbox" id="sucEl">
-        <span class="suc-ic">🎉</span>
-        <div class="suc-t">Mensagem enviada com sucesso!</div>
-        <p class="suc-m">Obrigado! O Carlos vai entrar em contato em breve para confirmar seu agendamento. Aguarde!</p>
-        <a href="#inicio" class="btn btn-parch">VOLTAR AO INÍCIO</a>
+
+      <!-- ═══ PASSO 2 — DETALHES DA TATTOO ═══ -->
+      <div id="fp-step2" class="fp-step" style="display:none;">
+        <div class="fp-step-header">
+          <span class="fp-step-icon">🖤</span>
+          <div>
+            <h3 class="fp-step-titulo">Sua tatuagem</h3>
+            <p class="fp-step-sub">Quanto mais detalhar, melhor o orçamento</p>
+          </div>
+        </div>
+
+        <!-- SELETOR VISUAL DE ESTILO -->
+        <div class="fp-field">
+          <label class="fp-label">Qual estilo você quer? *</label>
+          <div class="fp-estilos-grid">
+            <div class="fp-estilo-card" onclick="selecionarEstilo('Realismo','este-realismo')">
+              <div class="fp-estilo-img" style="background:linear-gradient(135deg,#1C1208,#0A0702);">
+                <span style="font-size:28px;">🎨</span>
+              </div>
+              <span>Realismo</span>
+            </div>
+            <div class="fp-estilo-card" onclick="selecionarEstilo('Black & Grey','este-blackgrey')">
+              <div class="fp-estilo-img" style="background:linear-gradient(135deg,#1C1208,#0A0702);">
+                <span style="font-size:28px;">⬛</span>
+              </div>
+              <span>Black & Grey</span>
+            </div>
+            <div class="fp-estilo-card" onclick="selecionarEstilo('Fineline','este-fineline')">
+              <div class="fp-estilo-img" style="background:linear-gradient(135deg,#1C1208,#0A0702);">
+                <span style="font-size:28px;">✏️</span>
+              </div>
+              <span>Fineline</span>
+            </div>
+            <div class="fp-estilo-card" onclick="selecionarEstilo('Cover Up','este-coverup')">
+              <div class="fp-estilo-img" style="background:linear-gradient(135deg,#8B1A1A,#2A0808);">
+                <span style="font-size:28px;">🔄</span>
+              </div>
+              <span>Cover Up</span>
+            </div>
+            <div class="fp-estilo-card" onclick="selecionarEstilo('Colorida','este-colorida')">
+              <div class="fp-estilo-img" style="background:linear-gradient(135deg,#0A2818,#0A0702);">
+                <span style="font-size:28px;">🎨</span>
+              </div>
+              <span>Colorida</span>
+            </div>
+            <div class="fp-estilo-card" onclick="selecionarEstilo('Personalizada','este-personalizada')">
+              <div class="fp-estilo-img" style="background:linear-gradient(135deg,#1C1208,#0A0702);">
+                <span style="font-size:28px;">✨</span>
+              </div>
+              <span>Personalizada</span>
+            </div>
+          </div>
+          <input id="fp-estilo" type="hidden" value="">
+        </div>
+
+        <!-- LOCAL NO CORPO -->
+        <div class="fp-field">
+          <label class="fp-label">Onde no corpo? *</label>
+          <div class="fp-locais-grid">
+            <button class="fp-local-btn" onclick="selecionarLocal('Braço',this)">💪 Braço</button>
+            <button class="fp-local-btn" onclick="selecionarLocal('Antebraço',this)">🦾 Antebraço</button>
+            <button class="fp-local-btn" onclick="selecionarLocal('Perna',this)">🦵 Perna</button>
+            <button class="fp-local-btn" onclick="selecionarLocal('Costas',this)">🔙 Costas</button>
+            <button class="fp-local-btn" onclick="selecionarLocal('Peito',this)">❤️ Peito</button>
+            <button class="fp-local-btn" onclick="selecionarLocal('Pescoço',this)">🔝 Pescoço</button>
+            <button class="fp-local-btn" onclick="selecionarLocal('Panturrilha',this)">🦵 Panturrilha</button>
+            <button class="fp-local-btn" onclick="selecionarLocal('Outro',this)">📍 Outro</button>
+          </div>
+          <input id="fp-local" type="hidden" value="">
+        </div>
+
+        <!-- TAMANHO -->
+        <div class="fp-field">
+          <label class="fp-label">Tamanho aproximado</label>
+          <div class="fp-tamanhos">
+            <button class="fp-tam-btn" onclick="selecionarTamanho('Pequena até 5cm',this)">P<br><small>até 5cm</small></button>
+            <button class="fp-tam-btn" onclick="selecionarTamanho('Média 5-15cm',this)">M<br><small>5-15cm</small></button>
+            <button class="fp-tam-btn" onclick="selecionarTamanho('Grande 15-30cm',this)">G<br><small>15-30cm</small></button>
+            <button class="fp-tam-btn" onclick="selecionarTamanho('Manga/Sleeve',this)">XL<br><small>Manga</small></button>
+          </div>
+          <input id="fp-tamanho" type="hidden" value="">
+        </div>
+
+        <!-- ESTIMATIVA AUTOMÁTICA -->
+        <div id="fp-estimativa" style="display:none;" class="fp-estimativa-box">
+          <div class="fp-est-label">💰 Estimativa de investimento</div>
+          <div id="fp-est-valor" class="fp-est-valor"></div>
+          <div class="fp-est-obs">*Valor final após análise da referência</div>
+        </div>
+
+        <!-- IDEIA -->
+        <div class="fp-field">
+          <label class="fp-label">Descreva sua ideia *</label>
+          <textarea id="fp-ideia" class="fp-textarea" placeholder="Ex: Quero um retrato realista da minha mãe no braço esquerdo, em black & grey, com flores ao redor..." rows="4" required></textarea>
+        </div>
+
+        <div style="display:flex;gap:10px;">
+          <button class="fp-btn-back" onclick="fpVoltar(1)">← Voltar</button>
+          <button class="fp-btn-next" onclick="fpProximo(3)" style="flex:1;">Próximo → Confirmar</button>
+        </div>
       </div>
-    </div>
+
+      <!-- ═══ PASSO 3 — CONFIRMAÇÃO ═══ -->
+      <div id="fp-step3" class="fp-step" style="display:none;">
+        <div class="fp-step-header">
+          <span class="fp-step-icon">✅</span>
+          <div>
+            <h3 class="fp-step-titulo">Confirmar envio</h3>
+            <p class="fp-step-sub">Revise seus dados antes de enviar</p>
+          </div>
+        </div>
+
+        <!-- RESUMO -->
+        <div class="fp-resumo" id="fp-resumo"></div>
+
+        <div class="fp-field" style="margin-top:16px;">
+          <label class="fp-label">Orçamento disponível (opcional)</label>
+          <div class="fp-orcamentos">
+            <button class="fp-orc-btn" onclick="selecionarOrcamento('Até R$300',this)">Até R$300</button>
+            <button class="fp-orc-btn" onclick="selecionarOrcamento('R$300-600',this)">R$300-600</button>
+            <button class="fp-orc-btn" onclick="selecionarOrcamento('R$600-1000',this)">R$600-1000</button>
+            <button class="fp-orc-btn" onclick="selecionarOrcamento('Acima de R$1000',this)">R$1000+</button>
+          </div>
+          <input id="fp-orcamento" type="hidden" value="">
+        </div>
+
+        <button class="fp-btn-enviar" id="fp-btn-enviar" onclick="fpEnviar()">
+          <span id="fp-btn-texto">🖤 ENVIAR SOLICITAÇÃO</span>
+        </button>
+
+        <p style="font-size:11px;color:rgba(237,228,212,.4);text-align:center;margin-top:10px;font-family:'Cinzel',serif;letter-spacing:1px;">
+          🔒 Seus dados são confidenciais e usados apenas para contato
+        </p>
+
+        <button class="fp-btn-back" onclick="fpVoltar(2)" style="margin-top:8px;">← Voltar e editar</button>
+      </div>
+
+    </div><!-- fim funil-box -->
   </div>
 </section>
 
-<div class="odiv"><span class="odiv-sym">✦ ✦ ✦</span></div>
 
 <!-- ═══ DEPOIMENTOS ═══ -->
 <section class="sec parch" id="depoimentos">
@@ -5743,12 +6643,11 @@ footer p { color:#9A7A5A !important; }
         </div>
       </div>
       
-      <!-- WHATSAPP -->
-      <a href="https://wa.me/5531983391576?text=Acabei%20de%20pagar%20via%20PIX%20e%20vou%20enviar%20o%20comprovante!"
-        target="_blank"
-        style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.25);color:#25d366;padding:12px;border-radius:10px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;text-decoration:none;transition:.2s;">
-        📱 Enviar comprovante no WhatsApp
-      </a>
+      <!-- AVISO COMPROVANTE -->
+      <div style="background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:12px 16px;text-align:center;">
+        <p style="font-family:'Cinzel',serif;font-size:11px;color:#E8B800;letter-spacing:1px;margin-bottom:4px;">✅ Após pagar</p>
+        <p style="font-size:12px;color:rgba(237,228,212,.7);line-height:1.6;">Carlos entrará em contato em até 2h úteis para confirmar e liberar seu acesso.</p>
+      </div>
     </div>
     
     <!-- ABA CARTÃO -->
@@ -5858,7 +6757,7 @@ footer p { color:#9A7A5A !important; }
           <div class="btitle">Quanto custa uma tatuagem realista em BH? Guia completo 2026</div>
           <p class="bexc">Descubra tudo sobre preços, fatores que influenciam e como garantir qualidade na sua tatuagem em Belo Horizonte. O guia mais completo do mercado tattoo de MG.</p>
           <a href="blog-quanto-custa-tatuagem-bh.html" class="bmore">LER ARTIGO →</a>
-          <a href="https://wa.me/?text=Leia%20este%20artigo%20sobre%20tatuagem%20em%20BH%3A%20https%3A%2F%2Fcarlostattoo.com.br%2Fblog-quanto-custa-tatuagem-bh.html" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;color:rgba(37,211,102,.8);text-decoration:none;transition:.2s;">📱 Compartilhar</a>
+          
         </div>
       </div>
       <div class="bcard">
@@ -6125,7 +7024,7 @@ footer p { color:#9A7A5A !important; }
     <li><a href="#blog" onclick="toggleMenu()">Blog</a></li>
     <li><a href="#contato" onclick="toggleMenu()">Agendar Tatuagem</a></li>
   </ul>
-  <a href="https://wa.me/5531983391576" target="_blank" class="btn btn-wpp" style="margin-top:22px;width:100%;justify-content:center;clip-path:none;border-radius:8px;display:flex;">💬 FALAR NO WHATSAPP</a>
+  
 </div>
 
 <script>
@@ -7524,45 +8423,67 @@ function confirmarPix(){
      SKULL BOT 💀
      ════════════════════════════════════ -->
 <button id="skullBtn" onclick="toggleSkull()" aria-label="Assistente Skull">
-  <svg class="skull-svg" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- Brilho externo -->
-    <ellipse cx="40" cy="36" rx="26" ry="24" fill="#C9A84C" opacity=".08"/>
+  <svg class="skull-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Coroa dourada -->
+    <path d="M28 22 L32 14 L38 20 L44 11 L50 20 L56 11 L62 20 L68 14 L72 22Z" fill="#E8B800" opacity=".9"/>
+    <path d="M28 22 L72 22 L70 28 L30 28Z" fill="#C9A84C"/>
+    <!-- Pedras da coroa -->
+    <circle cx="38" cy="17" r="2" fill="#ff4444" opacity=".8"/>
+    <circle cx="50" cy="14" r="2.5" fill="#4444ff" opacity=".8"/>
+    <circle cx="62" cy="17" r="2" fill="#44ff44" opacity=".8"/>
     <!-- Crânio principal -->
-    <path d="M40 6 C22 6 14 18 14 30 C14 40 18 46 24 50 L24 58 C24 60 26 62 28 62 L52 62 C54 62 56 60 56 58 L56 50 C62 46 66 40 66 30 C66 18 58 6 40 6Z" fill="#D4A017"/>
-    <!-- Sombra crânio -->
-    <path d="M40 8 C24 8 16 19 16 30 C16 39 20 45 26 49" stroke="#A07830" stroke-width="1.5" fill="none" opacity=".5"/>
-    <!-- Rachadura 1 -->
-    <path d="M40 8 L37 18 L40 22 L38 30" stroke="#0a0702" stroke-width="1.5" stroke-linecap="round" opacity=".7"/>
-    <!-- Rachadura 2 -->
-    <path d="M52 14 L48 22 L51 26" stroke="#0a0702" stroke-width="1" stroke-linecap="round" opacity=".5"/>
-    <!-- Sobrancelhas agressivas (cara de mal) -->
-    <path d="M18 28 L29 32" stroke="#0a0702" stroke-width="3" stroke-linecap="round"/>
-    <path d="M51 32 L62 28" stroke="#0a0702" stroke-width="3" stroke-linecap="round"/>
-    <!-- Órbitas oculares -->
-    <ellipse cx="29" cy="36" rx="8" ry="9" fill="#0a0702"/>
-    <ellipse cx="51" cy="36" rx="8" ry="9" fill="#0a0702"/>
-    <!-- Brilho vermelho nos olhos -->
-    <ellipse cx="29" cy="35" rx="4" ry="5" fill="#8B0000" opacity=".9"/>
-    <ellipse cx="51" cy="35" rx="4" ry="5" fill="#8B0000" opacity=".9"/>
-    <!-- Pupila vermelha brilhante -->
-    <ellipse cx="29" cy="35" rx="2" ry="2.5" fill="#FF2020" opacity=".8"/>
-    <ellipse cx="51" cy="35" rx="2" ry="2.5" fill="#FF2020" opacity=".8"/>
+    <path d="M50 30 C32 30 20 42 20 54 C20 64 26 72 35 76 L35 86 C35 88 37 90 39 90 L61 90 C63 90 65 88 65 86 L65 76 C74 72 80 64 80 54 C80 42 68 30 50 30Z" fill="#D4A017"/>
+    <!-- Sombra/profundidade crânio -->
+    <path d="M50 32 C34 32 22 43 22 54 C22 63 27 71 36 75" stroke="#A07830" stroke-width="1.5" fill="none" opacity=".4"/>
+    <!-- Rachaduras blackwork -->
+    <path d="M50 32 L47 42 L50 46 L48 56" stroke="#0a0702" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+    <path d="M63 38 L59 46 L62 50" stroke="#0a0702" stroke-width="1.2" stroke-linecap="round" opacity=".5"/>
+    <path d="M37 40 L40 48" stroke="#0a0702" stroke-width="1" stroke-linecap="round" opacity=".4"/>
+    <!-- Sobrancelhas agressivas -->
+    <path d="M24 50 L36 55" stroke="#0a0702" stroke-width="4" stroke-linecap="round"/>
+    <path d="M64 55 L76 50" stroke="#0a0702" stroke-width="4" stroke-linecap="round"/>
+    <!-- Órbitas -->
+    <ellipse cx="36" cy="58" rx="10" ry="11" fill="#0a0702"/>
+    <ellipse cx="64" cy="58" rx="10" ry="11" fill="#0a0702"/>
+    <!-- Olhos vermelhos -->
+    <ellipse cx="36" cy="57" rx="5.5" ry="6.5" fill="#8B0000" opacity=".95"/>
+    <ellipse cx="64" cy="57" rx="5.5" ry="6.5" fill="#8B0000" opacity=".95"/>
+    <!-- Brilho vermelho intenso -->
+    <ellipse cx="36" cy="57" rx="2.5" ry="3" fill="#FF2020"/>
+    <ellipse cx="64" cy="57" rx="2.5" ry="3" fill="#FF2020"/>
+    <!-- Reflexo nos olhos -->
+    <ellipse cx="34" cy="55" rx="1" ry="1.2" fill="rgba(255,255,255,.4)"/>
+    <ellipse cx="62" cy="55" rx="1" ry="1.2" fill="rgba(255,255,255,.4)"/>
     <!-- Nariz -->
-    <path d="M37 44 L40 40 L43 44 Z" fill="#0a0702" opacity=".7"/>
-    <!-- Mandíbula base -->
-    <path d="M24 54 L24 58 C24 60 26 62 28 62 L52 62 C54 62 56 60 56 58 L56 54Z" fill="#B8900F"/>
-    <!-- Dentes irregulares agressivos -->
-    <rect x="27" y="50" width="5" height="9" rx="1" fill="#0a0702"/>
-    <rect x="34" y="48" width="4" height="11" rx="1" fill="#0a0702"/>
-    <rect x="40" y="48" width="4" height="11" rx="1" fill="#0a0702"/>
-    <rect x="46" y="50" width="5" height="9" rx="1" fill="#0a0702"/>
+    <path d="M47 67 L50 62 L53 67Z" fill="#0a0702" opacity=".8"/>
+    <!-- Mandíbula -->
+    <path d="M35 78 L35 86 C35 88 37 90 39 90 L61 90 C63 90 65 88 65 86 L65 78Z" fill="#B8900F"/>
+    <!-- Dentes irregulares -->
+    <rect x="37" y="74" width="6" height="11" rx="1.5" fill="#0a0702"/>
+    <rect x="45" y="72" width="5" height="13" rx="1.5" fill="#0a0702"/>
+    <rect x="52" y="72" width="5" height="13" rx="1.5" fill="#0a0702"/>
+    <rect x="59" y="74" width="6" height="11" rx="1.5" fill="#0a0702"/>
     <!-- Dente partido -->
-    <path d="M34 48 L36 52 L38 48" fill="#D4A017"/>
-    <!-- Contorno blackwork -->
-    <path d="M40 6 C22 6 14 18 14 30 C14 40 18 46 24 50 L24 62 L56 62 L56 50 C62 46 66 40 66 30 C66 18 58 6 40 6Z" stroke="#0a0702" stroke-width="2" fill="none"/>
-    <!-- Detalhes laterais estilo tattoo -->
-    <path d="M14 28 C10 26 8 22 10 18" stroke="#C9A84C" stroke-width="1" fill="none" opacity=".4"/>
-    <path d="M66 28 C70 26 72 22 70 18" stroke="#C9A84C" stroke-width="1" fill="none" opacity=".4"/>
+    <path d="M45 72 L47 77 L50 72" fill="#D4A017"/>
+    <!-- MÁQUINA DE TATUAR -->
+    <!-- Corpo da máquina -->
+    <rect x="66" y="68" width="22" height="12" rx="3" fill="#2a2a2a" transform="rotate(-35 66 68)"/>
+    <rect x="67" y="69" width="20" height="10" rx="2" fill="#3a3a3a" transform="rotate(-35 67 69)"/>
+    <!-- Grip da máquina -->
+    <rect x="78" y="78" width="8" height="18" rx="4" fill="#1a1a1a" transform="rotate(-35 78 78)"/>
+    <!-- Detalhes metálicos -->
+    <rect x="68" y="70" width="18" height="3" rx="1" fill="#555" transform="rotate(-35 68 70)" opacity=".7"/>
+    <!-- Agulha -->
+    <line x1="65" y1="72" x2="57" y2="82" stroke="#C0C0C0" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="57" y1="82" x2="55" y2="87" stroke="#C0C0C0" stroke-width="1" stroke-linecap="round"/>
+    <!-- Ponta da agulha com brilho -->
+    <circle cx="55" cy="87" r="1.5" fill="#E8E8E8"/>
+    <!-- Tinta saindo da agulha -->
+    <path d="M55 87 Q53 90 54 93" stroke="#0a0702" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
+    <!-- Fio da máquina -->
+    <path d="M85 88 Q90 95 88 100" stroke="#333" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <!-- Contorno blackwork geral -->
+    <path d="M50 30 C32 30 20 42 20 54 C20 64 26 72 35 76 L35 90 L65 90 L65 76 C74 72 80 64 80 54 C80 42 68 30 50 30Z" stroke="#0a0702" stroke-width="2.5" fill="none"/>
   </svg>
   <div class="skull-badge">IA</div>
 </button>
@@ -7885,8 +8806,8 @@ EBOOKS:
 PAGAMENTO: PIX (chave: 31983391576 — Carlos Henrique) ou cartão via Mercado Pago
 
 REGRAS:
-- Para agendamento → direcionar para WhatsApp (31) 98339-1576
-- Para aréola/queimadura → oferecer contato confidencial pelo WhatsApp
+- Para agendamento → direcionar para o formulário de contato no site (seção #contato)
+- Para aréola/queimadura → direcionar para o formulário especial na seção #areolas
 - Responda em português brasileiro
 - Se não souber algo específico → direcionar para o WhatsApp`,
         messages:skullHistorico
@@ -7900,7 +8821,7 @@ REGRAS:
     if(skullHistorico.length > 12) skullHistorico = skullHistorico.slice(-12);
   } catch(e){
     document.getElementById(typingId)?.remove();
-    adicionarSkullMsg('Deu um problema técnico aqui. 😅 Fala direto com Carlos: (31) 98339-1576', 'bot');
+    adicionarSkullMsg('Deu um problema técnico 😅 Preencha o formulário de contato no site e Carlos entrará em contato em breve.', 'bot');
   }
 }
 
@@ -8159,6 +9080,557 @@ setTimeout(()=>{
     const el = document.getElementById(id);
     if(el) observer.observe(el);
   });
+})();
+</script>
+
+
+<script>
+// ════════════════════════════════════════
+// CONTADORES ANIMADOS NOS STATS
+// ════════════════════════════════════════
+function animarContador(el, target, duracao, sufixo){
+  const start = 0;
+  const step = target / (duracao / 16);
+  let current = 0;
+  const timer = setInterval(()=>{
+    current += step;
+    if(current >= target){
+      current = target;
+      clearInterval(timer);
+    }
+    el.textContent = Math.floor(current).toLocaleString('pt-BR') + (sufixo||'');
+  }, 16);
+}
+
+// Observar stats para animar quando visíveis
+(()=>{
+  if(!('IntersectionObserver' in window)) return;
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      const el = e.target;
+      const val = el.dataset.count;
+      const sfx = el.dataset.suffix || '';
+      if(val && !el.dataset.animated){
+        el.dataset.animated = '1';
+        animarContador(el, parseInt(val.replace(/\D/g,'')), 2000, sfx);
+      }
+      obs.unobserve(el);
+    });
+  },{threshold:0.3});
+  // Observar elementos com data-count
+  document.querySelectorAll('[data-count]').forEach(el=>obs.observe(el));
+})();
+
+// ════════════════════════════════════════
+// ANIMAÇÃO DE DIGITAÇÃO NO RABISCO
+// ════════════════════════════════════════
+function adicionarSkullMsgComDigitacao(texto, tipo, id){
+  const msgs = document.getElementById('skullMsgs');
+  if(!msgs) return;
+  
+  if(tipo === 'bot'){
+    // Mostrar "digitando..."
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'skull-msg bot skull-typing';
+    typingDiv.id = id || 'typing_'+Date.now();
+    typingDiv.innerHTML = `<div class="skull-msg-name">RABISCO</div>
+      <div class="typing-dots"><span></span><span></span><span></span></div>`;
+    msgs.appendChild(typingDiv);
+    msgs.scrollTop = msgs.scrollHeight;
+    
+    // Após delay mostrar mensagem real
+    setTimeout(()=>{
+      typingDiv.innerHTML = `<div class="skull-msg-name">RABISCO</div>${texto}`;
+      typingDiv.classList.remove('skull-typing');
+      msgs.scrollTop = msgs.scrollHeight;
+    }, 800);
+  } else {
+    const div = document.createElement('div');
+    div.className = 'skull-msg user';
+    if(id) div.id = id;
+    div.textContent = texto;
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+}
+
+// CSS para typing dots
+const styleTyping = document.createElement('style');
+styleTyping.textContent = `
+.typing-dots { display:flex; gap:4px; align-items:center; padding:4px 0; }
+.typing-dots span {
+  width:8px; height:8px; border-radius:50%;
+  background:rgba(201,168,76,.6);
+  animation:typingBounce .8s ease infinite;
+}
+.typing-dots span:nth-child(2) { animation-delay:.15s; }
+.typing-dots span:nth-child(3) { animation-delay:.3s; }
+@keyframes typingBounce {
+  0%,60%,100% { transform:translateY(0); opacity:.6; }
+  30% { transform:translateY(-6px); opacity:1; }
+}
+.skull-sug { color:#ffffff !important; }
+.skull-sug:hover { color:#E8B800 !important; }
+`;
+document.head.appendChild(styleTyping);
+
+// ════════════════════════════════════════
+// CORRIGIR POSIÇÃO DO RABISCO NO MOBILE
+// ════════════════════════════════════════
+function ajustarPosicaoRabisco(){
+  const btn = document.getElementById('skullBtn');
+  const panel = document.getElementById('skullPanel');
+  if(!btn || !panel) return;
+  
+  const isMobile = window.innerWidth <= 768;
+  if(isMobile){
+    btn.style.bottom = '90px';
+    btn.style.right = '16px';
+    panel.style.bottom = '160px';
+    panel.style.right = '8px';
+    panel.style.left = '8px';
+    panel.style.width = 'auto';
+    panel.style.maxHeight = '65vh';
+  } else {
+    btn.style.bottom = '80px';
+    btn.style.right = '20px';
+    panel.style.bottom = '150px';
+    panel.style.right = '20px';
+    panel.style.left = 'auto';
+    panel.style.width = '360px';
+    panel.style.maxHeight = '480px';
+  }
+}
+window.addEventListener('resize', ajustarPosicaoRabisco);
+document.addEventListener('DOMContentLoaded', ajustarPosicaoRabisco);
+setTimeout(ajustarPosicaoRabisco, 500);
+
+// ════════════════════════════════════════
+// FILTRO DE PORTFÓLIO POR ESTILO
+// ════════════════════════════════════════
+(()=>{
+  // Adicionar filtros acima do portfólio
+  const portfolioSection = document.getElementById('portfolio');
+  if(!portfolioSection) return;
+  
+  const filtrosHtml = `
+  <div id="portfolio-filtros" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:24px;">
+    <button class="pfiltro active" data-estilo="todos" onclick="filtrarPortfolio('todos',this)">Todos</button>
+    <button class="pfiltro" data-estilo="realismo" onclick="filtrarPortfolio('realismo',this)">Realismo</button>
+    <button class="pfiltro" data-estilo="blackgrey" onclick="filtrarPortfolio('blackgrey',this)">Black & Grey</button>
+    <button class="pfiltro" data-estilo="fineline" onclick="filtrarPortfolio('fineline',this)">Fineline</button>
+    <button class="pfiltro" data-estilo="coverup" onclick="filtrarPortfolio('coverup',this)">Cover Up</button>
+    <button class="pfiltro" data-estilo="colorida" onclick="filtrarPortfolio('colorida',this)">Colorida</button>
+  </div>`;
+  
+  const secHead = portfolioSection.querySelector('.sec-head');
+  if(secHead) secHead.insertAdjacentHTML('afterend', filtrosHtml);
+  
+  // CSS dos filtros
+  const styleF = document.createElement('style');
+  styleF.textContent = `
+  .pfiltro {
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(201,168,76,.2);
+    color:rgba(201,168,76,.6);
+    padding:8px 18px;border-radius:20px;
+    font-family:'Cinzel',serif;font-size:10px;
+    letter-spacing:1.5px;text-transform:uppercase;
+    cursor:pointer;transition:.2s;
+  }
+  .pfiltro:hover,.pfiltro.active {
+    background:linear-gradient(135deg,#A07830,#E8B800);
+    color:#0a0500;border-color:transparent;
+    font-weight:700;
+  }`;
+  document.head.appendChild(styleF);
+})();
+
+function filtrarPortfolio(estilo, btn){
+  // Atualizar botão ativo
+  document.querySelectorAll('.pfiltro').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  
+  // Filtrar itens
+  const items = document.querySelectorAll('.pv-item, [data-estilo]');
+  items.forEach(item=>{
+    if(estilo === 'todos' || item.dataset.estilo === estilo || !item.dataset.estilo){
+      item.style.display = '';
+      item.style.opacity = '1';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
+
+// ════════════════════════════════════════
+// MELHORAR FRASES DO RABISCO
+// ════════════════════════════════════════
+// Substituir frases contextuais por versões melhores
+const frasesRabisco = [
+  { secao:'cursos', delay:20000, txt:'🎓 Psst... 300+ tatuadores já lotaram a agenda com esses cursos. Qual é o seu maior desafio hoje?' },
+  { secao:'ebooks', delay:18000, txt:'📚 Esse material aqui é o que a maioria dos tatuadores não sabe que existe. Quer que eu te explique?' },
+  { secao:'portfolio', delay:15000, txt:'😏 Impressionante né? Isso tudo foi feito aqui em BH. Quer fazer parte dessa história?' },
+  { secao:'cobertura', delay:12000, txt:'🔄 Cover Up é especialidade do Carlos. 380+ coberturas. Tem alguma que quer transformar?' },
+  { secao:'areolas', delay:8000, txt:'🌸 Esse serviço é muito especial. Se você ou alguém que conhece precisa, posso ajudar com discrição total.' },
+  { secao:'queimaduras', delay:8000, txt:'🔥 A arte pode transformar qualquer cicatriz em algo poderoso. Quer saber como funciona?' },
+];
+
+// ════════════════════════════════════════
+// ANIMAR VISIBILIDADE DOS ELEMENTOS
+// ════════════════════════════════════════
+(()=>{
+  if(!('IntersectionObserver' in window)) return;
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.rv,.rvl,.rvr').forEach(el=>obs.observe(el));
+})();
+</script>
+
+
+<script>
+// ════════════════════════════════════════
+// FORMULÁRIO PREMIUM — 3 PASSOS
+// ════════════════════════════════════════
+const fpDados = { nome:'', tel:'', email:'', cidade:'', estilo:'', local:'', tamanho:'', ideia:'', orcamento:'' };
+
+// Tabela de estimativas por estilo + tamanho
+const fpEstimativas = {
+  'Realismo':      { 'Pequena até 5cm':'R$350-550', 'Média 5-15cm':'R$600-1.000', 'Grande 15-30cm':'R$1.000-1.800', 'Manga/Sleeve':'R$2.500-5.000' },
+  'Black & Grey':  { 'Pequena até 5cm':'R$300-500', 'Média 5-15cm':'R$500-900',   'Grande 15-30cm':'R$900-1.600',   'Manga/Sleeve':'R$2.000-4.500' },
+  'Fineline':      { 'Pequena até 5cm':'R$250-400', 'Média 5-15cm':'R$400-700',   'Grande 15-30cm':'R$700-1.200',   'Manga/Sleeve':'R$1.800-3.500' },
+  'Cover Up':      { 'Pequena até 5cm':'R$400-700', 'Média 5-15cm':'R$700-1.200', 'Grande 15-30cm':'R$1.200-2.200', 'Manga/Sleeve':'R$3.000-6.000' },
+  'Colorida':      { 'Pequena até 5cm':'R$350-600', 'Média 5-15cm':'R$600-1.000', 'Grande 15-30cm':'R$1.000-1.800', 'Manga/Sleeve':'R$2.500-5.000' },
+  'Personalizada': { 'Pequena até 5cm':'R$300-500', 'Média 5-15cm':'R$500-900',   'Grande 15-30cm':'R$900-1.600',   'Manga/Sleeve':'R$2.000-4.500' },
+};
+
+function fpProximo(step){
+  // Validar passo atual
+  if(step === 2){
+    const nome = document.getElementById('fp-nome').value.trim();
+    const tel = document.getElementById('fp-tel').value.trim();
+    const cidade = document.getElementById('fp-cidade').value.trim();
+    if(!nome){ fpErro('fp-nome','Digite seu nome'); return; }
+    if(!tel){ fpErro('fp-tel','Digite seu WhatsApp'); return; }
+    if(!cidade){ fpErro('fp-cidade','Digite sua cidade'); return; }
+    fpDados.nome = nome;
+    fpDados.tel = tel;
+    fpDados.email = document.getElementById('fp-email').value.trim();
+    fpDados.cidade = cidade;
+  }
+  if(step === 3){
+    const estilo = document.getElementById('fp-estilo').value;
+    const local = document.getElementById('fp-local').value;
+    const ideia = document.getElementById('fp-ideia').value.trim();
+    if(!estilo){ alert('Selecione o estilo da tatuagem'); return; }
+    if(!local){ alert('Selecione onde no corpo'); return; }
+    if(!ideia){ fpErro('fp-ideia','Descreva sua ideia'); return; }
+    fpDados.estilo = estilo;
+    fpDados.local = local;
+    fpDados.tamanho = document.getElementById('fp-tamanho').value;
+    fpDados.ideia = ideia;
+    fpMontarResumo();
+  }
+  // Esconder step atual e mostrar próximo
+  document.querySelectorAll('.fp-step').forEach(s=>s.style.display='none');
+  document.getElementById('fp-step'+step).style.display='block';
+  fpAtualizarNav(step);
+  window.scrollTo({top:document.getElementById('contato').offsetTop - 80, behavior:'smooth'});
+}
+
+function fpVoltar(step){
+  document.querySelectorAll('.fp-step').forEach(s=>s.style.display='none');
+  document.getElementById('fp-step'+step).style.display='block';
+  fpAtualizarNav(step);
+}
+
+function fpAtualizarNav(step){
+  for(let i=1;i<=3;i++){
+    const item = document.getElementById('fsn-'+i);
+    const line = document.getElementById('fline-'+i);
+    if(!item) continue;
+    item.classList.remove('active','done');
+    if(i < step) item.classList.add('done');
+    if(i === step) item.classList.add('active');
+    if(line){
+      line.classList.remove('done');
+      if(i < step) line.classList.add('done');
+    }
+  }
+}
+
+function fpErro(id, msg){
+  const el = document.getElementById(id);
+  if(el){
+    el.style.borderColor = '#e74c3c';
+    el.placeholder = msg;
+    el.focus();
+    setTimeout(()=>{ el.style.borderColor=''; }, 3000);
+  }
+}
+
+function selecionarEstilo(estilo, id){
+  document.querySelectorAll('.fp-estilo-card').forEach(c=>c.classList.remove('selected'));
+  const card = event.currentTarget;
+  card.classList.add('selected');
+  document.getElementById('fp-estilo').value = estilo;
+  fpDados.estilo = estilo;
+  fpAtualizarEstimativa();
+}
+
+function selecionarLocal(local, btn){
+  document.querySelectorAll('.fp-local-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('fp-local').value = local;
+  fpDados.local = local;
+}
+
+function selecionarTamanho(tam, btn){
+  document.querySelectorAll('.fp-tam-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('fp-tamanho').value = tam;
+  fpDados.tamanho = tam;
+  fpAtualizarEstimativa();
+}
+
+function selecionarOrcamento(orc, btn){
+  document.querySelectorAll('.fp-orc-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('fp-orcamento').value = orc;
+  fpDados.orcamento = orc;
+}
+
+function fpAtualizarEstimativa(){
+  const estilo = document.getElementById('fp-estilo').value;
+  const tam = document.getElementById('fp-tamanho').value;
+  const box = document.getElementById('fp-estimativa');
+  const val = document.getElementById('fp-est-valor');
+  if(estilo && tam && fpEstimativas[estilo] && fpEstimativas[estilo][tam]){
+    val.textContent = fpEstimativas[estilo][tam];
+    box.style.display = 'block';
+    box.style.animation = 'popIn .3s ease';
+  } else {
+    box.style.display = 'none';
+  }
+}
+
+function fpMontarResumo(){
+  const resumo = document.getElementById('fp-resumo');
+  if(!resumo) return;
+  const items = [
+    { label:'Nome', valor: fpDados.nome },
+    { label:'WhatsApp', valor: fpDados.tel },
+    { label:'Cidade', valor: fpDados.cidade },
+    { label:'Estilo', valor: fpDados.estilo || 'Não selecionado' },
+    { label:'Local', valor: fpDados.local || 'Não selecionado' },
+    { label:'Tamanho', valor: fpDados.tamanho || 'Não informado' },
+    { label:'Ideia', valor: fpDados.ideia },
+  ];
+  // Estimativa
+  const est = fpDados.estilo && fpDados.tamanho && fpEstimativas[fpDados.estilo] ? fpEstimativas[fpDados.estilo][fpDados.tamanho] : null;
+  if(est) items.push({ label:'Estimativa', valor: est });
+  
+  resumo.innerHTML = items.map(item=>`
+    <div class="fp-resumo-item">
+      <span class="fp-resumo-label">${item.label}</span>
+      <span class="fp-resumo-valor">${item.valor}</span>
+    </div>
+  `).join('');
+}
+
+async function fpEnviar(){
+  const orcamento = document.getElementById('fp-orcamento').value;
+  fpDados.orcamento = orcamento;
+  
+  const btn = document.getElementById('fp-btn-enviar');
+  const txt = document.getElementById('fp-btn-texto');
+  txt.textContent = '⏳ Enviando...';
+  btn.disabled = true;
+
+  // Salvar lead no localStorage (admin)
+  const leads = JSON.parse(localStorage.getItem('ct_leads')||'[]');
+  leads.push({
+    ...fpDados,
+    tipo:'tatuagem',
+    origem:'formulario_premium',
+    data: new Date().toISOString()
+  });
+  localStorage.setItem('ct_leads', JSON.stringify(leads));
+
+  // Enviar email via EmailJS (se configurado)
+  try {
+    if(typeof emailjs !== 'undefined'){
+      await emailjs.send('service_carlos', 'template_carlos', {
+        nome: fpDados.nome,
+        tel: fpDados.tel,
+        email: fpDados.email || 'não informado',
+        cidade: fpDados.cidade,
+        estilo: fpDados.estilo,
+        local: fpDados.local,
+        tamanho: fpDados.tamanho,
+        ideia: fpDados.ideia,
+        orcamento: fpDados.orcamento,
+        para_email: 'carlostattoobh@gmail.com'
+      });
+    }
+  } catch(e){ console.log('EmailJS não configurado'); }
+
+  // Montar mensagem WhatsApp com todos os dados
+  const msg = `🖤 *NOVA SOLICITAÇÃO DE TATUAGEM*
+
+👤 *Nome:* ${fpDados.nome}
+📱 *WhatsApp:* ${fpDados.tel}
+📍 *Cidade:* ${fpDados.cidade}
+${fpDados.email ? `✉️ *Email:* ${fpDados.email}` : ''}
+
+🎨 *Estilo:* ${fpDados.estilo}
+💪 *Local:* ${fpDados.local}
+📏 *Tamanho:* ${fpDados.tamanho || 'não informado'}
+💰 *Orçamento:* ${fpDados.orcamento || 'não informado'}
+
+💭 *Ideia:*
+${fpDados.ideia}
+
+_Enviado pelo site carlostattoo.bh_`;
+
+  // Pixel
+  if(typeof fbq !== 'undefined') fbq('track','Lead',{content_name:'Formulario Tatuagem'});
+
+  // Mostrar página de obrigado
+  setTimeout(()=>{
+    mostrarObrigado();
+    // Abrir WhatsApp após 1s
+    setTimeout(()=>{
+      window.open(`https://wa.me/5531983391576?text=${encodeURIComponent(msg)}`,'_blank');
+    }, 1000);
+  }, 700);
+}
+
+// ════════════════════════════════════════
+// PÁGINA DE OBRIGADO
+// ════════════════════════════════════════
+function mostrarObrigado(){
+  const section = document.getElementById('contato');
+  if(!section) return;
+  section.innerHTML = `
+  <div style="min-height:60vh;display:flex;align-items:center;justify-content:center;padding:60px 20px;">
+    <div style="text-align:center;max-width:560px;">
+      <div style="font-size:72px;margin-bottom:24px;animation:popIn .4s ease;">🖤</div>
+      <h2 style="font-family:'Cinzel Decorative',cursive;font-size:clamp(24px,4vw,36px);color:#fff;margin-bottom:14px;">
+        Solicitação Enviada!
+      </h2>
+      <p style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:3px;color:#E8B800;text-transform:uppercase;margin-bottom:20px;">
+        Obrigado, ${fpDados.nome.split(' ')[0]}!
+      </p>
+      <p style="font-size:15px;color:#C9B89A;line-height:1.9;margin-bottom:32px;">
+        Carlos recebeu sua solicitação e entrará em contato em até <strong style="color:#E8B800;">24h úteis</strong> pelo WhatsApp <strong style="color:#E8B800;">${fpDados.tel}</strong> para conversar sobre seu projeto.
+      </p>
+      <div style="background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:14px;padding:20px;margin-bottom:28px;">
+        <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:rgba(201,168,76,.6);text-transform:uppercase;margin-bottom:10px;">Enquanto aguarda</p>
+        <p style="font-size:13px;color:#EDE4D4;line-height:1.8;">
+          Veja nosso portfólio completo e salve as referências que mais gostou para mostrar ao Carlos.
+        </p>
+      </div>
+      <a href="#portfolio" style="display:inline-block;background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;padding:14px 32px;border-radius:50px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;font-weight:700;text-decoration:none;">
+        VER PORTFÓLIO →
+      </a>
+    </div>
+  </div>`;
+}
+
+// ════════════════════════════════════════
+// PROVA SOCIAL DINÂMICA
+// ════════════════════════════════════════
+(()=>{
+  const provas = [
+    'Ana de BH acabou de solicitar consulta',
+    'Marcos do Mantiqueira agendou cover up',
+    'Juliana de Contagem enviou solicitação',
+    'Pedro de Nova Lima agendou realismo',
+    'Camila de BH pediu orçamento de fineline',
+    'Rafael do Centro agendou black & grey',
+    'Larissa de Betim enviou referência',
+    'Bruno de BH agendou manga completa',
+  ];
+  let provaIdx = 0;
+
+  function mostrarProva(){
+    const ticker = document.querySelector('.ticker-inner');
+    if(!ticker) return;
+    // Criar notificação flutuante
+    const notif = document.createElement('div');
+    notif.style.cssText = `
+      position:fixed;bottom:${window.innerWidth<=768?'160px':'100px'};
+      left:20px;z-index:7500;
+      background:linear-gradient(135deg,#1C1208,#2A1A08);
+      border:1px solid rgba(201,168,76,.25);border-radius:10px;
+      padding:12px 16px;max-width:280px;
+      font-family:'Cinzel',serif;font-size:10px;
+      color:#EDE4D4;letter-spacing:.5px;
+      box-shadow:0 8px 24px rgba(0,0,0,.4);
+      animation:slideInLeft .4s ease;
+      display:flex;align-items:center;gap:10px;
+    `;
+    notif.innerHTML = `
+      <div style="width:8px;height:8px;border-radius:50%;background:#27ae60;flex-shrink:0;animation:blink 1s ease infinite;"></div>
+      <span>${provas[provaIdx % provas.length]} · <span style="color:rgba(201,168,76,.5)">agora</span></span>
+    `;
+    document.body.appendChild(notif);
+    
+    setTimeout(()=>{
+      notif.style.opacity='0';
+      notif.style.transition='opacity .4s';
+      setTimeout(()=>notif.remove(), 400);
+    }, 4000);
+    
+    provaIdx++;
+  }
+
+  const styleProva = document.createElement('style');
+  styleProva.textContent = `
+    @keyframes slideInLeft {
+      from { transform:translateX(-120%); opacity:0; }
+      to { transform:translateX(0); opacity:1; }
+    }
+  `;
+  document.head.appendChild(styleProva);
+
+  // Primeira após 30s, depois a cada 45s
+  setTimeout(()=>{
+    mostrarProva();
+    setInterval(mostrarProva, 45000);
+  }, 30000);
+})();
+
+// ════════════════════════════════════════
+// RABISCO AJUDA NO FORMULÁRIO
+// ════════════════════════════════════════
+(()=>{
+  let formularioAberto = false;
+  const contatoSection = document.getElementById('contato');
+  if(!contatoSection) return;
+
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting && !formularioAberto){
+        formularioAberto = true;
+        // Após 35s parado no formulário
+        setTimeout(()=>{
+          if(typeof mostrarBubble === 'function'){
+            mostrarBubble('📋 Travou em algum campo? Me pergunta que eu ajudo a preencher!');
+          }
+        }, 35000);
+      }
+    });
+  },{threshold:0.4});
+  obs.observe(contatoSection);
 })();
 </script>
 
