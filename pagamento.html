@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pagamento Seguro — Carlos Tattoo BH</title>
+<link rel="icon" href="imagens/IPJP8350.JPG">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Raleway',sans-serif;background:#f8f7f5;color:#1a0a00;min-height:100vh;}
+
+/* ─── HEADER ─── */
+.pg-header{
+  background:#fff;border-bottom:1px solid #e8e0d0;
+  padding:16px 24px;display:flex;align-items:center;
+  justify-content:space-between;position:sticky;top:0;z-index:100;
+  box-shadow:0 2px 12px rgba(0,0,0,.06);
+}
+.pg-logo{display:flex;align-items:center;gap:12px;}
+.pg-logo img{height:40px;border-radius:50%;object-fit:cover;}
+.pg-logo-txt{font-family:'Cinzel Decorative',cursive;font-size:13px;color:#1a0a00;letter-spacing:1px;}
+.pg-secure{display:flex;align-items:center;gap:6px;font-size:12px;color:#5a8a5a;font-weight:600;font-family:'Raleway',sans-serif;}
+.pg-secure svg{width:16px;height:16px;}
+
+/* ─── MAIN LAYOUT ─── */
+.pg-main{max-width:520px;margin:0 auto;padding:32px 20px 60px;}
+
+/* ─── PRODUTO INFO ─── */
+.pg-produto{
+  background:#fff;border:1px solid #e8e0d0;border-radius:16px;
+  padding:24px;margin-bottom:20px;
+  box-shadow:0 2px 16px rgba(0,0,0,.05);
+}
+.pg-prod-tag{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:#A07830;text-transform:uppercase;margin-bottom:8px;}
+.pg-prod-nome{font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:#1a0a00;margin-bottom:4px;line-height:1.3;}
+.pg-prod-desc{font-size:13px;color:#7a5a30;margin-bottom:16px;line-height:1.6;}
+.pg-prod-preco{display:flex;align-items:flex-end;gap:12px;padding-top:14px;border-top:1px solid #f0e8d8;}
+.pg-preco-val{font-family:'Cinzel Decorative',cursive;font-size:36px;color:#A07830;line-height:1;}
+.pg-preco-info{font-size:12px;color:#9a7a50;line-height:1.5;}
+.pg-badge{display:inline-flex;align-items:center;gap:5px;background:#f0faf0;border:1px solid #b8ddb8;border-radius:20px;padding:4px 12px;font-size:11px;color:#2a7a2a;font-weight:600;margin-left:auto;}
+
+/* ─── TABS ─── */
+.pg-tabs{display:flex;gap:0;background:#fff;border:1px solid #e8e0d0;border-radius:12px;overflow:hidden;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,.04);}
+.pg-tab{flex:1;padding:14px;text-align:center;cursor:pointer;font-family:'Cinzel',serif;font-size:12px;letter-spacing:1.5px;font-weight:700;border:none;background:none;color:#9a7a50;transition:.2s;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:8px;}
+.pg-tab.active{background:linear-gradient(135deg,#A07830,#C9A84C);color:#fff;}
+.pg-tab:not(.active):hover{background:#fdf8f0;color:#A07830;}
+
+/* ─── PIX PANEL ─── */
+.pg-panel{background:#fff;border:1px solid #e8e0d0;border-radius:16px;padding:28px 24px;box-shadow:0 2px 16px rgba(0,0,0,.05);}
+
+.pix-instrucao{font-size:13px;color:#5a3c18;text-align:center;margin-bottom:20px;line-height:1.7;background:#fdf8f0;border-radius:10px;padding:12px 16px;}
+
+.pix-qr-wrap{display:flex;justify-content:center;margin-bottom:20px;}
+.pix-qr-wrap img{width:200px;height:200px;border-radius:12px;border:3px solid #e8d8b0;padding:8px;background:#fff;}
+
+.pix-code-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:#A07830;text-transform:uppercase;margin-bottom:8px;}
+.pix-code-box{display:flex;gap:8px;align-items:stretch;}
+.pix-code-txt{flex:1;background:#f8f4ee;border:1.5px solid #e8d8b0;border-radius:8px;padding:12px;font-size:11px;font-family:'Courier New',monospace;color:#3a2010;word-break:break-all;line-height:1.5;max-height:80px;overflow:auto;}
+.pix-copy-btn{background:linear-gradient(135deg,#A07830,#C9A84C);color:#fff;border:none;border-radius:8px;padding:0 16px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;flex-shrink:0;font-weight:700;transition:.2s;white-space:nowrap;}
+.pix-copy-btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(160,120,56,.4);}
+.pix-copy-btn.copiado{background:linear-gradient(135deg,#2a7a2a,#3aaa3a);}
+
+.pix-chave-box{margin-top:14px;background:#fdf8f0;border:1px solid #e8d8b0;border-radius:10px;padding:14px 16px;}
+.pix-chave-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:#A07830;text-transform:uppercase;display:block;margin-bottom:4px;}
+.pix-chave-val{font-size:15px;color:#1a0a00;font-weight:700;font-family:'Cinzel',serif;}
+
+.pix-steps{margin-top:16px;display:flex;flex-direction:column;gap:8px;}
+.pix-step{display:flex;align-items:center;gap:10px;font-size:13px;color:#5a3c18;}
+.pix-step-n{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#A07830,#C9A84C);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;font-family:'Cinzel',serif;}
+
+/* ─── CARTÃO PANEL ─── */
+.card-info{text-align:center;margin-bottom:24px;}
+.card-info-icon{font-size:48px;margin-bottom:12px;display:block;}
+.card-info h3{font-family:'Cinzel',serif;font-size:16px;color:#1a0a00;margin-bottom:8px;}
+.card-info p{font-size:13px;color:#7a5a30;line-height:1.7;}
+.card-preco{font-family:'Cinzel Decorative',cursive;font-size:28px;color:#A07830;margin:12px 0;display:block;}
+.card-parcelas{font-size:13px;color:#9a7a50;margin-bottom:20px;display:block;}
+.btn-mp{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:linear-gradient(135deg,#009ee3,#0077b6);color:#fff;border:none;padding:16px;border-radius:12px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;cursor:pointer;font-weight:700;transition:.2s;text-decoration:none;margin-bottom:12px;}
+.btn-mp:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,119,182,.35);}
+.card-seguro{font-size:11px;color:#9a9a9a;text-align:center;}
+
+/* ─── PÓS PAGAMENTO ─── */
+.pg-pos{
+  background:#fff;border:1.5px solid #b8ddb8;border-radius:16px;
+  padding:24px;margin-top:20px;
+  box-shadow:0 2px 16px rgba(0,0,0,.04);
+}
+.pg-pos-title{font-family:'Cinzel',serif;font-size:14px;color:#1a0a00;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px;}
+.pg-pos-check{width:28px;height:28px;background:linear-gradient(135deg,#2a7a2a,#3aaa3a);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;flex-shrink:0;}
+.pg-pos-sub{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:#A07830;text-transform:uppercase;margin-bottom:14px;padding-left:36px;}
+.pg-pos-text{font-size:13px;color:#5a3c18;line-height:1.8;background:#f8fdf8;border-radius:10px;padding:14px 16px;border:1px solid #d8ecd8;margin-bottom:16px;}
+.pg-pos-text strong{color:#1a0a00;}
+.btn-wpp{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;background:linear-gradient(135deg,#128C7E,#25D366);
+  color:#fff;border:none;padding:16px;border-radius:12px;
+  font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;
+  cursor:pointer;font-weight:700;transition:.2s;text-decoration:none;
+  box-shadow:0 4px 16px rgba(37,211,102,.3);
+}
+.btn-wpp:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,211,102,.45);}
+.btn-wpp svg{width:20px;height:20px;fill:#fff;flex-shrink:0;}
+
+/* ─── GARANTIAS ─── */
+.pg-garantias{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px;}
+.pg-gar{text-align:center;padding:14px 8px;background:#fff;border:1px solid #e8e0d0;border-radius:12px;}
+.pg-gar-icon{font-size:22px;display:block;margin-bottom:6px;}
+.pg-gar-txt{font-size:11px;color:#7a5a30;font-family:'Cinzel',serif;letter-spacing:.5px;line-height:1.4;}
+
+/* ─── BACK LINK ─── */
+.pg-back{text-align:center;margin-top:24px;}
+.pg-back a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;color:#9a7a50;text-decoration:none;}
+.pg-back a:hover{color:#A07830;}
+
+/* ─── LOADING ─── */
+.pg-loading{text-align:center;padding:32px;color:#A07830;font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;}
+
+@media(max-width:480px){
+  .pg-main{padding:20px 16px 60px;}
+  .pg-prod-preco{flex-direction:column;gap:8px;}
+  .pg-badge{margin-left:0;}
+  .pg-garantias{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="pg-header">
+  <div class="pg-logo">
+    <img src="imagens/IPJP8350.JPG" alt="Carlos Tattoo BH" onerror="this.style.display='none'">
+    <span class="pg-logo-txt">Carlos Tattoo BH</span>
+  </div>
+  <div class="pg-secure">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    </svg>
+    Pagamento 100% Seguro
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="pg-main">
+
+  <!-- PRODUTO -->
+  <div class="pg-produto" id="produtoBox">
+    <div class="pg-loading">Carregando informações do produto...</div>
+  </div>
+
+  <!-- TABS -->
+  <div class="pg-tabs">
+    <button class="pg-tab active" id="tabPix" onclick="trocarTab('pix')">
+      <span>💰</span> PIX
+    </button>
+    <button class="pg-tab" id="tabCard" onclick="trocarTab('card')">
+      <span>💳</span> Cartão
+    </button>
+  </div>
+
+  <!-- PIX PANEL -->
+  <div class="pg-panel" id="painelPix">
+    <div class="pix-instrucao">Escaneie o QR Code ou copie o código PIX abaixo.<br>O pagamento é confirmado em <strong>poucos segundos.</strong></div>
+
+    <div class="pix-qr-wrap" id="qrWrap">
+      <div class="pg-loading">Gerando QR Code...</div>
+    </div>
+
+    <div class="pix-code-label">PIX Copia e Cola</div>
+    <div class="pix-code-box">
+      <div class="pix-code-txt" id="pixCodigo">Gerando código...</div>
+      <button class="pix-copy-btn" id="btnCopiar" onclick="copiarPix()">📋 COPIAR</button>
+    </div>
+
+    <div class="pix-chave-box">
+      <span class="pix-chave-label">Chave PIX (alternativa)</span>
+      <span class="pix-chave-val">31983391576 — Carlos Henrique</span>
+    </div>
+
+    <div class="pix-steps">
+      <div class="pix-step"><div class="pix-step-n">1</div>Abra o app do seu banco</div>
+      <div class="pix-step"><div class="pix-step-n">2</div>Vá em PIX → Pix Copia e Cola</div>
+      <div class="pix-step"><div class="pix-step-n">3</div>Cole o código — valor já aparece preenchido</div>
+      <div class="pix-step"><div class="pix-step-n">4</div>Confirme e envie o comprovante pelo WhatsApp</div>
+    </div>
+  </div>
+
+  <!-- CARTÃO PANEL -->
+  <div class="pg-panel" id="painelCard" style="display:none;">
+    <div class="card-info">
+      <span class="card-info-icon">💳</span>
+      <h3>Pagar com Cartão de Crédito</h3>
+      <p>Processado com segurança pelo Mercado Pago.<br>Parcelamento em até 12x.</p>
+      <span class="card-preco" id="cardPreco">R$ 0,00</span>
+      <span class="card-parcelas" id="cardParcelas"></span>
+    </div>
+    <a id="btnMercadoPago" href="#" target="_blank" class="btn-mp">
+      💳 PAGAR COM CARTÃO →
+    </a>
+    <p class="card-seguro">🔒 Seus dados são protegidos pelo Mercado Pago (PCI DSS)</p>
+  </div>
+
+  <!-- PÓS PAGAMENTO -->
+  <div class="pg-pos">
+    <div class="pg-pos-title">
+      <div class="pg-pos-check">✓</div>
+      Acesso garantido em até 1h útil
+    </div>
+    <div class="pg-pos-sub">O que acontece depois?</div>
+    <div class="pg-pos-text">
+      Envie o comprovante para <strong>(31) 98339-1576</strong> no WhatsApp. Assim que recebermos, Carlos confirma o pagamento e você recebe o link de acesso completo — tanto no <strong>WhatsApp</strong> quanto no <strong>e-mail cadastrado</strong>. Simples assim.
+    </div>
+    <a id="btnWpp" href="#" target="_blank" class="btn-wpp">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      ENVIAR COMPROVANTE NO WHATSAPP
+    </a>
+  </div>
+
+  <!-- GARANTIAS -->
+  <div class="pg-garantias">
+    <div class="pg-gar">
+      <span class="pg-gar-icon">🔒</span>
+      <div class="pg-gar-txt">Pagamento<br>100% Seguro</div>
+    </div>
+    <div class="pg-gar">
+      <span class="pg-gar-icon">⚡</span>
+      <div class="pg-gar-txt">Acesso em<br>até 1h útil</div>
+    </div>
+    <div class="pg-gar">
+      <span class="pg-gar-icon">⭐</span>
+      <div class="pg-gar-txt">5.0 Google<br>380+ avaliações</div>
+    </div>
+  </div>
+
+  <!-- BACK -->
+  <div class="pg-back">
+    <a href="javascript:window.close()">← Voltar para o site</a>
+  </div>
+
+</main>
+
+<script>
+// ══════════════════════════════════════════
+// LINKS MERCADO PAGO
+// ══════════════════════════════════════════
+const MP_LINKS = {
+  '2XDsPBJ': 'https://mpago.la/2XDsPBJ',
+  '2czB489': 'https://mpago.la/2czB489',
+  '2C6t2HS': 'https://mpago.la/2C6t2HS',
+  '1CMwysU': 'https://mpago.la/1CMwysU',
+  '19stJEx': 'https://mpago.la/19stJEx',
+  '1r56TiZ': 'https://mpago.la/1r56TiZ',
+  '2yTBkjP': 'https://mpago.la/2yTBkjP',
+  '1FZUxea': 'https://mpago.la/1FZUxea',
+  '1axTQAM': 'https://mpago.la/1axTQAM',
+  '1XVB2CV': 'https://mpago.la/1XVB2CV',
+};
+
+const PARCELAS = {
+  '147,00': '3x de R$ 52,00 sem juros',
+  '297,00': '6x de R$ 52,00 sem juros',
+  '197,00': '4x de R$ 52,00 sem juros',
+  '997,00': '10x de R$ 110,00',
+  '99,90':  '2x de R$ 52,90',
+  '47,00':  'ou à vista no PIX',
+  '97,00':  'ou à vista no PIX',
+  '27,00':  'ou à vista no PIX',
+};
+
+// ══════════════════════════════════════════
+// LER PARAMS DA URL
+// ══════════════════════════════════════════
+const params = new URLSearchParams(window.location.search);
+const PRODUTO = decodeURIComponent(params.get('produto') || 'Produto Carlos Tattoo BH');
+const VALOR   = params.get('valor') || '0,00';
+const VALNUM  = parseFloat(params.get('valnum') || '0');
+const MP_KEY  = params.get('mp') || '';
+const MP_URL  = MP_LINKS[MP_KEY] || 'https://mpago.la/2XDsPBJ';
+const PARCELA = PARCELAS[VALOR] || '';
+
+// ══════════════════════════════════════════
+// PREENCHER PRODUTO
+// ══════════════════════════════════════════
+document.getElementById('produtoBox').innerHTML = `
+  <div class="pg-prod-tag">Carlos Tattoo BH · Produto Digital</div>
+  <div class="pg-prod-nome">${PRODUTO}</div>
+  <div class="pg-prod-preco">
+    <div>
+      <div class="pg-preco-val">R$ ${VALOR}</div>
+      <div class="pg-preco-info">${PARCELA ? PARCELA : 'Pagamento único'}</div>
+    </div>
+    <div class="pg-badge">✓ Acesso em 1h útil</div>
+  </div>
+`;
+
+document.getElementById('cardPreco').textContent = 'R$ ' + VALOR;
+document.getElementById('cardParcelas').textContent = PARCELA || 'Pagamento único';
+document.getElementById('btnMercadoPago').href = MP_URL;
+
+// WhatsApp pré-preenchido
+const wppMsg = encodeURIComponent(`Olá Carlos! 👋\n\nAcabei de realizar o pagamento do *${PRODUTO}* (R$ ${VALOR}).\n\nSegue o comprovante em anexo. Aguardo a liberação do acesso!\n\nObrigado 🙏`);
+document.getElementById('btnWpp').href = `https://wa.me/5531983391576?text=${wppMsg}`;
+
+// Título da página
+document.title = `Pagamento — ${PRODUTO} · Carlos Tattoo BH`;
+
+// ══════════════════════════════════════════
+// GERAR PIX EMV
+// ══════════════════════════════════════════
+function gerarCodigoPix(chave, nome, cidade, valor, txid){
+  const vf = valor.toFixed(2);
+  const lim = (s,n) => s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9 ]/g,"").substring(0,n).trim();
+  const c = (id,v) => `${id}${String(v.length).padStart(2,"0")}${v}`;
+  const mai = c("26", c("00","BR.GOV.BCB.PIX") + c("01",chave));
+  const ad = c("62", c("05", lim(txid,25).replace(/ /g,"") || "***"));
+  let p = c("00","01") + mai + c("52","0000") + c("53","986") + c("54",vf) + c("58","BR") + c("59",lim(nome,25)) + c("60",lim(cidade,15)) + ad + "6304";
+  function crc(s){ let r=0xFFFF; for(let i=0;i<s.length;i++){ r^=s.charCodeAt(i)<<8; for(let j=0;j<8;j++){ r=(r&0x8000)?(r<<1)^0x1021:r<<1; r&=0xFFFF; } } return r.toString(16).toUpperCase().padStart(4,"0"); }
+  return p + crc(p);
+}
+
+const txid = PRODUTO.replace(/[^a-zA-Z0-9]/g,'').substring(0,20) || 'CARLOSTATTOO';
+const codigoPix = gerarCodigoPix('31983391576', 'Carlos Henrique', 'Belo Horizonte', VALNUM, txid);
+
+// Mostrar código
+document.getElementById('pixCodigo').textContent = codigoPix;
+
+// Gerar QR Code
+const qrURL = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(codigoPix)}&bgcolor=ffffff&color=000000&margin=10`;
+document.getElementById('qrWrap').innerHTML = `<img src="${qrURL}" alt="QR Code PIX" onerror="this.parentElement.innerHTML='<div style=\'color:#A07830;font-family:Cinzel,serif;font-size:12px;text-align:center;\'>📱 Use o código copia e cola abaixo</div>'">`;
+
+// ══════════════════════════════════════════
+// COPIAR PIX
+// ══════════════════════════════════════════
+function copiarPix(){
+  const btn = document.getElementById('btnCopiar');
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(codigoPix).then(()=>{
+      btn.textContent = '✓ COPIADO!';
+      btn.classList.add('copiado');
+      setTimeout(()=>{ btn.textContent = '📋 COPIAR'; btn.classList.remove('copiado'); }, 3000);
+    });
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = codigoPix;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = '✓ COPIADO!';
+    btn.classList.add('copiado');
+    setTimeout(()=>{ btn.textContent = '📋 COPIAR'; btn.classList.remove('copiado'); }, 3000);
+  }
+}
+
+// ══════════════════════════════════════════
+// TROCAR TAB
+// ══════════════════════════════════════════
+function trocarTab(tab){
+  const isPix = tab === 'pix';
+  document.getElementById('painelPix').style.display  = isPix ? 'block' : 'none';
+  document.getElementById('painelCard').style.display = isPix ? 'none'  : 'block';
+  document.getElementById('tabPix').classList.toggle('active', isPix);
+  document.getElementById('tabCard').classList.toggle('active', !isPix);
+}
+</script>
+</body>
+</html>
