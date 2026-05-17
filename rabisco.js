@@ -1119,6 +1119,27 @@ r:'Somos uma referência em tatuagem em BH 💎\n\n✅ 7+ anos de experiência\n
 {k:['retrato de pet','pet tattoo','cachorro tattoo','gato tattoo','animal de estimação'],r:'Retratos de pets são especialmente emocionantes 🐾\nRealismo fotográfico para eternizar quem você ama.\nManda a foto do seu pet! 💖',cta:'wpp'},
 {k:['flor de lótus','lotus tattoo','lótus'],r:'Lótus representa renascimento e iluminação 🌸\nFineline delicado ou ornamental detalhado.\nQual interpretação você prefere? 🎨',cta:'wpp'},
 {k:['galhos','árvore da vida','tree of life','árvore tattoo'],r:'Árvore da vida é símbolo universal de conexão 🌳\nDo minimalista ao épico full back.\nQual tamanho e estilo você imagina? 👊',cta:'wpp'}
+,
+{k:['como é a sessão','como funciona sessão','o que acontece na sessão','rotina sessão'],r:'Na sessão 🎨\n\n1️⃣ Design aprovado antes de tatuar\n2️⃣ Higienização e stencil\n3️⃣ Execução com pausas se precisar\n4️⃣ Orientações de cuidado ao sair\n\nVocê está no comando — pode pedir pausa a qualquer hora 👊',cta:'wpp'},
+{k:['tattoo virou borrão','ficou borrão','borrado depois','cicatrizou borrada'],r:'Borrão após cicatrizar tem algumas causas 👊\n\n🔹 Execução em pele sensível\n🔹 Cuidado inadequado\n🔹 Sol antes de cicatrizar\n\nManda foto que avaliamos se dá pra corrigir 🔥',cta:'wpp'},
+{k:['tattoo no calcanhar','calcanhar','heel tattoo','tornozelo posterior'],r:'Calcanhar e tornozelo são áreas que desbotam mais rápido ⚠️\n\nPelo atrito constante com sapatos.\nResultado pode ser lindo — mas expectativas alinhadas são importantes 👊',cta:'wpp'},
+{k:['tatuagem rápida','tattoo rápida','quanto tempo tattoo pequena','sessão curta'],r:'Tattoo pequena pode sair em 30 a 60 minutos 🔥\n\nDepende da complexidade e detalhamento.\nPodemos agendar um horário rápido — manda a ideia! 👊',cta:'wpp'},
+{k:['tatuagem na orelha','orelha tattoo','dentro da orelha','ear inner tattoo'],r:'Dentro da orelha (concha) fica muito único 👂\n\nEspaço pequeno = tattoo minimalista.\nDesbota com o tempo por ser área escondida.\n\nManda referência! 🎨',cta:'wpp'},
+{k:['dois tatuadores','segunda opinião','comparar tatuadores','escolher tatuador'],r:'Pesquise bem antes de escolher 👊\n\nO que verificar:\n✅ Portfólio de peças cicatrizadas\n✅ Avaliações no Google\n✅ Higiene do estúdio\n✅ Comunicação e profissionalismo\n\nAqui somos 5★ com 2.400+ tattoos feitas 🔥',cta:'wpp'},
+{k:['tatuagem em família','tattoo mãe e filho','tattoo pai e filho','família tattoo'],r:'Tattoo em família é muito especial! 💖\n\nIgual, complementar ou com referência ao vínculo.\nPlanejamos juntos o projeto para cada um.\n\nMe conta a história! 🎨',cta:'wpp'},
+{k:['tattoo escrita árabe','escrita árabe','árabe','hebraico','japonês','kanji'],r:'Escrita árabe, hebraico, japonês ficam lindos 🎨\n\nSempre verificamos o significado exato antes de tatuar.\nNada de errar algo permanente!\n\nQual frase ou palavra você quer? 👊',cta:'wpp'},
+{k:['tattoo tribal braço','tribal completo','blackwork total','full blackwork'],r:'Blackwork e tribal são impactantes e atemporais 🖤\n\nLinhas sólidas e bem executadas envelhecem muito bem.\nQual conceito você tem em mente? 👊',cta:'wpp'},
+{k:['pele de jacaré','escama','pele escamosa','textura especial'],r:'Tattoo com textura realista é arte técnica 🎨\n\nEscama, pelo, couro, madeira — criamos texturas incríveis.\nManda a referência que cuidamos! 🔥',cta:'wpp'},
+{k:['tatuar gráfico','graphic tattoo','preto e branco gráfico','bold lines'],r:'Graphic tattoo é uma tendência forte 🖤\n\nLinhas precisas, formas geométricas, bold lines.\nResultado muito marcante e atemporal.\n\nQuer explorar esse estilo? 👊',cta:'wpp'},
+{k:['tattoo mapa','mapa do Brasil','coordenada mapa','mapa-múndi'],r:'Mapas e coordenadas são tattoos poderosas 🗺️\n\nO lugar onde você nasceu, onde conheceu alguém especial...\nFineline é o estilo ideal para mapas.\nQue lugar você quer eternizar? 💖',cta:'wpp'},
+{k:['tatuagem biomecânica','biomecânica','cyborg','robô tattoo','máquina no corpo'],r:'Biomecânica é arte complexa e impressionante 🤖\n\nIlusão de mecanismos sob a pele.\nExige muito domínio técnico — e adoramos o desafio.\n\nManda referência! 🔥',cta:'wpp'},
+{k:['estilo horror','horror tattoo','terror','monstro','filme de terror'],r:'Horror tattoo tem um público apaixonado 💀\n\nCriaturas, ícones do cinema de terror, dark art...\nBlack & grey realista ou neo-tradicional — ambos incríveis.\n\nQue conceito você quer criar? 🎨',cta:'wpp'},
+{k:['tattoo sutil','bem sutil','não muito chamativa','quase invisível'],r:'Sutil é sofisticado 💎\n\nFineline fino, local discreto, tamanho pequeno.\nCarrega significado sem gritar.\n\nO que você quer expressar? 🎨',cta:'wpp'},
+{k:['tattoo para envelhecer bem','tattoo durável','vai envelhecer bem','tattoo que dura'],r:'Estilos que envelhecem melhor 🔥\n\n✅ Black & grey sólido\n✅ Tribal e blackwork\n✅ Designs simples e legíveis\n\nFineline muito fino pode suavizar com os anos.\nOrientamos o melhor para o seu caso 👊',cta:'wpp'},
+{k:['tatuagem fio','single needle','agulha única','super fineline'],r:'Single needle é o fineline mais delicado 🖋️\n\nLinhas ultra-finas, detalhes mínimos.\nExige pele boa e cicatrização cuidadosa.\nResultado muito elegante.\n\nQuer fazer? 💎',cta:'wpp'},
+{k:['tattoo de coleção','colecionar tattoos','muitas tattoos','víciado tattoo'],r:'Uma vez que começa não para mais! 😄\n\nPlanejamos cada tattoo pensando no conjunto.\nCoerência de estilo ou liberdade total — você decide!\n\nO que vem a seguir? 🔥',cta:'wpp'},
+{k:['tattoo anime','manga','personagem anime','naruto','one piece','dragon ball'],r:'Anime e manga são super procurados! 🎨\n\nRealismo do personagem, estilo do anime original ou adaptado.\nQual personagem você quer eternizar?\nManda referência! 🔥',cta:'wpp'},
+{k:['estilo tradicional','old school','traditional tattoo','sailor jerry'],r:'Old school é um clássico que nunca sai de moda 🌹\n\nLinhas sólidas, cores vibrantes, contorno forte.\nEnvelhecem muito bem pela solidez.\n\nQuer fazer o seu? 🔥',cta:'wpp'}
 
 ]; /* fim KB */
 
@@ -1173,7 +1194,9 @@ var CSS_RABISCO = `
   font-size:28px;box-shadow:0 4px 20px rgba(0,0,0,.5),0 0 0 0 rgba(201,168,76,.4);
   transition:transform .2s,box-shadow .2s;
   animation:rabiscoPulse 3s ease infinite;
+  overflow:hidden;
 }
+.skull-svg{width:42px;height:42px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.4));}
 @keyframes rabiscoPulse{
   0%,100%{box-shadow:0 4px 20px rgba(0,0,0,.5),0 0 0 0 rgba(201,168,76,.4);}
   50%{box-shadow:0 4px 20px rgba(0,0,0,.5),0 0 0 10px rgba(201,168,76,0);}
@@ -1189,8 +1212,8 @@ var CSS_RABISCO = `
 #rabiscoPanel{
   position:fixed;bottom:170px;right:20px;z-index:7500;
   width:340px;max-height:520px;
-  background:linear-gradient(160deg,#0A0702,#1C1208);
-  border:1px solid rgba(201,168,76,.25);border-radius:16px;
+  background:linear-gradient(160deg,#1a1208,#241808);
+  border:1px solid rgba(201,168,76,.35);border-radius:16px;
   display:none;flex-direction:column;overflow:hidden;
   box-shadow:0 20px 60px rgba(0,0,0,.7);
   animation:rabiscoSlide .3s ease;
@@ -1199,8 +1222,8 @@ var CSS_RABISCO = `
 #rabiscoPanel.open{display:flex;}
 .rb-header{
   padding:14px 16px;display:flex;align-items:center;gap:10px;
-  background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(201,168,76,.06));
-  border-bottom:1px solid rgba(201,168,76,.12);flex-shrink:0;
+  background:linear-gradient(135deg,rgba(201,168,76,.18),rgba(201,168,76,.1));
+  border-bottom:1px solid rgba(201,168,76,.2);flex-shrink:0;
 }
 .rb-avatar{
   width:38px;height:38px;border-radius:50%;
@@ -1208,24 +1231,24 @@ var CSS_RABISCO = `
   display:flex;align-items:center;justify-content:center;
   font-size:20px;flex-shrink:0;
 }
-.rb-info h4{font-family:'Cinzel',serif;font-size:13px;color:#E8B800;margin:0 0 2px;font-weight:700;}
-.rb-online{display:flex;align-items:center;gap:5px;font-size:10px;color:rgba(237,228,212,.5);font-family:'Cinzel',serif;letter-spacing:.5px;}
+.rb-info h4{font-family:'Cinzel',serif;font-size:13px;color:#FFD540;margin:0 0 2px;font-weight:700;}
+.rb-online{display:flex;align-items:center;gap:5px;font-size:10px;color:rgba(237,228,212,.75);font-family:'Cinzel',serif;letter-spacing:.5px;}
 .rb-dot{width:7px;height:7px;border-radius:50%;background:#27ae60;animation:rbBlink 2s ease infinite;flex-shrink:0;}
 @keyframes rbBlink{0%,100%{opacity:.4;}50%{opacity:1;}}
 .rb-close{margin-left:auto;background:none;border:none;color:rgba(255,255,255,.3);font-size:20px;cursor:pointer;padding:4px;line-height:1;transition:color .2s;}
 .rb-close:hover{color:rgba(255,255,255,.7);}
-.rb-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;}
+.rb-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;background:rgba(0,0,0,.15);}
 .rb-msgs::-webkit-scrollbar{width:3px;}
 .rb-msgs::-webkit-scrollbar-thumb{background:rgba(201,168,76,.3);border-radius:3px;}
 .rb-msg{max-width:88%;padding:10px 13px;border-radius:12px;font-size:13px;line-height:1.65;font-family:'Raleway',sans-serif;}
-.rb-msg.bot{background:rgba(255,255,255,.06);color:#EDE4D4;border-bottom-left-radius:3px;align-self:flex-start;}
+.rb-msg.bot{background:rgba(255,255,255,.11);color:#F5EED8;border-bottom-left-radius:3px;align-self:flex-start;}
 .rb-msg.user{background:linear-gradient(135deg,#A07830,#C9A84C);color:#fff;border-bottom-right-radius:3px;align-self:flex-end;}
-.rb-msg-name{font-family:'Cinzel',serif;font-size:9px;color:rgba(201,168,76,.5);letter-spacing:1px;margin-bottom:4px;text-transform:uppercase;}
+.rb-msg-name{font-family:'Cinzel',serif;font-size:9px;color:rgba(201,168,76,.8);letter-spacing:1px;margin-bottom:4px;text-transform:uppercase;}
 .rb-msg.empatia{background:rgba(180,100,100,.08);border-left:2px solid rgba(201,140,140,.3);}
 .rb-sugs{display:flex;flex-wrap:wrap;gap:6px;padding:4px 14px 10px;flex-shrink:0;}
 .rb-sug{
-  background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.18);
-  color:#C9A84C;padding:6px 11px;border-radius:20px;font-size:11px;
+  background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);
+  color:#E8B800;padding:6px 11px;border-radius:20px;font-size:11px;
   font-family:'Cinzel',serif;letter-spacing:.5px;cursor:pointer;transition:.2s;
 }
 .rb-sug:hover{background:rgba(201,168,76,.15);color:#E8B800;}
@@ -1246,12 +1269,12 @@ var CSS_RABISCO = `
 .rb-cta-form:hover{background:rgba(201,168,76,.2);}
 .rb-input-wrap{padding:10px;border-top:1px solid rgba(201,168,76,.1);display:flex;gap:8px;flex-shrink:0;}
 .rb-input{
-  flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.15);
+  flex:1;background:rgba(255,255,255,.1);border:1px solid rgba(201,168,76,.25);
   border-radius:8px;padding:10px 12px;color:#fff;font-size:13px;
   font-family:'Raleway',sans-serif;outline:none;transition:border-color .2s;
 }
 .rb-input:focus{border-color:rgba(201,168,76,.4);}
-.rb-input::placeholder{color:rgba(255,255,255,.25);}
+.rb-input::placeholder{color:rgba(255,255,255,.45);}
 .rb-send{
   background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;
   border:none;width:38px;height:38px;border-radius:8px;cursor:pointer;
@@ -1281,13 +1304,13 @@ document.head.appendChild(styleEl);
 /* ─── INJETAR HTML ─── */
 var HTML_RABISCO = `
 <button id="rabiscoBtn" onclick="RabiscoUI.toggle()" aria-label="Falar com Rabisco">
-  <span>🎨</span>
+  <svg class="skull-svg" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M26 5C15.5 5 7 13.5 7 24c0 6.2 3 11.8 7.7 15.3V44a2 2 0 002 2h2.5v2a2 2 0 002 2h9.6a2 2 0 002-2v-2H35a2 2 0 002-2v-4.7C41 33.8 45 29.1 45 24 45 13.5 36.5 5 26 5z" fill="rgba(201,168,76,.92)"/><circle cx="20" cy="23" r="4.5" fill="#0a0702"/><circle cx="32" cy="23" r="4.5" fill="#0a0702"/><circle cx="21" cy="22" r="1.5" fill="rgba(201,168,76,.4)"/><circle cx="33" cy="22" r="1.5" fill="rgba(201,168,76,.4)"/><path d="M21 36h10M22 40h8" stroke="#0a0702" stroke-width="1.5" stroke-linecap="round"/><path d="M22 36v4M26 36v4M30 36v4" stroke="#0a0702" stroke-width="1.2" stroke-linecap="round"/></svg>
   <div id="rabiscoBadge">RABISCO</div>
 </button>
 
 <div id="rabiscoPanel">
   <div class="rb-header">
-    <div class="rb-avatar">🎨</div>
+    <div class="rb-avatar">💀</div>
     <div class="rb-info">
       <h4>Rabisco</h4>
       <span class="rb-online"><span class="rb-dot"></span> Online agora</span>
