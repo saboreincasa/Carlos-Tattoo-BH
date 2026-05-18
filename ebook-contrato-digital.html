@@ -4,66 +4,80 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Contrato Digital Profissional — Carlos Tattoo BH</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
 <style>
+:root {
+  --bg-page: #f5f7fb;
+  --white: #ffffff;
+  --text: #111827;
+  --text-muted: #6b7280;
+  --accent: #1a1a2e;
+  --gold: #c9973a;
+  --gold-light: #f0c04a;
+  --border: #e5e7eb;
+  --shadow: 0 4px 24px rgba(0,0,0,.07);
+  --shadow-lg: 0 8px 48px rgba(0,0,0,.12);
+  --radius: 16px;
+}
+
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Raleway',sans-serif;background:#f5f0e8;color:#1a0a00;font-size:16px;line-height:1.8;}
+body{font-family:'Poppins', sans-serif;background:#f5f7fb;color:#111827;font-size:16px;line-height:1.8;}
 @media print{.no-print{display:none!important;}.pb{page-break-after:always;}body{background:#fff;font-size:11pt;}}
 .wm{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;}
 .wm-grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(7,1fr);}
 .wm-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transform:rotate(-25deg);opacity:.04;}
 .wm-cell img{width:52px;height:52px;object-fit:contain;}
-.wm-cell span{font-family:'Cinzel',serif;font-size:8px;letter-spacing:2px;color:#C9A84C;text-transform:uppercase;white-space:nowrap;}
-.capa{background:linear-gradient(160deg,#050301 0%,#1C1208 38%,#2A1A08 65%,#050301 100%);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;position:relative;overflow:hidden;}
-.capa::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 45%,rgba(201,168,76,.13) 0%,transparent 70%);}
-.c-line{position:absolute;left:50%;transform:translateX(-50%);width:220px;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.5),transparent);}
+.wm-cell span{font-family:'Poppins', sans-serif;font-size:8px;letter-spacing:2px;color:#c9973a;text-transform:uppercase;white-space:nowrap;}
+.capa{background:linear-gradient(160deg,#06080f 0%,#0d0d1a 38%,#1a1a2e 65%,#06080f 100%);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;position:relative;overflow:hidden;}
+.capa::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 45%,rgba(201,151,58,.13) 0%,transparent 70%);}
+.c-line{position:absolute;left:50%;transform:translateX(-50%);width:220px;height:1px;background:linear-gradient(90deg,transparent,rgba(201,151,58,.5),transparent);}
 .c-line.top{top:36px;}.c-line.bot{bottom:36px;}
-.c-logo{height:90px;object-fit:contain;filter:drop-shadow(0 0 24px rgba(201,168,76,.55));margin-bottom:28px;position:relative;z-index:1;}
-.c-tag{display:inline-block;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);padding:7px 24px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;color:#E8B800;text-transform:uppercase;margin-bottom:24px;position:relative;z-index:1;}
-.c-h1{font-family:'Cinzel Decorative',cursive;font-size:clamp(28px,5vw,54px);color:#fff;line-height:1.05;margin-bottom:12px;position:relative;z-index:1;}
-.c-h1 b{color:#E8B800;}
-.c-sub{font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:rgba(201,168,76,.55);margin-bottom:52px;position:relative;z-index:1;}
-.c-div{width:140px;height:1px;background:linear-gradient(90deg,transparent,#E8B800,transparent);margin:0 auto 38px;}
-.c-autor-name{font-family:'Cinzel Decorative',cursive;font-size:20px;color:#E8B800;margin-bottom:4px;position:relative;z-index:1;}
-.c-autor-role{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:rgba(201,168,76,.45);text-transform:uppercase;position:relative;z-index:1;}
-.c-badge{position:absolute;bottom:48px;right:48px;width:94px;height:94px;border-radius:50%;background:rgba(201,168,76,.09);border:1.5px solid rgba(201,168,76,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:1;}
-.c-badge b{font-family:'Cinzel Decorative',cursive;font-size:23px;color:#E8B800;display:block;line-height:1;}
-.c-badge span{font-family:'Cinzel',serif;font-size:8px;letter-spacing:1px;color:rgba(201,168,76,.45);margin-top:3px;}
+.c-logo{height:90px;object-fit:contain;filter:drop-shadow(0 0 24px rgba(201,151,58,.55));margin-bottom:28px;position:relative;z-index:1;}
+.c-tag{display:inline-block;background:rgba(201,151,58,.1);border:1px solid rgba(201,151,58,.35);padding:7px 24px;font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:4px;color:#f0c04a;text-transform:uppercase;margin-bottom:24px;position:relative;z-index:1;}
+.c-h1{font-family:'Playfair Display', serif;font-size:clamp(28px,5vw,54px);color:#fff;line-height:1.05;margin-bottom:12px;position:relative;z-index:1;}
+.c-h1 b{color:#f0c04a;}
+.c-sub{font-family:'Poppins', sans-serif;font-size:13px;letter-spacing:3px;color:rgba(201,151,58,.55);margin-bottom:52px;position:relative;z-index:1;}
+.c-div{width:140px;height:1px;background:linear-gradient(90deg,transparent,#f0c04a,transparent);margin:0 auto 38px;}
+.c-autor-name{font-family:'Playfair Display', serif;font-size:20px;color:#f0c04a;margin-bottom:4px;position:relative;z-index:1;}
+.c-autor-role{font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:3px;color:rgba(201,151,58,.45);text-transform:uppercase;position:relative;z-index:1;}
+.c-badge{position:absolute;bottom:48px;right:48px;width:94px;height:94px;border-radius:50%;background:rgba(201,151,58,.09);border:1.5px solid rgba(201,151,58,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:1;}
+.c-badge b{font-family:'Playfair Display', serif;font-size:23px;color:#f0c04a;display:block;line-height:1;}
+.c-badge span{font-family:'Poppins', sans-serif;font-size:8px;letter-spacing:1px;color:rgba(201,151,58,.45);margin-top:3px;}
 .page{background:#fff;padding:68px 92px 84px;min-height:100vh;position:relative;}
-.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;padding-bottom:14px;border-bottom:2px solid #f0e6cc;}
+.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;padding-bottom:14px;border-bottom:2px solid #e5e7eb;}
 .ph img{height:30px;object-fit:contain;opacity:.65;}
-.ph span{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:#8A6030;text-transform:uppercase;}
-.pf{position:absolute;bottom:30px;left:92px;right:92px;display:flex;justify-content:space-between;align-items:center;font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;color:#C9A84C;border-top:1px solid #f0e6cc;padding-top:12px;}
-.lbl{font-family:'Cinzel',serif;font-size:9px;letter-spacing:4px;color:#C9A84C;text-transform:uppercase;margin-bottom:8px;display:block;}
-.h2{font-family:'Cinzel Decorative',cursive;font-size:clamp(20px,2.8vw,34px);color:#1a0a00;margin-bottom:16px;line-height:1.2;}
-.h2 b{color:#C9A84C;}
-.h3{font-family:'Cinzel',serif;font-size:17px;color:#1a0a00;font-weight:700;margin:28px 0 12px;}
-p{font-size:15px;color:#2a1408;line-height:1.9;margin-bottom:14px;}
-strong{color:#1a0a00;}
+.ph span{font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:2px;color:#6b7280;text-transform:uppercase;}
+.pf{position:absolute;bottom:30px;left:92px;right:92px;display:flex;justify-content:space-between;align-items:center;font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:1px;color:#c9973a;border-top:1px solid #e5e7eb;padding-top:12px;}
+.lbl{font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:4px;color:#c9973a;text-transform:uppercase;margin-bottom:8px;display:block;}
+.h2{font-family:'Playfair Display', serif;font-size:clamp(20px,2.8vw,34px);color:#111827;margin-bottom:16px;line-height:1.2;}
+.h2 b{color:#c9973a;}
+.h3{font-family:'Poppins', sans-serif;font-size:17px;color:#111827;font-weight:700;margin:28px 0 12px;}
+p{font-size:15px;color:#1f2937;line-height:1.9;margin-bottom:14px;}
+strong{color:#111827;}
 .box-warn{background:#fffbeb;border:1.5px solid #f59e0b;border-radius:10px;padding:18px 22px;margin:22px 0;display:flex;gap:14px;}
 .box-warn-i{font-size:22px;flex-shrink:0;}
 .box-warn p{font-size:14px;color:#78350f;line-height:1.75;margin:0;}
-.box-gold{background:linear-gradient(135deg,#FAF4E8,#F0E6CC);border:1px solid rgba(201,168,76,.22);border-left:5px solid #C9A84C;padding:20px 26px;margin:22px 0;border-radius:0 12px 12px 0;}
-.box-gold p{font-size:15px;color:#2a1408;margin:0;line-height:1.8;}
+.box-gold{background:linear-gradient(135deg,#f8faff,#e8edf8);border:1px solid rgba(201,151,58,.22);border-left:5px solid #c9973a;padding:20px 26px;margin:22px 0;border-radius:0 12px 12px 0;}
+.box-gold p{font-size:15px;color:#1f2937;margin:0;line-height:1.8;}
 /* CONTRATO */
-.contrato{background:#fff;border:2px solid #1a0a00;padding:60px 72px;margin:20px 0;}
-.contrato-header{text-align:center;margin-bottom:48px;padding-bottom:28px;border-bottom:2px solid #1a0a00;}
+.contrato{background:#fff;border:2px solid #111827;padding:60px 72px;margin:20px 0;}
+.contrato-header{text-align:center;margin-bottom:48px;padding-bottom:28px;border-bottom:2px solid #111827;}
 .contrato-header img{height:70px;object-fit:contain;margin-bottom:16px;opacity:.8;}
-.contrato-titulo{font-family:'Cinzel Decorative',cursive;font-size:20px;color:#1a0a00;margin-bottom:6px;}
-.contrato-subtitulo{font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;color:#5a3c18;text-transform:uppercase;}
+.contrato-titulo{font-family:'Playfair Display', serif;font-size:20px;color:#111827;margin-bottom:6px;}
+.contrato-subtitulo{font-family:'Poppins', sans-serif;font-size:11px;letter-spacing:3px;color:#5a3c18;text-transform:uppercase;}
 .cl{margin-bottom:24px;}
-.cl-titulo{font-family:'Cinzel',serif;font-size:14px;color:#1a0a00;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;gap:10px;}
-.cl-titulo::before{content:'';width:20px;height:2px;background:#C9A84C;flex-shrink:0;}
-.cl p{font-size:14px;color:#2a1408;line-height:1.9;text-align:justify;}
-.campo-contrato{border:none;border-bottom:1px solid #1a0a00;padding:2px 4px;font-size:14px;color:#1a0a00;font-family:'Raleway',sans-serif;min-width:150px;background:transparent;}
-.assinaturas{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px;padding-top:28px;border-top:2px solid #1a0a00;}
+.cl-titulo{font-family:'Poppins', sans-serif;font-size:14px;color:#111827;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.cl-titulo::before{content:'';width:20px;height:2px;background:#c9973a;flex-shrink:0;}
+.cl p{font-size:14px;color:#1f2937;line-height:1.9;text-align:justify;}
+.campo-contrato{border:none;border-bottom:1px solid #111827;padding:2px 4px;font-size:14px;color:#111827;font-family:'Poppins', sans-serif;min-width:150px;background:transparent;}
+.assinaturas{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px;padding-top:28px;border-top:2px solid #111827;}
 .ass-bloco{text-align:center;}
-.ass-linha{height:1px;background:#1a0a00;margin-bottom:8px;}
-.ass-nome{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:#5a3c18;text-transform:uppercase;}
+.ass-linha{height:1px;background:#111827;margin-bottom:8px;}
+.ass-nome{font-family:'Poppins', sans-serif;font-size:11px;letter-spacing:2px;color:#5a3c18;text-transform:uppercase;}
 .ul{list-style:none;margin:10px 0 16px;}
-.ul li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:#2a1408;margin-bottom:10px;line-height:1.7;}
-.ul li::before{content:'◆';color:#C9A84C;font-size:8px;flex-shrink:0;margin-top:6px;}
-.cback{background:linear-gradient(160deg,#050301,#1C1208,#050301);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;position:relative;}
+.ul li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:#1f2937;margin-bottom:10px;line-height:1.7;}
+.ul li::before{content:'◆';color:#c9973a;font-size:8px;flex-shrink:0;margin-top:6px;}
+.cback{background:linear-gradient(160deg,#06080f,#0d0d1a,#06080f);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;position:relative;}
 </style>
 </head>
 <body>
@@ -299,9 +313,9 @@ strong{color:#1a0a00;}
   <h2 class="h2">Contrato simplificado <b>para WhatsApp</b></h2>
   <p>Para clientes que preferem algo mais rápido, este modelo resumido tem os pontos essenciais e pode ser enviado por WhatsApp para aceite digital.</p>
 
-  <div style="background:#FAF4E8;border:2px solid rgba(201,168,76,.2);border-radius:14px;padding:28px 32px;margin:20px 0;">
+  <div style="background:#f8faff;border:2px solid rgba(201,151,58,.2);border-radius:14px;padding:28px 32px;margin:20px 0;">
     <span class="lbl">Modelo de mensagem — copie e envie pelo WhatsApp</span>
-    <p style="font-size:14px;color:#2a1408;line-height:1.9;">
+    <p style="font-size:14px;color:#1f2937;line-height:1.9;">
       📋 <strong>CONFIRMAÇÃO DE SESSÃO — CARLOS TATTOO BH</strong><br><br>
       Olá, [NOME DO CLIENTE]! Para confirmar sua sessão, preciso que você leia e confirme os termos abaixo respondendo <strong>"Concordo"</strong>.<br><br>
       <strong>📅 SESSÃO AGENDADA</strong><br>
@@ -343,26 +357,26 @@ strong{color:#1a0a00;}
 <!-- CONTRACAPA -->
 <div class="cback">
   <div style="position:relative;z-index:2;text-align:center;">
-    <img src="IPJP8350.JPG" style="height:80px;object-fit:contain;filter:drop-shadow(0 0 22px rgba(201,168,76,.55));margin-bottom:28px;" alt="">
-    <h2 style="font-family:'Cinzel Decorative',cursive;font-size:28px;color:#E8B800;margin-bottom:12px;">Protegido.<br>Agora cresça.</h2>
-    <div style="background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.28);border-radius:18px;padding:36px 44px;max-width:520px;margin:0 auto;">
-      <h3 style="font-family:'Cinzel Decorative',cursive;font-size:20px;color:#ffffff;margin-bottom:8px;">Kit Completo de Conhecimento</h3>
-      <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:#ffffff;margin-bottom:20px;">TODOS OS EBOOKS + PACK TEMPLATES</p>
+    <img src="IPJP8350.JPG" style="height:80px;object-fit:contain;filter:drop-shadow(0 0 22px rgba(201,151,58,.55));margin-bottom:28px;" alt="">
+    <h2 style="font-family:'Playfair Display', serif;font-size:28px;color:#f0c04a;margin-bottom:12px;">Protegido.<br>Agora cresça.</h2>
+    <div style="background:rgba(201,151,58,.07);border:1px solid rgba(201,151,58,.28);border-radius:18px;padding:36px 44px;max-width:520px;margin:0 auto;">
+      <h3 style="font-family:'Playfair Display', serif;font-size:20px;color:#ffffff;margin-bottom:8px;">Kit Completo de Conhecimento</h3>
+      <p style="font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:2px;color:#ffffff;margin-bottom:20px;">TODOS OS EBOOKS + PACK TEMPLATES</p>
       <ul style="list-style:none;text-align:left;margin-bottom:24px;">
-        <li style="color:#ffffff;font-size:14px;margin-bottom:8px;display:flex;gap:8px;"><span style="color:#E8B800;">✓</span>Ebook Tráfego Pago — Tutorial completo</li>
-        <li style="color:#ffffff;font-size:14px;margin-bottom:8px;display:flex;gap:8px;"><span style="color:#E8B800;">✓</span>Ebook Instagram — Do zero ao avançado</li>
-        <li style="color:#ffffff;font-size:14px;margin-bottom:8px;display:flex;gap:8px;"><span style="color:#E8B800;">✓</span>Ebook Posicionamento — Scripts e precificação</li>
-        <li style="color:#ffffff;font-size:14px;margin-bottom:8px;display:flex;gap:8px;"><span style="color:#E8B800;">✓</span>Pack Templates — 30+ artes no Canva</li>
-        <li style="color:#ffffff;font-size:14px;margin-bottom:8px;display:flex;gap:8px;"><span style="color:#E8B800;">✓</span>Contrato Digital — Modelo completo</li>
+        <li style="color:#ffffff;font-size:14px;margin-bottom:8px;display:flex;gap:8px;"><span style="color:#f0c04a;">✓</span>Ebook Tráfego Pago — Tutorial completo</li>
+        <li style="color:#ffffff;font-size:14px;margin-bottom:8px;display:flex;gap:8px;"><span style="color:#f0c04a;">✓</span>Ebook Instagram — Do zero ao avançado</li>
+        <li style="color:#ffffff;font-size:14px;margin-bottom:8px;display:flex;gap:8px;"><span style="color:#f0c04a;">✓</span>Ebook Posicionamento — Scripts e precificação</li>
+        <li style="color:#ffffff;font-size:14px;margin-bottom:8px;display:flex;gap:8px;"><span style="color:#f0c04a;">✓</span>Pack Templates — 30+ artes no Canva</li>
+        <li style="color:#ffffff;font-size:14px;margin-bottom:8px;display:flex;gap:8px;"><span style="color:#f0c04a;">✓</span>Contrato Digital — Modelo completo</li>
       </ul>
-      <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;color:#ffffff;margin-bottom:8px;">Valor separado: R$265 — Kit completo:</p>
-      <p style="font-family:'Cinzel Decorative',cursive;font-size:40px;color:#E8B800;margin-bottom:8px;">R$ 197</p>
-      <p style="font-size:13px;color:#ffffff;font-family:'Cinzel',serif;">Economia de R$68 · Pagamento único</p>
+      <p style="font-family:'Poppins', sans-serif;font-size:11px;letter-spacing:1px;color:#ffffff;margin-bottom:8px;">Valor separado: R$265 — Kit completo:</p>
+      <p style="font-family:'Playfair Display', serif;font-size:40px;color:#f0c04a;margin-bottom:8px;">R$ 197</p>
+      <p style="font-size:13px;color:#ffffff;font-family:'Poppins', sans-serif;">Economia de R$68 · Pagamento único</p>
     </div>
-    <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:rgba(201,168,76,.35);margin-top:44px;">© 2026 Carlos Tattoo BH · @carlostattoo.bh · Belo Horizonte, MG</p>
+    <p style="font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:2px;color:rgba(201,151,58,.35);margin-top:44px;">© 2026 Carlos Tattoo BH · @carlostattoo.bh · Belo Horizonte, MG</p>
   </div>
 </div>
 
-<button onclick="window.print()" class="no-print" style="position:fixed;bottom:28px;right:28px;z-index:1000;background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;border:none;padding:14px 26px;border-radius:50px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;cursor:pointer;box-shadow:0 6px 24px rgba(201,168,76,.45);">🖨️ Salvar como PDF</button>
+<button onclick="window.print()" class="no-print" style="position:fixed;bottom:28px;right:28px;z-index:1000;background:linear-gradient(135deg,#A07830,#f0c04a);color:#1a1a2e;border:none;padding:14px 26px;border-radius:50px;font-family:'Poppins', sans-serif;font-size:11px;letter-spacing:2px;cursor:pointer;box-shadow:0 6px 24px rgba(201,151,58,.45);">🖨️ Salvar como PDF</button>
 </body>
 </html>
