@@ -126,475 +126,109 @@ const prog = JSON.parse(localStorage.getItem('ct_progresso_'+(sessao?.email||'')
 let aulaAtual = prog['aula_'+CURSO_ID]||0;
 
 const MODULOS = [
-  {mod:'MÓDULO 1 — MENTALIDADE E PRECIFICAÇÃO PREMIUM', aulas:[
+  {mod:'MÓDULO 1 — MENTALIDADE PREMIUM', aulas:[
     {t:'Por que você precisa cobrar mais', c:`
 <div class="aula-tag">Módulo 1 · Aula 1</div>
 <h1 class="aula-h1">Por que você precisa <span>cobrar mais</span></h1>
-<p class="aula-intro">Tatuadores que cobram barato trabalham mais, ganham menos e ficam esgotados. Tatuadores que cobram o preço justo trabalham com clientes melhores, têm mais tempo e ganham mais. Essa aula vai reprogramar sua mentalidade sobre valor e preço.</p>
+<p class="aula-intro">Tatuadores que cobram barato trabalham mais, ganham menos e ficam esgotados. Tatuadores que cobram o preço justo trabalham com clientes melhores, têm mais tempo e ganham mais. Esse curso vai reprogramar sua mentalidade e te dar as ferramentas para essa transição.</p>
 <h2 class="ah2">O paradoxo do preço baixo</h2>
-<p class="ap">Existe uma crença muito comum entre tatuadores iniciantes — e até mesmo entre os experientes — de que cobrar barato garante mais clientes. Na prática, o que acontece é o oposto: o preço baixo atrai o tipo de cliente que mais dá trabalho e menos valoriza o resultado.</p>
-<ul class="checklist"><li>Cliente que busca o mais barato raramente fica satisfeito com o resultado</li><li>Preço baixo sinaliza baixa qualidade, mesmo que seu trabalho seja excelente</li><li>Tatuador barato atrai cliente difícil, exigente e que não respeita o processo</li><li>Preço alto naturalmente filtra e atrai cliente que confia e respeita o profissional</li><li>Cobrar barato é sempre uma escolha — nunca uma necessidade do mercado</li></ul>
-<div class="destaque"><p><strong>Matemática real:</strong> Um tatuador que cobra R$200 e faz 15 tatuagens/mês = R$3.000. Um que cobra R$600 e faz 8 tatuagens/mês = R$4.800. Menos trabalho, mais dinheiro, clientes melhores. Qual você prefere?</p></div>
-<h2 class="ah2">A virada de chave mental</h2>
-<p class="ap">Você não vende tatuagem. Você vende uma obra de arte permanente, a expressão da identidade de uma pessoa, uma experiência premium que vai durar décadas. Quem entende isso cobra diferente e atrai clientes diferentes.</p>
-<p class="ap">O maior erro de precificação que um tatuador pode cometer é olhar para o preço do concorrente e cobrar igual ou menos. Isso é uma corrida para o fundo do poço onde ninguém ganha — exceto o cliente que quer pagar menos.</p>
-<h2 class="ah2">Identidade de preço: como você quer ser percebido?</h2>
-<p class="ap">Seu preço é a primeira impressão que você causa. Antes do cliente ver seu portfólio, antes de entrar no seu estúdio, o preço já comunicou quem você é. Um orçamento de R$150 diz algo completamente diferente de um de R$600 para exatamente o mesmo tamanho de tatuagem.</p>
-<ul class="checklist"><li>Defina hoje que tipo de tatuador você quer ser em 3 anos</li><li>Olhe para referências premium e estude como eles se posicionam</li><li>Aceite que subir preço significa perder alguns clientes — os que você não quer de qualquer forma</li><li>Os clientes que ficam quando você sobe o preço são os que você quer para sempre</li></ul>
-<div class="alerta"><p><strong>Atenção:</strong> Subir preço sem ajustar portfólio, atendimento e branding gera resistência. Todas as aulas deste curso trabalham em conjunto para você fazer essa transição de forma sustentável.</p></div>
-<div class="dica"><p><strong>Ação imediata:</strong> Calcule agora quantas tatuagens você faria com seu preço atual para atingir R$8.000/mês. Depois calcule com um preço 60% maior. A diferença visual é impactante.</p></div>
+<ul class="checklist">
+  <li>Cliente que busca o mais barato raramente fica satisfeito</li>
+  <li>Preço baixo atrai cliente difícil, exigente e que não valoriza</li>
+  <li>Preço alto atrai cliente que confia no profissional e respeita o processo</li>
+  <li>Cobrar barato é uma escolha, não uma necessidade</li>
+</ul>
+<div class="destaque"><p><strong>Reflexão:</strong> Um tatuador que cobra R$200 e faz 15 tatuagens por mês = R$3.000. Um que cobra R$600 e faz 8 tatuagens = R$4.800. Menos trabalho, mais dinheiro, clientes melhores.</p></div>
+<h2 class="ah2">A virada de chave</h2>
+<p class="ap">Você não vende tatuagem. Você vende uma experiência premium, uma obra de arte permanente, a expressão da identidade de uma pessoa. Quem entende isso cobra diferente.</p>
 <div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)" disabled>← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
     {t:'Precificação estratégica na prática', c:`
 <div class="aula-tag">Módulo 1 · Aula 2</div>
 <h1 class="aula-h1">Precificação Estratégica <span>na Prática</span></h1>
-<p class="aula-intro">Aqui você aprende a calcular seu preço de forma profissional — baseado em custos reais, tempo e valor percebido. Não em achismo ou no que o concorrente cobra. Com uma planilha e lápis na mão, você vai sair dessa aula com o seu preço real calculado.</p>
+<p class="aula-intro">Aqui você aprende a calcular seu preço de forma profissional — baseado em custos reais, tempo e valor percebido. Não em achismo ou no que o concorrente cobra.</p>
 <h2 class="ah2">Calculando seu custo real por hora</h2>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Liste todos os seus custos fixos mensais</h4><p>Aluguel do estúdio ou percentual sobre o aluguel, materiais mensais (tintas, agulhas, plástico, película), energia elétrica (estime), internet, contador ou assessoria, plataformas digitais (Instagram Ads, aplicativos), manutenção de equipamentos. Some tudo.</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Defina quantas horas você trabalha por dia</h4><p>Considere: sessões de tatuagem + tempo de desenho e projeto + atendimento de mensagens + estudo e aprimoramento. Seja honesto. A maioria trabalha 7-9 horas reais, mas apenas 4-6 horas geram receita diretamente.</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Calcule o custo mínimo por hora</h4><p>Fórmula: (Custos fixos mensais ÷ dias úteis) ÷ horas produtivas por dia = custo/hora. Sobre isso, adicione sua margem de lucro. O mínimo recomendado: 60-100% acima do custo.</p></div></div>
-<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Defina o valor por tipo de projeto</h4><p>Fineline pequeno (1-2h), old school médio (3-4h), realismo grande (6-8h+). Cada categoria tem um valor hora que pode variar. Realismo e aquarela justificam preço/hora maior que lettering simples.</p></div></div>
-<div class="exemplo"><div class="exemplo-label">Exemplo de cálculo completo — tatuador em BH</div><p>Custos fixos: R$2.800/mês ÷ 22 dias úteis = R$127/dia<br>5 horas produtivas/dia → custo: R$25/hora<br>Margem 100% → preço mínimo: R$50/hora<br>Tatuagem de 4h → mínimo para cobrir custos: R$200<br><strong>Com posicionamento premium: R$250-350/hora = R$1.000-1.400 por essa mesma tatuagem</strong></p></div>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Some seus custos fixos mensais</h4><p>Aluguel do estúdio + materiais (tintas, agulhas, luvas, plástico) + energia + internet + contador + plataformas digitais. Divida por 20 dias úteis = custo diário.</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Defina quantas horas você trabalha por dia</h4><p>Considere: sessões + tempo de desenho + atendimento + estudo + deslocamento. Média real: 6-8h produtivas por dia.</p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Calcule o mínimo por hora</h4><p>Custo diário ÷ horas produtivas = custo/hora. Sobre isso, adicione sua margem de lucro (recomendado: 60-100% sobre o custo).</p></div></div>
+<div class="exemplo"><div class="exemplo-label">Exemplo de cálculo</div><p>Custos fixos: R$2.500/mês ÷ 20 dias = R$125/dia<br>6h produtivas/dia → custo: R$20/hora<br>Margem 100% → preço mínimo: R$40/hora<br>Tatuagem de 3h → mínimo: R$120 (só para cobrir custos)<br>Com posicionamento premium: R$200-300/hora = R$600-900 por essa mesma tatuagem</p></div>
 <h2 class="ah2">Tabela de referência para BH — 2026</h2>
-<ul class="checklist"><li><strong>Mercado básico (iniciante):</strong> R$80-130/hora</li><li><strong>Mercado intermediário (3-5 anos):</strong> R$150-250/hora</li><li><strong>Mercado premium (especialista):</strong> R$280-500/hora</li><li><strong>Top artistas referência BH:</strong> R$600-1.000+/hora</li><li><strong>Top artistas nacionais:</strong> R$1.500-3.000+/hora</li></ul>
-<h2 class="ah2">Tabela por estilo</h2>
-<p class="ap">Diferentes estilos justificam preços diferentes pelo grau de complexidade técnica e demanda de mercado:</p>
-<ul class="checklist"><li><strong>Lettering simples:</strong> coeficiente 0,8 (abaixo da média)</li><li><strong>Old School / Tradicional:</strong> coeficiente 1,0 (média)</li><li><strong>Blackwork / Geométrico:</strong> coeficiente 1,2</li><li><strong>Aquarela / Trash Polka:</strong> coeficiente 1,4</li><li><strong>Fineline detalhado:</strong> coeficiente 1,3</li><li><strong>Realismo P&B:</strong> coeficiente 1,6</li><li><strong>Realismo colorido:</strong> coeficiente 1,8</li></ul>
-<div class="destaque"><p><strong>Regra de ouro:</strong> Nunca precifique abaixo do custo, nunca copie o preço do concorrente, nunca dê desconto antes de o cliente pedir — e mesmo quando pedir, ofereça uma versão menor em vez de desconto no preço.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
-    {t:'A psicologia por trás do preço alto', c:`
-<div class="aula-tag">Módulo 1 · Aula 3</div>
-<h1 class="aula-h1">A Psicologia <span>por Trás do Preço Alto</span></h1>
-<p class="aula-intro">Preço é psicologia antes de ser matemática. Entender como o cérebro do cliente processa valor e preço é a chave para nunca mais precisar justificar por que você cobra o que cobra.</p>
-<h2 class="ah2">Efeito âncora: por que mostrar preços altos primeiro ajuda</h2>
-<p class="ap">Quando você mostra seu trabalho mais caro e mais impressionante primeiro, todos os outros preços parecem mais acessíveis por comparação. Um tatuador que cobra R$2.000 por uma manga parece razoável quando cobra R$400 por uma tatoo pequena.</p>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Exiba sempre seu melhor trabalho em destaque</h4><p>O trabalho mais impressionante do portfólio deve ser o primeiro. Não o mais barato, não o mais simples. O que faz a pessoa parar e pensar "nossa, que incrível".</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Mencione projetos grandes ao apresentar projetos menores</h4><p>Ao receber um orçamento para tatoo pequena, mencione: "Atualmente estou desenvolvendo uma manga para um cliente que vai levar 12 sessões." Isso ancora sua percepção de valor.</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Nunca comece o orçamento pelo preço mais baixo</h4><p>Sempre inicie pela versão completa do projeto. Se o cliente quiser simplificar, você tem margem. Se começar pelo mínimo, qualquer variação para cima parecerá cara.</p></div></div>
-<h2 class="ah2">Princípio da escassez e exclusividade</h2>
-<p class="ap">O que é fácil de conseguir tem pouco valor percebido. O que é difícil, exclusivo ou tem agenda cheia é desejado. Você pode criar escassez de forma legítima:</p>
-<ul class="checklist"><li>Agenda com poucas vagas disponíveis (e comunicar isso)</li><li>Lista de espera para novos clientes</li><li>"Apenas X vagas por mês para novos projetos"</li><li>Aceitar apenas projetos dentro do seu estilo preferido</li><li>Exigir sinal de 40-50% para confirmar a vaga</li></ul>
-<h2 class="ah2">Preço como filtro de cliente ideal</h2>
-<p class="ap">Clientes que pagam mais tendem a se comprometer mais, respeitar mais o processo, comparecer às sessões, seguir os cuidados pós-tattoo e indicar outros clientes semelhantes. O preço é uma peneira automática.</p>
-<div class="destaque"><p><strong>Técnica dos 3 preços:</strong> Ao enviar orçamento, apresente 3 opções: a versão mínima (só o básico), a versão ideal (o que você recomenda) e a versão completa (versão premium com todas as melhorias). A maioria escolhe a do meio — que é onde está sua margem ideal.</p></div>
-<div class="alerta"><p><strong>Armadilha comum:</strong> Tatuadores que baixam o preço quando sentem resistência estão ensinando o cliente a sempre negociar. Uma vez que você cede no preço, o cliente vai negociar em todas as interações futuras.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
-    {t:'Como migrar de preço sem perder clientes', c:`
-<div class="aula-tag">Módulo 1 · Aula 4</div>
-<h1 class="aula-h1">Como Migrar de Preço <span>sem Perder Clientes</span></h1>
-<p class="aula-intro">A maior dúvida de quem quer cobrar mais é: "E os meus clientes atuais? Vão embora?". Sim, alguns vão. E isso é bom. Essa aula tem o plano completo para fazer a transição de forma estratégica.</p>
-<h2 class="ah2">A verdade sobre perder clientes ao subir preço</h2>
-<p class="ap">Quando você sobe o preço, parte dos clientes vai embora. Essa é a realidade. Mas observe o seguinte: esses clientes que vão embora são exatamente os que mais consomem seu tempo, que mais questionam o orçamento, que mais atrasam pagamento, que mais faltam às sessões.</p>
-<p class="ap">Os clientes que ficam são os que mais valorizam seu trabalho, que indicam amigos, que pagam no prazo, que seguem os cuidados pós-tattoo. A qualidade da sua carteira de clientes melhora drasticamente.</p>
-<h2 class="ah2">Plano de transição em 3 fases</h2>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Fase 1 — Meses 1 e 2: Reajuste gradual</h4><p>Aumente 20-30% nos orçamentos para NOVOS clientes apenas. Mantenha os preços antigos para a base existente por enquanto. Use esse período para melhorar portfólio, identidade visual e atendimento.</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Fase 2 — Meses 3 e 4: Comunicação com base atual</h4><p>Avise seus clientes fiéis com pelo menos 60 dias de antecedência sobre a atualização de preços. Ofereça uma sessão no preço antigo como "cortesia de fidelidade". Isso cria goodwill e fecha agenda.</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Fase 3 — Meses 5 e 6: Transição completa</h4><p>Todos os novos orçamentos no preço novo. Agenda com 20-30% menos clientes mas faturamento igual ou maior. Portfólio atualizado com apenas trabalhos premium em destaque.</p></div></div>
-<h2 class="ah2">Comunicando o aumento de forma profissional</h2>
-<div class="exemplo"><div class="exemplo-label">Mensagem para clientes fiéis</div><p>"[Nome], como você é um cliente especial do estúdio, quero te avisarcom antecedência que estou atualizando minha tabela de preços a partir de [data], para continuar investindo em materiais e cursos de aprimoramento. Até [data], você pode fechar sessões no preço atual. Vamos marcar algo?"</p></div>
-<h2 class="ah2">Quais clientes comunicar e quais deixar descobrir naturalmente</h2>
-<ul class="checklist"><li><strong>Comunicar:</strong> Clientes que fizeram 3+ sessões com você, indicadores frequentes, VIPs que pagam sem questionar</li><li><strong>Não comunicar:</strong> Clientes que somem e voltam só quando querem promo, que sempre questionam preço, que atrasam pagamento</li><li><strong>Redirecionar:</strong> Clientes com perfil "barato" podem ser redirecionados para tatuadores iniciantes que você conhece — isso é elegante e profissional</li></ul>
-<div class="dica"><p><strong>Dica de ouro:</strong> Quando um cliente pergunta se você vai dar desconto, responda com confiança: "Meus preços refletem a qualidade e o cuidado que coloco em cada projeto. Posso ajustar o tamanho ou a complexidade, mas não o valor hora." E pare de falar. O silêncio é seu aliado.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
-    {t:'Metas financeiras e planejamento anual', c:`
-<div class="aula-tag">Módulo 1 · Aula 5</div>
-<h1 class="aula-h1">Metas Financeiras <span>e Planejamento Anual</span></h1>
-<p class="aula-intro">Um tatuador sem meta financeira é um barco sem leme. Você pode trabalhar muito e nunca saber se está progredindo. Essa aula cria seu plano financeiro anual do zero.</p>
-<h2 class="ah2">Por que 90% dos tatuadores não têm meta</h2>
-<p class="ap">Não é falta de ambição. É falta de método. A maioria dos tatuadores opera no modo "cada sessão que chega é lucro", sem entender exatamente quanto precisa ganhar para pagar todas as contas, guardar para emergências, investir no negócio e ainda ter qualidade de vida.</p>
-<h2 class="ah2">As 4 camadas do faturamento</h2>
-<ul class="checklist"><li><strong>Camada 1 — Sobrevivência:</strong> Cobre todas as contas fixas pessoais + do estúdio. Mínimo absoluto.</li><li><strong>Camada 2 — Estabilidade:</strong> Sobrevivência + 3 meses de reserva + investimento em equipamentos</li><li><strong>Camada 3 — Crescimento:</strong> Estabilidade + verba de marketing + cursos + viagens para convenções</li><li><strong>Camada 4 — Prosperidade:</strong> Crescimento + poupança/investimentos + expansão do negócio</li></ul>
-<div class="exemplo"><div class="exemplo-label">Cálculo das camadas — exemplo BH 2026</div><p>Contas pessoais: R$3.500 | Contas estúdio: R$2.500 → Sobrevivência: R$6.000/mês<br>Reserva de emergência (1/12 de 3 meses): R$1.500 → Estabilidade: R$7.500/mês<br>Marketing + cursos: R$800 → Crescimento: R$8.300/mês<br>Investimentos pessoais: R$1.200 → Prosperidade: R$9.500/mês</p></div>
-<h2 class="ah2">Calculando de trás para frente</h2>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Defina a meta mensal</h4><p>Comece pela Camada 2 (Estabilidade). Quanto é o seu número?</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Calcule o ticket médio necessário</h4><p>Meta mensal ÷ número de sessões que quer fazer por mês = ticket médio necessário</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Compare com seu ticket atual</h4><p>Se a conta não fecha, o caminho é: aumentar preço ou aumentar número de sessões (ou os dois)</p></div></div>
-<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Defina o calendário de execução</h4><p>Em que data você quer estar na Camada 2? Camada 3? Crie marcos trimestrais e coloque na agenda.</p></div></div>
-<h2 class="ah2">Sazonalidade no mercado de tatuagem</h2>
-<p class="ap">O mercado de tatuagem tem padrões sazonais que você precisa considerar no planejamento:</p>
-<ul class="checklist"><li><strong>Janeiro/Fevereiro:</strong> Pós-festas, clientes voltam com novas metas. Bom para prospectar.</li><li><strong>Março/Abril:</strong> Mercado estável, boa demanda regular.</li><li><strong>Maio/Junho:</strong> Pico de demanda (inverno, menos praia, mais tatuagem).</li><li><strong>Julho:</strong> Queda moderada, período de férias.</li><li><strong>Agosto/Setembro:</strong> Recuperação forte, período de convenções.</li><li><strong>Outubro/Novembro:</strong> Pico máximo do ano, reserve agenda com antecedência.</li><li><strong>Dezembro:</strong> Queda acentuada após o dia 15. Use para descanso e planejamento.</li></ul>
-<div class="destaque"><p><strong>Estratégia para meses fracos:</strong> Use Janeiro e Julho para lançar promoções de sessões com data marcada (não desconto no preço, mas condições especiais como dividir em mais vezes ou incluir retoque gratuito).</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
+<ul class="checklist">
+  <li><strong>Mercado básico:</strong> R$80-120/hora</li>
+  <li><strong>Mercado intermediário:</strong> R$150-220/hora</li>
+  <li><strong>Mercado premium:</strong> R$250-450/hora</li>
+  <li><strong>Top artistas referência:</strong> R$500+/hora</li>
+</ul>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`}
   ]},
-  {mod:'MÓDULO 2 — BRANDING & IDENTIDADE PREMIUM', aulas:[
-    {t:'Construindo sua identidade visual completa', c:`
-<div class="aula-tag">Módulo 2 · Aula 6</div>
-<h1 class="aula-h1">Construindo sua <span>Identidade Visual Completa</span></h1>
-<p class="aula-intro">Identidade visual profissional não é luxo — é o investimento com melhor retorno para um tatuador que quer cobrar mais. Um estúdio com visual coeso e premium justifica preços mais altos e atrai um perfil de cliente completamente diferente.</p>
-<h2 class="ah2">Os 5 pilares da identidade visual de um tatuador premium</h2>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Logo profissional</h4><p>Uma boa logo custa entre R$300-800 e dura anos. Invista em um designer ou use o Canva Pro com templates premium. Evite logos genéricas com fontes padrão do Word. A logo é o rosto do seu negócio.</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Paleta de cores consistente</h4><p>Máximo 3 cores. Combinações que funcionam: preto + dourado = luxo premium | preto + vermelho = arte intensa | preto + branco + off-white = minimalismo elegante | preto + azul petróleo = sofisticação contemporânea.</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Tipografia definida</h4><p>Escolha 2 fontes: uma para títulos (serifada elegante como Playfair Display ou uma script premium) e uma para textos (sans-serif limpa como Poppins ou Montserrat). Jamais misture mais de 3 fontes.</p></div></div>
-<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Tom de voz e linguagem</h4><p>Como você escreve define sua marca. Defina: casual amigável? Técnico especialista? Artístico e poético? E mantenha esse tom em 100% das comunicações — legendas, mensagens, respostas.</p></div></div>
-<div class="passo"><div class="passo-n">5</div><div class="passo-body"><h4>Aplicações da marca</h4><p>Onde sua identidade vai aparecer: Instagram, cartões, embalagens, papel de cuidados pós-tattoo, uniforme/roupas usadas nas fotos, a estética física do estúdio.</p></div></div>
-<h2 class="ah2">O estúdio como parte da marca</h2>
-<p class="ap">Seu espaço de trabalho é o cenário onde suas fotos são tiradas, onde clientes fazem stories, onde a experiência acontece. Um estúdio com visual coerente e fotografável multiplica seu conteúdo organicamente.</p>
-<ul class="checklist"><li>Paredes em cor que combina com sua identidade (dark, clean, industrial)</li><li>Iluminação quente ou fria — defina e padronize</li><li>Área de espera com personalidade (não genérica)</li><li>Quadros, referências ou elementos decorativos que refletem seu estilo</li><li>Mesa/cadeira fotogênicas para fazer fotos do processo</li></ul>
-<div class="destaque"><p><strong>Exercício prático:</strong> Abra o Instagram de 3 tatuadores que você admira e que cobram mais que você. Anote: paleta de cores dos posts, tom de voz das legendas, como a bio está escrita, como o feed está organizado. Você vai notar padrões claros de branding premium.</p></div>
+  {mod:'MÓDULO 2 — BRANDING PREMIUM', aulas:[
+    {t:'Construindo sua identidade visual', c:`
+<div class="aula-tag">Módulo 2 · Aula 3</div>
+<h1 class="aula-h1">Construindo sua <span>Identidade Visual</span></h1>
+<p class="aula-intro">Identidade visual profissional não é luxo — é investimento. Um estúdio com visual coeso e premium justifica preços mais altos e atrai um perfil de cliente completamente diferente.</p>
+<h2 class="ah2">Os 4 elementos da identidade visual</h2>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Logo profissional</h4><p>Invista em um designer ou use o Canva Pro para criar uma logo limpa. Evite logos genéricas com fontes padrão. Uma boa logo custa entre R$150-500 e dura anos.</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Paleta de cores</h4><p>Máximo 3 cores. Escolha cores que transmitam o que quer: <strong>preto + dourado = luxo e exclusividade</strong>. <strong>preto + vermelho = intensidade e arte</strong>. <strong>preto + branco = minimalismo premium</strong>.</p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Tipografia consistente</h4><p>Escolha 2 fontes: uma para títulos (serifada ou script elegante) e uma para texto (sem serifa limpa). Use as mesmas em todos os materiais.</p></div></div>
+<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Tom de voz</h4><p>Como você escreve define sua marca. Defina: formal ou informal? Técnico ou acessível? Emocional ou direto? E mantenha esse tom em todas as comunicações.</p></div></div>
+<h2 class="ah2">Aplicando no dia a dia</h2>
+<ul class="checklist">
+  <li>Uniforme ou roupa padrão nas fotos e atendimentos</li>
+  <li>Estúdio organizado e fotogênico — clientes fotografam e postam</li>
+  <li>Embalagem do cuidado pós-tattoo com sua logo</li>
+  <li>Cartão de visita premium (papel espesso, acabamento fosco)</li>
+  <li>Templates do Canva com sua identidade para Stories e posts</li>
+</ul>
 <div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
-    {t:'Como fotografar seus trabalhos profissionalmente', c:`
-<div class="aula-tag">Módulo 2 · Aula 7</div>
-<h1 class="aula-h1">Como Fotografar <span>seus Trabalhos Profissionalmente</span></h1>
-<p class="aula-intro">Uma tatuagem excelente mal fotografada vale menos que uma tatuagem boa bem fotografada. Fotografia é onde o trabalho vira portfólio, e portfólio é vendas. Você precisa dominar isso.</p>
-<h2 class="ah2">Por que a maioria das fotos de tatuagem são ruins</h2>
-<ul class="checklist"><li>Flash direto que estoura a textura e detalhe da tatuagem</li><li>Fundo bagunçado que distrai do trabalho</li><li>Foto tremida ou fora de foco</li><li>Angulação errada que distorce a tatuagem</li><li>Foto logo após a sessão, com pele vermelha e trauma visível</li><li>Excesso de sombra que esconde o detalhe</li></ul>
-<h2 class="ah2">Configurações básicas para fotos no celular</h2>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Luz natural é sua melhor amiga</h4><p>Fotografe perto de janela grande com luz natural indireta. Nunca com flash. Nunca com luz amarela de lâmpada incandescente. A melhor luz é a de manhã ou tarde, com sol difuso.</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Foco manual no celular</h4><p>Toque na tatuagem na tela para forçar o foco nela. Aguarde 2 segundos antes de tirar a foto para estabilizar.</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Ângulo perpendicular ao plano da pele</h4><p>A câmera deve estar paralela à superfície da tatuagem, não angulada. Para tatuagem no braço, segure o braço horizontalmente e posicione o celular em cima, paralelo ao braço.</p></div></div>
-<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Fundo neutro e limpo</h4><p>Mantenha um pedaço de papel cartão preto ou branco no estúdio para usar como fundo quando necessário. Tecido de cor sólida também funciona.</p></div></div>
-<div class="passo"><div class="passo-n">5</div><div class="passo-body"><h4>Edição básica no Lightroom Mobile (gratuito)</h4><p>Aumente levemente a clareza (+10 a +20), eleve um pouco o contraste, verifique se as cores estão fiéis. Evite filtros que mudam as cores da tinta.</p></div></div>
-<h2 class="ah2">Quando fotografar: timing ideal</h2>
-<ul class="checklist"><li><strong>Melhor momento:</strong> Imediatamente após limpar a tatuagem, antes de aplicar o filme. A pele ainda está intacta e a tinta está viva.</li><li><strong>Segundo melhor:</strong> Após a cicatrização completa (30-45 dias). Cores mais suaves mas tatuagem final.</li><li><strong>Evite:</strong> Foto com pele vermelha, inchada, com sangue ou com muita pomada brilhando.</li></ul>
-<h2 class="ah2">Montar o portfólio fotográfico</h2>
-<p class="ap">Não publique tudo. Publique apenas o seu melhor. Um portfólio com 30 fotos excelentes é infinitamente mais poderoso que um com 200 fotos medianas.</p>
-<div class="destaque"><p><strong>Ferramenta recomendada:</strong> Para edição de fotos de tatuagem, o Lightroom Mobile (gratuito) com preset de "Tattoo" tem melhores resultados que filtros do Instagram. Procure presets gratuitos específicos para fotos de tatuagem no Pinterest.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
-    {t:'Bio e feed do Instagram que vendem', c:`
-<div class="aula-tag">Módulo 2 · Aula 8</div>
-<h1 class="aula-h1">Bio e Feed do Instagram <span>que Vendem</span></h1>
-<p class="aula-intro">Seu Instagram é sua vitrine, seu currículo e seu vendedor 24 horas. A maioria dos tatuadores trata como diário pessoal. Os que cobram mais tratam como ferramenta de negócio. Veja a diferença.</p>
-<h2 class="ah2">Anatomia da bio perfeita para tatuador premium</h2>
-<p class="ap">Você tem 150 caracteres para convencer um estranho de que vale a pena te seguir e te contratar. Cada palavra importa:</p>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Primeira linha: quem você é + diferencial</h4><p>"Tatuador especialista em Realismo P&B" | "Fine Line Art · BH" | "Blackwork & Geometric · São Paulo"</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Segunda linha: para quem você é</h4><p>"Para quem quer uma obra de arte permanente" | "Projetos exclusivos por encomenda" | "Agenda fechada — lista de espera aberta"</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Terceira linha: localização + contato</h4><p>"📍 Estúdio em Savassi, BH" + link para WhatsApp</p></div></div>
-<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Link na bio: direcione para o que converte</h4><p>Use Linktree ou link direto para WhatsApp com mensagem pré-preenchida: "wa.me/5531XXXXXXXX?text=Olá!+Vim+pelo+Instagram+e+quero+um+orçamento"</p></div></div>
-<h2 class="ah2">Estratégia de feed: coerência visual</h2>
-<p class="ap">O feed é visto como um todo antes de o cliente clicar em qualquer foto. Quando um potencial cliente visita seu perfil, em 3 segundos decide se vai seguir ou não. A coerência visual é o que retém.</p>
-<ul class="checklist"><li>Escolha uma paleta e siga: fotos todas com fundo escuro, ou todas claras, ou todas em local específico</li><li>Alterne entre: foto do trabalho finalizado | foto do processo | foto dos detalhes (close up)</li><li>Evite misturar fotos pessoais, viagens ou comida no mesmo feed de portfólio</li><li>Use destaques (Highlights) para organizar: estilos, processo, depoimentos, preços/FAQ</li></ul>
-<h2 class="ah2">Destaques que convertem</h2>
-<ul class="checklist"><li>📁 PORTFÓLIO — Melhores trabalhos separados por estilo</li><li>✍️ PROCESSO — Stories do desenho até o resultado final</li><li>💬 DEPOIMENTOS — Print de mensagens de clientes satisfeitos</li><li>📋 FAQ — Respondendo as dúvidas mais comuns sobre preço, cuidados, processo</li><li>📍 ESTÚDIO — Como é o ambiente, como funciona o atendimento</li></ul>
-<div class="exemplo"><div class="exemplo-label">Bio que converte — exemplo real</div><p>Fine Line & Botanical · BH 🌿<br>Projetos exclusivos por encomenda<br>📅 Agenda: link na bio<br>↓ Veja como funciona</p></div>
-<div class="destaque"><p><strong>Teste rápido:</strong> Abra seu Instagram agora e simule ser um desconhecido vendo seu perfil pela primeira vez. Sua bio explica o que você faz? Tem CTA (call to action)? O feed transmite a qualidade que você cobra? Se não, você sabe o que precisa mudar.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
-    {t:'Criando conteúdo que atrai clientes premium', c:`
-<div class="aula-tag">Módulo 2 · Aula 9</div>
-<h1 class="aula-h1">Criando Conteúdo <span>que Atrai Clientes Premium</span></h1>
-<p class="aula-intro">Não basta postar foto de tatuagem. Os tatuadores que mais faturam criam conteúdo que educa, inspira e qualifica o cliente antes mesmo do primeiro contato. Nesta aula você aprende a estratégia de conteúdo completa.</p>
-<h2 class="ah2">Os 4 tipos de conteúdo que funcionam para tatuadores</h2>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Portfólio — mostrar o resultado</h4><p>Foto e vídeo do trabalho finalizado. Sempre com boa iluminação, fundo limpo, legenda que conta a história do projeto. Este é o conteúdo mais óbvio mas precisa ser bem executado.</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Processo — mostrar o making of</h4><p>Vídeo timelapse da sessão, stories do desenho, Reels mostrando antes+depois. Conteúdo de processo tem altíssimo engajamento e humaniza o artista.</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Educação — posicionar como especialista</h4><p>Posts sobre cuidados pós-tattoo, como escolher o estilo certo, o que afeta a cicatrização, mitos e verdades. Quem educa é percebido como autoridade.</p></div></div>
-<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Bastidores — conectar com a pessoa</h4><p>O dia a dia do estúdio, os materiais, o processo de criação do desenho, uma frase sobre a arte. Cria conexão emocional e fideliza seguidores.</p></div></div>
-<h2 class="ah2">Frequência e consistência</h2>
-<p class="ap">Para crescer no Instagram organicamente, a mínima consistência é: 3-4 posts por semana no feed + 5-7 stories por dia. Mais importante que frequência alta é a consistência: é melhor 3 posts excelentes por semana toda semana do que 10 posts ruins uma semana e sumir nas outras.</p>
-<h2 class="ah2">Legendas que vendem</h2>
-<ul class="checklist"><li>Comece com a história, não com a descrição técnica: "Esse projeto surgiu de..." em vez de "Tatuagem realismo P&B..."</li><li>Inclua o processo: "Foram X horas de sessão, o cliente ficou..."</li><li>Faça uma pergunta ou convite no final: "Você tem um projeto em mente?"</li><li>Use hashtags segmentadas: misture hashtags grandes (#tattoo) com nichos (#blackworktattoo) e locais (#tatuagemBH)</li></ul>
-<h2 class="ah2">Reels: o formato que mais cresce atualmente</h2>
-<p class="ap">Reels têm alcance orgânico muito maior que posts estáticos em 2026. Um timelapse de 30-60 segundos de uma sessão com música de fundo, sem narração, pode alcançar 10-50x mais pessoas que um post comum.</p>
-<div class="destaque"><p><strong>Calendário de conteúdo semanal:</strong> Segunda: Portfólio | Terça: Stories processo | Quarta: Post educativo | Quinta: Reels timelapse | Sexta: Antes+depois | Sábado: Bastidores | Domingo: Descanso ou story simples</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
+    {t:'Scripts VIP de atendimento e fechamento', c:`
+<div class="aula-tag">Módulo 2 · Aula 4</div>
+<h1 class="aula-h1">Scripts VIP de <span>Atendimento e Fechamento</span></h1>
+<p class="aula-intro">O atendimento é parte da marca. Um cliente que recebe um atendimento premium paga mais, indica mais e volta mais. Aqui estão os scripts testados que aumentaram a taxa de fechamento de clientes premium.</p>
+<h2 class="ah2">Script de primeiro contato (WhatsApp)</h2>
+<div class="exemplo"><div class="exemplo-label">Quando o cliente manda a primeira mensagem</div><p>"Olá [nome], que prazer ter você aqui! Sou o Carlos e trabalho com tatuagem há 7 anos em BH, especializado em [estilo]. Para criar algo realmente único para você, me conta: qual é a ideia, onde no corpo você imagina e tem alguma referência?"</p></div>
+<h2 class="ah2">Script de apresentação do orçamento</h2>
+<div class="exemplo"><div class="exemplo-label">Nunca dê preço sem contexto</div><p>"Baseado na referência que você mandou e no que conversamos, esse projeto tem um investimento de R$[valor]. Isso inclui: projeto exclusivo criado especificamente para você, sessão com [X]h de duração, tintas importadas premium e retoque gratuito em 90 dias. Para a data que você quer, tenho disponibilidade em [opções]."</p></div>
+<h2 class="ah2">Lidando com "tá caro"</h2>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Não justifique o preço — explique o valor</h4><p>Errado: <em>"É que tem muitos detalhes..."</em><br>Certo: <em>"Entendo. Esse projeto exige [X]h de trabalho com materiais importados. O resultado vai durar a vida toda. Posso parcelar em [X]x para facilitar?"</em></p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Ofereça uma alternativa menor (não menor preço)</h4><p><em>"Posso fazer uma versão um pouco menor que cabe melhor no orçamento de vocês. Mantemos a qualidade, ajustamos o tamanho. Faz sentido?"</em></p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Aceite perder clientes que não são seu público</h4><p>Cliente que só quer o mais barato não é seu cliente. Agradeça e indique outro profissional. Isso libera sua agenda para clientes que valorizam seu trabalho.</p></div></div>
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`}
   ]},
-  {mod:'MÓDULO 3 — ATENDIMENTO VIP & FIDELIZAÇÃO', aulas:[
-    {t:'O fluxo de atendimento premium do primeiro contato ao fechamento', c:`
-<div class="aula-tag">Módulo 3 · Aula 10</div>
-<h1 class="aula-h1">O Fluxo de Atendimento Premium <span>do Primeiro Contato ao Fechamento</span></h1>
-<p class="aula-intro">A experiência do cliente começa muito antes da sessão e termina muito depois. Cada ponto de contato é uma oportunidade de fortalecer ou destruir a percepção de valor. Aqui está o mapa completo.</p>
-<h2 class="ah2">Os 7 pontos de contato com o cliente</h2>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Primeiro contato (mensagem inicial)</h4><p>O cliente manda uma mensagem pelo Instagram ou WhatsApp. Sua resposta nos primeiros minutos já define a primeira impressão. Velocidade + profissionalismo = confiança.</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Qualificação (entender o projeto)</h4><p>Antes de dar orçamento, colete informações: qual é a ideia, tamanho, região do corpo, referências, data desejada. Isso demonstra que você é profissional e que o projeto é personalizado.</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Apresentação do orçamento</h4><p>Nunca dê preço seco. Contextualize o valor: o que inclui, quanto tempo, que material. O orçamento apresentado com contexto tem taxa de fechamento muito maior.</p></div></div>
-<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Confirmação e coleta do sinal</h4><p>Após a aceitação, defina data e colete o sinal de 40-50%. Sem sinal, sem vaga confirmada. Isso reduz cancelamentos de última hora em 80%.</p></div></div>
-<div class="passo"><div class="passo-n">5</div><div class="passo-body"><h4>Pré-sessão (confirmação e preparação)</h4><p>24-48h antes, mande mensagem confirmando, lembrando cuidados de preparação (hidratação, alimentação, sono) e reforçando o endereço e horário.</p></div></div>
-<div class="passo"><div class="passo-n">6</div><div class="passo-body"><h4>A sessão em si (experiência no estúdio)</h4><p>Ambiente limpo, música adequada, conversa no ritmo do cliente, explicação do processo. A sessão é onde a percepção de valor é consolidada.</p></div></div>
-<div class="passo"><div class="passo-n">7</div><div class="passo-body"><h4>Pós-sessão (cuidados e follow-up)</h4><p>Envie o guia de cuidados pós-tattoo imediatamente após. Acompanhe a cicatrização via mensagem em 7 e 30 dias. Peça avaliação e foto cicatrizada.</p></div></div>
-<h2 class="ah2">Templates de mensagem para cada etapa</h2>
-<div class="exemplo"><div class="exemplo-label">Primeiro contato</div><p>"Olá [nome]! Que prazer ter você aqui 🙏 Sou o [seu nome] e trabalho com tatuagem há X anos em BH, especializado em [estilo]. Para criar algo realmente único para você, me conta: qual é a sua ideia, onde no corpo você imagina e tem alguma referência salva? 😊"</p></div>
-<div class="exemplo"><div class="exemplo-label">Envio de orçamento</div><p>"[Nome], analisei o projeto e fiz o briefing completo. Esse trabalho exige aproximadamente Xh de sessão com materiais importados de primeira linha. O investimento é de R$[valor], que inclui: projeto exclusivo criado especificamente para você, sessão completa com produtos premium e retoque gratuito em até 90 dias. Para a data que você mencionou, tenho disponibilidade em [opções]. Qual funciona melhor?"</p></div>
-<div class="destaque"><p><strong>Taxa de fechamento média:</strong> Tatuadores sem processo estruturado fecham 20-30% dos orçamentos. Com o fluxo acima bem executado, essa taxa sobe para 50-70%. A diferença está no processo, não no preço.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
-    {t:'Scripts VIP de WhatsApp para cada situação', c:`
-<div class="aula-tag">Módulo 3 · Aula 11</div>
-<h1 class="aula-h1">Scripts VIP de WhatsApp <span>para Cada Situação</span></h1>
-<p class="aula-intro">WhatsApp é onde a maioria das vendas de tatuagem acontece. Ter scripts prontos — não para copiar e colar roboticamente, mas como guia — aumenta drasticamente sua taxa de fechamento e elimina o estresse de "o que responder agora".</p>
-<h2 class="ah2">Script 1 — Quando o cliente manda referência vaga</h2>
-<div class="exemplo"><div class="exemplo-label">Situação: cliente manda foto e pergunta "quanto fica?"</div><p>"Adorei a referência! Para te dar um orçamento preciso (não um chute), preciso entender melhor o projeto: qual tamanho você imagina? Em qual parte do corpo? Você quer exatamente igual à referência ou adaptado ao seu corpo e estilo? Me conta um pouco mais sobre o que essa tattoo significa para você 😊"</p></div>
-<h2 class="ah2">Script 2 — Quando o cliente diz "tá caro"</h2>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Não justifique, explique o valor</h4><p>"Entendo! Esse projeto exige Xh de trabalho com materiais importados de alta qualidade — o resultado vai estar na sua pele pela vida toda. Posso parcelar em X vezes no cartão para facilitar, o que acha?"</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Ofereça alternativa de tamanho, não desconto</h4><p>"Outra opção: posso fazer uma versão um pouco menor/mais simples que fica dentro do seu orçamento atual, mantendo toda a qualidade. Quer que eu te monte um briefing das duas versões para você comparar?"</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Aceite a perda com elegância</h4><p>"Entendo totalmente! Cada artista tem seu posicionamento e o meu é premium mesmo. Se você quiser explorar outras opções, posso te indicar alguns tatuadores excelentes que trabalham numa faixa diferente 🙏"</p></div></div>
-<h2 class="ah2">Script 3 — Confirmação de sinal</h2>
-<div class="exemplo"><div class="exemplo-label">Após aceitar o orçamento</div><p>"Ótimo, [nome]! Fico feliz em trabalhar nesse projeto com você 🙏 Para confirmar a vaga de [data] às [hora], preciso do sinal de R$[valor] via PIX ([chave]). Assim que confirmar o pagamento, a vaga é sua e me aprofundo no seu projeto. Funciona assim?"</p></div>
-<h2 class="ah2">Script 4 — Lembrete de sessão (24h antes)</h2>
-<div class="exemplo"><div class="exemplo-label">Mensagem de confirmação</div><p>"Oi [nome]! Amanhã é dia! 🖤 Só lembrando que sua sessão é às [hora] aqui no [endereço]. Umas dicas: durma bem hoje, almoce bem amanhã (glicose ajuda na sessão), se puder hidrate a pele hoje à noite. Qualquer dúvida estou aqui. Até amanhã!"</p></div>
-<h2 class="ah2">Script 5 — Pós-sessão (cuidados)</h2>
-<div class="exemplo"><div class="exemplo-label">Mensagem imediatamente após a sessão</div><p>"[Nome], obrigado pela sessão de hoje! Foi um prazer trabalhar nesse projeto 🙏 Mandei aqui em baixo o guia completo de cuidados para a sua tattoo cicatrizar perfeitamente. Em caso de dúvida, pode me chamar aqui. Em 30 dias quando tiver curada, me manda foto! Abs"</p></div>
-<div class="destaque"><p><strong>Regra de ouro do WhatsApp:</strong> Responda em até 2 horas durante horário comercial. Leads que não são respondidos em até 3-4 horas têm taxa de fechamento 60% menor do que os respondidos na primeira hora.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
-    {t:'Como criar uma experiência de estúdio inesquecível', c:`
-<div class="aula-tag">Módulo 3 · Aula 12</div>
-<h1 class="aula-h1">Como Criar uma Experiência <span>de Estúdio Inesquecível</span></h1>
-<p class="aula-intro">Clientes não lembram apenas da tatuagem — eles lembram de como se sentiram. Uma experiência excepcional faz o cliente indicar, voltar e pagar mais. Veja como criar isso sistematicamente.</p>
-<h2 class="ah2">Os 5 sentidos na experiência do estúdio</h2>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Visual — o que o cliente vê</h4><p>Estúdio limpo, organizado, com estética coerente com sua marca. Portfólio físico ou tablet com o melhor trabalho. Iluminação bem planejada. Cada elemento visual comunica profissionalismo.</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Auditivo — o que o cliente ouve</h4><p>Música ambiente adequada ao seu posicionamento. Conversa respeitosa, sem pressa. O som da máquina funcionando bem (sem ranger ou vibração estranha) transmite segurança.</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Olfativo — o que o cliente cheira</h4><p>Estúdio que cheira bem (não ao produto mas a limpo e fresco). Evite cheiro forte de produto de limpeza logo antes da sessão. Uma vela suave ou difusor discreto funciona bem.</p></div></div>
-<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Tato — como o cliente se sente fisicamente</h4><p>Cadeira/maca confortável. Temperatura agradável. Pausas quando necessário. Verificar o conforto do cliente regularmente, especialmente em sessões longas.</p></div></div>
-<div class="passo"><div class="passo-n">5</div><div class="passo-body"><h4>Emocional — o que o cliente sente</h4><p>Sentir-se ouvido, respeitado, em boas mãos. A tatuagem é um ato de confiança profunda — a pessoa está entregando o corpo para você. Honre isso com toda a atenção e cuidado.</p></div></div>
-<h2 class="ah2">Detalhes que fazem a diferença</h2>
-<ul class="checklist"><li>Kit de boas-vindas: folder com seus cuidados pós-tattoo com sua marca</li><li>Água, café ou chá disponíveis durante a sessão (sem cobrar)</li><li>Espaço limpo, organizado e com identidade estética</li><li>Explicar o processo antes de começar (o que vai acontecer, o que é normal sentir)</li><li>Perguntar preferências musicais do cliente durante a sessão</li><li>Tirar fotos do processo para o cliente guardar como memória</li></ul>
-<h2 class="ah2">O follow-up que fideliza</h2>
-<p class="ap">A maioria dos tatuadores desaparece depois da sessão. Os melhores constroem relacionamento. Um contato em 7 dias perguntando sobre a cicatrização e um em 30 dias pedindo a foto cicatrizada são gestos que fazem o cliente virar fã.</p>
-<div class="exemplo"><div class="exemplo-label">Mensagem de acompanhamento - 7 dias</div><p>"Oi [nome], tudo bem? Passei para saber como está a cicatrização da sua tattoo! Alguma dúvida sobre os cuidados? Lembrando que em até 90 dias o retoque gratuito está disponível se necessário 🙏"</p></div>
-<div class="destaque"><p><strong>Métrica de experiência:</strong> Se seus clientes indicam você espontaneamente sem você pedir, a experiência está boa. Se você precisa sempre pedir indicação, há algo na experiência que pode melhorar.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
-    {t:'Fidelização: transformando cliente em fã', c:`
-<div class="aula-tag">Módulo 3 · Aula 13</div>
-<h1 class="aula-h1">Fidelização: <span>Transformando Cliente em Fã</span></h1>
-<p class="aula-intro">Um cliente fiel que faz uma tatuagem por ano e indica 2 amigos vale 10x mais que um cliente avulso. A fidelização é onde o negócio escala sem aumentar custo de aquisição de clientes.</p>
-<h2 class="ah2">Por que fidelizar custa menos do que captar</h2>
-<p class="ap">Captar um novo cliente (via Instagram, tráfego pago, indicação) custa tempo e dinheiro. Um cliente fidelizado já te conhece, já confia em você, já sabe seu processo e já pagou o preço sem questionar. A matemática é simples.</p>
-<ul class="checklist"><li>Custo de aquisição de novo cliente: R$50-200 (em tempo ou dinheiro de marketing)</li><li>Custo de reter um cliente existente: R$5-20 (mensagem, atenção, cuidado)</li><li>Cliente fidelizado gasta em média 67% mais por sessão do que cliente novo</li><li>Cliente fidelizado indica em média 2-4 novos clientes por ano</li></ul>
-<h2 class="ah2">Programa de fidelidade para estúdio de tatuagem</h2>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Sistema de pontos simples</h4><p>Cada R$100 em tatuagem = 1 ponto. A cada 10 pontos = 1 hora de retoque gratuito. Simples, transparente e que incentiva o retorno.</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Status VIP para grandes clientes</h4><p>Clientes com mais de R$2.000 acumulados = status VIP: prioridade de agenda, 10% de desconto em sessões futuras, acesso à agenda antes de outros clientes.</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Atenção em datas especiais</h4><p>Mande mensagem de aniversário (você tem a data no CRM). Um "feliz aniversário, [nome]! Se quiser comemorar com uma nova tattoo, tenho uma condição especial este mês" converte muito bem.</p></div></div>
-<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Coleção de tatuagens — storytelling de longo prazo</h4><p>Para clientes que fazem múltiplas tatuagens, proponha um conceito que conecte todas. Isso cria engajamento de longo prazo e um projeto que o cliente quer completar.</p></div></div>
-<h2 class="ah2">Pedindo indicações da forma certa</h2>
-<div class="exemplo"><div class="exemplo-label">Pedido de indicação (nunca peça em vão)</div><p>"[Nome], fico muito feliz que você adorou o resultado! Se você conhece alguém com uma ideia especial para uma tattoo e que valoriza qualidade, ficaria feliz se você me indicasse. Pode até mandar o contato aqui que eu mesmo entro em contato com carinho 🙏"</p></div>
-<div class="destaque"><p><strong>Rede de indicação:</strong> Crie um relacionamento com outros profissionais que atendem o mesmo perfil de cliente (cabeleireiros premium, maquiadores, personal trainers, psicólogos de alto padrão). Uma indicação mútua vale mais que qualquer anúncio pago.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
-  ]},
-  {mod:'MÓDULO 4 — INSTAGRAM & CRESCIMENTO DIGITAL', aulas:[
-    {t:'Algoritmo do Instagram para tatuadores — o que funciona em 2026', c:`
-<div class="aula-tag">Módulo 4 · Aula 14</div>
-<h1 class="aula-h1">Algoritmo do Instagram <span>para Tatuadores em 2026</span></h1>
-<p class="aula-intro">O algoritmo do Instagram mudou muito e continua mudando. O que funcionava em 2022 pode estar prejudicando sua conta hoje. Aqui está o que realmente funciona em 2026 para tatuadores que querem crescer sem pagar por tráfego.</p>
-<h2 class="ah2">Como o algoritmo decide quem vê seu conteúdo</h2>
-<p class="ap">O algoritmo do Instagram em 2026 prioriza conteúdo com base em 4 fatores principais:</p>
-<ul class="checklist"><li><strong>Tempo de visualização:</strong> Quanto tempo as pessoas ficam olhando/assistindo. Conteúdo de processo (timelapse) performa melhor que foto estática.</li><li><strong>Taxa de engajamento inicial:</strong> Likes, comentários e salvamentos nas primeiras 2 horas após postar. Poste quando seus seguidores estão online.</li><li><strong>Salvamentos e compartilhamentos:</strong> São os sinais mais poderosos. Conteúdo educativo ("aprenda sobre cuidados pós-tattoo") é muito salvo.</li><li><strong>Consistência:</strong> Contas que postam regularmente recebem mais distribuição do que contas irregulares.</li></ul>
-<h2 class="ah2">O melhor horário para postar</h2>
-<p class="ap">Não existe um horário universal. O melhor horário é quando SEU público está ativo. No Instagram, vá em Insights > Público > Horários mais ativos. Geralmente para tatuadores em BH, os picos são:</p>
-<ul class="checklist"><li>Segunda a sexta: 12h-13h (almoço) e 19h-21h (pós-expediente)</li><li>Sábado: 10h-12h e 19h-22h</li><li>Domingo: 15h-18h</li></ul>
-<h2 class="ah2">Os formatos que mais crescem em 2026</h2>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Reels (vídeos curtos)</h4><p>Prioridade máxima do algoritmo. Um timelapse de 30-60s de uma sessão de tatuagem bem editado pode alcançar 10x mais pessoas que qualquer foto. Grave em boa resolução e adicione música trending.</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Carrossel educativo</h4><p>Posts com múltiplas imagens têm engajamento 3x maior. Exemplo: "5 coisas que afetam a cicatrização da sua tatuagem" — 5 slides, um por ponto, com visual profissional.</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Stories com interação</h4><p>Enquetes, perguntas e caixas de resposta. Stories que pedem interação aparecem mais vezes para seus seguidores. Faça pelo menos 3 stories por dia.</p></div></div>
-<h2 class="ah2">Hashtags em 2026 — como usar certo</h2>
-<p class="ap">Hashtags muito grandes (#tattoo tem 200 milhões de posts) quase não trazem resultado. Use uma mistura estratégica:</p>
-<ul class="checklist"><li>3-5 hashtags grandes: #tattoo #tatuagem #tattooartist</li><li>5-7 hashtags de nicho: #blackworktattoo #finelinetattoo #realismotatuagem</li><li>3-5 hashtags locais: #tatuagembh #tatuadorbh #tattoobelohorizonte</li><li>2-3 hashtags de estilo: #botanicaltattoo #dotworktattoo</li></ul>
-<div class="destaque"><p><strong>Estratégia anti-shadowban:</strong> Não use os mesmos hashtags em todos os posts. Crie 3-4 listas de hashtags diferentes e alterne entre elas. O Instagram penaliza contas que usam exatamente as mesmas hashtags repetidamente.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
-    {t:'Reels que viralizam e convertem para tatuadores', c:`
-<div class="aula-tag">Módulo 4 · Aula 15</div>
-<h1 class="aula-h1">Reels que Viralizam <span>e Convertem para Tatuadores</span></h1>
-<p class="aula-intro">Não basta fazer Reels — precisa fazer Reels certos. Existem fórmulas que funcionam especificamente para tatuadores e que convertem visualização em orçamento. Nessa aula, você aprende cada uma delas.</p>
-<h2 class="ah2">Os 5 formatos de Reels que mais funcionam para tatuadores</h2>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Timelapse da sessão completa (mais popular)</h4><p>Grave toda a sessão e acelere para 30-60 segundos. Adicione música trending (veja sons em alta no Instagram). Legenda: "X horas de sessão em X segundos". Sempre alcança bem.</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Antes e depois com transição (mais engajamento)</h4><p>Foto do esboço ou pele limpa → transição → tattoo finalizada. Pode usar a transição de "virar a câmera" ou um corte simples. Extremamente compartilhável.</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Close em detalhes (mais salvamentos)</h4><p>Vídeo lento focando nos detalhes da tatuagem com música suave. Pessoas salvam para mostrar ao tatuador como referência. Funciona muito para fineline, realismo e geométrico.</p></div></div>
-<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Processo do desenho ao resultado (mais autoridade)</h4><p>Do esboço em papel/tablet até a tatuagem finalizada. Demonstra sua habilidade artística antes mesmo de começar a tatuar. Gera muito comentário e pergunta de orçamento.</p></div></div>
-<div class="passo"><div class="passo-n">5</div><div class="passo-body"><h4>Educativo curto (mais compartilhamento)</h4><p>"3 coisas que você NÃO deve fazer após tatuar" ou "Por que sua tatuagem desbotou? Entenda." Com narração em voz ou texto na tela. Gerado mais alcance orgânico do que portfólio.</p></div></div>
-<h2 class="ah2">Edição de Reels para não editores</h2>
-<ul class="checklist"><li><strong>CapCut (gratuito):</strong> Melhor aplicativo para editar Reels no celular. Templates prontos que salvam tempo.</li><li><strong>InShot:</strong> Simples e rápido para edições básicas.</li><li><strong>Videoleap:</strong> Para efeitos mais sofisticados.</li><li><strong>Lightroom Mobile:</strong> Para corrigir as cores antes de editar o vídeo.</li></ul>
-<h2 class="ah2">CTA (Call to Action) em Reels</h2>
-<p class="ap">Todo Reel deve terminar com um chamado para ação claro. Não deixe o viewer sem saber o que fazer:</p>
-<ul class="checklist"><li>Orçamento: "Link na bio para falar comigo 📩"</li><li>Seguidores: "Siga para mais trabalhos assim 🖤"</li><li>Interação: "Me conta: você faria uma igual? 👇"</li><li>Salvamento: "Salva para mostrar ao seu tatuador"</li></ul>
-<div class="destaque"><p><strong>Consistência acima de tudo:</strong> Um Reel fraco publicado é sempre melhor que um Reel perfeito não publicado. Comece simples, aprenda com os dados, melhore gradualmente. O algoritmo favorece contas que publicam regularmente acima de contas que publicam raramente mas de forma "perfeita".</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
-    {t:'TikTok para tatuadores: vale a pena?', c:`
-<div class="aula-tag">Módulo 4 · Aula 16</div>
-<h1 class="aula-h1">TikTok para Tatuadores: <span>Vale a Pena?</span></h1>
-<p class="aula-intro">TikTok é a plataforma com maior alcance orgânico em 2026. Uma conta nova pode alcançar 100 mil pessoas no primeiro mês se o conteúdo for bom. Para tatuadores, o potencial é enorme — mas a estratégia é diferente do Instagram.</p>
-<h2 class="ah2">TikTok vs Instagram: entendendo as diferenças</h2>
-<ul class="checklist"><li><strong>Algoritmo:</strong> TikTok mostra seu conteúdo para não-seguidores desde o primeiro post. Instagram favorece seguidores existentes.</li><li><strong>Público:</strong> TikTok tem público mais jovem (18-30 anos), Instagram mais equilibrado (18-45 anos).</li><li><strong>Formato:</strong> TikTok é quase 100% vídeo vertical. Instagram aceita foto, carrossel, vídeo.</li><li><strong>Conversão:</strong> Instagram converte melhor em cliente imediato. TikTok constrói audiência mas tem caminho mais longo até o orçamento.</li><li><strong>Vida do conteúdo:</strong> Posts do TikTok podem viralizar semanas depois. Instagram tem shelf-life curto (24-48h).</li></ul>
-<h2 class="ah2">Formatos que funcionam no TikTok para tatuadores</h2>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>GRWM do tatuar (Get Ready With Me)</h4><p>Preparação do estúdio, dos materiais, chegada do cliente. Conteúdo humanizado que gera forte conexão emocional.</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>FAQ em vídeo curto (15-30s cada)</h4><p>"Quanto tempo cicatriza?" "Dói muito?" "Posso tatuar sobre cicatriz?" Cada pergunta é um vídeo. Alta chance de viralizar pois responde dúvidas de muitos.</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Duets e trends adaptadas</h4><p>Pegar uma trend viral e adaptar para o universo da tatuagem. Exemplo: "coisas que só tatuadores entendem".</p></div></div>
-<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Antes e depois dramático</h4><p>O antes-e-depois com transição no TikTok tem altíssimo engajamento. Cover-ups especialmente chamam muita atenção.</p></div></div>
-<h2 class="ah2">Vale a pena fazer os dois?</h2>
-<p class="ap">Sim — mas com uma estratégia clara. Crie o conteúdo uma vez (principalmente Reels/TikTok) e distribua nas duas plataformas. O mesmo vídeo pode ir para Instagram Reels e TikTok com pequenas adaptações.</p>
-<div class="alerta"><p><strong>Atenção:</strong> Vídeos do TikTok com a marca d'água do TikTok não performam bem quando repostados no Instagram. Use CapCut para exportar sem marca d'água ou grave versões limpas para cada plataforma.</p></div>
-<div class="dica"><p><strong>Prioridade recomendada:</strong> Se você está começando agora, foque 80% do esforço no Instagram (onde a conversão em cliente é mais direta) e 20% no TikTok para crescimento de audiência.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
-  ]},
-  {mod:'MÓDULO 5 — VENDAS SEM PARECER VENDEDOR', aulas:[
-    {t:'A arte de fechar sem pressionar', c:`
-<div class="aula-tag">Módulo 5 · Aula 17</div>
-<h1 class="aula-h1">A Arte de Fechar <span>sem Pressionar</span></h1>
-<p class="aula-intro">Vender tatuagem premium não é sobre pressionar ou convencer. É sobre criar o ambiente certo onde o cliente se convence sozinho. Quando o processo está bem estruturado, o fechamento é natural.</p>
-<h2 class="ah2">Por que tatuadores não gostam de "vender"</h2>
-<p class="ap">Artistas em geral têm uma relação complicada com vendas. A palavra vende associada à manipulação, pressão ou desonestidade. Mas vender de forma ética é simplesmente ajudar o cliente a tomar a melhor decisão para ele. Quando você acredita profundamente no valor do que oferece, não precisa pressionar.</p>
-<h2 class="ah2">As 4 objeções mais comuns e como superar</h2>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>"Tá caro" — objeção de preço</h4><p>Primeiro: não justifique. Pergunte: "Caro em relação a quê?" Muitas vezes o cliente está comparando com trabalhos de nível diferente. Explique o que está incluso, a qualidade do material, o tempo de dedicação.</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>"Vou pensar" — objeção de decisão</h4><p>"Claro! O que ainda está em dúvida? Às vezes consigo ajudar a esclarecer." Ou: "Entendo. Só aviso que minha agenda para essa data tem mais uma vaga — se precisar segurar, pode me falar hoje?"</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>"Vi mais barato em outro lugar" — objeção comparativa</h4><p>"Cada tatuador tem um posicionamento diferente. Meu trabalho é feito com materiais premium e X anos de especialização nesse estilo. O que pesa mais para você: preço ou resultado final?"</p></div></div>
-<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>"Não tenho o valor agora" — objeção financeira</h4><p>"Entendo. Posso parcelar em X vezes no cartão sem juros. Ou posso reservar uma data no mês que vem quando o orçamento estiver mais folgado. Qual funciona melhor para você?"</p></div></div>
-<h2 class="ah2">A técnica do silêncio</h2>
-<p class="ap">Após apresentar o orçamento ou responder uma objeção, cale a boca. Sério. Quem fala primeiro depois de dar um preço perde a negociação. Deixe o silêncio trabalhar. O cliente vai processar, e muitas vezes a pressão natural do silêncio gera uma resposta positiva.</p>
-<h2 class="ah2">Urgência legítima — como usar sem manipular</h2>
-<ul class="checklist"><li>Agenda real com vagas limitadas: "Tenho 2 vagas este mês para projetos novos"</li><li>Material específico: "Preciso pedir essa tinta especial com uma semana de antecedência"</li><li>Lista de espera: "Tenho X pessoas na lista para essa data. Se confirmar hoje, fico feliz em reservar para você"</li></ul>
-<div class="destaque"><p><strong>Princípio fundamental:</strong> Nunca crie urgência falsa. O cliente percebe e perde confiança. Urgência legítima (agenda realmente cheia, material a pedir) é poderosa. Urgência fabricada é manipulação que destrói relacionamento.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
-    {t:'Como montar um portfólio que vende por você', c:`
-<div class="aula-tag">Módulo 5 · Aula 18</div>
-<h1 class="aula-h1">Como Montar um Portfólio <span>que Vende por Você</span></h1>
-<p class="aula-intro">Seu portfólio trabalha 24 horas quando você dorme. Um portfólio bem construído filtra clientes, justifica preços e fecha vendas antes mesmo do primeiro contato. Aprenda a construir o seu estrategicamente.</p>
-<h2 class="ah2">O erro mais comum de portfólio</h2>
-<p class="ap">Mostrar tudo. Um portfólio com 500 fotos de todos os estilos, todos os níveis de trabalho, fotos de diferentes anos de qualidade variada não transmite especialização. Transmite generalismo — e generalistas cobram menos.</p>
-<h2 class="ah2">Princípio da curadoria</h2>
-<p class="ap">30 trabalhos excelentes > 300 trabalhos medianos. Seu portfólio deve mostrar apenas o top 10% do que você faz. Selecione com critério:</p>
-<ul class="checklist"><li>Apenas trabalhos que você ficou orgulhoso ao finalizar</li><li>Apenas fotos com boa iluminação e foco correto</li><li>Preferencialmente trabalhos cicatrizados (resultado final) </li><li>Variedade de tamanho e região mas coerência de estilo</li><li>Nada com mais de 3-5 anos (a menos que seja um trabalho excepcional)</li></ul>
-<h2 class="ah2">Portfólio físico: ainda vale?</h2>
-<p class="ap">Para atendimentos presenciais, um portfólio físico bem produzido agrega muito à percepção de valor. Não precisa ser caro:</p>
-<ul class="checklist"><li>Album fotográfico profissional (CEWE, Photobook) com suas melhores fotos impressas</li><li>Ou iPad dedicado com pasta de fotos organizada por estilo</li><li>Na recepção do estúdio para o cliente folhear enquanto espera</li><li>Atualizado a cada 3-6 meses com novos trabalhos</li></ul>
-<h2 class="ah2">Portfólio digital: estrutura ideal</h2>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Página inicial do Instagram/site</h4><p>Os 9-12 posts mais recentes e melhores. Esta é a primeira impressão digital.</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Destaques organizados por estilo</h4><p>Realismo | Blackwork | Old School | Fine Line. Cliente que busca estilo específico encontra fácil.</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Álbum no Google Fotos ou Behance</h4><p>Para enviar link quando o cliente pede para "ver mais trabalhos".</p></div></div>
-<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Site próprio (opcional mas poderoso)</h4><p>Para tatuadores premium que querem posicionamento máximo. Um site bem feito cobra mais caro do que um que só tem Instagram.</p></div></div>
-<div class="exemplo"><div class="exemplo-label">Como apresentar o portfólio no orçamento</div><p>"Vou te mandar o link com meu portfólio completo separado por estilo para você ter ideia do meu trabalho. Quando quiser conversar mais sobre o projeto, é só me chamar aqui 😊" — [link do álbum ou Instagram]</p></div>
-<div class="destaque"><p><strong>Portfólio em construção:</strong> Se você está começando ou mudando de estilo, seja transparente. "Estou me especializando em realismo e esse tipo de projeto vai receber minha dedicação total" é melhor do que fingir um portfólio que não tem.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
-    {t:'Depoimentos e prova social que convertem', c:`
-<div class="aula-tag">Módulo 5 · Aula 19</div>
-<h1 class="aula-h1">Depoimentos e Prova Social <span>que Convertem</span></h1>
-<p class="aula-intro">Um depoimento autêntico vale mais que qualquer post de portfólio. As pessoas confiam mais em outras pessoas do que em marcas. Aprenda a coletar, usar e distribuir sua prova social de forma estratégica.</p>
-<h2 class="ah2">Por que depoimentos são tão poderosos</h2>
-<p class="ap">Quando alguém compra uma tatuagem premium (R$500+), existe um medo natural: "Vale a pena? O trabalho vai ficar como na foto?" Depoimentos de pessoas reais que passaram por isso e ficaram satisfeitas diminuem esse medo e facilitam a decisão.</p>
-<h2 class="ah2">Como pedir o depoimento da forma certa</h2>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Timing perfeito: logo após a sessão</h4><p>O cliente acabou de ver a tatuagem finalizada, está eufórico. Esse é o momento de pedir. "Você pode me mandar uma mensagenzinha sobre a experiência? Para mim é muito importante 🙏"</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Pergunte aspectos específicos</h4><p>"Me conta como foi o atendimento, se você se sentiu bem durante a sessão e o que achou do resultado." Depoimento específico é mais poderoso que "adorei, super indico".</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Facilite o processo</h4><p>Envie as perguntas por WhatsApp para o cliente responder no próprio aplicativo, quando quiser. Não force uma review no Google na hora — pode parecer pressão.</p></div></div>
-<h2 class="ah2">Onde usar os depoimentos</h2>
-<ul class="checklist"><li>Destaques do Instagram (crie um highlight "CLIENTES")</li><li>Stories periódicos (uma vez por semana está ótimo)</li><li>No orçamento: "Veja o que nossos clientes falam →"</li><li>No site (se tiver)</li><li>No Google Meu Negócio (peça avaliações lá também — aparecem no Google)</li></ul>
-<h2 class="ah2">A prova social visual — mais poderosa ainda</h2>
-<p class="ap">Uma foto de um cliente feliz mostrando a tatuagem nova, com uma legenda entusiasmada, vale mais que 10 depoimentos escritos. Incentive clientes a postarem e te marcarem:</p>
-<ul class="checklist"><li>Peça para o cliente postar e te marcar assim que chegar em casa</li><li>"Se você postar sua tattoo e me marcar, repostarei nos meus stories com muito amor 🙏"</li><li>Crie um hashtag do seu estúdio (#centraltattoobh) e incentive seu uso</li><li>Reposte os conteúdos de clientes (sempre com autorização)</li></ul>
-<div class="destaque"><p><strong>Google Meu Negócio:</strong> Se você ainda não criou seu perfil no Google Meu Negócio, faça isso hoje. Avaliações no Google aparecem quando alguém pesquisa "tatuador em [sua cidade]" e têm enorme impacto em novos clientes locais.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
-  ]},
-  {mod:'MÓDULO 6 — GESTÃO PROFISSIONAL DO NEGÓCIO', aulas:[
-    {t:'Organizando o financeiro do estúdio com a planilha Central Tattoo', c:`
-<div class="aula-tag">Módulo 6 · Aula 20</div>
-<h1 class="aula-h1">Organizando o Financeiro <span>com a Planilha Central Tattoo</span></h1>
-<p class="aula-intro">Um tatuador que não controla o financeiro é como um estúdio sem agenda — o caos é inevitável. Nessa aula você aprende a usar a planilha Central Tattoo para ter clareza total sobre dinheiro que entra, sai e sobra.</p>
-<h2 class="ah2">Os 3 grandes erros financeiros de tatuadores</h2>
-<ul class="checklist"><li><strong>Misturar conta pessoal e do estúdio:</strong> Você nunca sabe se o negócio dá lucro ou se está no prejuízo coberto pela sua conta pessoal.</li><li><strong>Não registrar todas as entradas:</strong> PIX de R$50 de retoque, dinheiro em espécie, permuta — tudo precisa ser registrado.</li><li><strong>Não separar pró-labore de lucro:</strong> Você é dono mas também é funcionário. Separe o que você paga a si mesmo (pró-labore) do que fica no negócio (lucro).</li></ul>
-<h2 class="ah2">Configurando a planilha Central Tattoo — passo a passo</h2>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Aba Financeiro: registre todas as entradas e saídas</h4><p>Toda sessão concluída vai como Receita. Toda compra de material vai como Custo Variável. Aluguel, energia, internet vão como Fixo. Marketing/Ads vai como Marketing.</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Aba Calculadora: use para cada orçamento novo</h4><p>Antes de mandar qualquer orçamento, passe pela calculadora. Coloque horas estimadas, custo de materiais e margem desejada. Nunca mais vai cobrar abaixo do custo.</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Aba Dashboard: revise toda semana</h4><p>Segunda-feira de manhã, 10 minutos olhando o Dashboard. Faturamento vs meta, sessões vs meta, ticket médio. Esses dados guiam as decisões da semana.</p></div></div>
-<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Aba Metas: defina no início de cada mês</h4><p>Meta de faturamento, número de sessões, ticket médio desejado. Com meta definida, você sabe no dia 15 se vai bater ou se precisa agir.</p></div></div>
-<h2 class="ah2">Separação obrigatória: as 4 contas</h2>
-<ul class="checklist"><li><strong>Conta Operacional:</strong> Onde o dinheiro do estúdio entra e sai (aluguel, materiais)</li><li><strong>Pró-labore:</strong> Transferência fixa mensal para sua conta pessoal (seu salário como artista)</li><li><strong>Reserva de emergência:</strong> 10% de tudo que entra. Meta: 3 meses de custos fixos</li><li><strong>Investimento/Crescimento:</strong> Para cursos, equipamentos novos, tráfego pago</li></ul>
-<div class="exemplo"><div class="exemplo-label">Exemplo de distribuição mensal</div><p>Faturamento: R$8.000<br>(-) Custos do estúdio: R$2.500<br>(=) Resultado operacional: R$5.500<br>(-) Reserva de emergência (10%): R$800<br>(-) Investimento/crescimento (5%): R$400<br>(=) Disponível para pró-labore: R$4.300</p></div>
-<div class="destaque"><p><strong>Regra de ouro:</strong> Nunca retire mais do que 70% do faturamento bruto como pró-labore. Os outros 30% são oxigênio do negócio — para emergências, crescimento e meses ruins.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
-    {t:'Gestão de agenda: otimizando o tempo e maximizando faturamento', c:`
-<div class="aula-tag">Módulo 6 · Aula 21</div>
-<h1 class="aula-h1">Gestão de Agenda: <span>Otimizando Tempo e Faturamento</span></h1>
-<p class="aula-intro">Agenda vazia é dinheiro perdido. Agenda muito cheia é burnout garantido. O equilíbrio ideal entre essas duas realidades é o que você vai aprender a encontrar nessa aula.</p>
-<h2 class="ah2">Calculando a capacidade ideal da sua agenda</h2>
-<p class="ap">Antes de tudo, seja honesto sobre seu limite saudável. Quantas horas de sessão você consegue fazer por dia sem perder qualidade ou se esgotar fisicamente? A maioria dos tatuadores responde: 6-8 horas. Mas na prática, 5-6 horas de tatuar é o limite para manter consistência.</p>
-<ul class="checklist"><li>5h sessão/dia × 5 dias × 4 semanas = 100h/mês de tatuar</li><li>A 250/h: faturamento potencial = R$25.000/mês</li><li>A 350/h: faturamento potencial = R$35.000/mês</li><li><strong>Mas:</strong> você não vai preencher 100% da agenda todo mês. Calcule com 70-80%: 70-80h/mês é realista</li></ul>
-<h2 class="ah2">Tipos de sessão e como balancear a agenda</h2>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Sessões longas (4-8h)</h4><p>Maior faturamento por dia. Menor desgaste em troca de horário (clientes que fazem agendamento com antecedência). Ideal: 2-3 sessões longas por semana.</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Sessões médias (2-3h)</h4><p>Equilíbrio entre faturamento e flexibilidade. Ideal para preencher gaps na agenda.</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Sessões curtas (1-1,5h)</h4><p>Retoques, pequenas tattoos, ajustes. Útil para preencher buracos na agenda, mas cuidado: troca de cliente, preparação e limpeza consomem tempo desproporcional.</p></div></div>
-<h2 class="ah2">Política de cancelamento e sinal</h2>
-<p class="ap">Cancelamentos de última hora são o maior ladrão de faturamento de tatuadores. A solução é simples e definitiva:</p>
-<ul class="checklist"><li>Sinal de 40-50% obrigatório para confirmar qualquer sessão</li><li>Sinal não reembolsável se cancelar com menos de 48h</li><li>Reagendamento permitido até 72h antes, uma vez por sessão</li><li>Cancelamento com mais de 72h: sinal transferido para a próxima sessão</li></ul>
-<h2 class="ah2">Otimizando a agenda com lista de espera</h2>
-<p class="ap">Mantenha sempre uma lista de espera com 5-10 pessoas que querem sessão. Quando houver um cancelamento, você tem clientes prontos para preencher. Isso minimiza agenda vazia.</p>
-<div class="exemplo"><div class="exemplo-label">Comunicação da política no orçamento</div><p>"Para confirmar sua vaga, preciso de R$[valor] de sinal via PIX ([chave]). Em caso de cancelamento com menos de 48h, o sinal não é devolvido mas pode ser usado para reagendar. Cancelamentos com mais de 72h são remarcados sem custos. Funciona assim?"</p></div>
-<div class="destaque"><p><strong>Dado importante:</strong> Tatuadores que exigem sinal têm taxa de no-show de apenas 5-8%, contra 30-40% dos que não exigem. A diferença no faturamento anual é enorme.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
-    {t:'Estoque, fornecedores e controle de material', c:`
-<div class="aula-tag">Módulo 6 · Aula 22</div>
-<h1 class="aula-h1">Estoque, Fornecedores <span>e Controle de Material</span></h1>
-<p class="aula-intro">Falta de material no meio de uma sessão é um pesadelo profissional. Comprar sem controle é jogar dinheiro fora. A gestão de estoque bem feita garante que você nunca fique sem o que precisa e otimiza seus custos.</p>
-<h2 class="ah2">O custo real de material por sessão</h2>
-<p class="ap">A maioria dos tatuadores não sabe exatamente quanto gasta de material por hora de sessão. Sem esse número, é impossível precificar corretamente. Vamos calcular:</p>
-<ul class="checklist"><li>Agulhas (3-5 trocas por sessão): R$6-15</li><li>Tintas utilizadas (estimativa): R$15-50 dependendo do trabalho</li><li>Luvas (3-4 pares): R$3-6</li><li>Plástico, película, papel: R$8-15</li><li>Sabão, desinfetante: R$3-5</li><li><strong>Total por sessão de 4h: R$35-91</strong> — calcule o SEU número real</li></ul>
-<h2 class="ah2">Estabelecendo ponto de reposição</h2>
-<p class="ap">Para cada material, defina duas quantidades: estoque mínimo (quando você precisa pedir) e estoque ideal (o que você mantém normalmente).</p>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Estoque mínimo</h4><p>Para agulhas: mínimo 30 unidades. Para tinta preta: mínimo 3 frascos. Quando chegar nesse número, já acionar pedido.</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Estoque ideal</h4><p>Para agulhas: 100+ unidades. Para tinta preta: 8-10 frascos. Isso dá conforto sem encalhar capital desnecessariamente.</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Registro na planilha</h4><p>Use a aba Estoque da Central Tattoo. O sistema emite alerta automático quando chegar no mínimo.</p></div></div>
-<h2 class="ah2">Fornecedores confiáveis em BH e online</h2>
-<ul class="checklist"><li><strong>Distribuidores nacionais:</strong> Kola Tattoo, Inkcolor, Sunskin Brasil, Electric Ink</li><li><strong>Importados (para material premium):</strong> World Famous Ink, Eternal Ink, Fusion Ink</li><li><strong>Máquinas e acessórios:</strong> Evoke, Cheyenne (revendas autorizadas)</li><li><strong>Compra coletiva:</strong> Junte com outros tatuadores para comprar em quantidade e dividir frete/custo</li></ul>
-<h2 class="ah2">Reduzindo custo sem reduzir qualidade</h2>
-<ul class="checklist"><li>Compre tintas em quantidade (kit completo vs frascos avulsos = 20-30% mais barato)</li><li>Agulhas em caixa de 50 ou 100 (vs avulso)</li><li>Negocie prazo com fornecedor fixo (você traz volume, ele dá condição melhor)</li><li>Não economize em itens de biossegurança (luvas, plásticos, descarte) — nunca vale o risco</li></ul>
-<div class="destaque"><p><strong>Inventário semestral:</strong> A cada 6 meses, faça um inventário completo do estoque. Some o valor de tudo que está guardado. Esse número entra no seu balanço como ativo — muitos tatuadores se surpreendem com quanto capital está parado em estoque.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
-  ]},
-  {mod:'MÓDULO 7 — CRESCIMENTO E EXPANSÃO', aulas:[
-    {t:'Expansão: quando e como contratar outro tatuador', c:`
-<div class="aula-tag">Módulo 7 · Aula 23</div>
-<h1 class="aula-h1">Expansão: Quando e Como <span>Contratar Outro Tatuador</span></h1>
-<p class="aula-intro">Chega um momento em que a agenda está cheia, você está recusando clientes e quer crescer. A solução é expansão — mas feita errado pode arruinar tudo que você construiu. Aqui está o guia completo.</p>
-<h2 class="ah2">Sinais de que você está pronto para expandir</h2>
-<ul class="checklist"><li>Agenda cheia com 3+ semanas de antecedência por pelo menos 3 meses seguidos</li><li>Você recusa clientes regularmente (não por falta de fit, mas por falta de agenda)</li><li>Financeiro estável com pelo menos 6 meses de reserva</li><li>Processos documentados: você consegue explicar como faz tudo para outro profissional?</li><li>Você tem um espaço físico que comporta mais de uma estação de trabalho</li></ul>
-<h2 class="ah2">Modelo de parceria vs modelo de contratação</h2>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Modelo de parceria (comissão)</h4><p>O tatuador parceiro usa sua estrutura e paga uma porcentagem (30-50%) das sessões que faz. Você não tem vínculo empregatício, o parceiro é autônomo. Mais simples juridicamente, menos custo fixo.</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Modelo de aluguel de espaço</h4><p>O tatuador parceiro paga um aluguel fixo mensal pela estação. Independente de quanto ele fature, você recebe o aluguel. Mais previsível para você, mais risco para ele.</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Modelo de contratação CLT</h4><p>Você contrata o tatuador como empregado, paga salário fixo. Mais custo (encargos, FGTS, INSS) mas mais controle. Recomendado apenas quando o volume é alto e consistente.</p></div></div>
-<h2 class="ah2">Como escolher o tatuador certo para seu estúdio</h2>
-<ul class="checklist"><li><strong>Estilo complementar, não idêntico:</strong> Você faz realismo? Contrate alguém excelente em fineline. Os clientes do estúdio terão mais opções.</li><li><strong>Perfil profissional alinhado:</strong> Pontualidade, cuidado com higiene, comunicação respeitosa com clientes.</li><li><strong>Valores similares:</strong> Um parceiro que corta preços ou trata mal cliente vai prejudicar sua marca.</li><li><strong>Portfólio honesto:</strong> Peça para ver fotos cicatrizadas, não apenas fotos recentes.</li></ul>
-<h2 class="ah2">O contrato de parceria — o que não pode faltar</h2>
-<ul class="checklist"><li>Percentual de divisão das receitas (clareza total)</li><li>Quem é responsável por quais custos</li><li>Regras de uso do espaço e materiais compartilhados</li><li>Cláusula de não-concorrência (distância mínima para abrir estúdio próprio)</li><li>Prazo de aviso para encerrar a parceria (recomendado: 60 dias)</li><li>Regras para clientes captados durante a parceria</li></ul>
-<div class="destaque"><p><strong>Atenção jurídica:</strong> Antes de assinar qualquer parceria, consulte um contador ou advogado especializado em MEI/ME. Uma parceria mal documentada pode virar um problema trabalhista caro.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
-    {t:'Convenções de tatuagem: como usar para crescer', c:`
-<div class="aula-tag">Módulo 7 · Aula 24</div>
-<h1 class="aula-h1">Convenções de Tatuagem: <span>Como Usar para Crescer</span></h1>
-<p class="aula-intro">Convenções são os maiores eventos de networking e vitrine do mercado de tatuagem. Participar estrategicamente pode alavancar sua carreira, expandir sua base de clientes e validar seu posicionamento premium.</p>
-<h2 class="ah2">Por que convenções valem o investimento</h2>
-<ul class="checklist"><li>Exposição para um público altamente qualificado (pessoas que amam tatuagem e estão dispostas a gastar)</li><li>Networking com outros artistas e possibilidade de parcerias</li><li>Premiações que valem ouro em marketing ("1º lugar em Realismo na Convenção X")</li><li>Aprendizado observando como artistas de referência trabalham e se posicionam</li><li>Clientes de outras cidades que depois seguem nas redes e fazem sessões presenciais</li></ul>
-<h2 class="ah2">Como participar com estratégia</h2>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Defina o objetivo principal</h4><p>Premiação (leve seu projeto mais impactante), networking (foque em conectar com artistas específicos), ou captação de clientes (prepare orçamentos rápidos e material de divulgação).</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Prepare o booth (sua estação)</h4><p>Visual coerente com sua marca. Display do portfólio. Cartões de visita premium. QR code para seu Instagram. A estação é uma extensão da sua identidade visual.</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Documente tudo</h4><p>Fotos e vídeos do processo, do booth, dos prêmios, dos bastidores. Convenção gera conteúdo para 2-3 semanas nas redes sociais.</p></div></div>
-<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Follow-up pós-convenção</h4><p>Todas as pessoas que demonstraram interesse ou deixaram contato recebem uma mensagem em até 48h após o evento.</p></div></div>
-<h2 class="ah2">Principais convenções em Minas Gerais e nacional</h2>
-<ul class="checklist"><li>BH Tattoo Convention (anual em BH — a maior de MG)</li><li>São Paulo Tattoo Convention (a maior do Brasil)</li><li>Convenção de Tattoo de Uberlândia</li><li>Tattoo Week Rio</li><li>Convenções regionais das cidades do interior — às vezes mais rentáveis por menor concorrência</li></ul>
-<h2 class="ah2">Participar como expositor ou como visitante?</h2>
-<p class="ap">Nos primeiros 1-2 anos de carreira, vá como visitante. Observe, aprenda, conecte. A partir do 3º ano e com portfólio sólido, comece como expositor em convenções menores regionais antes de ir para as grandes.</p>
-<div class="destaque"><p><strong>ROI de convenção:</strong> Uma convenção bem preparada pode gerar R$3.000-8.000 em faturamento no próprio evento + 10-20 leads qualificados para sessões futuras. Sem contar o valor de marca de eventuais premiações.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
-  ]},
-  {mod:'MÓDULO 8 — PLANO DE AÇÃO E CRESCIMENTO', aulas:[
-    {t:'Plano 90 dias para dobrar o ticket médio', c:`
-<div class="aula-tag">Módulo 8 · Aula 25</div>
-<h1 class="aula-h1">Plano 90 Dias para <span>Dobrar o Ticket Médio</span></h1>
-<p class="aula-intro">Com a mentalidade certa, as ferramentas, o processo e o plano que você aprendeu neste curso, aqui está o roteiro prático semana a semana para dobrar seu ticket médio em 90 dias.</p>
-<h2 class="ah2">Mês 1 — Fundação (Semanas 1-4)</h2>
-<ul class="checklist"><li><strong>Semana 1:</strong> Calcule seu preço real pela Calculadora Central Tattoo. Defina sua meta de ticket médio ideal.</li><li><strong>Semana 2:</strong> Refaça (ou construa) identidade visual — logo, paleta, templates do Canva para posts.</li><li><strong>Semana 3:</strong> Fotografe 10-15 melhores trabalhos com boa iluminação. Atualize o Instagram com novas fotos.</li><li><strong>Semana 4:</strong> Reescreva a bio do Instagram com posicionamento premium. Configure lista de espera no WhatsApp.</li></ul>
-<h2 class="ah2">Mês 2 — Transição (Semanas 5-8)</h2>
-<ul class="checklist"><li><strong>Semana 5:</strong> Comece testando preços 30-40% acima do atual para novos clientes. Documente as reações.</li><li><strong>Semana 6:</strong> Implante a política de sinal obrigatório. Comunique clientes que já têm sessões marcadas.</li><li><strong>Semana 7:</strong> Implante o fluxo de atendimento premium (scripts do Módulo 3). Responda a todos os leads com o processo novo.</li><li><strong>Semana 8:</strong> Avalie os resultados: quantos fecharam? Qual foi a objeção mais comum? Ajuste a comunicação.</li></ul>
-<h2 class="ah2">Mês 3 — Consolidação (Semanas 9-12)</h2>
-<ul class="checklist"><li><strong>Semana 9:</strong> Preços 60-80% acima do ponto de partida para todos os novos projetos.</li><li><strong>Semana 10:</strong> Publique os primeiros depoimentos coletados. Use nos stories e destaques.</li><li><strong>Semana 11:</strong> Analise o Dashboard da Central Tattoo — compare faturamento dos 3 meses. Calcule o crescimento real.</li><li><strong>Semana 12:</strong> Defina o próximo ciclo de 90 dias com metas maiores.</li></ul>
-<h2 class="ah2">Indicadores para acompanhar semana a semana</h2>
-<ul class="checklist"><li>Ticket médio das sessões fechadas</li><li>Taxa de fechamento de orçamentos (% de leads que viraram cliente)</li><li>Número de leads gerados pelo Instagram</li><li>Faturamento semanal vs meta semanal</li><li>Número de cancelamentos (redução com política de sinal)</li></ul>
-<div class="destaque"><p><strong>Lembre-se:</strong> O objetivo não é ter agenda sempre lotada. É ter uma agenda com os clientes certos pagando o preço certo. Agenda com 15 sessões a R$600 (R$9.000) supera em tudo uma agenda com 25 sessões a R$300 (R$7.500). Menos trabalho, mais dinheiro, mais satisfação.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
-    {t:'Construindo sua marca pessoal de longo prazo', c:`
-<div class="aula-tag">Módulo 8 · Aula 26</div>
-<h1 class="aula-h1">Construindo sua Marca Pessoal <span>de Longo Prazo</span></h1>
-<p class="aula-intro">Marcas pessoais fortes cobram mais, trabalham menos e têm clientes que os buscam ativamente. Este é o objetivo final de todo o posicionamento que você aprendeu: ser reconhecido como referência no seu estilo.</p>
-<h2 class="ah2">O que é marca pessoal para um tatuador</h2>
-<p class="ap">Marca pessoal é a soma de como as pessoas descrevem você quando você não está na sala. "Aquele que faz realismo incrível em BH." "O fineline artístico." "A especialista em botanical tattoo." Quando você tem uma marca pessoal forte, os clientes certos te encontram — não o contrário.</p>
-<h2 class="ah2">Os 5 elementos de uma marca pessoal forte</h2>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>Estilo reconhecível</h4><p>Quando alguém vê um trabalho seu sem ver sua assinatura, deve reconhecer que é seu. Isso vem de especialização e consistência, não de variedade.</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>História autêntica</h4><p>Por que você começou? O que te move? Qual é o significado de tatuar para você? Artistas com história autêntica conectam emocionalmente com o público.</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Posicionamento claro de nicho</h4><p>Você não atende todo mundo. Você é a escolha óbvia para quem quer [estilo específico + perfil de cliente]. Quanto mais específico, mais autoridade.</p></div></div>
-<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Consistência ao longo do tempo</h4><p>Marca pessoal se constrói em anos, não em semanas. Consistência de qualidade, de estética e de valores ao longo do tempo é o que cria reputação irreversível.</p></div></div>
-<div class="passo"><div class="passo-n">5</div><div class="passo-body"><h4>Comunidade de fãs verdadeiros</h4><p>Não seguidores — fãs. Pessoas que acompanham seu trabalho, que comentam genuinamente, que esperam meses na sua lista de espera, que indicam amigos.</p></div></div>
-<h2 class="ah2">Milestones de construção de marca</h2>
-<ul class="checklist"><li><strong>Ano 1:</strong> Define o nicho, constrói portfólio consistente, alcança 1.000 seguidores reais engajados</li><li><strong>Ano 2-3:</strong> Primeiros 5.000 seguidores, agenda com lista de espera, primeiras premiações em convenção</li><li><strong>Ano 4-5:</strong> Referência local no seu estilo, 10.000+ seguidores, workshops e cursos como nova fonte de renda</li><li><strong>Ano 6+:</strong> Referência nacional, agenda fechada com 3-6 meses de antecedência, preços acima de R$500/hora</li></ul>
-<h2 class="ah2">Diversificação de renda para tatuadores de marca forte</h2>
-<p class="ap">A marca pessoal abre portas além das sessões. Quando você é reconhecido como referência, surgem:</p>
-<ul class="checklist"><li>Workshops presenciais e online (ensinar o que você faz)</li><li>Cursos digitais no nicho de tatuagem</li><li>Conteúdo no YouTube/TikTok monetizado</li><li>Parcerias e endorsement com marcas de material</li><li>Consultoria para outros estúdios</li><li>Venda de arte digital e prints</li></ul>
+  {mod:'MÓDULO 3 — PLANO DE CRESCIMENTO', aulas:[
+    {t:'Plano 90 dias para dobrar o ticket', c:`
+<div class="aula-tag">Módulo 3 · Aula 5 — Final</div>
+<h1 class="aula-h1">Plano 90 dias para <span>dobrar o ticket médio</span></h1>
+<p class="aula-intro">Com a mentalidade certa e as ferramentas que você aprendeu, aqui está o plano concreto para dobrar seu ticket médio em 90 dias sem perder toda sua base de clientes.</p>
+<h2 class="ah2">Mês 1 — Fundação</h2>
+<ul class="checklist">
+  <li>Refazer identidade visual (logo, cores, tipografia)</li>
+  <li>Atualizar bio do Instagram com posicionamento premium</li>
+  <li>Fotografar 10 melhores trabalhos profissionalmente</li>
+  <li>Começar a testar preços 20% mais altos em novos orçamentos</li>
+  <li>Criar tabela de preços clara e enviar por escrito nos orçamentos</li>
+</ul>
+<h2 class="ah2">Mês 2 — Transição</h2>
+<ul class="checklist">
+  <li>Aumentar 40% sobre o preço atual para novos clientes</li>
+  <li>Manter preços antigos apenas para clientes fidelizados</li>
+  <li>Criar política de sinal (40-50% antecipado para confirmar sessão)</li>
+  <li>Implementar o script de atendimento premium no WhatsApp</li>
+  <li>Montar kit de boas-vindas para clientes (cuidados + contato)</li>
+</ul>
+<h2 class="ah2">Mês 3 — Consolidação</h2>
+<ul class="checklist">
+  <li>Preços 60-80% acima do ponto de partida</li>
+  <li>Agenda com 30-40% menos clientes mas faturamento igual ou maior</li>
+  <li>Portfólio selecionado mostrando apenas trabalhos premium</li>
+  <li>Primeiros depoimentos de clientes que pagaram mais e ficaram satisfeitos</li>
+</ul>
 <div style="background:linear-gradient(135deg,var(--d1),var(--d2));border:2px solid rgba(201,151,58,.3);border-radius:16px;padding:36px;text-align:center;margin-top:28px;">
   <div style="font-size:48px;margin-bottom:14px;">💼</div>
-  <h3 style="font-family:'Playfair Display',serif;font-size:22px;color:#fff;margin-bottom:10px;">Parabéns! Você concluiu o curso completo.</h3>
-  <p style="font-size:14px;color:var(--t2);line-height:1.8;margin-bottom:20px;">26 aulas. 8 módulos. Tudo que você precisa para ser o tatuador premium que sempre quis ser. Agora é executar.</p>
+  <h3 style="font-family:'Playfair Display', serif;font-size:22px;color:#fff;margin-bottom:10px;">Curso Concluído!</h3>
+  <p style="font-size:14px;color:var(--t2);line-height:1.8;margin-bottom:20px;">Você tem as ferramentas para cobrar o que vale. Agora é executar.</p>
   <button onclick="concluirAula()" class="btn-concluir" style="padding:14px 28px;font-size:12px;letter-spacing:2px;">✓ CONCLUIR CURSO</button>
 </div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)" disabled>Curso Concluído ✓</button></div>`},
-  ]},
+<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)" disabled>Curso completo ✓</button></div>`}
+  ]}
 ];
 
 // ── LÓGICA DO CURSO ──
@@ -669,7 +303,7 @@ function concluirAula(){
   salvar();
   renderSidebar();
   if(aulaAtual<totalAulas()-1) navAula(1);
-  else{alert('🎉 Parabéns! Você concluiu o curso Branding & Posicionamento Premium!');}
+  else{alert('🎉 Parabéns! Você concluiu o curso Branding & Posicionamento!');}
 }
 
 function salvar(){
