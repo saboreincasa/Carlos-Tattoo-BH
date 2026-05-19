@@ -1,0 +1,5 @@
+/* Carlos Tattoo BH — Styles
+ * Carregar nesta ordem garante precedência correta dos overrides
+ */
+@import url('base.css');
+@import url('overrides.css');
