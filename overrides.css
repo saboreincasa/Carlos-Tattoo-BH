@@ -3037,270 +3037,81 @@ html { scroll-behavior: smooth; }
   .qv2-opts{grid-template-columns:1fr;}
 }
 
-/* ═══════════════════════════════════════════════════════
-   MELHORIAS MOBILE — BLOCO FINAL
-   Aplicado como último bloco para máxima prioridade
-═══════════════════════════════════════════════════════ */
 
-/* ─── HERO MOBILE ─── */
-@media(max-width:768px){
-  #hero{
-    grid-template-columns:1fr !important;
-    min-height:auto !important;
-    padding:100px 20px 60px !important;
-  }
-  .hero-content{order:1;text-align:center;}
-  .hero-photo-wrap,.hero-photo-frame{
-    order:2;display:flex;justify-content:center;
-    margin-top:28px;
-  }
-  .hero-photo-frame img{
-    width:240px !important;height:300px !important;
-    border-radius:24px !important;
-    object-fit:cover !important;
-  }
-  .hero-h1{font-size:clamp(28px,8vw,42px) !important;text-align:center;}
-  .hero-sub{text-align:center;}
-  .hero-badges{justify-content:center;}
-  .hero-ctas{justify-content:center;flex-wrap:wrap;}
-  .hero-ctas a,.hero-ctas button{min-height:52px !important;font-size:13px !important;}
+/* ════════════════════════════════════════════
+   MELHORIAS V7 — Carlos Tattoo BH
+   1. Robô Rabisco único · 2. Cursos = Ebooks
+   3. Formulários fundo claro
+   ════════════════════════════════════════════ */
+
+/* ─── OCULTAR SEGUNDO ROBÔ (chat-ia) ─── */
+#chat-ia-btn { display: none !important; }
+#chat-ia-panel { display: none !important; }
+#chat-ia-panel.open { display: none !important; }
+
+/* ─── CURSOS COM LAYOUT HORIZONTAL (igual Ebooks) ─── */
+.courses-grid {
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 20px !important;
 }
-
-/* ─── SERVIÇOS — 1 COLUNA NO MOBILE ─── */
-@media(max-width:600px){
-  .services-grid{
-    grid-template-columns:1fr !important;
-    gap:16px !important;
-  }
-  .service-card{
-    display:flex !important;
-    flex-direction:column !important;
-  }
-  .service-card .card-content,
-  .service-card .serv-text,
-  .service-card .card-body{
-    display:block !important;
-  }
-  .service-card .card-title,
-  .service-card h3,
-  .service-card .serv-title{
-    font-size:16px !important;
-  }
-  .service-card p,
-  .service-card .serv-desc{
-    display:block !important;
-    font-size:13px !important;
-    line-height:1.6 !important;
-  }
-  .service-card img,.service-card .card-img{
-    height:200px !important;
-    object-fit:cover !important;
-    border-radius:12px 12px 0 0 !important;
-    width:100% !important;
-  }
+.ccard {
+  display: grid !important;
+  grid-template-columns: 220px 1fr !important;
+  min-height: 260px !important;
+  background: linear-gradient(160deg,#1C1208,#0A0702) !important;
+  border: 1px solid rgba(201,168,76,.2) !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
 }
-
-/* ─── BOTÕES CTA — MÍNIMO 48px TOUCH ─── */
-@media(max-width:768px){
-  .cta-btn,.btn-primary,.btn-gold,.nav-wpp,
-  .wpp-btn,.agendar-btn,.cta-wpp,
-  a[href^="https://wa.me"],
-  button[onclick*="wa.me"]{
-    min-height:48px !important;
-    padding-top:12px !important;
-    padding-bottom:12px !important;
-    display:inline-flex !important;
-    align-items:center !important;
-    justify-content:center !important;
+.ccard.feat {
+  grid-column: 1 / -1 !important;
+  grid-template-columns: 300px 1fr !important;
+  min-height: 300px !important;
+  border: 2px solid rgba(201,168,76,.45) !important;
+  box-shadow: 0 8px 36px rgba(201,168,76,.2) !important;
+}
+.ccover {
+  height: auto !important;
+  min-height: 220px !important;
+  position: relative !important;
+}
+.ccover img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+  display: block !important;
+  transition: transform .45s ease !important;
+}
+.ccard:hover .ccover img { transform: scale(1.05) !important; }
+.cbody {
+  padding: 22px 22px 24px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+}
+@media (max-width: 900px) {
+  .courses-grid { grid-template-columns: 1fr !important; }
+  .ccard, .ccard.feat {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
   }
+  .ccard.feat { grid-column: 1 !important; }
+  .ccover { min-height: 200px !important; position: relative !important; }
 }
 
-/* ─── QUIZ — 1 COLUNA NO MOBILE ─── */
-@media(max-width:560px){
-  .quiz-opts,.qv2-opts{
-    grid-template-columns:1fr !important;
-  }
-  .quiz-opt,.qv2-opt{
-    padding:14px 16px !important;
-    font-size:13px !important;
-  }
+/* ─── IMAGENS DOS EBOOKS (sem corte) ─── */
+.ebook-cover { position: relative !important; overflow: hidden !important; }
+.ebook-cover img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+  display: block !important;
+  transition: transform .45s ease !important;
 }
-
-/* ─── NAVEGAÇÃO — LEGIBILIDADE ─── */
-@media(max-width:1100px){
-  .nav-links a{
-    font-size:9.5px !important;
-    padding:6px 7px !important;
-    letter-spacing:.3px !important;
-  }
-}
-@media(max-width:900px){
-  .nav-links a{
-    font-size:8.5px !important;
-    padding:5px 6px !important;
-  }
-}
-
-/* ─── BLOG — CONTRASTE CARDS ─── */
-.bcard{
-  background:rgba(255,255,255,.05) !important;
-  border:1px solid rgba(201,168,76,.12) !important;
-}
-.bcard:hover{
-  background:rgba(255,255,255,.08) !important;
-  border-color:rgba(201,168,76,.25) !important;
-}
-.bcard .btitle{
-  color:#EDE4D4 !important;
-  font-weight:700 !important;
-}
-.bcard .bdesc,.bcard p{
-  color:rgba(237,228,212,.7) !important;
-  line-height:1.6 !important;
-}
-@media(max-width:768px){
-  .blog-grid,.bcards-grid{
-    grid-template-columns:1fr !important;
-  }
-  .bcard.big,.bcard-featured{
-    grid-column:1 !important;
-  }
-}
-
-/* ─── PORTFÓLIO / VÍDEOS MOBILE ─── */
-@media(max-width:600px){
-  .portfolio-grid,.pv-grid,.vid-grid{
-    grid-template-columns:1fr 1fr !important;
-    gap:8px !important;
-  }
-  .portfolio-item,.pv-item,.vid-item{
-    border-radius:12px !important;
-  }
-}
-@media(max-width:400px){
-  .portfolio-grid,.pv-grid,.vid-grid{
-    grid-template-columns:1fr !important;
-  }
-}
-
-/* ─── CURSOS / EBOOKS GRID MOBILE ─── */
-@media(max-width:600px){
-  .cursos-grid,.produtos-grid,.ebooks-grid{
-    grid-template-columns:1fr !important;
-    gap:16px !important;
-  }
-  .curso-card,.produto-card,.ebook-card{
-    max-width:100% !important;
-  }
-}
-
-/* ─── CALCULADORA MOBILE ─── */
-@media(max-width:560px){
-  .calc-grid,.fp-tam-grid{
-    grid-template-columns:1fr 1fr !important;
-  }
-  .calc-result{
-    font-size:clamp(22px,7vw,36px) !important;
-  }
-}
-
-/* ─── ARÉOLA SECTION MOBILE ─── */
-@media(max-width:600px){
-  .areola-hero-wrap{
-    flex-direction:column !important;
-    align-items:center !important;
-  }
-  .areola-hero-img{
-    width:100% !important;
-    max-width:340px !important;
-    height:auto !important;
-  }
-  .areola-content{
-    text-align:center !important;
-  }
-}
-
-/* ─── COBERTURA SECTION MOBILE ─── */
-@media(max-width:600px){
-  .cob-grid,.cover-grid{
-    grid-template-columns:1fr !important;
-  }
-  .cob-before-after{
-    flex-direction:column !important;
-  }
-}
-
-/* ─── TICKER / URGENCY BAR MOBILE ─── */
-@media(max-width:480px){
-  .urg-bar{
-    font-size:11px !important;
-    padding:8px 12px !important;
-  }
-}
-
-/* ─── FOOTER MOBILE ─── */
-@media(max-width:600px){
-  .footer-grid,.footer-cols{
-    grid-template-columns:1fr !important;
-    text-align:center !important;
-  }
-  .footer-social{
-    justify-content:center !important;
-  }
-}
-
-/* ─── SEÇÃO ESTÚDIO / SOBRE MOBILE ─── */
-@media(max-width:600px){
-  .studio-grid,.sobre-grid,.about-grid{
-    grid-template-columns:1fr !important;
-  }
-  .studio-img,.sobre-foto,.about-photo{
-    width:100% !important;
-    max-width:320px !important;
-    margin:0 auto !important;
-    display:block !important;
-    border-radius:20px !important;
-  }
-}
-
-/* ─── DEPOIMENTOS / REVIEWS MOBILE ─── */
-@media(max-width:600px){
-  .reviews-grid,.depo-grid,.testimonials{
-    grid-template-columns:1fr !important;
-  }
-}
-
-/* ─── DRAWER / MENU LATERAL MOBILE ─── */
-.mobile-drawer-overlay{
-  touch-action:none;
-}
-@media(max-width:768px){
-  .mob-drawer{
-    width:85vw !important;
-    max-width:320px !important;
-  }
-}
-
-/* ─── INPUTS E FORMS MOBILE ─── */
-@media(max-width:600px){
-  input,select,textarea{
-    font-size:16px !important; /* evita zoom automático iOS */
-  }
-  .form-grid,.contato-grid{
-    grid-template-columns:1fr !important;
-  }
-  .form-submit,.btn-submit,.enviar-btn{
-    width:100% !important;
-    min-height:52px !important;
-  }
-}
-
-/* ─── ANTI-HORIZONTAL-SCROLL ─── */
-@media(max-width:768px){
-  .hero-decoration,.deco-circle,.bg-decoration{
-    display:none !important;
-  }
-  .ticker-track{
-    animation-duration:25s !important;
-  }
-}
+.ebook-card:hover .ebook-cover img { transform: scale(1.04) !important; }
