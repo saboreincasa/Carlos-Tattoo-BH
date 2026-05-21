@@ -36,18 +36,18 @@ body{font-family:'Poppins', sans-serif;background:#f5f7fb;color:#111827;font-siz
 .c-tag{display:inline-block;background:rgba(201,151,58,.1);border:1px solid rgba(201,151,58,.35);padding:7px 24px;font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:4px;color:#f0c04a;text-transform:uppercase;margin-bottom:24px;position:relative;z-index:1;}
 .c-h1{font-family:'Playfair Display', serif;font-size:clamp(28px,5vw,54px);color:#fff;line-height:1.05;margin-bottom:12px;position:relative;z-index:1;}
 .c-h1 b{color:#f0c04a;}
-.c-sub{font-family:'Poppins', sans-serif;font-size:13px;letter-spacing:3px;color:rgba(201,151,58,.55);margin-bottom:52px;position:relative;z-index:1;}
+.c-sub{font-family:'Poppins', sans-serif;font-size:13px;letter-spacing:3px;color:rgba(201,151,58,.90);margin-bottom:52px;position:relative;z-index:1;}
 .c-div{width:140px;height:1px;background:linear-gradient(90deg,transparent,#f0c04a,transparent);margin:0 auto 38px;}
 .c-autor-name{font-family:'Playfair Display', serif;font-size:20px;color:#f0c04a;margin-bottom:4px;position:relative;z-index:1;}
-.c-autor-role{font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:3px;color:rgba(201,151,58,.45);text-transform:uppercase;position:relative;z-index:1;}
+.c-autor-role{font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:3px;color:rgba(201,151,58,.78);text-transform:uppercase;position:relative;z-index:1;}
 .c-badge{position:absolute;bottom:48px;right:48px;width:94px;height:94px;border-radius:50%;background:rgba(201,151,58,.09);border:1.5px solid rgba(201,151,58,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:1;}
 .c-badge b{font-family:'Playfair Display', serif;font-size:23px;color:#f0c04a;display:block;line-height:1;}
-.c-badge span{font-family:'Poppins', sans-serif;font-size:8px;letter-spacing:1px;color:rgba(201,151,58,.45);margin-top:3px;}
+.c-badge span{font-family:'Poppins', sans-serif;font-size:8px;letter-spacing:1px;color:rgba(201,151,58,.78);margin-top:3px;}
 .page{background:#fff;padding:68px 92px 84px;min-height:100vh;position:relative;}
 .ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;padding-bottom:14px;border-bottom:2px solid #e5e7eb;}
 .ph img{height:30px;object-fit:contain;opacity:.65;}
-.ph span{font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:2px;color:#6b7280;text-transform:uppercase;}
-.pf{position:absolute;bottom:30px;left:92px;right:92px;display:flex;justify-content:space-between;align-items:center;font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:1px;color:#c9973a;border-top:1px solid #e5e7eb;padding-top:12px;}
+.ph span{font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:2px;color:#9ca3af;text-transform:uppercase;}
+.pf{position:absolute;bottom:30px;left:92px;right:92px;display:flex;justify-content:space-between;align-items:center;font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:1px;color:#b8862e;border-top:1px solid #e5e7eb;padding-top:12px;}
 .lbl{font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:4px;color:#c9973a;text-transform:uppercase;margin-bottom:8px;display:block;}
 .h2{font-family:'Playfair Display', serif;font-size:clamp(20px,2.8vw,34px);color:#111827;margin-bottom:16px;line-height:1.2;}
 .h2 b{color:#c9973a;}
@@ -120,7 +120,7 @@ strong{color:#111827;}
 <div class="capa pb">
   <div class="c-line top"></div>
   <div style="width:280px;border-radius:14px;overflow:hidden;margin:0 auto 28px;box-shadow:0 12px 48px rgba(0,0,0,.6),0 0 0 2px rgba(201,151,58,.3);position:relative;z-index:1;">
-<img src="imagens/thumb-ebook-contrato.jpg"></div>
+</div>
   <div class="c-tag">Material Jurídico · 2026 · Editável em Word</div>
   <h1 class="c-h1">Contrato Digital<br><b>Profissional</b></h1>
   <p class="c-sub">Modelo completo para proteger você e seu cliente — todas as cláusulas essenciais</p>
@@ -188,7 +188,7 @@ strong{color:#111827;}
 <!-- /BANNER DOWNLOAD -->
 
 <!-- GUIA DE USO -->
-<div class="page pb">
+<div class="page pb" id="mod1">
   <div class="ph"><span>Guia de uso do contrato</span></div>
   <span class="lbl">Antes de usar</span>
   <h2 class="h2">Como usar este <b>contrato corretamente</b></h2>
@@ -212,11 +212,11 @@ strong{color:#111827;}
   <h3 class="h3">Como personalizar o contrato</h3>
   <p>Substitua todos os campos entre colchetes <strong>[COMO ESTE]</strong> com as informações reais:</p>
   <ul class="ul">
-    <li><strong>[NOME DO ESTÚDIO]:</strong> Carlos Tattoo BH</li>
-    <li><strong>[NOME DO TATUADOR]:</strong> Carlos Henrique</li>
+    <li><strong>[NOME DO ESTÚDIO]:</strong> preencha com o nome do seu estúdio antes de enviar ao cliente</li>
+    <li><strong>[NOME DO TATUADOR]:</strong> preencha com seu nome antes de enviar ao cliente</li>
     <li><strong>[CPF DO TATUADOR]:</strong> Seu CPF</li>
     <li><strong>[CNPJ]:</strong> Seu CNPJ (se tiver empresa)</li>
-    <li><strong>[ENDEREÇO DO ESTÚDIO]:</strong> Rua Maria de Lourdes da Cruz, 378 — Mantiqueira, BH</li>
+    <li><strong>[ENDEREÇO DO ESTÚDIO]:</strong> preencha com o endereço do seu estúdio antes de enviar ao cliente</li>
     <li><strong>[CONTATO]:</strong> Seu WhatsApp</li>
   </ul>
 
@@ -234,12 +234,12 @@ strong{color:#111827;}
 </div>
 
 <!-- CONTRATO COMPLETO -->
-<div class="page pb">
+<div class="page pb" id="mod2">
   <div class="ph"><span>Contrato de Prestação de Serviços — Tatuagem</span></div>
 
   <div class="contrato">
     <div class="contrato-header">
-<img src="imagens/thumb-ebook-contrato.jpg"></div>
+</div>
       <div class="contrato-titulo">Contrato de Prestação de Serviços de Tatuagem</div>
       <div class="contrato-subtitulo">Documento de compromisso entre tatuador e cliente</div>
     </div>
@@ -247,10 +247,10 @@ strong{color:#111827;}
     <div class="cl">
       <div class="cl-titulo">Identificação das Partes</div>
       <p><strong>CONTRATADO (Tatuador):</strong><br>
-      Nome: <input class="campo-contrato" value="Carlos Henrique" readonly><br>
-      Estúdio: <input class="campo-contrato" value="Carlos Tattoo BH" readonly><br>
+      Nome: <input class="campo-contrato" placeholder="Seu nome completo"><br>
+      Estúdio: <input class="campo-contrato" placeholder="Nome do seu estúdio"><br>
       CPF/CNPJ: <input class="campo-contrato" placeholder="[SEU CPF/CNPJ]"><br>
-      Endereço: <input class="campo-contrato" style="min-width:300px;" value="Rua Maria de Lourdes da Cruz, 378 — Mantiqueira, BH" readonly><br>
+      Endereço: <input class="campo-contrato" style="min-width:300px;" placeholder="Seu endereço completo"><br>
       Contato: <input class="campo-contrato" placeholder="[SEU WHATSAPP]"></p>
 
       <p style="margin-top:16px;"><strong>CONTRATANTE (Cliente):</strong><br>
@@ -352,7 +352,7 @@ strong{color:#111827;}
     <div class="assinaturas">
       <div class="ass-bloco">
         <div class="ass-linha"></div>
-        <div class="ass-nome">Carlos Henrique — Contratado<br>Carlos Tattoo BH</div>
+        <div class="ass-nome">________________________________<br>Tatuador — Contratado</div>
       </div>
       <div class="ass-bloco">
         <div class="ass-linha"></div>
@@ -360,11 +360,11 @@ strong{color:#111827;}
       </div>
     </div>
   </div>
-  <div class="pf"><span>Carlos Tattoo BH — Contrato Digital Profissional 2026</span><span>Modelo completo</span></div>
+  <div class="pf"><span>Contrato Digital Profissional 2026</span><span>Modelo editável</span></div>
 </div>
 
 <!-- VERSÃO SIMPLIFICADA WHATSAPP -->
-<div class="page pb">
+<div class="page pb" id="mod3">
   <div class="ph"><span>Versão simplificada para WhatsApp</span></div>
   <span class="lbl">Versão rápida</span>
   <h2 class="h2">Contrato simplificado <b>para WhatsApp</b></h2>
@@ -388,7 +388,7 @@ strong{color:#111827;}
       3. Tenho 18 anos ou mais (ou tenho autorização dos responsáveis)<br>
       4. Entendo que cancelamento com menos de 48h resulta em perda do sinal<br>
       5. Seguirei as orientações de cuidado pós-tatuagem<br>
-      6. Autorizo o uso das fotos para portfólio do Carlos Tattoo BH<br>
+      6. Autorizo o uso das fotos para portfólio do [SEU ESTÚDIO]<br>
       7. Estou ciente que retoques dentro de 90 dias são gratuitos, desde que os cuidados sejam seguidos<br><br>
       Para confirmar, responda: <strong>LI E CONCORDO COM TODOS OS TERMOS ✅</strong><br><br>
       Qualquer dúvida, pode perguntar! Te vejo na [DATA]! 🎨
@@ -430,7 +430,7 @@ strong{color:#111827;}
       <p style="font-family:'Playfair Display', serif;font-size:40px;color:#f0c04a;margin-bottom:8px;">R$ 197</p>
       <p style="font-size:13px;color:#ffffff;font-family:'Poppins', sans-serif;">Economia de R$68 · Pagamento único</p>
     </div>
-    <p style="font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:2px;color:rgba(201,151,58,.35);margin-top:44px;">© 2026 Carlos Tattoo BH · @carlostattoo.bh · Belo Horizonte, MG</p>
+    <p style="font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:2px;color:rgba(201,151,58,.75);margin-top:44px;">© 2026 Carlos Tattoo BH · @carlostattoo.bh · Belo Horizonte, MG</p>
   </div>
 </div>
 
