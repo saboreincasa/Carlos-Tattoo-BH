@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Central Tattoo — Sistema de Gestão 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#FAF7F2;font-family:'DM Sans',system-ui,sans-serif;color:#1C1208;min-height:100vh;}
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:#F0E9DC;}
+::-webkit-scrollbar-thumb{background:#C8B896;border-radius:3px;}
+input:focus,select:focus,textarea:focus{outline:2px solid #A8987A;outline-offset:0;}
+h1,h2,h3,h4,h5{font-family:'Playfair Display',Georgia,serif;}
+table{border-collapse:collapse;width:100%;}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const {useState,useMemo,useEffect,useCallback} = React;
+const C={bg:'#FAF7F2',sur:'#FFFFFF',nav:'#EDE5D4',brd:'#DDD0BC',brdH:'#C8B896',
+  txt:'#1C1208',tx2:'#6B5840',tx3:'#9C8B78',
+  acc:'#2C1A0C',acl:'#F5EDE0',
+  grn:'#2D5E3A',grnb:'#EAF3EE',
+  red:'#8B2018',redb:'#FAEAEA',
+  amb:'#7A5E10',ambb:'#FBF5E0',
+  blu:'#1A4070',blub:'#E8F0FA',
+  pur:'#5B2D8A',purb:'#F0EAF8'};
+const fmtR=v=>`R$ ${parseFloat(v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}`;
+const fmtD=d=>d?new Date(d+'T12:00').toLocaleDateString('pt-BR'):'-';
+const estilos=['Old School','New School','Realismo','Blackwork','Fineline','Aquarela','Tribal','Geométrico','Japonês','Neotradicional','Lettering','Pontilhismo','Cover-Up','Trash Polka'];
+const origens=['Instagram','WhatsApp','Indicação','Google','TikTok','Passagem','Outro'];
+const formasPgto=['Pix','Dinheiro','Cartão Débito','Cartão Crédito','Transferência'];
+
+function useCRUD(key,def=[]){
+  const load=()=>{try{const v=localStorage.getItem('ct_'+key);return v?JSON.parse(v):def;}catch(e){return def;}};
+  const [data,setRaw]=useState(load);
+  const set=v=>{const n=typeof v==='function'?v(data):v;setRaw(n);try{localStorage.setItem('ct_'+key,JSON.stringify(n));}catch(e){}};
+  return[data,set];
+}
+
+const DEF_EST=[
+  {id:1,material:'Tinta Preta',cat:'Tinta',qtd:5,unid:'frascos',custo:25,qtdMin:3,forn:''},
+  {id:2,material:'Tinta Vermelha',cat:'Tinta',qtd:3,unid:'frascos',custo:28,qtdMin:2,forn:''},
+  {id:3,material:'Tinta Azul',cat:'Tinta',qtd:3,unid:'frascos',custo:28,qtdMin:2,forn:''},
+  {id:4,material:'Agulhas Liner 3RL',cat:'Agulhas',qtd:50,unid:'un',custo:2,qtdMin:20,forn:''},
+  {id:5,material:'Agulhas Liner 5RL',cat:'Agulhas',qtd:50,unid:'un',custo:2,qtdMin:20,forn:''},
+  {id:6,material:'Agulhas Shader 7M',cat:'Agulhas',qtd:30,unid:'un',custo:2.5,qtdMin:15,forn:''},
+  {id:7,material:'Agulhas Magnum 15M',cat:'Agulhas',qtd:20,unid:'un',custo:3,qtdMin:10,forn:''},
+  {id:8,material:'Película de Proteção',cat:'Proteção',qtd:100,unid:'metros',custo:1.5,qtdMin:30,forn:''},
+  {id:9,material:'Luvas Nitrila P',cat:'Segurança',qtd:2,unid:'caixas',custo:35,qtdMin:1,forn:''},
+  {id:10,material:'Luvas Nitrila M',cat:'Segurança',qtd:2,unid:'caixas',custo:35,qtdMin:1,forn:''},
+  {id:11,material:'Vaselina',cat:'Consumível',qtd:10,unid:'potes',custo:8,qtdMin:5,forn:''},
+  {id:12,material:'Sabão Antisséptico',cat:'Higiene',qtd:3,unid:'litros',custo:20,qtdMin:2,forn:''},
+  {id:13,material:'Papel Toalha',cat:'Higiene',qtd:5,unid:'rolos',custo:5,qtdMin:3,forn:''},
+  {id:14,material:'Spray Clorexidina',cat:'Higiene',qtd:4,unid:'frascos',custo:18,qtdMin:2,forn:''},
+  {id:15,material:'Dermografo',cat:'Equipamento',qtd:2,unid:'un',custo:350,qtdMin:1,forn:''},
+  {id:16,material:'Cartuchos Mistos',cat:'Agulhas',qtd:40,unid:'un',custo:4,qtdMin:20,forn:''},
+  {id:17,material:'Green Soap',cat:'Higiene',qtd:2,unid:'litros',custo:30,qtdMin:1,forn:''},
+  {id:18,material:'Papel Hectográfico',cat:'Consumível',qtd:100,unid:'folhas',custo:0.5,qtdMin:50,forn:''},
+];
+const DEF_PREC=estilos.map(e=>({estilo:e,p:'',m:'',g:'',mg:'',h:'',mn:'',r:'',c:''}));
+const DEF_COM=[{id:1,prof:'Carlos Henrique',func:'Tatuador Principal',pct:60},{id:2,prof:'Profissional 2',func:'Tatuador',pct:55},{id:3,prof:'Recepcionista',func:'Atendimento',pct:30},{id:4,prof:'Body Piercer',func:'Piercing',pct:50}];
+const DEF_META={mensal:5000,horasDia:8,diasMes:22,ticketMedio:600,txConv:30,metaSes:20,acomp:Array.from({length:12},()=>({meta:8000,real:0,mS:20,rS:0}))};
+
+// ─── UI PRIMITIVES ───
+function Bdg({c='neu',children}){
+  const m={grn:{bg:C.grnb,cl:C.grn},red:{bg:C.redb,cl:C.red},amb:{bg:C.ambb,cl:C.amb},blu:{bg:C.blub,cl:C.blu},neu:{bg:'#F0E9DC',cl:C.tx2},pur:{bg:C.purb,cl:C.pur}};
+  const s=m[c]||m.neu;
+  return <span style={{background:s.bg,color:s.cl,fontSize:'11px',padding:'3px 9px',borderRadius:'12px',fontWeight:'600',display:'inline-block',whiteSpace:'nowrap',letterSpacing:'0.2px'}}>{children}</span>;
+}
+function Kpi({label,val,sub,c='neu'}){
+  const m={grn:{brd:'#A8D5B5',hbg:C.grnb},red:{brd:'#F5B5B0',hbg:C.redb},amb:{brd:'#EDD090',hbg:C.ambb},blu:{brd:'#A0BDE0',hbg:C.blub},neu:{brd:C.brd,hbg:'#F7F2EB'}};
+  const s=m[c]||m.neu;
+  return <div style={{background:C.sur,border:`1px solid ${s.brd}`,borderRadius:'10px',overflow:'hidden'}}>
+    <div style={{background:s.hbg,padding:'8px 14px',borderBottom:`1px solid ${s.brd}`}}>
+      <p style={{margin:0,fontSize:'10px',color:C.tx3,letterSpacing:'0.8px',textTransform:'uppercase'}}>{label}</p>
+    </div>
+    <div style={{padding:'11px 14px'}}>
+      <p style={{margin:0,fontSize:'20px',fontWeight:'600',color:C.txt,fontFamily:'Playfair Display,Georgia,serif'}}>{val}</p>
+      {sub&&<p style={{margin:'3px 0 0',fontSize:'11px',color:C.tx2}}>{sub}</p>}
+    </div>
+  </div>;
+}
+function MH({title,sub,act}){
+  return <div style={{display:'flex',alignItems:'flex-start',justifyContent:'space-between',marginBottom:'20px',flexWrap:'wrap',gap:'10px'}}>
+    <div><h2 style={{fontSize:'22px',color:C.txt,margin:0}}>{title}</h2>{sub&&<p style={{margin:'4px 0 0',fontSize:'13px',color:C.tx2}}>{sub}</p>}</div>
+    {act&&<div>{act}</div>}
+  </div>;
+}
+function Inp({style:ex,...props}){return <input style={{width:'100%',padding:'8px 12px',border:`1px solid ${C.brd}`,borderRadius:'7px',fontSize:'13px',color:C.txt,background:C.sur,...ex}} {...props}/>;}
+function Sel({children,style:ex,...props}){return <select style={{width:'100%',padding:'8px 12px',border:`1px solid ${C.brd}`,borderRadius:'7px',fontSize:'13px',color:C.txt,background:C.sur,...ex}} {...props}>{children}</select>;}
+function FF({label,span,children}){
+  return <div style={{marginBottom:'12px',gridColumn:span?`span ${span}`:undefined}}>
+    <label style={{display:'block',fontSize:'10px',color:C.tx2,marginBottom:'4px',letterSpacing:'0.8px',textTransform:'uppercase',fontWeight:'600'}}>{label}</label>
+    {children}
+  </div>;
+}
+function Btn({children,onClick,c='pri',sz='md',full,style:ex}){
+  const m={pri:{bg:C.acc,cl:'#FFF',brd:C.acc},out:{bg:'transparent',cl:C.acc,brd:C.brd},del:{bg:'#FFF',cl:C.red,brd:'#F5B5B0'},grn:{bg:C.grn,cl:'#FFF',brd:C.grn}};
+  const s=m[c]||m.pri;
+  const z={sm:{p:'4px 10px',fs:'11px'},md:{p:'8px 16px',fs:'13px'},lg:{p:'10px 22px',fs:'14px'}}[sz]||{p:'8px 16px',fs:'13px'};
+  return <button onClick={onClick} style={{background:s.bg,color:s.cl,border:`1px solid ${s.brd}`,borderRadius:'7px',cursor:'pointer',fontFamily:'inherit',padding:z.p,fontSize:z.fs,width:full?'100%':undefined,...ex}}>{children}</button>;
+}
+function FC({children,onCancel,onSave,title}){
+  return <div style={{background:'#FFFDF9',border:`1px solid ${C.brd}`,borderRadius:'10px',padding:'20px',marginBottom:'16px',borderLeft:`3px solid ${C.acc}`}}>
+    {title&&<h3 style={{margin:'0 0 14px',fontSize:'11px',color:C.acc,letterSpacing:'1px',textTransform:'uppercase'}}>{title}</h3>}
+    {children}
+    <div style={{display:'flex',gap:'8px',marginTop:'14px',paddingTop:'14px',borderTop:`1px solid ${C.brd}`}}>
+      <Btn onClick={onSave}>Salvar</Btn>
+      <Btn c="out" onClick={onCancel}>Cancelar</Btn>
+    </div>
+  </div>;
+}
+function Tbl({hdrs,rows,empty='Nenhum registro encontrado.'}){
+  if(!rows.length) return <div style={{background:C.sur,border:`1px solid ${C.brd}`,borderRadius:'10px',padding:'40px',textAlign:'center'}}><p style={{color:C.tx3,fontSize:'14px',margin:0}}>{empty}</p></div>;
+  return <div style={{background:C.sur,border:`1px solid ${C.brd}`,borderRadius:'10px',overflow:'hidden'}}>
+    <div style={{overflowX:'auto'}}>
+      <table>
+        <thead><tr style={{background:'#F7F2EB'}}>{hdrs.map((h,i)=><th key={i} style={{padding:'9px 12px',textAlign:'left',fontSize:'10px',color:C.tx2,letterSpacing:'0.8px',textTransform:'uppercase',borderBottom:`1px solid ${C.brd}`,whiteSpace:'nowrap',fontWeight:'600'}}>{h}</th>)}</tr></thead>
+        <tbody>{rows.map((row,i)=><tr key={i} style={{background:i%2===0?C.sur:'#FDFAF6'}}>{row.map((cell,j)=><td key={j} style={{padding:'9px 12px',fontSize:'13px',borderBottom:`1px solid ${C.brd}`,verticalAlign:'middle'}}>{cell}</td>)}</tr>)}</tbody>
+      </table>
+    </div>
+  </div>;
+}
+function GridForm({cols=3,children}){
+  return <div style={{display:'grid',gridTemplateColumns:`repeat(${cols},1fr)`,gap:'12px'}}>{children}</div>;
+}
+
+// ─── DASHBOARD ───
+function Dashboard({kpis,agenda,metas}){
+  const hoje=new Date().toISOString().split('T')[0];
+  const prox=[...agenda].filter(a=>a.data>=hoje&&a.status!=='Cancelado').sort((a,b)=>a.data>b.data?1:-1).slice(0,6);
+  const goals=[
+    {l:'Faturamento Alvo',alvo:metas.mensal,real:kpis.rec,fA:fmtR(metas.mensal),fR:fmtR(kpis.rec)},
+    {l:'Sessões Alvo',alvo:metas.metaSes||20,real:kpis.ses,fA:metas.metaSes||20,fR:kpis.ses},
+    {l:'Ticket Médio Alvo',alvo:metas.ticketMedio,real:kpis.tick,fA:fmtR(metas.ticketMedio),fR:fmtR(kpis.tick)},
+  ];
+  return <div>
+    <MH title="Dashboard" sub="Visão geral do negócio em tempo real"/>
+    <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(170px,1fr))',gap:'12px',marginBottom:'14px'}}>
+      <Kpi label="Faturamento Mês" val={fmtR(kpis.rec)} c="grn"/>
+      <Kpi label="Despesas Mês" val={fmtR(kpis.desp)} c="red"/>
+      <Kpi label="Lucro Líquido" val={fmtR(kpis.luc)} sub={`Margem: ${kpis.marg}%`} c={kpis.luc>=0?'grn':'red'}/>
+      <Kpi label="Sessões Concluídas" val={kpis.ses} c="blu"/>
+      <Kpi label="Clientes Cadastrados" val={kpis.cli}/>
+    </div>
+    <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(170px,1fr))',gap:'12px',marginBottom:'20px'}}>
+      <Kpi label="Ticket Médio" val={fmtR(kpis.tick)} c="amb"/>
+      <Kpi label="Margem Lucro" val={`${kpis.marg}%`}/>
+      <Kpi label="Cancelamentos" val={kpis.canc} c={kpis.canc>0?'red':'neu'}/>
+      <Kpi label="VIP / Fidelizados" val={kpis.fid} c="grn"/>
+      <Kpi label="Valor em Estoque" val={fmtR(kpis.est)}/>
+    </div>
+    <div style={{display:'grid',gridTemplateColumns:'1.4fr 1fr',gap:'16px'}}>
+      <div style={{background:C.sur,border:`1px solid ${C.brd}`,borderRadius:'10px',padding:'18px'}}>
+        <h3 style={{fontSize:'13px',color:C.acc,margin:'0 0 12px',textTransform:'uppercase',letterSpacing:'0.6px'}}>📅 Próximas Sessões</h3>
+        {prox.length===0?<p style={{color:C.tx3,fontSize:'13px'}}>Nenhuma sessão agendada.</p>:<table>
+          <thead><tr>{['Data','Hora','Cliente','Estilo','Valor','Status'].map(h=><th key={h} style={{padding:'5px 8px',textAlign:'left',fontSize:'10px',color:C.tx3,borderBottom:`1px solid ${C.brd}`,textTransform:'uppercase',letterSpacing:'0.5px'}}>{h}</th>)}</tr></thead>
+          <tbody>{prox.map((s,i)=><tr key={i}><td style={{padding:'6px 8px',borderBottom:`1px solid ${C.brd}`,fontSize:'12px'}}>{fmtD(s.data)}</td><td style={{padding:'6px 8px',borderBottom:`1px solid ${C.brd}`,fontSize:'12px'}}>{s.hora}</td><td style={{padding:'6px 8px',borderBottom:`1px solid ${C.brd}`,fontSize:'12px',fontWeight:'500'}}>{s.cliente}</td><td style={{padding:'6px 8px',borderBottom:`1px solid ${C.brd}`,fontSize:'12px'}}>{s.estilo}</td><td style={{padding:'6px 8px',borderBottom:`1px solid ${C.brd}`,fontSize:'12px',color:C.grn,fontWeight:'600'}}>{fmtR(s.valor)}</td><td style={{padding:'6px 8px',borderBottom:`1px solid ${C.brd}`}}><Bdg c={{Confirmado:'grn',Aguardando:'amb',Cancelado:'red',Concluído:'blu',Remarcado:'neu'}[s.status]||'neu'}>{s.status}</Bdg></td></tr>)}</tbody>
+        </table>}
+      </div>
+      <div style={{background:C.sur,border:`1px solid ${C.brd}`,borderRadius:'10px',padding:'18px'}}>
+        <h3 style={{fontSize:'13px',color:C.acc,margin:'0 0 14px',textTransform:'uppercase',letterSpacing:'0.6px'}}>🎯 Metas do Mês</h3>
+        {goals.map((g,i)=>{const p=g.alvo>0?Math.min(100,Math.round(g.real/g.alvo*100)):0;return <div key={i} style={{marginBottom:'14px'}}>
+          <div style={{display:'flex',justifyContent:'space-between',marginBottom:'3px'}}><span style={{fontSize:'12px',color:C.tx2}}>{g.l}</span><span style={{fontSize:'11px',color:C.tx3}}>{g.fR} / {g.fA}</span></div>
+          <div style={{background:'#F0E9DC',borderRadius:'3px',height:'7px',overflow:'hidden'}}><div style={{background:p>=100?C.grn:p>=60?C.amb:C.red,height:'100%',width:`${p}%`,borderRadius:'3px',transition:'width 0.4s ease'}}/></div>
+          <p style={{margin:'2px 0 0',fontSize:'10px',color:C.tx3}}>{p}% atingido</p>
+        </div>;})}
+      </div>
+    </div>
+  </div>;
+}
+
+// ─── AGENDA ───
+function Agenda({agenda,setAgenda}){
+  const [sh,setSh]=useState(false);const [eid,setEid]=useState(null);
+  const ef={data:'',hora:'',cliente:'',tel:'',estilo:'',status:'Confirmado',valor:'',saldo:'',dur:'',local:'',obs:''};
+  const [f,setF]=useState(ef);
+  const sc={Confirmado:'grn',Aguardando:'amb',Cancelado:'red',Concluído:'blu',Remarcado:'neu'};
+  const openN=()=>{setF(ef);setEid(null);setSh(true);};
+  const openE=a=>{setF({...a});setEid(a.id);setSh(true);};
+  const save=()=>{if(!f.data||!f.cliente){alert('Preencha Data e Cliente');return;}if(eid){setAgenda(ag=>ag.map(a=>a.id===eid?{...f,id:eid}:a));}else{setAgenda(ag=>[...ag,{...f,id:Date.now()}]);}setSh(false);};
+  const del=id=>{if(window.confirm('Excluir este agendamento?'))setAgenda(ag=>ag.filter(a=>a.id!==id));};
+  const sorted=[...agenda].sort((a,b)=>b.data>a.data?1:-1);
+  return <div>
+    <MH title="Agenda de Sessões" sub="Gerencie agendamentos, horários e valores" act={<Btn onClick={openN}>+ Nova Sessão</Btn>}/>
+    {sh&&<FC title={eid?'Editar Sessão':'Nova Sessão'} onSave={save} onCancel={()=>setSh(false)}>
+      <GridForm cols={3}>
+        <FF label="Data *"><Inp type="date" value={f.data} onChange={e=>setF({...f,data:e.target.value})}/></FF>
+        <FF label="Hora"><Inp type="time" value={f.hora} onChange={e=>setF({...f,hora:e.target.value})}/></FF>
+        <FF label="Status"><Sel value={f.status} onChange={e=>setF({...f,status:e.target.value})}>{['Confirmado','Aguardando','Cancelado','Concluído','Remarcado'].map(s=><option key={s}>{s}</option>)}</Sel></FF>
+        <FF label="Cliente *"><Inp value={f.cliente} onChange={e=>setF({...f,cliente:e.target.value})} placeholder="Nome do cliente"/></FF>
+        <FF label="Telefone"><Inp value={f.tel} onChange={e=>setF({...f,tel:e.target.value})} placeholder="(00) 00000-0000"/></FF>
+        <FF label="Estilo"><Sel value={f.estilo} onChange={e=>setF({...f,estilo:e.target.value})}><option value="">Selecione...</option>{estilos.map(s=><option key={s}>{s}</option>)}</Sel></FF>
+        <FF label="Valor Total (R$)"><Inp type="number" value={f.valor} onChange={e=>setF({...f,valor:e.target.value})}/></FF>
+        <FF label="Saldo (R$)"><Inp type="number" value={f.saldo} onChange={e=>setF({...f,saldo:e.target.value})}/></FF>
+        <FF label="Duração"><Inp value={f.dur} onChange={e=>setF({...f,dur:e.target.value})} placeholder="Ex: 3h"/></FF>
+        <FF label="Local"><Inp value={f.local} onChange={e=>setF({...f,local:e.target.value})} placeholder="Estúdio"/></FF>
+        <FF label="Observações" span={2}><Inp value={f.obs} onChange={e=>setF({...f,obs:e.target.value})}/></FF>
+      </GridForm>
+    </FC>}
+    <Tbl hdrs={['Data','Hora','Cliente','Telefone','Estilo','Status','Valor Total','Saldo','Ações']} empty="Nenhuma sessão. Clique em + Nova Sessão."
+      rows={sorted.map(a=>[fmtD(a.data),a.hora,<strong>{a.cliente}</strong>,a.tel||'-',a.estilo||'-',<Bdg c={sc[a.status]||'neu'}>{a.status}</Bdg>,<span style={{color:C.grn,fontWeight:'600'}}>{fmtR(a.valor)}</span>,fmtR(a.saldo),<div style={{display:'flex',gap:'5px'}}><Btn sz="sm" c="out" onClick={()=>openE(a)}>Editar</Btn><Btn sz="sm" c="del" onClick={()=>del(a.id)}>Excluir</Btn></div>])}
+    />
+  </div>;
+}
+
+// ─── CLIENTES CRM ───
+function Clientes({clientes,setClientes}){
+  const [sh,setSh]=useState(false);const [eid,setEid]=useState(null);const [srch,setSrch]=useState('');
+  const ef={nome:'',tel:'',email:'',nasc:'',cidade:'',tattoos:'',status:'Ativo',ultimoCont:'',proxRet:'',estPref:'',indicado:'',totalGasto:'',nps:'',insta:'',origem:''};
+  const [f,setF]=useState(ef);
+  const sc={Ativo:'grn',VIP:'amb',Fidelizado:'blu',Inativo:'neu',Novo:'pur'};
+  const openN=()=>{setF(ef);setEid(null);setSh(true);};
+  const openE=c=>{setF({...c});setEid(c.id);setSh(true);};
+  const save=()=>{if(!f.nome){alert('Preencha o nome');return;}if(eid){setClientes(cs=>cs.map(c=>c.id===eid?{...f,id:eid}:c));}else{setClientes(cs=>[...cs,{...f,id:Date.now()}]);}setSh(false);};
+  const del=id=>{if(window.confirm('Excluir cliente?'))setClientes(cs=>cs.filter(c=>c.id!==id));};
+  const fil=clientes.filter(c=>!srch||c.nome.toLowerCase().includes(srch.toLowerCase())||c.tel?.includes(srch)||c.cidade?.toLowerCase().includes(srch.toLowerCase()));
+  return <div>
+    <MH title="CRM de Clientes" sub="Cadastro, histórico de tattoos e fidelização"
+      act={<div style={{display:'flex',gap:'8px'}}><Inp style={{width:'200px'}} placeholder="Buscar por nome, tel..." value={srch} onChange={e=>setSrch(e.target.value)}/><Btn onClick={openN}>+ Novo Cliente</Btn></div>}/>
+    {sh&&<FC title={eid?'Editar Cliente':'Novo Cliente'} onSave={save} onCancel={()=>setSh(false)}>
+      <GridForm cols={3}>
+        <FF label="Nome *"><Inp value={f.nome} onChange={e=>setF({...f,nome:e.target.value})}/></FF>
+        <FF label="Telefone"><Inp value={f.tel} onChange={e=>setF({...f,tel:e.target.value})} placeholder="(00) 00000-0000"/></FF>
+        <FF label="E-mail"><Inp type="email" value={f.email} onChange={e=>setF({...f,email:e.target.value})}/></FF>
+        <FF label="Data de Nascimento"><Inp type="date" value={f.nasc} onChange={e=>setF({...f,nasc:e.target.value})}/></FF>
+        <FF label="Cidade"><Inp value={f.cidade} onChange={e=>setF({...f,cidade:e.target.value})}/></FF>
+        <FF label="Tattoos Feitas"><Inp type="number" min="0" value={f.tattoos} onChange={e=>setF({...f,tattoos:e.target.value})}/></FF>
+        <FF label="Status"><Sel value={f.status} onChange={e=>setF({...f,status:e.target.value})}>{['Novo','Ativo','Fidelizado','VIP','Inativo'].map(s=><option key={s}>{s}</option>)}</Sel></FF>
+        <FF label="Estilo Preferido"><Sel value={f.estPref} onChange={e=>setF({...f,estPref:e.target.value})}><option value="">Selecione...</option>{estilos.map(s=><option key={s}>{s}</option>)}</Sel></FF>
+        <FF label="Origem"><Sel value={f.origem} onChange={e=>setF({...f,origem:e.target.value})}><option value="">Selecione...</option>{origens.map(s=><option key={s}>{s}</option>)}</Sel></FF>
+        <FF label="Total Gasto (R$)"><Inp type="number" value={f.totalGasto} onChange={e=>setF({...f,totalGasto:e.target.value})}/></FF>
+        <FF label="NPS (0-10)"><Inp type="number" min="0" max="10" value={f.nps} onChange={e=>setF({...f,nps:e.target.value})}/></FF>
+        <FF label="Instagram"><Inp value={f.insta} onChange={e=>setF({...f,insta:e.target.value})} placeholder="@usuario"/></FF>
+        <FF label="Último Contato"><Inp type="date" value={f.ultimoCont} onChange={e=>setF({...f,ultimoCont:e.target.value})}/></FF>
+        <FF label="Próximo Retorno"><Inp type="date" value={f.proxRet} onChange={e=>setF({...f,proxRet:e.target.value})}/></FF>
+        <FF label="Indicado por"><Inp value={f.indicado} onChange={e=>setF({...f,indicado:e.target.value})}/></FF>
+      </GridForm>
+    </FC>}
+    <Tbl hdrs={['Nome','Telefone','Cidade','Tattoos','Status','Estilo Pref.','Total Gasto','NPS','Ações']} empty="Nenhum cliente. Clique em + Novo Cliente."
+      rows={fil.map(c=>[<div><strong>{c.nome}</strong>{c.insta&&<div style={{fontSize:'11px',color:C.tx3}}>{c.insta}</div>}</div>,c.tel||'-',c.cidade||'-',c.tattoos||'-',<Bdg c={sc[c.status]||'neu'}>{c.status}</Bdg>,c.estPref||'-',c.totalGasto?fmtR(c.totalGasto):'-',c.nps?<span style={{color:parseInt(c.nps)>=9?C.grn:parseInt(c.nps)>=7?C.amb:C.red,fontWeight:'600'}}>{c.nps}/10</span>:'-',<div style={{display:'flex',gap:'5px'}}><Btn sz="sm" c="out" onClick={()=>openE(c)}>Editar</Btn><Btn sz="sm" c="del" onClick={()=>del(c.id)}>Excluir</Btn></div>])}
+    />
+  </div>;
+}
+
+// ─── FOLLOW-UP ───
+function FollowUp({clientes,agenda}){
+  const hoje=new Date();
+  const al=clientes.map(c=>{
+    const last=[...agenda].filter(a=>a.cliente===c.nome&&a.status==='Concluído').sort((a,b)=>b.data>a.data?1:-1)[0];
+    const ld=last?new Date(last.data+'T12:00'):(c.ultimoCont?new Date(c.ultimoCont+'T12:00'):null);
+    const days=ld?Math.floor((hoje-ld)/(864e5)):null;
+    const cor=days===null?'neu':days>180?'red':days>90?'amb':days>30?'blu':'grn';
+    const al2=days===null?'Sem histórico':days>180?'⚠️ Crítico (180d+)':days>90?'🔔 Retorno (90d+)':days>30?'📆 Atenção (30d+)':'✅ Recente';
+    return {...c,days,cor,al2,ldStr:ld?ld.toLocaleDateString('pt-BR'):'-'};
+  }).filter(x=>x.days===null||x.days>30).sort((a,b)=>(b.days||0)-(a.days||0));
+  return <div>
+    <MH title="Follow-Up Automático" sub="Alertas de clientes que precisam de atenção"/>
+    <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(160px,1fr))',gap:'12px',marginBottom:'18px'}}>
+      <Kpi label="Críticos (+180d)" val={al.filter(a=>a.days>180).length} c="red"/>
+      <Kpi label="Retorno necessário" val={al.filter(a=>a.days>90&&a.days<=180).length} c="amb"/>
+      <Kpi label="Atenção (30-90d)" val={al.filter(a=>a.days>30&&a.days<=90).length} c="blu"/>
+      <Kpi label="Sem histórico" val={al.filter(a=>a.days===null).length}/>
+    </div>
+    <Tbl hdrs={['Cliente','Telefone','Último Contato','Dias Passados','Alerta','Ação Sugerida']} empty="✅ Todos os clientes estão em dia!"
+      rows={al.map(a=>[<strong>{a.nome}</strong>,a.tel||'-',a.ldStr,a.days!==null?`${a.days} dias`:'-',<Bdg c={a.cor}>{a.al2}</Bdg>,a.days>180?'Entrar em contato urgente':a.days>90?'Enviar mensagem de retorno':a.days>30?'Agendar retorno':'Verificar situação'])}
+    />
+  </div>;
+}
+
+// ─── FINANCEIRO ───
+function Financeiro({fin,setFin,kpis}){
+  const [sh,setSh]=useState(false);const [eid,setEid]=useState(null);
+  const ef={data:'',desc:'',tipo:'Receita',valor:'',cat:'',forma:'',ref:'',obs:''};
+  const [f,setF]=useState(ef);
+  const openN=()=>{setF(ef);setEid(null);setSh(true);};
+  const openE=it=>{setF({...it});setEid(it.id);setSh(true);};
+  const save=()=>{if(!f.desc||!f.valor){alert('Preencha Descrição e Valor');return;}if(eid){setFin(fs=>fs.map(it=>it.id===eid?{...f,id:eid}:it));}else{setFin(fs=>[...fs,{...f,id:Date.now()}]);}setSh(false);};
+  const del=id=>{if(window.confirm('Excluir lançamento?'))setFin(fs=>fs.filter(it=>it.id!==id));};
+  const rec=fin.filter(fi=>fi.tipo==='Receita').reduce((s,fi)=>s+parseFloat(fi.valor||0),0);
+  const mat=fin.filter(fi=>fi.tipo==='Despesa'&&fi.cat==='Material').reduce((s,fi)=>s+parseFloat(fi.valor||0),0);
+  const com2=fin.filter(fi=>fi.tipo==='Despesa'&&fi.cat==='Comissão').reduce((s,fi)=>s+parseFloat(fi.valor||0),0);
+  const alg=fin.filter(fi=>fi.tipo==='Despesa'&&fi.cat==='Aluguel').reduce((s,fi)=>s+parseFloat(fi.valor||0),0);
+  const mkt=fin.filter(fi=>fi.tipo==='Despesa'&&fi.cat==='Marketing').reduce((s,fi)=>s+parseFloat(fi.valor||0),0);
+  const oth=fin.filter(fi=>fi.tipo==='Despesa'&&!['Material','Comissão','Aluguel','Marketing'].includes(fi.cat)).reduce((s,fi)=>s+parseFloat(fi.valor||0),0);
+  const lb=rec-mat-com2;const ll=kpis.luc;const ml=rec>0?(ll/rec*100).toFixed(1):0;
+  const sorted=[...fin].sort((a,b)=>b.data>a.data?1:-1);
+  const catOpts=f.tipo==='Receita'?['Sessão','Sinal','Retoque','Curso','Outro']:['Material','Comissão','Aluguel','Marketing','Equipamento','Higiene','Outro'];
+  return <div>
+    <MH title="Financeiro Pro" sub="Receitas, despesas, DRE e análise de margem" act={<Btn onClick={openN}>+ Novo Lançamento</Btn>}/>
+    <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(160px,1fr))',gap:'12px',marginBottom:'16px'}}>
+      <Kpi label="Faturamento Bruto" val={fmtR(rec)} c="grn"/>
+      <Kpi label="(-) Despesas Totais" val={fmtR(kpis.desp)} c="red"/>
+      <Kpi label="(=) Lucro Líquido" val={fmtR(ll)} c={ll>=0?'grn':'red'}/>
+      <Kpi label="Margem Líquida" val={`${ml}%`}/>
+      <Kpi label="Custo por Sessão" val={kpis.ses>0?fmtR(kpis.desp/kpis.ses):'—'}/>
+    </div>
+    <div style={{background:C.sur,border:`1px solid ${C.brd}`,borderRadius:'10px',padding:'18px',marginBottom:'16px'}}>
+      <h3 style={{fontSize:'12px',color:C.acc,margin:'0 0 12px',textTransform:'uppercase',letterSpacing:'0.8px'}}>📊 DRE — Demonstrativo de Resultado</h3>
+      <table style={{maxWidth:'480px'}}>
+        {[['(+) Receita Bruta',rec,false,false],['(-) Materiais e Insumos',mat,true,false],['(-) Comissões',com2,true,false],['(=) Lucro Bruto',lb,false,true],['(-) Aluguel / Infraestrutura',alg,true,false],['(-) Marketing / Tráfego',mkt,true,false],['(-) Outros Fixos',oth,true,false],['(=) Lucro Líquido',ll,false,true],['(%) Margem Líquida',`${ml}%`,false,true,true]].map(([l,v,neg,bold,str],i)=><tr key={i} style={{background:bold?'#F7F2EB':i%2===0?C.sur:'#FDFAF6'}}>
+          <td style={{padding:'7px 12px',fontWeight:bold?'600':'400',borderBottom:`1px solid ${C.brd}`,fontSize:'13px'}}>{l}</td>
+          <td style={{padding:'7px 12px',textAlign:'right',fontWeight:bold?'600':'400',borderBottom:`1px solid ${C.brd}`,fontSize:'13px',color:str?C.txt:(typeof v==='number'&&v<0?C.red:neg?C.red:C.grn)}}>{str?v:fmtR(v)}</td>
+        </tr>)}
+      </table>
+    </div>
+    {sh&&<FC title={eid?'Editar Lançamento':'Novo Lançamento'} onSave={save} onCancel={()=>setSh(false)}>
+      <GridForm cols={3}>
+        <FF label="Data"><Inp type="date" value={f.data} onChange={e=>setF({...f,data:e.target.value})}/></FF>
+        <FF label="Descrição *"><Inp value={f.desc} onChange={e=>setF({...f,desc:e.target.value})}/></FF>
+        <FF label="Tipo"><Sel value={f.tipo} onChange={e=>setF({...f,tipo:e.target.value,cat:''})}><option>Receita</option><option>Despesa</option></Sel></FF>
+        <FF label="Valor (R$) *"><Inp type="number" value={f.valor} onChange={e=>setF({...f,valor:e.target.value})}/></FF>
+        <FF label="Categoria"><Sel value={f.cat} onChange={e=>setF({...f,cat:e.target.value})}><option value="">Selecione...</option>{catOpts.map(s=><option key={s}>{s}</option>)}</Sel></FF>
+        <FF label="Forma Pagamento"><Sel value={f.forma} onChange={e=>setF({...f,forma:e.target.value})}><option value="">Selecione...</option>{formasPgto.map(s=><option key={s}>{s}</option>)}</Sel></FF>
+        <FF label="Referência"><Inp value={f.ref} onChange={e=>setF({...f,ref:e.target.value})} placeholder="Nº pedido / cliente"/></FF>
+        <FF label="Observações" span={2}><Inp value={f.obs} onChange={e=>setF({...f,obs:e.target.value})}/></FF>
+      </GridForm>
+    </FC>}
+    <Tbl hdrs={['Data','Descrição','Tipo','Valor','Categoria','Forma Pgto','Ações']} empty="Nenhum lançamento. Clique em + Novo Lançamento."
+      rows={sorted.map(fi=>[fmtD(fi.data),fi.desc,<Bdg c={fi.tipo==='Receita'?'grn':'red'}>{fi.tipo}</Bdg>,<span style={{color:fi.tipo==='Receita'?C.grn:C.red,fontWeight:'600'}}>{fmtR(fi.valor)}</span>,fi.cat||'-',fi.forma||'-',<div style={{display:'flex',gap:'5px'}}><Btn sz="sm" c="out" onClick={()=>openE(fi)}>Editar</Btn><Btn sz="sm" c="del" onClick={()=>del(fi.id)}>Excluir</Btn></div>])}
+    />
+  </div>;
+}
+
+// ─── CALCULADORA ───
+function Calculadora(){
+  const [p,setP]=useState({h:3,vh:80,mat:50,tam:2,comp:2,cov:0,col:0,reg:0,marg:40});
+  const r=useMemo(()=>{
+    const base=p.h*p.vh;
+    const mt=[1,1,1.3,1.6,2.5][p.tam]||1;
+    const mc=[1,1,1.4,1.8][p.comp]||1;
+    let sub=(base+parseFloat(p.mat))*mt*mc;
+    if(p.cov)sub*=1.4;if(p.col)sub*=1.3;if(p.reg)sub*=1.2;
+    const pm=sub/(1-p.marg/100);const pp=pm*1.2;
+    return{base,mt,mc,sub,pm,pp,lm:pm-sub,lp:pp-sub};
+  },[p]);
+  const sl=(lbl,k,mn,mx,unit='')=><div style={{marginBottom:'15px'}}>
+    <div style={{display:'flex',justifyContent:'space-between',marginBottom:'4px'}}>
+      <label style={{fontSize:'13px',color:C.tx2}}>{lbl}</label>
+      <span style={{fontSize:'14px',fontWeight:'600',color:C.txt,fontFamily:'Playfair Display,serif'}}>{p[k]}{unit}</span>
+    </div>
+    <input type="range" min={mn} max={mx} step={k==='mat'?10:1} value={p[k]} onChange={e=>setP({...p,[k]:parseFloat(e.target.value)})} style={{width:'100%',accentColor:C.acc,height:'4px'}}/>
+  </div>;
+  return <div>
+    <MH title="Calculadora de Preço Premium" sub="Precifique corretamente cada projeto sem perder margem"/>
+    <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'22px'}}>
+      <div style={{background:C.sur,border:`1px solid ${C.brd}`,borderRadius:'10px',padding:'22px'}}>
+        <h3 style={{fontSize:'12px',color:C.acc,margin:'0 0 18px',textTransform:'uppercase',letterSpacing:'0.8px'}}>⚙️ Parâmetros do Projeto</h3>
+        {sl('Horas estimadas de trabalho','h',1,20)}
+        {sl('Valor da sua hora (R$)','vh',50,700)}
+        {sl('Custo de material (R$)','mat',0,500)}
+        {sl('Margem de lucro desejada','marg',10,80,'%')}
+        <div style={{marginBottom:'15px'}}>
+          <label style={{fontSize:'13px',color:C.tx2,display:'block',marginBottom:'6px'}}>Tamanho do Projeto</label>
+          <div style={{display:'flex',gap:'6px'}}>
+            {[{v:1,l:'Pequeno'},{v:2,l:'Médio'},{v:3,l:'Grande'},{v:4,l:'Manga'}].map(o=><button key={o.v} onClick={()=>setP({...p,tam:o.v})} style={{flex:1,padding:'8px 4px',border:`1px solid ${p.tam===o.v?C.acc:C.brd}`,background:p.tam===o.v?C.acc:C.sur,color:p.tam===o.v?'#FFF':C.txt,borderRadius:'7px',cursor:'pointer',fontSize:'12px',fontFamily:'inherit',transition:'all 0.15s'}}>{o.l}</button>)}
+          </div>
+        </div>
+        <div style={{marginBottom:'15px'}}>
+          <label style={{fontSize:'13px',color:C.tx2,display:'block',marginBottom:'6px'}}>Nível de Complexidade</label>
+          <div style={{display:'flex',gap:'6px'}}>
+            {[{v:1,l:'Simples'},{v:2,l:'Médio'},{v:3,l:'Complexo'}].map(o=><button key={o.v} onClick={()=>setP({...p,comp:o.v})} style={{flex:1,padding:'8px',border:`1px solid ${p.comp===o.v?C.acc:C.brd}`,background:p.comp===o.v?C.acc:C.sur,color:p.comp===o.v?'#FFF':C.txt,borderRadius:'7px',cursor:'pointer',fontSize:'12px',fontFamily:'inherit',transition:'all 0.15s'}}>{o.l}</button>)}
+          </div>
+        </div>
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:'8px'}}>
+          {[{k:'cov',l:'Cover Up +40%'},{k:'col',l:'Colorida +30%'},{k:'reg',l:'Sensível +20%'}].map(o=><button key={o.k} onClick={()=>setP({...p,[o.k]:p[o.k]?0:1})} style={{padding:'8px 4px',border:`1px solid ${p[o.k]?C.acc:C.brd}`,background:p[o.k]?C.acl:C.sur,color:p[o.k]?C.acc:C.tx2,borderRadius:'7px',cursor:'pointer',fontSize:'11px',fontFamily:'inherit',fontWeight:p[o.k]?'600':'400',textAlign:'center',transition:'all 0.15s'}}>{o.l}</button>)}
+        </div>
+      </div>
+      <div>
+        <div style={{background:C.sur,border:`2px solid ${C.acc}`,borderRadius:'10px',padding:'22px',marginBottom:'14px'}}>
+          <h3 style={{fontSize:'12px',color:C.acc,margin:'0 0 16px',textTransform:'uppercase',letterSpacing:'0.8px'}}>💰 Resultado do Cálculo</h3>
+          {[[`Custo base (${p.h}h × R$${p.vh})`,fmtR(r.base)],[`Custo material`,fmtR(p.mat)],[`Mult. tamanho`,`×${r.mt}`],[`Mult. complexidade`,`×${r.mc}`],...(p.cov?[['Cover up','+40%']]:[]),...(p.col?[['Colorida','+30%']]:[]),...(p.reg?[['Região sensível','+20%']]:[]),[`Subtotal (antes da margem)`,fmtR(r.sub)]].map(([l,v],i)=><div key={i} style={{display:'flex',justifyContent:'space-between',padding:'5px 0',borderBottom:`1px solid ${C.brd}`,fontSize:'12px',color:C.tx2}}><span>{l}</span><span style={{fontWeight:'500'}}>{v}</span></div>)}
+          <div style={{marginTop:'16px',padding:'16px',background:C.acl,borderRadius:'8px',border:`1px solid #E0D0B8`}}>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'10px'}}>
+              <span style={{fontSize:'13px',color:C.acc,fontWeight:'600'}}>⭐ Preço Mínimo Sugerido</span>
+              <span style={{fontSize:'24px',fontWeight:'700',color:C.acc,fontFamily:'Playfair Display,serif'}}>{fmtR(r.pm)}</span>
+            </div>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'10px'}}>
+              <span style={{fontSize:'13px',color:C.acc,fontWeight:'600'}}>🏆 Preço Premium (+20%)</span>
+              <span style={{fontSize:'24px',fontWeight:'700',color:C.grn,fontFamily:'Playfair Display,serif'}}>{fmtR(r.pp)}</span>
+            </div>
+            <div style={{display:'flex',justifyContent:'space-between',fontSize:'11px',color:C.tx3,borderTop:`1px solid #DDD0BC`,paddingTop:'8px'}}>
+              <span>Lucro mínimo: {fmtR(r.lm)}</span><span>Lucro premium: {fmtR(r.lp)}</span>
+            </div>
+          </div>
+        </div>
+        <div style={{background:C.sur,border:`1px solid ${C.brd}`,borderRadius:'10px',padding:'18px'}}>
+          <h3 style={{fontSize:'12px',color:C.acc,margin:'0 0 10px',textTransform:'uppercase',letterSpacing:'0.6px'}}>💡 Referência de Mercado — BH 2026</h3>
+          <table>
+            <thead><tr>{['Nível','R$/Hora','3 Horas','10 Horas','% Mkt'].map(h=><th key={h} style={{padding:'5px 8px',textAlign:'left',fontSize:'10px',color:C.tx3,borderBottom:`1px solid ${C.brd}`,textTransform:'uppercase',letterSpacing:'0.5px'}}>{h}</th>)}</tr></thead>
+            <tbody>{[['Básico','R$80-120','R$240-360','R$800-1.200','40%'],['Médio','R$150-220','R$450-660','R$1.500-2.200','35%'],['Premium','R$250-380','R$750-1.140','R$2.500-3.800','20%'],['Top Artista','R$450-700','R$1.350-2.100','R$4.500-7.000','5%']].map((row,i)=><tr key={i} style={{background:i%2===0?C.sur:'#FDFAF6'}}>{row.map((cell,j)=><td key={j} style={{padding:'6px 8px',fontSize:'12px',borderBottom:`1px solid ${C.brd}`,color:j===0?C.acc:C.txt,fontWeight:j===0?'600':'400'}}>{cell}</td>)}</tr>)}</tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>;
+}
+
+// ─── ESTOQUE ───
+function Estoque({est,setEst}){
+  const [sh,setSh]=useState(false);const [eid,setEid]=useState(null);const [srch,setSrch]=useState('');
+  const ef={material:'',cat:'',qtd:'',unid:'',custo:'',qtdMin:'',forn:'',obs:''};
+  const [f,setF]=useState(ef);
+  const gs=(q,m)=>!m?{l:'OK',c:'grn'}:q<=0?{l:'Esgotado',c:'red'}:q<=m?{l:'Crítico',c:'red'}:q<=m*1.5?{l:'Baixo',c:'amb'}:{l:'OK',c:'grn'};
+  const openN=()=>{setF(ef);setEid(null);setSh(true);};
+  const openE=e=>{setF({...e});setEid(e.id);setSh(true);};
+  const save=()=>{if(!f.material){alert('Preencha o Material');return;}if(eid){setEst(es=>es.map(e=>e.id===eid?{...f,id:eid}:e));}else{setEst(es=>[...es,{...f,id:Date.now()}]);}setSh(false);};
+  const del=id=>{if(window.confirm('Excluir item?'))setEst(es=>es.filter(e=>e.id!==id));};
+  const fil=est.filter(e=>!srch||e.material.toLowerCase().includes(srch.toLowerCase())||e.cat?.toLowerCase().includes(srch.toLowerCase()));
+  const totV=est.reduce((s,e)=>s+(parseFloat(e.custo||0)*parseFloat(e.qtd||0)),0);
+  const crit=est.filter(e=>e.qtdMin&&parseFloat(e.qtd)<=parseFloat(e.qtdMin)).length;
+  return <div>
+    <MH title="Controle de Estoque" sub="Materiais, reposição e controle de custos por sessão"
+      act={<div style={{display:'flex',gap:'8px'}}><Inp style={{width:'190px'}} placeholder="Buscar material..." value={srch} onChange={e=>setSrch(e.target.value)}/><Btn onClick={openN}>+ Novo Item</Btn></div>}/>
+    <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(170px,1fr))',gap:'12px',marginBottom:'16px'}}>
+      <Kpi label="Valor Total em Estoque" val={fmtR(totV)}/>
+      <Kpi label="Total de Itens" val={est.length}/>
+      <Kpi label="Itens Críticos / Esgotados" val={crit} c={crit>0?'red':'grn'}/>
+      <Kpi label="Itens para Repor em Breve" val={est.filter(e=>e.qtdMin&&parseFloat(e.qtd)<=parseFloat(e.qtdMin)*1.5).length} c="amb"/>
+    </div>
+    {sh&&<FC title={eid?'Editar Item':'Novo Item de Estoque'} onSave={save} onCancel={()=>setSh(false)}>
+      <GridForm cols={3}>
+        <FF label="Material *"><Inp value={f.material} onChange={e=>setF({...f,material:e.target.value})}/></FF>
+        <FF label="Categoria"><Sel value={f.cat} onChange={e=>setF({...f,cat:e.target.value})}><option value="">Selecione...</option>{['Tinta','Agulhas','Proteção','Segurança','Higiene','Consumível','Equipamento'].map(s=><option key={s}>{s}</option>)}</Sel></FF>
+        <FF label="Unidade de Medida"><Inp value={f.unid} onChange={e=>setF({...f,unid:e.target.value})} placeholder="un, frascos, metros..."/></FF>
+        <FF label="Quantidade Atual"><Inp type="number" value={f.qtd} onChange={e=>setF({...f,qtd:e.target.value})}/></FF>
+        <FF label="Quantidade Mínima"><Inp type="number" value={f.qtdMin} onChange={e=>setF({...f,qtdMin:e.target.value})}/></FF>
+        <FF label="Custo Unitário (R$)"><Inp type="number" value={f.custo} onChange={e=>setF({...f,custo:e.target.value})}/></FF>
+        <FF label="Fornecedor" span={2}><Inp value={f.forn} onChange={e=>setF({...f,forn:e.target.value})}/></FF>
+        <FF label="Observações"><Inp value={f.obs} onChange={e=>setF({...f,obs:e.target.value})}/></FF>
+      </GridForm>
+    </FC>}
+    <Tbl hdrs={['Material','Categoria','Qtd','Unidade','Custo Unit.','Valor Total','Qtd Mín.','Status','Ações']}
+      rows={fil.map(e=>{const st=gs(parseFloat(e.qtd),parseFloat(e.qtdMin));return[e.material,e.cat||'-',e.qtd,e.unid||'-',e.custo?fmtR(e.custo):'-',fmtR(parseFloat(e.custo||0)*parseFloat(e.qtd||0)),e.qtdMin||'-',<Bdg c={st.c}>{st.l}</Bdg>,<div style={{display:'flex',gap:'5px'}}><Btn sz="sm" c="out" onClick={()=>openE(e)}>Editar</Btn><Btn sz="sm" c="del" onClick={()=>del(e.id)}>Excluir</Btn></div>];})}
+    />
+  </div>;
+}
+
+// ─── LEADS ───
+function Leads({leads,setLeads}){
+  const [sh,setSh]=useState(false);const [eid,setEid]=useState(null);
+  const ef={nome:'',tel:'',origem:'',dt:'',estilo:'',temp:'Morno',valor:'',proxAcao:'',resp:'',dtFol:'',obs:''};
+  const [f,setF]=useState(ef);
+  const tc={Quente:'red',Morno:'amb',Frio:'blu'};
+  const openN=()=>{setF(ef);setEid(null);setSh(true);};const openE=l=>{setF({...l});setEid(l.id);setSh(true);};
+  const save=()=>{if(!f.nome){alert('Preencha o nome');return;}if(eid){setLeads(ls=>ls.map(l=>l.id===eid?{...f,id:eid}:l));}else{setLeads(ls=>[...ls,{...f,id:Date.now()}]);}setSh(false);};
+  const del=id=>{if(window.confirm('Excluir lead?'))setLeads(ls=>ls.filter(l=>l.id!==id));};
+  const totalEst=leads.reduce((s,l)=>s+parseFloat(l.valor||0),0);
+  return <div>
+    <MH title="Pipeline de Leads" sub="Gerencie oportunidades, temperaturas e conversões" act={<Btn onClick={openN}>+ Novo Lead</Btn>}/>
+    <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(150px,1fr))',gap:'12px',marginBottom:'16px'}}>
+      <Kpi label="Total de Leads" val={leads.length}/>
+      <Kpi label="Leads Quentes" val={leads.filter(l=>l.temp==='Quente').length} c="red"/>
+      <Kpi label="Leads Mornos" val={leads.filter(l=>l.temp==='Morno').length} c="amb"/>
+      <Kpi label="Leads Frios" val={leads.filter(l=>l.temp==='Frio').length} c="blu"/>
+      <Kpi label="Valor Estimado Total" val={fmtR(totalEst)} c="grn"/>
+    </div>
+    {sh&&<FC title={eid?'Editar Lead':'Novo Lead'} onSave={save} onCancel={()=>setSh(false)}>
+      <GridForm cols={3}>
+        <FF label="Nome *"><Inp value={f.nome} onChange={e=>setF({...f,nome:e.target.value})}/></FF>
+        <FF label="Telefone"><Inp value={f.tel} onChange={e=>setF({...f,tel:e.target.value})}/></FF>
+        <FF label="Origem"><Sel value={f.origem} onChange={e=>setF({...f,origem:e.target.value})}><option value="">Selecione...</option>{origens.map(s=><option key={s}>{s}</option>)}</Sel></FF>
+        <FF label="Data de Entrada"><Inp type="date" value={f.dt} onChange={e=>setF({...f,dt:e.target.value})}/></FF>
+        <FF label="Estilo de Interesse"><Sel value={f.estilo} onChange={e=>setF({...f,estilo:e.target.value})}><option value="">Selecione...</option>{estilos.map(s=><option key={s}>{s}</option>)}</Sel></FF>
+        <FF label="Temperatura"><Sel value={f.temp} onChange={e=>setF({...f,temp:e.target.value})}><option>Quente</option><option>Morno</option><option>Frio</option></Sel></FF>
+        <FF label="Valor Estimado (R$)"><Inp type="number" value={f.valor} onChange={e=>setF({...f,valor:e.target.value})}/></FF>
+        <FF label="Próxima Ação"><Inp value={f.proxAcao} onChange={e=>setF({...f,proxAcao:e.target.value})} placeholder="Ex: Enviar orçamento"/></FF>
+        <FF label="Responsável"><Inp value={f.resp} onChange={e=>setF({...f,resp:e.target.value})}/></FF>
+        <FF label="Data Follow-up"><Inp type="date" value={f.dtFol} onChange={e=>setF({...f,dtFol:e.target.value})}/></FF>
+        <FF label="Observações" span={2}><Inp value={f.obs} onChange={e=>setF({...f,obs:e.target.value})}/></FF>
+      </GridForm>
+    </FC>}
+    <Tbl hdrs={['Nome','Telefone','Origem','Estilo','Temperatura','Valor Est.','Próx. Ação','Follow-up','Ações']} empty="Nenhum lead cadastrado."
+      rows={leads.map(l=>[<strong>{l.nome}</strong>,l.tel||'-',l.origem||'-',l.estilo||'-',<Bdg c={tc[l.temp]||'neu'}>{l.temp}</Bdg>,l.valor?fmtR(l.valor):'-',l.proxAcao||'-',fmtD(l.dtFol),<div style={{display:'flex',gap:'5px'}}><Btn sz="sm" c="out" onClick={()=>openE(l)}>Editar</Btn><Btn sz="sm" c="del" onClick={()=>del(l.id)}>Excluir</Btn></div>])}
+    />
+  </div>;
+}
+
+// ─── METAS ───
+function Metas({metas,setMetas}){
+  const ms=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  const ses=metas.ticketMedio>0?Math.ceil(metas.mensal/metas.ticketMedio):0;
+  const hn=ses>0?(ses*3/metas.diasMes).toFixed(1):0;
+  const ln=metas.txConv>0?Math.ceil(ses/(metas.txConv/100)):0;
+  const fp=metas.horasDia*metas.diasMes/3*metas.ticketMedio;
+  const ac=metas.acomp||Array.from({length:12},()=>({meta:8000,real:0,mS:20,rS:0}));
+  const upd=(mi,k,v)=>{const na=[...ac];if(!na[mi])na[mi]={meta:8000,real:0,mS:20,rS:0};na[mi]={...na[mi],[k]:parseFloat(v)||0};setMetas({...metas,acomp:na});};
+  const setM=(k,v)=>setMetas({...metas,[k]:parseFloat(v)||0});
+  return <div>
+    <MH title="Metas e Previsão de Faturamento" sub="Planejamento, objetivos e acompanhamento mensal"/>
+    <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'18px',marginBottom:'18px'}}>
+      <div style={{background:C.sur,border:`1px solid ${C.brd}`,borderRadius:'10px',padding:'18px'}}>
+        <h3 style={{fontSize:'12px',color:C.acc,margin:'0 0 14px',textTransform:'uppercase',letterSpacing:'0.8px'}}>🎯 Parâmetros das Metas</h3>
+        {[{l:'Meta de faturamento mensal (R$)',k:'mensal'},{l:'Horas disponíveis por dia',k:'horasDia'},{l:'Dias trabalhados por mês',k:'diasMes'},{l:'Ticket médio por sessão (R$)',k:'ticketMedio'},{l:'Taxa de conversão de leads (%)',k:'txConv'}].map(fi=><div key={fi.k} style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'10px',gap:'10px'}}>
+          <label style={{fontSize:'13px',color:C.tx2,flex:1}}>{fi.l}</label>
+          <input type="number" value={metas[fi.k]} onChange={e=>setM(fi.k,e.target.value)} style={{width:'110px',padding:'6px 10px',border:`1px solid ${C.brd}`,borderRadius:'7px',fontSize:'13px',textAlign:'right',fontFamily:'Playfair Display,serif',color:C.acc,fontWeight:'600'}}/>
+        </div>)}
+      </div>
+      <div style={{background:C.sur,border:`1px solid ${C.brd}`,borderRadius:'10px',padding:'18px'}}>
+        <h3 style={{fontSize:'12px',color:C.acc,margin:'0 0 14px',textTransform:'uppercase',letterSpacing:'0.8px'}}>📊 Projeção Calculada</h3>
+        {[{l:'Sessões necessárias por mês',v:ses},{l:'Horas de trabalho/dia necessárias',v:`${hn}h`},{l:'Leads necessários para a meta',v:ln},{l:'Faturamento máximo possível',v:fmtR(fp)},{l:'Folga de capacidade diária',v:`${Math.max(0,metas.horasDia-parseFloat(hn)).toFixed(1)}h`}].map((r,i)=><div key={i} style={{display:'flex',justifyContent:'space-between',padding:'9px 0',borderBottom:`1px solid ${C.brd}`,fontSize:'13px'}}>
+          <span style={{color:C.tx2}}>{r.l}</span>
+          <strong style={{color:C.acc,fontFamily:'Playfair Display,serif'}}>{r.v}</strong>
+        </div>)}
+      </div>
+    </div>
+    <div style={{background:C.sur,border:`1px solid ${C.brd}`,borderRadius:'10px',overflow:'hidden'}}>
+      <div style={{padding:'14px 18px',borderBottom:`1px solid ${C.brd}`,background:'#F7F2EB'}}>
+        <h3 style={{margin:0,fontSize:'13px',color:C.acc}}>📅 Acompanhamento Mensal 2026</h3>
+      </div>
+      <div style={{overflowX:'auto'}}>
+        <table>
+          <thead><tr><th style={{background:'#F7F2EB',padding:'8px 12px',textAlign:'left',fontSize:'10px',color:C.tx2,borderBottom:`1px solid ${C.brd}`,textTransform:'uppercase',letterSpacing:'0.5px',minWidth:'160px'}}>Indicador</th>
+            {ms.map(m=><th key={m} style={{background:'#F7F2EB',padding:'8px 6px',textAlign:'center',fontSize:'10px',color:C.tx2,borderBottom:`1px solid ${C.brd}`,textTransform:'uppercase',minWidth:'72px'}}>{m}</th>)}
+            <th style={{background:'#F7F2EB',padding:'8px 10px',textAlign:'center',fontSize:'10px',color:C.tx2,borderBottom:`1px solid ${C.brd}`}}>Total</th>
+          </tr></thead>
+          <tbody>
+            {[{l:'Meta Fat. (R$)',k:'meta',fmt:v=>fmtR(v),edit:true},{l:'Real Fat. (R$)',k:'real',fmt:v=>fmtR(v),edit:true},{l:'% Atingido',k:null},{l:'Meta Sessões',k:'mS',fmt:v=>v,edit:true},{l:'Sessões Reais',k:'rS',fmt:v=>v,edit:true}].map((row,ri)=><tr key={ri} style={{background:ri%2===0?C.sur:'#FDFAF6'}}>
+              <td style={{padding:'7px 12px',fontSize:'12px',borderBottom:`1px solid ${C.brd}`,fontWeight:'500',color:C.txt}}>{row.l}</td>
+              {ms.map((_,mi)=><td key={mi} style={{padding:'3px 4px',borderBottom:`1px solid ${C.brd}`,textAlign:'center'}}>
+                {row.edit?<input type="number" value={ac[mi]?.[row.k]||0} onChange={e=>upd(mi,row.k,e.target.value)} style={{width:'65px',padding:'4px 5px',border:`1px solid ${C.brd}`,borderRadius:'4px',fontSize:'11px',textAlign:'center'}}/>:
+                (()=>{const p=ac[mi]?.meta>0?Math.round((ac[mi]?.real||0)/ac[mi].meta*100):0;return<span style={{fontSize:'11px',fontWeight:'600',color:p>=100?C.grn:p>=70?C.amb:C.red}}>{p}%</span>;})()}
+              </td>)}
+              <td style={{padding:'7px 10px',fontSize:'12px',borderBottom:`1px solid ${C.brd}`,textAlign:'center',fontWeight:'600',color:C.acc}}>
+                {row.k==='meta'||row.k==='real'?fmtR(ac.reduce((s,m)=>s+(m?.[row.k]||0),0)):row.k==='mS'||row.k==='rS'?ac.reduce((s,m)=>s+(m?.[row.k]||0),0):''}
+              </td>
+            </tr>)}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>;
+}
+
+// ─── SINAIS ───
+function Sinais({sinais,setSinais}){
+  const [sh,setSh]=useState(false);const [eid,setEid]=useState(null);
+  const ef={cliente:'',dtSes:'',dtVenc:'',estilo:'',valTotal:'',sinalCob:'',dtPgto:'',status:'Aguardando',obs:''};
+  const [f,setF]=useState(ef);
+  const sc={Aguardando:'amb',Recebido:'grn',Atrasado:'red',Cancelado:'neu'};
+  const openN=()=>{setF(ef);setEid(null);setSh(true);};const openE=s=>{setF({...s});setEid(s.id);setSh(true);};
+  const save=()=>{if(!f.cliente){alert('Preencha o cliente');return;}if(eid){setSinais(ss=>ss.map(s=>s.id===eid?{...f,id:eid}:s));}else{setSinais(ss=>[...ss,{...f,id:Date.now()}]);}setSh(false);};
+  const del=id=>{if(window.confirm('Excluir?'))setSinais(ss=>ss.filter(s=>s.id!==id));};
+  const tot={ag:sinais.filter(s=>s.status==='Aguardando').reduce((x,s)=>x+parseFloat(s.sinalCob||0),0),rec:sinais.filter(s=>s.status==='Recebido').reduce((x,s)=>x+parseFloat(s.sinalCob||0),0),atr:sinais.filter(s=>s.status==='Atrasado').length};
+  return <div>
+    <MH title="Controle de Sinais e Pagamentos" sub="Gerencie depósitos, sinais e saldos pendentes" act={<Btn onClick={openN}>+ Novo Sinal</Btn>}/>
+    <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(170px,1fr))',gap:'12px',marginBottom:'16px'}}>
+      <Kpi label="Total de Sinais" val={sinais.length}/>
+      <Kpi label="Aguardando" val={fmtR(tot.ag)} c="amb"/>
+      <Kpi label="Sinais Recebidos" val={fmtR(tot.rec)} c="grn"/>
+      <Kpi label="Atrasados" val={tot.atr} c={tot.atr>0?'red':'neu'}/>
+    </div>
+    {sh&&<FC title={eid?'Editar Sinal':'Novo Sinal'} onSave={save} onCancel={()=>setSh(false)}>
+      <GridForm cols={3}>
+        <FF label="Cliente *"><Inp value={f.cliente} onChange={e=>setF({...f,cliente:e.target.value})}/></FF>
+        <FF label="Data da Sessão"><Inp type="date" value={f.dtSes} onChange={e=>setF({...f,dtSes:e.target.value})}/></FF>
+        <FF label="Vencimento do Sinal"><Inp type="date" value={f.dtVenc} onChange={e=>setF({...f,dtVenc:e.target.value})}/></FF>
+        <FF label="Estilo"><Sel value={f.estilo} onChange={e=>setF({...f,estilo:e.target.value})}><option value="">Selecione...</option>{estilos.map(s=><option key={s}>{s}</option>)}</Sel></FF>
+        <FF label="Valor Total (R$)"><Inp type="number" value={f.valTotal} onChange={e=>setF({...f,valTotal:e.target.value})}/></FF>
+        <FF label="Sinal Cobrado (R$)"><Inp type="number" value={f.sinalCob} onChange={e=>setF({...f,sinalCob:e.target.value})}/></FF>
+        <FF label="Status"><Sel value={f.status} onChange={e=>setF({...f,status:e.target.value})}>{['Aguardando','Recebido','Atrasado','Cancelado'].map(s=><option key={s}>{s}</option>)}</Sel></FF>
+        <FF label="Data Pagamento"><Inp type="date" value={f.dtPgto} onChange={e=>setF({...f,dtPgto:e.target.value})}/></FF>
+        <FF label="Observações"><Inp value={f.obs} onChange={e=>setF({...f,obs:e.target.value})}/></FF>
+      </GridForm>
+    </FC>}
+    <Tbl hdrs={['Cliente','Data Sessão','Vencimento','Estilo','Valor Total','Sinal','Saldo','Status','Ações']} empty="Nenhum sinal cadastrado."
+      rows={sinais.map(s=>[<strong>{s.cliente}</strong>,fmtD(s.dtSes),fmtD(s.dtVenc),s.estilo||'-',s.valTotal?fmtR(s.valTotal):'-',s.sinalCob?fmtR(s.sinalCob):'-',s.valTotal&&s.sinalCob?fmtR(parseFloat(s.valTotal)-parseFloat(s.sinalCob)):'-',<Bdg c={sc[s.status]||'neu'}>{s.status}</Bdg>,<div style={{display:'flex',gap:'5px'}}><Btn sz="sm" c="out" onClick={()=>openE(s)}>Editar</Btn><Btn sz="sm" c="del" onClick={()=>del(s.id)}>Excluir</Btn></div>])}
+    />
+  </div>;
+}
+
+// ─── CICATRIZAÇÃO ───
+function Cicatrizacao({cic,setCic}){
+  const [sh,setSh]=useState(false);const [eid,setEid]=useState(null);
+  const ef={cliente:'',tel:'',dtSes:'',estilo:'',regiao:'',ret30:'',cica:'',retGratis:'Não',dtRet:'',aval:'',obs:''};
+  const [f,setF]=useState(ef);
+  const openN=()=>{setF(ef);setEid(null);setSh(true);};const openE=c=>{setF({...c});setEid(c.id);setSh(true);};
+  const save=()=>{if(!f.cliente){alert('Preencha o cliente');return;}if(eid){setCic(cs=>cs.map(c=>c.id===eid?{...f,id:eid}:c));}else{setCic(cs=>[...cs,{...f,id:Date.now()}]);}setSh(false);};
+  const del=id=>{if(window.confirm('Excluir?'))setCic(cs=>cs.filter(c=>c.id!==id));};
+  return <div>
+    <MH title="Controle de Cicatrização e Retorno" sub="Acompanhe a cicatrização e retoques dos clientes" act={<Btn onClick={openN}>+ Novo Registro</Btn>}/>
+    {sh&&<FC title={eid?'Editar Registro':'Novo Registro de Cicatrização'} onSave={save} onCancel={()=>setSh(false)}>
+      <GridForm cols={3}>
+        <FF label="Cliente *"><Inp value={f.cliente} onChange={e=>setF({...f,cliente:e.target.value})}/></FF>
+        <FF label="Telefone"><Inp value={f.tel} onChange={e=>setF({...f,tel:e.target.value})}/></FF>
+        <FF label="Data da Sessão"><Inp type="date" value={f.dtSes} onChange={e=>setF({...f,dtSes:e.target.value})}/></FF>
+        <FF label="Estilo"><Sel value={f.estilo} onChange={e=>setF({...f,estilo:e.target.value})}><option value="">Selecione...</option>{estilos.map(s=><option key={s}>{s}</option>)}</Sel></FF>
+        <FF label="Região do Corpo"><Inp value={f.regiao} onChange={e=>setF({...f,regiao:e.target.value})}/></FF>
+        <FF label="Retorno em 30 dias"><Inp type="date" value={f.ret30} onChange={e=>setF({...f,ret30:e.target.value})}/></FF>
+        <FF label="Cicatrização"><Sel value={f.cica} onChange={e=>setF({...f,cica:e.target.value})}><option value="">Selecione...</option>{['Ótima','Boa','Regular','Ruim'].map(s=><option key={s}>{s}</option>)}</Sel></FF>
+        <FF label="Retoque Grátis?"><Sel value={f.retGratis} onChange={e=>setF({...f,retGratis:e.target.value})}><option>Não</option><option>Sim</option></Sel></FF>
+        <FF label="Data do Retoque"><Inp type="date" value={f.dtRet} onChange={e=>setF({...f,dtRet:e.target.value})}/></FF>
+        <FF label="Avaliação (1-10)"><Inp type="number" min="1" max="10" value={f.aval} onChange={e=>setF({...f,aval:e.target.value})}/></FF>
+        <FF label="Observações" span={2}><Inp value={f.obs} onChange={e=>setF({...f,obs:e.target.value})}/></FF>
+      </GridForm>
+    </FC>}
+    <Tbl hdrs={['Cliente','Data Sessão','Estilo','Região','Cicatrização','Retoque','Avaliação','Ações']} empty="Nenhum registro de cicatrização."
+      rows={cic.map(c=>[<strong>{c.cliente}</strong>,fmtD(c.dtSes),c.estilo||'-',c.regiao||'-',c.cica?<Bdg c={c.cica==='Ótima'?'grn':c.cica==='Boa'?'blu':c.cica==='Regular'?'amb':'red'}>{c.cica}</Bdg>:'-',<Bdg c={c.retGratis==='Sim'?'red':'grn'}>{c.retGratis}</Bdg>,c.aval?`${c.aval}/10`:'-',<div style={{display:'flex',gap:'5px'}}><Btn sz="sm" c="out" onClick={()=>openE(c)}>Editar</Btn><Btn sz="sm" c="del" onClick={()=>del(c.id)}>Excluir</Btn></div>])}
+    />
+  </div>;
+}
+
+// ─── COMISSÕES ───
+function Comissoes({comCfg,setComCfg,comLanc,setComLanc}){
+  const [sh,setSh]=useState(false);
+  const ef={data:'',prof:'',servico:'',valServ:'',dtPgto:'',stPgto:'Pendente'};
+  const [f,setF]=useState(ef);
+  const save=()=>{if(!f.prof||!f.valServ){alert('Preencha os campos obrigatórios');return;}
+    const pct=comCfg.find(c=>c.prof===f.prof)?.pct||0;
+    const valCom=(parseFloat(f.valServ)*pct/100).toFixed(2);
+    setComLanc(ls=>[...ls,{...f,id:Date.now(),pct,valCom}]);setSh(false);setF(ef);};
+  const del=id=>{if(window.confirm('Excluir?'))setComLanc(ls=>ls.filter(l=>l.id!==id));};
+  const totPend=comLanc.filter(c=>c.stPgto==='Pendente').reduce((s,c)=>s+parseFloat(c.valCom||0),0);
+  const totPago=comLanc.filter(c=>c.stPgto==='Pago').reduce((s,c)=>s+parseFloat(c.valCom||0),0);
+  return <div>
+    <MH title="Controle de Comissões" sub="Gerencie comissões por profissional e lançamentos" act={<Btn onClick={()=>setSh(true)}>+ Novo Lançamento</Btn>}/>
+    <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(170px,1fr))',gap:'12px',marginBottom:'16px'}}>
+      <Kpi label="Total de Lançamentos" val={comLanc.length}/>
+      <Kpi label="Comissões Pendentes" val={fmtR(totPend)} c="amb"/>
+      <Kpi label="Comissões Pagas" val={fmtR(totPago)} c="grn"/>
+    </div>
+    <div style={{background:C.sur,border:`1px solid ${C.brd}`,borderRadius:'10px',padding:'18px',marginBottom:'16px'}}>
+      <h3 style={{fontSize:'12px',color:C.acc,margin:'0 0 12px',textTransform:'uppercase',letterSpacing:'0.8px'}}>⚙️ Tabela de Comissões por Profissional</h3>
+      <table style={{maxWidth:'600px'}}>
+        <thead><tr>{['Profissional','Função','% Comissão (ajuste)'].map(h=><th key={h} style={{padding:'7px 11px',textAlign:'left',fontSize:'10px',color:C.tx2,borderBottom:`1px solid ${C.brd}`,textTransform:'uppercase',letterSpacing:'0.5px',background:'#F7F2EB'}}>{h}</th>)}</tr></thead>
+        <tbody>{comCfg.map((c,i)=><tr key={i} style={{background:i%2===0?C.sur:'#FDFAF6'}}>
+          <td style={{padding:'9px 11px',borderBottom:`1px solid ${C.brd}`,fontWeight:'600'}}>{c.prof}</td>
+          <td style={{padding:'9px 11px',borderBottom:`1px solid ${C.brd}`,color:C.tx2}}>{c.func}</td>
+          <td style={{padding:'9px 11px',borderBottom:`1px solid ${C.brd}`}}>
+            <div style={{display:'flex',alignItems:'center',gap:'10px'}}>
+              <span style={{fontWeight:'700',color:C.acc,fontSize:'16px',minWidth:'36px'}}>{c.pct}%</span>
+              <input type="range" min="10" max="80" value={c.pct} onChange={e=>setComCfg(cs=>cs.map((cc,j)=>j===i?{...cc,pct:parseInt(e.target.value)}:cc))} style={{flex:1,accentColor:C.acc}}/>
+            </div>
+          </td>
+        </tr>)}</tbody>
+      </table>
+    </div>
+    {sh&&<FC title="Novo Lançamento de Comissão" onSave={save} onCancel={()=>setSh(false)}>
+      <GridForm cols={3}>
+        <FF label="Data"><Inp type="date" value={f.data} onChange={e=>setF({...f,data:e.target.value})}/></FF>
+        <FF label="Profissional *"><Sel value={f.prof} onChange={e=>setF({...f,prof:e.target.value})}><option value="">Selecione...</option>{comCfg.map(c=><option key={c.prof}>{c.prof}</option>)}</Sel></FF>
+        <FF label="Serviço"><Inp value={f.servico} onChange={e=>setF({...f,servico:e.target.value})}/></FF>
+        <FF label="Valor do Serviço (R$) *"><Inp type="number" value={f.valServ} onChange={e=>setF({...f,valServ:e.target.value})}/></FF>
+        <FF label="Status do Pagamento"><Sel value={f.stPgto} onChange={e=>setF({...f,stPgto:e.target.value})}><option>Pendente</option><option>Pago</option></Sel></FF>
+        <FF label="Data do Pagamento"><Inp type="date" value={f.dtPgto} onChange={e=>setF({...f,dtPgto:e.target.value})}/></FF>
+      </GridForm>
+      {f.prof&&f.valServ&&<div style={{background:C.acl,padding:'10px 14px',borderRadius:'7px',marginTop:'10px',fontSize:'13px',color:C.acc}}>
+        Comissão calculada: <strong>{fmtR((parseFloat(f.valServ)*(comCfg.find(c=>c.prof===f.prof)?.pct||0))/100)}</strong> ({comCfg.find(c=>c.prof===f.prof)?.pct||0}%)
+      </div>}
+    </FC>}
+    <Tbl hdrs={['Data','Profissional','Serviço','Valor Serviço','% Com.','Valor Com.','Status','Data Pgto']} empty="Nenhum lançamento de comissão."
+      rows={comLanc.map(c=>[fmtD(c.data),c.prof,c.servico||'-',fmtR(c.valServ),`${c.pct}%`,<span style={{color:C.grn,fontWeight:'600'}}>{fmtR(c.valCom)}</span>,<Bdg c={c.stPgto==='Pago'?'grn':'amb'}>{c.stPgto}</Bdg>,fmtD(c.dtPgto)])}
+    />
+  </div>;
+}
+
+// ─── CONTRATOS ───
+function Contratos({contr,setContr}){
+  const [sh,setSh]=useState(false);const [eid,setEid]=useState(null);
+  const ef={cliente:'',dtContr:'',dtSes:'',servico:'',regiao:'',valTotal:'',sinal:'',ass:'Pendente',pgto:'',fotoC:'Não',alergia:''};
+  const [f,setF]=useState(ef);
+  const openN=()=>{setF(ef);setEid(null);setSh(true);};const openE=c=>{setF({...c});setEid(c.id);setSh(true);};
+  const save=()=>{if(!f.cliente){alert('Preencha o cliente');return;}if(eid){setContr(cs=>cs.map(c=>c.id===eid?{...f,id:eid}:c));}else{setContr(cs=>[...cs,{...f,id:Date.now()}]);}setSh(false);};
+  const del=id=>{if(window.confirm('Excluir?'))setContr(cs=>cs.filter(c=>c.id!==id));};
+  return <div>
+    <MH title="Contratos e Termos de Responsabilidade" sub="Registre contratos assinados e informações médicas" act={<Btn onClick={openN}>+ Novo Contrato</Btn>}/>
+    {sh&&<FC title={eid?'Editar Contrato':'Novo Contrato'} onSave={save} onCancel={()=>setSh(false)}>
+      <GridForm cols={3}>
+        <FF label="Cliente *"><Inp value={f.cliente} onChange={e=>setF({...f,cliente:e.target.value})}/></FF>
+        <FF label="Data do Contrato"><Inp type="date" value={f.dtContr} onChange={e=>setF({...f,dtContr:e.target.value})}/></FF>
+        <FF label="Data da Sessão"><Inp type="date" value={f.dtSes} onChange={e=>setF({...f,dtSes:e.target.value})}/></FF>
+        <FF label="Serviço / Descrição *" span={2}><Inp value={f.servico} onChange={e=>setF({...f,servico:e.target.value})}/></FF>
+        <FF label="Região do Corpo"><Inp value={f.regiao} onChange={e=>setF({...f,regiao:e.target.value})}/></FF>
+        <FF label="Valor Total (R$)"><Inp type="number" value={f.valTotal} onChange={e=>setF({...f,valTotal:e.target.value})}/></FF>
+        <FF label="Sinal (R$)"><Inp type="number" value={f.sinal} onChange={e=>setF({...f,sinal:e.target.value})}/></FF>
+        <FF label="Contrato Assinado?"><Sel value={f.ass} onChange={e=>setF({...f,ass:e.target.value})}><option>Pendente</option><option>Sim</option><option>Não</option></Sel></FF>
+        <FF label="Forma Pagamento"><Sel value={f.pgto} onChange={e=>setF({...f,pgto:e.target.value})}><option value="">Selecione...</option>{formasPgto.map(s=><option key={s}>{s}</option>)}</Sel></FF>
+        <FF label="Consent. Fotográfico"><Sel value={f.fotoC} onChange={e=>setF({...f,fotoC:e.target.value})}><option>Não</option><option>Sim</option></Sel></FF>
+        <FF label="Alergias / Obs. Médicas" span={3}><Inp value={f.alergia} onChange={e=>setF({...f,alergia:e.target.value})}/></FF>
+      </GridForm>
+    </FC>}
+    <Tbl hdrs={['#','Cliente','Data Sessão','Serviço','Região','Valor Total','Sinal','Assinado','Foto C.','Ações']} empty="Nenhum contrato registrado."
+      rows={contr.map((c,i)=>[`#${i+1}`,<strong>{c.cliente}</strong>,fmtD(c.dtSes),c.servico,c.regiao||'-',c.valTotal?fmtR(c.valTotal):'-',c.sinal?fmtR(c.sinal):'-',<Bdg c={c.ass==='Sim'?'grn':c.ass==='Não'?'red':'amb'}>{c.ass}</Bdg>,<Bdg c={c.fotoC==='Sim'?'grn':'neu'}>{c.fotoC}</Bdg>,<div style={{display:'flex',gap:'5px'}}><Btn sz="sm" c="out" onClick={()=>openE(c)}>Editar</Btn><Btn sz="sm" c="del" onClick={()=>del(c.id)}>Excluir</Btn></div>])}
+    />
+  </div>;
+}
+
+// ─── PREÇOS ───
+function Precos({prec,setPrec}){
+  const [base,setBase]=useState(200);
+  const upd=(i,k,v)=>setPrec(ps=>ps.map((p,j)=>j===i?{...p,[k]:v}:p));
+  const cols=[{k:'p',l:'Pequeno (até 5cm)'},{k:'m',l:'Médio (5-15cm)'},{k:'g',l:'Grande (15-25cm)'},{k:'mg',l:'Manga/Costas'},{k:'h',l:'Hora (R$)'},{k:'mn',l:'Mínimo (R$)'},{k:'r',l:'Retoque'},{k:'c',l:'Cover-Up'}];
+  return <div>
+    <MH title="Tabela de Preços por Estilo" sub="Configure seus preços de referência para cada estilo"/>
+    <div style={{background:C.sur,border:`1px solid ${C.brd}`,borderRadius:'10px',padding:'14px 18px',marginBottom:'14px',display:'flex',alignItems:'center',gap:'16px',flexWrap:'wrap'}}>
+      <label style={{fontSize:'13px',color:C.tx2}}>⚙️ Valor Hora Base (R$) — referência para cálculos:</label>
+      <input type="number" value={base} onChange={e=>setBase(parseFloat(e.target.value)||0)} style={{width:'120px',padding:'8px 12px',border:`1px solid ${C.brd}`,borderRadius:'7px',fontSize:'15px',fontFamily:'Playfair Display,serif',fontWeight:'600',color:C.acc}}/>
+      <span style={{fontSize:'12px',color:C.tx3}}>Mude este valor para referenciar seus cálculos de precificação.</span>
+    </div>
+    <div style={{background:C.sur,border:`1px solid ${C.brd}`,borderRadius:'10px',overflow:'hidden'}}>
+      <div style={{overflowX:'auto'}}>
+        <table>
+          <thead><tr>
+            <th style={{background:'#F7F2EB',padding:'9px 12px',textAlign:'left',fontSize:'10px',color:C.tx2,borderBottom:`1px solid ${C.brd}`,textTransform:'uppercase',letterSpacing:'0.5px',minWidth:'140px'}}>Estilo</th>
+            {cols.map(c=><th key={c.k} style={{background:'#F7F2EB',padding:'9px 8px',textAlign:'center',fontSize:'10px',color:C.tx2,borderBottom:`1px solid ${C.brd}`,textTransform:'uppercase',letterSpacing:'0.3px',minWidth:'95px'}}>{c.l}</th>)}
+          </tr></thead>
+          <tbody>{prec.map((p,i)=><tr key={i} style={{background:i%2===0?C.sur:'#FDFAF6'}}>
+            <td style={{padding:'7px 12px',borderBottom:`1px solid ${C.brd}`,fontWeight:'600',color:C.acc,fontSize:'13px'}}>{p.estilo}</td>
+            {cols.map(c=><td key={c.k} style={{padding:'4px 5px',borderBottom:`1px solid ${C.brd}`,textAlign:'center'}}>
+              <input type="text" value={p[c.k]||''} onChange={e=>upd(i,c.k,e.target.value)} placeholder="—" style={{width:'82px',padding:'5px 6px',border:`1px solid ${C.brd}`,borderRadius:'5px',fontSize:'12px',textAlign:'center',fontFamily:'inherit',background:C.sur}}/>
+            </td>)}
+          </tr>)}</tbody>
+        </table>
+      </div>
+    </div>
+  </div>;
+}
+
+// ─── MARKETING ───
+function Marketing({mkt,setMkt}){
+  const [sh,setSh]=useState(false);const [eid,setEid]=useState(null);
+  const ef={mes:'',plat:'',tipo:'',verba:'',impressoes:'',cliques:'',leads:'',conv:'',fat:'',obs:''};
+  const [f,setF]=useState(ef);
+  const openN=()=>{setF(ef);setEid(null);setSh(true);};const openE=m=>{setF({...m});setEid(m.id);setSh(true);};
+  const save=()=>{if(eid){setMkt(ms=>ms.map(m=>m.id===eid?{...f,id:eid}:m));}else{setMkt(ms=>[...ms,{...f,id:Date.now()}]);}setSh(false);};
+  const del=id=>{if(window.confirm('Excluir?'))setMkt(ms=>ms.filter(m=>m.id!==id));};
+  const totVerba=mkt.reduce((s,m)=>s+parseFloat(m.verba||0),0);
+  const totFat=mkt.reduce((s,m)=>s+parseFloat(m.fat||0),0);
+  const roiTotal=totVerba>0?((totFat-totVerba)/totVerba*100).toFixed(0):0;
+  return <div>
+    <MH title="Controle de Marketing e Tráfego Pago" sub="Campanhas, métricas, CPL, CPC e ROI" act={<Btn onClick={openN}>+ Nova Campanha</Btn>}/>
+    <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(170px,1fr))',gap:'12px',marginBottom:'16px'}}>
+      <Kpi label="Total Investido" val={fmtR(totVerba)} c="red"/>
+      <Kpi label="Faturamento Gerado" val={fmtR(totFat)} c="grn"/>
+      <Kpi label="ROI Total" val={`${roiTotal}%`} c={parseFloat(roiTotal)>0?'grn':'red'}/>
+      <Kpi label="Leads Gerados" val={mkt.reduce((s,m)=>s+parseFloat(m.leads||0),0)}/>
+      <Kpi label="Convertidos" val={mkt.reduce((s,m)=>s+parseFloat(m.conv||0),0)} c="blu"/>
+    </div>
+    {sh&&<FC title={eid?'Editar Campanha':'Nova Campanha'} onSave={save} onCancel={()=>setSh(false)}>
+      <GridForm cols={3}>
+        <FF label="Mês/Ano"><Inp value={f.mes} onChange={e=>setF({...f,mes:e.target.value})} placeholder="Ex: Jan/2026"/></FF>
+        <FF label="Plataforma"><Sel value={f.plat} onChange={e=>setF({...f,plat:e.target.value})}><option value="">Selecione...</option>{['Instagram Ads','Facebook Ads','Google Ads','TikTok Ads','Orgânico'].map(s=><option key={s}>{s}</option>)}</Sel></FF>
+        <FF label="Tipo de Campanha"><Sel value={f.tipo} onChange={e=>setF({...f,tipo:e.target.value})}><option value="">Selecione...</option>{['Geração de Leads','Engajamento','Alcance','Tráfego','Conversão'].map(s=><option key={s}>{s}</option>)}</Sel></FF>
+        <FF label="Verba (R$)"><Inp type="number" value={f.verba} onChange={e=>setF({...f,verba:e.target.value})}/></FF>
+        <FF label="Impressões"><Inp type="number" value={f.impressoes} onChange={e=>setF({...f,impressoes:e.target.value})}/></FF>
+        <FF label="Cliques"><Inp type="number" value={f.cliques} onChange={e=>setF({...f,cliques:e.target.value})}/></FF>
+        <FF label="Leads Gerados"><Inp type="number" value={f.leads} onChange={e=>setF({...f,leads:e.target.value})}/></FF>
+        <FF label="Convertidos"><Inp type="number" value={f.conv} onChange={e=>setF({...f,conv:e.target.value})}/></FF>
+        <FF label="Faturamento Gerado (R$)"><Inp type="number" value={f.fat} onChange={e=>setF({...f,fat:e.target.value})}/></FF>
+        <FF label="Observações" span={3}><Inp value={f.obs} onChange={e=>setF({...f,obs:e.target.value})}/></FF>
+      </GridForm>
+    </FC>}
+    <Tbl hdrs={['Mês','Plataforma','Campanha','Verba','Impressões','Cliques','Leads','Convert.','Faturamento','ROI','Ações']} empty="Nenhuma campanha registrada."
+      rows={mkt.map(m=>{const roi=m.verba&&parseFloat(m.verba)>0?((parseFloat(m.fat||0)-parseFloat(m.verba))/parseFloat(m.verba)*100).toFixed(0):null;return[m.mes||'-',m.plat||'-',m.tipo||'-',m.verba?fmtR(m.verba):'-',m.impressoes||'-',m.cliques||'-',m.leads||'-',m.conv||'-',m.fat?fmtR(m.fat):'-',roi!==null?<span style={{color:parseFloat(roi)>=0?C.grn:C.red,fontWeight:'600'}}>{roi}%</span>:'-',<div style={{display:'flex',gap:'5px'}}><Btn sz="sm" c="out" onClick={()=>openE(m)}>Editar</Btn><Btn sz="sm" c="del" onClick={()=>del(m.id)}>Excluir</Btn></div>];})}
+    />
+  </div>;
+}
+
+// ─── RELATÓRIO ───
+function Relatorio({kpis,fin,leads,agenda}){
+  const meses=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  const [ms,setMs]=useState(new Date().getMonth());
+  const estC={};agenda.forEach(a=>{if(a.estilo)estC[a.estilo]=(estC[a.estilo]||0)+1;});
+  const topEst=Object.entries(estC).sort((a,b)=>b[1]-a[1]).slice(0,7);
+  const origC={};leads.forEach(l=>{if(l.origem)origC[l.origem]=(origC[l.origem]||0)+1;});
+  const origArr=Object.entries(origC).sort((a,b)=>b[1]-a[1]);
+  const totLd=origArr.reduce((s,[,c])=>s+c,0);
+  return <div>
+    <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'20px',flexWrap:'wrap',gap:'10px'}}>
+      <div><h2 style={{fontSize:'22px',color:C.txt,margin:0}}>Relatório de Performance</h2><p style={{margin:'4px 0 0',fontSize:'13px',color:C.tx2}}>Análise do negócio e visão consolidada</p></div>
+      <select value={ms} onChange={e=>setMs(parseInt(e.target.value))} style={{padding:'8px 12px',border:`1px solid ${C.brd}`,borderRadius:'7px',fontSize:'13px',color:C.txt,background:C.sur}}>
+        {meses.map((m,i)=><option key={i} value={i}>{m} 2026</option>)}
+      </select>
+    </div>
+    <div style={{background:C.sur,border:`1px solid ${C.brd}`,borderLeft:`4px solid ${C.acc}`,borderRadius:'10px',padding:'14px 18px',marginBottom:'16px'}}>
+      <h3 style={{margin:0,color:C.acc,fontSize:'14px'}}>📅 Período: {meses[ms]} 2026 — dados acumulados cadastrados no sistema</h3>
+    </div>
+    <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:'12px',marginBottom:'18px'}}>
+      <Kpi label="Faturamento" val={fmtR(kpis.rec)} c="grn"/>
+      <Kpi label="Despesas" val={fmtR(kpis.desp)} c="red"/>
+      <Kpi label="Lucro" val={fmtR(kpis.luc)} c={kpis.luc>=0?'grn':'red'}/>
+      <Kpi label="Sessões" val={kpis.ses} c="blu"/>
+      <Kpi label="Leads" val={leads.length}/>
+    </div>
+    <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'16px'}}>
+      <div style={{background:C.sur,border:`1px solid ${C.brd}`,borderRadius:'10px',padding:'18px'}}>
+        <h3 style={{fontSize:'12px',color:C.acc,margin:'0 0 14px',textTransform:'uppercase',letterSpacing:'0.8px'}}>🏆 Top Estilos</h3>
+        {topEst.length===0?<p style={{color:C.tx3,fontSize:'13px'}}>Nenhum dado disponível ainda.</p>:topEst.map(([est,cnt],i)=>{const max=topEst[0][1];const pct=Math.round(cnt/max*100);return<div key={i} style={{marginBottom:'11px'}}>
+          <div style={{display:'flex',justifyContent:'space-between',marginBottom:'3px'}}><span style={{fontSize:'13px',color:C.txt,fontWeight:'500'}}>{est}</span><span style={{fontSize:'11px',color:C.tx3}}>{cnt} sessão(ões)</span></div>
+          <div style={{background:'#F0E9DC',borderRadius:'4px',height:'7px',overflow:'hidden'}}><div style={{background:C.acc,height:'100%',width:`${pct}%`,borderRadius:'4px'}}/></div>
+        </div>;})}
+      </div>
+      <div style={{background:C.sur,border:`1px solid ${C.brd}`,borderRadius:'10px',padding:'18px'}}>
+        <h3 style={{fontSize:'12px',color:C.acc,margin:'0 0 14px',textTransform:'uppercase',letterSpacing:'0.8px'}}>📣 Origem dos Leads</h3>
+        {origArr.length===0?<p style={{color:C.tx3,fontSize:'13px'}}>Nenhum dado disponível ainda.</p>:origArr.map(([origem,cnt],i)=>{const pct=totLd>0?Math.round(cnt/totLd*100):0;return<div key={i} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'8px 0',borderBottom:`1px solid ${C.brd}`,fontSize:'13px'}}>
+          <span style={{color:C.txt,fontWeight:'500'}}>{origem}</span>
+          <div style={{display:'flex',alignItems:'center',gap:'8px'}}><span style={{color:C.tx2}}>{cnt}</span><Bdg c="neu">{pct}%</Bdg></div>
+        </div>;})}
+      </div>
+    </div>
+  </div>;
+}
+
+// ─── MAIN APP ───
+function App(){
+  const [tab,setTab]=useState('dashboard');
+  const [agenda,setAgenda]=useCRUD('agenda',[]);
+  const [clientes,setClientes]=useCRUD('clientes',[]);
+  const [fin,setFin]=useCRUD('fin',[]);
+  const [est,setEst]=useCRUD('est',DEF_EST);
+  const [leads,setLeads]=useCRUD('leads',[]);
+  const [sinais,setSinais]=useCRUD('sinais',[]);
+  const [cic,setCic]=useCRUD('cic',[]);
+  const [comCfg,setComCfg]=useCRUD('comcfg',DEF_COM);
+  const [comLanc,setComLanc]=useCRUD('comlanc',[]);
+  const [contr,setContr]=useCRUD('contr',[]);
+  const [mkt,setMkt]=useCRUD('mkt',[]);
+  const [prec,setPrec]=useCRUD('prec',DEF_PREC);
+  const [metas,setMetasRaw]=useState(()=>{try{const v=localStorage.getItem('ct_metas');return v?JSON.parse(v):DEF_META;}catch(e){return DEF_META;}});
+  const setMetas=v=>{const n=typeof v==='function'?v(metas):v;setMetasRaw(n);try{localStorage.setItem('ct_metas',JSON.stringify(n));}catch(e){}};
+
+  const kpis=useMemo(()=>{
+    const rec=fin.filter(f=>f.tipo==='Receita').reduce((s,f)=>s+parseFloat(f.valor||0),0);
+    const desp=fin.filter(f=>f.tipo==='Despesa').reduce((s,f)=>s+parseFloat(f.valor||0),0);
+    const luc=rec-desp;const marg=rec>0?((luc/rec)*100).toFixed(1):0;
+    const ses=agenda.filter(a=>a.status==='Concluído').length;
+    const cli=clientes.length;
+    const tick=ses>0?(rec/ses).toFixed(0):0;
+    const canc=agenda.filter(a=>a.status==='Cancelado').length;
+    const fid=clientes.filter(c=>c.status==='Fidelizado'||c.status==='VIP').length;
+    const valEst=est.reduce((s,e)=>s+(parseFloat(e.custo||0)*parseFloat(e.qtd||0)),0);
+    return{rec,desp,luc,marg,ses,cli,tick,canc,fid,valEst};
+  },[fin,agenda,clientes,est]);
+
+  const TABS=[
+    {id:'dashboard',l:'📊 Dashboard'},{id:'agenda',l:'📅 Agenda'},{id:'clientes',l:'👥 Clientes'},
+    {id:'followup',l:'🔔 Follow-Up'},{id:'financeiro',l:'💰 Financeiro'},{id:'calculadora',l:'🧮 Calculadora'},
+    {id:'estoque',l:'📦 Estoque'},{id:'leads',l:'🎯 Leads'},{id:'metas',l:'📈 Metas'},
+    {id:'sinais',l:'💎 Sinais'},{id:'cicatrizacao',l:'🌿 Cicatrização'},{id:'comissoes',l:'💼 Comissões'},
+    {id:'contratos',l:'📋 Contratos'},{id:'precos',l:'🏷️ Preços'},{id:'marketing',l:'📱 Marketing'},
+    {id:'relatorio',l:'📊 Relatório'},
+  ];
+
+  const render=()=>{
+    switch(tab){
+      case 'dashboard': return <Dashboard kpis={kpis} agenda={agenda} metas={metas}/>;
+      case 'agenda': return <Agenda agenda={agenda} setAgenda={setAgenda}/>;
+      case 'clientes': return <Clientes clientes={clientes} setClientes={setClientes}/>;
+      case 'followup': return <FollowUp clientes={clientes} agenda={agenda}/>;
+      case 'financeiro': return <Financeiro fin={fin} setFin={setFin} kpis={kpis}/>;
+      case 'calculadora': return <Calculadora/>;
+      case 'estoque': return <Estoque est={est} setEst={setEst}/>;
+      case 'leads': return <Leads leads={leads} setLeads={setLeads}/>;
+      case 'metas': return <Metas metas={metas} setMetas={setMetas}/>;
+      case 'sinais': return <Sinais sinais={sinais} setSinais={setSinais}/>;
+      case 'cicatrizacao': return <Cicatrizacao cic={cic} setCic={setCic}/>;
+      case 'comissoes': return <Comissoes comCfg={comCfg} setComCfg={setComCfg} comLanc={comLanc} setComLanc={setComLanc}/>;
+      case 'contratos': return <Contratos contr={contr} setContr={setContr}/>;
+      case 'precos': return <Precos prec={prec} setPrec={setPrec}/>;
+      case 'marketing': return <Marketing mkt={mkt} setMkt={setMkt}/>;
+      case 'relatorio': return <Relatorio kpis={kpis} fin={fin} leads={leads} agenda={agenda}/>;
+      default: return null;
+    }
+  };
+
+  return <div style={{minHeight:'100vh',background:C.bg}}>
+    {/* HEADER */}
+    <div style={{background:C.acc,color:'#FFF',padding:'13px 28px',display:'flex',alignItems:'center',justifyContent:'space-between',position:'sticky',top:0,zIndex:100}}>
+      <div style={{display:'flex',alignItems:'center',gap:'16px'}}>
+        <div>
+          <span style={{fontSize:'20px',fontFamily:'Playfair Display,Georgia,serif',fontWeight:'700',letterSpacing:'2px',textTransform:'uppercase'}}>Central Tattoo</span>
+          <span style={{fontSize:'11px',opacity:0.6,marginLeft:'14px',letterSpacing:'2px',textTransform:'uppercase'}}>Sistema de Gestão Premium</span>
+        </div>
+      </div>
+      <div style={{fontSize:'11px',opacity:0.5,letterSpacing:'1px'}}>Versão 2026 · Dados salvos automaticamente</div>
+    </div>
+    {/* NAV TABS */}
+    <div style={{background:C.nav,borderBottom:`1px solid ${C.brd}`,overflowX:'auto',whiteSpace:'nowrap',position:'sticky',top:'49px',zIndex:99}}>
+      {TABS.map(t=><button key={t.id} onClick={()=>setTab(t.id)} style={{display:'inline-block',padding:'13px 15px',background:'transparent',border:'none',borderBottom:`3px solid ${tab===t.id?C.acc:'transparent'}`,color:tab===t.id?C.acc:C.tx2,cursor:'pointer',fontSize:'12px',fontFamily:'inherit',fontWeight:tab===t.id?'700':'400',letterSpacing:'0.2px',transition:'all 0.15s',whiteSpace:'nowrap'}}>{t.l}</button>)}
+    </div>
+    {/* CONTENT */}
+    <div style={{padding:'28px',maxWidth:'1400px',margin:'0 auto'}}>
+      {render()}
+    </div>
+  </div>;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

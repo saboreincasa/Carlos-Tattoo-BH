@@ -59,6 +59,40 @@ body::before{content:'';position:absolute;inset:0;background:radial-gradient(ell
 .success-sub{font-size:14px;color:rgba(237,228,212,.65);line-height:1.7;margin-bottom:24px;}
 .btn-go-panel{display:inline-block;background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;padding:14px 32px;border-radius:50px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-decoration:none;transition:all .2s;}
 .btn-go-panel:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,.4);}
+
+/* ── TELA LOGIN CLARA ── */
+#telaLogin{
+  background:#FAF8F3 !important;
+  border:1px solid #DDD0B8 !important;
+  box-shadow:0 24px 60px rgba(0,0,0,.35), 0 0 0 1px rgba(201,168,76,.12) !important;
+  backdrop-filter:none !important;
+}
+#telaLogin .login-tag{color:#7A5820 !important;}
+#telaLogin .login-title{color:#1A0E04 !important;text-shadow:none !important;}
+#telaLogin .login-sub{color:#5A4030 !important;}
+#telaLogin .fg label{color:#7A5820 !important;}
+#telaLogin .finput{
+  background:#FFFFFF !important;
+  border:1.5px solid #D0C0A0 !important;
+  color:#1A0E04 !important;
+}
+#telaLogin .finput:focus{
+  border-color:#A07830 !important;
+  background:#FFFDF8 !important;
+  box-shadow:0 0 0 3px rgba(160,120,48,.1) !important;
+}
+#telaLogin .finput::placeholder{color:#B0A090 !important;}
+#telaLogin .pw-toggle{color:#A07830 !important;}
+#telaLogin .login-forgot a{color:#A07830 !important;}
+#telaLogin .login-forgot a:hover{color:#7A5820 !important;}
+#telaLogin .login-back a{color:#9A8878 !important;}
+#telaLogin .login-back a:hover{color:#1A0E04 !important;}
+#telaLogin .login-seg{color:#B0A080 !important;}
+#telaLogin .login-error{
+  background:#FEF2F2 !important;
+  border:1px solid rgba(220,38,38,.25) !important;
+  color:#B91C1C !important;
+}
 </style>
 </head>
 <body>
@@ -169,15 +203,39 @@ function togglePw(id,btn){
   btn.textContent=f.type==='password'?'👁':'🙈';
 }
 
+// ── CREDENCIAIS MASTER ──
+const MASTER_EMAIL='carlostattoobh@gmail.com';
+const MASTER_SENHA='CarlosMaster@2026';
+const TODOS_PRODUTOS=['central-tattoo','ebook-trafego','ebook-instagram','ebook-posicionamento','ebook-templates','ebook-contrato','curso-instagram','curso-trafego','curso-posicionamento','curso-mentoria'];
+
 // ── SISTEMA DE USUÁRIOS (localStorage) ──
 function getUsuarios(){return JSON.parse(localStorage.getItem('ct_usuarios')||'[]');}
 function saveUsuarios(u){localStorage.setItem('ct_usuarios',JSON.stringify(u));}
+
+function garantirMaster(){
+  const usuarios=getUsuarios();
+  let u=usuarios.find(x=>x.email===MASTER_EMAIL);
+  if(!u){usuarios.push({nome:'Carlos Henrique',email:MASTER_EMAIL,senha:btoa(MASTER_SENHA),produtos:TODOS_PRODUTOS,criado:new Date().toISOString(),firstLogin:false,bloqueado:false,tentativas:0,master:true});}
+  else{u.produtos=[...new Set([...TODOS_PRODUTOS,...(u.produtos||[])])];u.master=true;u.firstLogin=false;}
+  saveUsuarios(usuarios);
+  return getUsuarios().find(x=>x.email===MASTER_EMAIL);
+}
 
 function fazerLogin(){
   const email=document.getElementById('loginEmail').value.trim().toLowerCase();
   const senha=document.getElementById('loginSenha').value;
   const err=document.getElementById('loginError');
   if(!email||!senha){err.style.display='block';err.textContent='Preencha email e senha.';return;}
+  // ── LOGIN MASTER ──
+  if(email===MASTER_EMAIL.toLowerCase()&&senha===MASTER_SENHA){
+    const master=garantirMaster();
+    master.fingerprint=getFingerprint();master.lastLogin=new Date().toISOString();master.sessao=Math.random().toString(36).substring(2)+Date.now();
+    saveUsuarios(getUsuarios());
+    sessionStorage.setItem('ct_sessao',JSON.stringify({email:master.email,sessao:master.sessao,nome:master.nome,produtos:master.produtos}));
+    document.getElementById('telaLogin').style.display='none';
+    document.getElementById('telaSuccesso').style.display='block';
+    setTimeout(()=>{window.location.href='painel.html';},1500);return;
+  }
   const usuarios=getUsuarios();
   const user=usuarios.find(u=>u.email.toLowerCase()===email);
   if(!user){err.style.display='block';err.textContent='Email não encontrado. Contate o suporte.';return;}

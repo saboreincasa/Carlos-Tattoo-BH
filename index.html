@@ -425,7 +425,7 @@ button{font-family:'Raleway',sans-serif;cursor:pointer;}
 .cstyle-card:hover .cstyle-card-thumb,.cstyle-card.on .cstyle-card-thumb{filter:brightness(1);}
 .cstyle-card-info{padding:10px 8px;}
 .cstyle-card-name{font-family:'Cinzel',serif;font-size:10px;letter-spacing:1.5px;color:#1a0a00;text-transform:uppercase;font-weight:700;display:block;text-align:center;}
-.cstyle-card.on .cstyle-card-name{color:var(--g5);}
+.cstyle-card.on .cstyle-card-name{color:#ffffff;}
 .cstyle-card-check{
   position:absolute;top:6px;right:6px;
   width:20px;height:20px;border-radius:50%;
@@ -1648,17 +1648,17 @@ footer p { color:#9A7A5A !important; }
 .mobile-bottom-nav{
   display:none;
   position:fixed;bottom:0;left:0;right:0;
-  background:rgba(10,7,2,.97);
+  background:rgba(5,3,1,.98);
   backdrop-filter:blur(20px);
-  border-top:1px solid rgba(201,168,76,.15);
+  border-top:2px solid rgba(201,168,76,.3);
   z-index:8500;
   padding:8px 0 calc(8px + env(safe-area-inset-bottom));
 }
 .mbn-items{display:flex;align-items:center;justify-content:space-around;}
-.mbn-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 12px;cursor:pointer;border:none;background:none;color:rgba(201,168,76,.45);transition:.2s;min-width:52px;}
+.mbn-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 12px;cursor:pointer;border:none;background:none;color:rgba(255,255,255,.75);transition:.2s;min-width:52px;}
 .mbn-item.active,.mbn-item:hover{color:#E8B800;}
 .mbn-item-icon{font-size:20px;line-height:1;}
-.mbn-item-label{font-family:'Cinzel',serif;font-size:8px;letter-spacing:1px;text-transform:uppercase;}
+.mbn-item-label{font-family:'Cinzel',serif;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:inherit;font-weight:600;}
 .mbn-center{
   display:flex;flex-direction:column;align-items:center;gap:3px;
   background:linear-gradient(135deg,#A07830,#E8B800);
@@ -1935,46 +1935,49 @@ footer p { color:#9A7A5A !important; }
 .mobile-nav-grid{
   display:none;
   grid-template-columns:1fr 1fr;
-  gap:8px;padding:12px 16px;
-  background:rgba(10,7,2,.98);
-  border-bottom:1px solid rgba(201,168,76,.1);
+  gap:6px;padding:10px 12px;
+  background:rgba(5,3,1,.99);
+  border-bottom:2px solid rgba(201,168,76,.2);
 }
 .mob-nav-btn{
   display:flex;align-items:center;gap:8px;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(201,168,76,.15);
-  border-radius:10px;padding:12px 14px;
+  background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.06));
+  border:1px solid rgba(201,168,76,.28);
+  border-radius:10px;padding:13px 14px;
   font-family:'Cinzel',serif;font-size:10px;
-  letter-spacing:1px;color:#EDE4D4;
+  letter-spacing:1px;color:#ffffff;
   text-transform:uppercase;cursor:pointer;
   text-decoration:none;transition:.2s;
   justify-content:flex-start;
+  font-weight:600;
 }
 .mob-nav-btn:hover,.mob-nav-btn:active{
-  background:rgba(201,168,76,.1);
-  border-color:rgba(201,168,76,.35);
+  background:linear-gradient(135deg,rgba(201,168,76,.25),rgba(201,168,76,.15));
+  border-color:rgba(201,168,76,.55);
   color:#E8B800;
 }
-.mob-nav-btn .mni{font-size:16px;}
+.mob-nav-btn .mni{font-size:15px;filter:none;}
 .mob-agendar-strip{
   display:none;
   background:linear-gradient(135deg,#A07830,#E8B800);
-  padding:14px 20px;text-align:center;
-  font-family:'Cinzel',serif;font-size:11px;
+  padding:15px 20px;text-align:center;
+  font-family:'Cinzel',serif;font-size:12px;
   letter-spacing:3px;color:#0a0500;font-weight:700;
   cursor:pointer;border:none;width:100%;
+  box-shadow:0 -2px 16px rgba(201,168,76,.3);
 }
 @media(max-width:768px){
   /* Esconder nav desktop links */
   .nav-links{display:none !important;}
   .mob-hamburger{display:none !important;}
+  .hamburger{display:none !important;}
   /* Mostrar grid de botões */
   .mobile-nav-grid{display:grid !important;}
   .mob-agendar-strip{display:block !important;}
-  /* Hero — foto quadrada */
+  /* Hero — foto inteira sem corte */
   .hero-photo-frame img{
     width:100% !important;
-    height:240px !important;
+    height:320px !important;
     border-radius:14px !important;
     object-fit:cover !important;
     object-position:top center !important;
@@ -2288,7 +2291,7 @@ html { scroll-behavior: smooth; }
 
 @media(max-width:480px){
   /* HERO MENOR */
-  .hero-photo-frame img { height: 220px !important; }
+  .hero-photo-frame img { height: 240px !important; object-fit: cover !important; object-position: top center !important; }
   
   /* CARDS EBOOK — 1 coluna em telas muito pequenas */
   .ebooks-grid { grid-template-columns: 1fr !important; }
@@ -2297,6 +2300,59 @@ html { scroll-behavior: smooth; }
   .pix-box { padding: 16px 12px !important; }
 }
 
+
+
+
+/* ══════════════════════════════════════════
+   MELHORIAS MOBILE PREMIUM
+   ══════════════════════════════════════════ */
+@media(max-width:768px){
+  /* HERO layout em coluna */
+  #hero{grid-template-columns:1fr !important;min-height:auto !important;}
+  .hero-left{padding:100px 24px 32px !important;order:1;}
+  .hero-right{padding:0 24px 40px !important;order:2;}
+  .hero-photo-wrap{max-width:100% !important;}
+  .hero-btns{flex-direction:column !important;gap:10px !important;}
+  .hero-btns .btn{width:100% !important;justify-content:center !important;}
+  .hero-stats{gap:16px !important;justify-content:center !important;}
+  .hero-h1{font-size:clamp(28px,8vw,44px) !important;}
+
+  /* Nav compacta */
+  #nav{padding:0 14px !important;gap:8px !important;}
+  .nav-logo img{height:44px !important;}
+  .nav-wpp{display:none !important;}
+
+  /* Sections padding menor */
+  .sec{padding:60px 20px !important;}
+
+  /* Grids em coluna */
+  .about-grid,.cover-layout,.vid-destaque-wrap,.emocional-inner{grid-template-columns:1fr !important;gap:32px !important;}
+  .stats-bar{grid-template-columns:1fr 1fr !important;}
+
+  /* Ebook cards */
+  .ebook-novo{grid-template-columns:1fr !important;}
+  .ebook-novo-card{grid-template-columns:1fr !important;}
+  .ebook-novo-img{min-height:180px !important;position:relative;}
+
+  /* Calculadora */
+  .calc-style-cards{grid-template-columns:repeat(2,1fr) !important;gap:8px !important;}
+  .calc-box{padding:24px 18px !important;}
+
+  /* Servicos */
+  .spec-grid{grid-template-columns:1fr 1fr !important;}
+
+  /* Portfolio */
+  .vid-grid{grid-template-columns:repeat(2,1fr) !important;}
+  .portfolio-grid-full{grid-template-columns:repeat(2,1fr) !important;}
+
+  /* Quiz */
+  .quiz-wrap{padding:0 4px !important;}
+  .quiz-q{font-size:18px !important;}
+
+  /* Mentoria responsive */
+  [style*="grid-template-columns:1fr 1fr;gap:60px"]{display:flex !important;flex-direction:column !important;gap:24px !important;}
+  [style*="grid-template-columns:repeat(3,1fr);gap:16px"]{grid-template-columns:1fr 1fr !important;}
+}
 
 /* ══════════════════════════════════════════
    FORMULÁRIO PREMIUM — 3 PASSOS
@@ -2942,7 +2998,7 @@ button{font-family:'Raleway',sans-serif;cursor:pointer;}
 .cstyle-card:hover .cstyle-card-thumb,.cstyle-card.on .cstyle-card-thumb{filter:brightness(1);}
 .cstyle-card-info{padding:10px 8px;}
 .cstyle-card-name{font-family:'Cinzel',serif;font-size:10px;letter-spacing:1.5px;color:#1a0a00;text-transform:uppercase;font-weight:700;display:block;text-align:center;}
-.cstyle-card.on .cstyle-card-name{color:var(--g5);}
+.cstyle-card.on .cstyle-card-name{color:#ffffff;}
 .cstyle-card-check{
   position:absolute;top:6px;right:6px;
   width:20px;height:20px;border-radius:50%;
@@ -4165,17 +4221,17 @@ footer p { color:#9A7A5A !important; }
 .mobile-bottom-nav{
   display:none;
   position:fixed;bottom:0;left:0;right:0;
-  background:rgba(10,7,2,.97);
+  background:rgba(5,3,1,.98);
   backdrop-filter:blur(20px);
-  border-top:1px solid rgba(201,168,76,.15);
+  border-top:2px solid rgba(201,168,76,.3);
   z-index:8500;
   padding:8px 0 calc(8px + env(safe-area-inset-bottom));
 }
 .mbn-items{display:flex;align-items:center;justify-content:space-around;}
-.mbn-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 12px;cursor:pointer;border:none;background:none;color:rgba(201,168,76,.45);transition:.2s;min-width:52px;}
+.mbn-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 12px;cursor:pointer;border:none;background:none;color:rgba(255,255,255,.75);transition:.2s;min-width:52px;}
 .mbn-item.active,.mbn-item:hover{color:#E8B800;}
 .mbn-item-icon{font-size:20px;line-height:1;}
-.mbn-item-label{font-family:'Cinzel',serif;font-size:8px;letter-spacing:1px;text-transform:uppercase;}
+.mbn-item-label{font-family:'Cinzel',serif;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:inherit;font-weight:600;}
 .mbn-center{
   display:flex;flex-direction:column;align-items:center;gap:3px;
   background:linear-gradient(135deg,#A07830,#E8B800);
@@ -4486,46 +4542,49 @@ footer p { color:#9A7A5A !important; }
 .mobile-nav-grid{
   display:none;
   grid-template-columns:1fr 1fr;
-  gap:8px;padding:12px 16px;
-  background:rgba(10,7,2,.98);
-  border-bottom:1px solid rgba(201,168,76,.1);
+  gap:6px;padding:10px 12px;
+  background:rgba(5,3,1,.99);
+  border-bottom:2px solid rgba(201,168,76,.2);
 }
 .mob-nav-btn{
   display:flex;align-items:center;gap:8px;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(201,168,76,.15);
-  border-radius:10px;padding:12px 14px;
+  background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.06));
+  border:1px solid rgba(201,168,76,.28);
+  border-radius:10px;padding:13px 14px;
   font-family:'Cinzel',serif;font-size:10px;
-  letter-spacing:1px;color:#EDE4D4;
+  letter-spacing:1px;color:#ffffff;
   text-transform:uppercase;cursor:pointer;
   text-decoration:none;transition:.2s;
   justify-content:flex-start;
+  font-weight:600;
 }
 .mob-nav-btn:hover,.mob-nav-btn:active{
-  background:rgba(201,168,76,.1);
-  border-color:rgba(201,168,76,.35);
+  background:linear-gradient(135deg,rgba(201,168,76,.25),rgba(201,168,76,.15));
+  border-color:rgba(201,168,76,.55);
   color:#E8B800;
 }
-.mob-nav-btn .mni{font-size:16px;}
+.mob-nav-btn .mni{font-size:15px;filter:none;}
 .mob-agendar-strip{
   display:none;
   background:linear-gradient(135deg,#A07830,#E8B800);
-  padding:14px 20px;text-align:center;
-  font-family:'Cinzel',serif;font-size:11px;
+  padding:15px 20px;text-align:center;
+  font-family:'Cinzel',serif;font-size:12px;
   letter-spacing:3px;color:#0a0500;font-weight:700;
   cursor:pointer;border:none;width:100%;
+  box-shadow:0 -2px 16px rgba(201,168,76,.3);
 }
 @media(max-width:768px){
   /* Esconder nav desktop links */
   .nav-links{display:none !important;}
   .mob-hamburger{display:none !important;}
+  .hamburger{display:none !important;}
   /* Mostrar grid de botões */
   .mobile-nav-grid{display:grid !important;}
   .mob-agendar-strip{display:block !important;}
-  /* Hero — foto quadrada */
+  /* Hero — foto inteira sem corte */
   .hero-photo-frame img{
     width:100% !important;
-    height:240px !important;
+    height:320px !important;
     border-radius:14px !important;
     object-fit:cover !important;
     object-position:top center !important;
@@ -4839,7 +4898,7 @@ html { scroll-behavior: smooth; }
 
 @media(max-width:480px){
   /* HERO MENOR */
-  .hero-photo-frame img { height: 220px !important; }
+  .hero-photo-frame img { height: 240px !important; object-fit: cover !important; object-position: top center !important; }
   
   /* CARDS EBOOK — 1 coluna em telas muito pequenas */
   .ebooks-grid { grid-template-columns: 1fr !important; }
@@ -6009,22 +6068,22 @@ html { scroll-behavior: smooth; }
         <p class="quiz-q">Como você se descreveria?</p>
         <p style="text-align:center;font-family:'IM Fell English',serif;font-style:italic;color:rgba(237,228,212,.45);font-size:14px;margin:-14px 0 22px;">Escolha a opção que mais combina com você</p>
         <div class="quiz-opts">
-          <div class="qopt" onclick="quizNext(1,'Intenso e marcante')">
+          <div class="qopt" onclick="quizNext(1,'Intenso e marcante',this)">
             <span class="qopt-icon">🔥</span>
             <strong>Intenso e marcante</strong>
             <span class="qopt-sub">Presença forte, nunca passa despercebido</span>
           </div>
-          <div class="qopt" onclick="quizNext(1,'Elegante e sofisticado')">
+          <div class="qopt" onclick="quizNext(1,'Elegante e sofisticado',this)">
             <span class="qopt-icon">💎</span>
             <strong>Elegante e sofisticado</strong>
             <span class="qopt-sub">Gosto apurado, detalhes que impressionam</span>
           </div>
-          <div class="qopt" onclick="quizNext(1,'Minimalista e discreto')">
+          <div class="qopt" onclick="quizNext(1,'Minimalista e discreto',this)">
             <span class="qopt-icon">✨</span>
             <strong>Minimalista e discreto</strong>
             <span class="qopt-sub">Menos é mais — precisão acima de tudo</span>
           </div>
-          <div class="qopt" onclick="quizNext(1,'Artístico e criativo')">
+          <div class="qopt" onclick="quizNext(1,'Artístico e criativo',this)">
             <span class="qopt-icon">🎨</span>
             <strong>Artístico e criativo</strong>
             <span class="qopt-sub">Único, expressivo, fora do padrão</span>
@@ -6037,22 +6096,22 @@ html { scroll-behavior: smooth; }
         <p class="quiz-q">O que você quer eternizar?</p>
         <p style="text-align:center;font-family:'IM Fell English',serif;font-style:italic;color:rgba(237,228,212,.45);font-size:14px;margin:-14px 0 22px;">Qual tema faz mais sentido para a sua tatuagem?</p>
         <div class="quiz-opts">
-          <div class="qopt" onclick="quizNext(2,'Natureza e animais')">
+          <div class="qopt" onclick="quizNext(2,'Natureza e animais',this)">
             <span class="qopt-icon">🌿</span>
             <strong>Natureza e animais</strong>
             <span class="qopt-sub">Floresta, fauna, elementos naturais</span>
           </div>
-          <div class="qopt" onclick="quizNext(2,'Pessoas e retratos')">
+          <div class="qopt" onclick="quizNext(2,'Pessoas e retratos',this)">
             <span class="qopt-icon">👤</span>
             <strong>Pessoas e retratos</strong>
             <span class="qopt-sub">Quem você ama eternizado na pele</span>
           </div>
-          <div class="qopt" onclick="quizNext(2,'Geométrico e abstrato')">
+          <div class="qopt" onclick="quizNext(2,'Geométrico e abstrato',this)">
             <span class="qopt-icon">🔷</span>
             <strong>Geométrico e abstrato</strong>
             <span class="qopt-sub">Formas, padrões, composições visuais</span>
           </div>
-          <div class="qopt" onclick="quizNext(2,'Simbólico e espiritual')">
+          <div class="qopt" onclick="quizNext(2,'Simbólico e espiritual',this)">
             <span class="qopt-icon">🌙</span>
             <strong>Simbólico e espiritual</strong>
             <span class="qopt-sub">Símbolos com significado profundo</span>
@@ -6122,13 +6181,22 @@ html { scroll-behavior: smooth; }
       </div>
 
     </div>
+
+    <!-- CTA abaixo do quiz sempre visível -->
+    <div style="text-align:center;margin-top:40px;" class="rv">
+      <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:rgba(201,168,76,.5);text-transform:uppercase;margin-bottom:16px;">Prefere ir direto ao agendamento?</p>
+      <a href="#contato"
+        class="btn btn-wpp"
+        style="display:inline-flex;font-size:11px;padding:15px 36px;"
+        onclick="setTimeout(()=>{const n=document.getElementById('fp-nome');if(n){n.scrollIntoView({behavior:'smooth',block:'center'});n.focus();}},400);">
+        📅 AGENDAR CONSULTA GRATUITA
+      </a>
+    </div>
   </div>
 </section>
 
 <div class="odiv"><span class="odiv-sym">✦ ✦ ✦</span></div>
 
-
-<!-- ═══ COMO FUNCIONA ═══ -->
 <section style="background:linear-gradient(160deg,#1C1208,#0A0702);padding:70px 0;border-top:1px solid rgba(201,168,76,.08);">
   <div style="max-width:1000px;margin:0 auto;padding:0 40px;">
     <div style="text-align:center;margin-bottom:48px;">
@@ -6821,31 +6889,33 @@ html { scroll-behavior: smooth; }
 </div>
 
 <!-- ═══ CURSOS ═══ -->
-<section class="sec parch" id="cursos">
+<section class="sec dark" id="cursos">
   <div class="si-inner">
     <div class="sec-head">
-      <div class="tag rv">💎 MENTORIA VIP 1:1</div>
+      <div class="tag rv" style="color:var(--g3);">MENTORIA VIP 1:1</div>
       <h2 class="h2 rv">Transforme seu <span class="g">Estúdio em Máquina de Vendas</span></h2>
-      <p class="h2-sub rv">Mentoria individual e personalizada com Carlos. Para tatuadores que querem lotar a agenda e viver de arte com dignidade.</p>
+      <p class="h2-sub rv" style="color:rgba(237,228,212,.7);">Mentoria individual e personalizada com Carlos. Para tatuadores que querem lotar a agenda e viver de arte com dignidade.</p>
     </div>
 
     <!-- APRESENTAÇÃO DA MENTORIA -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-bottom:64px;" class="rv">
-      <!-- Imagem principal da mentoria -->
-      <div style="position:relative;">
-        <img src="imagens/mentoria-carlos.jpg" alt="Carlos Tattoo BH — Mentoria VIP"
-          style="width:100%;border-radius:12px;object-fit:cover;max-height:480px;display:block;border:2px solid rgba(201,168,76,.2);box-shadow:0 20px 60px rgba(0,0,0,.4);"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div style="display:none;width:100%;height:480px;background:linear-gradient(135deg,#1C1208,#0A0702);border-radius:12px;border:2px solid rgba(201,168,76,.2);align-items:center;justify-content:center;flex-direction:column;gap:12px;">
-          <span style="font-size:48px;">💎</span>
-          <span style="font-family:'Cinzel Decorative',cursive;font-size:14px;color:var(--g3);letter-spacing:2px;text-align:center;">MENTORIA VIP<br>CARLOS TATTOO BH</span>
-          <span style="font-size:10px;color:rgba(201,168,76,.4);font-family:'Cinzel',serif;">Adicione: imagens/mentoria-carlos.jpg</span>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-bottom:64px;" class="rv">
+
+      <!-- Coluna Esquerda — Imagem + vídeo -->
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div style="position:relative;border-radius:14px;overflow:hidden;border:2px solid rgba(201,168,76,.2);box-shadow:0 20px 60px rgba(0,0,0,.4);">
+          <img src="imagens/mentoria-carlos.jpg" alt="Carlos Tattoo BH — Mentoria VIP"
+            style="width:100%;display:block;object-fit:cover;max-height:380px;"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div style="display:none;width:100%;height:280px;background:linear-gradient(135deg,#1C1208,#0A0702);align-items:center;justify-content:center;flex-direction:column;gap:12px;">
+            <span style="font-family:'Cinzel Decorative',cursive;font-size:14px;color:var(--g3);letter-spacing:2px;text-align:center;">MENTORIA VIP<br>CARLOS TATTOO BH</span>
+          </div>
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:12px 18px;background:linear-gradient(transparent,rgba(5,3,1,.9));">
+            <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:var(--g3);text-transform:uppercase;">Mentoria VIP 1:1 · Carlos Tattoo BH</div>
+          </div>
         </div>
-        <div style="position:absolute;bottom:16px;left:16px;background:rgba(5,3,1,.85);border:1px solid rgba(201,168,76,.35);padding:8px 16px;border-radius:6px;">
-          <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:var(--g3);text-transform:uppercase;">💎 Mentoria VIP 1:1</div>
-        </div>
-      </div>
-        <div class="cvid-apresentacao" id="cv3-thumb">
+
+        <!-- Vídeo da mentoria -->
+        <div class="cvid-apresentacao" id="cv3-thumb" style="border-radius:12px;overflow:hidden;">
           <img src="imagens/perfil.jpg" alt="Carlos apresenta a mentoria" class="cvid-ap-img">
           <div class="cvid-ap-ov">
             <button class="cvid-ap-play" onclick="playDestaque('cv3-vid','cv3-thumb')">
@@ -6855,30 +6925,46 @@ html { scroll-behavior: smooth; }
               <span class="cvid-ap-title">▶ Carlos apresenta a Mentoria</span>
               <small>Assista antes de se inscrever</small>
             </div>
-            <div class="cvid-ap-placeholder-note">⚙️ Substitua por: video_mentoria.mp4</div>
           </div>
         </div>
         <video id="cv3-vid" src="video_mentoria.mp4" controls playsinline style="display:none;width:100%;border-radius:12px;"></video>
       </div>
 
-      <!-- Texto introdutório -->
-      <div>
-        <p style="font-size:16px;color:var(--t1);line-height:1.9;margin-bottom:18px;">Se você é tatuador e sente que seu trabalho vale mais do que você cobra, que sua agenda nunca está cheia do jeito que merece e que você não sabe como usar o digital a seu favor — <strong>essa mentoria foi feita para você.</strong></p>
-        <p style="font-size:16px;color:var(--t1);line-height:1.9;margin-bottom:24px;">Em 7 anos de estúdio, Carlos não só aperfeiçoou a técnica — ele construiu um sistema completo de atração, conversão e fidelização de clientes. Agora ele abre esse método pra você.</p>
+      <!-- Coluna Direita — texto -->
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <p style="font-size:16px;color:#EDE4D4;line-height:1.9;">Se você é tatuador e sente que seu trabalho vale mais do que você cobra, que sua agenda nunca está cheia do jeito que merece e que você não sabe como usar o digital a seu favor — <strong style="color:#E8B800;">essa mentoria foi feita para você.</strong></p>
+        <p style="font-size:15px;color:rgba(237,228,212,.75);line-height:1.9;">Em 7 anos de estúdio, Carlos não só aperfeiçoou a técnica — ele construiu um sistema completo de atração, conversão e fidelização de clientes. Agora ele abre esse método pra você.</p>
+
         <div style="display:flex;flex-direction:column;gap:12px;">
-          <div style="display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:rgba(160,120,56,.07);border-left:3px solid var(--g4);border-radius:4px;">
-            <span style="font-size:20px;flex-shrink:0;">🎯</span>
+          <div style="display:flex;align-items:flex-start;gap:14px;padding:16px 18px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);border-left:3px solid var(--g4);border-radius:8px;">
+            <span style="font-size:22px;flex-shrink:0;margin-top:2px;">✅</span>
             <div>
-              <strong style="font-family:'Cinzel',serif;font-size:12px;color:var(--t1);">PARA QUEM É</strong>
-              <p style="font-size:13px;color:var(--t3);margin-top:3px;line-height:1.6;">Tatuadores com pelo menos 1 ano de prática que querem profissionalizar o negócio e cobrar mais.</p>
+              <strong style="font-family:'Cinzel',serif;font-size:12px;color:#E8B800;letter-spacing:1px;display:block;margin-bottom:5px;">PARA QUEM É</strong>
+              <p style="font-size:13px;color:rgba(237,228,212,.8);line-height:1.65;">Tatuadores com pelo menos 1 ano de prática que querem profissionalizar o negócio e cobrar mais.</p>
             </div>
           </div>
-          <div style="display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:rgba(160,120,56,.07);border-left:3px solid var(--g4);border-radius:4px;">
-            <span style="font-size:20px;flex-shrink:0;">🚫</span>
+          <div style="display:flex;align-items:flex-start;gap:14px;padding:16px 18px;background:rgba(139,26,26,.06);border:1px solid rgba(139,26,26,.2);border-left:3px solid var(--r3);border-radius:8px;">
+            <span style="font-size:22px;flex-shrink:0;margin-top:2px;">⛔</span>
             <div>
-              <strong style="font-family:'Cinzel',serif;font-size:12px;color:var(--t1);">NÃO É PARA QUEM</strong>
-              <p style="font-size:13px;color:var(--t3);margin-top:3px;line-height:1.6;">Quer resultado sem comprometimento ou ainda está nos primeiros meses de aprendizado técnico.</p>
+              <strong style="font-family:'Cinzel',serif;font-size:12px;color:#FF9999;letter-spacing:1px;display:block;margin-bottom:5px;">NÃO É PARA QUEM</strong>
+              <p style="font-size:13px;color:rgba(237,228,212,.7);line-height:1.65;">Quer resultado sem comprometimento ou ainda está nos primeiros meses de aprendizado técnico.</p>
             </div>
+          </div>
+        </div>
+
+        <!-- Mini stats -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:4px;">
+          <div style="text-align:center;padding:16px 12px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);border-radius:10px;">
+            <div style="font-family:'Cinzel Decorative',cursive;font-size:26px;color:#E8B800;line-height:1;">50+</div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;color:rgba(201,168,76,.6);text-transform:uppercase;margin-top:4px;">Mentorados</div>
+          </div>
+          <div style="text-align:center;padding:16px 12px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);border-radius:10px;">
+            <div style="font-family:'Cinzel Decorative',cursive;font-size:26px;color:#E8B800;line-height:1;">7+</div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;color:rgba(201,168,76,.6);text-transform:uppercase;margin-top:4px;">Anos de exp.</div>
+          </div>
+          <div style="text-align:center;padding:16px 12px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);border-radius:10px;">
+            <div style="font-family:'Cinzel Decorative',cursive;font-size:26px;color:#E8B800;line-height:1;">2h</div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;color:rgba(201,168,76,.6);text-transform:uppercase;margin-top:4px;">VIP ao vivo</div>
           </div>
         </div>
       </div>
@@ -6886,38 +6972,38 @@ html { scroll-behavior: smooth; }
 
     <!-- O QUE VEM NA MENTORIA -->
     <div style="margin-bottom:64px;">
-      <h3 style="font-family:'Cinzel Decorative',cursive;font-size:22px;color:var(--t1);text-align:center;margin-bottom:36px;">O que está incluído na <span style="color:var(--r2);">Mentoria VIP</span></h3>
+      <h3 style="font-family:'Cinzel Decorative',cursive;font-size:22px;color:#ffffff;text-align:center;margin-bottom:36px;">O que está incluído na <span style="color:var(--g2);">Mentoria VIP</span></h3>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
-        <div style="padding:24px;background:#fff;border:1px solid rgba(160,120,56,.14);border-top:3px solid var(--g4);border-radius:2px;box-shadow:0 4px 18px rgba(0,0,0,.05);">
-          <div style="font-size:28px;margin-bottom:10px;">📱</div>
-          <div style="font-family:'Cinzel',serif;font-size:13px;color:var(--t1);font-weight:700;margin-bottom:8px;">Instagram Estratégico</div>
-          <p style="font-size:13px;color:var(--t3);line-height:1.7;">Análise completa do seu perfil + plano de conteúdo semanal + scripts de stories + estratégia de reels que atraem clientes reais.</p>
+        <div style="padding:24px;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.15);border-top:3px solid var(--g4);border-radius:10px;">
+          <div style="font-size:26px;margin-bottom:10px;">📱</div>
+          <div style="font-family:'Cinzel',serif;font-size:13px;color:#E8B800;font-weight:700;margin-bottom:8px;">Instagram Estratégico</div>
+          <p style="font-size:13px;color:rgba(237,228,212,.75);line-height:1.7;">Análise completa do seu perfil + plano de conteúdo semanal + scripts de stories + estratégia de reels que atraem clientes reais.</p>
         </div>
-        <div style="padding:24px;background:#fff;border:1px solid rgba(160,120,56,.14);border-top:3px solid var(--g4);border-radius:2px;box-shadow:0 4px 18px rgba(0,0,0,.05);">
-          <div style="font-size:28px;margin-bottom:10px;">🎯</div>
-          <div style="font-family:'Cinzel',serif;font-size:13px;color:var(--t1);font-weight:700;margin-bottom:8px;">Tráfego Pago do Zero</div>
-          <p style="font-size:13px;color:var(--t3);line-height:1.7;">Meta Ads configurado na sua conta ao vivo: campanha, público, criativo e orçamento certeiro para o seu estúdio.</p>
+        <div style="padding:24px;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.15);border-top:3px solid var(--g4);border-radius:10px;">
+          <div style="font-size:26px;margin-bottom:10px;">🎯</div>
+          <div style="font-family:'Cinzel',serif;font-size:13px;color:#E8B800;font-weight:700;margin-bottom:8px;">Tráfego Pago do Zero</div>
+          <p style="font-size:13px;color:rgba(237,228,212,.75);line-height:1.7;">Meta Ads configurado na sua conta ao vivo: campanha, público, criativo e orçamento certeiro para o seu estúdio.</p>
         </div>
-        <div style="padding:24px;background:#fff;border:1px solid rgba(160,120,56,.14);border-top:3px solid var(--g4);border-radius:2px;box-shadow:0 4px 18px rgba(0,0,0,.05);">
-          <div style="font-size:28px;margin-bottom:10px;">🏆</div>
-          <div style="font-family:'Cinzel',serif;font-size:13px;color:var(--t1);font-weight:700;margin-bottom:8px;">Posicionamento Premium</div>
-          <p style="font-size:13px;color:var(--t3);line-height:1.7;">Como reposicionar seu preço, filtrar clientes ideais e construir uma identidade visual que justifica cobrar mais.</p>
+        <div style="padding:24px;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.15);border-top:3px solid var(--g4);border-radius:10px;">
+          <div style="font-size:26px;margin-bottom:10px;">🏆</div>
+          <div style="font-family:'Cinzel',serif;font-size:13px;color:#E8B800;font-weight:700;margin-bottom:8px;">Posicionamento Premium</div>
+          <p style="font-size:13px;color:rgba(237,228,212,.75);line-height:1.7;">Como reposicionar seu preço, filtrar clientes ideais e construir uma identidade visual que justifica cobrar mais.</p>
         </div>
-        <div style="padding:24px;background:#fff;border:1px solid rgba(160,120,56,.14);border-top:3px solid var(--g4);border-radius:2px;box-shadow:0 4px 18px rgba(0,0,0,.05);">
-          <div style="font-size:28px;margin-bottom:10px;">💬</div>
-          <div style="font-family:'Cinzel',serif;font-size:13px;color:var(--t1);font-weight:700;margin-bottom:8px;">Scripts de Atendimento</div>
-          <p style="font-size:13px;color:var(--t3);line-height:1.7;">Respostas prontas para WhatsApp que convertem curiosos em clientes pagantes. Do "quanto custa?" ao fechamento.</p>
+        <div style="padding:24px;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.15);border-top:3px solid var(--g4);border-radius:10px;">
+          <div style="font-size:26px;margin-bottom:10px;">💬</div>
+          <div style="font-family:'Cinzel',serif;font-size:13px;color:#E8B800;font-weight:700;margin-bottom:8px;">Scripts de Atendimento</div>
+          <p style="font-size:13px;color:rgba(237,228,212,.75);line-height:1.7;">Respostas prontas para WhatsApp que convertem curiosos em clientes pagantes. Do "quanto custa?" ao fechamento.</p>
         </div>
-        <div style="padding:24px;background:#fff;border:1px solid rgba(160,120,56,.14);border-top:3px solid var(--g4);border-radius:2px;box-shadow:0 4px 18px rgba(0,0,0,.05);">
-          <div style="font-size:28px;margin-bottom:10px;">📊</div>
-          <div style="font-family:'Cinzel',serif;font-size:13px;color:var(--t1);font-weight:700;margin-bottom:8px;">Plano de Ação Personalizado</div>
-          <p style="font-size:13px;color:var(--t3);line-height:1.7;">Um roteiro exclusivo para os próximos 90 dias com metas, ações semanais e indicadores para você acompanhar seu crescimento.</p>
+        <div style="padding:24px;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.15);border-top:3px solid var(--g4);border-radius:10px;">
+          <div style="font-size:26px;margin-bottom:10px;">📊</div>
+          <div style="font-family:'Cinzel',serif;font-size:13px;color:#E8B800;font-weight:700;margin-bottom:8px;">Plano de Ação Personalizado</div>
+          <p style="font-size:13px;color:rgba(237,228,212,.75);line-height:1.7;">Um roteiro exclusivo para os próximos 90 dias com metas, ações semanais e indicadores para você acompanhar seu crescimento.</p>
         </div>
-        <div style="padding:24px;background:#fff;border:1px solid rgba(160,120,56,.14);border-top:3px solid var(--r3);border-radius:2px;box-shadow:0 4px 18px rgba(0,0,0,.05);position:relative;">
-          <div style="position:absolute;top:10px;right:12px;background:var(--r3);color:#fff;font-family:'Cinzel',serif;font-size:8px;letter-spacing:1px;padding:3px 8px;text-transform:uppercase;">BÔNUS</div>
-          <div style="font-size:28px;margin-bottom:10px;">🎁</div>
-          <div style="font-family:'Cinzel',serif;font-size:13px;color:var(--t1);font-weight:700;margin-bottom:8px;">Acesso a Todos os Cursos</div>
-          <p style="font-size:13px;color:var(--t3);line-height:1.7;">Acesso vitalício ao Instagram para Tatuadores, Tráfego do Zero e Branding & Posicionamento como bônus da mentoria.</p>
+        <div style="padding:24px;background:rgba(139,26,26,.08);border:1px solid rgba(192,57,43,.25);border-top:3px solid var(--r3);border-radius:10px;position:relative;">
+          <div style="position:absolute;top:10px;right:12px;background:var(--r3);color:#fff;font-family:'Cinzel',serif;font-size:8px;letter-spacing:1px;padding:3px 10px;text-transform:uppercase;border-radius:3px;">BÔNUS</div>
+          <div style="font-size:26px;margin-bottom:10px;">🎁</div>
+          <div style="font-family:'Cinzel',serif;font-size:13px;color:#FF9999;font-weight:700;margin-bottom:8px;">Acesso a Todos os Cursos</div>
+          <p style="font-size:13px;color:rgba(237,228,212,.75);line-height:1.7;">Acesso vitalício ao Instagram para Tatuadores, Tráfego do Zero e Branding & Posicionamento como bônus da mentoria.</p>
         </div>
       </div>
     </div>
@@ -6951,30 +7037,30 @@ html { scroll-behavior: smooth; }
 
     <!-- DEPOIMENTOS DA MENTORIA -->
     <div style="margin-bottom:64px;">
-      <h3 style="font-family:'Cinzel Decorative',cursive;font-size:20px;color:var(--t1);text-align:center;margin-bottom:32px;">Quem já passou pela <span style="color:var(--r2);">Mentoria</span></h3>
+      <h3 style="font-family:'Cinzel Decorative',cursive;font-size:20px;color:#ffffff;text-align:center;margin-bottom:32px;">Quem já passou pela <span style="color:var(--g2);">Mentoria</span></h3>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
-        <div style="background:#fff;border-radius:4px;padding:24px;border:1px solid rgba(160,120,56,.08);box-shadow:0 4px 14px rgba(0,0,0,.05);">
-          <div style="color:var(--g4);font-size:14px;letter-spacing:2px;margin-bottom:10px;">★★★★★</div>
-          <p style="font-size:14px;color:var(--t3);line-height:1.75;font-style:italic;font-family:'IM Fell English',serif;margin-bottom:16px;">"Em 45 dias após a mentoria, dobrei meu ticket médio e a agenda encheu. O plano de ação do Carlos é cirúrgico."</p>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.15);border-radius:12px;padding:24px;">
+          <div style="color:var(--g3);font-size:14px;letter-spacing:2px;margin-bottom:10px;">★★★★★</div>
+          <p style="font-size:14px;color:rgba(237,228,212,.85);line-height:1.75;font-style:italic;font-family:'IM Fell English',serif;margin-bottom:16px;">"Em 45 dias após a mentoria, dobrei meu ticket médio e a agenda encheu. O plano de ação do Carlos é cirúrgico."</p>
           <div style="display:flex;align-items:center;gap:10px;">
-            <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--g5),var(--g3));display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--p1);">R</div>
-            <div><div style="font-weight:700;color:var(--t1);font-size:13px;font-family:'Cinzel',serif;">Roberto F.</div><div style="font-size:10px;color:var(--g5);font-family:'Cinzel',serif;letter-spacing:1px;">Tatuador — Betim, MG</div></div>
+            <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--g5),var(--g3));display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--ink);font-weight:700;">R</div>
+            <div><div style="font-weight:700;color:#E8B800;font-size:13px;font-family:'Cinzel',serif;">Roberto F.</div><div style="font-size:10px;color:rgba(201,168,76,.6);font-family:'Cinzel',serif;letter-spacing:1px;">Tatuador — Betim, MG</div></div>
           </div>
         </div>
-        <div style="background:#fff;border-radius:4px;padding:24px;border:1px solid rgba(160,120,56,.08);box-shadow:0 4px 14px rgba(0,0,0,.05);">
-          <div style="color:var(--g4);font-size:14px;letter-spacing:2px;margin-bottom:10px;">★★★★★</div>
-          <p style="font-size:14px;color:var(--t3);line-height:1.75;font-style:italic;font-family:'IM Fell English',serif;margin-bottom:16px;">"Meu Instagram era invisível. Depois das estratégias do Carlos, saí de 400 para 2.8k seguidores e com clientes reais."</p>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.15);border-radius:12px;padding:24px;">
+          <div style="color:var(--g3);font-size:14px;letter-spacing:2px;margin-bottom:10px;">★★★★★</div>
+          <p style="font-size:14px;color:rgba(237,228,212,.85);line-height:1.75;font-style:italic;font-family:'IM Fell English',serif;margin-bottom:16px;">"Meu Instagram era invisível. Depois das estratégias do Carlos, saí de 400 para 2.8k seguidores e com clientes reais."</p>
           <div style="display:flex;align-items:center;gap:10px;">
-            <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--g5),var(--g3));display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--p1);">T</div>
-            <div><div style="font-weight:700;color:var(--t1);font-size:13px;font-family:'Cinzel',serif;">Thais M.</div><div style="font-size:10px;color:var(--g5);font-family:'Cinzel',serif;letter-spacing:1px;">Tatuadora — Nova Lima, MG</div></div>
+            <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--g5),var(--g3));display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--ink);font-weight:700;">T</div>
+            <div><div style="font-weight:700;color:#E8B800;font-size:13px;font-family:'Cinzel',serif;">Thais M.</div><div style="font-size:10px;color:rgba(201,168,76,.6);font-family:'Cinzel',serif;letter-spacing:1px;">Tatuadora — Nova Lima, MG</div></div>
           </div>
         </div>
-        <div style="background:#fff;border-radius:4px;padding:24px;border:1px solid rgba(160,120,56,.08);box-shadow:0 4px 14px rgba(0,0,0,.05);">
-          <div style="color:var(--g4);font-size:14px;letter-spacing:2px;margin-bottom:10px;">★★★★★</div>
-          <p style="font-size:14px;color:var(--t3);line-height:1.75;font-style:italic;font-family:'IM Fell English',serif;margin-bottom:16px;">"Eu cobrava R$150 por sessão com vergonha. Hoje cobro R$450 e tenho fila de espera. A mentalidade mudou tudo."</p>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.15);border-radius:12px;padding:24px;">
+          <div style="color:var(--g3);font-size:14px;letter-spacing:2px;margin-bottom:10px;">★★★★★</div>
+          <p style="font-size:14px;color:rgba(237,228,212,.85);line-height:1.75;font-style:italic;font-family:'IM Fell English',serif;margin-bottom:16px;">"Eu cobrava R$150 por sessão com vergonha. Hoje cobro R$450 e tenho fila de espera. A mentalidade mudou tudo."</p>
           <div style="display:flex;align-items:center;gap:10px;">
-            <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--g5),var(--g3));display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--p1);">G</div>
-            <div><div style="font-weight:700;color:var(--t1);font-size:13px;font-family:'Cinzel',serif;">Gabriel S.</div><div style="font-size:10px;color:var(--g5);font-family:'Cinzel',serif;letter-spacing:1px;">Tatuador — Contagem, MG</div></div>
+            <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--g5),var(--g3));display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--ink);font-weight:700;">G</div>
+            <div><div style="font-weight:700;color:#E8B800;font-size:13px;font-family:'Cinzel',serif;">Gabriel S.</div><div style="font-size:10px;color:rgba(201,168,76,.6);font-family:'Cinzel',serif;letter-spacing:1px;">Tatuador — Contagem, MG</div></div>
           </div>
         </div>
       </div>
@@ -7019,16 +7105,16 @@ html { scroll-behavior: smooth; }
     <!-- GRID 2x2 — layout horizontal premium -->
     <style>
       .ebook-novo{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-      .ebook-novo-card{display:grid;grid-template-columns:190px 1fr;background:linear-gradient(135deg,#1C1208,#0A0702);border:1px solid rgba(201,168,76,.18);border-radius:12px;overflow:hidden;transition:all .35s;box-shadow:0 4px 20px rgba(0,0,0,.35);}
+      .ebook-novo-card{display:grid;grid-template-columns:200px 1fr;background:linear-gradient(135deg,#1C1208,#0A0702);border:1px solid rgba(201,168,76,.18);border-radius:12px;overflow:hidden;transition:all .35s;box-shadow:0 4px 20px rgba(0,0,0,.35);}
       .ebook-novo-card:hover{transform:translateY(-5px);border-color:rgba(201,168,76,.45);box-shadow:0 16px 48px rgba(0,0,0,.5),0 0 0 1px rgba(201,168,76,.15);}
-      .ebook-novo-img{position:relative;overflow:hidden;min-height:200px;order:1;}
-      .ebook-novo-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
+      .ebook-novo-img{position:relative;overflow:hidden;min-height:220px;order:1;}
+      .ebook-novo-img img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .4s;position:absolute;inset:0;}
       .ebook-novo-card:hover .ebook-novo-img img{transform:scale(1.05);}
-      .ebook-novo-ph{width:100%;height:100%;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px;text-align:center;background:linear-gradient(135deg,#2A1A08,#0A0702);border-left:1px solid rgba(201,168,76,.1);}
+      .ebook-novo-ph{width:100%;height:100%;min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px;text-align:center;background:linear-gradient(135deg,#2A1A08,#0A0702);}
       .ebook-novo-ph span{font-family:'Cinzel Decorative',cursive;font-size:11px;color:var(--g3);letter-spacing:2px;line-height:1.5;}
       .ebook-novo-ph em{font-size:32px;}
       .ebook-novo-body{padding:22px 24px;display:flex;flex-direction:column;justify-content:space-between;order:2;}
-      .ebook-novo-name{font-family:'Cinzel',serif;font-size:15px;color:#F0E6CC;font-weight:700;margin-bottom:7px;}
+      .ebook-novo-name{font-family:'Cinzel',serif;font-size:15px;color:#ffffff;font-weight:700;margin-bottom:7px;}
       .ebook-novo-desc{font-size:13px;color:#C9B89A;line-height:1.65;margin-bottom:12px;}
       .ebook-novo-feats{list-style:none;margin-bottom:14px;display:flex;flex-direction:column;gap:5px;}
       .ebook-novo-feats li{display:flex;align-items:center;gap:7px;font-size:12px;color:#C9B89A;}
@@ -7039,14 +7125,18 @@ html { scroll-behavior: smooth; }
       .btn-ebook-novo{width:100%;padding:12px;background:linear-gradient(180deg,var(--g2) 0%,var(--g3) 50%,var(--g4) 100%);color:var(--ink);font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;font-weight:700;border:none;cursor:pointer;transition:all .2s;text-transform:uppercase;box-shadow:0 4px 0 var(--g6);clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);}
       .btn-ebook-novo:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--g6),0 8px 20px rgba(201,168,76,.3);}
       @media(max-width:1024px){.ebook-novo{grid-template-columns:1fr;}}
-      @media(max-width:600px){.ebook-novo-card{grid-template-columns:1fr !important;}.ebook-novo-img{order:1 !important;min-height:160px;}.ebook-novo-body{order:2 !important;}}
-      @media(max-width:600px){.ebook-novo-card{grid-template-columns:1fr;}.ebook-novo-img{order:1;min-height:160px;}.ebook-novo-body{order:2;}}
+      @media(max-width:600px){.ebook-novo-card{grid-template-columns:1fr !important;}.ebook-novo-img{order:1 !important;min-height:160px;height:160px;position:relative;}.ebook-novo-body{order:2 !important;}}
     </style>
 
     <div class="ebook-novo rv">
 
       <!-- CARD 1 — Tráfego -->
       <div class="ebook-novo-card">
+        <div class="ebook-novo-img">
+          <img src="imagens/thumb-ebook-trafego.jpg" alt="Ebook Tráfego Tattoo"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="ebook-novo-ph" style="display:none;"><span>ESTRATÉGIA<br>DIGITAL<br>PARA<br>TATUADORES</span><span style="font-size:8px;opacity:.4;letter-spacing:1px;">CARLOS TATTOO BH</span></div>
+        </div>
         <div class="ebook-novo-body">
           <div>
             <div class="ebook-novo-name">Ebook — Tráfego Tattoo</div>
@@ -7060,19 +7150,19 @@ html { scroll-behavior: smooth; }
           <div>
             <div class="ebook-novo-price-old">De R$ 197</div>
             <div class="ebook-novo-price">R$ 97</div>
-            <div class="ebook-novo-note">⚡ Download imediato após pagamento</div>
+            <div class="ebook-novo-note">Download imediato após pagamento</div>
             <button class="btn-ebook-novo" onclick="openPix('Ebook Tráfego Tattoo','R$ 97,00',97)">ADQUIRIR — R$ 97</button>
           </div>
-        </div>
-        <div class="ebook-novo-img">
-          <img src="imagens/thumb-ebook-trafego.jpg" alt="Ebook Tráfego Tattoo"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="ebook-novo-ph" style="display:none;"><em>🎯</em><span>ESTRATÉGIA<br>DIGITAL<br>PARA<br>TATUADORES</span><span style="font-size:8px;opacity:.4;letter-spacing:1px;">CARLOS TATTOO BH</span></div>
         </div>
       </div>
 
       <!-- CARD 2 — Instagram -->
       <div class="ebook-novo-card">
+        <div class="ebook-novo-img">
+          <img src="imagens/thumb-ebook-instagram.jpg" alt="Ebook Instagram Tattoo"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="ebook-novo-ph" style="display:none;"><span>INSTAGRAM<br>TATTOO<br>ATRAI E VENDE</span><span style="font-size:8px;opacity:.4;letter-spacing:1px;">CARLOS TATTOO BH</span></div>
+        </div>
         <div class="ebook-novo-body">
           <div>
             <div class="ebook-novo-name">Ebook — Instagram que Vende</div>
@@ -7086,19 +7176,19 @@ html { scroll-behavior: smooth; }
           <div>
             <div class="ebook-novo-price-old">De R$ 197</div>
             <div class="ebook-novo-price">R$ 97</div>
-            <div class="ebook-novo-note">⚡ Download imediato após pagamento</div>
+            <div class="ebook-novo-note">Download imediato após pagamento</div>
             <button class="btn-ebook-novo" onclick="openPix('Ebook Instagram que Vende','R$ 97,00',97)">ADQUIRIR — R$ 97</button>
           </div>
-        </div>
-        <div class="ebook-novo-img">
-          <img src="imagens/thumb-ebook-instagram.jpg" alt="Ebook Instagram Tattoo"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="ebook-novo-ph" style="display:none;"><em>📱</em><span>INSTAGRAM<br>TATTOO<br>ATRAI E VENDE</span><span style="font-size:8px;opacity:.4;letter-spacing:1px;">CARLOS TATTOO BH</span></div>
         </div>
       </div>
 
       <!-- CARD 3 — Posicionamento -->
       <div class="ebook-novo-card">
+        <div class="ebook-novo-img">
+          <img src="imagens/thumb-ebook-posicionamento.jpg" alt="Ebook Posicionamento"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="ebook-novo-ph" style="display:none;"><span>POSICIONAMENTO<br>COBRA MAIS<br>ATENDE MELHOR</span><span style="font-size:8px;opacity:.4;letter-spacing:1px;">CARLOS TATTOO BH</span></div>
+        </div>
         <div class="ebook-novo-body">
           <div>
             <div class="ebook-novo-name">Ebook Avançado — Posicionamento</div>
@@ -7112,19 +7202,19 @@ html { scroll-behavior: smooth; }
           <div>
             <div class="ebook-novo-price-old">De R$ 297</div>
             <div class="ebook-novo-price">R$ 147</div>
-            <div class="ebook-novo-note">⚡ Download imediato após pagamento</div>
+            <div class="ebook-novo-note">Download imediato após pagamento</div>
             <button class="btn-ebook-novo" onclick="openPix('Ebook Avançado Posicionamento','R$ 147,00',147)">ADQUIRIR — R$ 147</button>
           </div>
-        </div>
-        <div class="ebook-novo-img">
-          <img src="imagens/thumb-ebook-posicionamento.jpg" alt="Ebook Posicionamento"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="ebook-novo-ph" style="display:none;"><em>🏆</em><span>POSICIONAMENTO<br>COBRA MAIS<br>ATENDE MELHOR</span><span style="font-size:8px;opacity:.4;letter-spacing:1px;">CARLOS TATTOO BH</span></div>
         </div>
       </div>
 
       <!-- CARD 4 — Pack Templates -->
       <div class="ebook-novo-card">
+        <div class="ebook-novo-img">
+          <img src="imagens/thumb-ebook-templates.jpg" alt="Pack Templates Premium"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="ebook-novo-ph" style="display:none;"><span>PACK DE<br>TEMPLATES<br>PREMIUM</span><span style="font-size:8px;opacity:.4;letter-spacing:1px;">CRIE POSTS IRRESISTÍVEIS</span></div>
+        </div>
         <div class="ebook-novo-body">
           <div>
             <div class="ebook-novo-name">Pack Templates — Tatuadores</div>
@@ -7138,14 +7228,9 @@ html { scroll-behavior: smooth; }
           <div>
             <div class="ebook-novo-price-old">De R$ 147</div>
             <div class="ebook-novo-price">R$ 67</div>
-            <div class="ebook-novo-note">⚡ Download imediato após pagamento</div>
+            <div class="ebook-novo-note">Download imediato após pagamento</div>
             <button class="btn-ebook-novo" onclick="openPix('Pack Templates Tatuadores','R$ 67,00',67)">ADQUIRIR — R$ 67</button>
           </div>
-        </div>
-        <div class="ebook-novo-img">
-          <img src="imagens/thumb-ebook-templates.jpg" alt="Pack Templates Premium"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="ebook-novo-ph" style="display:none;"><em>🎨</em><span>PACK DE<br>TEMPLATES<br>PREMIUM</span><span style="font-size:8px;opacity:.4;letter-spacing:1px;">CRIE POSTS IRRESISTÍVEIS</span></div>
         </div>
       </div>
 
@@ -7862,19 +7947,28 @@ const sMap={
   'Minimalista e discreto': {nome:'Fineline Delicado',icon:'✨',desc:'Você valoriza o que é preciso e essencial. Linhas finas, traços delicados e composição minimalista. O Fineline foi feito para quem quer dizer muito com pouco.'},
   'Artístico e criativo':  {nome:'Arte Personalizada',icon:'🎨',desc:'Sua personalidade pede uma tatuagem que não existe em nenhum outro lugar. Vamos criar juntos algo completamente único, que conte a sua história com total liberdade criativa.'}
 };
-function quizNext(s,a){
+function quizNext(s,a,el){
   qAns['q'+s]=a;
-  document.getElementById('quiz-'+s).classList.remove('on');
-  const next=document.getElementById('quiz-'+(s+1));
-  if(next){next.classList.add('on');}
-  // Atualizar barra de progresso
-  const progs=['qp1','qp2','qp3'];
-  for(let i=0;i<progs.length;i++){
-    const el=document.getElementById(progs[i]);
-    if(el) el.style.background = i<s ? 'var(--g3)' : 'rgba(201,168,76,.2)';
+  // Visual feedback on selected option
+  if(el){
+    const currentStep = document.getElementById('quiz-'+s);
+    if(currentStep) currentStep.querySelectorAll('.qopt').forEach(o=>o.classList.remove('sel'));
+    el.classList.add('sel');
   }
-  const p=document.getElementById('quiz-progress-txt');
-  if(p) p.textContent='PERGUNTA '+(s+1)+' DE 3';
+  // Small delay for visual feedback before advancing
+  setTimeout(()=>{
+    document.getElementById('quiz-'+s).classList.remove('on');
+    const next=document.getElementById('quiz-'+(s+1));
+    if(next){next.classList.add('on');}
+    // Atualizar barra de progresso
+    const progs=['qp1','qp2','qp3'];
+    for(let i=0;i<progs.length;i++){
+      const el2=document.getElementById(progs[i]);
+      if(el2) el2.style.background = i<s ? 'var(--g3)' : 'rgba(201,168,76,.2)';
+    }
+    const p=document.getElementById('quiz-progress-txt');
+    if(p) p.textContent='PERGUNTA '+(s+1)+' DE 3';
+  }, 200);
 }
 function quizResult(tam){
   qAns.q3=tam;
@@ -7886,7 +7980,7 @@ function quizResult(tam){
   // Tags de resultado baseadas nas respostas
   const tagsEl=document.getElementById('q-tags-res');
   if(tagsEl){
-    const tagStyle='display:inline-block;padding:4px 12px;border-radius:20px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;color:rgba(201,168,76,.7);text-transform:uppercase;';
+    const tagStyle='display:inline-block;padding:4px 12px;border-radius:20px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);font-family:serif;font-size:9px;letter-spacing:1px;color:rgba(201,168,76,.7);text-transform:uppercase;';
     const tamLabels={pequena:'Pequena',media:'Média',grande:'Grande',projeto:'Projeto Completo'};
     tagsEl.innerHTML=
       '<span style="'+tagStyle+'">'+st.nome+'</span>'+
@@ -10166,7 +10260,7 @@ function abrirGaleriaNetflix(cat){
         <span style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:2px 10px;border-radius:4px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:#ffffff;text-transform:uppercase;">${imgs.length} obras</span>
         <span style="font-family:'Cinzel',serif;font-size:12px;color:rgba(255,255,255,.35);">|</span>
         <span style="font-family:'Cinzel Decorative',cursive;font-size:16px;color:#C9A84C;">${totalClientes[galeriaAtualCat]}</span>
-        <span style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.45);text-transform:uppercase;">clientes satisfeitos</span>
+        <span style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:#ffffff;text-transform:uppercase;">clientes satisfeitos</span>
       </div>
       <p class="gnf-header-sub" style="font-family:'IM Fell English',serif;font-style:italic;font-size:16px;color:#ffffff;margin:0;line-height:1.6;text-shadow:0 1px 6px rgba(0,0,0,.5);">${dados.tagline}</p>
     </div>
