@@ -2568,93 +2568,276 @@ html { scroll-behavior: smooth; }
 /* ═══ RESPONSIVE NOVAS SEÇÕES ═══ */
 
 /* ═══ RESPONSIVE ═══ */
-@media(max-width:1100px){
-  #hero{grid-template-columns:1fr;}
-  .hero-right{display:none;}
-  .hero-left{padding:120px 40px 80px;text-align:center;}
-  .hero-stats{justify-content:center;}
-  .hero-btns{justify-content:center;}
-  .about-grid{grid-template-columns:1fr;gap:36px;}
-  .courses-grid{grid-template-columns:repeat(2,1fr);}
-  .footer-grid{grid-template-columns:1fr 1fr;gap:28px;}
-}
-@media(max-width:768px){
-  #nav{padding:0 18px;}
-  .nav-links,.nav-addr,.nav-wpp{display:none;}
-  .hamburger{display:flex;}
-  .sec{padding:70px 22px;}
-  .fbox{padding:26px 18px;}
-  .calc-box{padding:26px 18px;}
-  .calc-row{grid-template-columns:1fr;}
-  .frow{grid-template-columns:1fr;}
-  .cover-layout{grid-template-columns:1fr;gap:36px;}
-  .stats-bar{grid-template-columns:repeat(2,1fr);}
-  .si{border-right:none;border-bottom:1px solid rgba(201,168,76,.08);}
-  #twopaths{grid-template-columns:1fr;}
-  .path-div{display:none;}
-  .path{height:280px;}
-  .spec-grid{grid-template-columns:1fr 1fr;}
-  .vid-grid{grid-template-columns:repeat(2,1fr);}
-  .studio-grid{grid-template-columns:1fr;}
-  .studio-card.big{grid-column:auto;aspect-ratio:4/3;}
-  .test-grid{grid-template-columns:1fr;}
-  .ebooks-grid{grid-template-columns:repeat(2,1fr);}
-  .courses-grid{grid-template-columns:1fr;}
-  .blog-grid{grid-template-columns:1fr;}
-  .bcard.big{grid-row:auto;}
-  .urg-band{padding:18px 22px;}
-  .cta-band{padding:60px 22px;}
-  footer{padding:40px 22px 20px;}
-  .footer-grid{grid-template-columns:1fr;}
-  .footer-bottom{flex-direction:column;text-align:center;}
-  .quiz-opts{grid-template-columns:1fr;}
-  .hero-btns{flex-direction:column;align-items:center;}
-}
-@media(max-width:480px){
-  .vid-destaque-wrap{grid-template-columns:1fr;}
-  .cover-vids-grid{grid-template-columns:1fr;}
-  .emocional-inner{grid-template-columns:1fr;gap:40px;}
-  .dep-aprovados{grid-template-columns:1fr;}
-  .dep-form-box{padding:26px 20px;}
-  .sec-emocional{padding:70px 22px;}
-  .evid-thumb-img{aspect-ratio:9/16;}
-  .fnav .btn{width:100%;justify-content:center;}
-}
-</style>
-<style>
-        @keyframes btnAreolaPulse{
-          0%{background-position:0% 50%;}
-          50%{background-position:100% 50%;}
-          100%{background-position:0% 50%;}
-        }
-        button:hover[onclick="abrirModalAreola()"]{
-          transform:translateY(-4px) scale(1.02);
-          box-shadow:0 16px 52px rgba(201,160,160,.6),0 0 80px rgba(201,160,160,.2);
-        }
-      </style>
-<style>
-/* ═══════════════════════════════════════════
-   CARLOS TATTOO BH — V6 FINAL
-   "A Máquina de Vendas Definitiva"
-═══════════════════════════════════════════ */
-:root{
-  --g1:#F5DFA0;--g2:#E8C96A;--g3:#C9A84C;--g4:#A07830;--g5:#7A5A20;--g6:#4A3410;
-  --r1:#FF8080;--r2:#C0392B;--r3:#8B1A1A;--r4:#5A0F0F;
-  --d1:#1C1208;--d2:#120C04;--d3:#0A0702;--ink:#050301;
-  --p1:#FAF4E8;--p2:#F0E6CC;--p3:#E2CFA8;--p4:#C8A870;--p5:#A07838;
-  --w1:#FFFFFF;--w2:#F8F4EE;--w3:#EDE4D4;--w4:#C8B890;
-  --t1:#0A0500;--t2:#2A1A08;--t3:#5A3C18;--t4:#8A6030;
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{font-family:'Raleway',sans-serif;background:var(--ink);color:var(--w3);overflow-x:hidden;font-size:17px;line-height:1.6;}
-img{max-width:100%;display:block;}
-a{text-decoration:none;color:inherit;}
-button{font-family:'Raleway',sans-serif;cursor:pointer;}
-::-webkit-scrollbar{width:5px;}
-::-webkit-scrollbar-track{background:var(--d3);}
-::-webkit-scrollbar-thumb{background:var(--g5);border-radius:3px;}
 
+@media(max-width:1100px){
+
+  #hero{
+    grid-template-columns:1fr;
+    min-height:auto;
+    padding-top:120px;
+  }
+
+  .hero-left{
+    padding:70px 28px 40px;
+    text-align:center;
+    order:1;
+  }
+
+  .hero-right{
+
+    display:flex;
+
+    order:2;
+
+    padding:10px 20px 60px;
+
+    justify-content:center;
+    align-items:center;
+  }
+
+  .hero-photo-wrap{
+    max-width:520px;
+  }
+
+  .hero-photo-frame img{
+
+    width:100%;
+
+    height:auto;
+
+    max-height:none;
+
+    object-fit:contain;
+
+    border-radius:18px;
+  }
+
+  .hero-stats{
+    justify-content:center;
+  }
+
+  .hero-btns{
+    justify-content:center;
+  }
+
+  .about-grid{
+    grid-template-columns:1fr;
+    gap:36px;
+  }
+
+  .courses-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr 1fr;
+    gap:28px;
+  }
+}
+
+@media(max-width:768px){
+
+  #nav{
+    padding:0 18px;
+  }
+
+  .nav-links,
+  .nav-addr,
+  .nav-wpp{
+    display:none;
+  }
+
+  .hamburger{
+    display:flex;
+  }
+
+  .sec{
+    padding:70px 22px;
+  }
+
+  .fbox{
+    padding:26px 18px;
+  }
+
+  .calc-box{
+    padding:26px 18px;
+  }
+
+  .calc-row{
+    grid-template-columns:1fr;
+  }
+
+  .frow{
+    grid-template-columns:1fr;
+  }
+
+  .cover-layout{
+    grid-template-columns:1fr;
+    gap:36px;
+  }
+
+  .stats-bar{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .si{
+    border-right:none;
+    border-bottom:1px solid rgba(201,168,76,.08);
+  }
+
+  #twopaths{
+    grid-template-columns:1fr;
+  }
+
+  .path-div{
+    display:none;
+  }
+
+  .path{
+    height:280px;
+  }
+
+  .spec-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .vid-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .studio-grid{
+    grid-template-columns:1fr;
+  }
+
+  .studio-card.big{
+    grid-column:auto;
+    aspect-ratio:4/3;
+  }
+
+  .test-grid{
+    grid-template-columns:1fr;
+  }
+
+  .ebooks-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .courses-grid{
+    grid-template-columns:1fr;
+  }
+
+  .blog-grid{
+    grid-template-columns:1fr;
+  }
+
+  .bcard.big{
+    grid-row:auto;
+  }
+
+  .urg-band{
+    padding:18px 22px;
+  }
+
+  .cta-band{
+    padding:60px 22px;
+  }
+
+  footer{
+    padding:40px 22px 20px;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr;
+  }
+
+  .footer-bottom{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .quiz-opts{
+    grid-template-columns:1fr;
+  }
+
+  .hero-btns{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .hero-photo-wrap{
+    max-width:100%;
+  }
+
+  .hero-photo-frame img{
+
+    width:100%;
+
+    height:auto;
+
+    max-height:75vh;
+
+    object-fit:contain;
+  }
+
+  .hero-photo-badge{
+    bottom:12px;
+    left:12px;
+
+    padding:10px 14px;
+  }
+
+  .hero-stars{
+    top:12px;
+    right:12px;
+
+    padding:10px 12px;
+  }
+
+  .hpb-num{
+    font-size:20px;
+  }
+}
+
+@media(max-width:480px){
+
+  .vid-destaque-wrap{
+    grid-template-columns:1fr;
+  }
+
+  .cover-vids-grid{
+    grid-template-columns:1fr;
+  }
+
+  .emocional-inner{
+    grid-template-columns:1fr;
+    gap:40px;
+  }
+
+  .dep-aprovados{
+    grid-template-columns:1fr;
+  }
+
+  .dep-form-box{
+    padding:26px 20px;
+  }
+
+  .sec-emocional{
+    padding:70px 22px;
+  }
+
+  .evid-thumb-img{
+    aspect-ratio:9/16;
+  }
+
+  .fnav .btn{
+    width:100%;
+    justify-content:center;
+  }
+
+  .hero-photo-frame img{
+    max-height:65vh;
+  }
+}
 /* ═══ CURSOR DOURADO ═══ */
 *{cursor:none;}
 #cur{position:fixed;width:10px;height:10px;background:var(--g3);border-radius:50%;pointer-events:none;z-index:99999;top:-5px;left:-5px;transition:transform .1s;}
