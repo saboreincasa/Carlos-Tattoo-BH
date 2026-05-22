@@ -2,6 +2,25 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<!-- ════════════════════════════════════
+     GOOGLE ANALYTICS 4
+     INSTRUÇÕES: Substitua G-SEU-ID-AQUI
+     pelo seu Measurement ID do GA4.
+     Acesse: analytics.google.com
+     ════════════════════════════════════ -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SEU-ID-AQUI"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SEU-ID-AQUI', {
+    page_title: document.title,
+    page_location: window.location.href,
+    send_page_view: true
+  });
+</script>
+
+
 <link rel="icon" type="image/jpeg" href="imagens/IPJP8350.JPG">
 <link rel="shortcut icon" href="imagens/IPJP8350.JPG">
 <link rel="manifest" href="manifest.json">
@@ -24,21 +43,30 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 fbq('init', '1151853265430926');
 fbq('track', 'PageView');
 </script>
-<noscript><img height="1" width="1" style="display:none"
+<noscript><img loading="lazy" height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1151853265430926&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Carlos Tattoo BH — Arte Eterna em Belo Horizonte</title>
-<meta name="description" content="Estúdio premium de tatuagem realista, cobertura e fineline em BH. 7 anos, 2.400 tatuagens. Especialistas em cover up. Cursos online para tatuadores.">
-<meta name="keywords" content="tatuagem BH, tatuador Belo Horizonte, cover up tatuagem BH, tatuagem realista BH, Carlos Tattoo BH, fineline BH, black and grey BH">
+<title>Tatuagem em BH | Carlos Tattoo BH — Realismo, Fineline e Cobertura</title>
+<meta name="description" content="Tatuagem em Belo Horizonte com Carlos Tattoo BH. Realismo, fineline, black & grey, cobertura e reconstrução de aréola. 7 anos, 2.400 tatuagens, nota 5.0 no Google. Agende sua consulta gratuita.">
+<meta name="keywords" content="tatuagem BH, tatuagem Belo Horizonte, tatuador BH, tatuador Belo Horizonte, tatuagem realista BH, tatuagem fineline BH, tatuagem black and grey BH, tatuagem colorida BH, tatuagem feminina BH, tatuagem masculina BH, cobertura tatuagem BH, cover up tatuagem BH, tatuagem geométrica BH, tatuagem minimalista BH, tatuagem delicada BH, tatuagem small BH, quanto custa tatuagem BH, melhor tatuador BH, estúdio tatuagem BH, agendar tatuagem BH, tatuagem mantiqueira BH, reconstrução aréola BH, micropigmentação aréola BH, tatuagem após mastectomia BH, ebook tatuadores, curso tráfego tatuadores, mentoria tatuador, instagram tatuadores, Carlos Tattoo BH">
 <meta name="author" content="Carlos Tattoo BH">
-<meta property="og:title" content="Carlos Tattoo BH — Arte que Transforma">
-<meta property="og:description" content="Especialistas em tatuagem realista e cobertura premium em Belo Horizonte. 7 anos transformando ideias em arte eterna.">
+<meta property="og:title" content="Carlos Tattoo BH — Tatuagem Premium em Belo Horizonte">
+<meta property="og:description" content="Estúdio premium de tatuagem realista, cobertura e fineline em BH. 7 anos, 2.400 tatuagens. Agende sua consulta gratuita.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="IPJP8350.JPG">
+<meta property="og:url" content="https://carlostattoo.com.br">
+<meta property="og:image" content="https://carlostattoo.com.br/imagens/carlos_hero.jpg">
+<meta property="og:image:width" content="800">
+<meta property="og:image:height" content="1067">
+<meta property="og:image:alt" content="Carlos Tattoo BH — Tatuador em Belo Horizonte">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Carlos Tattoo BH">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Carlos Tattoo BH — Arte Eterna em BH">
+<meta name="twitter:description" content="Estúdio premium de tatuagem realista em Belo Horizonte. Agende sua consulta gratuita.">
+<meta name="twitter:image" content="https://carlostattoo.com.br/imagens/carlos_hero.jpg">
 <meta name="geo.region" content="BR-MG">
 <meta name="geo.placename" content="Belo Horizonte">
 <link rel="canonical" href="https://carlostattoo.com.br">
@@ -54,7 +82,13 @@ src="https://www.facebook.com/tr?id=1151853265430926&ev=PageView&noscript=1"
   "geo":{"@type":"GeoCoordinates","latitude":-19.8157,"longitude":-43.9542},
   "openingHours":"Mo-Sa 10:00-19:00",
   "aggregateRating":{"@type":"AggregateRating","ratingValue":"5","reviewCount":"380"},
-  "sameAs":["https://instagram.com/carlostattoo.bh"]
+  "sameAs":["https://instagram.com/carlostattoo.bh"],
+  "priceRange":"$$",
+  "image":"https://carlostattoo.com.br/imagens/carlos_hero.jpg",
+  "hasMap":"https://www.google.com/maps/search/Carlos+Tattoo+BH+Belo+Horizonte",
+  "servesCuisine":null,
+  "paymentAccepted":"Cash, Credit Card, PIX",
+  "currenciesAccepted":"BRL"
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -948,14 +982,14 @@ button{font-family:'Raleway',sans-serif;cursor:pointer;}
 .quiz-wrap{max-width:680px;margin:0 auto;}
 .quiz-step{display:none;}
 .quiz-step.on{display:block;}
-.quiz-q{font-family:'Cinzel Decorative',cursive;font-size:clamp(20px,2.8vw,28px);margin-bottom:26px;text-align:center;color:var(--w3);}
+.quiz-q{font-family:'Cinzel Decorative',cursive;font-size:clamp(24px,3.2vw,34px);margin-bottom:28px;text-align:center;color:#ffffff;text-shadow:0 2px 12px rgba(0,0,0,.5);}
 .quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.qopt{padding:20px 14px;border:1px solid rgba(201,168,76,.18);border-radius:8px;text-align:center;transition:all .25s;font-size:15px;color:var(--w3);background:rgba(201,168,76,.03);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.qopt{padding:24px 16px;border:1px solid rgba(201,168,76,.25);border-radius:10px;text-align:center;transition:all .25s;font-size:15px;color:#ffffff;background:rgba(255,255,255,.04);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;}
 .qopt:hover,.qopt.sel{border-color:var(--g3);background:rgba(201,168,76,.1);color:var(--g2);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.3);}
-.qopt strong{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.5px;display:block;}
-.qopt-icon{font-size:32px;margin-bottom:4px;display:block;}
-.qopt-sub{font-size:11px;color:rgba(237,228,212,.4);font-family:'IM Fell English',serif;font-style:italic;line-height:1.3;display:block;margin-top:2px;}
-.qopt:hover .qopt-sub{color:rgba(201,168,76,.6);}
+.qopt strong{font-family:'Cinzel',serif;font-size:15px;letter-spacing:.8px;display:block;color:#ffffff;}
+.qopt-icon{font-size:38px;margin-bottom:8px;display:block;}
+.qopt-sub{font-size:13px;color:rgba(255,255,255,.65);font-family:'IM Fell English',serif;font-style:italic;line-height:1.4;display:block;margin-top:4px;}
+.qopt:hover .qopt-sub,.qopt.sel .qopt-sub{color:rgba(255,255,255,.9);}
 .quiz-result{text-align:center;padding:36px 16px;}
 .qr-title{font-family:'Cinzel Decorative',cursive;font-size:clamp(20px,3vw,30px);color:var(--g3);margin-bottom:14px;}
 
@@ -1134,12 +1168,13 @@ button{font-family:'Raleway',sans-serif;cursor:pointer;}
 /* ═══ FAQ ═══ */
 .faq-list{max-width:800px;margin:0 auto;}
 .faq-item{border-bottom:1px solid rgba(201,168,76,.1);padding:3px 0;}
-.faq-q{width:100%;background:none;border:none;text-align:left;padding:18px 0;font-size:17px;color:var(--w3);font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:18px;font-family:'Raleway',sans-serif;}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:20px 4px;font-size:17px;color:#ffffff;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:18px;font-family:'Raleway',sans-serif;cursor:pointer;transition:color .2s;}
+.faq-q:hover{color:var(--g3);}
 .faq-icon{font-size:20px;color:var(--g3);flex-shrink:0;transition:transform .3s;}
 .faq-item.open .faq-icon{transform:rotate(45deg);}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;}
 .faq-item.open .faq-a{max-height:300px;padding-bottom:18px;}
-.faq-a p{font-size:15px;color:rgba(237,228,212,.65);line-height:1.7;}
+.faq-a p{font-size:15px;color:#C9B89A;line-height:1.8;}
 
 /* ═══ URGÊNCIA ═══ */
 .urg-band{background:linear-gradient(90deg,var(--r4),var(--r3),var(--r4));padding:20px 60px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;border-top:1px solid rgba(192,57,43,.35);border-bottom:1px solid rgba(192,57,43,.35);}
@@ -1480,8 +1515,48 @@ footer{background:var(--ink);border-top:1px solid rgba(201,168,76,.13);padding:6
 .btn-copiar-pix{background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;border:none;padding:8px 16px;border-radius:6px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;cursor:pointer;flex-shrink:0;transition:all .2s;}
 .btn-copiar-pix:hover{transform:scale(1.05);}
 .pix-ou{text-align:center;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:rgba(201,168,76,.4);margin:16px 0;}
-.btn-pix-mp{display:block;width:100%;text-align:center;background:linear-gradient(135deg,#009EE3,#007db8);color:#fff;padding:14px;border-radius:8px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;border:none;cursor:pointer;transition:all .2s;margin-top:8px;}
 .btn-pix-mp:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,158,227,.3);}
+
+/* ═══ MODAL PIX PREMIUM ═══ */
+.pix-overlay{background:rgba(0,0,0,.75) !important;backdrop-filter:blur(6px) !important;}
+.pix-modal-inner{background:#faf6ef;border:0.5px solid #c8b898;border-radius:14px;width:95%;max-width:700px;overflow:hidden;max-height:95vh;overflow-y:auto;}
+.pix-modal-header{padding:20px 28px 16px;border-bottom:0.5px solid #e0d5c0;display:flex;align-items:center;justify-content:space-between;}
+.pix-modal-prod-tag{font-size:10px;font-weight:600;color:#8a7355;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px;}
+.pix-modal-prod-nome{font-size:17px;font-weight:600;color:#1a1008;}
+.pix-modal-prod-valor{font-size:26px;font-weight:600;color:#1a1008;line-height:1;}
+.pix-modal-close{background:none;border:none;color:#a89070;font-size:22px;cursor:pointer;line-height:1;padding:2px;}
+.pix-modal-cols{display:grid;grid-template-columns:1fr 0.5px 1fr;}
+.pix-modal-col{padding:22px 26px;}
+.pix-modal-sep{background:#e0d5c0;}
+.pix-modal-col-head{display:flex;align-items:center;gap:7px;margin-bottom:16px;padding-bottom:12px;border-bottom:0.5px solid #e0d5c0;font-size:11px;font-weight:600;color:#4a3820;letter-spacing:1.5px;text-transform:uppercase;}
+.pix-qr-center{display:flex;justify-content:center;margin-bottom:14px;}
+.pix-qr-frame{width:140px;height:140px;background:#fff;border:1px solid #c8b898;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:4px;}
+.pix-qr-frame img{width:100%;height:100%;object-fit:contain;display:block;}
+.pix-receb-box{background:#f3ede3;border:0.5px solid #c8b898;border-radius:8px;padding:9px 12px;display:flex;align-items:center;gap:9px;margin-bottom:11px;}
+.pix-receb-av{width:30px;height:30px;border-radius:50%;overflow:hidden;border:1.5px solid #c8b898;flex-shrink:0;}
+.pix-receb-av img{width:100%;height:100%;object-fit:cover;display:block;}
+.pix-receb-lbl{font-size:9px;color:#8a7355;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:1px;}
+.pix-receb-name{font-size:12px;font-weight:600;color:#1a1008;display:block;}
+.pix-code-row{background:#fff;border:0.5px solid #c8b898;border-radius:8px;padding:9px 11px;display:flex;align-items:center;gap:8px;margin-bottom:11px;}
+.pix-code-val{font-family:'Courier New',monospace;font-size:8px;color:#5a4830;flex:1;word-break:break-all;line-height:1.5;}
+.pix-btn-copy{background:#1a1008;color:#faf6ef;border:none;padding:6px 11px;border-radius:6px;font-size:9px;font-weight:600;cursor:pointer;white-space:nowrap;letter-spacing:.5px;transition:background .2s;}
+.pix-btn-copy.copiado{background:#2d6e3a;}
+.pix-chave-hint{font-size:10px;color:#8a7355;display:flex;align-items:center;gap:5px;}
+.pix-card-benefits{display:flex;flex-direction:column;gap:7px;margin-bottom:16px;}
+.pix-bene{display:flex;align-items:center;gap:8px;font-size:12px;color:#2a1e0a;}
+.pix-parcelas{background:#fff;border:0.5px solid #c8b898;border-radius:8px;overflow:hidden;margin-bottom:16px;}
+.pix-parc-head{padding:7px 12px;background:#f3ede3;border-bottom:0.5px solid #e0d5c0;font-size:9px;font-weight:600;color:#6b5540;letter-spacing:1.2px;text-transform:uppercase;}
+.pix-parc-row{display:flex;justify-content:space-between;padding:7px 12px;border-bottom:0.5px solid #f0e8da;font-size:12px;color:#1a1008;}
+.pix-parc-row:last-child{border-bottom:none;font-weight:600;}
+.pix-btn-mp{display:block !important;width:100% !important;text-align:center !important;background:#1a1008 !important;color:#faf6ef !important;padding:13px !important;border-radius:8px !important;border:none !important;font-size:11px !important;font-weight:600 !important;cursor:pointer !important;letter-spacing:.8px !important;text-decoration:none !important;transition:background .2s !important;transform:none !important;box-shadow:none !important;}
+.pix-btn-mp:hover{background:#3a2810 !important;color:#faf6ef !important;transform:none !important;box-shadow:none !important;}
+.pix-lock-note{display:flex;align-items:center;justify-content:center;gap:5px;font-size:10px;color:#8a7355;margin-top:10px;}
+@media(max-width:600px){
+  .pix-modal-cols{grid-template-columns:1fr;}
+  .pix-modal-sep{height:0.5px;width:100%;}
+  .pix-modal-inner{border-radius:10px;}
+  .pix-modal-header{flex-wrap:wrap;gap:10px;}
+}
 
 @media(max-width:768px){
   .portfolio-grid-full{grid-template-columns:repeat(2,1fr);}
@@ -1622,7 +1697,7 @@ footer{background:var(--ink);border-top:1px solid rgba(201,168,76,.13);padding:6
 }
 .areola-hero-wrap{
   position:relative;
-  max-width:900px;
+  max-width:520px;
   margin:0 auto 48px;
   border-radius:20px;
   overflow:hidden;
@@ -1634,9 +1709,8 @@ footer{background:var(--ink);border-top:1px solid rgba(201,168,76,.13);padding:6
   background:linear-gradient(
     to bottom,
     rgba(3,2,1,0) 0%,
-    rgba(3,2,1,0) 50%,
-    rgba(3,2,1,.7) 85%,
-    rgba(3,2,1,1) 100%
+    rgba(3,2,1,0) 75%,
+    rgba(3,2,1,.3) 100%
   );
   border-radius:20px;
   pointer-events:none;
@@ -1644,8 +1718,7 @@ footer{background:var(--ink);border-top:1px solid rgba(201,168,76,.13);padding:6
 }
 .areola-hero-wrap img{
   width:100%;
-  height:420px;
-  object-fit:cover;
+  height:auto;
   display:block;
   border-radius:20px;
   box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 0 1px rgba(201,160,160,.15);
@@ -1669,7 +1742,7 @@ footer{background:var(--ink);border-top:1px solid rgba(201,168,76,.13);padding:6
   text-transform:uppercase;
 }
 @media(max-width:768px){
-  .areola-hero-wrap img,.areola-hero-placeholder{height:260px;}
+  .areola-hero-wrap img{height:260px;}.areola-hero-placeholder{height:220px;}
 }
 
 
@@ -2001,7 +2074,7 @@ footer p { color:#9A7A5A !important; }
 
 /* ═══ CHAT IA FLUTUANTE ═══ */
 #chat-ia-btn{
-  position:fixed;bottom:28px;right:28px;z-index:8000;
+  display:none !important;position:fixed;bottom:28px;right:28px;z-index:8000;
   width:62px;height:62px;border-radius:50%;
   background:linear-gradient(135deg,#A07830,#E8B800);
   border:none;cursor:pointer;
@@ -3404,8 +3477,11 @@ html { scroll-behavior: smooth; }
 .hero-photo-frame{position:relative;}
 .hero-photo-frame::before{content:'';position:absolute;inset:-3px;background:linear-gradient(135deg,var(--g3),transparent 50%,var(--g5));border-radius:14px;z-index:0;}
 .hero-photo-frame img{
-  width:100%;height:580px;
-  object-fit:cover;object-position:center top;
+  width:100%;
+  height:auto;
+  max-height:640px;
+  object-fit:contain;
+  object-position:center top;
   border-radius:12px;
   position:relative;z-index:1;
   filter:brightness(.95) contrast(1.06);
@@ -3704,14 +3780,14 @@ html { scroll-behavior: smooth; }
 .quiz-wrap{max-width:680px;margin:0 auto;}
 .quiz-step{display:none;}
 .quiz-step.on{display:block;}
-.quiz-q{font-family:'Cinzel Decorative',cursive;font-size:clamp(20px,2.8vw,28px);margin-bottom:26px;text-align:center;color:var(--w3);}
+.quiz-q{font-family:'Cinzel Decorative',cursive;font-size:clamp(24px,3.2vw,34px);margin-bottom:28px;text-align:center;color:#ffffff;text-shadow:0 2px 12px rgba(0,0,0,.5);}
 .quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.qopt{padding:20px 14px;border:1px solid rgba(201,168,76,.18);border-radius:8px;text-align:center;transition:all .25s;font-size:15px;color:var(--w3);background:rgba(201,168,76,.03);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.qopt{padding:24px 16px;border:1px solid rgba(201,168,76,.25);border-radius:10px;text-align:center;transition:all .25s;font-size:15px;color:#ffffff;background:rgba(255,255,255,.04);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;}
 .qopt:hover,.qopt.sel{border-color:var(--g3);background:rgba(201,168,76,.1);color:var(--g2);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.3);}
-.qopt strong{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.5px;display:block;}
-.qopt-icon{font-size:32px;margin-bottom:4px;display:block;}
-.qopt-sub{font-size:11px;color:rgba(237,228,212,.4);font-family:'IM Fell English',serif;font-style:italic;line-height:1.3;display:block;margin-top:2px;}
-.qopt:hover .qopt-sub{color:rgba(201,168,76,.6);}
+.qopt strong{font-family:'Cinzel',serif;font-size:15px;letter-spacing:.8px;display:block;color:#ffffff;}
+.qopt-icon{font-size:38px;margin-bottom:8px;display:block;}
+.qopt-sub{font-size:13px;color:rgba(255,255,255,.65);font-family:'IM Fell English',serif;font-style:italic;line-height:1.4;display:block;margin-top:4px;}
+.qopt:hover .qopt-sub,.qopt.sel .qopt-sub{color:rgba(255,255,255,.9);}
 .quiz-result{text-align:center;padding:36px 16px;}
 .qr-title{font-family:'Cinzel Decorative',cursive;font-size:clamp(20px,3vw,30px);color:var(--g3);margin-bottom:14px;}
 
@@ -3890,12 +3966,13 @@ html { scroll-behavior: smooth; }
 /* ═══ FAQ ═══ */
 .faq-list{max-width:800px;margin:0 auto;}
 .faq-item{border-bottom:1px solid rgba(201,168,76,.1);padding:3px 0;}
-.faq-q{width:100%;background:none;border:none;text-align:left;padding:18px 0;font-size:17px;color:var(--w3);font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:18px;font-family:'Raleway',sans-serif;}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:20px 4px;font-size:17px;color:#ffffff;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:18px;font-family:'Raleway',sans-serif;cursor:pointer;transition:color .2s;}
+.faq-q:hover{color:var(--g3);}
 .faq-icon{font-size:20px;color:var(--g3);flex-shrink:0;transition:transform .3s;}
 .faq-item.open .faq-icon{transform:rotate(45deg);}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;}
 .faq-item.open .faq-a{max-height:300px;padding-bottom:18px;}
-.faq-a p{font-size:15px;color:rgba(237,228,212,.65);line-height:1.7;}
+.faq-a p{font-size:15px;color:#C9B89A;line-height:1.8;}
 
 /* ═══ URGÊNCIA ═══ */
 .urg-band{background:linear-gradient(90deg,var(--r4),var(--r3),var(--r4));padding:20px 60px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;border-top:1px solid rgba(192,57,43,.35);border-bottom:1px solid rgba(192,57,43,.35);}
@@ -4378,7 +4455,7 @@ footer{background:var(--ink);border-top:1px solid rgba(201,168,76,.13);padding:6
 }
 .areola-hero-wrap{
   position:relative;
-  max-width:900px;
+  max-width:520px;
   margin:0 auto 48px;
   border-radius:20px;
   overflow:hidden;
@@ -5830,8 +5907,48 @@ html { scroll-behavior: smooth; }
 ]
 </script>
 
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quanto tempo demora para cicatrizar uma tatuagem?",
+      "acceptedAnswer": {"@type": "Answer", "text": "A cicatrização superficial leva de 2 a 3 semanas. A cicatrização completa pode levar até 3 meses. Siga todos os cuidados recomendados pelo tatuador."}
+    },
+    {
+      "@type": "Question",
+      "name": "É possível cobrir qualquer tatuagem antiga em BH?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Na maioria dos casos, sim. A viabilidade depende do tamanho, cor e condição da tattoo atual. Carlos Tattoo BH oferece avaliação gratuita para coberturas em Belo Horizonte."}
+    },
+    {
+      "@type": "Question",
+      "name": "Como funciona o agendamento de tatuagem em BH?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Preencha o formulário no site descrevendo sua ideia. Carlos entrará em contato pelo WhatsApp em até 24h úteis para discutir o projeto e confirmar a data."}
+    },
+    {
+      "@type": "Question",
+      "name": "Tatuagem dói muito? Quais regiões doem mais?",
+      "acceptedAnswer": {"@type": "Answer", "text": "A dor varia de pessoa para pessoa. Áreas com mais nervos como costelas, pescoço e pés costumam ser mais sensíveis. O tatuador adapta o ritmo para garantir conforto."}
+    },
+    {
+      "@type": "Question",
+      "name": "O que é reconstrução de aréola por tatuagem?",
+      "acceptedAnswer": {"@type": "Answer", "text": "É um procedimento especializado para mulheres que passaram por mastectomia. Carlos Tattoo BH é especialista nessa técnica, atendendo em Belo Horizonte com sensibilidade e profissionalismo."}
+    },
+    {
+      "@type": "Question",
+      "name": "Quanto custa uma tatuagem em Belo Horizonte?",
+      "acceptedAnswer": {"@type": "Answer", "text": "O valor varia conforme tamanho, complexidade e estilo. Carlos Tattoo BH oferece consulta gratuita para orçamento personalizado sem compromisso."}
+    }
+  ]
+}
+</script>
 </head>
 <body>
+
 <div id="read-progress"></div>
 
 
@@ -5852,55 +5969,53 @@ html { scroll-behavior: smooth; }
 <!-- ═══ POPUP DE SAÍDA ═══ -->
 <div id="exit-popup">
   <div class="exit-box">
+
+    <!-- Partículas SVG decorativas -->
+    <svg class="exit-particles" viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="30"  cy="40"  r="3" fill="#E8B800" opacity=".6"><animate attributeName="cy" values="40;20;40" dur="3s" repeatCount="indefinite"/></circle>
+      <circle cx="80"  cy="20"  r="2" fill="#C9A84C" opacity=".5"><animate attributeName="cy" values="20;40;20" dur="2.5s" repeatCount="indefinite"/></circle>
+      <circle cx="150" cy="50"  r="4" fill="#FFD700" opacity=".4"><animate attributeName="cy" values="50;25;50" dur="4s" repeatCount="indefinite"/></circle>
+      <circle cx="240" cy="15"  r="2" fill="#E8B800" opacity=".7"><animate attributeName="cy" values="15;40;15" dur="2s" repeatCount="indefinite"/></circle>
+      <circle cx="320" cy="35"  r="3" fill="#C9A84C" opacity=".5"><animate attributeName="cy" values="35;10;35" dur="3.5s" repeatCount="indefinite"/></circle>
+      <circle cx="400" cy="25"  r="2" fill="#FFD700" opacity=".6"><animate attributeName="cy" values="25;50;25" dur="2.8s" repeatCount="indefinite"/></circle>
+      <circle cx="460" cy="45"  r="4" fill="#E8B800" opacity=".4"><animate attributeName="cy" values="45;15;45" dur="3.2s" repeatCount="indefinite"/></circle>
+      <path d="M60 80 L65 70 L70 80 L60 80Z"  fill="#E8B800" opacity=".4"><animate attributeName="opacity" values=".4;.8;.4" dur="2s" repeatCount="indefinite"/></path>
+      <path d="M280 60 L285 50 L290 60 L280 60Z" fill="#FFD700" opacity=".5"><animate attributeName="opacity" values=".5;.9;.5" dur="2.5s" repeatCount="indefinite"/></path>
+      <path d="M430 70 L435 58 L440 70 L430 70Z" fill="#C9A84C" opacity=".4"><animate attributeName="opacity" values=".4;.8;.4" dur="3s" repeatCount="indefinite"/></path>
+    </svg>
+
     <button class="exit-close" onclick="fecharExitPopup()">✕</button>
-    <span class="exit-emoji">⏰</span>
-    <div class="exit-tag">Espera! Oferta especial</div>
-    <h2 class="exit-h2">Antes de ir…<br><span>Aproveite esse desconto</span></h2>
-    <p class="exit-p">Você estava vendo nossos cursos. Que tal garantir agora com condição especial?</p>
-    <div class="exit-offer">
-      <div class="exit-offer-tag">🔥 Oferta por tempo limitado</div>
-      <div class="exit-offer-price"><del>R$ 297</del> R$ 197</div>
-      <p style="font-size:12px;color:rgba(201,168,76,.6);margin-top:4px;font-family:'Cinzel',serif;letter-spacing:1px;">Curso Tráfego Pago para Tatuadores</p>
+
+    <!-- Ícone presente animado -->
+    <div class="exit-gift-wrap">
+      <div class="exit-gift">🎁</div>
+      <div class="exit-gift-ring"></div>
     </div>
-    <button class="btn-exit-sim" onclick="window.open('https://mpago.la/2czB489','_blank');fecharExitPopup();">
-      🎯 QUERO APROVEITAR AGORA →
+
+    <div class="exit-tag">✦ &nbsp;PRESENTE ESPECIAL PARA VOCÊ&nbsp; ✦</div>
+    <h2 class="exit-h2">Espera! Antes de ir…<br><span>temos algo para você</span></h2>
+    <p class="exit-p">Você estava explorando nossos materiais. Preparamos uma condição exclusiva que não aparece em nenhum outro lugar.</p>
+
+    <div class="exit-offer">
+      <div class="exit-offer-ribbon">OFERTA EXCLUSIVA</div>
+      <div class="exit-offer-name">Ebook Tráfego Tattoo</div>
+      <div class="exit-offer-row">
+        <div class="exit-offer-old">De R$ 197</div>
+        <div class="exit-offer-arrow">→</div>
+        <div class="exit-offer-new">R$ 97</div>
+      </div>
+      <div class="exit-offer-economy">Você economiza R$ 100,00 agora</div>
+    </div>
+
+    <button class="btn-exit-sim" onclick="window.open('https://mpago.la/2iBpEJk','_blank');fecharExitPopup();">
+      🎁 QUERO MEU PRESENTE AGORA →
     </button>
-    <button class="btn-exit-nao" onclick="fecharExitPopup()">Não, prefiro continuar sem</button>
+    <button class="btn-exit-nao" onclick="fecharExitPopup()">Não, obrigado — vou pagar mais depois</button>
   </div>
 </div>
 
 <!-- ═══ CHAT IA FLUTUANTE ═══ -->
-<button id="chat-ia-btn" onclick="toggleChat()" aria-label="Assistente de tatuagem">
-  <span class="chat-ia-icon">🤖</span>
-  <div class="chat-ia-badge">IA</div>
-</button>
 
-<div id="chat-ia-panel">
-  <div class="chat-header">
-    <img src="imagens/perfil.jpg" alt="Carlos" class="chat-header-avatar" onerror="this.src='imagens/IPJP8350.JPG'">
-    <div class="chat-header-info">
-      <h4>Assistente Carlos Tattoo</h4>
-      <span>🟢 Online agora</span>
-    </div>
-    <button class="chat-close-btn" onclick="toggleChat()">✕</button>
-  </div>
-  <div class="chat-msgs" id="chatMsgs">
-    <div class="chat-msg bot">
-      <div class="chat-msg-name">ASSISTENTE IA</div>
-      Olá! 👋 Sou o assistente do Carlos Tattoo BH. Posso te ajudar a descobrir o estilo ideal, tirar dúvidas sobre tatuagem ou cursos. O que você precisa?
-    </div>
-  </div>
-  <div class="chat-sugestoes" id="chatSugs">
-    <span class="chat-sug" onclick="chatPergunta('Qual estilo combina comigo?')">Qual estilo combina comigo?</span>
-    <span class="chat-sug" onclick="chatPergunta('Quanto custa uma tatuagem?')">Quanto custa?</span>
-    <span class="chat-sug" onclick="chatPergunta('Como funciona o agendamento?')">Como agendar?</span>
-    <span class="chat-sug" onclick="chatPergunta('Quero saber sobre os cursos')">Ver cursos</span>
-  </div>
-  <div class="chat-input-wrap">
-    <input class="chat-input" id="chatInput" placeholder="Digite sua pergunta..." onkeydown="if(event.key==='Enter')enviarChat()">
-    <button class="chat-send" onclick="enviarChat()">➤</button>
-  </div>
-</div>
 
 
 <!-- CURSOR -->
@@ -5908,7 +6023,15 @@ html { scroll-behavior: smooth; }
 <div id="cur2"></div>
 
 <!-- URGENCY BAR -->
-<div class="urg-bar">🔥 <b>ATENÇÃO:</b> Apenas <b id="vagas-count">3</b> vagas disponíveis este mês — <b>Reserve a sua agora antes que esgote!</b></div>
+<div class="urg-bar" id="urg-bar-top">
+  <span class="urg-bar-inner">
+    <span class="urg-spark">✦</span>
+    <span class="urg-bar-msg">🎁 <b>OFERTA ESPECIAL:</b> Apenas <b id="vagas-count">3</b> vagas abertas este mês</span>
+    <span class="urg-bar-sep">·</span>
+    <span class="urg-bar-cta"><a href="#contato" style="color:#FFD700;text-decoration:underline;font-weight:700;">Garantir minha vaga →</a></span>
+    <span class="urg-spark">✦</span>
+  </span>
+</div>
 
 <!-- NAV -->
 <nav id="nav">
@@ -6061,7 +6184,7 @@ html { scroll-behavior: smooth; }
       <div class="aphoto rvl">
         <div class="aphoto-outer"></div><div class="aphoto-inner"></div>
         <div class="aphoto-main">
-          <img src="imagens/carlos_sobre.jpg" alt="Carlos Tattoo BH — Sobre o Artista"
+          <img loading="lazy" src="imagens/carlos_sobre.jpg" alt="Carlos Tattoo BH — Sobre o Artista"
             onerror="this.src='carlos_sobre.jpg';this.onerror=null;">
         </div>
         <div class="acorner tl"></div><div class="acorner tr"></div>
@@ -6099,7 +6222,7 @@ html { scroll-behavior: smooth; }
     </div>
     <div class="spec-grid">
       <div class="scard rv" onclick="abrirCarrossel('realismo','Realismo',1)">
-        <img class="scard-foto" src="imagens/capa-realismo.jpg" alt="Realismo — Carlos Tattoo BH"
+        <img loading="lazy" class="scard-foto" src="imagens/capa-realismo.jpg" alt="Realismo — Carlos Tattoo BH"
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="scard-foto-placeholder" style="display:none;">
           <span>Adicione: imagens/capa-realismo.jpg<br>Tamanho: 600×400px</span>
@@ -6112,7 +6235,7 @@ html { scroll-behavior: smooth; }
         </div>
       </div>
       <div class="scard rv" onclick="abrirCarrossel('blackgrey','Black & Grey',1)">
-        <img class="scard-foto" src="imagens/capa-blackgrey.jpg" alt="Black & Grey — Carlos Tattoo BH"
+        <img loading="lazy" class="scard-foto" src="imagens/capa-blackgrey.jpg" alt="Black & Grey — Carlos Tattoo BH"
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="scard-foto-placeholder" style="display:none;">
           <span>Adicione: imagens/capa-blackgrey.jpg<br>Tamanho: 600×400px</span>
@@ -6125,7 +6248,7 @@ html { scroll-behavior: smooth; }
         </div>
       </div>
       <div class="scard rv" onclick="abrirCarrossel('fineline','Fineline',1)">
-        <img class="scard-foto" src="imagens/capa-fineline.jpg" alt="Fineline — Carlos Tattoo BH"
+        <img loading="lazy" class="scard-foto" src="imagens/capa-fineline.jpg" alt="Fineline — Carlos Tattoo BH"
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="scard-foto-placeholder" style="display:none;">
           <span>Adicione: imagens/capa-fineline.jpg<br>Tamanho: 600×400px</span>
@@ -6138,7 +6261,7 @@ html { scroll-behavior: smooth; }
         </div>
       </div>
       <div class="scard rv" onclick="abrirCarrossel('coverup','Cover Up',1)">
-        <img class="scard-foto" src="imagens/capa-coverup.jpg" alt="Cover Up — Carlos Tattoo BH"
+        <img loading="lazy" class="scard-foto" src="imagens/capa-coverup.jpg" alt="Cover Up — Carlos Tattoo BH"
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="scard-foto-placeholder" style="display:none;">
           <span>Adicione: imagens/capa-coverup.jpg<br>Tamanho: 600×400px</span>
@@ -6151,7 +6274,7 @@ html { scroll-behavior: smooth; }
         </div>
       </div>
       <div class="scard rv" onclick="abrirCarrossel('personalizada','Personalizadas',1)">
-        <img class="scard-foto" src="imagens/capa-personalizada.jpg" alt="Personalizadas — Carlos Tattoo BH"
+        <img loading="lazy" class="scard-foto" src="imagens/capa-personalizada.jpg" alt="Personalizadas — Carlos Tattoo BH"
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="scard-foto-placeholder" style="display:none;">
           <span>Adicione: imagens/capa-personalizada.jpg<br>Tamanho: 600×400px</span>
@@ -6164,7 +6287,7 @@ html { scroll-behavior: smooth; }
         </div>
       </div>
       <div class="scard rv" onclick="abrirCarrossel('colorida','Colorida',1)">
-        <img class="scard-foto" src="imagens/capa-colorida.jpg" alt="Colorida — Carlos Tattoo BH"
+        <img loading="lazy" class="scard-foto" src="imagens/capa-colorida.jpg" alt="Colorida — Carlos Tattoo BH"
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="scard-foto-placeholder" style="display:none;">
           <span>Adicione: imagens/capa-colorida.jpg<br>Tamanho: 600×400px</span>
@@ -6375,7 +6498,7 @@ html { scroll-behavior: smooth; }
     </div>
     <div class="studio-grid rv">
       <div class="studio-card big">
-        <img src="imagens/fachada.jpg" alt="Fachada Carlos Tattoo BH" style="width:100%;height:100%;object-fit:cover;display:block;"
+        <img loading="lazy" src="imagens/fachada.jpg" alt="Fachada Carlos Tattoo BH" style="width:100%;height:100%;object-fit:cover;display:block;"
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="studio-ph" style="height:100%;display:none;"><span style="font-size:56px;">🏪</span><span>FACHADA DO ESTÚDIO</span><span style="font-size:11px;opacity:.4;">Adicione: imagens/fachada.jpg</span></div>
         <div class="studio-badge">FACHADA</div>
@@ -6383,7 +6506,7 @@ html { scroll-behavior: smooth; }
         <div class="studio-lbl">📍 Rua Maria de Lourdes da Cruz, 378 — Mantiqueira, BH</div>
       </div>
       <div class="studio-card">
-        <img src="imagens/area-tatuagem.jpg" alt="Área de Tatuagem Carlos Tattoo BH" style="width:100%;height:100%;object-fit:cover;display:block;"
+        <img loading="lazy" src="imagens/area-tatuagem.jpg" alt="Área de Tatuagem Carlos Tattoo BH" style="width:100%;height:100%;object-fit:cover;display:block;"
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="studio-ph" style="height:200px;display:none;"><span style="font-size:44px;">🪑</span><span>ÁREA DE TATUAGEM</span></div>
         <div class="studio-badge">HIGIENIZADO</div>
@@ -6391,7 +6514,7 @@ html { scroll-behavior: smooth; }
         <div class="studio-lbl">Equipamentos esterilizados</div>
       </div>
       <div class="studio-card">
-        <img src="imagens/area-arte.jpg" alt="Área de Arte Carlos Tattoo BH" style="width:100%;height:100%;object-fit:cover;display:block;"
+        <img loading="lazy" src="imagens/area-arte.jpg" alt="Área de Arte Carlos Tattoo BH" style="width:100%;height:100%;object-fit:cover;display:block;"
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="studio-ph" style="height:200px;display:none;"><span style="font-size:44px;">🎨</span><span>ÁREA DE ARTE</span></div>
         <div class="studio-badge">PREMIUM</div>
@@ -6399,7 +6522,7 @@ html { scroll-behavior: smooth; }
         <div class="studio-lbl">Projetos criados com exclusividade</div>
       </div>
       <div class="studio-card">
-        <img src="imagens/recepcao.jpg" alt="Recepção Carlos Tattoo BH" style="width:100%;height:100%;object-fit:cover;display:block;"
+        <img loading="lazy" src="imagens/recepcao.jpg" alt="Recepção Carlos Tattoo BH" style="width:100%;height:100%;object-fit:cover;display:block;"
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="studio-ph" style="height:200px;display:none;"><span style="font-size:44px;">✨</span><span>RECEPÇÃO</span></div>
         <div class="studio-badge">CONFORTÁVEL</div>
@@ -6423,8 +6546,8 @@ html { scroll-behavior: smooth; }
     <div class="cover-layout">
       <div class="rvl">
         <div class="ba-slider" id="baSlider">
-          <div class="ba-img ba-before" style="font-size:70px;opacity:.3;">⬛</div>
-          <div class="ba-img ba-after" style="font-size:70px;opacity:.3;">⚡</div>
+          <div class="ba-img ba-before" style="background:url('imagens/antes_depois.jpg') left center/cover no-repeat;"></div>
+          <div class="ba-img ba-after" style="background:url('imagens/antes_depois.jpg') right center/cover no-repeat;"></div>
           <div class="ba-divider" id="baDivider"><div class="ba-handle">⟺</div></div>
           <span class="ba-lbl l">ANTES</span>
           <span class="ba-lbl r">DEPOIS</span>
@@ -6471,7 +6594,7 @@ html { scroll-behavior: smooth; }
       <!-- Imagem 1 — Antes & Depois -->
       <div class="cvid-card">
         <div style="position:relative;overflow:hidden;aspect-ratio:9/16;background:linear-gradient(135deg,#1C1208,#0A0702);">
-          <img src="imagens/cobertura-antes-depois.jpg" alt="Cobertura antes e depois — Carlos Tattoo BH"
+          <img loading="lazy" src="imagens/cobertura-antes-depois.jpg" alt="Cobertura antes e depois — Carlos Tattoo BH"
             style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;"
             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;flex-direction:column;gap:10px;padding:24px;text-align:center;">
@@ -6490,7 +6613,7 @@ html { scroll-behavior: smooth; }
       <!-- Imagem 2 — Processo de Cobertura -->
       <div class="cvid-card">
         <div style="position:relative;overflow:hidden;aspect-ratio:9/16;background:linear-gradient(135deg,#1C1208,#0A0702);">
-          <img src="imagens/cobertura-processo.jpg" alt="Processo de cobertura — Carlos Tattoo BH"
+          <img loading="lazy" src="imagens/cobertura-processo.jpg" alt="Processo de cobertura — Carlos Tattoo BH"
             style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;"
             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;flex-direction:column;gap:10px;padding:24px;text-align:center;">
@@ -6509,7 +6632,7 @@ html { scroll-behavior: smooth; }
       <!-- Imagem 3 — Resultado Final -->
       <div class="cvid-card cvid-destaque">
         <div style="position:relative;overflow:hidden;aspect-ratio:9/16;background:linear-gradient(135deg,#3a0a0a,#1a0505);">
-          <img src="imagens/cobertura-resultado.jpg" alt="Resultado final cobertura — Carlos Tattoo BH"
+          <img loading="lazy" src="imagens/cobertura-resultado.jpg" alt="Resultado final cobertura — Carlos Tattoo BH"
             style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;"
             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;flex-direction:column;gap:10px;padding:24px;text-align:center;">
@@ -6568,7 +6691,7 @@ html { scroll-behavior: smooth; }
           <div class="cstyle-card on" data-mult="1.0" onclick="selectStyle(this)">
             <div class="cstyle-card-check">✓</div>
             <div class="cstyle-card-thumb" style="position:relative;overflow:hidden;">
-              <img src="imagens/capa-fineline.jpg" alt="Fineline"
+              <img loading="lazy" src="imagens/capa-fineline.jpg" alt="Fineline"
                 style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;"
                 onerror="this.src='imagens/portfolio/fineline-01.jpg';this.onerror=null;">
               <video muted loop playsinline preload="none"
@@ -6585,7 +6708,7 @@ html { scroll-behavior: smooth; }
           <div class="cstyle-card" data-mult="1.2" onclick="selectStyle(this)">
             <div class="cstyle-card-check">✓</div>
             <div class="cstyle-card-thumb" style="position:relative;overflow:hidden;">
-              <img src="imagens/capa-blackgrey.jpg" alt="Black & Grey"
+              <img loading="lazy" src="imagens/capa-blackgrey.jpg" alt="Black & Grey"
                 style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;"
                 onerror="this.src='imagens/portfolio/blackgrey-01.jpg';this.onerror=null;">
               <video muted loop playsinline preload="none"
@@ -6602,7 +6725,7 @@ html { scroll-behavior: smooth; }
           <div class="cstyle-card" data-mult="1.5" onclick="selectStyle(this)">
             <div class="cstyle-card-check">✓</div>
             <div class="cstyle-card-thumb" style="position:relative;overflow:hidden;">
-              <img src="imagens/capa-realismo.jpg" alt="Realismo"
+              <img loading="lazy" src="imagens/capa-realismo.jpg" alt="Realismo"
                 style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;"
                 onerror="this.src='imagens/portfolio/realismo-01.jpg';this.onerror=null;">
               <video muted loop playsinline preload="none"
@@ -6619,7 +6742,7 @@ html { scroll-behavior: smooth; }
           <div class="cstyle-card" data-mult="1.7" onclick="selectStyle(this)">
             <div class="cstyle-card-check">✓</div>
             <div class="cstyle-card-thumb" style="position:relative;overflow:hidden;">
-              <img src="imagens/capa-coverup.jpg" alt="Cover Up"
+              <img loading="lazy" src="imagens/capa-coverup.jpg" alt="Cover Up"
                 style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;"
                 onerror="this.src='imagens/portfolio/coverup-01.jpg';this.onerror=null;">
               <video muted loop playsinline preload="none"
@@ -6636,7 +6759,7 @@ html { scroll-behavior: smooth; }
           <div class="cstyle-card" data-mult="1.3" onclick="selectStyle(this)">
             <div class="cstyle-card-check">✓</div>
             <div class="cstyle-card-thumb" style="position:relative;overflow:hidden;">
-              <img src="imagens/capa-colorida.jpg" alt="Colorida"
+              <img loading="lazy" src="imagens/capa-colorida.jpg" alt="Colorida"
                 style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;"
                 onerror="this.src='imagens/portfolio/colorida-01.jpg';this.onerror=null;">
               <video muted loop playsinline preload="none"
@@ -6706,90 +6829,108 @@ html { scroll-behavior: smooth; }
           <div style="width:24px;height:2px;background:rgba(201,168,76,.15);"></div>
           <div id="qp3" style="width:44px;height:6px;border-radius:0 3px 3px 0;background:rgba(201,168,76,.15);transition:all .4s;"></div>
         </div>
-        <div id="quiz-progress-txt" style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:rgba(201,168,76,.5);text-transform:uppercase;">PERGUNTA 1 DE 3</div>
+        <div id="quiz-progress-txt" style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:3px;color:#ffffff;text-transform:uppercase;font-weight:600;">PERGUNTA 1 DE 3</div>
       </div>
 
       <!-- PERGUNTA 1 — PERSONALIDADE -->
       <div class="quiz-step on" id="quiz-1">
         <p class="quiz-q">Como você se descreveria?</p>
-        <p style="text-align:center;font-family:'IM Fell English',serif;font-style:italic;color:rgba(237,228,212,.45);font-size:14px;margin:-14px 0 22px;">Escolha a opção que mais combina com você</p>
+        <p style="text-align:center;font-family:'IM Fell English',serif;font-style:italic;color:rgba(255,255,255,.70);font-size:16px;margin:-14px 0 26px;">Escolha a opção que mais combina com você</p>
         <div class="quiz-opts">
-          <div class="qopt" onclick="quizNext(1,'Intenso e marcante',this)">
+          <div class="qopt" onclick="quizSel(1,'Intenso e marcante',this)">
             <span class="qopt-icon">🔥</span>
             <strong>Intenso e marcante</strong>
             <span class="qopt-sub">Presença forte, nunca passa despercebido</span>
           </div>
-          <div class="qopt" onclick="quizNext(1,'Elegante e sofisticado',this)">
+          <div class="qopt" onclick="quizSel(1,'Elegante e sofisticado',this)">
             <span class="qopt-icon">💎</span>
             <strong>Elegante e sofisticado</strong>
             <span class="qopt-sub">Gosto apurado, detalhes que impressionam</span>
           </div>
-          <div class="qopt" onclick="quizNext(1,'Minimalista e discreto',this)">
+          <div class="qopt" onclick="quizSel(1,'Minimalista e discreto',this)">
             <span class="qopt-icon">✨</span>
             <strong>Minimalista e discreto</strong>
             <span class="qopt-sub">Menos é mais — precisão acima de tudo</span>
           </div>
-          <div class="qopt" onclick="quizNext(1,'Artístico e criativo',this)">
+          <div class="qopt" onclick="quizSel(1,'Artístico e criativo',this)">
             <span class="qopt-icon">🎨</span>
             <strong>Artístico e criativo</strong>
             <span class="qopt-sub">Único, expressivo, fora do padrão</span>
           </div>
+        </div>
+        <div style="text-align:center;margin-top:24px;">
+          <button id="quiz-btn-1" onclick="quizAvançar(1)" disabled
+            style="background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;border:none;padding:14px 48px;border-radius:8px;font-family:'Cinzel',serif;font-size:13px;font-weight:700;letter-spacing:1.5px;cursor:pointer;transition:all .3s;opacity:.35;pointer-events:none;">
+            CONTINUAR →
+          </button>
         </div>
       </div>
 
       <!-- PERGUNTA 2 — TEMA -->
       <div class="quiz-step" id="quiz-2">
         <p class="quiz-q">O que você quer eternizar?</p>
-        <p style="text-align:center;font-family:'IM Fell English',serif;font-style:italic;color:rgba(237,228,212,.45);font-size:14px;margin:-14px 0 22px;">Qual tema faz mais sentido para a sua tatuagem?</p>
+        <p style="text-align:center;font-family:'IM Fell English',serif;font-style:italic;color:rgba(255,255,255,.70);font-size:16px;margin:-14px 0 26px;">Qual tema faz mais sentido para a sua tatuagem?</p>
         <div class="quiz-opts">
-          <div class="qopt" onclick="quizNext(2,'Natureza e animais',this)">
+          <div class="qopt" onclick="quizSel(2,'Natureza e animais',this)">
             <span class="qopt-icon">🌿</span>
             <strong>Natureza e animais</strong>
             <span class="qopt-sub">Floresta, fauna, elementos naturais</span>
           </div>
-          <div class="qopt" onclick="quizNext(2,'Pessoas e retratos',this)">
+          <div class="qopt" onclick="quizSel(2,'Pessoas e retratos',this)">
             <span class="qopt-icon">👤</span>
             <strong>Pessoas e retratos</strong>
             <span class="qopt-sub">Quem você ama eternizado na pele</span>
           </div>
-          <div class="qopt" onclick="quizNext(2,'Geométrico e abstrato',this)">
+          <div class="qopt" onclick="quizSel(2,'Geométrico e abstrato',this)">
             <span class="qopt-icon">🔷</span>
             <strong>Geométrico e abstrato</strong>
             <span class="qopt-sub">Formas, padrões, composições visuais</span>
           </div>
-          <div class="qopt" onclick="quizNext(2,'Simbólico e espiritual',this)">
+          <div class="qopt" onclick="quizSel(2,'Simbólico e espiritual',this)">
             <span class="qopt-icon">🌙</span>
             <strong>Simbólico e espiritual</strong>
             <span class="qopt-sub">Símbolos com significado profundo</span>
           </div>
+        </div>
+        <div style="text-align:center;margin-top:24px;">
+          <button id="quiz-btn-2" onclick="quizAvançar(2)" disabled
+            style="background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;border:none;padding:14px 48px;border-radius:8px;font-family:'Cinzel',serif;font-size:13px;font-weight:700;letter-spacing:1.5px;cursor:pointer;transition:all .3s;opacity:.35;pointer-events:none;">
+            CONTINUAR →
+          </button>
         </div>
       </div>
 
       <!-- PERGUNTA 3 — TAMANHO -->
       <div class="quiz-step" id="quiz-3">
         <p class="quiz-q">Qual o tamanho ideal?</p>
-        <p style="text-align:center;font-family:'IM Fell English',serif;font-style:italic;color:rgba(237,228,212,.45);font-size:14px;margin:-14px 0 22px;">Pense no impacto que você quer causar</p>
+        <p style="text-align:center;font-family:'IM Fell English',serif;font-style:italic;color:rgba(255,255,255,.70);font-size:16px;margin:-14px 0 26px;">Pense no impacto que você quer causar</p>
         <div class="quiz-opts">
-          <div class="qopt" onclick="quizResult('pequena')">
+          <div class="qopt" onclick="quizSel(3,'pequena',this)">
             <span class="qopt-icon">🤏</span>
             <strong>Pequena e delicada</strong>
             <span class="qopt-sub">Discreta, íntima, elegante</span>
           </div>
-          <div class="qopt" onclick="quizResult('media')">
+          <div class="qopt" onclick="quizSel(3,'media',this)">
             <span class="qopt-icon">✋</span>
             <strong>Média e equilibrada</strong>
             <span class="qopt-sub">Visível, sem exageros</span>
           </div>
-          <div class="qopt" onclick="quizResult('grande')">
+          <div class="qopt" onclick="quizSel(3,'grande',this)">
             <span class="qopt-icon">💪</span>
             <strong>Grande e impactante</strong>
             <span class="qopt-sub">Chama atenção, conta uma história</span>
           </div>
-          <div class="qopt" onclick="quizResult('projeto')">
+          <div class="qopt" onclick="quizSel(3,'projeto',this)">
             <span class="qopt-icon">🦾</span>
             <strong>Projeto completo</strong>
             <span class="qopt-sub">Manga, costas, peça única</span>
           </div>
+        </div>
+        <div style="text-align:center;margin-top:24px;">
+          <button id="quiz-btn-3" onclick="quizAvançar(3)" disabled
+            style="background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;border:none;padding:14px 48px;border-radius:8px;font-family:'Cinzel',serif;font-size:13px;font-weight:700;letter-spacing:1.5px;cursor:pointer;transition:all .3s;opacity:.35;pointer-events:none;">
+            VER MEU RESULTADO →
+          </button>
         </div>
       </div>
 
@@ -6797,19 +6938,19 @@ html { scroll-behavior: smooth; }
       <div class="quiz-step" id="quiz-result">
         <div style="text-align:center;padding:8px 0 20px;">
           <div id="q-icon-res" style="font-size:64px;margin-bottom:16px;display:block;animation:popIn .5s ease;">🎯</div>
-          <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:rgba(201,168,76,.55);text-transform:uppercase;margin-bottom:8px;">SEU ESTILO É</div>
+          <div style="font-family:'Cinzel',serif;font-size:13px;font-weight:600;letter-spacing:3px;color:#ffffff;text-transform:uppercase;margin-bottom:10px;">SEU ESTILO É</div>
           <div id="q-style-res" style="font-family:'Cinzel Decorative',cursive;font-size:clamp(22px,4vw,34px);color:var(--g2);text-shadow:0 0 28px rgba(201,168,76,.3);margin-bottom:22px;">Realismo Artístico</div>
 
           <div style="background:linear-gradient(135deg,rgba(42,26,8,.6),rgba(10,7,2,.8));border:1px solid rgba(201,168,76,.18);border-radius:12px;padding:22px 26px;margin-bottom:24px;max-width:520px;margin-left:auto;margin-right:auto;">
-            <p id="q-desc-res" style="font-size:15px;color:rgba(237,228,212,.85);line-height:1.85;font-family:'IM Fell English',serif;font-style:italic;">
+            <p id="q-desc-res" style="font-size:17px;color:#ffffff;line-height:1.9;font-family:'IM Fell English',serif;font-style:italic;">
               Você tem uma personalidade marcante — seu estilo pede traços fortes, sombras densas e detalhes que impressionam.
             </p>
-            <div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(201,168,76,.1);display:flex;flex-wrap:wrap;justify-content:center;gap:7px;" id="q-tags-res"></div>
+            <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.15);display:flex;flex-wrap:wrap;justify-content:center;gap:8px;" id="q-tags-res"></div>
           </div>
 
           <div style="background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.16);border-radius:12px;padding:22px 26px;max-width:520px;margin:0 auto 16px;">
-            <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:var(--g4);text-transform:uppercase;margin-bottom:5px;">Carlos é especialista nesse estilo</p>
-            <p style="font-size:13px;color:rgba(237,228,212,.55);font-family:'IM Fell English',serif;font-style:italic;margin-bottom:20px;">Agende sua consulta gratuita — sem compromisso, sem pressão.</p>
+            <p style="font-family:'Cinzel',serif;font-size:13px;font-weight:600;letter-spacing:2px;color:#ffffff;text-transform:uppercase;margin-bottom:8px;">Carlos é especialista nesse estilo</p>
+            <p style="font-size:16px;color:#ffffff;font-family:'IM Fell English',serif;font-style:italic;margin-bottom:22px;">Agende sua consulta gratuita — sem compromisso, sem pressão.</p>
             <a href="#contato" id="quiz-cta-agendamento" class="btn btn-gold"
                style="width:100%;justify-content:center;font-size:12px;padding:17px 24px;margin-bottom:11px;display:flex;"
                onclick="setTimeout(()=>{const n=document.getElementById('fp-nome');if(n){n.scrollIntoView({behavior:'smooth',block:'center'});n.focus();}},400);">
@@ -6819,8 +6960,8 @@ html { scroll-behavior: smooth; }
           </div>
 
           <button onclick="reiniciarQuiz()"
-            style="background:none;border:none;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(201,168,76,.3);cursor:pointer;text-decoration:underline;transition:.2s;"
-            onmouseover="this.style.color='rgba(201,168,76,.65)'" onmouseout="this.style.color='rgba(201,168,76,.3)'">
+            style="background:none;border:none;font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;color:rgba(255,255,255,.45);cursor:pointer;text-decoration:underline;transition:.2s;"
+            onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='rgba(255,255,255,.45)'">
             ↩ REFAZER O QUIZ
           </button>
         </div>
@@ -6828,16 +6969,7 @@ html { scroll-behavior: smooth; }
 
     </div>
 
-    <!-- CTA abaixo do quiz sempre visível -->
-    <div style="text-align:center;margin-top:40px;" class="rv">
-      <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:rgba(201,168,76,.5);text-transform:uppercase;margin-bottom:16px;">Prefere ir direto ao agendamento?</p>
-      <a href="#contato"
-        class="btn btn-wpp"
-        style="display:inline-flex;font-size:11px;padding:15px 36px;"
-        onclick="setTimeout(()=>{const n=document.getElementById('fp-nome');if(n){n.scrollIntoView({behavior:'smooth',block:'center'});n.focus();}},400);">
-        📅 AGENDAR CONSULTA GRATUITA
-      </a>
-    </div>
+
   </div>
 </section>
 
@@ -7549,7 +7681,7 @@ html { scroll-behavior: smooth; }
       <!-- Coluna Esquerda — Imagem + vídeo -->
       <div style="display:flex;flex-direction:column;gap:20px;">
         <div style="position:relative;border-radius:14px;overflow:hidden;border:2px solid rgba(201,168,76,.2);box-shadow:0 20px 60px rgba(0,0,0,.4);">
-          <img src="imagens/mentoria-carlos.jpg" alt="Carlos Tattoo BH — Mentoria VIP"
+          <img loading="lazy" src="imagens/mentoria-carlos.jpg" alt="Carlos Tattoo BH — Mentoria VIP"
             style="width:100%;display:block;object-fit:cover;max-height:380px;"
             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div style="display:none;width:100%;height:280px;background:linear-gradient(135deg,#1C1208,#0A0702);align-items:center;justify-content:center;flex-direction:column;gap:12px;">
@@ -7753,8 +7885,8 @@ html { scroll-behavior: smooth; }
       .ebook-novo{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
       .ebook-novo-card{display:grid;grid-template-columns:200px 1fr;background:linear-gradient(135deg,#1C1208,#0A0702);border:1px solid rgba(201,168,76,.18);border-radius:12px;overflow:hidden;transition:all .35s;box-shadow:0 4px 20px rgba(0,0,0,.35);}
       .ebook-novo-card:hover{transform:translateY(-5px);border-color:rgba(201,168,76,.45);box-shadow:0 16px 48px rgba(0,0,0,.5),0 0 0 1px rgba(201,168,76,.15);}
-      .ebook-novo-img{position:relative;overflow:hidden;min-height:220px;order:1;}
-      .ebook-novo-img img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .4s;position:absolute;inset:0;}
+      .ebook-novo-img{position:relative;overflow:hidden;height:220px;min-height:220px;order:1;}
+      .ebook-novo-img img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .4s;position:absolute;inset:0;}
       .ebook-novo-card:hover .ebook-novo-img img{transform:scale(1.05);}
       .ebook-novo-ph{width:100%;height:100%;min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px;text-align:center;background:linear-gradient(135deg,#2A1A08,#0A0702);}
       .ebook-novo-ph span{font-family:'Cinzel Decorative',cursive;font-size:11px;color:var(--g3);letter-spacing:2px;line-height:1.5;}
@@ -7779,7 +7911,7 @@ html { scroll-behavior: smooth; }
       <!-- CARD 1 — Tráfego -->
       <div class="ebook-novo-card">
         <div class="ebook-novo-img">
-          <img src="imagens/thumb-ebook-trafego.jpg" alt="Ebook Tráfego Tattoo"
+          <img loading="lazy" src="imagens/thumb-ebook-trafego.jpg" alt="Ebook Tráfego Tattoo"
             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="ebook-novo-ph" style="display:none;"><span>ESTRATÉGIA<br>DIGITAL<br>PARA<br>TATUADORES</span><span style="font-size:8px;opacity:.4;letter-spacing:1px;">CARLOS TATTOO BH</span></div>
         </div>
@@ -7805,7 +7937,7 @@ html { scroll-behavior: smooth; }
       <!-- CARD 2 — Instagram -->
       <div class="ebook-novo-card">
         <div class="ebook-novo-img">
-          <img src="imagens/thumb-ebook-instagram.jpg" alt="Ebook Instagram Tattoo"
+          <img loading="lazy" src="imagens/thumb-ebook-instagram.jpg" alt="Ebook Instagram Tattoo"
             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="ebook-novo-ph" style="display:none;"><span>INSTAGRAM<br>TATTOO<br>ATRAI E VENDE</span><span style="font-size:8px;opacity:.4;letter-spacing:1px;">CARLOS TATTOO BH</span></div>
         </div>
@@ -7831,7 +7963,8 @@ html { scroll-behavior: smooth; }
       <!-- CARD 3 — Posicionamento -->
       <div class="ebook-novo-card">
         <div class="ebook-novo-img">
-          <img src="imagens/thumb-ebook-posicionamento.jpg" alt="Ebook Posicionamento"
+          <img loading="lazy" src="imagens/thumb-ebook-posicionamento.jpg" alt="Ebook Posicionamento"
+            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"
             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="ebook-novo-ph" style="display:none;"><span>POSICIONAMENTO<br>COBRA MAIS<br>ATENDE MELHOR</span><span style="font-size:8px;opacity:.4;letter-spacing:1px;">CARLOS TATTOO BH</span></div>
         </div>
@@ -7857,7 +7990,7 @@ html { scroll-behavior: smooth; }
       <!-- CARD 4 — Pack Templates -->
       <div class="ebook-novo-card">
         <div class="ebook-novo-img">
-          <img src="imagens/thumb-ebook-templates.jpg" alt="Pack Templates Premium"
+          <img loading="lazy" src="imagens/thumb-ebook-templates.jpg" alt="Pack Templates Premium"
             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="ebook-novo-ph" style="display:none;"><span>PACK DE<br>TEMPLATES<br>PREMIUM</span><span style="font-size:8px;opacity:.4;letter-spacing:1px;">CRIE POSTS IRRESISTÍVEIS</span></div>
         </div>
@@ -7905,7 +8038,7 @@ html { scroll-behavior: smooth; }
           </div>
         </div>
         <div style="position:relative;overflow:hidden;min-height:160px;">
-          <img src="imagens/thumb-ebook-contrato.jpg" alt="Contrato Digital" style="width:100%;height:100%;object-fit:cover;display:block;"
+          <img loading="lazy" src="imagens/thumb-ebook-contrato.jpg" alt="Contrato Digital" style="width:100%;height:100%;object-fit:cover;display:block;"
             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div style="display:none;width:100%;height:100%;min-height:160px;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px;text-align:center;background:linear-gradient(135deg,#2A1A08,#0A0702);border-left:1px solid rgba(201,168,76,.1);">
             <span style="font-size:32px;">📄</span>
@@ -7918,7 +8051,7 @@ html { scroll-behavior: smooth; }
 
     <!-- CENTRAL TATTOO — PLANILHA PREMIUM ANUAL -->
     <div class="rv" style="margin-top:16px;">
-      <div style="background:linear-gradient(135deg,#0f0a02,#1C1208,#0f0a02);border:2px solid rgba(201,168,76,.5);border-radius:12px;overflow:hidden;position:relative;box-shadow:0 16px 60px rgba(0,0,0,.5);">
+      <div style="background:linear-gradient(135deg,#0f0a02,#1C1208,#0f0a02);border:2px solid rgba(201,168,76,.5);border-radius:12px;overflow:hidden;position:relative;box-shadow:0 16px 60px rgba(0,0,0,.5);max-width:900px;margin:0 auto;">
         <!-- Linha dourada topo -->
         <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#E8B800,#C9A84C,#E8B800,transparent);"></div>
         <!-- Badge topo central -->
@@ -7988,121 +8121,91 @@ html { scroll-behavior: smooth; }
 
 <!-- PIX MODAL -->
 <div class="pix-overlay" id="pix-modal">
-  <div class="pix-box" style="position:relative;max-height:92vh;overflow-y:auto;max-width:520px;width:95%;">
-    <button class="pix-close" onclick="closePix()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(255,255,255,.5);font-size:26px;cursor:pointer;z-index:10;">✕</button>
-    
-    <!-- HEADER -->
-    <div style="text-align:center;padding:28px 28px 0;">
-      <img src="imagens/IPJP8350.JPG" alt="Carlos Tattoo BH" style="height:52px;object-fit:contain;margin-bottom:12px;filter:drop-shadow(0 0 10px rgba(201,168,76,.4));" onerror="this.style.display='none'">
-      <h2 style="font-family:'Cinzel Decorative',cursive;font-size:20px;color:#fff;margin-bottom:4px;">Finalizar Compra</h2>
-      <p class="pix-cname" id="pix-cname" style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;color:rgba(201,168,76,.6);text-transform:uppercase;margin-bottom:16px;"></p>
-    </div>
-    
-    <!-- ABAS -->
-    <div style="display:flex;border-bottom:1px solid rgba(201,168,76,.15);margin:0 28px;">
-      <button id="tab-pix-btn" onclick="switchTab('pix')"
-        style="flex:1;padding:12px;background:none;border:none;border-bottom:2px solid #E8B800;color:#E8B800;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;cursor:pointer;">
-        💰 PIX
-      </button>
-      <button id="tab-card-btn" onclick="switchTab('card')"
-        style="flex:1;padding:12px;background:none;border:none;border-bottom:2px solid transparent;color:rgba(201,168,76,.4);font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;cursor:pointer;">
-        💳 CARTÃO
-      </button>
-    </div>
-    
-    <!-- ABA PIX -->
-    <div id="tab-pix" style="padding:24px 28px;">
-      <!-- VALOR -->
-      <div style="text-align:center;margin-bottom:20px;">
-        <div style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:rgba(201,168,76,.5);text-transform:uppercase;margin-bottom:4px;">Valor a pagar</div>
-        <div id="pix-valor-display" style="font-family:'Cinzel Decorative',cursive;font-size:36px;color:#E8B800;"></div>
-        <div style="font-family:'Cinzel',serif;font-size:10px;color:rgba(201,168,76,.4);letter-spacing:1px;margin-top:4px;">Recebedor: Carlos Henrique</div>
-      </div>
-      
-      <!-- QR CODE -->
-      <div id="pix-qr-wrap" style="display:flex;justify-content:center;margin-bottom:20px;min-height:200px;align-items:center;">
-        <div style="font-family:'Cinzel',serif;font-size:10px;color:rgba(201,168,76,.4);letter-spacing:2px;">Gerando QR Code...</div>
-      </div>
-      
-      <!-- CÓDIGO COPIA E COLA -->
-      <div style="margin-bottom:16px;">
-        <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(201,168,76,.5);text-transform:uppercase;margin-bottom:6px;">PIX Copia e Cola</div>
-        <textarea id="pix-codigo-texto" readonly
-          style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.2);border-radius:8px;padding:12px;color:rgba(237,228,212,.7);font-size:11px;font-family:'Courier New',monospace;resize:none;height:72px;line-height:1.5;"></textarea>
-      </div>
-      
-      <!-- ORDER BUMP -->
-      <div id="order-bump-wrap" style="display:none;margin-bottom:12px;">
-        <div class="order-bump" id="orderBump" onclick="toggleOrderBump()">
-          <div class="ob-check" id="obCheck">☐</div>
-          <div class="ob-info">
-            <div class="ob-title" id="obTitle">➕ Adicionar ao pedido</div>
-            <div class="ob-desc" id="obDesc">Aproveite e leve também</div>
-          </div>
-          <div style="text-align:right;">
-            <div class="ob-de" id="obDe">De R$97</div>
-            <div class="ob-preco" id="obPreco">R$47</div>
-          </div>
+  <div class="pix-modal-inner">
+
+    <div class="pix-modal-header">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <img src="imagens/perfil.jpg" alt="Carlos Henrique"
+          style="width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid #c8b898;flex-shrink:0;"
+          onerror="this.style.display='none'">
+        <div>
+          <div class="pix-modal-prod-tag">Finalizar compra</div>
+          <div class="pix-modal-prod-nome" id="pix-prod-nome"></div>
         </div>
       </div>
-      
-      <!-- BOTÃO COPIAR -->
-      <button id="btn-copiar-pix"
-        style="width:100%;background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;border:none;padding:14px;border-radius:10px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;cursor:pointer;font-weight:700;margin-bottom:12px;transition:.2s;">
-        📋 COPIAR CÓDIGO PIX
-      </button>
-      
-      <!-- PASSOS -->
-      <div style="background:rgba(255,255,255,.03);border-radius:10px;padding:14px;margin-bottom:16px;">
-        <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(201,168,76,.5);text-transform:uppercase;margin-bottom:10px;">Como pagar</div>
-        <div style="display:flex;flex-direction:column;gap:8px;">
-          <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(237,228,212,.7);">
-            <span style="background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:10px;flex-shrink:0;">1</span>
-            Abra o app do seu banco
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(237,228,212,.7);">
-            <span style="background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:10px;flex-shrink:0;">2</span>
-            Vá em PIX → Pix Copia e Cola
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(237,228,212,.7);">
-            <span style="background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:10px;flex-shrink:0;">3</span>
-            Cole o código — valor já aparece preenchido!
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(237,228,212,.7);">
-            <span style="background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:10px;flex-shrink:0;">4</span>
-            Confirme e mande o comprovante
-          </div>
-        </div>
-      </div>
-      
-      <!-- AVISO COMPROVANTE -->
-      <div style="background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:12px 16px;text-align:center;">
-        <p style="font-family:'Cinzel',serif;font-size:11px;color:#E8B800;letter-spacing:1px;margin-bottom:4px;">✅ Após pagar</p>
-        <p style="font-size:12px;color:rgba(237,228,212,.7);line-height:1.6;">Carlos entrará em contato em até 2h úteis para confirmar e liberar seu acesso.</p>
+      <div style="display:flex;align-items:center;gap:20px;">
+        <div class="pix-modal-prod-valor" id="pix-prod-valor"></div>
+        <button class="pix-modal-close" onclick="closePix()">&#x2715;</button>
       </div>
     </div>
-    
-    <!-- ABA CARTÃO -->
-    <div id="tab-card" style="display:none;padding:24px 28px;">
-      <div style="text-align:center;margin-bottom:20px;">
-        <div style="font-size:44px;margin-bottom:12px;">💳</div>
-        <h3 style="font-family:'Cinzel Decorative',cursive;font-size:18px;color:#fff;margin-bottom:8px;">Pagar com Cartão</h3>
-        <p style="font-size:13px;color:rgba(237,228,212,.6);line-height:1.7;margin-bottom:4px;">Parcele em até 12x sem juros via Mercado Pago</p>
-        <div id="pix-amount" style="font-family:'Cinzel Decorative',cursive;font-size:28px;color:#E8B800;margin:12px 0;"></div>
-      </div>
-      <div style="background:rgba(255,255,255,.03);border-radius:12px;padding:16px;margin-bottom:20px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-          <span style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;color:rgba(201,168,76,.5);">Parcelamento</span>
+
+    <div class="pix-modal-cols">
+
+      <div class="pix-modal-col">
+        <div class="pix-modal-col-head">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4a3820" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          Pagar com PIX
         </div>
-        <div id="pix-inst-val" style="font-family:'Cinzel',serif;font-size:13px;color:#EDE4D4;"></div>
+
+        <div class="pix-qr-center">
+          <div class="pix-qr-frame" id="pix-qr-wrap">
+            <span style="font-size:10px;color:#8a7355;">Gerando...</span>
+          </div>
+        </div>
+
+        <div class="pix-receb-box">
+          <div class="pix-receb-av">
+            <img src="imagens/perfil.jpg" alt="Carlos Henrique" onerror="this.style.display='none'">
+          </div>
+          <div>
+            <span class="pix-receb-lbl">Recebedor</span>
+            <span class="pix-receb-name">Carlos Henrique</span>
+          </div>
+        </div>
+
+        <div class="pix-code-row">
+          <span class="pix-code-val" id="pix-codigo-display"></span>
+          <button class="pix-btn-copy" id="pix-btn-copiar" onclick="copiarPixNovo()">COPIAR</button>
+        </div>
+
+        <div class="pix-chave-hint">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8a7355" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Chave PIX &nbsp;&#183;&nbsp; (31) 98339-1576
+        </div>
       </div>
-      <a id="btn-mp-link" href="#" target="_blank"
-        style="display:block;text-align:center;width:100%;background:linear-gradient(135deg,#009ee3,#0077b6);color:#fff;border:none;padding:16px;border-radius:10px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;cursor:pointer;font-weight:700;margin-bottom:12px;text-decoration:none;transition:.2s;">
-        💳 PAGAR COM CARTÃO →
-      </a>
-      <p style="font-size:11px;color:rgba(201,168,76,.35);text-align:center;font-family:'Cinzel',serif;letter-spacing:1px;">Processado com segurança pelo Mercado Pago</p>
+
+      <div class="pix-modal-sep"></div>
+
+      <div class="pix-modal-col">
+        <div class="pix-modal-col-head">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4a3820" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Cartão de crédito
+        </div>
+
+        <div class="pix-card-benefits">
+          <div class="pix-bene"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b5540" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Aprovação imediata</div>
+          <div class="pix-bene"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b5540" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Visa, Mastercard, Elo, Hipercard</div>
+          <div class="pix-bene"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b5540" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Parcelamento sem juros</div>
+          <div class="pix-bene"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b5540" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Processado pelo Mercado Pago</div>
+        </div>
+
+        <div class="pix-parcelas">
+          <div class="pix-parc-head">Simulação de parcelas</div>
+          <div class="pix-parc-row"><span>1x</span><span id="parc-1x"></span></div>
+          <div class="pix-parc-row"><span>3x</span><span id="parc-3x"></span></div>
+          <div class="pix-parc-row"><span>6x</span><span id="parc-6x"></span></div>
+          <div class="pix-parc-row"><span>12x</span><span id="parc-12x"></span></div>
+        </div>
+
+        <a class="pix-btn-mp" id="pix-btn-mp" href="#" target="_blank">Pagar pelo Mercado Pago &#8594;</a>
+
+        <div class="pix-lock-note">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8a7355" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Pagamento 100% seguro
+        </div>
+      </div>
+
     </div>
-    
   </div>
 </div>
 
@@ -8180,7 +8283,7 @@ html { scroll-behavior: smooth; }
     <div class="blog-grid rv">
       <div class="bcard big">
         <div class="bthumb" style="position:relative;overflow:hidden;">
-          <img src="imagens/blog-capa-01.jpg" alt="Quanto custa tatuagem BH" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';document.createElement('div')">
+          <img loading="lazy" src="imagens/blog-capa-01.jpg" alt="Quanto custa tatuagem BH" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';document.createElement('div')">
           <div class="bthumb-ph" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:52px;background:linear-gradient(135deg,#1C1208,#2A1A08);">🖋️</div>
           <span class="bcat">CLIENTES</span>
         </div>
@@ -8200,7 +8303,7 @@ html { scroll-behavior: smooth; }
       </div>
       <div class="bcard">
         <div class="bthumb" style="position:relative;overflow:hidden;">
-          <img src="imagens/blog-capa-02.jpg" alt="Tráfego pago tatuadores" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+          <img loading="lazy" src="imagens/blog-capa-02.jpg" alt="Tráfego pago tatuadores" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
           <div class="bthumb-ph" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:44px;background:linear-gradient(135deg,#1C1208,#2A1A08);">💪</div>
           <span class="bcat">TATUADORES</span>
         </div>
@@ -8219,7 +8322,7 @@ html { scroll-behavior: smooth; }
       </div>
       <div class="bcard">
         <div class="bthumb" style="position:relative;overflow:hidden;">
-          <img src="imagens/blog-capa-03.jpg" alt="Cover up tattoo BH" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+          <img loading="lazy" src="imagens/blog-capa-03.jpg" alt="Cover up tattoo BH" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
           <div class="bthumb-ph" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:44px;background:linear-gradient(135deg,#1C1208,#2A1A08);">🔄</div>
           <span class="bcat">COBERTURA</span>
         </div>
@@ -8387,6 +8490,11 @@ html { scroll-behavior: smooth; }
       <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Os cursos online têm certificado?<span class="faq-icon">+</span></button><div class="faq-a"><p>Sim! Todos os cursos incluem certificado digital de conclusão. O certificado é emitido automaticamente após a conclusão de todas as aulas e pode ser usado para comprovar sua capacitação.</p></div></div>
       <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Como recebo o ebook após o pagamento?<span class="faq-icon">+</span></button><div class="faq-a"><p>Após confirmar o pagamento PIX, você recebe o acesso em até 1 hora útil no email informado. Também enviamos o link de download pelo WhatsApp para garantia total.</p></div></div>
       <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Qual o horário de atendimento do estúdio?<span class="faq-icon">+</span></button><div class="faq-a"><p>Atendemos de segunda a sábado das 10h às 19h. Para sessões longas ou finais de semana, é necessário agendamento prévio. Entre em contato pelo WhatsApp para verificar disponibilidade.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Tatuagem dói muito? Quais regiões doem mais?<span class="faq-icon">+</span></button><div class="faq-a"><p>A dor varia bastante de pessoa para pessoa e de região para região. Áreas com mais nervos e menos músculo — como costelas, pescoço, pés e cotovelos — costumam ser mais sensíveis. Nas sessões, Carlos adapta o ritmo para garantir seu conforto durante todo o processo.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Preciso pagar algum sinal para agendar?<span class="faq-icon">+</span></button><div class="faq-a"><p>Sim. Após alinhar o projeto e confirmar a data, é solicitado um sinal para garantir a reserva da agenda. O valor é descontado do total da sessão. Esse sinal protege tanto o tatuador quanto o cliente, garantindo seriedade no compromisso.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Quantas sessões são necessárias para minha tatuagem?<span class="faq-icon">+</span></button><div class="faq-a"><p>Depende do tamanho, complexidade e localização no corpo. Peças pequenas e médias geralmente ficam prontas em uma sessão. Projetos grandes como mangas, costas fechadas ou coberturas complexas podem exigir 2 a 4 sessões ou mais. Carlos apresenta um planejamento claro durante a consulta.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Os ebooks têm garantia de satisfação?<span class="faq-icon">+</span></button><div class="faq-a"><p>Sim. Todos os materiais digitais oferecem garantia de 7 dias por lei (Código de Defesa do Consumidor). Se por qualquer motivo você não ficar satisfeito, basta entrar em contato pelo WhatsApp dentro do prazo e o reembolso é feito integralmente.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">O que é reconstrução de aréola e quem pode fazer?<span class="faq-icon">+</span></button><div class="faq-a"><p>A reconstrução de aréola por tatuagem é um procedimento especializado para mulheres que passaram por mastectomia em decorrência do câncer de mama. Carlos é especialista nessa técnica e atende com toda a sensibilidade e profissionalismo que o momento exige. O procedimento é feito com pigmentos específicos e resulta em aparência extremamente natural.</p></div></div>
     </div>
   </div>
 </section>
@@ -8522,7 +8630,7 @@ const vg=document.getElementById('vid-grid');
 vids.forEach(([f,l,thumb])=>{
   const d=document.createElement('div');d.className='vcard';
   const thumbHtml=thumb
-    ? `<img src="${thumb}" style="width:100%;height:100%;object-fit:cover;object-position:top;position:absolute;inset:0;transition:opacity .4s;" class="vthumb">`
+    ? `<img loading="lazy" src="${thumb}" style="width:100%;height:100%;object-fit:cover;object-position:top;position:absolute;inset:0;transition:opacity .4s;" class="vthumb">`
     : '';
   d.innerHTML=`
     <div class="vshine"></div>
@@ -8584,88 +8692,6 @@ calcUpdate(10);
   document.addEventListener('touchend',()=>drag=false);
   document.addEventListener('touchmove',e=>{if(drag)move(e.touches[0].clientX);});
 })();
-
-/* ─── QUIZ ─── */
-let qAns={};
-const sMap={
-  'Intenso e marcante':  {nome:'Realismo Impactante',icon:'🔥',desc:'Você tem personalidade marcante — seu estilo pede traços fortes, sombras densas e detalhes que causam impacto imediato. Realismo ou Black & Grey pesado são perfeitos para você.'},
-  'Elegante e sofisticado': {nome:'Black & Grey Premium',icon:'💎',desc:'Seu gosto apurado pede elegância e sofisticação. Linhas refinadas, sombreados suaves e técnica impecável. O Black & Grey premium é a sua linguagem.'},
-  'Minimalista e discreto': {nome:'Fineline Delicado',icon:'✨',desc:'Você valoriza o que é preciso e essencial. Linhas finas, traços delicados e composição minimalista. O Fineline foi feito para quem quer dizer muito com pouco.'},
-  'Artístico e criativo':  {nome:'Arte Personalizada',icon:'🎨',desc:'Sua personalidade pede uma tatuagem que não existe em nenhum outro lugar. Vamos criar juntos algo completamente único, que conte a sua história com total liberdade criativa.'}
-};
-function quizNext(s,a,el){
-  qAns['q'+s]=a;
-  // Visual feedback on selected option
-  if(el){
-    const currentStep = document.getElementById('quiz-'+s);
-    if(currentStep) currentStep.querySelectorAll('.qopt').forEach(o=>o.classList.remove('sel'));
-    el.classList.add('sel');
-  }
-  // Small delay for visual feedback before advancing
-  setTimeout(()=>{
-    document.getElementById('quiz-'+s).classList.remove('on');
-    const next=document.getElementById('quiz-'+(s+1));
-    if(next){next.classList.add('on');}
-    // Atualizar barra de progresso
-    const progs=['qp1','qp2','qp3'];
-    for(let i=0;i<progs.length;i++){
-      const el2=document.getElementById(progs[i]);
-      if(el2) el2.style.background = i<s ? 'var(--g3)' : 'rgba(201,168,76,.2)';
-    }
-    const p=document.getElementById('quiz-progress-txt');
-    if(p) p.textContent='PERGUNTA '+(s+1)+' DE 3';
-  }, 200);
-}
-function quizResult(tam){
-  qAns.q3=tam;
-  const st=sMap[qAns.q1]||{nome:'Tatuagem Personalizada',icon:'🎯',desc:'Identificamos o estilo perfeito para você. Agende sua consulta gratuita!'};
-  document.getElementById('q-style-res').textContent=st.nome;
-  document.getElementById('q-icon-res').textContent=st.icon;
-  document.getElementById('q-desc-res').textContent=st.desc;
-
-  // Tags de resultado baseadas nas respostas
-  const tagsEl=document.getElementById('q-tags-res');
-  if(tagsEl){
-    const tagStyle='display:inline-block;padding:4px 12px;border-radius:20px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);font-family:serif;font-size:9px;letter-spacing:1px;color:rgba(201,168,76,.7);text-transform:uppercase;';
-    const tamLabels={pequena:'Pequena',media:'Média',grande:'Grande',projeto:'Projeto Completo'};
-    tagsEl.innerHTML=
-      '<span style="'+tagStyle+'">'+st.nome+'</span>'+
-      '<span style="'+tagStyle+'">'+(qAns.q2||'')+'</span>'+
-      '<span style="'+tagStyle+'">'+(tamLabels[tam]||tam)+'</span>';
-  }
-
-  // Montar link WhatsApp personalizado
-  const wppLink=document.getElementById('quiz-wpp-link');
-  if(wppLink){
-    const msg=encodeURIComponent('Olá Carlos! Fiz o quiz no seu site e descobri que meu estilo é '+st.nome+'. Tema preferido: '+qAns.q2+'. Quero agendar uma consulta gratuita! 🎨');
-    wppLink.href='https://wa.me/5531983391576?text='+msg;
-  }
-
-  // Progresso completo
-  ['qp1','qp2','qp3'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.background='var(--g3)';});
-  const p=document.getElementById('quiz-progress-txt');
-  if(p){p.textContent='✓ QUIZ CONCLUÍDO';p.style.color='var(--g3)';}
-  const pw=document.getElementById('quiz-progress-wrap');
-  if(pw) pw.style.display='none';
-  document.getElementById('quiz-3').classList.remove('on');
-  document.getElementById('quiz-result').classList.add('on');
-}
-function reiniciarQuiz(){
-  qAns={};
-  ['quiz-1','quiz-2','quiz-3','quiz-result'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el)el.classList.remove('on');
-  });
-  document.getElementById('quiz-1').classList.add('on');
-  ['qp1','qp2','qp3'].forEach((id,i)=>{
-    const el=document.getElementById(id);
-    if(el)el.style.background=i===0?'var(--g3)':'rgba(201,168,76,.2)';
-  });
-  const p=document.getElementById('quiz-progress-txt');
-  if(p){p.textContent='PERGUNTA 1 DE 3';p.style.color='';}
-  const pw=document.getElementById('quiz-progress-wrap');
-  if(pw)pw.style.display='';
-}
 
 /* ─── CONTADOR DE VISITAS AO VIVO ─── */
 (()=>{
@@ -8736,28 +8762,14 @@ function goWA(){
 
 /* ─── PIX ─── */
 let pixProduto='';
-// Mapa de links Mercado Pago por produto (substitua pelos links reais do MP)
 const mpLinks = {
-  /* ── CURSOS ── */
-  'Instagram para Tatuadores':         'https://mpago.la/2XDsPBJ',
-  'Tráfego Pago para Tatuadores':      'https://mpago.la/2czB489',
-  'Tráfego Tattoo do Zero':            'https://mpago.la/2czB489',
-  'Branding & Posicionamento':         'https://mpago.la/2C6t2HS',
-  'Posicionamento de Alta Valor':      'https://mpago.la/2C6t2HS',
-  'Mentoria VIP 1:1':                  'https://mpago.la/1CMwysU',
-  /* ── EBOOKS ── */
-  'Ebook Iniciante — Tráfego Tattoo':  'https://mpago.la/19stJEx',
-  'Ebook Tráfego':                     'https://mpago.la/19stJEx',
-  'Ebook Instagram — Tattoo que Vende':'https://mpago.la/1r56TiZ',
-  'Ebook Instagram':                   'https://mpago.la/1r56TiZ',
-  'Ebook Avançado — Posicionamento':   'https://mpago.la/2yTBkjP',
-  'Ebook Posicionamento':              'https://mpago.la/2yTBkjP',
-  'Pack Templates — Tatuadores':       'https://mpago.la/1FZUxea',
-  'Pack Templates':                    'https://mpago.la/1FZUxea',
-  'Contrato Digital — Tatuadores':     'https://mpago.la/1axTQAM',
-  'Contrato Digital':                  'https://mpago.la/1axTQAM',
-  /* ── CENTRAL TATTOO ── */
-  'Central Tattoo — Sistema de Gestão': 'https://mpago.la/2XDsPBJ'
+  'Ebook Tráfego Tattoo':                    'https://mpago.la/2iBpEJk',
+  'Ebook Instagram que Vende':               'https://mpago.la/2Lh5ssX',
+  'Ebook Avançado Posicionamento':           'https://mpago.la/1aCeRoh',
+  'Pack Templates Tatuadores':               'https://mpago.la/2kKPZYo',
+  'Contrato Digital Tatuadores':             'https://mpago.la/2hZBjiP',
+  'Mentoria VIP 1:1':                        'https://mpago.la/2aXHgz4',
+  'Central Tattoo — Planilha Premium Anual': 'https://mpago.la/1U2ccmF'
 };
 
 // ════════════════════════════════════════
@@ -8774,94 +8786,41 @@ function gerarCodigoPix(chave, nome, cidade, valor, txid){
   return p + crc(p);
 }
 
-function gerarQRCode(codigo){
-  const url = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(codigo)}&bgcolor=ffffff&color=000000&margin=10`;
-  return `<img src="${url}" alt="QR Code PIX" style="width:200px;height:200px;border-radius:10px;border:4px solid #E8B800;">`;
-}
+let _pixCodigoAtual = '';
 
-function copiarPix(codigo){
+function copiarPixNovo(){
   if(navigator.clipboard){
-    navigator.clipboard.writeText(codigo).then(()=>{
-      const btn = document.getElementById('btn-copiar-pix');
-      if(btn){ btn.textContent='✅ COPIADO!'; btn.style.background='#27ae60'; setTimeout(()=>{ btn.textContent='📋 COPIAR CÓDIGO PIX'; btn.style.background=''; }, 3000); }
-    });
+    navigator.clipboard.writeText(_pixCodigoAtual);
   } else {
     const el = document.createElement('textarea');
-    el.value = codigo;
+    el.value = _pixCodigoAtual;
     document.body.appendChild(el);
     el.select();
     document.execCommand('copy');
     document.body.removeChild(el);
-    const btn = document.getElementById('btn-copiar-pix');
-    if(btn){ btn.textContent='✅ COPIADO!'; setTimeout(()=>{ btn.textContent='📋 COPIAR CÓDIGO PIX'; }, 3000); }
   }
+  const btn = document.getElementById('pix-btn-copiar');
+  if(btn){ btn.textContent='COPIADO!'; btn.classList.add('copiado'); setTimeout(()=>{ btn.textContent='COPIAR'; btn.classList.remove('copiado'); }, 2500); }
 }
+
+function fmtParc(v){ return 'R$ ' + v.toFixed(2).replace('.',','); }
 
 function openPix(name, price, val){
-  try {
-    pixProduto = name;
-    const modal = document.getElementById('pix-modal');
-    if(!modal){ console.error('Modal PIX não encontrado!'); return; }
-    
-    // Gerar código PIX EMV com valor real
-    const txid = name.replace(/[^a-zA-Z0-9]/g,'').substring(0,25) || 'CARLOSTATTOO';
-    const codigoPix = gerarCodigoPix('31983391576', 'Carlos Henrique', 'Belo Horizonte', val || 0, txid);
-    
-    // Atualizar modal
-    const cname = document.getElementById('pix-cname');
-    const amount = document.getElementById('pix-amount');
-    if(cname) cname.textContent = name;
-    if(amount) amount.textContent = price;
-    
-    // QR Code com valor real
-    const qrWrap = document.getElementById('pix-qr-wrap');
-    if(qrWrap) qrWrap.innerHTML = gerarQRCode(codigoPix);
-    
-    // Código copia e cola
-    const pixCodigo = document.getElementById('pix-codigo-texto');
-    if(pixCodigo) pixCodigo.value = codigoPix;
-    
-    // Botão copiar
-    const btnCopiar = document.getElementById('btn-copiar-pix');
-    if(btnCopiar) btnCopiar.onclick = () => copiarPix(codigoPix);
-    
-    // Valor no modal
-    const pixValor = document.getElementById('pix-valor-display');
-    if(pixValor) pixValor.textContent = price;
-    
-    // Link Mercado Pago
-    const mpLink = (typeof mpLinks !== 'undefined' && mpLinks[name]) ? mpLinks[name] : 'https://mpago.la/2XDsPBJ';
-    const btnMP = document.getElementById('btn-mp-link');
-    if(btnMP) btnMP.href = mpLink;
-    
-    // Abrir modal
-    modal.style.display = 'flex';
-    modal.style.alignItems = 'center';
-    modal.style.justifyContent = 'center';
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    if(typeof switchTab === 'function') switchTab('pix');
-    if(typeof fbq !== 'undefined') fbq('track','InitiateCheckout',{content_name:name,value:val,currency:'BRL'});
-    
-    // Registrar no admin
-    registrarAcesso('cursos');
-    
-  } catch(e){ 
-    console.error('openPix error:', e);
-    // Fallback — abrir link MP direto
-    const mpLink = (typeof mpLinks !== 'undefined' && mpLinks[name]) ? mpLinks[name] : 'https://mpago.la/2XDsPBJ';
-    window.open(mpLink, '_blank');
-  }
+  const slugMap = {
+    'Ebook Tráfego Tattoo':                    'ebook-trafego',
+    'Ebook Instagram que Vende':               'ebook-instagram',
+    'Ebook Avançado Posicionamento':           'ebook-posicionamento',
+    'Pack Templates Tatuadores':               'pack-templates',
+    'Contrato Digital Tatuadores':             'contrato-digital',
+    'Mentoria VIP 1:1':                        'mentoria-vip',
+    'Central Tattoo — Planilha Premium Anual': 'central-tattoo',
+  };
+  const slug = slugMap[name] || 'ebook-trafego';
+  if(typeof fbq !== 'undefined') fbq('track','InitiateCheckout',{content_name:name,value:parseFloat(val)||0,currency:'BRL'});
+  window.location.href = 'pagamento.html?prod=' + slug;
 }
 
-function switchTab(tab){
-  document.getElementById('tab-pix').style.display = tab==='pix' ? 'block' : 'none';
-  document.getElementById('tab-card').style.display = tab==='card' ? 'block' : 'none';
-  document.getElementById('tab-pix-btn').style.background = tab==='pix' ? 'rgba(201,168,76,.15)' : 'transparent';
-  document.getElementById('tab-card-btn').style.background = tab==='card' ? 'rgba(201,168,76,.15)' : 'transparent';
-  document.getElementById('tab-pix-btn').style.color = tab==='pix' ? '#E8B800' : 'rgba(201,168,76,.5)';
-  document.getElementById('tab-card-btn').style.color = tab==='card' ? '#E8B800' : 'rgba(201,168,76,.5)';
-}
+function switchTab(tab){ /* mantido para compatibilidade */ }
 
 function copiarChave(){
   navigator.clipboard.writeText('31983391576').then(()=>{
@@ -9126,15 +9085,28 @@ function carregarDepoimentosAprovados(){
     el.innerHTML='';
     return;
   }
-  el.innerHTML=aprovados.map(d=>`
-    <div class="dep-card-aprovado">
-      <div class="tstars">${'★'.repeat(d.estrelas)}${'☆'.repeat(5-d.estrelas)}</div>
+  const cores = ['#8B4513','#2E4A7A','#1a6b3c','#7A1A3C','#5A2D82','#1C5A6B'];
+  el.innerHTML=aprovados.map((d,i)=>{
+    const cor = cores[i % cores.length];
+    const inicial = d.nome.charAt(0).toUpperCase();
+    const stars = '<span style="color:#E8B800;letter-spacing:2px;">★★★★★</span>';
+    return `
+    <div class="dep-card-aprovado" style="position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.5),transparent);"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        ${stars}
+        <span style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;color:rgba(201,168,76,.4);display:flex;align-items:center;gap:4px;">✓ Verificado</span>
+      </div>
       <p class="ttext">"${d.texto}"</p>
       <div class="tauthor">
-        <div class="tavatar">${d.nome.charAt(0)}</div>
-        <div><div class="tname">${d.nome}</div><div class="tcity">📍 ${d.cidade}</div></div>
+        <div class="tavatar" style="background:${cor};color:#fff;font-size:16px;font-weight:700;">${inicial}</div>
+        <div>
+          <div class="tname">${d.nome}</div>
+          <div class="tcity">📍 ${d.cidade}</div>
+        </div>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 // Contador de caracteres
@@ -9164,7 +9136,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click'
 <!-- FOTO AMPLIADA -->
 <div class="galeria-foto-modal" id="fotoModal">
   <button class="galeria-foto-close" onclick="document.getElementById('fotoModal').classList.remove('open')">✕</button>
-  <img id="fotoModalImg" src="" alt="">
+  <img loading="lazy" id="fotoModalImg" src="" alt="">
 </div>
 
 <script>
@@ -9191,7 +9163,7 @@ function abrirGaleria(slug, nome){
     const item = document.createElement('div');
     item.className = 'galeria-item';
     item.innerHTML = `
-      <img src="${src}" alt="${data.nome} ${num}"
+      <img loading="lazy" src="${src}" alt="${data.nome} ${num}"
         onerror="this.parentElement.innerHTML='<div class=galeria-placeholder><span>🖼️</span><p>${data.nome}<br>${num}</p><p style=font-size:8px;margin-top:4px;>Adicione a foto:<br>${src}</p></div>'"
         onclick="ampliarFoto('${src}','${data.nome} ${num}')"
         style="cursor:pointer;">`;
@@ -9241,7 +9213,7 @@ document.addEventListener('keydown', function(e){
   <div class="carrossel-main">
     <button class="carrossel-btn" id="btnAnterior" onclick="navegarCarrossel(-1)">‹</button>
     <div class="carrossel-img-wrap" id="carrosselImgWrap">
-      <img class="carrossel-img" id="carrosselImg" src="" alt="">
+      <img loading="lazy" class="carrossel-img" id="carrosselImg" src="" alt="">
       <div id="carrosselPlaceholder" class="carrossel-placeholder" style="display:none;">
         <p id="carrosselPlaceholderText">Foto não encontrada</p>
       </div>
@@ -10323,7 +10295,6 @@ function adicionarSkullMsg(texto, tipo, id){
 }
 
 // Remover chat IA antigo (foi substituído pelo Skull)
-const oldChatBtn = document.getElementById('chat-ia-btn');
 const oldChatPanel = document.getElementById('chat-ia-panel');
 if(oldChatBtn) oldChatBtn.style.display = 'none';
 if(oldChatPanel) oldChatPanel.style.display = 'none';
@@ -10840,7 +10811,7 @@ function abrirGaleriaNetflix(cat){
       onmouseover="this.style.transform='scale(1.05) translateY(-4px)';this.style.boxShadow='0 20px 52px rgba(0,0,0,.9)';this.querySelector('.gnf-play').style.opacity='1';var im=this.querySelector('img');if(im)im.style.transform='scale(1.08)';"
       onmouseout="this.style.transform='';this.style.boxShadow='0 4px 18px rgba(0,0,0,.6)';this.querySelector('.gnf-play').style.opacity='0';var im=this.querySelector('img');if(im)im.style.transform='';">
       <div style="aspect-ratio:9/16;position:relative;overflow:hidden;">
-        <img src="${img.src}" alt="${img.leg}"
+        <img loading="lazy" src="${img.src}" alt="${img.leg}"
           style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s;"
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;flex-direction:column;gap:10px;padding:16px;text-align:center;background:linear-gradient(160deg,#1C1208,#0A0702);">
@@ -10944,7 +10915,7 @@ function abrirGaleriaNetflix(cat){
       <div style="position:absolute;bottom:80px;left:50%;transform:translateX(-50%);width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.18) 0%,transparent 70%);animation:gnfPulse 3s ease infinite;pointer-events:none;"></div>
 
       <!-- Foto do Carlos -->
-      <img src="imagens/carlosflix.jpg" alt="Carlos Tattoo BH"
+      <img loading="lazy" src="imagens/carlosflix.jpg" alt="Carlos Tattoo BH"
         style="position:relative;z-index:2;width:100%;height:100%;max-height:100%;object-fit:cover;object-position:top center;display:block;filter:drop-shadow(0 0 30px rgba(201,168,76,.2));"
         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
       <div style="display:none;width:100%;height:360px;align-items:center;justify-content:center;flex-direction:column;gap:12px;position:relative;z-index:2;">
@@ -10969,7 +10940,7 @@ function abrirGaleriaNetflix(cat){
       onmouseover="this.style.background='rgba(255,255,255,.2)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">‹</button>
 
     <div class="gnf-lb-inner" style="animation:gnfLb .26s ease;text-align:center;max-width:min(370px,82vw);padding:0 78px;width:100%;">
-      <img id="gnf-lb-img" src="" alt=""
+      <img loading="lazy" id="gnf-lb-img" src="" alt=""
         style="max-width:100%;max-height:62vh;object-fit:contain;border-radius:6px;box-shadow:0 28px 80px rgba(0,0,0,.95);display:block;margin:0 auto;">
       <div style="margin-top:16px;padding:18px 22px;background:rgba(255,255,255,.04);border-radius:10px;border:1px solid rgba(255,255,255,.08);">
         <div id="gnf-lb-leg" style="font-family:'Cinzel',serif;font-size:16px;letter-spacing:1.5px;color:#ffffff;text-transform:uppercase;font-weight:700;margin-bottom:4px;"></div>
@@ -11296,10 +11267,6 @@ _Enviado pelo site carlostattoo.bh_`;
   // Mostrar página de obrigado
   setTimeout(()=>{
     mostrarObrigado();
-    // Abrir WhatsApp após 1s
-    setTimeout(()=>{
-      window.open(`https://wa.me/5531983391576?text=${encodeURIComponent(msg)}`,'_blank');
-    }, 1000);
   }, 700);
 }
 
@@ -11322,14 +11289,25 @@ function mostrarObrigado(){
       <p style="font-size:15px;color:#C9B89A;line-height:1.9;margin-bottom:32px;">
         Carlos recebeu sua solicitação e entrará em contato em até <strong style="color:#E8B800;">24h úteis</strong> pelo WhatsApp <strong style="color:#E8B800;">${fpDados.tel}</strong> para conversar sobre seu projeto.
       </p>
-      <div style="background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:14px;padding:20px;margin-bottom:28px;">
-        <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:rgba(201,168,76,.6);text-transform:uppercase;margin-bottom:10px;">Enquanto aguarda</p>
-        <p style="font-size:13px;color:#EDE4D4;line-height:1.8;">
-          Veja nosso portfólio completo e salve as referências que mais gostou para mostrar ao Carlos.
-        </p>
+      <div style="background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:14px;padding:20px 24px;margin-bottom:20px;text-align:left;">
+        <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:#E8B800;text-transform:uppercase;margin-bottom:12px;">📋 Próximos passos</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:flex-start;gap:12px;font-size:13px;color:#EDE4D4;line-height:1.7;">
+            <span style="background:rgba(201,168,76,.15);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#E8B800;flex-shrink:0;margin-top:2px;">1</span>
+            Carlos receberá sua solicitação e analisará seu projeto com atenção.
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:12px;font-size:13px;color:#EDE4D4;line-height:1.7;">
+            <span style="background:rgba(201,168,76,.15);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#E8B800;flex-shrink:0;margin-top:2px;">2</span>
+            Em até <strong style="color:#E8B800;">24h úteis</strong> você receberá um contato pelo número informado no formulário.
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:12px;font-size:13px;color:#EDE4D4;line-height:1.7;">
+            <span style="background:rgba(201,168,76,.15);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#E8B800;flex-shrink:0;margin-top:2px;">3</span>
+            Juntos vocês alinharão o projeto, orçamento e data da sessão.
+          </div>
+        </div>
       </div>
       <a href="#portfolio" style="display:inline-block;background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;padding:14px 32px;border-radius:50px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;font-weight:700;text-decoration:none;">
-        VER PORTFÓLIO →
+        EXPLORAR PORTFÓLIO →
       </a>
     </div>
   </div>`;
@@ -11499,6 +11477,796 @@ styleShare.textContent = `
   }
 `;
 document.head.appendChild(styleShare);
+</script>
+
+
+<!-- ═══ POPUP PROMOÇÃO ═══ -->
+<div id="promo-popup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:99999;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px);">
+
+  <!-- Estrelas de fundo -->
+  <div class="promo-stars" aria-hidden="true">
+    <span class="ps" style="top:12%;left:8%;animation-delay:0s">✦</span>
+    <span class="ps" style="top:20%;right:10%;animation-delay:.6s">✦</span>
+    <span class="ps" style="top:70%;left:5%;animation-delay:1.2s">✦</span>
+    <span class="ps" style="top:75%;right:8%;animation-delay:.3s">✦</span>
+    <span class="ps" style="top:40%;left:3%;animation-delay:.9s">✦</span>
+    <span class="ps" style="top:55%;right:4%;animation-delay:1.5s">✦</span>
+  </div>
+
+  <div class="promo-box">
+    <!-- Gradiente topo -->
+    <div class="promo-top-bar"></div>
+
+    <button onclick="fecharPromo()" class="promo-close">✕</button>
+
+    <!-- Badge superior -->
+    <div class="promo-badge-wrap">
+      <span class="promo-badge">🎁 PRESENTE PARA VISITANTES</span>
+    </div>
+
+    <!-- Gift icon com brilho -->
+    <div class="promo-gift-icon">🎁</div>
+
+    <h2 class="promo-title">Você ganhou<br><span class="promo-title-gold">acesso especial</span></h2>
+    <p class="promo-sub">Só quem explora o site com atenção recebe essa condição. Não aparece em nenhum outro lugar.</p>
+
+    <!-- Oferta principal -->
+    <div class="promo-deal">
+      <div class="promo-deal-label">DESCONTO EXCLUSIVO · HOJE APENAS</div>
+      <div class="promo-deal-product">Tatuagem com Carlos Tattoo BH</div>
+      <div class="promo-deal-price-row">
+        <del class="promo-price-old">Preço normal</del>
+        <span class="promo-price-new">Condição especial</span>
+      </div>
+      <div class="promo-deal-desc">Agende sua consulta gratuita agora e garanta sua condição exclusiva. Carlos confirma pessoalmente.</div>
+    </div>
+
+    <!-- Contador + vagas -->
+    <div class="promo-urgency">
+      <div class="promo-timer-wrap">
+        <div class="promo-timer-label">⏱ Oferta expira em</div>
+        <div class="promo-timer-display" id="promo-timer">10:00</div>
+      </div>
+      <div class="promo-vagas-wrap">
+        <div class="promo-timer-label">🔥 Vagas restantes</div>
+        <div class="promo-vagas-num">3</div>
+      </div>
+    </div>
+
+    <a href="#contato" onclick="fecharPromo()" class="promo-btn-sim">
+      🎁 QUERO GARANTIR MINHA CONDIÇÃO →
+    </a>
+    <button onclick="fecharPromo()" class="promo-btn-nao">
+      Não, prefiro pagar o valor normal
+    </button>
+  </div>
+</div>
+
+<script>
+(function(){
+  if(sessionStorage.getItem('promo_shown')) return;
+  setTimeout(()=>{
+    const pop = document.getElementById('promo-popup');
+    if(pop){ pop.style.display='flex'; startPromoTimer(); }
+    sessionStorage.setItem('promo_shown','1');
+  }, 18000);
+
+  function startPromoTimer(){
+    let secs = 600;
+    const el = document.getElementById('promo-timer');
+    const iv = setInterval(()=>{
+      secs--;
+      if(secs<=0){ clearInterval(iv); fecharPromo(); return; }
+      const m=Math.floor(secs/60), s=secs%60;
+      if(el) el.textContent = m+':'+(s<10?'0':'')+s;
+    },1000);
+  }
+})();
+
+function fecharPromo(){
+  const pop = document.getElementById('promo-popup');
+  if(pop){ pop.style.opacity='0'; pop.style.transition='opacity .3s'; setTimeout(()=>pop.style.display='none',300); }
+}
+</script>
+
+
+<script>
+/* ═══ QUIZ ═══ */
+var qAns = {};
+var _quizSelected = {}; // stores current selection per step
+var sMap = {
+  'Intenso e marcante':    {nome:'Realismo Impactante',  icon:'🔥', desc:'Sua personalidade marcante pede traços fortes, sombras densas e detalhes que causam impacto imediato. Realismo ou Black & Grey pesado são perfeitos para você.'},
+  'Elegante e sofisticado':{nome:'Black & Grey Premium', icon:'💎', desc:'Seu gosto apurado pede elegança e sofisticação. Linhas refinadas, sombreados suaves e técnica impecável. O Black & Grey premium é a sua linguagem.'},
+  'Minimalista e discreto':{nome:'Fineline Delicado',    icon:'✨',     desc:'Você valoriza o que é preciso e essencial. Linhas finas, traços delicados e composição minimalista. Fineline foi feito para quem quer dizer muito com pouco.'},
+  'Artístico e criativo':  {nome:'Arte Personalizada',  icon:'🎨', desc:'Sua personalidade pede uma tatuagem única, que não existe em nenhum outro lugar. Vamos criar juntos algo que conte sua história com total liberdade criativa.'}
+};
+
+function _quizShow(stepId) {
+  var ids = ['quiz-1','quiz-2','quiz-3','quiz-result'];
+  for (var i = 0; i < ids.length; i++) {
+    var el = document.getElementById(ids[i]);
+    if (el) { el.style.display = 'none'; el.classList.remove('on'); }
+  }
+  var target = document.getElementById(stepId);
+  if (target) { target.style.display = 'block'; target.classList.add('on'); }
+
+  var num = parseInt(stepId.replace('quiz-','')) || 0;
+  var bars = ['qp1','qp2','qp3'];
+  for (var j = 0; j < bars.length; j++) {
+    var b = document.getElementById(bars[j]);
+    if (b) b.style.background = j < num ? 'var(--g3)' : 'rgba(201,168,76,.2)';
+  }
+  var ptxt = document.getElementById('quiz-progress-txt');
+  if (ptxt && num >= 1 && num <= 3) {
+    ptxt.textContent = 'PERGUNTA ' + num + ' DE 3';
+    ptxt.style.color = '';
+  }
+}
+
+function quizSel(s, a, el) {
+  _quizSelected[s] = a;
+  // highlight selected option
+  var step = document.getElementById('quiz-'+s);
+  if (step) step.querySelectorAll('.qopt').forEach(function(o){ o.classList.remove('sel'); });
+  if (el) el.classList.add('sel');
+  // enable CONTINUAR button
+  var btn = document.getElementById('quiz-btn-'+s);
+  if (btn) {
+    btn.disabled = false;
+    btn.style.opacity = '1';
+    btn.style.pointerEvents = 'auto';
+    btn.style.transform = 'scale(1.03)';
+  }
+}
+
+function quizAvançar(s) {
+  var a = _quizSelected[s];
+  if (!a) return;
+  qAns['q'+s] = a;
+  if (s === 3) {
+    quizResult(a);
+  } else {
+    _quizShow('quiz-'+(s+1));
+    // reset button state for next step
+    var nextBtn = document.getElementById('quiz-btn-'+(s+1));
+    if (nextBtn) {
+      nextBtn.disabled = true;
+      nextBtn.style.opacity = '.35';
+      nextBtn.style.pointerEvents = 'none';
+      nextBtn.style.transform = '';
+    }
+  }
+}
+
+function quizResult(tam) {
+  qAns.q3 = tam;
+  var st = sMap[qAns.q1] || {nome:'Tatuagem Personalizada', icon:'🎯', desc:'Identificamos o estilo perfeito para você. Agende sua consulta gratuita!'};
+  var tamLabels = {pequena:'Pequena', media:'Média', grande:'Grande', projeto:'Projeto Completo'};
+
+  var elNome = document.getElementById('q-style-res');
+  var elIcon = document.getElementById('q-icon-res');
+  var elDesc = document.getElementById('q-desc-res');
+  if (elNome) elNome.textContent = st.nome;
+  if (elIcon) elIcon.textContent = st.icon;
+  if (elDesc) elDesc.textContent = st.desc;
+
+  var tagsEl = document.getElementById('q-tags-res');
+  if (tagsEl) {
+    var ts = 'display:inline-block;padding:4px 12px;border-radius:20px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);font-size:9px;letter-spacing:1px;color:rgba(201,168,76,.7);text-transform:uppercase;';
+    tagsEl.innerHTML = '<span style="'+ts+'">'+st.nome+'</span>'
+      + '<span style="'+ts+'">'+(qAns.q2||'')+'</span>'
+      + '<span style="'+ts+'">'+(tamLabels[tam]||tam)+'</span>';
+  }
+
+  var wppLink = document.getElementById('quiz-wpp-link');
+  if (wppLink) {
+    var msg = encodeURIComponent('Olá Carlos! Fiz o quiz e descobri que meu estilo é '+st.nome+'. Tema: '+(qAns.q2||'')+'. Quero agendar uma consulta gratuita! 🎨');
+    wppLink.href = 'https://wa.me/5531983391576?text='+msg;
+  }
+
+  ['qp1','qp2','qp3'].forEach(function(id){ var b=document.getElementById(id); if(b) b.style.background='var(--g3)'; });
+  var ptxt = document.getElementById('quiz-progress-txt');
+  if (ptxt) { ptxt.textContent = '✓ QUIZ CONCLUÍDO'; ptxt.style.color = 'var(--g3)'; }
+  var pw = document.getElementById('quiz-progress-wrap');
+  if (pw) pw.style.display = 'none';
+
+  _quizShow('quiz-result');
+
+  setTimeout(function(){
+    var contato = document.getElementById('contato');
+    if (contato) {
+      contato.scrollIntoView({behavior:'smooth', block:'start'});
+      setTimeout(function(){
+        var campos = document.querySelectorAll('#contato textarea, #fp-ideia, [name="ideia"]');
+        if (campos.length) campos[0].value = 'Estilo: '+st.nome+' | Tema: '+(qAns.q2||'')+' | Tamanho: '+(tamLabels[tam]||tam);
+      }, 800);
+    }
+  }, 2200);
+}
+
+function reiniciarQuiz() {
+  qAns = {};
+  _quizSelected = {};
+  _quizShow('quiz-1');
+  // reset all CONTINUAR buttons
+  [1,2,3].forEach(function(n){
+    var btn = document.getElementById('quiz-btn-'+n);
+    if (btn) { btn.disabled=true; btn.style.opacity='.35'; btn.style.pointerEvents='none'; btn.style.transform=''; }
+  });
+  var ptxt = document.getElementById('quiz-progress-txt');
+  if (ptxt) { ptxt.textContent = 'PERGUNTA 1 DE 3'; ptxt.style.color = ''; }
+  var pw = document.getElementById('quiz-progress-wrap');
+  if (pw) pw.style.display = '';
+}
+
+// Init on load
+document.addEventListener('DOMContentLoaded', function(){
+  _quizShow('quiz-1');
+});
+</script>
+
+<!-- ═══ COOKIE BANNER LGPD ═══ -->
+<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:99998;background:#1a1008;border-top:2px solid rgba(201,168,76,.3);padding:16px 24px;box-shadow:0 -8px 32px rgba(0,0,0,.5);">
+  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
+    <div style="flex:1;min-width:260px;">
+      <p style="font-family:'Cinzel',serif;font-size:11px;font-weight:700;color:#E8B800;letter-spacing:1px;margin-bottom:4px;">🍪 PRIVACIDADE E COOKIES</p>
+      <p style="font-size:12px;color:rgba(237,228,212,.7);line-height:1.6;">Este site usa cookies para melhorar sua experiência, analisar o tráfego e personalizar conteúdo. Ao continuar navegando, você concorda com nossa <a href="#" style="color:#E8B800;text-decoration:underline;">Política de Privacidade</a> em conformidade com a LGPD.</p>
+    </div>
+    <div style="display:flex;gap:10px;flex-shrink:0;">
+      <button onclick="aceitarCookies()" style="background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;border:none;padding:10px 24px;border-radius:8px;font-family:'Cinzel',serif;font-size:11px;font-weight:700;letter-spacing:1px;cursor:pointer;white-space:nowrap;">ACEITAR TODOS</button>
+      <button onclick="recusarCookies()" style="background:none;border:1px solid rgba(201,168,76,.3);color:rgba(237,228,212,.6);padding:10px 20px;border-radius:8px;font-family:'Cinzel',serif;font-size:11px;cursor:pointer;white-space:nowrap;">Só essenciais</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  if(!localStorage.getItem('ct_cookies')){
+    setTimeout(function(){
+      var b = document.getElementById('cookie-banner');
+      if(b) b.style.display = 'flex';
+    }, 2000);
+  }
+})();
+function aceitarCookies(){
+  localStorage.setItem('ct_cookies','all');
+  var b = document.getElementById('cookie-banner');
+  if(b){ b.style.opacity='0'; b.style.transition='opacity .4s'; setTimeout(function(){b.style.display='none';},400); }
+}
+function recusarCookies(){
+  localStorage.setItem('ct_cookies','essential');
+  var b = document.getElementById('cookie-banner');
+  if(b){ b.style.opacity='0'; b.style.transition='opacity .4s'; setTimeout(function(){b.style.display='none';},400); }
+}
+</script>
+
+
+<style id="promo-premium-css">
+/* ══════════════════════════════════════
+   URGENCY BAR PREMIUM
+══════════════════════════════════════ */
+.urg-bar{
+  background:linear-gradient(90deg,#1a0800,#3a1800,#6b3000,#3a1800,#1a0800);
+  background-size:300%;
+  animation:urgMove 6s ease infinite;
+  padding:11px 20px;
+  text-align:center;
+  font-family:'Cinzel',serif;
+  font-size:13px;
+  letter-spacing:1.5px;
+  color:#ffffff;
+  font-weight:600;
+  border-bottom:1px solid rgba(201,168,76,.35);
+  position:relative;
+  overflow:hidden;
+}
+.urg-bar::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,transparent 0%,rgba(232,184,0,.06) 50%,transparent 100%);
+  animation:urgShine 3s ease infinite;
+}
+@keyframes urgMove{0%,100%{background-position:0%}50%{background-position:100%}}
+@keyframes urgShine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.urg-bar-inner{display:inline-flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;}
+.urg-spark{color:#E8B800;font-size:10px;animation:sparkPulse 1.5s ease infinite;}
+@keyframes sparkPulse{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:1;transform:scale(1.4)}}
+.urg-bar-msg b{color:#FFD700;font-weight:800;}
+.urg-bar-sep{color:rgba(232,184,0,.3);}
+.urg-bar-cta{display:inline-block;}
+
+/* ══════════════════════════════════════
+   EXIT POPUP PREMIUM
+══════════════════════════════════════ */
+#exit-popup{
+  position:fixed;inset:0;z-index:99990;
+  background:rgba(0,0,0,.88);
+  backdrop-filter:blur(8px);
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+#exit-popup.open{display:flex;}
+.exit-box{
+  background:linear-gradient(145deg,#1C1208,#2A1A06,#1C1208);
+  border:1px solid rgba(201,168,76,.35);
+  border-radius:20px;
+  padding:40px 36px 32px;
+  max-width:500px;width:100%;
+  text-align:center;
+  position:relative;
+  animation:exitPop .45s cubic-bezier(.34,1.56,.64,1);
+  overflow:hidden;
+  box-shadow:0 40px 80px rgba(0,0,0,.8),inset 0 1px 0 rgba(201,168,76,.2);
+}
+@keyframes exitPop{from{transform:scale(.8) translateY(30px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+.exit-particles{
+  position:absolute;top:0;left:0;right:0;
+  width:100%;height:100px;
+  pointer-events:none;
+  opacity:.7;
+}
+.exit-close{
+  position:absolute;top:14px;right:16px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.5);
+  font-size:16px;cursor:pointer;
+  width:30px;height:30px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.exit-close:hover{background:rgba(255,255,255,.12);color:#fff;}
+.exit-gift-wrap{
+  position:relative;
+  display:inline-block;
+  margin-bottom:8px;
+}
+.exit-gift{
+  font-size:64px;
+  display:block;
+  animation:giftBounce 2s ease infinite;
+}
+@keyframes giftBounce{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-10px) rotate(3deg)}}
+.exit-gift-ring{
+  position:absolute;
+  inset:-12px;
+  border-radius:50%;
+  border:2px solid rgba(232,184,0,.2);
+  animation:ringPulse 2s ease infinite;
+}
+@keyframes ringPulse{0%,100%{transform:scale(1);opacity:.2}50%{transform:scale(1.15);opacity:.5}}
+.exit-tag{
+  font-family:'Cinzel',serif;
+  font-size:10px;
+  letter-spacing:3px;
+  color:#E8B800;
+  text-transform:uppercase;
+  margin-bottom:14px;
+  font-weight:600;
+}
+.exit-h2{
+  font-family:'Cinzel Decorative',cursive;
+  font-size:clamp(20px,3.5vw,28px);
+  color:#ffffff;
+  margin-bottom:12px;
+  line-height:1.25;
+}
+.exit-h2 span{
+  background:linear-gradient(90deg,#C9A84C,#E8B800,#C9A84C);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.exit-p{font-size:14px;color:rgba(237,228,212,.65);line-height:1.8;margin-bottom:22px;}
+.exit-offer{
+  background:rgba(201,168,76,.07);
+  border:1px solid rgba(201,168,76,.25);
+  border-radius:14px;
+  padding:18px 20px;
+  margin-bottom:24px;
+  position:relative;
+  overflow:hidden;
+}
+.exit-offer::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,transparent,#E8B800,transparent);
+}
+.exit-offer-ribbon{
+  display:inline-block;
+  background:linear-gradient(135deg,#8B1A1A,#C0392B);
+  color:#fff;
+  font-family:'Cinzel',serif;
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:2px;
+  padding:3px 14px;
+  border-radius:20px;
+  margin-bottom:10px;
+  text-transform:uppercase;
+}
+.exit-offer-name{
+  font-family:'Cinzel',serif;
+  font-size:14px;
+  color:#EDE4D4;
+  font-weight:600;
+  margin-bottom:10px;
+}
+.exit-offer-row{
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  margin-bottom:8px;
+}
+.exit-offer-old{
+  font-family:'Cinzel',serif;
+  font-size:14px;
+  color:rgba(237,228,212,.4);
+  text-decoration:line-through;
+}
+.exit-offer-arrow{color:rgba(232,184,0,.5);font-size:18px;}
+.exit-offer-new{
+  font-family:'Cinzel Decorative',cursive;
+  font-size:32px;
+  color:#E8B800;
+  text-shadow:0 0 24px rgba(232,184,0,.4);
+}
+.exit-offer-economy{
+  font-family:'Cinzel',serif;
+  font-size:11px;
+  color:rgba(144,238,144,.7);
+  letter-spacing:1px;
+}
+.btn-exit-sim{
+  display:block;width:100%;
+  background:linear-gradient(135deg,#A07830,#E8B800,#A07830);
+  background-size:200%;
+  color:#0a0500;
+  border:none;
+  padding:16px;
+  border-radius:12px;
+  font-family:'Cinzel',serif;
+  font-size:12px;
+  letter-spacing:2px;
+  cursor:pointer;
+  font-weight:700;
+  margin-bottom:12px;
+  transition:all .3s;
+  position:relative;
+  overflow:hidden;
+  animation:btnGlow 2.5s ease infinite;
+}
+@keyframes btnGlow{0%,100%{background-position:0%}50%{background-position:100%}}
+.btn-exit-sim:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(201,168,76,.5);}
+.btn-exit-nao{
+  background:none;border:none;
+  color:rgba(237,228,212,.25);
+  font-size:11px;cursor:pointer;
+  font-family:'Cinzel',serif;
+  letter-spacing:.5px;
+  transition:color .2s;
+}
+.btn-exit-nao:hover{color:rgba(237,228,212,.5);}
+
+/* ══════════════════════════════════════
+   PROMO POPUP PREMIUM
+══════════════════════════════════════ */
+.promo-stars{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+}
+.ps{
+  position:absolute;
+  font-size:18px;
+  color:rgba(232,184,0,.4);
+  animation:starFloat 4s ease infinite;
+}
+@keyframes starFloat{0%,100%{transform:translateY(0) scale(1);opacity:.4}50%{transform:translateY(-20px) scale(1.3);opacity:.8}}
+.promo-box{
+  background:linear-gradient(145deg,#1C1208,#2A1A06,#1C1208);
+  border:1px solid rgba(201,168,76,.4);
+  border-radius:22px;
+  padding:0 0 32px;
+  max-width:500px;width:100%;
+  text-align:center;
+  position:relative;
+  z-index:1;
+  animation:promoIn .45s cubic-bezier(.34,1.56,.64,1);
+  overflow:hidden;
+  box-shadow:0 40px 100px rgba(0,0,0,.9),0 0 0 1px rgba(201,168,76,.15);
+}
+@keyframes promoIn{from{transform:scale(.8) translateY(40px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+.promo-top-bar{
+  height:4px;
+  background:linear-gradient(90deg,#6b3000,#E8B800,#FFD700,#E8B800,#6b3000);
+  background-size:200%;
+  animation:urgMove 4s ease infinite;
+  margin-bottom:28px;
+}
+.promo-close{
+  position:absolute;top:16px;right:18px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.5);
+  width:30px;height:30px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;cursor:pointer;transition:all .2s;z-index:2;
+}
+.promo-close:hover{background:rgba(255,255,255,.12);color:#fff;}
+.promo-badge-wrap{margin-bottom:12px;}
+.promo-badge{
+  display:inline-block;
+  background:linear-gradient(135deg,rgba(139,26,26,.8),rgba(192,57,43,.8));
+  border:1px solid rgba(255,100,100,.2);
+  color:#FFD0D0;
+  font-family:'Cinzel',serif;
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:2px;
+  padding:5px 18px;
+  border-radius:30px;
+  text-transform:uppercase;
+}
+.promo-gift-icon{
+  font-size:72px;
+  display:block;
+  animation:giftBounce 2.2s ease infinite;
+  margin-bottom:12px;
+  filter:drop-shadow(0 0 20px rgba(232,184,0,.4));
+}
+.promo-title{
+  font-family:'Cinzel Decorative',cursive;
+  font-size:clamp(22px,4vw,32px);
+  color:#ffffff;
+  line-height:1.2;
+  margin-bottom:10px;
+  padding:0 28px;
+}
+.promo-title-gold{
+  background:linear-gradient(90deg,#C9A84C,#FFD700,#C9A84C);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.promo-sub{font-size:13px;color:rgba(237,228,212,.6);line-height:1.7;margin-bottom:22px;padding:0 28px;}
+.promo-deal{
+  background:rgba(201,168,76,.07);
+  border-top:1px solid rgba(201,168,76,.2);
+  border-bottom:1px solid rgba(201,168,76,.2);
+  padding:20px 28px;
+  margin-bottom:22px;
+  position:relative;
+}
+.promo-deal-label{
+  font-family:'Cinzel',serif;
+  font-size:9px;
+  letter-spacing:3px;
+  color:#E8B800;
+  text-transform:uppercase;
+  margin-bottom:8px;
+  font-weight:600;
+}
+.promo-deal-product{
+  font-family:'Cinzel',serif;
+  font-size:15px;
+  color:#ffffff;
+  font-weight:700;
+  margin-bottom:8px;
+}
+.promo-deal-price-row{
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  margin-bottom:10px;
+}
+.promo-price-old{
+  font-size:14px;color:rgba(237,228,212,.35);
+  text-decoration:line-through;
+  font-family:'Cinzel',serif;
+}
+.promo-price-new{
+  font-family:'Cinzel Decorative',cursive;
+  font-size:22px;color:#E8B800;
+  text-shadow:0 0 20px rgba(232,184,0,.4);
+}
+.promo-deal-desc{
+  font-size:12px;
+  color:rgba(237,228,212,.5);
+  line-height:1.7;
+  font-family:'Cinzel',serif;
+}
+.promo-urgency{
+  display:flex;gap:1px;margin:0 28px 22px;
+  background:rgba(201,168,76,.15);
+  border:1px solid rgba(201,168,76,.2);
+  border-radius:12px;
+  overflow:hidden;
+}
+.promo-timer-wrap,.promo-vagas-wrap{
+  flex:1;padding:14px 12px;text-align:center;
+  background:rgba(0,0,0,.3);
+}
+.promo-timer-wrap{border-right:1px solid rgba(201,168,76,.2);}
+.promo-timer-label{
+  font-family:'Cinzel',serif;
+  font-size:9px;
+  letter-spacing:1px;
+  color:rgba(201,168,76,.6);
+  text-transform:uppercase;
+  margin-bottom:4px;
+}
+.promo-timer-display{
+  font-family:'Cinzel Decorative',cursive;
+  font-size:26px;
+  color:#ffffff;
+}
+.promo-vagas-num{
+  font-family:'Cinzel Decorative',cursive;
+  font-size:28px;
+  color:#E8B800;
+}
+.promo-btn-sim{
+  display:block;
+  margin:0 28px 12px;
+  text-align:center;
+  background:linear-gradient(135deg,#A07830,#E8B800,#A07830);
+  background-size:200%;
+  color:#0a0500;
+  padding:16px;
+  border-radius:12px;
+  font-family:'Cinzel',serif;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  text-decoration:none;
+  animation:btnGlow 2.5s ease infinite;
+  transition:all .3s;
+}
+.promo-btn-sim:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(201,168,76,.5);}
+.promo-btn-nao{
+  display:block;
+  background:none;border:none;
+  font-family:'Cinzel',serif;
+  font-size:11px;
+  color:rgba(237,228,212,.2);
+  cursor:pointer;
+  letter-spacing:.5px;
+  transition:color .2s;
+  width:100%;
+}
+.promo-btn-nao:hover{color:rgba(237,228,212,.45);}
+</style>
+
+<!-- ═══ WHATSAPP FLUTUANTE + SCROLL TOP ═══ -->
+<div id="wpp-float-group">
+  <!-- Tooltip -->
+  <div class="wpp-tooltip" id="wppTooltip">
+    <span>💬 Fale com Carlos agora</span>
+    <button class="wpp-tooltip-close" onclick="fecharTooltipWpp()">✕</button>
+  </div>
+
+  <!-- Botão WhatsApp -->
+  <a id="wpp-float-btn"
+     href="https://wa.me/5531983391576?text=Olá%20Carlos!%20Vi%20seu%20site%20e%20quero%20saber%20mais%20sobre%20tatuagem.%20Pode%20me%20ajudar?"
+     target="_blank"
+     aria-label="WhatsApp Carlos Tattoo BH"
+     onclick="sessionStorage.setItem('wpp_tooltip_closed','1')">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    <span class="wpp-float-pulse"></span>
+  </a>
+
+  <!-- Scroll to Top -->
+  <button id="scroll-top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Voltar ao topo">
+    ↑
+  </button>
+</div>
+
+<style>
+#wpp-float-group{
+  position:fixed;
+  bottom:28px;
+  right:28px;
+  z-index:9990;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:12px;
+}
+.wpp-tooltip{
+  background:#1C1208;
+  border:1px solid rgba(37,211,102,.3);
+  border-radius:50px;
+  padding:10px 16px 10px 14px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-family:'Cinzel',serif;
+  font-size:11px;
+  color:#fff;
+  white-space:nowrap;
+  box-shadow:0 4px 20px rgba(0,0,0,.4);
+  animation:tooltipIn .4s cubic-bezier(.34,1.56,.64,1);
+  transform-origin:right bottom;
+}
+@keyframes tooltipIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+.wpp-tooltip-close{
+  background:none;border:none;color:rgba(255,255,255,.4);
+  font-size:14px;cursor:pointer;padding:0;line-height:1;
+  transition:color .2s;
+}
+.wpp-tooltip-close:hover{color:#fff;}
+#wpp-float-btn{
+  width:58px;height:58px;
+  background:linear-gradient(135deg,#1da851,#25D366,#1da851);
+  background-size:200%;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 24px rgba(37,211,102,.5);
+  text-decoration:none;
+  transition:transform .25s;
+  animation:wppPulseAnim 3s ease infinite;
+  position:relative;
+}
+#wpp-float-btn:hover{transform:scale(1.1);}
+#wpp-float-btn svg{width:28px;height:28px;fill:#fff;}
+.wpp-float-pulse{
+  position:absolute;inset:0;border-radius:50%;
+  background:rgba(37,211,102,.3);
+  animation:wppRing 2.5s ease-out infinite;
+}
+@keyframes wppPulseAnim{0%,100%{background-position:0%}50%{background-position:100%}}
+@keyframes wppRing{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.6);opacity:0}}
+#scroll-top-btn{
+  width:42px;height:42px;
+  background:rgba(26,16,8,.9);
+  border:1px solid rgba(201,168,76,.3);
+  border-radius:50%;
+  color:#E8B800;
+  font-size:18px;
+  cursor:pointer;
+  display:none;
+  align-items:center;justify-content:center;
+  transition:all .25s;
+  box-shadow:0 4px 16px rgba(0,0,0,.4);
+}
+#scroll-top-btn:hover{
+  background:rgba(201,168,76,.15);
+  border-color:rgba(201,168,76,.6);
+  transform:translateY(-3px);
+}
+#scroll-top-btn.visible{display:flex;}
+@media(max-width:480px){
+  #wpp-float-group{bottom:80px;right:16px;}
+  #wpp-float-btn{width:52px;height:52px;}
+}
+</style>
+
+<script>
+// Mostrar tooltip após 8s se não fechou antes
+(function(){
+  if(sessionStorage.getItem('wpp_tooltip_closed')) return;
+  setTimeout(function(){
+    var t = document.getElementById('wppTooltip');
+    if(t) t.style.display='flex';
+    setTimeout(function(){
+      if(t) { t.style.opacity='0'; t.style.transition='opacity .5s'; setTimeout(function(){t.style.display='none';},500); }
+    }, 6000);
+  }, 8000);
+  document.getElementById('wppTooltip').style.display='none';
+})();
+
+function fecharTooltipWpp(){
+  var t = document.getElementById('wppTooltip');
+  if(t){ t.style.opacity='0'; t.style.transition='opacity .3s'; setTimeout(function(){t.style.display='none';},300); }
+  sessionStorage.setItem('wpp_tooltip_closed','1');
+}
+
+// Scroll to top visibility
+window.addEventListener('scroll', function(){
+  var btn = document.getElementById('scroll-top-btn');
+  if(!btn) return;
+  if(window.scrollY > 600) btn.classList.add('visible');
+  else btn.classList.remove('visible');
+}, {passive:true});
 </script>
 
 </body>

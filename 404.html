@@ -3,37 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Página não encontrada — Carlos Tattoo BH</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;700&family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+<title>Página não encontrada | Carlos Tattoo BH</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Raleway',sans-serif;background:linear-gradient(160deg,#0A0702,#1C1208,#0A0702);min-height:100vh;display:flex;align-items:center;justify-content:center;color:#EDE4D4;text-align:center;padding:20px;}
-.wrap{max-width:560px;}
-.logo{height:80px;object-fit:contain;filter:drop-shadow(0 0 20px rgba(201,168,76,.5));margin-bottom:32px;}
-.n404{font-family:'Cinzel Decorative',cursive;font-size:clamp(80px,15vw,140px);color:rgba(201,168,76,.1);line-height:1;display:block;margin-bottom:-20px;}
-h1{font-family:'Cinzel Decorative',cursive;font-size:clamp(22px,4vw,36px);color:#fff;margin-bottom:14px;}
-h1 span{color:#E8B800;}
-p{font-size:15px;color:rgba(237,228,212,.65);line-height:1.8;margin-bottom:32px;}
+body{font-family:'Raleway',sans-serif;background:linear-gradient(145deg,#0A0702,#1C1208);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;text-align:center;}
+.wrap{max-width:520px;}
+.num{font-family:'Cinzel Decorative',cursive;font-size:clamp(80px,20vw,140px);color:transparent;background:linear-gradient(135deg,#C9A84C,#E8B800,#C9A84C);-webkit-background-clip:text;background-clip:text;line-height:1;margin-bottom:8px;animation:float404 3s ease infinite;}
+@keyframes float404{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.skull{font-size:clamp(36px,8vw,56px);margin-bottom:24px;display:block;animation:spin404 6s linear infinite;}
+@keyframes spin404{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+h1{font-family:'Cinzel Decorative',cursive;font-size:clamp(18px,3vw,26px);color:#fff;margin-bottom:12px;line-height:1.3;}
+p{font-size:15px;color:rgba(237,228,212,.6);line-height:1.8;margin-bottom:32px;font-family:'Cinzel',serif;letter-spacing:.5px;}
 .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
-.btn-home{background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;padding:14px 28px;border-radius:50px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-decoration:none;font-weight:700;transition:.2s;}
+.btn-home{display:inline-block;background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;padding:14px 32px;border-radius:50px;font-family:'Cinzel',serif;font-size:11px;font-weight:700;letter-spacing:2px;text-decoration:none;transition:all .2s;}
 .btn-home:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,.4);}
-.btn-wpp{background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.3);color:#25d366;padding:14px 28px;border-radius:50px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-decoration:none;transition:.2s;}
+.btn-wpp{display:inline-block;background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.3);color:#25D366;padding:14px 28px;border-radius:50px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-decoration:none;transition:all .2s;}
 .btn-wpp:hover{background:rgba(37,211,102,.2);}
-.needle{font-size:80px;animation:spin 3s ease infinite;display:block;margin-bottom:16px;}
-@keyframes spin{0%,100%{transform:rotate(-15deg);}50%{transform:rotate(15deg);}}
+.tagline{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:rgba(201,168,76,.3);text-transform:uppercase;margin-top:40px;}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <img src="imagens/IPJP8350.JPG" alt="Carlos Tattoo BH" class="logo" onerror="this.style.display='none'">
-  <span class="needle">🪡</span>
-  <span class="n404">404</span>
-  <h1>Oops! Essa página<br><span>não existe</span></h1>
-  <p>Parece que você se perdeu no caminho para uma tatuagem incrível.<br>Mas não se preocupe — o estúdio está logo ali!</p>
+  <span class="skull">💀</span>
+  <div class="num">404</div>
+  <h1>Essa página não existe<br>(ou saiu para tatuar)</h1>
+  <p>A página que você procura não foi encontrada. Mas a arte continua no site. Volte para o início ou fale direto com Carlos.</p>
   <div class="btns">
-    <a href="index.html" class="btn-home">← VOLTAR AO INÍCIO</a>
-    <a href="https://wa.me/5531983391576" target="_blank" class="btn-wpp">📱 FALAR COM CARLOS</a>
+    <a href="index.html" class="btn-home">← VOLTAR AO SITE</a>
+    <a href="https://wa.me/5531983391576?text=Olá%20Carlos!%20Acessei%20uma%20página%20inválida%20no%20site." target="_blank" class="btn-wpp">💬 FALAR COM CARLOS</a>
   </div>
+  <div class="tagline">Carlos Tattoo BH · Arte Eterna em Belo Horizonte</div>
 </div>
 </body>
 </html>
