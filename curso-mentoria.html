@@ -5,92 +5,388 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Mentoria VIP 1:1 — Carlos Tattoo BH</title>
 <meta name="robots" content="noindex,nofollow">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg-page: #f5f7fb;
-  --white: #ffffff;
-  --text: #111827;
-  --text-muted: #6b7280;
-  --accent: #1a1a2e;
-  --gold: #c9973a;
-  --gold-light: #f0c04a;
-  --border: #e5e7eb;
-  --shadow: 0 4px 24px rgba(0,0,0,.07);
-  --shadow-lg: 0 8px 48px rgba(0,0,0,.12);
-  --radius: 16px;
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#0d0a04;
+  --d1:#1C1208;
+  --d2:#2A1A08;
+  --g1:#F0C030;
+  --g2:#D4A844;
+  --g3:#A07830;
+  --t1:#FFFFFF;
+  --t2:#EDE4D4;
+  --t3:#C9B89A;
+  --sidebar-w:280px;
+  --header-h:64px;
+}
+body{
+  font-family:'Raleway',sans-serif;
+  background:var(--bg);color:var(--t1);
+  min-height:100vh;display:flex;
+  -webkit-user-select:none;-moz-user-select:none;user-select:none;
 }
 
-*{margin:0;padding:0;box-sizing:border-box;}
-:root{--bg:#0a0a18;--d1:#0d0d1a;--d2:#1a1a2e;--g1:#f0c04a;--g2:#c9973a;--g3:#a07830;--t1:#e5e7eb;--t2:#d1d5db;--t3:#9ca3af;}
-body{font-family:'Poppins', sans-serif;background:var(--bg);color:var(--t1);display:flex;min-height:100vh;}
-.sidebar{width:300px;background:rgba(13,13,26,.97);border-right:1px solid rgba(201,151,58,.1);position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:100;display:flex;flex-direction:column;}
-.sb-header{padding:20px;border-bottom:1px solid rgba(201,151,58,.1);}
+/* ── PROGRESS BAR TOPO ── */
+.progress-bar-top{
+  height:3px;
+  background:linear-gradient(90deg,var(--g3),var(--g1),var(--g2));
+  position:fixed;top:0;left:0;z-index:201;
+  transition:width .5s ease;border-radius:0 3px 3px 0;
+  box-shadow:0 0 8px rgba(240,192,48,.4);
+}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  width:var(--sidebar-w);
+  background:linear-gradient(180deg,rgba(18,11,2,.99) 0%,rgba(12,7,1,1) 100%);
+  border-right:1px solid rgba(212,168,68,.1);
+  position:fixed;top:0;left:0;height:100vh;
+  overflow-y:auto;z-index:100;
+  display:flex;flex-direction:column;
+}
+.sidebar::-webkit-scrollbar{width:3px;}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(212,168,68,.2);border-radius:2px;}
+
+.sb-header{
+  padding:20px 18px 16px;
+  border-bottom:1px solid rgba(212,168,68,.08);
+  flex-shrink:0;
+}
 .sb-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
-.sb-logo img{height:36px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(201,151,58,.4));}
-.sb-titulo{font-family:'Poppins', sans-serif;font-size:11px;letter-spacing:2px;color:var(--g2);text-transform:uppercase;line-height:1.4;}
-.sb-progress-wrap{margin-top:12px;}
-.sb-progress-label{display:flex;justify-content:space-between;font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:1px;color:rgba(201,151,58,.5);text-transform:uppercase;margin-bottom:6px;}
-.sb-progress-bar{height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;}
-.sb-progress-fill{height:100%;background:linear-gradient(90deg,var(--g3),var(--g1));transition:width .5s;}
+.sb-logo img{height:38px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(212,168,68,.35));}
+.sb-titulo{
+  font-family:'Cinzel',serif;
+  font-size:11px;font-weight:700;
+  letter-spacing:2px;color:var(--g2);
+  text-transform:uppercase;line-height:1.4;
+}
+.sb-progress-wrap{margin-top:4px;}
+.sb-progress-label{
+  display:flex;justify-content:space-between;
+  font-family:'Raleway',sans-serif;
+  font-size:9px;font-weight:600;
+  letter-spacing:2px;color:rgba(212,168,68,.45);
+  text-transform:uppercase;margin-bottom:7px;
+}
+.sb-progress-label span:last-child{color:var(--t1);font-weight:700;font-size:11px;}
+.sb-progress-bar{height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;}
+.sb-progress-fill{height:100%;background:linear-gradient(90deg,var(--g3),var(--g1));transition:width .5s ease;border-radius:2px;}
+
 .sb-modulos{padding:8px 0;flex:1;}
-.sb-mod-titulo{font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:3px;color:rgba(201,151,58,.35);text-transform:uppercase;padding:12px 20px 4px;}
-.sb-aula{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;transition:.2s;border-left:3px solid transparent;}
-.sb-aula:hover{background:rgba(201,151,58,.05);border-left-color:rgba(201,151,58,.3);}
-.sb-aula.active{background:rgba(201,151,58,.08);border-left-color:var(--g2);}
-.sb-aula.done .sb-aula-nome{color:rgba(201,151,58,.5);}
-.sb-aula-num{font-family:'Playfair Display', serif;font-size:10px;color:var(--g2);width:22px;flex-shrink:0;}
-.sb-aula-nome{font-size:12px;color:var(--t2);line-height:1.3;flex:1;}
-.sb-aula-check{font-size:11px;color:var(--g2);flex-shrink:0;}
-.sb-footer{padding:16px 20px;border-top:1px solid rgba(201,151,58,.1);}
-.btn-voltar{display:flex;align-items:center;gap:8px;color:rgba(201,151,58,.5);font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:1px;text-decoration:none;transition:.2s;}
-.btn-voltar:hover{color:var(--g2);}
-.main{margin-left:300px;flex:1;display:flex;flex-direction:column;}
-.main-header{background:rgba(13,13,26,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,151,58,.1);padding:14px 36px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;gap:12px;}
-.mh-titulo{font-family:'Poppins', sans-serif;font-size:13px;color:var(--t1);flex:1;}
-.mh-nav{display:flex;gap:8px;flex-shrink:0;}
-.btn-nav-a{background:rgba(201,151,58,.1);border:1px solid rgba(201,151,58,.2);color:var(--g2);padding:8px 16px;border-radius:8px;font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:1px;cursor:pointer;transition:.2s;}
-.btn-nav-a:hover{background:rgba(201,151,58,.2);}
-.btn-nav-a:disabled{opacity:.3;cursor:not-allowed;}
-.btn-concluir{background:linear-gradient(135deg,var(--g3),var(--g1));color:#1a1a2e;border:none;padding:8px 16px;border-radius:8px;font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:1px;cursor:pointer;font-weight:700;transition:.2s;}
-.btn-concluir:hover{transform:translateY(-1px);}
-.aula-wrap{flex:1;padding:36px 40px;max-width:900px;}
-.aula-tag{font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:4px;color:rgba(201,151,58,.4);text-transform:uppercase;margin-bottom:10px;}
-.aula-h1{font-family:'Playfair Display', serif;font-size:clamp(20px,2.8vw,34px);color:#fff;margin-bottom:18px;line-height:1.2;}
+.sb-mod-titulo{
+  font-family:'Cinzel',serif;
+  font-size:9px;font-weight:700;
+  letter-spacing:3px;color:rgba(212,168,68,.4);
+  text-transform:uppercase;
+  padding:14px 18px 6px;
+}
+.sb-aula{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 16px 11px 14px;
+  cursor:pointer;transition:.18s ease;
+  border-left:3px solid transparent;
+  position:relative;
+}
+.sb-aula:hover{background:rgba(212,168,68,.07);border-left-color:rgba(212,168,68,.35);}
+.sb-aula:hover .sb-aula-nome{color:var(--t1);}
+.sb-aula.active{
+  background:linear-gradient(90deg,rgba(212,168,68,.14),rgba(212,168,68,.04));
+  border-left-color:var(--g2);
+}
+.sb-aula.active .sb-aula-nome{color:#FFFFFF;font-weight:700;}
+.sb-aula.active .sb-aula-num{color:var(--g1);}
+.sb-aula.active::after{content:'›';position:absolute;right:12px;font-size:20px;font-weight:900;color:var(--g2);line-height:1;}
+.sb-aula.done .sb-aula-nome{color:rgba(255,255,255,.5);}
+.sb-aula.done .sb-aula-num{color:rgba(212,168,68,.35);}
+.sb-aula-num{
+  font-family:'Cinzel Decorative',cursive;
+  font-size:11px;font-weight:700;
+  color:var(--g3);width:22px;flex-shrink:0;line-height:1;
+}
+.sb-aula-nome{
+  font-family:'Raleway',sans-serif;
+  font-size:13px;font-weight:500;
+  color:#FFFFFF;line-height:1.3;flex:1;
+}
+.sb-aula-check{
+  width:16px;height:16px;border-radius:50%;
+  background:rgba(212,168,68,.12);
+  border:1px solid rgba(212,168,68,.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;color:var(--g2);flex-shrink:0;
+}
+
+.sb-footer{
+  padding:16px 18px;
+  border-top:1px solid rgba(212,168,68,.08);
+  flex-shrink:0;
+}
+
+/* BOTÃO VOLTAR — igual ao leitor */
+.btn-voltar{
+  display:flex;align-items:center;gap:9px;
+  background:linear-gradient(135deg,rgba(212,168,68,.14),rgba(160,120,48,.08));
+  border:1.5px solid rgba(212,168,68,.45);
+  color:var(--t1);padding:10px 16px;border-radius:10px;
+  font-family:'Cinzel',serif;font-size:12px;font-weight:700;letter-spacing:.5px;
+  cursor:pointer;transition:.2s ease;text-decoration:none;
+  white-space:nowrap;
+}
+.btn-voltar:hover{
+  background:linear-gradient(135deg,rgba(212,168,68,.28),rgba(160,120,48,.2));
+  border-color:rgba(240,192,48,.7);color:var(--g1);
+  box-shadow:0 4px 18px rgba(212,168,68,.2);
+  transform:translateX(-2px);
+}
+.btn-voltar-arrow{font-size:18px;font-weight:900;line-height:1;color:var(--g2);}
+.btn-voltar:hover .btn-voltar-arrow{color:var(--g1);}
+
+/* ── MAIN ── */
+.main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;min-height:100vh;}
+
+/* ── HEADER MAIN ── */
+.main-header{
+  background:linear-gradient(180deg,rgba(20,12,2,1) 0%,rgba(15,9,1,.97) 100%);
+  border-bottom:1px solid rgba(212,168,68,.15);
+  padding:0 28px;
+  display:flex;align-items:center;justify-content:space-between;
+  height:var(--header-h);
+  position:sticky;top:0;z-index:50;gap:16px;
+  box-shadow:0 2px 24px rgba(0,0,0,.4);
+  flex-shrink:0;
+}
+.mh-titulo{
+  font-family:'Cinzel',serif;
+  font-size:14px;font-weight:700;letter-spacing:1px;
+  color:var(--t1);flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.mh-nav{display:flex;gap:10px;flex-shrink:0;align-items:center;}
+
+/* Badge progresso no header */
+.mh-progress-badge{
+  background:linear-gradient(135deg,rgba(212,168,68,.18),rgba(160,120,48,.1));
+  border:1.5px solid rgba(212,168,68,.4);
+  padding:7px 16px;border-radius:24px;
+  font-family:'Cinzel',serif;font-size:15px;font-weight:700;
+  letter-spacing:1px;color:var(--t1);
+  min-width:64px;text-align:center;
+}
+
+/* ── BOTÕES NAV — mesmo estilo do leitor ── */
+.btn-nav-a{
+  display:flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,rgba(212,168,68,.13),rgba(160,120,48,.07));
+  border:1.5px solid rgba(212,168,68,.35);
+  color:var(--t1);padding:10px 18px;border-radius:10px;
+  font-family:'Cinzel',serif;font-size:13px;font-weight:700;letter-spacing:.5px;
+  cursor:pointer;transition:.2s ease;white-space:nowrap;
+}
+.btn-nav-a:hover:not(:disabled){
+  background:linear-gradient(135deg,rgba(212,168,68,.26),rgba(160,120,48,.18));
+  border-color:rgba(240,192,48,.65);color:var(--g1);
+  box-shadow:0 4px 18px rgba(212,168,68,.18);
+}
+.btn-nav-a:disabled{opacity:.22;cursor:not-allowed;}
+.btn-nav-a:active:not(:disabled){transform:scale(.97);}
+.nav-arrow{font-size:19px;font-weight:900;line-height:1;color:var(--g2);}
+.btn-nav-a:hover:not(:disabled) .nav-arrow{color:var(--g1);}
+
+/* Botão concluir */
+.btn-concluir{
+  background:linear-gradient(135deg,var(--g3),var(--g1));
+  color:#1a1a2e;border:none;
+  padding:10px 18px;border-radius:10px;
+  font-family:'Cinzel',serif;font-size:12px;font-weight:700;
+  letter-spacing:.5px;cursor:pointer;transition:.2s ease;
+  white-space:nowrap;
+}
+.btn-concluir:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(212,168,68,.3);}
+
+/* ── ÁREA DA AULA ── */
+.aula-wrap{
+  flex:1;padding:36px 44px;
+  max-width:900px;width:100%;
+}
+
+/* Tag da aula */
+.aula-tag{
+  font-family:'Cinzel',serif;
+  font-size:10px;font-weight:600;
+  letter-spacing:4px;color:rgba(212,168,68,.65);
+  text-transform:uppercase;margin-bottom:12px;
+}
+
+/* Título da aula */
+.aula-h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(22px,2.8vw,36px);
+  color:#FFFFFF;margin-bottom:20px;line-height:1.2;font-weight:800;
+}
 .aula-h1 span{color:var(--g1);}
-.aula-intro{font-size:15px;color:var(--t2);line-height:1.9;margin-bottom:28px;padding:18px 22px;background:rgba(201,151,58,.05);border-left:4px solid var(--g2);border-radius:0 10px 10px 0;}
-h2.ah2{font-family:'Poppins', sans-serif;font-size:17px;color:#fff;font-weight:700;margin:32px 0 12px;padding-bottom:10px;border-bottom:1px solid rgba(201,151,58,.12);display:flex;align-items:center;gap:8px;}
+
+/* Intro */
+.aula-intro{
+  font-size:15px;color:var(--t2);line-height:1.9;
+  margin-bottom:30px;padding:18px 22px;
+  background:rgba(212,168,68,.06);
+  border-left:4px solid var(--g2);border-radius:0 12px 12px 0;
+}
+
+/* H2 e H3 */
+h2.ah2{
+  font-family:'Cinzel',serif;font-size:16px;
+  color:#FFFFFF;font-weight:700;
+  margin:32px 0 14px;padding-bottom:10px;
+  border-bottom:1px solid rgba(212,168,68,.12);
+  display:flex;align-items:center;gap:8px;
+}
 h2.ah2::before{content:'◆';color:var(--g2);font-size:9px;}
-h3.ah3{font-family:'Poppins', sans-serif;font-size:14px;color:var(--g2);font-weight:700;margin:20px 0 8px;}
+h3.ah3{
+  font-family:'Cinzel',serif;font-size:13px;
+  color:var(--g2);font-weight:700;margin:20px 0 10px;
+  letter-spacing:.5px;
+}
+
+/* Parágrafo */
 p.ap{font-size:14px;color:var(--t2);line-height:1.9;margin-bottom:14px;}
-.passo{background:rgba(255,255,255,.03);border:1px solid rgba(201,151,58,.1);border-radius:12px;padding:20px 22px;margin:12px 0;display:flex;gap:14px;}
-.passo-n{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--g3),var(--g2));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display', serif;font-size:12px;color:#fff;flex-shrink:0;font-weight:900;}
-.passo-body h4{font-family:'Poppins', sans-serif;font-size:13px;color:#fff;font-weight:700;margin-bottom:6px;}
+
+/* Passo */
+.passo{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(212,168,68,.12);
+  border-radius:12px;padding:20px 22px;
+  margin:12px 0;display:flex;gap:14px;
+  transition:.2s ease;
+}
+.passo:hover{background:rgba(212,168,68,.04);border-color:rgba(212,168,68,.22);}
+.passo-n{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--g3),var(--g2));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel Decorative',cursive;font-size:12px;
+  color:#fff;font-weight:700;
+}
+.passo-body h4{
+  font-family:'Cinzel',serif;font-size:13px;
+  color:#FFFFFF;font-weight:700;margin-bottom:7px;
+}
 .passo-body p{font-size:13px;color:var(--t2);line-height:1.8;margin:0;}
-.passo-body code{font-family:'Courier New',monospace;background:rgba(201,151,58,.1);padding:2px 7px;border-radius:4px;font-size:12px;color:var(--g1);}
-.destaque{background:rgba(201,151,58,.06);border:1px solid rgba(201,151,58,.2);border-radius:10px;padding:16px 20px;margin:16px 0;}
-.destaque p{font-size:13px;color:var(--t1);line-height:1.8;margin:0;}
+.passo-body code{
+  font-family:'Courier New',monospace;
+  background:rgba(212,168,68,.1);padding:2px 7px;
+  border-radius:4px;font-size:12px;color:var(--g1);
+}
+
+/* Caixas de destaque */
+.destaque{
+  background:rgba(212,168,68,.06);
+  border:1px solid rgba(212,168,68,.22);
+  border-radius:10px;padding:16px 20px;margin:16px 0;
+}
+.destaque p{font-size:14px;color:var(--t2);line-height:1.8;margin:0;}
 .destaque strong{color:var(--g1);}
-.alerta{background:rgba(231,76,60,.05);border:1px solid rgba(231,76,60,.2);border-radius:10px;padding:14px 18px;margin:14px 0;}
+
+.alerta{
+  background:rgba(231,76,60,.05);
+  border:1px solid rgba(231,76,60,.25);
+  border-radius:10px;padding:14px 18px;margin:14px 0;
+}
 .alerta p{font-size:13px;color:#fca5a5;line-height:1.8;margin:0;}
-.dica{background:rgba(39,174,96,.05);border:1px solid rgba(39,174,96,.2);border-radius:10px;padding:14px 18px;margin:14px 0;}
+
+.dica{
+  background:rgba(39,174,96,.05);
+  border:1px solid rgba(39,174,96,.22);
+  border-radius:10px;padding:14px 18px;margin:14px 0;
+}
 .dica p{font-size:13px;color:#86efac;line-height:1.8;margin:0;}
+
+/* Checklist */
 .checklist{list-style:none;margin:12px 0;}
-.checklist li{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--t2);margin-bottom:8px;line-height:1.7;}
+.checklist li{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:14px;color:var(--t2);
+  margin-bottom:10px;line-height:1.7;
+}
 .checklist li::before{content:'✓';color:var(--g2);font-weight:700;flex-shrink:0;}
-.exemplo{background:rgba(52,152,219,.05);border:1px solid rgba(52,152,219,.2);border-radius:10px;padding:16px 20px;margin:14px 0;}
-.exemplo-label{font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:2px;color:rgba(52,152,219,.6);text-transform:uppercase;margin-bottom:8px;}
+
+/* Exemplo */
+.exemplo{
+  background:rgba(52,152,219,.05);
+  border:1px solid rgba(52,152,219,.2);
+  border-radius:10px;padding:16px 20px;margin:14px 0;
+}
+.exemplo-label{
+  font-family:'Cinzel',serif;font-size:9px;
+  letter-spacing:2px;color:rgba(52,152,219,.7);
+  text-transform:uppercase;margin-bottom:8px;
+}
 .exemplo p{font-size:13px;color:#bfdbfe;line-height:1.8;margin:0;font-style:italic;}
-.aula-nav-bottom{display:flex;gap:12px;justify-content:space-between;margin-top:44px;padding-top:24px;border-top:1px solid rgba(201,151,58,.1);}
-.btn-ant-b{background:rgba(255,255,255,.04);border:1px solid rgba(201,151,58,.15);color:var(--t2);padding:12px 22px;border-radius:10px;font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:1px;cursor:pointer;transition:.2s;}
-.btn-ant-b:hover{border-color:rgba(201,151,58,.4);color:var(--g2);}
-.btn-prox-b{background:linear-gradient(135deg,var(--g3),var(--g1));color:#1a1a2e;padding:12px 24px;border-radius:10px;font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:2px;cursor:pointer;font-weight:700;border:none;transition:.2s;}
-.btn-prox-b:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(201,151,58,.3);}
-@media(max-width:900px){.sidebar{width:260px;transform:translateX(-100%);transition:transform .3s;}.sidebar.open{transform:translateX(0);}.main{margin-left:0;}.aula-wrap{padding:20px 16px;}.main-header{padding:12px 16px;}}
+
+/* ── BOTÕES DE NAV DENTRO DA AULA (bottom) ── */
+.aula-nav-bottom{
+  display:flex;gap:12px;justify-content:space-between;
+  margin-top:48px;padding-top:24px;
+  border-top:1px solid rgba(212,168,68,.1);
+}
+.btn-ant-b{
+  display:flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,rgba(212,168,68,.1),rgba(160,120,48,.06));
+  border:1.5px solid rgba(212,168,68,.28);
+  color:var(--t1);padding:11px 22px;border-radius:10px;
+  font-family:'Cinzel',serif;font-size:12px;font-weight:700;
+  letter-spacing:.5px;cursor:pointer;transition:.2s ease;
+}
+.btn-ant-b:hover:not(:disabled){
+  background:linear-gradient(135deg,rgba(212,168,68,.22),rgba(160,120,48,.14));
+  border-color:rgba(240,192,48,.55);color:var(--g1);
+  box-shadow:0 4px 16px rgba(212,168,68,.14);
+}
+.btn-ant-b:disabled{opacity:.22;cursor:not-allowed;}
+.btn-prox-b{
+  display:flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--g3),var(--g1));
+  color:#1a1a2e;padding:11px 26px;border-radius:10px;
+  font-family:'Cinzel',serif;font-size:12px;font-weight:700;
+  letter-spacing:.5px;cursor:pointer;transition:.2s ease;border:none;
+}
+.btn-prox-b:hover:not(:disabled){
+  transform:translateY(-2px);
+  box-shadow:0 6px 22px rgba(212,168,68,.3);
+}
+.btn-prox-b:disabled{opacity:.22;cursor:not-allowed;transform:none;}
+.btn-b-arrow{font-size:18px;font-weight:900;line-height:1;}
+
+/* ── SIDEBAR TOGGLE MOBILE ── */
+.sidebar-toggle{
+  display:none;
+  background:rgba(212,168,68,.1);border:1.5px solid rgba(212,168,68,.3);
+  color:var(--t1);padding:9px 13px;border-radius:9px;
+  font-size:16px;cursor:pointer;transition:.2s;line-height:1;
+  flex-shrink:0;
+}
+.sidebar-toggle:hover{background:rgba(212,168,68,.2);color:var(--g1);}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%);transition:transform .28s ease;box-shadow:4px 0 28px rgba(0,0,0,.5);}
+  .sidebar.open{transform:translateX(0);}
+  .main{margin-left:0;}
+  .aula-wrap{padding:20px 18px;}
+  .main-header{padding:0 16px;}
+  .sidebar-toggle{display:flex;align-items:center;}
+  .mh-titulo{font-size:12px;}
+}
 </style>
 </head>
 <body>
 
+<!-- PROGRESS BAR TOPO -->
+<div class="progress-bar-top" id="progressTop" style="width:0%"></div>
+
+<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
   <div class="sb-header">
     <div class="sb-logo">
@@ -98,33 +394,67 @@ p.ap{font-size:14px;color:var(--t2);line-height:1.9;margin-bottom:14px;}
       <span class="sb-titulo">Mentoria VIP 1:1</span>
     </div>
     <div class="sb-progress-wrap">
-      <div class="sb-progress-label"><span>PROGRESSO</span><span id="progressoPct">0%</span></div>
-      <div class="sb-progress-bar"><div class="sb-progress-fill" id="progressoFill" style="width:0%"></div></div>
+      <div class="sb-progress-label">
+        <span>Progresso</span>
+        <span id="progressoPct">0%</span>
+      </div>
+      <div class="sb-progress-bar">
+        <div class="sb-progress-fill" id="progressoFill" style="width:0%"></div>
+      </div>
     </div>
   </div>
   <div class="sb-modulos" id="sbModulos"></div>
-  <div class="sb-footer"><a href="painel.html" class="btn-voltar">← Voltar ao painel</a></div>
+  <div class="sb-footer">
+    <a href="painel.html" class="btn-voltar">
+      <span class="btn-voltar-arrow">←</span>
+      Voltar ao Painel
+    </a>
+  </div>
 </aside>
 
+<!-- MAIN -->
 <div class="main">
   <header class="main-header">
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
     <span class="mh-titulo" id="mhTitulo">Carregando...</span>
     <div class="mh-nav">
-      <button class="btn-nav-a" id="btnAnt" onclick="navAula(-1)" disabled>← Anterior</button>
+      <button class="btn-nav-a" id="btnAnt" onclick="navAula(-1)" disabled>
+        <span class="nav-arrow">←</span>
+        <span>Anterior</span>
+      </button>
       <button class="btn-concluir" onclick="concluirAula()">✓ Concluir</button>
-      <button class="btn-nav-a" id="btnProx" onclick="navAula(1)">Próxima →</button>
+      <button class="btn-nav-a" id="btnProx" onclick="navAula(1)">
+        <span>Próxima</span>
+        <span class="nav-arrow">→</span>
+      </button>
+      <span class="mh-progress-badge" id="progressoBadge">0%</span>
     </div>
   </header>
+
   <div class="aula-wrap" id="aulaContent"></div>
 </div>
 
 <script>
-const sessao = JSON.parse(sessionStorage.getItem('ct_sessao')||'null');
-if(!sessao) window.location.href='acesso.html';
-const CURSO_ID = 'curso-mentoria';
-const prog = JSON.parse(localStorage.getItem('ct_progresso_'+(sessao?.email||''))||'{}');
-let aulaAtual = prog['aula_'+CURSO_ID]||0;
+// ── PROTEÇÕES ──
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && ['c','s','p','a','u'].includes(e.key.toLowerCase())) e.preventDefault();
+  if (!e.ctrlKey && !e.metaKey) {
+    if (e.key === 'ArrowRight') navAula(1);
+    if (e.key === 'ArrowLeft')  navAula(-1);
+  }
+});
+document.addEventListener('copy', e => e.preventDefault());
 
+// ── SESSÃO ──
+const sessao = JSON.parse(sessionStorage.getItem('ct_sessao') || 'null');
+if (!sessao) window.location.href = 'acesso.html';
+
+const CURSO_ID = 'curso-mentoria';
+const prog = JSON.parse(localStorage.getItem('ct_progresso_' + (sessao?.email || '')) || '{}');
+let aulaAtual = prog['aula_' + CURSO_ID] || 0;
+
+// ── MÓDULOS ──
 const MODULOS = [
   {mod:'MÓDULO 1 — DIAGNÓSTICO DO SEU NEGÓCIO', aulas:[
     {t:'Bem-vindo à Mentoria VIP', c:`
@@ -145,7 +475,10 @@ const MODULOS = [
 <div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>Agende a sessão de 2h</h4><p>Após preencher o diagnóstico, envie para Carlos via WhatsApp: (31) 98339-1576 com o assunto "Mentoria VIP — [seu nome]". Você receberá os horários disponíveis.</p></div></div>
 <div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>Execute o plano de ação</h4><p>Durante 30 dias após a sessão, você pode tirar dúvidas diretamente com Carlos pelo WhatsApp para garantir que está no caminho certo.</p></div></div>
 <div class="dica"><p>✅ <strong>Dica:</strong> Antes da sessão, prepare: fotos dos seus 10 melhores trabalhos, seu preço médio atual, quanto fatura por mês e qual é seu maior desafio hoje.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)" disabled>← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
+<div class="aula-nav-bottom">
+  <button class="btn-ant-b" onclick="navAula(-1)" disabled><span class="btn-b-arrow">←</span> Anterior</button>
+  <button class="btn-prox-b" onclick="navAula(1)">Próxima <span class="btn-b-arrow">→</span></button>
+</div>`},
     {t:'Diagnóstico — seu negócio hoje', c:`
 <div class="aula-tag">Mentoria VIP · Aula 2</div>
 <h1 class="aula-h1">Diagnóstico — <span>seu negócio hoje</span></h1>
@@ -159,7 +492,10 @@ const MODULOS = [
 <div class="passo"><div class="passo-n">5</div><div class="passo-body"><h4>Quem é seu cliente ideal?</h4><p>Pense: faixa etária, gênero, poder aquisitivo, tipo de tatuagem. Descreva a pessoa que seria seu cliente perfeito.</p></div></div>
 <div class="passo"><div class="passo-n">6</div><div class="passo-body"><h4>Qual é seu maior obstáculo hoje?</h4><p>Poucos clientes? Clientes que não pagam bem? Dificuldade para cobrar mais? Falta de tempo? Seja específico.</p></div></div>
 <div class="destaque"><p><strong>Próximo passo:</strong> Anote todas as respostas em um documento ou no bloco de notas. Envie para Carlos via WhatsApp (31) 98339-1576 antes da sessão de mentoria.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`}
+<div class="aula-nav-bottom">
+  <button class="btn-ant-b" onclick="navAula(-1)"><span class="btn-b-arrow">←</span> Anterior</button>
+  <button class="btn-prox-b" onclick="navAula(1)">Próxima <span class="btn-b-arrow">→</span></button>
+</div>`}
   ]},
   {mod:'MÓDULO 2 — ANÁLISE DO INSTAGRAM', aulas:[
     {t:'Auditoria completa do seu perfil', c:`
@@ -191,7 +527,10 @@ const MODULOS = [
   <li>Posts com melhor e pior performance</li>
 </ul>
 <div class="destaque"><p><strong>Após a auditoria:</strong> Tire prints dos dados dos Insights e envie para Carlos junto com o diagnóstico financeiro. Isso permite que ele chegue na sessão com análise já preparada.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`}
+<div class="aula-nav-bottom">
+  <button class="btn-ant-b" onclick="navAula(-1)"><span class="btn-b-arrow">←</span> Anterior</button>
+  <button class="btn-prox-b" onclick="navAula(1)">Próxima <span class="btn-b-arrow">→</span></button>
+</div>`}
   ]},
   {mod:'MÓDULO 3 — SEU PLANO PERSONALIZADO', aulas:[
     {t:'Estrutura da sessão de 2 horas', c:`
@@ -199,15 +538,18 @@ const MODULOS = [
 <h1 class="aula-h1">Estrutura da Sessão <span>de 2 Horas</span></h1>
 <p class="aula-intro">Aqui está exatamente o que vai acontecer durante as 2 horas da sessão com Carlos. Saber isso vai te ajudar a aproveitá-la ao máximo.</p>
 <h2 class="ah2">Hora 1 — Diagnóstico e Análise (60 minutos)</h2>
-<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>0-15 min: Revisão do diagnóstico</h4><p>Carlos vai revisar o que você enviou antes. Esclarecimentos rápidos sobre o negócio atual.</p></div></div>
-<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>15-35 min: Análise do Instagram ao vivo</h4><p>Carlos vai abrir seu perfil durante a chamada e analisar ponto a ponto. Tome nota de cada observação.</p></div></div>
-<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>35-60 min: Análise de precificação</h4><p>Baseado no mercado de BH e no seu posicionamento atual, Carlos vai sugerir uma nova estratégia de preços.</p></div></div>
+<div class="passo"><div class="passo-n">1</div><div class="passo-body"><h4>0–15 min: Revisão do diagnóstico</h4><p>Carlos vai revisar o que você enviou antes. Esclarecimentos rápidos sobre o negócio atual.</p></div></div>
+<div class="passo"><div class="passo-n">2</div><div class="passo-body"><h4>15–35 min: Análise do Instagram ao vivo</h4><p>Carlos vai abrir seu perfil durante a chamada e analisar ponto a ponto. Tome nota de cada observação.</p></div></div>
+<div class="passo"><div class="passo-n">3</div><div class="passo-body"><h4>35–60 min: Análise de precificação</h4><p>Baseado no mercado de BH e no seu posicionamento atual, Carlos vai sugerir uma nova estratégia de preços.</p></div></div>
 <h2 class="ah2">Hora 2 — Plano de Ação (60 minutos)</h2>
-<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>60-80 min: Estratégia de conteúdo personalizada</h4><p>Carlos vai sugerir tipos específicos de conteúdo para o seu estilo e público. Com exemplos reais.</p></div></div>
-<div class="passo"><div class="passo-n">5</div><div class="passo-body"><h4>80-100 min: Estratégia de aquisição</h4><p>Orgânico, tráfego pago ou os dois? Carlos vai recomendar baseado no seu orçamento e objetivo.</p></div></div>
-<div class="passo"><div class="passo-n">6</div><div class="passo-body"><h4>100-120 min: Plano de ação 90 dias</h4><p>Lista priorizada de ações com prazo. O que fazer na semana 1, semana 2, mês 2 e mês 3.</p></div></div>
+<div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>60–80 min: Estratégia de conteúdo personalizada</h4><p>Carlos vai sugerir tipos específicos de conteúdo para o seu estilo e público. Com exemplos reais.</p></div></div>
+<div class="passo"><div class="passo-n">5</div><div class="passo-body"><h4>80–100 min: Estratégia de aquisição</h4><p>Orgânico, tráfego pago ou os dois? Carlos vai recomendar baseado no seu orçamento e objetivo.</p></div></div>
+<div class="passo"><div class="passo-n">6</div><div class="passo-body"><h4>100–120 min: Plano de ação 90 dias</h4><p>Lista priorizada de ações com prazo. O que fazer na semana 1, semana 2, mês 2 e mês 3.</p></div></div>
 <div class="dica"><p>✅ <strong>Dica:</strong> Grave a sessão (com permissão) para poder revisar depois. Muita informação vai ser passada e é difícil anotar tudo em tempo real.</p></div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)">Próxima →</button></div>`},
+<div class="aula-nav-bottom">
+  <button class="btn-ant-b" onclick="navAula(-1)"><span class="btn-b-arrow">←</span> Anterior</button>
+  <button class="btn-prox-b" onclick="navAula(1)">Próxima <span class="btn-b-arrow">→</span></button>
+</div>`},
     {t:'Suporte 30 dias e próximos passos', c:`
 <div class="aula-tag">Mentoria VIP · Aula 5 — Final</div>
 <h1 class="aula-h1">Suporte 30 Dias e <span>Próximos Passos</span></h1>
@@ -219,97 +561,125 @@ const MODULOS = [
 <div class="passo"><div class="passo-n">4</div><div class="passo-body"><h4>Revise o plano na semana 2</h4><p>Após 2 semanas, mande uma atualização para Carlos. Se algo não está funcionando, ele vai ajustar a estratégia.</p></div></div>
 <h2 class="ah2">Agendando sua sessão agora</h2>
 <div class="destaque"><p><strong>Para agendar:</strong> Envie uma mensagem para Carlos:<br>WhatsApp: (31) 98339-1576<br>Mensagem: <em>"Olá Carlos! Sou [seu nome], comprei a Mentoria VIP. Finalizei o diagnóstico e quero agendar nossa sessão de 2h."</em></p></div>
-<div style="background:linear-gradient(135deg,var(--d1),var(--d2));border:2px solid rgba(201,151,58,.3);border-radius:16px;padding:36px;text-align:center;margin-top:28px;">
+<div style="background:linear-gradient(135deg,rgba(28,18,8,.95),rgba(42,26,8,.9));border:2px solid rgba(212,168,68,.3);border-radius:16px;padding:36px;text-align:center;margin-top:28px;">
   <div style="font-size:48px;margin-bottom:14px;">💎</div>
-  <h3 style="font-family:'Playfair Display', serif;font-size:22px;color:#fff;margin-bottom:10px;">Mentoria VIP — Preparação Concluída!</h3>
-  <p style="font-size:14px;color:var(--t2);line-height:1.8;margin-bottom:20px;">Você está pronto para a sessão com Carlos. Envie o diagnóstico e agende agora!</p>
-  <a href="https://wa.me/5531983391576?text=Olá Carlos! Sou [nome], comprei a Mentoria VIP e quero agendar nossa sessão." target="_blank" style="display:inline-block;background:linear-gradient(135deg,#A07830,#f0c04a);color:#1a1a2e;padding:14px 28px;border-radius:50px;font-family:'Poppins', sans-serif;font-size:11px;letter-spacing:2px;text-decoration:none;font-weight:700;">📱 AGENDAR SESSÃO NO WHATSAPP →</a>
+  <h3 style="font-family:'Cinzel',serif;font-size:20px;color:#fff;margin-bottom:10px;letter-spacing:.5px;">Mentoria VIP — Preparação Concluída!</h3>
+  <p style="font-size:14px;color:var(--t2);line-height:1.8;margin-bottom:22px;">Você está pronto para a sessão com Carlos. Envie o diagnóstico e agende agora!</p>
+  <a href="https://wa.me/5531983391576?text=Olá Carlos! Sou [nome], comprei a Mentoria VIP e quero agendar nossa sessão." target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--g3),var(--g1));color:#1a1a2e;padding:14px 28px;border-radius:50px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-decoration:none;font-weight:700;transition:.2s;">📱 AGENDAR SESSÃO NO WHATSAPP →</a>
 </div>
-<div class="aula-nav-bottom"><button class="btn-ant-b" onclick="navAula(-1)">← Anterior</button><button class="btn-prox-b" onclick="navAula(1)" disabled>Mentoria completa ✓</button></div>`}
+<div class="aula-nav-bottom">
+  <button class="btn-ant-b" onclick="navAula(-1)"><span class="btn-b-arrow">←</span> Anterior</button>
+  <button class="btn-prox-b" disabled>Mentoria Concluída ✓</button>
+</div>`}
   ]}
 ];
 
-// ── LÓGICA DO CURSO ──
-function totalAulas(){return MODULOS.reduce((s,m)=>s+m.aulas.length,0);}
+// ── LÓGICA ──
+function totalAulas() { return MODULOS.reduce((s,m) => s + m.aulas.length, 0); }
 
-function getAula(idx){
-  let n=0;
-  for(const m of MODULOS){
-    for(const a of m.aulas){
-      if(n===idx) return {...a,mod:m.mod};
+function getAula(idx) {
+  let n = 0;
+  for (const m of MODULOS) {
+    for (const a of m.aulas) {
+      if (n === idx) return {...a, mod: m.mod};
       n++;
     }
   }
   return null;
 }
 
-function renderSidebar(){
-  const c=document.getElementById('sbModulos');
-  c.innerHTML='';
-  let n=0;
-  MODULOS.forEach(mod=>{
-    const div=document.createElement('div');
-    const mt=document.createElement('div');
-    mt.className='sb-mod-titulo';
-    mt.textContent=mod.mod;
+function atualizarProgresso() {
+  const total = totalAulas();
+  const done  = (prog['done_' + CURSO_ID] || []).length;
+  const pct   = Math.round((done / total) * 100);
+  const pctStr = pct + '%';
+  document.getElementById('progressoPct').textContent   = pctStr;
+  document.getElementById('progressoFill').style.width  = pctStr;
+  document.getElementById('progressoBadge').textContent = pctStr;
+  document.getElementById('progressTop').style.width    = pctStr;
+}
+
+function renderSidebar() {
+  const c = document.getElementById('sbModulos');
+  c.innerHTML = '';
+  let n = 0;
+  MODULOS.forEach(mod => {
+    const div = document.createElement('div');
+    const mt  = document.createElement('div');
+    mt.className   = 'sb-mod-titulo';
+    mt.textContent = mod.mod;
     div.appendChild(mt);
-    mod.aulas.forEach((a,ai)=>{
-      const idx=n;
-      const done=(prog['done_'+CURSO_ID]||[]).includes(idx);
-      const li=document.createElement('div');
-      li.className='sb-aula'+(idx===aulaAtual?' active':'')+(done?' done':'');
-      li.innerHTML=`<span class="sb-aula-num">${String(idx+1).padStart(2,'0')}</span><span class="sb-aula-nome">${a.t}</span>${done?'<span class="sb-aula-check">✓</span>':''}`;
-      li.onclick=()=>irAula(idx);
+    mod.aulas.forEach((a) => {
+      const idx  = n;
+      const done = (prog['done_' + CURSO_ID] || []).includes(idx);
+      const li   = document.createElement('div');
+      li.className = 'sb-aula' + (idx === aulaAtual ? ' active' : '') + (done ? ' done' : '');
+      li.innerHTML =
+        `<span class="sb-aula-num">${String(idx+1).padStart(2,'0')}</span>` +
+        `<span class="sb-aula-nome">${a.t}</span>` +
+        (done ? '<span class="sb-aula-check">✓</span>' : '');
+      li.onclick = () => irAula(idx);
       div.appendChild(li);
       n++;
     });
     c.appendChild(div);
   });
-  const total=totalAulas();
-  const done=(prog['done_'+CURSO_ID]||[]).length;
-  const pct=Math.round((done/total)*100);
-  document.getElementById('progressoPct').textContent=pct+'%';
-  document.getElementById('progressoFill').style.width=pct+'%';
+  atualizarProgresso();
+  // Scroll sidebar to active
+  const active = c.querySelector('.sb-aula.active');
+  if (active) active.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
 }
 
-function renderAula(){
-  const a=getAula(aulaAtual);
-  if(!a) return;
-  document.getElementById('mhTitulo').textContent=a.t;
-  document.getElementById('aulaContent').innerHTML=a.c;
-  document.getElementById('btnAnt').disabled=aulaAtual===0;
-  document.getElementById('btnProx').disabled=aulaAtual>=totalAulas()-1;
-  window.scrollTo(0,0);
+function renderAula() {
+  const a = getAula(aulaAtual);
+  if (!a) return;
+  document.getElementById('mhTitulo').textContent  = a.t;
+  document.getElementById('aulaContent').innerHTML = a.c;
+  document.getElementById('btnAnt').disabled  = aulaAtual === 0;
+  document.getElementById('btnProx').disabled = aulaAtual >= totalAulas() - 1;
+  window.scrollTo(0, 0);
 }
 
-function irAula(idx){
-  aulaAtual=idx;
-  prog['aula_'+CURSO_ID]=idx;
+function irAula(idx) {
+  aulaAtual = idx;
+  prog['aula_' + CURSO_ID] = idx;
   salvar();
   renderSidebar();
   renderAula();
+  if (window.innerWidth <= 900) document.getElementById('sidebar').classList.remove('open');
 }
 
-function navAula(dir){
-  const n=aulaAtual+dir;
-  if(n>=0&&n<totalAulas()) irAula(n);
+function navAula(dir) {
+  const n = aulaAtual + dir;
+  if (n >= 0 && n < totalAulas()) irAula(n);
 }
 
-function concluirAula(){
-  if(!prog['done_'+CURSO_ID]) prog['done_'+CURSO_ID]=[];
-  if(!prog['done_'+CURSO_ID].includes(aulaAtual)) prog['done_'+CURSO_ID].push(aulaAtual);
+function concluirAula() {
+  if (!prog['done_' + CURSO_ID]) prog['done_' + CURSO_ID] = [];
+  if (!prog['done_' + CURSO_ID].includes(aulaAtual))
+    prog['done_' + CURSO_ID].push(aulaAtual);
   salvar();
   renderSidebar();
-  if(aulaAtual<totalAulas()-1) navAula(1);
-  else{alert('🎉 Parabéns! Você concluiu o curso Mentoria VIP 1:1!');}
+  if (aulaAtual < totalAulas() - 1) navAula(1);
+  else alert('🎉 Parabéns! Você concluiu a Mentoria VIP 1:1!');
 }
 
-function salvar(){
-  const total=totalAulas();
-  const done=(prog['done_'+CURSO_ID]||[]).length;
-  prog[CURSO_ID]=Math.round((done/total)*100);
-  localStorage.setItem('ct_progresso_'+(sessao?.email||''),JSON.stringify(prog));
+function salvar() {
+  const total = totalAulas();
+  const done  = (prog['done_' + CURSO_ID] || []).length;
+  prog[CURSO_ID] = Math.round((done / total) * 100);
+  localStorage.setItem('ct_progresso_' + (sessao?.email || ''), JSON.stringify(prog));
 }
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+// Fechar sidebar ao clicar no conteúdo (mobile)
+document.querySelector('.main').addEventListener('click', () => {
+  if (window.innerWidth <= 900)
+    document.getElementById('sidebar').classList.remove('open');
+});
 
 renderSidebar();
 renderAula();
