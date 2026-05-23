@@ -393,7 +393,11 @@ const EBOOKS_MAP = {
   },
 };
 
-const ebook    = EBOOKS_MAP[ebookId] || EBOOKS_MAP['ebook-trafego'];
+if (!EBOOKS_MAP[ebookId]) {
+  alert('Conteúdo não encontrado. Voltando ao painel.');
+  window.location.href = 'painel.html';
+}
+const ebook = EBOOKS_MAP[ebookId];
 document.title = ebook.titulo + ' — Carlos Tattoo BH';
 document.getElementById('readerTitle').textContent       = ebook.titulo;
 document.getElementById('sidebarEbookTitle').textContent = ebook.titulo;
@@ -456,55 +460,18 @@ function atualizarUI() {
   localStorage.setItem(progKey, JSON.stringify(p));
 }
 
-// ══════════════════════════════════════════════════════════════
-//  SCROLL PARA ÂNCORA — usa contentWindow.scrollTo() 
-//  Rola DIRETAMENTE o documento do iframe, sem depender de
-//  scrollIntoView que pode tentar rolar elementos ancestrais.
-// ══════════════════════════════════════════════════════════════
+// ── SCROLL PARA ÂNCORA via postMessage ──
+// postMessage funciona independente de protocolo (file://, http://, https://)
+// sem exigir acesso ao contentDocument (que falha em file://).
 function scrollParaAncora(ancora, tentativa) {
   if (!ancora) return;
   tentativa = tentativa || 1;
-
   const frame = document.getElementById('ebookFrame');
-  if (!frame) return;
-
-  try {
-    const doc    = frame.contentDocument || frame.contentWindow.document;
-    const target = doc.getElementById(ancora);
-
-    if (!target) {
-      if (tentativa <= 6) {
-        setTimeout(() => scrollParaAncora(ancora, tentativa + 1), 350);
-      } else {
-        console.warn('[Leitor] Âncora não encontrada:', ancora);
-      }
-      return;
-    }
-
-    // ── Calcular a posição do elemento dentro do documento do iframe ──
-    let elemTop = 0;
-    let el = target;
-    while (el && el !== doc.body && el !== doc.documentElement) {
-      elemTop += el.offsetTop;
-      el = el.offsetParent;
-    }
-
-    // ── Rolar o DOCUMENTO do iframe diretamente ──
-    // contentWindow.scrollTo é a forma mais confiável — não afeta o documento pai
-    frame.contentWindow.scrollTo({
-      top: Math.max(0, elemTop - 24),
-      behavior: 'smooth'
-    });
-
-    // ── Pulse visual na seção destino ──
-    target.style.transition = 'box-shadow .15s ease';
-    target.style.boxShadow  = '0 0 0 3px rgba(212,168,68,.35)';
-    setTimeout(() => { target.style.boxShadow = ''; }, 900);
-
-  } catch(e) {
-    console.warn('[Leitor] Erro scroll âncora tentativa', tentativa, e);
-    if (tentativa <= 3) setTimeout(() => scrollParaAncora(ancora, tentativa + 1), 400);
+  if (!frame || !frame.contentWindow) {
+    if (tentativa <= 10) setTimeout(() => scrollParaAncora(ancora, tentativa + 1), 200);
+    return;
   }
+  frame.contentWindow.postMessage({ type: 'ct_scrollTo', anchor: ancora }, '*');
 }
 
 // ── CRIAR IFRAME (uma vez) ──
@@ -539,28 +506,19 @@ function carregarCapitulo() {
   const wrap  = document.getElementById('ebookWrap');
 
   if (arquivoAtual !== cap.arquivo) {
-    // ── Arquivo diferente: carrega o HTML ──
+    // ── Arquivo diferente: carrega o HTML com âncora embutida na URL ──
+    // O browser faz o scroll nativo ao carregar a página via hash.
     arquivoAtual  = cap.arquivo;
     pendingAncora = cap.ancora;
 
     if (wrap) { wrap.classList.add('fading'); }
     setTimeout(() => {
-      frame.src = cap.arquivo;
-      if (wrap) wrap.classList.remove('fading');
+      frame.src = cap.arquivo + (cap.ancora ? '#' + cap.ancora : '');
     }, 150);
 
   } else {
-    // ── Mesmo arquivo: só scrolla para o módulo correto ──
-    // Fade rápido para feedback visual
-    if (wrap) {
-      wrap.classList.add('fading');
-      setTimeout(() => {
-        wrap.classList.remove('fading');
-        scrollParaAncora(cap.ancora);
-      }, 120);
-    } else {
-      scrollParaAncora(cap.ancora);
-    }
+    // Mesmo arquivo: navega via postMessage (funciona em file:// e http://)
+    scrollParaAncora(cap.ancora);
   }
 }
 
@@ -569,25 +527,17 @@ function frameCarregado() {
   const frame = document.getElementById('ebookFrame');
   if (!frame) return;
 
-  try {
-    const fd = frame.contentDocument || frame.contentWindow.document;
-    if (fd) {
-      // Proteções
-      fd.addEventListener('contextmenu', e => e.preventDefault());
-      fd.addEventListener('copy',        e => e.preventDefault());
-      // Ocultar botões de print (exceto contrato que tem os seus próprios)
-      fd.querySelectorAll('.btn-print, .print-btn').forEach(b => b.style.display = 'none');
-    }
-  } catch(e) {}
+  // Remove o fade assim que o conteúdo estiver pronto
+  const wrap = document.getElementById('ebookWrap');
+  if (wrap) wrap.classList.remove('fading');
 
-  // Scroll para o módulo correto após carregamento
+  // O hash embutido no src já fez o scroll inicial.
+  // Retry com postMessage após 700ms garante posição correta depois que
+  // o Google Fonts carrega e altera a altura do layout.
   if (pendingAncora) {
     const ancora = pendingAncora;
     pendingAncora = null;
-    // Tentativas escalonadas: garante que fontes e imagens já carregaram
-    scrollParaAncora(ancora, 1);
-    setTimeout(() => scrollParaAncora(ancora, 2), 400);
-    setTimeout(() => scrollParaAncora(ancora, 3), 900);
+    setTimeout(() => scrollParaAncora(ancora), 700);
   }
 }
 

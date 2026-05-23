@@ -81,6 +81,11 @@ body{
   letter-spacing:3px;color:rgba(212,168,68,.4);
   text-transform:uppercase;
   padding:14px 18px 6px;
+  transition:color .18s;
+}
+.sb-mod-titulo:hover{
+  color:rgba(212,168,68,.85);
+  background:rgba(212,168,68,.05);
 }
 .sb-aula{
   display:flex;align-items:center;gap:10px;
@@ -215,7 +220,7 @@ body{
 .aula-tag{
   font-family:'Cinzel',serif;
   font-size:10px;font-weight:600;
-  letter-spacing:4px;color:rgba(212,168,68,.65);
+  letter-spacing:4px;color:rgba(212,168,68,.9);
   text-transform:uppercase;margin-bottom:12px;
 }
 
@@ -273,7 +278,7 @@ p.ap{font-size:14px;color:var(--t2);line-height:1.9;margin-bottom:14px;}
   font-family:'Cinzel',serif;font-size:13px;
   color:#FFFFFF;font-weight:700;margin-bottom:7px;
 }
-.passo-body p{font-size:13px;color:var(--t2);line-height:1.8;margin:0;}
+.passo-body p{font-size:14px;color:var(--t1);line-height:1.8;margin:0;}
 .passo-body code{
   font-family:'Courier New',monospace;
   background:rgba(212,168,68,.1);padding:2px 7px;
@@ -603,11 +608,18 @@ function renderSidebar() {
   const c = document.getElementById('sbModulos');
   c.innerHTML = '';
   let n = 0;
-  MODULOS.forEach(mod => {
+  // Build a map: modIndex -> first aula global index
+  const modStart = [];
+  MODULOS.forEach(mod => { modStart.push(n); n += mod.aulas.length; });
+  n = 0;
+  MODULOS.forEach((mod, modIdx) => {
     const div = document.createElement('div');
     const mt  = document.createElement('div');
     mt.className   = 'sb-mod-titulo';
     mt.textContent = mod.mod;
+    mt.style.cursor = 'pointer';
+    mt.title = 'Ir para o primeiro módulo';
+    mt.onclick = () => irAula(modStart[modIdx]);
     div.appendChild(mt);
     mod.aulas.forEach((a) => {
       const idx  = n;
@@ -633,10 +645,16 @@ function renderSidebar() {
 function renderAula() {
   const a = getAula(aulaAtual);
   if (!a) return;
+  const total = totalAulas();
   document.getElementById('mhTitulo').textContent  = a.t;
   document.getElementById('aulaContent').innerHTML = a.c;
   document.getElementById('btnAnt').disabled  = aulaAtual === 0;
-  document.getElementById('btnProx').disabled = aulaAtual >= totalAulas() - 1;
+  document.getElementById('btnProx').disabled = aulaAtual >= total - 1;
+  // Fix hardcoded disabled states in bottom nav buttons inside content
+  const bAnt = document.querySelector('.btn-ant-b');
+  const bProx = document.querySelector('.btn-prox-b');
+  if (bAnt)  bAnt.disabled  = aulaAtual === 0;
+  if (bProx) bProx.disabled = aulaAtual >= total - 1;
   window.scrollTo(0, 0);
 }
 

@@ -82,6 +82,8 @@ strong{color:#111827;}
 </head>
 <body>
 
+
+
 <!-- MARCA D'ÁGUA -->
 <div class="wm" aria-hidden="true">
   <div class="wm-grid">
@@ -132,7 +134,7 @@ strong{color:#111827;}
 </div>
 
 <!-- BANNER DOWNLOAD CONTRATO -->
-<div class="no-print" style="background:linear-gradient(135deg,#0a0f1a 0%,#1E3A5F 100%);padding:52px 40px;text-align:center;position:relative;overflow:hidden;">
+<div class="no-print" style="background:linear-gradient(135deg,#0a0f1a 0%,#1E3A5F 100%);padding:52px 40px;text-align:center;color:#ffffff;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(201,151,58,.1) 0%,transparent 70%);pointer-events:none;"></div>
 
   <div style="position:relative;z-index:1;max-width:600px;margin:0 auto;">
@@ -466,5 +468,13 @@ strong{color:#111827;}
   </button>
 
 </div>
+<script>
+window.addEventListener("message", function(e) {
+  if (e.data && e.data.type === "ct_scrollTo") {
+    var el = document.getElementById(e.data.anchor);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+});
+</script>
 </body>
 </html>
