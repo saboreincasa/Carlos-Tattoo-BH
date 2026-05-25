@@ -682,10 +682,10 @@ table.tbl tr:hover td{background:#FDFCFA;}
 <script>
 // ══════════════════════════════════
 //  SUPABASE AUTH
-let supabase;
+let supabaseClient;
 try {
   const { createClient } = window.supabase;
-  supabase = createClient('https://ejapatxehmxondjqsgvv.supabase.co', 'sb_publishable_B6_fpfgSxN56V2HoRQJCPg_ELaiatZr');
+  supabaseClient = createClient('https://ejapatxehmxondjqsgvv.supabase.co', 'sb_publishable_B6_fpfgSxN56V2HoRQJCPg_ELaiatZr');
 } catch(e) {
   console.error('Supabase nao carregou:', e);
   document.addEventListener('DOMContentLoaded', () => {
@@ -705,7 +705,7 @@ let usuarioEditando = null;
 // Auto-login por sessão Supabase
 // Auto-login
 (async () => {
-  const { data: { session: adminSessao } } = await supabase.auth.getSession();
+  const { data: { session: adminSessao } } = await supabaseClient.auth.getSession();
 if (adminSessao && adminSessao.user.email === MASTER_EMAIL) {
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('adminPanel').style.display = 'block';
@@ -725,7 +725,7 @@ async function tentarLogin() {
     return;
   }
 
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password: senha });
+  const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: senha });
 
   if (error || !data.session) {
     erro.style.display = 'block';
@@ -744,7 +744,7 @@ async function tentarLogin() {
   renderAll();
 }
 
-async function sair() { await supabase.auth.signOut(); location.reload(); }
+async function sair() { await supabaseClient.auth.signOut(); location.reload(); }
 
 // Expor funções para o HTML
 window.tentarLogin = tentarLogin;
@@ -902,7 +902,7 @@ function aprovarDep(id) { const t=JSON.parse(localStorage.getItem('ctbh_deps_pen
 function rejeitarDep(id) { if(!confirm('Remover este depoimento?'))return; const t=JSON.parse(localStorage.getItem('ctbh_deps_pendentes')||'[]'); localStorage.setItem('ctbh_deps_pendentes',JSON.stringify(t.filter(d=>d.id!==id))); renderAll(); }
 
 function renderAll() { renderKPIs(); renderAniversariantes(); renderTabela(); renderDepoimentos(); }
-setInterval(async () => { const { data: { session } } = await supabase.auth.getSession(); if (session) renderAll(); }, 30000);
+setInterval(async () => { const { data: { session } } = await supabaseClient.auth.getSession(); if (session) renderAll(); }, 30000);
 
 // ── ABAS ──
 function mudaTab(tab) {
@@ -955,7 +955,7 @@ async function salvarUsuario() {
 
   if (usuarioEditando) {
     // Atualizar produtos e nome do membro existente
-    const { error } = await supabase.from('usuarios')
+    const { error } = await supabaseClient.from('usuarios')
       .update({ nome, produtos, plano })
       .eq('email', usuarioEditando);
     if (error) { alert('Erro ao atualizar: ' + error.message); return; }
@@ -969,7 +969,7 @@ async function salvarUsuario() {
   // (a API de criação requer service_role key, não disponível no browser)
   const senha = gerarSenha();
   // Inserir na tabela usuarios (a trigger vai criar quando o auth for feito)
-  const { error: dbError } = await supabase.from('usuarios').insert({ nome, email, produtos, plano });
+  const { error: dbError } = await supabaseClient.from('usuarios').insert({ nome, email, produtos, plano });
 
   _credenciais = {nome, email, senha};
   document.getElementById('senhaGerada').innerHTML = `
@@ -996,7 +996,7 @@ function enviarWppCredenciais() {
 }
 
 async function renderUsuarios() {
-  const { data: usuarios } = await supabase.from('usuarios').select('*').order('criado_em', {ascending: false});
+  const { data: usuarios } = await supabaseClient.from('usuarios').select('*').order('criado_em', {ascending: false});
   const lista_todos = usuarios || [];
   const filtro = document.getElementById('filtroStatus')?.value || '';
   const lista = filtro ? lista_todos.filter(u => filtro==='bloqueado'?u.bloqueado:!u.bloqueado) : lista_todos;
@@ -1026,7 +1026,7 @@ async function renderUsuarios() {
 async function resetarSenha(email) {
   const nova = gerarSenha();
   // Envia email de reset via Supabase
-  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+  const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
     redirectTo: window.location.origin + '/acesso.html'
   });
   if (!error) {
@@ -1042,14 +1042,14 @@ async function resetarSenha(email) {
 
 async function toggleBloqueio(email) {
   if (email === MASTER_EMAIL) { alert('Não é possível bloquear o administrador master.'); return; }
-  const { data: u } = await supabase.from('usuarios').select('bloqueado').eq('email', email).single();
+  const { data: u } = await supabaseClient.from('usuarios').select('bloqueado').eq('email', email).single();
   if (!u) return;
-  await supabase.from('usuarios').update({ bloqueado: !u.bloqueado }).eq('email', email);
+  await supabaseClient.from('usuarios').update({ bloqueado: !u.bloqueado }).eq('email', email);
   renderUsuarios().catch(console.error);
 }
 
 async function editarUsuario(email) {
-  const { data: u } = await supabase.from('usuarios').select('*').eq('email', email).single();
+  const { data: u } = await supabaseClient.from('usuarios').select('*').eq('email', email).single();
   if (!u) return;
   usuarioEditando = email;
   document.getElementById('modalTitulo').textContent = '✏️ Editar Membro — ' + (u.nome || email);
