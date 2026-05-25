@@ -454,9 +454,9 @@ table.tbl tr:hover td{background:#FDFCFA;}
       </div>
       <div class="lf">
         <label>Senha</label>
-        <input type="password" id="loginSenha" placeholder="••••••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')tentarLogin()">
+        <input type="password" id="loginSenha" placeholder="••••••••••••" autocomplete="current-password" id="loginSenhaInput">
       </div>
-      <button class="btn-entrar" onclick="tentarLogin()">Entrar no Painel →</button>
+      <button class="btn-entrar" id="btnEntrar">Entrar no Painel →</button>
       <div class="login-seg">Área protegida · Acesso monitorado</div>
     </div>
   </div>
@@ -475,7 +475,7 @@ table.tbl tr:hover td{background:#FDFCFA;}
       <span class="topbar-user">Olá, <span id="topbarNome">Carlos</span></span>
       <a href="index.html" class="btn-topbar">← Site</a>
       <a href="painel.html" class="btn-topbar">👥 Membros</a>
-      <button class="btn-topbar btn-topbar-exit" onclick="sair()">Sair</button>
+      <button class="btn-topbar btn-topbar-exit" id="btnSair">Sair</button>
     </div>
   </div>
 
@@ -729,6 +729,31 @@ async function tentarLogin() {
 }
 
 async function sair() { await supabase.auth.signOut(); location.reload(); }
+
+// Expor funções para o HTML
+window.tentarLogin = tentarLogin;
+window.sair = sair;
+window.abrirCriarUsuario = abrirCriarUsuario;
+window.fecharModalUsuario = fecharModalUsuario;
+window.salvarUsuario = salvarUsuario;
+window.copiarCredenciais = copiarCredenciais;
+window.enviarWppCredenciais = enviarWppCredenciais;
+window.renderUsuarios = renderUsuarios;
+window.resetarSenha = resetarSenha;
+window.toggleBloqueio = toggleBloqueio;
+window.editarUsuario = editarUsuario;
+window.selecionarTodos = selecionarTodos;
+window.deselecionarTodos = deselecionarTodos;
+
+// Event listeners para login
+document.addEventListener('DOMContentLoaded', () => {
+  const btnEntrar = document.getElementById('btnEntrar');
+  if (btnEntrar) btnEntrar.addEventListener('click', tentarLogin);
+  const senhaInput = document.getElementById('loginSenhaInput');
+  if (senhaInput) senhaInput.addEventListener('keydown', (e) => { if(e.key==='Enter') tentarLogin(); });
+  const btnSairEl = document.getElementById('btnSair');
+  if (btnSairEl) btnSairEl.addEventListener('click', sair);
+});
 function getClientes() { return JSON.parse(localStorage.getItem('ctbh_leads') || '[]'); }
 function fmtD(s) { if (!s) return '-'; try { return new Date(s).toLocaleDateString('pt-BR'); } catch(e) { return s; } }
 function fmtR(v) { return 'R$' + parseFloat(v||0).toLocaleString('pt-BR', {minimumFractionDigits:0}); }
