@@ -13003,7 +13003,7 @@ window.addEventListener('scroll', function(){
     if(oldEl)   oldEl.style.display = 'none';
     if(btnEl){
       btnEl.textContent = `BUY — ${fmt(val)} ${cur}`;
-      btnEl.onclick = ()=>{ window.location.href='pagamento.html?prod='+p.slug; };
+      btnEl.onclick = ()=>{ window.location.href='pagamento.html?prod='+p.slug+'&country='+country; };
     }
   }
 
@@ -13031,7 +13031,7 @@ window.addEventListener('scroll', function(){
   if(ctRen) ctRen.textContent = `Renewal: ${fmt(isEU?299*0.17:299*0.18)}/year`;
   if(ctBtn){
     ctBtn.textContent = `BUY — ${sym}${ctVal}/YEAR`;
-    ctBtn.onclick = ()=>{ window.location.href='pagamento.html?prod=central-tattoo'; };
+    ctBtn.onclick = ()=>{ window.location.href='pagamento.html?prod=central-tattoo&country='+country; };
   }
 
   /* ── Mentoria VIP — só para lusófonos ── */
@@ -13062,7 +13062,7 @@ window.addEventListener('scroll', function(){
   const exitBtn = document.querySelector('.btn-exit-sim');
   if(exitBtn){
     exitBtn.textContent = `GET IT — ${fmt(PRODS.trafego[key])} ${cur}`;
-    exitBtn.onclick = ()=>{ window.location.href='pagamento.html?prod=ebook-trafego'; };
+    exitBtn.onclick = ()=>{ window.location.href='pagamento.html?prod=ebook-trafego&country='+country; };
   }
 
   /* ── Guarda dados globais para uso em outras funções ── */
