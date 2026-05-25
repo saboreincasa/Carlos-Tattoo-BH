@@ -678,25 +678,30 @@ table.tbl tr:hover td{background:#FDFCFA;}
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 // ══════════════════════════════════
 //  SUPABASE AUTH
-// ══════════════════════════════════
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+const { createClient } = window.supabase;
 const supabase = createClient('https://ejapatxehmxondjqsgvv.supabase.co', 'sb_publishable_B6_fpfgSxN56V2HoRQJCPg_ELaiatZr');
+// ══════════════════════════════════
+
 
 const MASTER_EMAIL = 'carlostattoobh@gmail.com';
 let _credenciais = {};
 let usuarioEditando = null;
 
 // Auto-login por sessão Supabase
-const { data: { session: adminSessao } } = await supabase.auth.getSession();
+// Auto-login
+(async () => {
+  const { data: { session: adminSessao } } = await supabase.auth.getSession();
 if (adminSessao && adminSessao.user.email === MASTER_EMAIL) {
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('adminPanel').style.display = 'block';
   document.getElementById('topbarNome').textContent = 'Carlos';
   renderAll();
-}
+  }
+})();
 
 async function tentarLogin() {
   const email = document.getElementById('loginEmail').value.trim().toLowerCase();
