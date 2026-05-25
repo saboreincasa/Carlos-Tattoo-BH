@@ -678,19 +678,23 @@ table.tbl tr:hover td{background:#FDFCFA;}
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script>
 // ══════════════════════════════════
 //  SUPABASE AUTH
-if (!window.supabase || !window.supabase.createClient) {
-  console.error('Supabase CDN não carregou. Verifique sua conexão.');
+let supabase;
+try {
+  const { createClient } = window.supabase;
+  supabase = createClient('https://ejapatxehmxondjqsgvv.supabase.co', 'sb_publishable_B6_fpfgSxN56V2HoRQJCPg_ELaiatZr');
+} catch(e) {
+  console.error('Supabase nao carregou:', e);
   document.addEventListener('DOMContentLoaded', () => {
     const erro = document.getElementById('loginErro');
-    if (erro) { erro.style.display='block'; erro.textContent='Erro ao carregar autenticação. Verifique sua conexão e recarregue a página.'; }
+    if (erro) { erro.style.display='block'; erro.textContent='Erro ao carregar autenticacao. Verifique sua conexao e recarregue a pagina.'; }
+    const btn = document.getElementById('btnEntrar');
+    if (btn) btn.disabled = true;
   });
 }
-const { createClient } = window.supabase;
-const supabase = createClient('https://ejapatxehmxondjqsgvv.supabase.co', 'sb_publishable_B6_fpfgSxN56V2HoRQJCPg_ELaiatZr');
 // ══════════════════════════════════
 
 
