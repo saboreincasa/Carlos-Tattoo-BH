@@ -454,7 +454,7 @@ table.tbl tr:hover td{background:#FDFCFA;}
       </div>
       <div class="lf">
         <label>Senha</label>
-        <input type="password" id="loginSenha" placeholder="••••••••••••" autocomplete="current-password" id="loginSenhaInput">
+        <input type="password" id="loginSenha" placeholder="••••••••••••" autocomplete="current-password">
       </div>
       <button class="btn-entrar" id="btnEntrar">Entrar no Painel →</button>
       <div class="login-seg">Área protegida · Acesso monitorado</div>
@@ -682,6 +682,13 @@ table.tbl tr:hover td{background:#FDFCFA;}
 <script>
 // ══════════════════════════════════
 //  SUPABASE AUTH
+if (!window.supabase || !window.supabase.createClient) {
+  console.error('Supabase CDN não carregou. Verifique sua conexão.');
+  document.addEventListener('DOMContentLoaded', () => {
+    const erro = document.getElementById('loginErro');
+    if (erro) { erro.style.display='block'; erro.textContent='Erro ao carregar autenticação. Verifique sua conexão e recarregue a página.'; }
+  });
+}
 const { createClient } = window.supabase;
 const supabase = createClient('https://ejapatxehmxondjqsgvv.supabase.co', 'sb_publishable_B6_fpfgSxN56V2HoRQJCPg_ELaiatZr');
 // ══════════════════════════════════
@@ -754,8 +761,10 @@ window.deselecionarTodos = deselecionarTodos;
 document.addEventListener('DOMContentLoaded', () => {
   const btnEntrar = document.getElementById('btnEntrar');
   if (btnEntrar) btnEntrar.addEventListener('click', tentarLogin);
-  const senhaInput = document.getElementById('loginSenhaInput');
+  const senhaInput = document.getElementById('loginSenha');
   if (senhaInput) senhaInput.addEventListener('keydown', (e) => { if(e.key==='Enter') tentarLogin(); });
+  const emailInput = document.getElementById('loginEmail');
+  if (emailInput) emailInput.addEventListener('keydown', (e) => { if(e.key==='Enter') tentarLogin(); });
   const btnSairEl = document.getElementById('btnSair');
   if (btnSairEl) btnSairEl.addEventListener('click', sair);
 });
