@@ -185,7 +185,14 @@ body::before{content:'';position:absolute;inset:0;background:radial-gradient(ell
   </div>
 </div>
 
-<script>
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+// ── SUPABASE ──
+const SUPABASE_URL = 'https://ejapatxehmxondjqsgvv.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_B6_fpfgSxN56V2HoRQJCPg_ELaiatZr';
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
 // ── PARTÍCULAS ──
 (()=>{
   const c=document.getElementById('pts');
@@ -197,131 +204,106 @@ body::before{content:'';position:absolute;inset:0;background:radial-gradient(ell
   }
 })();
 
-function togglePw(id,btn){
-  const f=document.getElementById(id);
-  f.type=f.type==='password'?'text':'password';
-  btn.textContent=f.type==='password'?'👁':'🙈';
-}
+// ── REDIRECIONAR SE JÁ LOGADO ──
+const { data: { session: sessaoAtiva } } = await supabase.auth.getSession();
+if (sessaoAtiva) window.location.href = 'painel.html';
 
-// ── CREDENCIAIS MASTER ──
-const MASTER_EMAIL='carlostattoobh@gmail.com';
-const MASTER_SENHA='CarlosMaster@2026';
-const TODOS_PRODUTOS=['central-tattoo','ebook-trafego','ebook-instagram','ebook-posicionamento','ebook-templates','ebook-contrato','curso-instagram','curso-trafego','curso-posicionamento','curso-mentoria'];
+// ── TOGGLE SENHA ──
+window.togglePw = function(id, btn) {
+  const f = document.getElementById(id);
+  f.type = f.type === 'password' ? 'text' : 'password';
+  btn.textContent = f.type === 'password' ? '👁' : '🙈';
+};
 
-// ── SISTEMA DE USUÁRIOS (localStorage) ──
-function getUsuarios(){return JSON.parse(localStorage.getItem('ct_usuarios')||'[]');}
-function saveUsuarios(u){localStorage.setItem('ct_usuarios',JSON.stringify(u));}
+// ── FAZER LOGIN ──
+window.fazerLogin = async function() {
+  const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+  const senha = document.getElementById('loginSenha').value;
+  const err = document.getElementById('loginError');
+  const btn = document.querySelector('.btn-login');
 
-function garantirMaster(){
-  const usuarios=getUsuarios();
-  let u=usuarios.find(x=>x.email===MASTER_EMAIL);
-  if(!u){usuarios.push({nome:'Carlos Henrique',email:MASTER_EMAIL,senha:btoa(MASTER_SENHA),produtos:TODOS_PRODUTOS,criado:new Date().toISOString(),firstLogin:false,bloqueado:false,tentativas:0,master:true});}
-  else{u.produtos=[...new Set([...TODOS_PRODUTOS,...(u.produtos||[])])];u.master=true;u.firstLogin=false;}
-  saveUsuarios(usuarios);
-  return getUsuarios().find(x=>x.email===MASTER_EMAIL);
-}
+  if (!email || !senha) { err.style.display='block'; err.textContent='Preencha email e senha.'; return; }
 
-function fazerLogin(){
-  const email=document.getElementById('loginEmail').value.trim().toLowerCase();
-  const senha=document.getElementById('loginSenha').value;
-  const err=document.getElementById('loginError');
-  if(!email||!senha){err.style.display='block';err.textContent='Preencha email e senha.';return;}
-  // ── LOGIN MASTER ──
-  if(email===MASTER_EMAIL.toLowerCase()&&senha===MASTER_SENHA){
-    const master=garantirMaster();
-    master.fingerprint=getFingerprint();master.lastLogin=new Date().toISOString();master.sessao=Math.random().toString(36).substring(2)+Date.now();
-    saveUsuarios(getUsuarios());
-    sessionStorage.setItem('ct_sessao',JSON.stringify({email:master.email,sessao:master.sessao,nome:master.nome,produtos:master.produtos}));
-    document.getElementById('telaLogin').style.display='none';
-    document.getElementById('telaSuccesso').style.display='block';
-    setTimeout(()=>{window.location.href='painel.html';},1500);return;
-  }
-  const usuarios=getUsuarios();
-  const user=usuarios.find(u=>u.email.toLowerCase()===email);
-  if(!user){err.style.display='block';err.textContent='Email não encontrado. Contate o suporte.';return;}
-  if(user.bloqueado){err.style.display='block';err.textContent='Conta bloqueada. Contate o Carlos pelo WhatsApp.';return;}
+  err.style.display = 'none';
+  btn.textContent = 'ENTRANDO...';
+  btn.disabled = true;
 
-  // Verificar tentativas erradas
-  user.tentativas=user.tentativas||0;
-  if(user.senha!==btoa(senha)){
-    user.tentativas++;
-    if(user.tentativas>=3){user.bloqueado=true;user.bloqueado_ate=Date.now()+30*60*1000;saveUsuarios(usuarios);err.style.display='block';err.textContent='Conta bloqueada por 30 minutos após 3 tentativas. Contate o Carlos.';return;}
-    saveUsuarios(usuarios);
-    err.style.display='block';
-    err.textContent=`Senha incorreta. ${3-user.tentativas} tentativa(s) restante(s).`;
-    return;
-  }
-  user.tentativas=0;
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password: senha });
 
-  // Verificar dispositivo (fingerprint básico)
-  const fp=getFingerprint();
-  if(user.firstLogin){
-    // Primeiro acesso — pedir troca de senha
-    localStorage.setItem('ct_temp_user',JSON.stringify({email,fp}));
-    document.getElementById('telaLogin').style.display='none';
-    document.getElementById('telaTrocaSenha').style.display='block';
+  if (error) {
+    err.style.display = 'block';
+    err.textContent = 'Email ou senha incorretos. Tente novamente.';
+    btn.textContent = 'ENTRAR NA ÁREA EXCLUSIVA →';
+    btn.disabled = false;
     return;
   }
 
-  // Verificar se dispositivo mudou
-  if(user.fingerprint && user.fingerprint!==fp){
-    // Dispositivo diferente — alerta mas permite (desconecta anterior)
-    user.alerta_dispositivo=(user.alerta_dispositivo||0)+1;
+  // Verificar se conta está bloqueada
+  const { data: userData } = await supabase
+    .from('usuarios')
+    .select('bloqueado')
+    .eq('id', data.user.id)
+    .single();
+
+  if (userData?.bloqueado) {
+    await supabase.auth.signOut();
+    err.style.display = 'block';
+    err.textContent = 'Conta bloqueada. Contate o Carlos pelo WhatsApp.';
+    btn.textContent = 'ENTRAR NA ÁREA EXCLUSIVA →';
+    btn.disabled = false;
+    return;
   }
 
-  // Login OK
-  user.fingerprint=fp;
-  user.lastLogin=new Date().toISOString();
-  user.sessao=Math.random().toString(36).substring(2)+Date.now();
-  saveUsuarios(usuarios);
-  // Salvar sessão
-  sessionStorage.setItem('ct_sessao',JSON.stringify({email:user.email,sessao:user.sessao,nome:user.nome,produtos:user.produtos||[]}));
-  document.getElementById('telaLogin').style.display='none';
-  document.getElementById('telaSuccesso').style.display='block';
-  setTimeout(()=>{window.location.href='painel.html';},1500);
+  document.getElementById('telaLogin').style.display = 'none';
+  document.getElementById('telaSuccesso').style.display = 'block';
+  setTimeout(() => { window.location.href = 'painel.html'; }, 1500);
+};
+
+// ── TROCAR SENHA (primeiro acesso via link de reset) ──
+window.trocarSenha = async function() {
+  const nova = document.getElementById('novaSenha').value;
+  const conf = document.getElementById('confirmarSenha').value;
+  const err = document.getElementById('senhaError');
+
+  if (nova.length < 8) { err.style.display='block'; err.textContent='Senha deve ter pelo menos 8 caracteres.'; return; }
+  if (nova !== conf) { err.style.display='block'; err.textContent='As senhas não coincidem.'; return; }
+
+  const { error } = await supabase.auth.updateUser({ password: nova });
+  if (error) { err.style.display='block'; err.textContent='Erro ao atualizar senha. Tente novamente.'; return; }
+
+  document.getElementById('telaTrocaSenha').style.display = 'none';
+  document.getElementById('telaSuccesso').style.display = 'block';
+  setTimeout(() => { window.location.href = 'painel.html'; }, 1500);
+};
+
+// ── RECUPERAÇÃO DE SENHA ──
+window.pedirRecuperacao = async function() {
+  const email = document.getElementById('recEmail').value.trim();
+  if (!email) { alert('Informe seu email.'); return; }
+
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: window.location.origin + '/acesso.html'
+  });
+
+  if (!error) {
+    alert('Email de recuperação enviado! Verifique sua caixa de entrada. 📧');
+  } else {
+    // Fallback WhatsApp
+    const msg = `Olá Carlos! Preciso recuperar meu acesso à área de membros. Meu email é: ${email}`;
+    window.open(`https://wa.me/5531983391576?text=${encodeURIComponent(msg)}`, '_blank');
+    alert('Mensagem enviada! Carlos enviará sua nova senha em breve. 😊');
+  }
+};
+
+// ── VERIFICAR SE É LINK DE RESET DE SENHA ──
+const hash = window.location.hash;
+if (hash.includes('type=recovery')) {
+  document.getElementById('telaLogin').style.display = 'none';
+  document.getElementById('telaTrocaSenha').style.display = 'block';
 }
 
-function trocarSenha(){
-  const nova=document.getElementById('novaSenha').value;
-  const conf=document.getElementById('confirmarSenha').value;
-  const err=document.getElementById('senhaError');
-  if(nova.length<8){err.style.display='block';err.textContent='Senha deve ter pelo menos 8 caracteres.';return;}
-  if(nova!==conf){err.style.display='block';err.textContent='As senhas não coincidem.';return;}
-  const tmp=JSON.parse(localStorage.getItem('ct_temp_user')||'{}');
-  const usuarios=getUsuarios();
-  const user=usuarios.find(u=>u.email.toLowerCase()===tmp.email.toLowerCase());
-  if(!user){err.style.display='block';err.textContent='Erro ao atualizar senha.';return;}
-  user.senha=btoa(nova);
-  user.firstLogin=false;
-  user.fingerprint=tmp.fp;
-  user.lastLogin=new Date().toISOString();
-  user.sessao=Math.random().toString(36).substring(2)+Date.now();
-  saveUsuarios(usuarios);
-  sessionStorage.setItem('ct_sessao',JSON.stringify({email:user.email,sessao:user.sessao,nome:user.nome,produtos:user.produtos||[]}));
-  localStorage.removeItem('ct_temp_user');
-  document.getElementById('telaTrocaSenha').style.display='none';
-  document.getElementById('telaSuccesso').style.display='block';
-  setTimeout(()=>{window.location.href='painel.html';},1500);
-}
-
-function pedirRecuperacao(){
-  const email=document.getElementById('recEmail').value.trim();
-  if(!email){alert('Informe seu email.');return;}
-  const msg=`Olá Carlos! Preciso recuperar meu acesso à área de membros. Meu email é: ${email}`;
-  window.open(`https://wa.me/5531983391576?text=${encodeURIComponent(msg)}`,'_blank');
-  alert('Mensagem enviada! Carlos enviará sua nova senha em breve. 😊');
-}
-
-function mostrarLogin(){document.getElementById('telaRecuperacao').style.display='none';document.getElementById('telaLogin').style.display='block';}
-function mostrarRecuperacao(){document.getElementById('telaLogin').style.display='none';document.getElementById('telaRecuperacao').style.display='block';}
-
-function getFingerprint(){
-  return btoa([navigator.userAgent,screen.width,screen.height,navigator.language,Intl.DateTimeFormat().resolvedOptions().timeZone].join('|')).substring(0,32);
-}
-
-// Redirecionar se já logado
-const sessao=sessionStorage.getItem('ct_sessao');
-if(sessao){try{const s=JSON.parse(sessao);if(s.email)window.location.href='painel.html';}catch(e){}}
+window.mostrarLogin = function() { document.getElementById('telaRecuperacao').style.display='none'; document.getElementById('telaLogin').style.display='block'; };
+window.mostrarRecuperacao = function() { document.getElementById('telaLogin').style.display='none'; document.getElementById('telaRecuperacao').style.display='block'; };
 </script>
 </body>
 </html>

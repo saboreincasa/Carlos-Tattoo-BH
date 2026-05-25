@@ -649,6 +649,10 @@ table.tbl tr:hover td{background:#FDFCFA;}
     <div class="mf"><label>Email (login) *</label><input type="email" id="muEmail" placeholder="email@exemplo.com"></div>
     <div class="mf">
       <label>Produtos liberados</label>
+      <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
+        <button type="button" class="btn btn-sm" style="background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;border:none;padding:6px 12px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;" onclick="selecionarTodos()">⭐ Plano Anual — Tudo</button>
+        <button type="button" class="btn btn-out btn-sm" onclick="deselecionarTodos()">✕ Limpar</button>
+      </div>
       <div class="prods-grid">
         <label class="prod-chk"><input type="checkbox" value="central-tattoo"> ⚙️ Central Tattoo Pro</label>
         <label class="prod-chk"><input type="checkbox" value="ebook-trafego"> 📊 Ebook Tráfego</label>
@@ -676,65 +680,55 @@ table.tbl tr:hover td{background:#FDFCFA;}
 
 <script>
 // ══════════════════════════════════
-//  CREDENCIAIS MASTER
+//  SUPABASE AUTH
 // ══════════════════════════════════
-const MASTER_EMAIL = 'carlostattoobh@gmail.com';
-const MASTER_SENHA = 'CarlosMaster@2026';
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+const supabase = createClient('https://ejapatxehmxondjqsgvv.supabase.co', 'sb_publishable_B6_fpfgSxN56V2HoRQJCPg_ELaiatZr');
 
-let tentativas = 0;
+const MASTER_EMAIL = 'carlostattoobh@gmail.com';
 let _credenciais = {};
 let usuarioEditando = null;
 
-// Auto-registrar Carlos como membro master com todos os produtos
-function garantirMembroMaster() {
-  const usuarios = JSON.parse(localStorage.getItem('ct_usuarios') || '[]');
-  const todos_prod = ['central-tattoo','ebook-trafego','ebook-instagram','ebook-posicionamento','ebook-templates','ebook-contrato','curso-instagram','curso-trafego','curso-posicionamento','curso-mentoria'];
-  let u = usuarios.find(x => x.email === MASTER_EMAIL);
-  if (!u) {
-    usuarios.push({nome:'Carlos Henrique',email:MASTER_EMAIL,senha:btoa(MASTER_SENHA),produtos:todos_prod,criado:new Date().toISOString(),firstLogin:false,bloqueado:false,tentativas:0,master:true});
-  } else {
-    u.produtos = [...new Set([...todos_prod,...(u.produtos||[])])];
-    u.master = true;
-  }
-  localStorage.setItem('ct_usuarios', JSON.stringify(usuarios));
-}
-
-// Auto-login por sessão
-if (sessionStorage.getItem('ctbh_admin') === 'ok') {
+// Auto-login por sessão Supabase
+const { data: { session: adminSessao } } = await supabase.auth.getSession();
+if (adminSessao && adminSessao.user.email === MASTER_EMAIL) {
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('adminPanel').style.display = 'block';
   document.getElementById('topbarNome').textContent = 'Carlos';
-  garantirMembroMaster();
   renderAll();
 }
 
-function tentarLogin() {
+async function tentarLogin() {
   const email = document.getElementById('loginEmail').value.trim().toLowerCase();
   const senha = document.getElementById('loginSenha').value;
   const erro = document.getElementById('loginErro');
-  if (tentativas >= 5) { erro.style.display='block'; erro.textContent='Muitas tentativas. Recarregue a página.'; return; }
-  if (email === MASTER_EMAIL.toLowerCase() && senha === MASTER_SENHA) {
-    sessionStorage.setItem('ctbh_admin', 'ok');
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('adminPanel').style.display = 'block';
-    document.getElementById('topbarNome').textContent = 'Carlos';
-    garantirMembroMaster();
-    renderAll();
-  } else {
-    tentativas++;
+
+  if (email !== MASTER_EMAIL) {
     erro.style.display = 'block';
-    erro.textContent = `Email ou senha incorretos. ${5-tentativas} tentativa(s) restante(s).`;
-    if (tentativas >= 5) { document.getElementById('loginSenha').disabled = true; documento.getElementById('loginEmail').disabled = true; }
+    erro.textContent = 'Acesso restrito ao administrador.';
+    return;
+  }
+
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password: senha });
+
+  if (error || !data.session) {
+    erro.style.display = 'block';
+    erro.textContent = 'Email ou senha incorretos.';
     document.getElementById('loginSenha').value = '';
-    // shake
     const c = document.querySelector('.login-card');
     c.style.transform = 'translateX(-8px)';
     setTimeout(() => c.style.transform = 'translateX(8px)', 100);
     setTimeout(() => c.style.transform = '', 220);
+    return;
   }
+
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('adminPanel').style.display = 'block';
+  document.getElementById('topbarNome').textContent = 'Carlos';
+  renderAll();
 }
 
-function sair() { sessionStorage.removeItem('ctbh_admin'); location.reload(); }
+async function sair() { await supabase.auth.signOut(); location.reload(); }
 function getClientes() { return JSON.parse(localStorage.getItem('ctbh_leads') || '[]'); }
 function fmtD(s) { if (!s) return '-'; try { return new Date(s).toLocaleDateString('pt-BR'); } catch(e) { return s; } }
 function fmtR(v) { return 'R$' + parseFloat(v||0).toLocaleString('pt-BR', {minimumFractionDigits:0}); }
@@ -865,7 +859,7 @@ function aprovarDep(id) { const t=JSON.parse(localStorage.getItem('ctbh_deps_pen
 function rejeitarDep(id) { if(!confirm('Remover este depoimento?'))return; const t=JSON.parse(localStorage.getItem('ctbh_deps_pendentes')||'[]'); localStorage.setItem('ctbh_deps_pendentes',JSON.stringify(t.filter(d=>d.id!==id))); renderAll(); }
 
 function renderAll() { renderKPIs(); renderAniversariantes(); renderTabela(); renderDepoimentos(); }
-setInterval(() => { if (sessionStorage.getItem('ctbh_admin')==='ok') renderAll(); }, 30000);
+setInterval(async () => { const { data: { session } } = await supabase.auth.getSession(); if (session) renderAll(); }, 30000);
 
 // ── ABAS ──
 function mudaTab(tab) {
@@ -875,7 +869,7 @@ function mudaTab(tab) {
     if (el) el.style.display = t===tab ? 'block' : 'none';
     if (btn) btn.classList.toggle('active', t===tab);
   });
-  if (tab==='usuarios') renderUsuarios();
+  if (tab==='usuarios') renderUsuarios().catch(console.error);
   if (tab==='cursos') renderLeadsCursos();
   if (tab==='especiais') renderEspeciais();
   if (tab==='acessos') carregarAcessos();
@@ -893,34 +887,59 @@ function abrirCriarUsuario() {
   document.getElementById('btnSalvarU').textContent = 'Criar Membro e Gerar Senha →';
   document.getElementById('modalUsuario').classList.add('open');
 }
-function fecharModalUsuario() { document.getElementById('modalUsuario').classList.remove('open'); }
+function selecionarTodos() {
+  document.querySelectorAll('.prods-grid input').forEach(c => c.checked = true);
+}
+function deselecionarTodos() {
+  document.querySelectorAll('.prods-grid input').forEach(c => c.checked = false);
+}
+function fecharModalUsuario() {
+  document.getElementById('modalUsuario').classList.remove('open');
+  document.getElementById('muEmail').disabled = false;
+}
 
 function gerarSenha() {
   const c = 'ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
   let s = 'Tattoo@'; for (let i=0;i<6;i++) s+=c[Math.floor(Math.random()*c.length)]; return s;
 }
 
-function salvarUsuario() {
+async function salvarUsuario() {
   const nome = document.getElementById('muNome').value.trim();
   const email = document.getElementById('muEmail').value.trim().toLowerCase();
   if (!nome || !email) { alert('Preencha nome e email.'); return; }
   const produtos = [...document.querySelectorAll('.prods-grid input:checked')].map(c => c.value);
-  const usuarios = JSON.parse(localStorage.getItem('ct_usuarios') || '[]');
+  const plano = produtos[0] || null;
+
   if (usuarioEditando) {
-    const u = usuarios.find(x => x.email === usuarioEditando);
-    if (u) { u.nome = nome; u.produtos = produtos; }
-    localStorage.setItem('ct_usuarios', JSON.stringify(usuarios));
-    fecharModalUsuario(); renderUsuarios(); alert('Membro atualizado com sucesso! ✅'); return;
+    // Atualizar produtos e nome do membro existente
+    const { error } = await supabase.from('usuarios')
+      .update({ nome, produtos, plano })
+      .eq('email', usuarioEditando);
+    if (error) { alert('Erro ao atualizar: ' + error.message); return; }
+    fecharModalUsuario();
+    renderUsuarios().catch(console.error);
+    alert(`✅ Membro atualizado!\n\n${produtos.length} produto(s) liberado(s) para ${nome}.`);
+    return;
   }
-  if (usuarios.find(u => u.email === email)) { alert('Este email já está cadastrado.'); return; }
+
+  // Novo membro — criar no Supabase Auth via Dashboard
+  // (a API de criação requer service_role key, não disponível no browser)
   const senha = gerarSenha();
-  usuarios.push({nome, email, senha: btoa(senha), produtos, criado: new Date().toISOString(), firstLogin: true, bloqueado: false, tentativas: 0});
-  localStorage.setItem('ct_usuarios', JSON.stringify(usuarios));
+  // Inserir na tabela usuarios (a trigger vai criar quando o auth for feito)
+  const { error: dbError } = await supabase.from('usuarios').insert({ nome, email, produtos, plano });
+
   _credenciais = {nome, email, senha};
-  document.getElementById('senhaGerada').innerHTML = `<strong>Login:</strong> ${email}<br><strong>Senha:</strong> ${senha}<br><small style="color:var(--tx3)">No primeiro acesso o membro criará uma senha pessoal.</small>`;
+  document.getElementById('senhaGerada').innerHTML = `
+    <strong>Login:</strong> ${email}<br>
+    <strong>Senha sugerida:</strong> ${senha}<br>
+    <div style="margin-top:8px;padding:8px;background:rgba(201,168,76,.1);border-radius:6px;font-size:11px;color:var(--tx2);">
+      ⚠️ Após enviar essas credenciais, crie o usuário também em:<br>
+      <strong>Supabase → Authentication → Users → Add user</strong><br>
+      usando o mesmo email e senha acima.
+    </div>`;
   document.getElementById('senhaBox').style.display = 'block';
   document.getElementById('btnSalvarU').textContent = '✓ Membro Criado!';
-  renderUsuarios();
+  renderUsuarios().catch(console.error);
 }
 
 function copiarCredenciais() {
@@ -933,10 +952,11 @@ function enviarWppCredenciais() {
   window.open(`https://wa.me/5531983391576?text=${encodeURIComponent(txt)}`, '_blank');
 }
 
-function renderUsuarios() {
-  const usuarios = JSON.parse(localStorage.getItem('ct_usuarios') || '[]');
+async function renderUsuarios() {
+  const { data: usuarios } = await supabase.from('usuarios').select('*').order('criado_em', {ascending: false});
+  const lista_todos = usuarios || [];
   const filtro = document.getElementById('filtroStatus')?.value || '';
-  const lista = filtro ? usuarios.filter(u => filtro==='bloqueado'?u.bloqueado:!u.bloqueado) : usuarios;
+  const lista = filtro ? lista_todos.filter(u => filtro==='bloqueado'?u.bloqueado:!u.bloqueado) : lista_todos;
   const el = document.getElementById('tabelaUsuarios');
   if (!el) return;
   if (!lista.length) { el.innerHTML = '<div class="tbl-empty">Nenhum membro ainda. Clique em "+ Criar Membro" para começar.</div>'; return; }
@@ -949,7 +969,7 @@ function renderUsuarios() {
         <td style="font-size:12px;color:var(--tx2);">${u.email}</td>
         <td><span class="bdg bdg-gray">${prods} produto${prods!==1?'s':''}</span></td>
         <td>${u.bloqueado?`<span class="bdg bdg-red">Bloqueado</span>`:`<span class="bdg bdg-grn">Ativo</span>`}</td>
-        <td style="font-size:12px;color:var(--tx3);">${u.lastLogin?new Date(u.lastLogin).toLocaleDateString('pt-BR'):'Nunca'}</td>
+        <td style="font-size:12px;color:var(--tx3);">${u.last_login?new Date(u.last_login).toLocaleDateString('pt-BR'):(u.lastLogin?new Date(u.lastLogin).toLocaleDateString('pt-BR'):'Nunca')}</td>
         <td style="display:flex;gap:5px;flex-wrap:wrap;">
           <button class="btn btn-out btn-sm" onclick="resetarSenha('${u.email}')">🔑 Resetar</button>
           <button class="btn ${u.bloqueado?'btn-grn':'btn-danger'} btn-sm" onclick="toggleBloqueio('${u.email}')">${u.bloqueado?'✓ Liberar':'⛔ Bloquear'}</button>
@@ -960,40 +980,46 @@ function renderUsuarios() {
   }</tbody></table>`;
 }
 
-function resetarSenha(email) {
-  const u2 = JSON.parse(localStorage.getItem('ct_usuarios') || '[]');
-  const u = u2.find(x => x.email === email);
-  if (!u) return;
+async function resetarSenha(email) {
   const nova = gerarSenha();
-  u.senha = btoa(nova); u.firstLogin = true; u.tentativas = 0; u.bloqueado = false;
-  localStorage.setItem('ct_usuarios', JSON.stringify(u2));
-  _credenciais = {nome: u.nome, email, senha: nova};
-  if (confirm(`Nova senha para ${u.nome||email}:\n\n${nova}\n\nCopiar para área de transferência?`))
-    navigator.clipboard.writeText(`Login: ${email} | Senha: ${nova}`).then(() => alert('Copiado!'));
-  renderUsuarios();
+  // Envia email de reset via Supabase
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: window.location.origin + '/acesso.html'
+  });
+  if (!error) {
+    alert(`✅ Email de redefinição enviado para ${email}!\n\nO membro receberá um link para criar nova senha.`);
+  } else {
+    // Fallback: mostra a senha gerada manualmente
+    _credenciais = {nome: email, email, senha: nova};
+    if (confirm(`Nova senha para ${email}:\n\n${nova}\n\nCopiar?`))
+      navigator.clipboard.writeText(`Login: ${email} | Senha: ${nova}`).then(() => alert('Copiado!'));
+  }
+  renderUsuarios().catch(console.error);
 }
 
-function toggleBloqueio(email) {
-  const u2 = JSON.parse(localStorage.getItem('ct_usuarios') || '[]');
-  const u = u2.find(x => x.email === email);
+async function toggleBloqueio(email) {
+  if (email === MASTER_EMAIL) { alert('Não é possível bloquear o administrador master.'); return; }
+  const { data: u } = await supabase.from('usuarios').select('bloqueado').eq('email', email).single();
   if (!u) return;
-  if (u.master || u.email === MASTER_EMAIL) { alert('Não é possível bloquear o administrador master.'); return; }
-  u.bloqueado = !u.bloqueado; u.tentativas = 0;
-  localStorage.setItem('ct_usuarios', JSON.stringify(u2));
-  renderUsuarios();
+  await supabase.from('usuarios').update({ bloqueado: !u.bloqueado }).eq('email', email);
+  renderUsuarios().catch(console.error);
 }
 
-function editarUsuario(email) {
-  const u2 = JSON.parse(localStorage.getItem('ct_usuarios') || '[]');
-  const u = u2.find(x => x.email === email);
+async function editarUsuario(email) {
+  const { data: u } = await supabase.from('usuarios').select('*').eq('email', email).single();
   if (!u) return;
   usuarioEditando = email;
-  document.getElementById('modalTitulo').textContent = 'Editar Membro';
+  document.getElementById('modalTitulo').textContent = '✏️ Editar Membro — ' + (u.nome || email);
   document.getElementById('muNome').value = u.nome || '';
   document.getElementById('muEmail').value = u.email;
-  document.querySelectorAll('.prods-grid input').forEach(c => c.checked = (u.produtos||[]).includes(c.value));
+  document.getElementById('muEmail').disabled = true;
+  // Marcar checkboxes dos produtos liberados
+  const produtosAtivos = u.produtos || (u.plano ? [u.plano] : []);
+  document.querySelectorAll('.prods-grid input').forEach(c => {
+    c.checked = produtosAtivos.includes(c.value);
+  });
   document.getElementById('senhaBox').style.display = 'none';
-  document.getElementById('btnSalvarU').textContent = 'Salvar Alterações →';
+  document.getElementById('btnSalvarU').textContent = '💾 Salvar Produtos →';
   document.getElementById('modalUsuario').classList.add('open');
 }
 
