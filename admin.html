@@ -333,6 +333,7 @@ table.tbl tr:hover td{background:#FDFCFA;}
 .bdg-gd{background:var(--gdb);color:var(--gd);}
 .bdg-pur{background:#F3E8FF;color:#7E22CE;}
 .bdg-gray{background:#F3F4F6;color:#6B7280;}
+.bdg-paypal{background:#EEF4FF;color:#003087;}
 
 /* ANIVERSÁRIO */
 .aniv-row{
@@ -729,7 +730,8 @@ table.tbl tr:hover td{background:#FDFCFA;}
       <label>Forma de pagamento</label>
       <select id="cpOrigem" style="width:100%;padding:11px 14px;background:var(--sur2);border:1.5px solid var(--brd);border-radius:9px;font-size:13px;color:var(--txt);outline:none;">
         <option value="pix">PIX</option>
-        <option value="cartao">Cartão</option>
+        <option value="cartao">Cartão de Crédito</option>
+        <option value="paypal">PayPal</option>
         <option value="whatsapp">WhatsApp</option>
         <option value="presencial">Presencial</option>
         <option value="outro">Outro</option>
@@ -1320,6 +1322,17 @@ function renderSecao(cat, lista, countId, userMap, NOME_PARA_ID) {
       const jaLiberado = pid && prods.includes(pid);
       const dataStr = l.data ? new Date(l.data).toLocaleDateString('pt-BR') : '—';
       const wpp = l.wpp || l.whatsapp || '—';
+      const origem = (l.origem||'site').toLowerCase();
+      const origemBdg = origem === 'paypal' ? 'bdg-paypal'
+                      : origem === 'pix'    ? 'bdg-grn'
+                      : origem === 'cartao' ? 'bdg-blu'
+                      : 'bdg-gd';
+      const origemLabel = origem === 'paypal'     ? '💳 PayPal'
+                        : origem === 'pix'        ? '⚡ PIX'
+                        : origem === 'cartao'     ? '💳 Cartão'
+                        : origem === 'whatsapp'   ? '📱 WhatsApp'
+                        : origem === 'presencial' ? '🤝 Presencial'
+                        : l.origem||'site';
       return `<tr style="${jaLiberado ? '' : 'background:#fffbeb;'}">
         <td><strong>${l.nome||'—'}</strong></td>
         <td style="font-size:12px;color:var(--tx2);">${l.email||'—'}</td>
@@ -1327,7 +1340,7 @@ function renderSecao(cat, lista, countId, userMap, NOME_PARA_ID) {
         <td>
           <div style="font-size:12px;font-weight:700;color:var(--gd);">${l.produto||'—'}</div>
         </td>
-        <td><span class="bdg ${badgeCls}">${l.origem||'site'}</span></td>
+        <td><span class="bdg ${origemBdg}">${origemLabel}</span></td>
         <td style="font-size:12px;color:var(--tx3);">${dataStr}</td>
         <td>
           ${jaLiberado
