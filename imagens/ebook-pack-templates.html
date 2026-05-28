@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pack Scripts & Templates Premium 2026 — Carlos Tattoo BH</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f7fb;
+  --white:#ffffff;
+  --text:#111827;
+  --text-muted:#6b7280;
+  --accent:#1a1a2e;
+  --gold:#c9973a;
+  --gold-light:#f0c04a;
+  --border:#e5e7eb;
+  --shadow:0 4px 24px rgba(0,0,0,.07);
+  --shadow-lg:0 8px 48px rgba(0,0,0,.12);
+  --radius:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);font-size:16px;line-height:1.8;}
+@media print{.no-print{display:none!important;}.pb{page-break-after:always;}.pbi{page-break-inside:avoid;}body{background:#fff;font-size:11pt;}}
+
+/* WATERMARK */
+.wm{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;}
+.wm-grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(7,1fr);}
+.wm-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transform:rotate(-25deg);opacity:.04;}
+.wm-cell img{width:52px;height:52px;object-fit:contain;}
+.wm-cell span{font-family:'Poppins',sans-serif;font-size:8px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;white-space:nowrap;}
+
+/* CAPA */
+.capa{background:linear-gradient(160deg,#06080f 0%,#0d0d1a 38%,#1a1a2e 65%,#06080f 100%);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;position:relative;overflow:hidden;}
+.capa::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 45%,rgba(201,151,58,.14) 0%,transparent 70%);}
+.c-line{position:absolute;left:50%;transform:translateX(-50%);width:220px;height:1px;background:linear-gradient(90deg,transparent,rgba(201,151,58,.5),transparent);}
+.c-line.top{top:36px;}.c-line.bot{bottom:36px;}
+.c-logo{height:90px;object-fit:contain;filter:drop-shadow(0 0 24px rgba(201,151,58,.55));margin-bottom:28px;position:relative;z-index:1;}
+.c-tag{display:inline-block;background:rgba(201,151,58,.12);border:1px solid rgba(201,151,58,.38);padding:7px 24px;font-family:'Poppins',sans-serif;font-size:10px;letter-spacing:4px;color:var(--gold-light);text-transform:uppercase;margin-bottom:24px;position:relative;z-index:1;border-radius:50px;}
+.c-h1{font-family:'Playfair Display',serif;font-size:clamp(30px,5vw,56px);color:#fff;line-height:1.05;margin-bottom:12px;position:relative;z-index:1;}
+.c-h1 b{color:var(--gold-light);}
+.c-sub{font-family:'Poppins',sans-serif;font-size:13px;letter-spacing:3px;color:rgba(201,151,58,.90);margin-bottom:52px;position:relative;z-index:1;}
+.c-div{width:140px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-light),transparent);margin:0 auto 38px;}
+.c-autor-name{font-family:'Playfair Display',serif;font-size:20px;color:var(--gold-light);margin-bottom:4px;position:relative;z-index:1;}
+.c-autor-role{font-family:'Poppins',sans-serif;font-size:10px;letter-spacing:3px;color:rgba(201,151,58,.78);text-transform:uppercase;position:relative;z-index:1;}
+.c-badge{position:absolute;bottom:48px;right:48px;width:100px;height:100px;border-radius:50%;background:rgba(201,151,58,.1);border:1.5px solid rgba(201,151,58,.38);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:1;}
+.c-badge b{font-family:'Playfair Display',serif;font-size:22px;color:var(--gold-light);display:block;line-height:1;}
+.c-badge span{font-family:'Poppins',sans-serif;font-size:8px;letter-spacing:1px;color:rgba(201,151,58,.78);margin-top:3px;}
+.c-qty{position:absolute;bottom:52px;left:48px;text-align:left;z-index:1;}
+.c-qty-n{font-family:'Playfair Display',serif;font-size:32px;color:var(--gold-light);display:block;line-height:1;}
+.c-qty-t{font-family:'Poppins',sans-serif;font-size:9px;letter-spacing:2px;color:rgba(201,151,58,.80);text-transform:uppercase;}
+
+/* ÍNDICE */
+.indice{background:var(--white);padding:72px 96px;min-height:100vh;position:relative;}
+.idx-h1{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);color:var(--accent);margin-bottom:8px;}
+.idx-h1 b{color:var(--gold);}
+.idx-sub{font-family:'Poppins',sans-serif;font-size:13px;color:var(--text-muted);margin-bottom:44px;letter-spacing:1px;}
+.idx-section{margin-bottom:36px;}
+.idx-sec-title{font-family:'Poppins',sans-serif;font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.idx-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dotted var(--border);}
+.idx-item-l{display:flex;align-items:center;gap:12px;}
+.idx-num{font-family:'Playfair Display',serif;font-size:13px;color:var(--gold);min-width:28px;}
+.idx-title{font-size:14px;color:var(--text);font-weight:500;}
+.idx-pg{font-family:'Poppins',sans-serif;font-size:12px;color:var(--text-muted);}
+
+/* MÓDULO HEADER */
+.mh{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);padding:56px 96px 48px;position:relative;overflow:hidden;border-bottom:3px solid var(--gold);}
+.mh::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 80% 50%,rgba(201,151,58,.07) 0%,transparent 70%);}
+.mh-bg-n{font-family:'Playfair Display',serif;font-size:130px;color:rgba(201,151,58,.05);position:absolute;right:56px;top:10px;line-height:1;}
+.mh-lbl{font-family:'Poppins',sans-serif;font-size:10px;letter-spacing:4px;color:rgba(201,151,58,.75);text-transform:uppercase;margin-bottom:10px;position:relative;z-index:1;}
+.mh-title{font-family:'Playfair Display',serif;font-size:clamp(24px,3.5vw,42px);color:#fff;position:relative;z-index:1;line-height:1.15;}
+.mh-title b{color:var(--gold-light);}
+.mh-desc{font-size:16px;color:rgba(229,231,235,.88);margin-top:14px;position:relative;z-index:1;max-width:620px;line-height:1.7;}
+.mh-logo{position:absolute;right:96px;bottom:24px;height:44px;opacity:.5;z-index:1;}
+.mh-count{display:inline-flex;align-items:center;gap:8px;background:rgba(201,151,58,.12);border:1px solid rgba(201,151,58,.3);padding:8px 16px;border-radius:50px;margin-top:18px;position:relative;z-index:1;}
+.mh-count span{font-family:'Poppins',sans-serif;font-size:11px;color:var(--gold-light);letter-spacing:1px;}
+
+/* PAGE */
+.page{background:var(--white);padding:68px 92px 84px;min-height:100vh;position:relative;}
+.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;padding-bottom:14px;border-bottom:2px solid #e8edf8;}
+.ph img{height:30px;object-fit:contain;opacity:.55;}
+.ph span{font-family:'Poppins',sans-serif;font-size:9px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;}
+.pf{position:absolute;bottom:30px;left:92px;right:92px;display:flex;justify-content:space-between;align-items:center;font-family:'Poppins',sans-serif;font-size:9px;letter-spacing:1px;color:var(--gold);border-top:1px solid #e8edf8;padding-top:12px;}
+.bg-n{font-family:'Playfair Display',serif;font-size:120px;color:rgba(201,151,58,.04);position:absolute;top:56px;right:76px;line-height:1;pointer-events:none;}
+.lbl{font-family:'Poppins',sans-serif;font-size:9px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;display:block;}
+.h2{font-family:'Playfair Display',serif;font-size:clamp(20px,2.8vw,34px);color:var(--accent);margin-bottom:16px;line-height:1.2;}
+.h2 b{color:var(--gold);}
+.h3{font-family:'Poppins',sans-serif;font-size:17px;color:var(--accent);font-weight:700;margin:32px 0 14px;display:flex;align-items:center;gap:10px;}
+.h3::before{content:'→';color:var(--gold);font-size:14px;flex-shrink:0;}
+p{font-size:15px;color:#1f2937;line-height:1.9;margin-bottom:16px;}
+strong{color:var(--accent);}
+
+/* TEMPLATE CARD */
+.tc{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:32px;margin:20px 0;box-shadow:var(--shadow);transition:all .3s;}
+.tc:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
+.tc-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:20px;}
+.tc-num{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#2d2d5e);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:16px;color:var(--gold-light);flex-shrink:0;font-weight:700;box-shadow:0 4px 12px rgba(26,26,46,.3);}
+.tc-info{flex:1;}
+.tc-info h4{font-family:'Playfair Display',serif;font-size:18px;color:var(--accent);font-weight:700;margin-bottom:4px;}
+.tc-info .tc-sub{font-size:12px;color:var(--text-muted);font-family:'Poppins',sans-serif;}
+.tc-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.tc-tag{background:rgba(201,151,58,.1);border:1px solid rgba(201,151,58,.25);padding:4px 12px;border-radius:50px;font-family:'Poppins',sans-serif;font-size:9px;letter-spacing:1px;color:var(--gold);text-transform:uppercase;}
+.tc-tag.verde{background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.25);color:#16a34a;}
+.tc-tag.azul{background:rgba(59,130,246,.08);border-color:rgba(59,130,246,.25);color:#1d4ed8;}
+.tc-tag.roxo{background:rgba(139,92,246,.08);border-color:rgba(139,92,246,.25);color:#7c3aed;}
+.tc-body{font-size:15px;color:#1f2937;line-height:1.85;}
+.tc-body p{margin-bottom:12px;}
+
+/* QUANDO USAR */
+.tc-quando{background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:14px 18px;margin:14px 0;display:flex;gap:12px;}
+.tc-q-icon{font-size:18px;flex-shrink:0;}
+.tc-q-body{flex:1;}
+.tc-q-label{font-family:'Poppins',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#0369a1;margin-bottom:4px;display:block;}
+.tc-q-text{font-size:13px;color:#0c4a6e;line-height:1.7;}
+
+/* COPY BOX */
+.copy-box{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);border-radius:12px;padding:24px 28px;margin:16px 0;border:1px solid rgba(201,151,58,.2);position:relative;}
+.copy-lbl{font-family:'Poppins',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,151,58,.85);margin-bottom:12px;display:block;}
+.copy-text{font-family:'Poppins',sans-serif;font-size:14px;color:#e5e7eb;line-height:1.9;white-space:pre-wrap;}
+.copy-text .highlight{color:var(--gold-light);}
+.copy-text .placeholder{color:rgba(201,151,58,.6);font-style:italic;}
+
+/* VARIAÇÕES */
+.var-box{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin:12px 0;}
+.var-lbl{font-family:'Poppins',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;display:block;}
+.var-item{font-size:13px;color:#374151;line-height:1.75;padding:8px 0;border-bottom:1px solid var(--border);}
+.var-item:last-child{border:none;padding-bottom:0;}
+
+/* DICA */
+.tc-dica{background:linear-gradient(135deg,rgba(201,151,58,.08),rgba(201,151,58,.04));border:1px solid rgba(201,151,58,.2);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:14px 18px;margin:14px 0;}
+.tc-dica-lbl{font-family:'Poppins',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;display:block;}
+.tc-dica p{font-size:13px;color:#374151;line-height:1.75;margin:0;}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:12px;margin:18px 0;}
+.step{display:flex;gap:16px;align-items:flex-start;background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:20px;box-shadow:var(--shadow);transition:all .3s;}
+.step:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);}
+.sn{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#2d2d5e);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:14px;color:var(--gold-light);flex-shrink:0;font-weight:700;}
+.st h4{font-family:'Poppins',sans-serif;font-size:14px;color:var(--accent);font-weight:700;margin-bottom:5px;}
+.st p{font-size:13px;color:#374151;line-height:1.75;margin:0;}
+
+/* TABLE */
+.tb{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);}
+.tb th{background:linear-gradient(135deg,var(--accent),#2d2d5e);color:var(--gold-light);font-family:'Poppins',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:14px 16px;text-align:left;}
+.tb td{padding:12px 16px;border-bottom:1px solid var(--border);color:#1f2937;line-height:1.65;background:var(--white);}
+.tb tr:nth-child(even) td{background:var(--bg);}
+.tb tr:hover td{background:#e8edf8;}
+.tb tr:last-child td{border-bottom:none;}
+
+/* LIST */
+.ul{list-style:none;margin:14px 0 22px;}
+.ul li{display:flex;align-items:flex-start;gap:12px;font-size:15px;color:#1f2937;margin-bottom:12px;line-height:1.75;}
+.ul li::before{content:'→';color:var(--gold);font-weight:700;flex-shrink:0;margin-top:2px;}
+
+/* BOX WARN / OK / INFO */
+.box-warn{background:#fffbeb;border:1.5px solid #f59e0b;border-radius:10px;padding:18px 22px;margin:22px 0;display:flex;gap:14px;}
+.box-warn-i{font-size:22px;flex-shrink:0;}
+.box-warn p{font-size:14px;color:#78350f;line-height:1.75;margin:0;}
+.box-ok{background:#f0fdf4;border:1.5px solid #4ade80;border-radius:10px;padding:18px 22px;margin:22px 0;display:flex;gap:14px;}
+.box-ok-i{font-size:22px;flex-shrink:0;}
+.box-ok p{font-size:14px;color:#14532d;line-height:1.75;margin:0;}
+.box-dark{background:linear-gradient(135deg,#0d0d1a,#0a0a18);border-radius:var(--radius);padding:26px 30px;margin:22px 0;border:1px solid rgba(201,151,58,.18);}
+.box-dark p,.box-dark li{color:#e5e7eb;font-size:15px;line-height:1.85;margin-bottom:10px;}
+.box-dark h4{font-family:'Poppins',sans-serif;font-size:14px;color:var(--gold-light);font-weight:700;margin-bottom:12px;}
+
+/* RESULT CARD */
+.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0;}
+.result-card{background:linear-gradient(135deg,var(--accent),#2d2d5e);border-radius:var(--radius);padding:28px 20px;text-align:center;color:#fff;}
+.result-n{font-family:'Playfair Display',serif;font-size:2.8rem;color:var(--gold-light);display:block;line-height:1;}
+.result-t{font-size:12px;color:rgba(229,231,235,.7);margin-top:6px;font-family:'Poppins',sans-serif;}
+
+/* HASHTAG */
+.hbox{background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:18px 20px;margin:14px 0;}
+.htag{display:inline-block;background:rgba(201,151,58,.1);border:1px solid rgba(201,151,58,.25);color:var(--gold);padding:4px 10px;border-radius:20px;font-size:12px;margin:3px;font-family:'Poppins',sans-serif;}
+
+/* CTA FINAL */
+.cta-fin{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);border-radius:20px;padding:48px;text-align:center;margin:48px 0;border:1px solid rgba(201,151,58,.2);}
+.cta-fin h3{font-family:'Playfair Display',serif;font-size:28px;color:#fff;margin-bottom:10px;}
+.cta-fin p{font-size:15px;color:rgba(229,231,235,.65);margin-bottom:24px;line-height:1.7;max-width:520px;margin-left:auto;margin-right:auto;}
+.btn-gold{display:inline-block;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--accent);padding:16px 36px;border-radius:12px;font-family:'Poppins',sans-serif;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 8px 30px rgba(201,151,58,.4);transition:all .3s;letter-spacing:.5px;}
+.btn-gold:hover{transform:translateY(-2px);}
+
+/* BACK COVER */
+.cback{background:linear-gradient(160deg,#06080f,#0d0d1a,#06080f);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;position:relative;}
+
+/* PRINT BUTTON */
+.print-btn{position:fixed;bottom:30px;right:30px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--accent);border:none;padding:14px 24px;border-radius:12px;font-family:'Poppins',sans-serif;font-weight:700;font-size:13px;cursor:pointer;box-shadow:0 8px 30px rgba(201,151,58,.4);z-index:1000;transition:all .3s;}
+.print-btn:hover{transform:translateY(-2px);}
+
+@media(max-width:768px){
+  .page,.indice,.mh{padding:40px 28px 60px;}
+  .result-grid{grid-template-columns:1fr;}
+  .cta-fin{padding:36px 24px;}
+}
+</style>
+</head>
+<body>
+
+
+
+<!-- WATERMARK -->
+<div class="wm"><div class="wm-grid">
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+</div></div>
+
+<!-- CAPA -->
+<div class="capa pb">
+  <div class="c-line top"></div>
+  <div style="width:320px;border-radius:16px;overflow:hidden;margin:0 auto 32px;box-shadow:0 16px 56px rgba(0,0,0,.7),0 0 0 2px rgba(201,151,58,.35);position:relative;z-index:1;">
+<img src="imagens/thumb-ebook-templates.jpg" style="width:100%;display:block;"></div>
+  <div class="c-tag">Material Exclusivo · 2026 · Tutoriais Completos</div>
+  <h1 class="c-h1">Pack Scripts &amp; <b>Templates</b><br>Premium</h1>
+  <p class="c-sub" style="font-size:14px;max-width:580px;margin-left:auto;margin-right:auto;color:rgba(229,231,235,.7);font-family:'Poppins',sans-serif;letter-spacing:0;text-align:center;line-height:1.7;">12 templates de Stories · 10 de Feed · 8 de Anúncios · Scripts de Direct · Scripts de WhatsApp · Pack de Hashtags · Legendas prontas</p>
+  <div class="c-div"></div>
+  <p class="c-autor-name">Carlos Henrique</p>
+  <p class="c-autor-role">Tatuador · Mentor · @carlostattoo.bh</p>
+  <div class="c-line bot"></div>
+</div>
+  <div class="c-qty">
+    <b class="c-qty-n">60+</b>
+    <span class="c-qty-t">scripts prontos</span>
+  </div>
+  <div class="c-badge">
+    <b>R$47</b>
+    <span>Exclusivo</span>
+  </div>
+  <div class="c-line bot"></div>
+</div>
+
+<!-- ÍNDICE -->
+<div class="indice pb">
+  <div class="ph">
+    <img src="https://i.imgur.com/placeholder.png" alt="">
+    <span>Carlos Tattoo BH — Pack Scripts &amp; Templates Premium 2026</span>
+  </div>
+  <span class="lbl">Sumário</span>
+  <h2 class="idx-h1">Todos os scripts &amp; <b>templates</b></h2>
+  <p class="idx-sub">Do primeiro Story ao anúncio que converte — cada palavra já escrita para você</p>
+
+  <div class="idx-section">
+    <div class="idx-sec-title">Módulo 01 — Templates de Stories (12 completos)</div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod1\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">01</span><span class="idx-title">Abertura de Agenda — Urgência e Escassez</span></div><span class="idx-pg">Pág. 4</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod1\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">02</span><span class="idx-title">Antes e Depois de Cobertura — Prova Visual</span></div><span class="idx-pg">Pág. 5</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod1\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">03</span><span class="idx-title">Depoimento de Cliente em Destaque</span></div><span class="idx-pg">Pág. 6</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod1\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">04</span><span class="idx-title">Enquete de Estilo — Engajamento + Qualificação</span></div><span class="idx-pg">Pág. 7</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod1\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">05</span><span class="idx-title">Processo de Tatuagem — Bastidor + Autoridade</span></div><span class="idx-pg">Pág. 8</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod1\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">06</span><span class="idx-title">Perguntas e Respostas — Stories Interativo</span></div><span class="idx-pg">Pág. 9</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod1\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">07</span><span class="idx-title">Apresentação do Estúdio — Confiança e Ambiente</span></div><span class="idx-pg">Pág. 10</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod1\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">08</span><span class="idx-title">Resultado Finalizado — Detalhe Técnico</span></div><span class="idx-pg">Pág. 11</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod1\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">09</span><span class="idx-title">Contagem Regressiva — Evento e Promoção</span></div><span class="idx-pg">Pág. 12</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod1\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">10</span><span class="idx-title">Story Educativo — Dica de Cuidado Pós-Tattoo</span></div><span class="idx-pg">Pág. 13</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod1\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">11</span><span class="idx-title">Compartilhamento de Post — Repost Estratégico</span></div><span class="idx-pg">Pág. 14</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod1\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">12</span><span class="idx-title">Consulta Gratuita — Story de Convite</span></div><span class="idx-pg">Pág. 15</span></div>
+  </div>
+
+  <div class="idx-section">
+    <div class="idx-sec-title">Módulo 02 — Templates de Feed (10 completos)</div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod2\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">13</span><span class="idx-title">Portfólio Premium — Legenda + Storytelling</span></div><span class="idx-pg">Pág. 17</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod2\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">14</span><span class="idx-title">Antes e Depois — Carrossel de Transformação</span></div><span class="idx-pg">Pág. 18</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod2\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">15</span><span class="idx-title">Post Educativo — Carrossel que Gera Salvamentos</span></div><span class="idx-pg">Pág. 19</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod2\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">16</span><span class="idx-title">Abertura de Agenda — Post de Urgência</span></div><span class="idx-pg">Pág. 20</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod2\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">17</span><span class="idx-title">Depoimento Destaque — Prova Social no Feed</span></div><span class="idx-pg">Pág. 21</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod2\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">18</span><span class="idx-title">Post de Autoridade — Especialidade e Credencial</span></div><span class="idx-pg">Pág. 22</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod2\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">19</span><span class="idx-title">Reel do Processo — Roteiro Completo</span></div><span class="idx-pg">Pág. 23</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod2\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">20</span><span class="idx-title">Post de Bastidor — Conexão e Humanização</span></div><span class="idx-pg">Pág. 24</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod2\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">21</span><span class="idx-title">Post de Curiosidade — Engajamento e Alcance</span></div><span class="idx-pg">Pág. 25</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod2\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">22</span><span class="idx-title">Post de Posicionamento — Preço e Valor</span></div><span class="idx-pg">Pág. 26</span></div>
+  </div>
+
+  <div class="idx-section">
+    <div class="idx-sec-title">Módulo 03 — Templates de Anúncios Meta Ads (8 completos)</div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod3\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">23</span><span class="idx-title">Anúncio de Cobertura — Transformação</span></div><span class="idx-pg">Pág. 28</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod3\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">24</span><span class="idx-title">Anúncio de Realismo — Homenagem Especial</span></div><span class="idx-pg">Pág. 29</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod3\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">25</span><span class="idx-title">Anúncio de Vagas — Urgência e Escassez</span></div><span class="idx-pg">Pág. 30</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod3\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">26</span><span class="idx-title">Anúncio de Retargeting — Quem já Visitou o Perfil</span></div><span class="idx-pg">Pág. 31</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod3\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">27</span><span class="idx-title">Anúncio de Fineline — Delicadeza e Precisão</span></div><span class="idx-pg">Pág. 32</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod3\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">28</span><span class="idx-title">Anúncio de Colorida — Impacto Visual</span></div><span class="idx-pg">Pág. 33</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod3\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">29</span><span class="idx-title">Anúncio de Autoridade — Credenciais e Resultados</span></div><span class="idx-pg">Pág. 34</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod3\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">30</span><span class="idx-title">Anúncio de Black &amp; Grey — Técnica e Maestria</span></div><span class="idx-pg">Pág. 35</span></div>
+  </div>
+
+  <div class="idx-section">
+    <div class="idx-sec-title">Bônus — Scripts Completos</div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod4\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">B1</span><span class="idx-title">Scripts de Direct — 8 Situações Completas</span></div><span class="idx-pg">Pág. 37</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod4\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">B2</span><span class="idx-title">Scripts de WhatsApp Business — 10 Modelos</span></div><span class="idx-pg">Pág. 41</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod4\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">B3</span><span class="idx-title">Pack de Hashtags — 6 Categorias Completas</span></div><span class="idx-pg">Pág. 45</span></div>
+    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''" onclick="document.getElementById(\'mod4\').scrollIntoView({behavior:\'smooth\'})">><div class="idx-item-l"><span class="idx-num">B4</span><span class="idx-title">Calendário de Conteúdo — 30 dias prontos</span></div><span class="idx-pg">Pág. 47</span></div>
+  </div>
+  <div class="pf"><span>© 2026 Carlos Tattoo BH</span><span>Sumário</span><span>@carlostattoo.bh</span></div>
+</div>
+
+<!-- ======================================================= -->
+<!-- MÓDULO 01 — STORIES -->
+<!-- ======================================================= -->
+<div class="mh pb" id="mod1">
+  <div class="mh-bg-n">01</div>
+  <div class="mh-lbl">Módulo 01</div>
+  <div class="mh-title">Templates de <b>Stories</b></div>
+  <p class="mh-desc">12 templates completos com texto pronto, variações e instrução de uso — do primeiro Story ao depoimento de cliente. Copie, personalize e publique.</p>
+  <div class="mh-count"><span>📱 12 Templates · Stories 9:16 · Alta Conversão</span></div>
+  <img class="mh-logo" src="" alt="">
+</div>
+
+<!-- PAGE 01 — Stories 01-03 -->
+<div class="page pb">
+  <div class="ph"><img src="" alt=""><span>Carlos Tattoo BH — Pack Scripts &amp; Templates 2026</span></div>
+  <div class="bg-n">01</div>
+  <span class="lbl">Módulo 01 · Stories</span>
+
+  <!-- TEMPLATE 01 -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">01</div>
+      <div class="tc-info">
+        <h4>Abertura de Agenda</h4>
+        <div class="tc-sub">Story de urgência e escassez — o mais importante do mês</div>
+      </div>
+    </div>
+    <div class="tc-tags">
+      <span class="tc-tag">Story 9:16</span>
+      <span class="tc-tag verde">Alta conversão</span>
+      <span class="tc-tag azul">Urgência</span>
+      <span class="tc-tag">Mensal</span>
+    </div>
+    <div class="tc-quando"><span class="tc-q-icon">📅</span><div class="tc-q-body"><span class="tc-q-label">Quando usar</span><span class="tc-q-text">No dia 1 de cada mês ao abrir a agenda. Ou quando tiver vagas específicas disponíveis no meio do mês. Poste no horário de maior engajamento do seu perfil (geralmente 19h-21h).</span></div></div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Texto Principal do Story</span>
+      <div class="copy-text">📅 AGENDA DE <span class="placeholder">[MÊS]</span> ABERTA
+
+Apenas <span class="placeholder">[X]</span> vagas disponíveis este mês.
+Prioridade para projetos de realismo e cobertura.
+
+<span class="highlight">→ Manda mensagem com sua ideia agora</span>
+
+<span class="placeholder">[seu @]</span> · <span class="placeholder">[sua cidade]</span></div>
+    </div>
+    <div class="var-box"><span class="var-lbl">Variações para usar no mesmo mês</span>
+      <div class="var-item"><strong>Versão urgência:</strong> "⚡ Restam apenas 2 vagas para este mês. Já são 5 mensagens aguardando resposta. Se você quer tatuar em [mês], manda agora."</div>
+      <div class="var-item"><strong>Versão especificada:</strong> "📅 Agenda de [mês] aberta especialmente para projetos de cobertura. Avaliação gratuita disponível — manda foto da sua tattoo atual."</div>
+      <div class="var-item"><strong>Versão simples:</strong> "Novos projetos — [mês]. Manda mensagem 👇"</div>
+    </div>
+    <div class="tc-dica"><span class="tc-dica-lbl">💡 Dica de performance</span><p>Adicione uma enquete antes do texto: "Você tem algum projeto em mente? SIM / AINDA NÃO". Os que votam SIM têm 3x mais chance de responder o próximo Story com o link de contato.</p></div>
+  </div>
+
+  <!-- TEMPLATE 02 -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">02</div>
+      <div class="tc-info">
+        <h4>Antes e Depois de Cobertura</h4>
+        <div class="tc-sub">Prova social visual — o formato com maior taxa de resposta</div>
+      </div>
+    </div>
+    <div class="tc-tags">
+      <span class="tc-tag">Story 9:16</span>
+      <span class="tc-tag verde">Portfólio</span>
+      <span class="tc-tag azul">Cobertura</span>
+      <span class="tc-tag">Alta interação</span>
+    </div>
+    <div class="tc-quando"><span class="tc-q-icon">🖤</span><div class="tc-q-body"><span class="tc-q-label">Quando usar</span><span class="tc-q-text">Sempre que finalizar uma cobertura ou transformação importante. Publique no mesmo dia da sessão quando a memória emocional do cliente está fresca. É o formato com maior taxa de resposta nos Stories para tatuadores.</span></div></div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Texto para o Story (sobreposição na imagem)</span>
+      <div class="copy-text">ANTES → DEPOIS 🖤
+
+<span class="placeholder">[Estilo]</span> · <span class="placeholder">[Tamanho]</span> · <span class="placeholder">[Nº sessões]</span>
+
+Consulta gratuita de cobertura
+👉 chama no direct</div>
+    </div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Alternativa — Story de texto adicional após a imagem</span>
+      <div class="copy-text">A tattoo da esquerda ela escondia há <span class="placeholder">[X]</span> anos.
+
+Hoje ela vai pra praia sem manga. 🏖️
+
+Avaliação de cobertura: 100% gratuita.
+Sem compromisso.
+
+📩 Manda mensagem com foto da sua tattoo</div>
+    </div>
+    <div class="tc-dica"><span class="tc-dica-lbl">💡 Como postar para máximo impacto</span><p>Use <strong>3 Stories em sequência</strong>: Story 1 — só o "ANTES" com suspense ("olha o que vai acontecer com isso 👇"). Story 2 — o "DEPOIS" com impacto. Story 3 — o texto de CTA com link do WhatsApp.</p></div>
+  </div>
+
+  <!-- TEMPLATE 03 -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">03</div>
+      <div class="tc-info">
+        <h4>Depoimento de Cliente em Destaque</h4>
+        <div class="tc-sub">Prova social autêntica — converte porque não é você falando, é o cliente</div>
+      </div>
+    </div>
+    <div class="tc-tags">
+      <span class="tc-tag">Story 9:16</span>
+      <span class="tc-tag verde">Social Proof</span>
+      <span class="tc-tag roxo">Confiança</span>
+    </div>
+    <div class="tc-quando"><span class="tc-q-icon">⭐</span><div class="tc-q-body"><span class="tc-q-label">Quando usar</span><span class="tc-q-text">Após receber uma avaliação 5 estrelas no Google, uma mensagem positiva no direct ou um elogio por WhatsApp. Poste imediatamente — emoção fresca converte mais do que depoimento guardado.</span></div></div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Estrutura do Story de Depoimento</span>
+      <div class="copy-text">"<span class="placeholder">[Texto exato do depoimento do cliente]</span>"
+
+— <span class="placeholder">[Nome]</span>, <span class="placeholder">[Cidade]</span> ⭐⭐⭐⭐⭐
+
+Quer uma experiência assim?
+Link na bio 👇</div>
+    </div>
+    <div class="var-box"><span class="var-lbl">Opções de texto complementar após o depoimento</span>
+      <div class="var-item"><strong>Versão direta:</strong> "Esse é o motivo de eu fazer isso. Próximas vagas de [mês]: [X] disponíveis. Chama no direct."</div>
+      <div class="var-item"><strong>Versão emocional:</strong> "Ler isso faz valer cada hora de dedicação. Obrigado, [Nome]. 🖤"</div>
+      <div class="var-item"><strong>Versão de chamada:</strong> "Leu até aqui? Posso fazer o mesmo por você. Avaliação gratuita — chama 👇"</div>
+    </div>
+    <div class="tc-dica"><span class="tc-dica-lbl">💡 Formatos de captura de depoimento</span><p>Print da avaliação do Google (muito credível), print da mensagem no WhatsApp (autêntico), vídeo do cliente falando (máxima conversão). Para vídeos, pergunte ao cliente: "Pode gravar 30 segundos dizendo como foi a experiência?"</p></div>
+  </div>
+  <div class="pf"><span>© 2026 Carlos Tattoo BH</span><span>Módulo 01 · Stories</span><span>Pág. 04-06</span></div>
+</div>
+
+<!-- PAGE 02 — Stories 04-06 -->
+<div class="page pb">
+  <div class="ph"><img src="" alt=""><span>Carlos Tattoo BH — Pack Scripts &amp; Templates 2026</span></div>
+  <div class="bg-n">02</div>
+
+  <!-- TEMPLATE 04 -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">04</div>
+      <div class="tc-info">
+        <h4>Enquete de Estilo</h4>
+        <div class="tc-sub">Engajamento + qualificação de público — dois objetivos em um</div>
+      </div>
+    </div>
+    <div class="tc-tags">
+      <span class="tc-tag">Story 9:16</span>
+      <span class="tc-tag verde">Engajamento</span>
+      <span class="tc-tag azul">Interativo</span>
+      <span class="tc-tag">Semanal</span>
+    </div>
+    <div class="tc-quando"><span class="tc-q-icon">🎯</span><div class="tc-q-body"><span class="tc-q-label">Quando usar</span><span class="tc-q-text">Uma vez por semana, preferencialmente na segunda-feira (planejamento da semana) ou quinta-feira. Além de gerar engajamento, revela qual estilo seu público mais quer — dado valioso para criar conteúdo e direcionar anúncios.</span></div></div>
+    <div class="tc-body">
+      <p><strong>Como estruturar:</strong> Use a função de enquete nativa do Instagram (dois botões) — não texto sobre foto. A enquete nativa tem muito mais engajamento porque o usuário clica sem sair do Stories.</p>
+    </div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 6 enquetes que mais convertem para tatuadores</span>
+      <div class="copy-text"><span class="highlight">Enquete 1 — Estilo preferido</span>
+Pergunta: "Para a próxima tattoo, você escolheria..."
+Opção A: REALISMO
+Opção B: FINELINE
+
+<span class="highlight">Enquete 2 — Tonalidade</span>
+Pergunta: "Sua preferência é..."
+Opção A: PRETO &amp; CINZA
+Opção B: COLORIDA
+
+<span class="highlight">Enquete 3 — Local do corpo</span>
+Pergunta: "Próxima tattoo seria em..."
+Opção A: BRAÇO
+Opção B: COSTAS
+
+<span class="highlight">Enquete 4 — Tamanho</span>
+Pergunta: "Você prefere tatuagens..."
+Opção A: GRANDES E IMPACTANTES
+Opção B: DELICADAS E DISCRETAS
+
+<span class="highlight">Enquete 5 — Decisão de compra</span>
+Pergunta: "Você já tem ideia da sua próxima tattoo?"
+Opção A: SIM, JÁ SEI O QUE QUERO 🔥
+Opção B: AINDA ESTOU DECIDINDO
+
+<span class="highlight">Enquete 6 — Objeção de preço</span>
+Pergunta: "Qual sua maior dúvida antes de tatuar?"
+Opção A: PREÇO / ORÇAMENTO
+Opção B: ENCONTRAR O PROFISSIONAL CERTO</div>
+    </div>
+    <div class="tc-dica"><span class="tc-dica-lbl">💡 Como usar os dados a seu favor</span><p>Os que votam "SIM, JÁ SEI" na enquete 5 são seus leads mais quentes. Após a enquete, poste um Story seguinte: "Você que votou SIM — manda mensagem agora com sua ideia. Tenho vagas abertas este mês." O timing entre enquete e convite aumenta conversão em até 4x.</p></div>
+  </div>
+
+  <!-- TEMPLATE 05 -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">05</div>
+      <div class="tc-info">
+        <h4>Bastidor do Processo</h4>
+        <div class="tc-sub">Autoridade + conexão — mostra o que acontece nos bastidores</div>
+      </div>
+    </div>
+    <div class="tc-tags">
+      <span class="tc-tag">Story 9:16</span>
+      <span class="tc-tag verde">Bastidor</span>
+      <span class="tc-tag roxo">Autoridade</span>
+    </div>
+    <div class="tc-quando"><span class="tc-q-icon">🎨</span><div class="tc-q-body"><span class="tc-q-label">Quando usar</span><span class="tc-q-text">Durantes as sessões de tatuagem, ao preparar o estúdio, ou ao criar um projeto. Stories de bastidor geram 40% mais respostas do que posts comuns porque mostram o processo real, não só o resultado.</span></div></div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Sequência de 4 Stories de Bastidor</span>
+      <div class="copy-text"><span class="highlight">Story 1 — Preparação</span>
+"Começa mais um projeto especial 🖤"
+[Foto do stencil ou rascunho do projeto]
+
+<span class="highlight">Story 2 — Em andamento</span>
+"X horas de sessão e a transformação acontecendo ao vivo"
+[Foto do meio do processo]
+
+<span class="highlight">Story 3 — Detalhe técnico</span>
+"O segredo do realismo está nos micro-detalhes"
+[Close do sombreado ou detalhe técnico]
+
+<span class="highlight">Story 4 — Revelação</span>
+"E o resultado..."
+[Foto do resultado final + CTA]
+"Quer saber mais sobre este trabalho? Salva o próximo post 👇"</div>
+    </div>
+  </div>
+
+  <!-- TEMPLATE 06 -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">06</div>
+      <div class="tc-info">
+        <h4>Caixa de Perguntas — Q&amp;A Estratégico</h4>
+        <div class="tc-sub">Engajamento direto + conteúdo gerado pelo público</div>
+      </div>
+    </div>
+    <div class="tc-tags">
+      <span class="tc-tag">Story 9:16</span>
+      <span class="tc-tag verde">Q&amp;A</span>
+      <span class="tc-tag azul">Interativo</span>
+      <span class="tc-tag">Quinzenal</span>
+    </div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 3 formatos de caixa de perguntas que funcionam</span>
+      <div class="copy-text"><span class="highlight">Formato 1 — Perguntas gerais</span>
+Texto sobre a caixa: "Me pergunta qualquer coisa sobre tatuagem 🖤"
+Subtexto: "Preço, dor, processo, cuidados — respondo todos"
+
+<span class="highlight">Formato 2 — Avaliação de cobertura</span>
+Texto: "Me manda foto da tattoo que você quer cobrir"
+Subtexto: "Digo se é possível e como ficaria — de graça"
+
+<span class="highlight">Formato 3 — Referências</span>
+Texto: "Manda sua ideia de tattoo"
+Subtexto: "Seleciono 3 para criar projetos ao vivo essa semana"</div>
+    </div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Como responder as perguntas de cobertura (gera muito engajamento)</span>
+      <div class="copy-text">"[Nome] mandou essa foto — analisando ao vivo:
+
+✓ Tonalidade: [clara/escura/média]
+✓ Antiguidade: [anos estimados]
+✓ Área: [tamanho]
+✓ Veredicto: [é possível cobrir / como ficaria]
+
+Qualquer dúvida: consulta gratuita 📩"</div>
+    </div>
+  </div>
+  <div class="pf"><span>© 2026 Carlos Tattoo BH</span><span>Módulo 01 · Stories</span><span>Pág. 07-09</span></div>
+</div>
+
+<!-- PAGE 03 — Stories 07-12 -->
+<div class="page pb">
+  <div class="ph"><img src="" alt=""><span>Carlos Tattoo BH — Pack Scripts &amp; Templates 2026</span></div>
+  <div class="bg-n">03</div>
+
+  <!-- TEMPLATE 07 -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">07</div>
+      <div class="tc-info">
+        <h4>Apresentação do Estúdio</h4>
+        <div class="tc-sub">Confiança e ambiente — o cliente compra a experiência antes de comprar a tattoo</div>
+      </div>
+    </div>
+    <div class="tc-tags"><span class="tc-tag">Story 9:16</span><span class="tc-tag verde">Confiança</span><span class="tc-tag azul">Espaço</span></div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Sequência de 5 Stories do Estúdio</span>
+      <div class="copy-text"><span class="highlight">Story 1 — Fachada / Entrada</span>
+"Bem-vindo ao Carlos Tattoo BH 🖤"
+"[Endereço] · [Bairro] · [Cidade]"
+
+<span class="highlight">Story 2 — Ambiente interno</span>
+"Um espaço criado para que você se sinta à vontade"
+"Climatizado · Higienizado · Só você e eu"
+
+<span class="highlight">Story 3 — Mesa de tatuagem / Materiais</span>
+"Materiais novos e esterilizados em cada sessão"
+"Sem reutilização · Sem risco"
+
+<span class="highlight">Story 4 — Portfólio físico ou parede</span>
+"Cada trabalho nessa parede tem uma história"
+"Qual vai ser a sua?"
+
+<span class="highlight">Story 5 — CTA</span>
+"Consulta gratuita disponível esta semana"
+"📍 [Endereço] · 📞 [WhatsApp]"</div>
+    </div>
+  </div>
+
+  <!-- TEMPLATE 08 -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">08</div>
+      <div class="tc-info">
+        <h4>Resultado Finalizado — Detalhe Técnico</h4>
+        <div class="tc-sub">Posicionamento premium — mostra que você vai além do óbvio</div>
+      </div>
+    </div>
+    <div class="tc-tags"><span class="tc-tag">Story 9:16</span><span class="tc-tag verde">Portfólio</span><span class="tc-tag roxo">Técnico</span></div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Template de detalhe técnico (aumenta percepção de valor)</span>
+      <div class="copy-text">A diferença está nos detalhes 🔍
+
+[Foto de close do trabalho finalizado]
+
+O que você está vendo:
+→ <span class="placeholder">[técnica específica usada]</span>
+→ <span class="placeholder">[detalhes que destacam o trabalho]</span>
+→ <span class="placeholder">[quantas horas de sessão]</span>
+
+Quer entender o processo?
+Pergunta nos próximos Stories 👇</div>
+    </div>
+  </div>
+
+  <!-- TEMPLATE 09 -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">09</div>
+      <div class="tc-info">
+        <h4>Contagem Regressiva — Evento ou Promoção</h4>
+        <div class="tc-sub">Urgência com data — cria antecipação e FOMO</div>
+      </div>
+    </div>
+    <div class="tc-tags"><span class="tc-tag">Story 9:16</span><span class="tc-tag verde">Urgência</span><span class="tc-tag azul">Evento</span></div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Template de contagem regressiva</span>
+      <div class="copy-text">⏰ [X] DIAS para fechar a agenda de [mês]
+
+Restam apenas [X] vagas.
+[X] já confirmadas, [X] disponíveis.
+
+[Adicione aqui o sticker de contagem regressiva do Instagram]
+
+Ativa o lembrete ☝️
+Quando chegar o dia, manda mensagem direto</div>
+    </div>
+    <div class="tc-dica"><span class="tc-dica-lbl">💡 Dica</span><p>Use o sticker nativo de "Contagem Regressiva" do Instagram. Quando o usuário ativa o lembrete, o Instagram notifica ele automaticamente — sem você fazer nada. É uma forma orgânica de criar urgência e retargeting.</p></div>
+  </div>
+
+  <!-- TEMPLATE 10 -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">10</div>
+      <div class="tc-info">
+        <h4>Story Educativo — Cuidado Pós-Tattoo</h4>
+        <div class="tc-sub">Conteúdo de valor que fideliza e posiciona você como referência</div>
+      </div>
+    </div>
+    <div class="tc-tags"><span class="tc-tag">Story 9:16</span><span class="tc-tag verde">Educativo</span><span class="tc-tag roxo">Valor</span></div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Sequência de 5 Stories educativos sobre cuidado pós-tattoo</span>
+      <div class="copy-text"><span class="highlight">Story 1 — Gancho</span>
+"O que você faz nas primeiras 24h determina 50% do resultado final da sua tattoo. Você sabe o que fazer? 👇"
+
+<span class="highlight">Story 2 — Regra 1</span>
+"✅ REGRA 1: Sabonete neutro 3x ao dia
+Sem perfume. Sem esfoliante. Sem bucha.
+Apenas os dedos, com movimentos suaves."
+
+<span class="highlight">Story 3 — Regra 2</span>
+"✅ REGRA 2: Hidratação fina, não grossa
+Bepantol derma ou similar, 3x ao dia.
+Camada fininha — não afogue a tatuagem."
+
+<span class="highlight">Story 4 — O que NUNCA fazer</span>
+"❌ Nunca: arranhar, coçar, descascar
+❌ Nunca: piscina, mar ou academia por 7 dias
+❌ Nunca: sol direto por 30 dias"
+
+<span class="highlight">Story 5 — CTA</span>
+"Salva este Story nos seus destaques ✨
+E se tiver dúvida, chama no direct — respondo sempre."</div>
+    </div>
+  </div>
+
+  <!-- TEMPLATES 11 e 12 resumidos -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">11</div>
+      <div class="tc-info">
+        <h4>Repost Estratégico de Post</h4>
+        <div class="tc-sub">Amplifica o alcance do feed usando os Stories</div>
+      </div>
+    </div>
+    <div class="tc-tags"><span class="tc-tag">Story 9:16</span><span class="tc-tag verde">Alcance</span></div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Texto que acompanha o repost</span>
+      <div class="copy-text">Você viu esse post? ☝️
+
+[Compartilhe o post do feed no Story]
+
+Salva — você vai querer reler depois.
+
+👆 Acessa o post completo pelo perfil</div>
+    </div>
+  </div>
+
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">12</div>
+      <div class="tc-info">
+        <h4>Convite para Consulta Gratuita</h4>
+        <div class="tc-sub">CTA direto — o mais importante para converter seguidores em clientes</div>
+      </div>
+    </div>
+    <div class="tc-tags"><span class="tc-tag">Story 9:16</span><span class="tc-tag verde">CTA</span><span class="tc-tag azul">Conversão</span></div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 4 versões de Story de convite para consulta</span>
+      <div class="copy-text"><span class="highlight">Versão 1 — Direta</span>
+"Consulta gratuita disponível essa semana.
+Sem compromisso. Sem pressão.
+Só uma conversa sobre seu projeto. 📩"
+
+<span class="highlight">Versão 2 — Com credencial</span>
+"7 anos. +2.400 tatuagens. Mais de 300 coberturas.
+Consulta gratuita: o primeiro passo é de graça.
+👇 Chama agora"
+
+<span class="highlight">Versão 3 — Com urgência suave</span>
+"Esta semana tenho 3 horários disponíveis para consulta.
+Sem custo. 30 minutos. Presencial ou por mensagem.
+Interesse? Responde esse Story com 'QUERO'."
+
+<span class="highlight">Versão 4 — Específica para cobertura</span>
+"Tem uma tattoo que você quer cobrir e não sabe se é possível?
+Manda a foto nos próximos 10 minutos que avalio de graça.
+Sério — zero custo, zero compromisso. 📲"</div>
+    </div>
+  </div>
+  <div class="pf"><span>© 2026 Carlos Tattoo BH</span><span>Módulo 01 · Stories</span><span>Pág. 10-15</span></div>
+</div>
+
+<!-- ======================================================= -->
+<!-- MÓDULO 02 — FEED -->
+<!-- ======================================================= -->
+<div class="mh pb" id="mod2">
+  <div class="mh-bg-n">02</div>
+  <div class="mh-lbl">Módulo 02</div>
+  <div class="mh-title">Templates de <b>Feed</b></div>
+  <p class="mh-desc">10 templates completos com legenda pronta, estrutura de carrossel e instrução de uso — do portfólio premium ao post de posicionamento que justifica preço premium.</p>
+  <div class="mh-count"><span>📷 10 Templates · Feed 1:1 e Carrossel · Alta Retenção</span></div>
+</div>
+
+<!-- PAGE — Feed Templates -->
+<div class="page pb">
+  <div class="ph"><img src="" alt=""><span>Carlos Tattoo BH — Pack Scripts &amp; Templates 2026</span></div>
+  <div class="bg-n">02</div>
+  <span class="lbl">Módulo 02 · Feed</span>
+
+  <!-- TEMPLATE 13 -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">13</div>
+      <div class="tc-info">
+        <h4>Portfólio Premium — Legenda com Storytelling</h4>
+        <div class="tc-sub">O trabalho finalizado + a história por trás — converte porque emociona</div>
+      </div>
+    </div>
+    <div class="tc-tags"><span class="tc-tag">Feed 1:1</span><span class="tc-tag verde">Portfólio</span><span class="tc-tag azul">Storytelling</span></div>
+    <div class="tc-quando"><span class="tc-q-icon">📷</span><div class="tc-q-body"><span class="tc-q-label">Estrutura da legenda</span><span class="tc-q-text">Linha 1: gancho emocional. Parágrafos 2-3: história por trás da tattoo. Parágrafo 4: informações técnicas. Parágrafo 5: CTA. Hashtags no final ou no primeiro comentário.</span></div></div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Template completo de legenda de portfólio</span>
+      <div class="copy-text"><span class="placeholder">[Linha 1 — gancho emocional]</span>
+Exemplo: "Ela chorou quando viu o resultado finalizado." ou "4 horas de sessão. Uma vida de história."
+
+<span class="placeholder">[Parágrafo 2 — história por trás]</span>
+Conte em 2-3 frases: quem é o cliente (sem identificar se não autorizado), o que a tattoo representa, por que esse projeto.
+
+<span class="placeholder">[Parágrafo 3 — informações técnicas]</span>
+Estilo: [realismo/fineline/black&grey]
+Tamanho: [cm ou região do corpo]
+Sessões: [número]
+Local: Carlos Tattoo BH · [bairro] · BH
+
+<span class="placeholder">[Parágrafo 4 — CTA]</span>
+Para agendar sua consulta gratuita:
+Link na bio ou responde esse post com sua ideia.
+
+<span class="placeholder">[Hashtags — 15 a 30]</span>
+(use o pack de hashtags na página 45)</div>
+    </div>
+    <div class="var-box"><span class="var-lbl">Primeiras linhas que param o scroll (use para cada trabalho diferente)</span>
+      <div class="var-item">"Esse projeto ficou guardado no papel por 6 meses. Hoje finalmente ganhou vida."</div>
+      <div class="var-item">"[Cliente] me disse que era o presente de aniversário para si mesmo. Honra enorme."</div>
+      <div class="var-item">"Realismo não é copiar uma foto. É entender a luz, a sombra e o que está entre os dois."</div>
+      <div class="var-item">"A história por trás dessa tattoo me fez parar o trabalho por um momento."</div>
+      <div class="var-item">"[X] horas. [X] agulhas. Uma transformação que não tem preço."</div>
+    </div>
+  </div>
+
+  <!-- TEMPLATE 14 -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">14</div>
+      <div class="tc-info">
+        <h4>Carrossel Antes e Depois — Transformação Completa</h4>
+        <div class="tc-sub">O formato de maior conversão para coberturas — cada arraste é engajamento</div>
+      </div>
+    </div>
+    <div class="tc-tags"><span class="tc-tag">Feed 1:1</span><span class="tc-tag verde">Carrossel</span><span class="tc-tag azul">Cobertura</span><span class="tc-tag">Alta conversão</span></div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Estrutura dos slides do carrossel</span>
+      <div class="copy-text"><span class="highlight">Slide 1 — DEPOIS (impacto visual — não mostre o antes primeiro)</span>
+Só a imagem do resultado final. Título: "DEPOIS →"
+A surpresa do antes no slide 2 faz o usuário arrastar.
+
+<span class="highlight">Slide 2 — ANTES (revelação)</span>
+A tattoo antiga. Título: "← ANTES"
+Esse contraste gera compartilhamento orgânico.
+
+<span class="highlight">Slides 3-4 — Detalhes técnicos</span>
+Close da região coberta. Close do acabamento.
+Mostre o que fica embaixo versus o que ficou em cima.
+
+<span class="highlight">Slide 5 — Informações técnicas</span>
+"Cobertura · [estilo] · [sessões] · Carlos Tattoo BH"
+
+<span class="highlight">Slide 6 — CTA</span>
+"Avaliação de cobertura: 100% gratuita
+📩 [link do WhatsApp ou 'link na bio']"</div>
+    </div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Legenda do carrossel</span>
+      <div class="copy-text">Ela escondia esse braço há <span class="placeholder">[X]</span> anos.
+
+Arrasta para ver o que mudou. 👉
+
+<span class="placeholder">[2-3 frases sobre a história emocional da cobertura]</span>
+
+Nenhuma tattoo antiga é impossível de transformar — só exige o projeto certo.
+
+Avaliação gratuita de cobertura: manda foto no direct ou link na bio.
+
+#coveruptattoo #coberturatatuagem #tattooBH</div>
+    </div>
+  </div>
+
+  <!-- TEMPLATE 15 — CARROSSEL EDUCATIVO -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">15</div>
+      <div class="tc-info">
+        <h4>Carrossel Educativo — Conteúdo que é Salvo e Compartilhado</h4>
+        <div class="tc-sub">Salvamentos = sinal mais forte para o algoritmo. Este formato explode alcance.</div>
+      </div>
+    </div>
+    <div class="tc-tags"><span class="tc-tag">Feed 1:1</span><span class="tc-tag verde">Educativo</span><span class="tc-tag roxo">Salvamentos</span><span class="tc-tag">Alcance</span></div>
+    <div class="tc-corpo">
+      <p><strong>Estrutura padrão:</strong> Slide 1 — título impactante com número. Slides 2-6 — um ponto por slide (texto + imagem relevante). Slide 7 — "Salva esse post" + seu @.</p>
+    </div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 12 temas de carrossel educativo + títulos prontos</span>
+      <div class="copy-text"><span class="highlight">Tema 1</span>
+"5 erros que destroem tatuagens na cicatrização
+(o número 3 quase todo mundo comete)"
+
+<span class="highlight">Tema 2</span>
+"Quanto custa uma tattoo realista em BH em 2026
+(com tabela de preços real por tamanho e estilo)"
+
+<span class="highlight">Tema 3</span>
+"7 sinais de que você encontrou um tatuador profissional
+(e 3 red flags que você deve fugir)"
+
+<span class="highlight">Tema 4</span>
+"Realismo vs Fineline: qual estilo é para você?
+(guia honesto para você não se arrepender)"
+
+<span class="highlight">Tema 5</span>
+"Cover up: 5 mitos que precisam morrer
+(o que qualquer tatuador vai te contar)"
+
+<span class="highlight">Tema 6</span>
+"Cuidados pós-tattoo: o guia definitivo
+(o que fazer hora por hora nas primeiras 48h)"
+
+<span class="highlight">Tema 7</span>
+"Por que tatuagem barata sai caro
+(a matemática que ninguém conta)"
+
+<span class="highlight">Tema 8</span>
+"Antes de tatuar: 8 perguntas que você precisa fazer
+(ao tatuador e a si mesmo)"
+
+<span class="highlight">Tema 9</span>
+"Tatuagem colorida vs preto e cinza
+(qual dura mais e qual dói mais — a verdade)"
+
+<span class="highlight">Tema 10</span>
+"Como preparar a pele para tatuar
+(o que fazer e o que NUNCA fazer antes da sessão)"
+
+<span class="highlight">Tema 11</span>
+"5 regiões do corpo para tatuar pela primeira vez
+(e as 3 que você deve deixar para depois)"
+
+<span class="highlight">Tema 12</span>
+"Como escolher o estilo da sua tattoo
+(método passo a passo para não errar)"</div>
+    </div>
+  </div>
+  <div class="pf"><span>© 2026 Carlos Tattoo BH</span><span>Módulo 02 · Feed</span><span>Pág. 17-20</span></div>
+</div>
+
+<div class="page pb">
+  <div class="ph"><img src="" alt=""><span>Carlos Tattoo BH — Pack Scripts &amp; Templates 2026</span></div>
+  <div class="bg-n">02</div>
+
+  <!-- TEMPLATE 16 -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">16</div>
+      <div class="tc-info">
+        <h4>Abertura de Agenda — Post de Urgência com Vagas</h4>
+        <div class="tc-sub">Combina com o Story de abertura para impacto máximo</div>
+      </div>
+    </div>
+    <div class="tc-tags"><span class="tc-tag">Feed 1:1</span><span class="tc-tag verde">Conversão</span><span class="tc-tag azul">Urgência</span></div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Legenda completa de abertura de agenda</span>
+      <div class="copy-text">📅 <span class="placeholder">[MÊS]</span> — Vagas abertas
+
+Trabalho com agenda limitada. São apenas <span class="placeholder">[X]</span> vagas para o próximo mês, e a prioridade vai para os projetos que mais me desafiam tecnicamente.
+
+Se você tem uma ideia guardada há tempo, esse é o momento. Manda mensagem com sua referência que respondo todos.
+
+O que está disponível:
+→ Realismo (retratos, animais, objetos)
+→ Cobertura de tattoos antigas
+→ Black &amp; Grey
+→ Fineline
+
+Consulta 100% gratuita. Projeto apresentado antes de confirmar.
+
+📲 Link na bio para entrar em contato ou responde esse post com "QUERO" que te chamo no direct.</div>
+    </div>
+  </div>
+
+  <!-- TEMPLATE 17 -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">17</div>
+      <div class="tc-info">
+        <h4>Post de Depoimento no Feed</h4>
+        <div class="tc-sub">Prova social fixada no feed — muito mais permanente que Stories</div>
+      </div>
+    </div>
+    <div class="tc-tags"><span class="tc-tag">Feed 1:1</span><span class="tc-tag verde">Social Proof</span><span class="tc-tag roxo">Confiança</span></div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Legenda de post de depoimento</span>
+      <div class="copy-text">"<span class="placeholder">[Transcrição exata do depoimento]</span>"
+— <span class="placeholder">[Nome ou iniciais]</span>, <span class="placeholder">[cidade]</span> 🖤
+
+<span class="placeholder">[1-2 frases suas respondendo ao depoimento — humaniza]</span>
+
+Trabalhos assim são o motivo de cada detalhe importar.
+
+Consulta gratuita disponível: link na bio.
+
+<span class="placeholder">[hashtags]</span></div>
+    </div>
+  </div>
+
+  <!-- TEMPLATE 18 -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">18</div>
+      <div class="tc-info">
+        <h4>Post de Autoridade — Credenciais e Especialidade</h4>
+        <div class="tc-sub">Apresentação de marca pessoal — posicionamento premium</div>
+      </div>
+    </div>
+    <div class="tc-tags"><span class="tc-tag">Feed 1:1</span><span class="tc-tag verde">Autoridade</span><span class="tc-tag roxo">Marca pessoal</span></div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 3 modelos de post de autoridade</span>
+      <div class="copy-text"><span class="highlight">Modelo 1 — Credenciais em números</span>
+<span class="placeholder">[X]</span> anos de carreira.
++<span class="placeholder">[X]</span> tatuagens realizadas.
+<span class="placeholder">[X]</span> estrelas no Google.
+<span class="placeholder">[X]</span>+ avaliações.
+Especialidade: [seus estilos principais].
+
+Não vendo preço. Vendo resultado.
+Consulta gratuita: link na bio.
+
+<span class="highlight">Modelo 2 — Especialidade específica</span>
+Se você quer um realismo que parece fotografia na pele — esse é o meu trabalho.
+
+[X] anos aperfeiçoando a técnica de realismo em BH.
+Cada trabalho único. Cada projeto apresentado antes de tatuar.
+
+Avaliação gratuita: chama no direct.
+
+<span class="highlight">Modelo 3 — Por que cobro o preço que cobro</span>
+Vou ser direto: não sou o tatuador mais barato de BH.
+
+Sou o que vai mostrar o projeto antes de tatuar.
+O que usa tinta premium importada.
+O que atende você em ambiente privado, climatizado.
+O que está disponível se tiver dúvida após a sessão.
+
+Cobro o que cobro porque entrego o que prometo.
+
+Consulta gratuita — sem compromisso. Link na bio.</div>
+    </div>
+  </div>
+
+  <!-- TEMPLATE 19 — REEL -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">19</div>
+      <div class="tc-info">
+        <h4>Roteiro Completo de Reel — Processo de Tatuagem</h4>
+        <div class="tc-sub">Reels têm 3x mais alcance que fotos — use roteiro para não improvisar</div>
+      </div>
+    </div>
+    <div class="tc-tags"><span class="tc-tag">Reel</span><span class="tc-tag verde">Vídeo</span><span class="tc-tag azul">Alcance</span></div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Roteiro de Reel de processo (30-60 segundos)</span>
+      <div class="copy-text"><span class="highlight">Segundos 0-3 — GANCHO (não pode deixar rolar)</span>
+Texto na tela: "De [tattoo antiga/pele limpa] para ISSO 👇"
+[imagem do resultado final — impactante]
+
+<span class="highlight">Segundos 3-8 — ANTES</span>
+[foto ou vídeo rápido do antes ou da pele limpa]
+Texto: "O projeto começou assim..."
+
+<span class="highlight">Segundos 8-20 — PROCESSO</span>
+[sequência de 3-4 clipes: risco do stencil, início da tattoo,
+detalhe do sombreado, acabamento]
+Música trending no fundo
+Texto: "Cada detalhe com propósito"
+
+<span class="highlight">Segundos 20-28 — REVEAL</span>
+[foto ou vídeo do resultado finalizado em boa iluminação]
+Texto: "[estilo] · [tamanho] · [sessões]"
+
+<span class="highlight">Segundos 28-35 — CTA</span>
+Texto na tela: "Consulta gratuita disponível esta semana"
+"📩 Link na bio · @carlostattoo.bh"</div>
+    </div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Legenda do Reel</span>
+      <div class="copy-text"><span class="placeholder">[linha de gancho — ex: "Transformação de 4 horas em 30 segundos"]</span>
+
+<span class="placeholder">[2-3 linhas sobre o trabalho]</span>
+
+Consulta gratuita: link na bio 🔗
+
+#tatuagemBH #realismoBH #tattooBH <span class="placeholder">[+ hashtags do pack]</span></div>
+    </div>
+  </div>
+  <div class="pf"><span>© 2026 Carlos Tattoo BH</span><span>Módulo 02 · Feed</span><span>Pág. 21-26</span></div>
+</div>
+
+<!-- ======================================================= -->
+<!-- MÓDULO 03 — ANÚNCIOS -->
+<!-- ======================================================= -->
+<div class="mh pb" id="mod3">
+  <div class="mh-bg-n">03</div>
+  <div class="mh-lbl">Módulo 03</div>
+  <div class="mh-title">Templates de <b>Anúncios</b></div>
+  <p class="mh-desc">8 templates de copy completos para Meta Ads — texto principal, título e descrição prontos para copiar no Gerenciador de Anúncios. Testados e otimizados para tatuadores.</p>
+  <div class="mh-count"><span>🎯 8 Templates · Meta Ads · Copy Otimizado para Conversão</span></div>
+</div>
+
+<div class="page pb">
+  <div class="ph"><img src="" alt=""><span>Carlos Tattoo BH — Pack Scripts &amp; Templates 2026</span></div>
+  <div class="bg-n">03</div>
+  <span class="lbl">Módulo 03 · Anúncios</span>
+
+  <h3>Como usar os templates de anúncio</h3>
+  <p>Cada template tem 3 campos que você vai preencher no Gerenciador de Anúncios do Meta (business.facebook.com → Criar anúncio → Posicionamento do anúncio):</p>
+
+  <div class="steps">
+    <div class="step"><div class="sn">1</div><div class="st"><h4>Texto Principal</h4><p>O texto longo que aparece acima da imagem. É onde vai o copy persuasivo completo. Limite: 125 caracteres antes do "ver mais" (mas escreva mais — quem lê até o fim converte mais).</p></div></div>
+    <div class="step"><div class="sn">2</div><div class="st"><h4>Título</h4><p>A linha em negrito abaixo da imagem. Deve ser direta e com benefício claro. Limite: 40 caracteres. É o que o usuário lê quando não lê o texto principal.</p></div></div>
+    <div class="step"><div class="sn">3</div><div class="st"><h4>Descrição</h4><p>A linha abaixo do título. Complementa o título com uma segunda informação. Limite: 30 caracteres. Use para reforçar a oferta ou o diferencial.</p></div></div>
+  </div>
+
+  <!-- ANÚNCIO 23 -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">23</div>
+      <div class="tc-info">
+        <h4>Anúncio de Cobertura — Transformação de Tattoo Antiga</h4>
+        <div class="tc-sub">Público com "objeção de tattoo antiga" — muito qualificado</div>
+      </div>
+    </div>
+    <div class="tc-tags"><span class="tc-tag">Story 9:16 e Feed 1:1</span><span class="tc-tag verde">Cobertura</span><span class="tc-tag azul">Mensagens WhatsApp</span></div>
+    <div class="tc-quando"><span class="tc-q-icon">🎯</span><div class="tc-q-body"><span class="tc-q-label">Configuração recomendada</span><span class="tc-q-text"><strong>Objetivo:</strong> Mensagens (WhatsApp). <strong>Público:</strong> 25-45 anos, sua cidade + 30km. <strong>Interesses:</strong> Tatuagem, cover up, body art, moda alternativa. <strong>Criativo:</strong> imagem antes/depois de cobertura impactante.</span></div></div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Texto Principal</span>
+      <div class="copy-text">Você ainda esconde aquela tatuagem debaixo da manga todos os dias? 😬
+
+Em 7 anos, nunca recusei uma cobertura. Nenhuma tattoo antiga é impossível de transformar — só precisa do projeto certo.
+
+✓ Avaliação 100% gratuita — sem compromisso
+✓ Projeto exclusivo criado para a sua cobertura
+✓ 7 anos de especialidade em cobertura em BH
+✓ Estúdio em BH · Mantiqueira · Climatizado e privativo
+
+Manda uma foto da sua tattoo atual e descubro o que posso fazer por você. 👇</div>
+    </div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Título + Descrição</span>
+      <div class="copy-text">Título: Avaliação de cobertura gratuita
+Descrição: Carlos Tattoo BH · 7 anos de especialidade</div>
+    </div>
+    <div class="var-box"><span class="var-lbl">Variação mais direta (para remarketing)</span>
+      <div class="var-item">"Aquela tattoo que te incomoda? Posso transformar. Avaliação gratuita: manda foto."</div>
+    </div>
+  </div>
+
+  <!-- ANÚNCIO 24 -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">24</div>
+      <div class="tc-info">
+        <h4>Anúncio de Realismo — Homenagem Especial</h4>
+        <div class="tc-sub">Apelo emocional máximo — para quem quer eternizar alguém ou algo especial</div>
+      </div>
+    </div>
+    <div class="tc-tags"><span class="tc-tag">Feed 1:1 e Story 9:16</span><span class="tc-tag verde">Realismo</span><span class="tc-tag azul">Emocional</span></div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Texto Principal</span>
+      <div class="copy-text">Quer eternizar alguém especial na sua pele mas tem medo de escolher o profissional errado?
+
+Retratos realistas são arte — e merecem ser tratados com o respeito que essa memória merece.
+
+Não é qualquer tatuagem. É a memória de alguém que você ama impressa para sempre.
+
+✓ Projeto apresentado para aprovação ANTES de tatuar
+✓ 7 anos de especialidade em realismo em BH
+✓ 5 estrelas Google · +2.400 tatuagens realizadas
+✓ Tinta importada premium — cores que duram décadas
+
+💬 Manda mensagem — vamos criar juntos algo que vai te emocionar para sempre.</div>
+    </div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Título + Descrição</span>
+      <div class="copy-text">Título: Realismo que parece fotografia
+Descrição: Projeto aprovado antes de tatuar</div>
+    </div>
+  </div>
+
+  <!-- ANÚNCIO 25 -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">25</div>
+      <div class="tc-info">
+        <h4>Anúncio de Vagas — Urgência e Escassez Real</h4>
+        <div class="tc-sub">O anúncio mais simples com a mais alta conversão — use todo mês</div>
+      </div>
+    </div>
+    <div class="tc-tags"><span class="tc-tag">Story 9:16</span><span class="tc-tag verde">Urgência</span><span class="tc-tag azul">Vagas</span></div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Texto Principal</span>
+      <div class="copy-text">⚡ Últimas 3 vagas disponíveis para este mês no Carlos Tattoo BH
+
+Trabalho com agenda limitada por escolha — cada cliente recebe atenção total, projeto exclusivo e sessão sem pressa.
+
+✓ Realismo · Fineline · Black &amp; Grey · Cover Up · Colorida
+✓ Projeto personalizado apresentado antes de cada sessão
+✓ +2.400 tatuagens · 5⭐ Google · Mantiqueira, BH
+✓ Tinta importada premium
+
+📅 Reserve sua vaga antes que esgote — no mês passado fechou em 4 dias.</div>
+    </div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Título + Descrição</span>
+      <div class="copy-text">Título: Últimas vagas de [mês] — BH
+Descrição: Consulta gratuita sem compromisso</div>
+    </div>
+  </div>
+
+  <!-- ANÚNCIOS 26-30 resumidos -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">26</div>
+      <div class="tc-info">
+        <h4>Anúncio de Retargeting — Para Quem Já Visitou</h4>
+        <div class="tc-sub">Para pessoas que já interagiram com seu perfil nos últimos 30-60 dias</div>
+      </div>
+    </div>
+    <div class="tc-tags"><span class="tc-tag">Feed 1:1</span><span class="tc-tag verde">Retargeting</span><span class="tc-tag roxo">Quente</span></div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Texto Principal</span>
+      <div class="copy-text">Você visitou meu perfil essa semana. 
+
+Isso me diz que você está pensando em tatuar — e talvez só esteja esperando o momento certo.
+
+Posso te ajudar a tomar essa decisão com segurança:
+
+✓ Avaliação gratuita por mensagem ou presencial
+✓ Te mostro o projeto antes de qualquer compromisso
+✓ Sem pressão — só uma conversa sobre sua ideia
+
+Se a ideia já está guardada há tempo, talvez seja hora de tirar do papel. Manda mensagem. 📩</div>
+    </div>
+  </div>
+
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">27</div>
+      <div class="tc-info">
+        <h4>Anúncio de Fineline — Delicadeza e Precisão</h4>
+        <div class="tc-sub">Público feminino, 20-35 anos — altamente visual e emocional</div>
+      </div>
+    </div>
+    <div class="tc-tags"><span class="tc-tag">Feed 1:1 e Story</span><span class="tc-tag verde">Fineline</span><span class="tc-tag azul">Público feminino</span></div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Texto Principal</span>
+      <div class="copy-text">Fineline não é só estilo — é arte de precisão.
+
+Cada linha tem 0,3mm. Cada detalhe intencional. Cada trabalho único.
+
+Para quem quer algo delicado mas que impacta de perto — esse é o estilo.
+
+✓ Especialidade em fineline e micro-realismo
+✓ Projeto exclusivo para cada cliente
+✓ Tatuagens que envelhecem com beleza com os cuidados certos
+
+📍 Carlos Tattoo BH · Mantiqueira · Consulta gratuita disponível</div>
+    </div>
+  </div>
+  <div class="pf"><span>© 2026 Carlos Tattoo BH</span><span>Módulo 03 · Anúncios</span><span>Pág. 28-35</span></div>
+</div>
+
+<!-- ======================================================= -->
+<!-- BÔNUS B1 — SCRIPTS DE DIRECT -->
+<!-- ======================================================= -->
+<div class="mh pb" id="mod4">
+  <div class="mh-bg-n">B1</div>
+  <div class="mh-lbl">Bônus 01</div>
+  <div class="mh-title">Scripts de <b>Direct</b></div>
+  <p class="mh-desc">8 situações completas de atendimento no direct — da primeira mensagem ao fechamento. Cada palavra testada para converter sem parecer robô.</p>
+  <div class="mh-count"><span>📩 8 Scripts · Direct Instagram · Fluxo Completo de Atendimento</span></div>
+</div>
+
+<div class="page pb">
+  <div class="ph"><img src="" alt=""><span>Carlos Tattoo BH — Pack Scripts &amp; Templates 2026</span></div>
+  <div class="bg-n">B1</div>
+  <span class="lbl">Bônus 01 · Direct</span>
+
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">D1</div>
+      <div class="tc-info">
+        <h4>Primeira Resposta — Cliente Manda Referência</h4>
+        <div class="tc-sub">Os primeiros 60 segundos determinam se vai fechar — responda rápido e com qualidade</div>
+      </div>
+    </div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Script — Cliente manda foto de referência</span>
+      <div class="copy-text">Oi [Nome]! Recebi as referências 🖤
+
+Adorei a ideia — isso no seu [braço/costela/etc] vai ficar incrível.
+
+Algumas perguntas rápidas para eu entender melhor o projeto:
+
+→ Qual tamanho você tem em mente? (pode ser em cm ou descrevendo a região)
+→ Tem preferência de estilo? (preto e cinza, colorido, só contorno...)
+→ Tem alguma data de preferência para a sessão?
+
+Com essas informações já consigo te dar uma ideia de valor e prazo. 👌</div>
+    </div>
+  </div>
+
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">D2</div>
+      <div class="tc-info">
+        <h4>Resposta para Pergunta de Preço Sem Informações</h4>
+        <div class="tc-sub">Nunca dê preço sem qualificar — você perde autoridade e o lead foge</div>
+      </div>
+    </div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Script — "Quanto custa uma tatuagem?"</span>
+      <div class="copy-text">Oi [Nome]! Boa pergunta — o valor depende de alguns fatores:
+
+→ Tamanho e complexidade do projeto
+→ Estilo escolhido (realismo exige mais tempo que fineline simples)
+→ Local do corpo (algumas regiões exigem mais sessões)
+
+Para te dar um valor real, preciso entender a sua ideia. 
+
+Me conta: qual é o projeto que você tem em mente? Se tiver referência, manda foto que fica mais fácil 📸
+
+Depois disso consigo te dar um valor específico e sem surpresas. 👍</div>
+    </div>
+  </div>
+
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">D3</div>
+      <div class="tc-info">
+        <h4>Script de Follow-up — Sem Resposta Após 24h</h4>
+        <div class="tc-sub">O follow-up recupera até 40% dos leads que sumiu — sem ser insistente</div>
+      </div>
+    </div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Script de follow-up (24-48h depois)</span>
+      <div class="copy-text">Oi [Nome]! Só passando para ver se ficou alguma dúvida sobre o projeto 🖤
+
+Fica à vontade para mandar mensagem quando quiser — minha agenda está aberta para [mês/essa semana].
+
+Se quiser, posso já separar um horário para consulta gratuita — sem compromisso nenhum, só para conversar sobre a ideia. 👌</div>
+    </div>
+    <div class="var-box"><span class="var-lbl">Variação para cliente que sumiu após orçamento</span>
+      <div class="var-item">"Oi [Nome]! Sei que a decisão de tatuar não é simples. Se tiver alguma dúvida sobre o projeto ou o processo, fica à vontade. Estarei aqui quando você estiver pronto(a). 🖤"</div>
+    </div>
+  </div>
+
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">D4</div>
+      <div class="tc-info">
+        <h4>Objeção de Preço — "Está muito caro"</h4>
+        <div class="tc-sub">Não desconte — justifique o valor com segurança</div>
+      </div>
+    </div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Script — Objeção de preço</span>
+      <div class="copy-text">Entendo [Nome] — a decisão de investir em tatuagem é pessoal e precisa fazer sentido para você.
+
+Posso te explicar o que está incluído no valor:
+→ Projeto digital exclusivo criado para você antes de tatuar
+→ Tinta importada premium que mantém a saturação por décadas
+→ Sessão em ambiente privativo, climatizado e esterilizado
+→ Retoque gratuito em até 90 dias se necessário
+
+Tatuagem é permanente — e o preço de corrigir um trabalho mal feito é muito mais alto (laser, cobertura, sofrimento). 
+
+Se o investimento estiver fora do seu momento agora, sem problema nenhum. Me manda mensagem quando estiver no momento certo — guardarei suas referências com prazer. 🖤</div>
+    </div>
+  </div>
+
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">D5</div>
+      <div class="tc-info">
+        <h4>Confirmação de Agendamento — Com Instruções Completas</h4>
+        <div class="tc-sub">Reduz no-shows e prepara o cliente para a melhor experiência</div>
+      </div>
+    </div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Script de confirmação de sessão</span>
+      <div class="copy-text">Perfeito [Nome]! Sessão confirmada ✅
+
+📅 Data: [dia] às [hora]
+📍 Local: [endereço completo]
+💰 Valor total: R$ [valor] (sinal de R$ [valor] confirmado)
+
+Para aproveitar ao máximo a sessão:
+
+→ Alimente-se bem no dia — sessão em jejum afeta a tolerância
+→ Vista roupa confortável que facilite o acesso à área
+→ Hidrate bem a pele nos dias anteriores (sem cremes no dia da sessão)
+→ Durma bem na noite anterior — pele descansada cicatriza melhor
+→ Não consuma álcool nas 24h anteriores
+→ Se usar qualquer medicamento, me avisa antes
+
+Qualquer dúvida me chama 🖤 Te espero na [dia]!</div>
+    </div>
+  </div>
+
+  <!-- D6, D7, D8 -->
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num">D6</div>
+      <div class="tc-info">
+        <h4>Script Pós-Sessão — Cuidados + Fidelização</h4>
+        <div class="tc-sub">Enviado logo após a sessão — reduz problemas de cicatrização e cria cliente fiel</div>
+      </div>
+    </div>
+    <div class="copy-box">
+      <span class="copy-lbl">📋 Mensagem pós-sessão</span>
+      <div class="copy-text">Oi [Nome]! Foi uma honra trabalhar nesse projeto com você 🖤
+
+Aqui vai o resumo dos cuidados para os próximos dias:
+
+PRIMEIROS 3 DIAS:
+→ Lavar com sabonete neutro 3x ao dia (Dove sem perfume, Granado neutro)
+→ Secar com papel toalha (batendo, não esfregando)
+→ Hidratar com Bepantol Derma 3-4x ao dia (camada fina)
+
+EVITAR POR 15 DIAS:
+→ Sol direto, piscina, mar, academia
+→ Arranhar ou descascar qualquer casca
+→ Roupas muito apertadas sobre a tattoo
+
+Se tiver qualquer dúvida, manda foto aqui que respondo sempre. 
+
+Em 90 dias faço avaliação do resultado e se precisar de retoque, é de graça. 👌
+
+Obrigado pela confiança! 🖤</div>
+    </div>
+  </div>
+  <div class="pf"><span>© 2026 Carlos Tattoo BH</span><span>Bônus · Scripts Direct</span><span>Pág. 37-41</span></div>
+</div>
+
+<!-- ======================================================= -->
+<!-- BÔNUS B3 — HASHTAGS -->
+<!-- ======================================================= -->
+<div class="page pb">
+  <div class="ph"><img src="" alt=""><span>Carlos Tattoo BH — Pack Scripts &amp; Templates 2026</span></div>
+  <div class="bg-n">B3</div>
+  <span class="lbl">Bônus 03 · Hashtags</span>
+
+  <h2 class="h2">Pack de <b>Hashtags</b></h2>
+  <p>Use 20-30 hashtags por post. Combine 1 categoria temática + geolocalização BH/MG + 1-2 de nicho específico. Troque o pack a cada 2-3 posts para não saturar.</p>
+
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num" style="font-size:12px;">H1</div>
+      <div class="tc-info"><h4>Pack — Portfólio Geral</h4><div class="tc-sub">Para posts de trabalhos finalizados</div></div>
+    </div>
+    <div class="hbox">
+      <span class="htag">#tattooBH</span><span class="htag">#tatuagemBH</span><span class="htag">#tatuagemBeloHorizonte</span><span class="htag">#tattooMG</span><span class="htag">#tatuadorBH</span><span class="htag">#tattooartist</span><span class="htag">#tattoobrasil</span><span class="htag">#tatuagem</span><span class="htag">#tattoo</span><span class="htag">#inkmaster</span><span class="htag">#tattoolife</span><span class="htag">#blackwork</span><span class="htag">#realistictattoo</span><span class="htag">#tattoorealism</span><span class="htag">#tattoodesign</span><span class="htag">#tattooartwork</span><span class="htag">#inked</span><span class="htag">#inkedgirls</span><span class="htag">#inkedup</span><span class="htag">#tattoolovers</span><span class="htag">#besttattoo</span><span class="htag">#tattoostudio</span>
+    </div>
+  </div>
+
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num" style="font-size:12px;">H2</div>
+      <div class="tc-info"><h4>Pack — Realismo</h4><div class="tc-sub">Para posts de retratos, animais e objetos realistas</div></div>
+    </div>
+    <div class="hbox">
+      <span class="htag">#realismotatuagem</span><span class="htag">#realismBH</span><span class="htag">#tatuagemrealismo</span><span class="htag">#portraittattoo</span><span class="htag">#realistictattoo</span><span class="htag">#hyperrealism</span><span class="htag">#realism</span><span class="htag">#blackandgrey</span><span class="htag">#blackandgreytattoo</span><span class="htag">#blackandgreyrealism</span><span class="htag">#animaltattoo</span><span class="htag">#portraittattoos</span><span class="htag">#photoreal</span><span class="htag">#tattoooftheday</span><span class="htag">#tattoosofinstagram</span>
+    </div>
+  </div>
+
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num" style="font-size:12px;">H3</div>
+      <div class="tc-info"><h4>Pack — Cobertura</h4><div class="tc-sub">Para posts de cover up e transformações</div></div>
+    </div>
+    <div class="hbox">
+      <span class="htag">#coverup</span><span class="htag">#coveruptattoo</span><span class="htag">#coveruptattoos</span><span class="htag">#coberturatatuagem</span><span class="htag">#cobrirtaruagem</span><span class="htag">#tattoocover</span><span class="htag">#tattoocoverup</span><span class="htag">#transformação</span><span class="htag">#beforeandafter</span><span class="htag">#antesedepois</span><span class="htag">#tattootransformation</span><span class="htag">#coverupspecialist</span>
+    </div>
+  </div>
+
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num" style="font-size:12px;">H4</div>
+      <div class="tc-info"><h4>Pack — Fineline</h4><div class="tc-sub">Para posts de traços finos e delicados</div></div>
+    </div>
+    <div class="hbox">
+      <span class="htag">#fineline</span><span class="htag">#finelinetattoo</span><span class="htag">#finelinetattoos</span><span class="htag">#delicatetattoo</span><span class="htag">#minimalisttattoo</span><span class="htag">#linework</span><span class="htag">#singleline</span><span class="htag">#fineliner</span><span class="htag">#thinlines</span><span class="htag">#microrealism</span><span class="htag">#subtletattoo</span><span class="htag">#finelinetattooart</span>
+    </div>
+  </div>
+
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num" style="font-size:12px;">H5</div>
+      <div class="tc-info"><h4>Pack — Conteúdo Educativo</h4><div class="tc-sub">Para posts de dicas, cuidados e informação</div></div>
+    </div>
+    <div class="hbox">
+      <span class="htag">#cuidadostatuagem</span><span class="htag">#postatuagem</span><span class="htag">#tattootips</span><span class="htag">#tattoocareadvice</span><span class="htag">#tattooadvice</span><span class="htag">#cicatrizaçãotattoo</span><span class="htag">#dicastatuagem</span><span class="htag">#tattoohealing</span><span class="htag">#savetattoo</span><span class="htag">#tattooknowledge</span>
+    </div>
+  </div>
+
+  <div class="tc pbi">
+    <div class="tc-head">
+      <div class="tc-num" style="font-size:12px;">H6</div>
+      <div class="tc-info"><h4>Pack — BH e MG Local</h4><div class="tc-sub">Sempre inclua em todos os posts para alcance local</div></div>
+    </div>
+    <div class="hbox">
+      <span class="htag">#belohorizonte</span><span class="htag">#BH</span><span class="htag">#tatuagemBH</span><span class="htag">#tattoobh</span><span class="htag">#minhagerais</span><span class="htag">#bhcity</span><span class="htag">#tatuagemminasgerais</span><span class="htag">#estúdiotattoo</span><span class="htag">#tatuagemrealista</span><span class="htag">#tatuadorbrasileiro</span><span class="htag">#tattoobrumadinho</span><span class="htag">#tattoocontagem</span>
+    </div>
+  </div>
+
+  <div class="pf"><span>© 2026 Carlos Tattoo BH</span><span>Bônus · Hashtags</span><span>Pág. 45-46</span></div>
+</div>
+
+<!-- ======================================================= -->
+<!-- BÔNUS B4 — CALENDÁRIO -->
+<!-- ======================================================= -->
+<div class="page pb">
+  <div class="ph"><img src="" alt=""><span>Carlos Tattoo BH — Pack Scripts &amp; Templates 2026</span></div>
+  <div class="bg-n">B4</div>
+  <span class="lbl">Bônus 04 · Calendário</span>
+
+  <h2 class="h2">Calendário de Conteúdo — <b>30 dias prontos</b></h2>
+  <p>Use essa estrutura toda semana. Adapte os temas para seus trabalhos reais — mas a frequência e a variedade dos formatos devem seguir este padrão.</p>
+
+  <table class="tb">
+    <tr><th>Dia</th><th>Formato</th><th>Tema / Conteúdo</th><th>Objetivo</th></tr>
+    <tr><td><strong>Seg 1</strong></td><td>Feed — Post</td><td>Abertura de agenda do mês — vagas disponíveis</td><td>Conversão</td></tr>
+    <tr><td><strong>Ter 1</strong></td><td>Stories</td><td>Story de bastidor (processo de tatuagem ao vivo)</td><td>Engajamento</td></tr>
+    <tr><td><strong>Qua 1</strong></td><td>Feed — Reel</td><td>Timelapse de tatuagem finalizada (30 seg)</td><td>Alcance</td></tr>
+    <tr><td><strong>Qui 1</strong></td><td>Stories</td><td>Enquete de estilo (Realismo vs Fineline)</td><td>Qualificação</td></tr>
+    <tr><td><strong>Sex 1</strong></td><td>Feed — Carrossel</td><td>Antes e depois de cobertura (6 slides)</td><td>Conversão</td></tr>
+    <tr><td><strong>Sáb 1</strong></td><td>Stories</td><td>Depoimento de cliente da semana</td><td>Prova social</td></tr>
+    <tr><td><strong>Dom 1</strong></td><td>Descanso</td><td>—</td><td>—</td></tr>
+    <tr><td><strong>Seg 2</strong></td><td>Feed — Post</td><td>Portfólio — trabalho finalizado com storytelling</td><td>Autoridade</td></tr>
+    <tr><td><strong>Ter 2</strong></td><td>Stories</td><td>Caixa de perguntas — avaliação de coberturas ao vivo</td><td>Engajamento</td></tr>
+    <tr><td><strong>Qua 2</strong></td><td>Feed — Carrossel</td><td>Educativo: "5 erros que destroem tatuagens" (7 slides)</td><td>Salvamentos</td></tr>
+    <tr><td><strong>Qui 2</strong></td><td>Stories</td><td>Bastidor do estúdio (ambiente + materiais)</td><td>Confiança</td></tr>
+    <tr><td><strong>Sex 2</strong></td><td>Feed — Post</td><td>Depoimento em destaque no feed</td><td>Prova social</td></tr>
+    <tr><td><strong>Sáb 2</strong></td><td>Stories</td><td>Contagem regressiva de vagas do mês</td><td>Urgência</td></tr>
+    <tr><td><strong>Seg 3</strong></td><td>Feed — Reel</td><td>Reel educativo: processo de cicatrização</td><td>Alcance</td></tr>
+    <tr><td><strong>Ter 3</strong></td><td>Stories</td><td>Story de detalhe técnico (zoom no trabalho)</td><td>Autoridade</td></tr>
+    <tr><td><strong>Qua 3</strong></td><td>Feed — Carrossel</td><td>"Por que realismo custa mais" (educativo + posicionamento)</td><td>Valor</td></tr>
+    <tr><td><strong>Qui 3</strong></td><td>Stories</td><td>Enquete: "Qual a sua maior dúvida antes de tatuar?"</td><td>Qualificação</td></tr>
+    <tr><td><strong>Sex 3</strong></td><td>Feed — Post</td><td>Portfólio — fineline com legenda de posicionamento</td><td>Autoridade</td></tr>
+    <tr><td><strong>Seg 4</strong></td><td>Feed — Post</td><td>Post de autoridade: credenciais e especialidade</td><td>Posicionamento</td></tr>
+    <tr><td><strong>Ter 4</strong></td><td>Stories</td><td>Q&A respondendo perguntas da semana anterior</td><td>Engajamento</td></tr>
+    <tr><td><strong>Qua 4</strong></td><td>Feed — Reel</td><td>Timelapse de outro trabalho (30-45 seg)</td><td>Alcance</td></tr>
+    <tr><td><strong>Qui 4</strong></td><td>Stories</td><td>Convite para consulta gratuita (CTA direto)</td><td>Conversão</td></tr>
+    <tr><td><strong>Sex 4</strong></td><td>Feed — Post</td><td>Antes e depois (post único — não carrossel)</td><td>Conversão</td></tr>
+    <tr><td><strong>Sáb 4</strong></td><td>Stories</td><td>Resumo da semana / últimas vagas do mês</td><td>Urgência</td></tr>
+  </table>
+
+  <div class="box-dark">
+    <h4>📊 Frequência mínima para crescimento consistente</h4>
+    <p>→ <strong>Feed:</strong> 3-4x por semana (misture fotos, carrosseis e reels)</p>
+    <p>→ <strong>Stories:</strong> todos os dias (mínimo 3-5 Stories por dia)</p>
+    <p>→ <strong>Reels:</strong> 2-3x por semana (maior alcance orgânico)</p>
+    <p>→ <strong>Lives:</strong> 1x por mês mínimo (responder dúvidas ao vivo — engajamento altíssimo)</p>
+  </div>
+
+  <div class="pf"><span>© 2026 Carlos Tattoo BH</span><span>Bônus · Calendário</span><span>Pág. 47-48</span></div>
+</div>
+
+<!-- BACK COVER -->
+<div class="cback">
+  <div class="c-line top"></div>
+  <img class="c-logo" src="" alt="" style="margin-bottom:32px;" onerror="this.style.display='none'">
+  <div class="c-tag" style="margin-bottom:24px;">Pack Scripts &amp; Templates Premium · 2026</div>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(22px,4vw,40px);color:#fff;margin-bottom:16px;line-height:1.2;">Templates prontos.<br>Agora você precisa usar.</h2>
+  <p style="font-size:15px;color:rgba(229,231,235,.88);max-width:500px;text-align:center;line-height:1.8;margin-bottom:40px;">Consistência vence criatividade. Com esse pack, você tem todo o conteúdo do mês pré-escrito. Falta só publicar.</p>
+
+  <div class="result-grid" style="max-width:600px;margin:0 auto 48px;">
+    <div class="result-card"><span class="result-n">60+</span><div class="result-t">Scripts prontos</div></div>
+    <div class="result-card"><span class="result-n">30</span><div class="result-t">Templates de stories</div></div>
+    <div class="result-card"><span class="result-n">6</span><div class="result-t">Packs de hashtags</div></div>
+  </div>
+
+  <p style="font-family:'Poppins',sans-serif;font-size:14px;color:rgba(201,151,58,.85);letter-spacing:2px;text-transform:uppercase;">Quer ir além dos templates?</p>
+  <div class="cta-fin" style="max-width:600px;margin:24px auto;">
+    <h3>Tráfego Pago para Tatuadores</h3>
+    <p>Aprenda a criar campanhas que lotam sua agenda todo mês — passo a passo desde a criação da conta até a otimização de resultados. Curso completo 2026.</p>
+    <a href="#" class="btn-gold">Ver Curso de Tráfego Pago</a>
+  </div>
+
+  <p style="font-family:'Poppins',sans-serif;font-size:11px;color:rgba(201,151,58,.3);letter-spacing:1px;text-transform:uppercase;margin-top:40px;">© 2026 Carlos Tattoo BH · @carlostattoo.bh · Material exclusivo — reprodução proibida</p>
+  <div class="c-line bot"></div>
+</div>
+
+<!-- PRINT BUTTON -->
+
+
+<script>
+window.addEventListener("message", function(e) {
+  if (e.data && e.data.type === "ct_scrollTo") {
+    var el = document.getElementById(e.data.anchor);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+});
+</script>
+</body>
+</html>

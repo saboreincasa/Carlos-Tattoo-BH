@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Leitor de Ebook — Carlos Tattoo BH</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#0d0a04;
+  --g1:#F0C030;
+  --g2:#D4A844;
+  --g3:#A07830;
+  --t1:#FFFFFF;
+  --t2:#EDE4D4;
+  --sidebar-w:272px;
+  --header-h:64px;
+  --controls-h:68px;
+}
+body{
+  font-family:'Raleway',sans-serif;
+  background:var(--bg);color:var(--t1);
+  height:100vh;display:flex;flex-direction:column;overflow:hidden;
+  -webkit-user-select:none;-moz-user-select:none;user-select:none;
+}
+
+/* ── PROTEÇÃO ── */
+.print-warning{display:none;position:fixed;inset:0;background:rgba(0,0,0,.98);z-index:99999;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+.print-warning.show{display:flex;}
+.print-warning p{font-family:'Cinzel Decorative',cursive;font-size:24px;color:var(--g1);text-align:center;}
+.print-warning small{font-size:14px;color:rgba(237,228,212,.7);text-align:center;line-height:1.6;}
+
+/* ── WATERMARK ── */
+.watermark-reader{position:fixed;inset:0;pointer-events:none;z-index:9998;display:flex;align-items:center;justify-content:center;opacity:.025;transform:rotate(-20deg);font-family:'Cinzel',serif;font-size:clamp(13px,1.8vw,22px);letter-spacing:4px;color:var(--g2);white-space:nowrap;}
+
+/* ── PROGRESS BAR ── */
+.progress-bar-top{height:3px;background:linear-gradient(90deg,var(--g3),var(--g1),var(--g2));position:fixed;top:0;left:0;z-index:201;transition:width .5s ease;border-radius:0 3px 3px 0;box-shadow:0 0 8px rgba(240,192,48,.35);}
+
+/* ── HEADER ── */
+.reader-header{
+  background:linear-gradient(180deg,rgba(20,12,2,1) 0%,rgba(15,9,1,.97) 100%);
+  border-bottom:1px solid rgba(212,168,68,.18);
+  padding:0 20px 0 16px;
+  display:flex;align-items:center;justify-content:space-between;
+  height:var(--header-h);flex-shrink:0;
+  box-shadow:0 2px 24px rgba(0,0,0,.5);
+  position:relative;z-index:100;
+}
+.rh-left{display:flex;align-items:center;gap:14px;}
+
+/* BOTÃO VOLTAR */
+.btn-voltar{
+  display:flex;align-items:center;gap:9px;
+  background:linear-gradient(135deg,rgba(212,168,68,.14),rgba(160,120,48,.08));
+  border:1.5px solid rgba(212,168,68,.45);
+  color:var(--t1);padding:10px 18px;border-radius:10px;
+  font-family:'Cinzel',serif;font-size:13px;font-weight:700;letter-spacing:.5px;
+  cursor:pointer;transition:.2s ease;white-space:nowrap;flex-shrink:0;
+}
+.btn-voltar:hover{background:linear-gradient(135deg,rgba(212,168,68,.28),rgba(160,120,48,.2));border-color:rgba(240,192,48,.7);color:var(--g1);box-shadow:0 4px 18px rgba(212,168,68,.2);transform:translateX(-2px);}
+.btn-voltar-arrow{font-size:20px;font-weight:900;line-height:1;color:var(--g2);}
+.btn-voltar:hover .btn-voltar-arrow{color:var(--g1);}
+.btn-voltar-text{font-size:12px;}
+
+.rh-divider{width:1px;height:30px;background:rgba(212,168,68,.12);flex-shrink:0;}
+.rh-title{font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:1px;color:var(--t1);max-width:360px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.rh-right{display:flex;align-items:center;}
+
+/* BADGE % */
+.rh-progress-badge{
+  background:linear-gradient(135deg,rgba(212,168,68,.18),rgba(160,120,48,.1));
+  border:1.5px solid rgba(212,168,68,.4);
+  padding:7px 18px;border-radius:24px;
+  font-family:'Cinzel',serif;font-size:16px;font-weight:700;letter-spacing:1px;
+  color:#FFFFFF;min-width:70px;text-align:center;
+}
+
+.sidebar-toggle{display:none;background:rgba(212,168,68,.1);border:1.5px solid rgba(212,168,68,.3);color:var(--t1);padding:9px 13px;border-radius:9px;font-size:17px;cursor:pointer;transition:.2s;line-height:1;margin-right:4px;}
+.sidebar-toggle:hover{background:rgba(212,168,68,.2);color:var(--g1);}
+
+/* ── LAYOUT ── */
+.reader-layout{
+  display:flex;flex:1;
+  /* Altura exata: tela - header - controls */
+  height:calc(100vh - var(--header-h) - var(--controls-h));
+  overflow:hidden;
+}
+
+/* ── SIDEBAR ── */
+.reader-sidebar{
+  width:var(--sidebar-w);
+  background:linear-gradient(180deg,rgba(18,11,2,.98) 0%,rgba(12,7,1,.99) 100%);
+  border-right:1px solid rgba(212,168,68,.1);
+  overflow-y:auto;flex-shrink:0;display:flex;flex-direction:column;
+}
+.reader-sidebar::-webkit-scrollbar{width:3px;}
+.reader-sidebar::-webkit-scrollbar-thumb{background:rgba(212,168,68,.2);border-radius:2px;}
+
+.sidebar-header{padding:18px 18px 14px;border-bottom:1px solid rgba(212,168,68,.08);flex-shrink:0;}
+
+/* "VOCÊ ESTÁ LENDO" — BRANCO */
+.sidebar-label{
+  display:block;
+  font-family:'Raleway',sans-serif;
+  font-size:9px;font-weight:700;
+  letter-spacing:3px;text-transform:uppercase;
+  color:#FFFFFF;           /* ← BRANCO */
+  margin-bottom:6px;
+  opacity:.75;
+}
+/* TÍTULO DO EBOOK NA SIDEBAR — BRANCO */
+.sidebar-ebook-title{
+  display:block;
+  font-family:'Cinzel',serif;
+  font-size:12px;font-weight:700;
+  letter-spacing:1px;
+  color:#FFFFFF;           /* ← BRANCO */
+  line-height:1.4;
+  margin-bottom:12px;
+}
+
+.sidebar-progress-track{height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;}
+.sidebar-progress-fill{height:100%;background:linear-gradient(90deg,var(--g3),var(--g1));transition:width .5s ease;border-radius:2px;}
+
+.chapter-list{list-style:none;padding:8px 0 24px;flex:1;}
+.chapter-item{
+  padding:12px 16px 12px 14px;cursor:pointer;transition:.18s ease;
+  display:flex;align-items:center;gap:11px;border-left:3px solid transparent;position:relative;
+}
+.chapter-item:hover{background:rgba(212,168,68,.07);border-left-color:rgba(212,168,68,.35);}
+.chapter-item.active{background:linear-gradient(90deg,rgba(212,168,68,.15),rgba(212,168,68,.04));border-left-color:var(--g2);}
+.chapter-item.active .chapter-name{color:#FFFFFF;font-weight:700;}
+.chapter-item.active .chapter-n{color:var(--g1);}
+.chapter-item.active::after{content:'›';position:absolute;right:12px;font-size:20px;font-weight:900;color:var(--g2);line-height:1;}
+.chapter-item.done .chapter-name{color:rgba(255,255,255,.5);}
+.chapter-item.done .chapter-n{color:rgba(212,168,68,.4);}
+
+.chapter-n{font-family:'Cinzel Decorative',cursive;font-size:11px;font-weight:700;color:var(--g3);min-width:22px;flex-shrink:0;line-height:1;}
+.chapter-name{font-family:'Raleway',sans-serif;font-size:13px;font-weight:500;color:#FFFFFF;line-height:1.4;flex:1;}
+.chapter-check{width:16px;height:16px;border-radius:50%;background:rgba(212,168,68,.12);border:1px solid rgba(212,168,68,.3);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--g2);flex-shrink:0;}
+
+/* ── ÁREA DE CONTEÚDO ── */
+.reader-content{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--bg);}
+
+/* ── WRAPPER DO IFRAME ── */
+.ebook-frame-wrap{
+  flex:1;display:flex;
+  background:#f5f7fb;
+  overflow:hidden;
+}
+
+/*
+ * IFRAME COM SCROLL INTERNO — solução definitiva para navegação por âncora
+ * O iframe tem altura fixa = área disponível, e scrolla internamente.
+ * contentWindow.scrollTo() rola o documento interno do iframe diretamente.
+ */
+.ebook-frame{
+  width:100%;
+  height:100%;
+  border:none;
+  display:block;
+  background:#fff;
+  /* O iframe SCROLLA INTERNAMENTE — sem barra visível */
+  overflow-y:auto;
+}
+
+/* Loading */
+.ebook-loading{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;
+  background:var(--bg);
+}
+.loading-dots{display:flex;gap:9px;}
+.loading-dot{width:9px;height:9px;border-radius:50%;background:var(--g2);animation:ldot 1.3s ease-in-out infinite;}
+.loading-dot:nth-child(2){animation-delay:.18s;}
+.loading-dot:nth-child(3){animation-delay:.36s;}
+@keyframes ldot{0%,100%{opacity:.25;transform:scale(.75);}50%{opacity:1;transform:scale(1.2);}}
+.loading-text{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:rgba(212,168,68,.5);}
+
+/* Fade transition */
+.ebook-frame-wrap{transition:opacity .15s ease;}
+.ebook-frame-wrap.fading{opacity:0;}
+
+/* ── CONTROLES ── */
+.reader-controls{
+  height:var(--controls-h);flex-shrink:0;
+  background:linear-gradient(0deg,rgba(8,5,0,.99) 0%,rgba(13,8,1,.96) 100%);
+  border-top:1px solid rgba(212,168,68,.14);
+  padding:0 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  box-shadow:0 -4px 28px rgba(0,0,0,.35);
+  position:relative;z-index:99;
+}
+.rc-center{flex:1;display:flex;flex-direction:column;align-items:center;gap:7px;min-width:0;}
+.rc-module-name{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.5px;color:rgba(255,255,255,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;text-align:center;}
+.rc-bar-row{display:flex;align-items:center;gap:12px;width:100%;}
+.rc-bar{flex:1;height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;}
+.rc-bar-fill{height:100%;background:linear-gradient(90deg,var(--g3),var(--g1));transition:width .5s ease;border-radius:2px;}
+.rc-text{font-family:'Cinzel',serif;font-size:12px;font-weight:600;color:rgba(255,255,255,.55);white-space:nowrap;}
+
+/* ── BOTÕES NAV ── */
+.btn-nav{
+  display:flex;align-items:center;gap:9px;
+  background:linear-gradient(135deg,rgba(212,168,68,.13),rgba(160,120,48,.07));
+  border:1.5px solid rgba(212,168,68,.35);
+  color:var(--t1);padding:10px 20px;border-radius:10px;
+  font-family:'Cinzel',serif;font-size:13px;font-weight:700;letter-spacing:.5px;
+  cursor:pointer;transition:.2s ease;white-space:nowrap;flex-shrink:0;
+}
+.btn-nav:hover:not(:disabled){background:linear-gradient(135deg,rgba(212,168,68,.26),rgba(160,120,48,.18));border-color:rgba(240,192,48,.65);color:var(--g1);box-shadow:0 4px 18px rgba(212,168,68,.18);}
+.btn-nav:disabled{opacity:.22;cursor:not-allowed;}
+.btn-nav:active:not(:disabled){transform:scale(.97);}
+.nav-arrow{font-size:20px;font-weight:900;line-height:1;color:var(--g2);}
+.btn-nav:hover:not(:disabled) .nav-arrow{color:var(--g1);}
+.nav-label{font-size:12px;}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  :root{--sidebar-w:260px;}
+  .reader-sidebar{position:fixed;left:calc(-1 * var(--sidebar-w));top:var(--header-h);bottom:0;z-index:50;transition:left .28s ease;box-shadow:4px 0 28px rgba(0,0,0,.5);}
+  .reader-sidebar.open{left:0;}
+  .sidebar-toggle{display:flex;align-items:center;}
+  .rh-title{font-size:12px;max-width:150px;}
+  .nav-label{display:none;}
+  .btn-nav{padding:10px 14px;}
+  .btn-voltar-text{display:none;}
+  .btn-voltar{padding:10px 14px;}
+  .rc-module-name{font-size:10px;}
+}
+</style>
+</head>
+<body>
+
+<div class="watermark-reader" id="wmReader">Carlos Tattoo BH</div>
+<div class="print-warning" id="printWarn">
+  <p>⚠️ Conteúdo Protegido</p>
+  <small>Este material é de uso exclusivo do comprador.<br>Compartilhar é uma violação dos termos de uso.</small>
+</div>
+<div class="progress-bar-top" id="progressTop" style="width:0%"></div>
+
+<!-- HEADER -->
+<header class="reader-header">
+  <div class="rh-left">
+    <button class="btn-voltar" onclick="window.location.href='painel.html'">
+      <span class="btn-voltar-arrow">←</span>
+      <span class="btn-voltar-text">Voltar</span>
+    </button>
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+    <div class="rh-divider"></div>
+    <span class="rh-title" id="readerTitle">Carregando...</span>
+  </div>
+  <div class="rh-right">
+    <span class="rh-progress-badge" id="readerProgress">0%</span>
+  </div>
+</header>
+
+<!-- LAYOUT -->
+<div class="reader-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="reader-sidebar" id="readerSidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-label">Você está lendo</span>
+      <span class="sidebar-ebook-title" id="sidebarEbookTitle">—</span>
+      <div class="sidebar-progress-track">
+        <div class="sidebar-progress-fill" id="sidebarProgressFill" style="width:0%"></div>
+      </div>
+    </div>
+    <ul class="chapter-list" id="chapterList"></ul>
+  </aside>
+
+  <!-- CONTEÚDO -->
+  <div class="reader-content" id="readerContent">
+    <!-- Loading inicial -->
+    <div class="ebook-loading" id="ebookLoading">
+      <div class="loading-dots">
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+      </div>
+      <span class="loading-text">Carregando conteúdo...</span>
+    </div>
+    <!-- Wrapper do iframe (criado via JS) -->
+  </div>
+</div>
+
+<!-- CONTROLES -->
+<div class="reader-controls">
+  <button class="btn-nav" id="btnAnterior" onclick="navCapitulo(-1)" disabled>
+    <span class="nav-arrow">←</span>
+    <span class="nav-label">Anterior</span>
+  </button>
+  <div class="rc-center">
+    <div class="rc-module-name" id="rcModuleName">—</div>
+    <div class="rc-bar-row">
+      <div class="rc-bar"><div class="rc-bar-fill" id="rcBarFill" style="width:0%"></div></div>
+      <span class="rc-text" id="rcText">1 / 1</span>
+    </div>
+  </div>
+  <button class="btn-nav" id="btnProximo" onclick="navCapitulo(1)">
+    <span class="nav-label">Próximo</span>
+    <span class="nav-arrow">→</span>
+  </button>
+</div>
+
+<script>
+// ── PROTEÇÕES ──
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && ['c','s','p','a','u'].includes(e.key.toLowerCase())) e.preventDefault();
+  if (e.key === 'F12' || e.key === 'PrintScreen') { e.preventDefault(); mostrarAviso(); }
+  if (!e.ctrlKey && !e.metaKey) {
+    if (e.key === 'ArrowRight') navCapitulo(1);
+    if (e.key === 'ArrowLeft')  navCapitulo(-1);
+  }
+});
+document.addEventListener('copy', e => e.preventDefault());
+window.addEventListener('beforeprint', () => mostrarAviso());
+function mostrarAviso() {
+  const el = document.getElementById('printWarn');
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+// ── SESSÃO ──
+const sessaoRaw = sessionStorage.getItem('ct_sessao');
+if (!sessaoRaw) { window.location.href = 'acesso.html'; }
+const sessao = JSON.parse(sessaoRaw || '{}');
+const usuarios = JSON.parse(localStorage.getItem('ct_usuarios') || '[]');
+const user = usuarios.find(u => u.email.toLowerCase() === sessao.email.toLowerCase());
+if (!user) { sessionStorage.clear(); window.location.href = 'acesso.html'; }
+document.getElementById('wmReader').textContent = `${user.nome || user.email} · Carlos Tattoo BH · Uso exclusivo`;
+
+// ── EBOOK ──
+const params  = new URLSearchParams(location.search);
+const ebookId = params.get('id') || 'ebook-trafego';
+const produtos = user.produtos || [];
+if (!produtos.includes(ebookId)) { alert('Sem acesso a este conteúdo.'); window.location.href = 'painel.html'; }
+
+const EBOOKS_MAP = {
+  'ebook-trafego': {
+    titulo:'Tráfego Tattoo do Zero',
+    capitulos:[
+      {nome:'Módulo 1 — Configuração da Conta',     arquivo:'ebook-trafego-iniciante.html',      ancora:'mod1'},
+      {nome:'Módulo 2 — Primeira Campanha',         arquivo:'ebook-trafego-iniciante.html',      ancora:'mod2'},
+      {nome:'Módulo 3 — Criativos com Celular',     arquivo:'ebook-trafego-iniciante.html',      ancora:'mod3'},
+      {nome:'Módulo 4 — Públicos Avançados',        arquivo:'ebook-trafego-iniciante.html',      ancora:'mod4'},
+      {nome:'Módulo 5 — Análise e Otimização',      arquivo:'ebook-trafego-iniciante.html',      ancora:'mod5'},
+      {nome:'Módulo 6 — Atendimento que Converte',  arquivo:'ebook-trafego-iniciante.html',      ancora:'mod6'},
+      {nome:'Módulo 7 — Plano 90 Dias + Checklist', arquivo:'ebook-trafego-iniciante.html',      ancora:'mod7'},
+    ]
+  },
+  'ebook-instagram': {
+    titulo:'Instagram que Atrai e Vende',
+    capitulos:[
+      {nome:'Módulo 1 — Fundação do Perfil',        arquivo:'ebook-instagram-tattoo.html',       ancora:'mod1'},
+      {nome:'Módulo 2 — Estratégia de Conteúdo',    arquivo:'ebook-instagram-tattoo.html',       ancora:'mod2'},
+      {nome:'Módulo 3 — Reels que Viralizam',       arquivo:'ebook-instagram-tattoo.html',       ancora:'mod3'},
+      {nome:'Módulo 4 — Stories que Vendem',        arquivo:'ebook-instagram-tattoo.html',       ancora:'mod4'},
+      {nome:'Módulo 5 — SEO, Hashtags e Legendas',  arquivo:'ebook-instagram-tattoo.html',       ancora:'mod5'},
+      {nome:'Módulo 6 — Conversão e Análise',       arquivo:'ebook-instagram-tattoo.html',       ancora:'mod6'},
+      {nome:'Módulo 7 — Crescimento Acelerado',     arquivo:'ebook-instagram-tattoo.html',       ancora:'mod7'},
+    ]
+  },
+  'ebook-posicionamento': {
+    titulo:'Posicionamento de Alta Valor',
+    capitulos:[
+      {nome:'Módulo 1 — Mentalidade Premium',        arquivo:'ebook-posicionamento-avancado.html',ancora:'mod1'},
+      {nome:'Módulo 2 — Precificação Estratégica',   arquivo:'ebook-posicionamento-avancado.html',ancora:'mod2'},
+      {nome:'Módulo 3 — Scripts VIP de Atendimento', arquivo:'ebook-posicionamento-avancado.html',ancora:'mod3'},
+      {nome:'Módulo 4 — Branding Premium',           arquivo:'ebook-posicionamento-avancado.html',ancora:'mod4'},
+      {nome:'Módulo 5 — Funil e Fidelização',        arquivo:'ebook-posicionamento-avancado.html',ancora:'mod5'},
+      {nome:'Módulo 6 — Plano 90 Dias',              arquivo:'ebook-posicionamento-avancado.html',ancora:'mod6'},
+    ]
+  },
+  'ebook-templates': {
+    titulo:'Pack Scripts & Templates Premium',
+    capitulos:[
+      {nome:'Módulo 1 — Templates de Stories',       arquivo:'ebook-pack-templates.html',         ancora:'mod1'},
+      {nome:'Módulo 2 — Templates de Feed',          arquivo:'ebook-pack-templates.html',         ancora:'mod2'},
+      {nome:'Módulo 3 — Templates de Anúncios',      arquivo:'ebook-pack-templates.html',         ancora:'mod3'},
+      {nome:'Bônus — Scripts de Direct',             arquivo:'ebook-pack-templates.html',         ancora:'mod4'},
+    ]
+  },
+  'ebook-contrato': {
+    titulo:'Contrato Digital Profissional',
+    capitulos:[
+      {nome:'Capítulo 1 — Como Usar o Contrato',     arquivo:'ebook-contrato-digital.html',       ancora:'mod1'},
+      {nome:'Capítulo 2 — Contrato Completo',        arquivo:'ebook-contrato-digital.html',       ancora:'mod2'},
+      {nome:'Capítulo 3 — Versão para WhatsApp',     arquivo:'ebook-contrato-digital.html',       ancora:'mod3'},
+    ]
+  },
+};
+
+if (!EBOOKS_MAP[ebookId]) {
+  alert('Conteúdo não encontrado. Voltando ao painel.');
+  window.location.href = 'painel.html';
+}
+const ebook = EBOOKS_MAP[ebookId];
+document.title = ebook.titulo + ' — Carlos Tattoo BH';
+document.getElementById('readerTitle').textContent       = ebook.titulo;
+document.getElementById('sidebarEbookTitle').textContent = ebook.titulo;
+
+// ── ESTADO ──
+let capAtual     = 0;
+let arquivoAtual = null;
+let pendingAncora = null;
+
+const progKey  = 'ct_progresso_' + user.email;
+const progData = JSON.parse(localStorage.getItem(progKey) || '{}');
+capAtual = progData['cap_' + ebookId] || 0;
+if (capAtual >= ebook.capitulos.length) capAtual = 0;
+
+// ── SIDEBAR ──
+const chapterList = document.getElementById('chapterList');
+ebook.capitulos.forEach((cap, i) => {
+  const li = document.createElement('li');
+  li.className = 'chapter-item'
+    + (i === capAtual ? ' active' : '')
+    + (i < capAtual  ? ' done'   : '');
+  li.innerHTML =
+    `<span class="chapter-n">${String(i+1).padStart(2,'0')}</span>` +
+    `<span class="chapter-name">${cap.nome}</span>` +
+    (i < capAtual ? '<span class="chapter-check">✓</span>' : '');
+  li.onclick = () => irCapitulo(i);
+  chapterList.appendChild(li);
+});
+
+// ── UI ──
+function atualizarUI() {
+  const total = ebook.capitulos.length;
+  const pct   = Math.round(((capAtual + 1) / total) * 100);
+  const cap   = ebook.capitulos[capAtual];
+
+  document.getElementById('readerProgress').textContent      = pct + '%';
+  document.getElementById('progressTop').style.width         = pct + '%';
+  document.getElementById('rcBarFill').style.width           = pct + '%';
+  document.getElementById('sidebarProgressFill').style.width = pct + '%';
+  document.getElementById('rcText').textContent              = `${capAtual + 1} / ${total}`;
+  document.getElementById('rcModuleName').textContent        = cap.nome;
+  document.getElementById('btnAnterior').disabled            = capAtual === 0;
+  document.getElementById('btnProximo').disabled             = capAtual === total - 1;
+
+  document.querySelectorAll('.chapter-item').forEach((el, i) => {
+    el.classList.toggle('active', i === capAtual);
+    el.classList.toggle('done',   i < capAtual);
+    if (i < capAtual && !el.querySelector('.chapter-check')) {
+      const sp = document.createElement('span');
+      sp.className = 'chapter-check'; sp.textContent = '✓';
+      el.appendChild(sp);
+    }
+  });
+  const active = chapterList.querySelector('.chapter-item.active');
+  if (active) active.scrollIntoView({ block:'nearest', behavior:'smooth' });
+
+  const p = JSON.parse(localStorage.getItem(progKey) || '{}');
+  p['cap_' + ebookId] = capAtual;
+  p[ebookId] = pct;
+  localStorage.setItem(progKey, JSON.stringify(p));
+}
+
+// ── SCROLL PARA ÂNCORA via postMessage ──
+// postMessage funciona independente de protocolo (file://, http://, https://)
+// sem exigir acesso ao contentDocument (que falha em file://).
+function scrollParaAncora(ancora, tentativa) {
+  if (!ancora) return;
+  tentativa = tentativa || 1;
+  const frame = document.getElementById('ebookFrame');
+  if (!frame || !frame.contentWindow) {
+    if (tentativa <= 10) setTimeout(() => scrollParaAncora(ancora, tentativa + 1), 200);
+    return;
+  }
+  frame.contentWindow.postMessage({ type: 'ct_scrollTo', anchor: ancora }, '*');
+}
+
+// ── CRIAR IFRAME (uma vez) ──
+function garantirIframe() {
+  let frame = document.getElementById('ebookFrame');
+  if (frame) return frame;
+
+  // Remover loading
+  const loading = document.getElementById('ebookLoading');
+  if (loading) loading.remove();
+
+  // Criar wrapper + iframe
+  const wrap = document.createElement('div');
+  wrap.className = 'ebook-frame-wrap';
+  wrap.id = 'ebookWrap';
+  wrap.innerHTML = `<iframe
+    class="ebook-frame"
+    id="ebookFrame"
+    sandbox="allow-same-origin allow-scripts"
+    onload="frameCarregado()"
+  ></iframe>`;
+  document.getElementById('readerContent').appendChild(wrap);
+  return document.getElementById('ebookFrame');
+}
+
+// ── CARREGAR CAPÍTULO ──
+function carregarCapitulo() {
+  const cap  = ebook.capitulos[capAtual];
+  atualizarUI();
+
+  const frame = garantirIframe();
+  const wrap  = document.getElementById('ebookWrap');
+
+  if (arquivoAtual !== cap.arquivo) {
+    // ── Arquivo diferente: carrega o HTML com âncora embutida na URL ──
+    // O browser faz o scroll nativo ao carregar a página via hash.
+    arquivoAtual  = cap.arquivo;
+    pendingAncora = cap.ancora;
+
+    if (wrap) { wrap.classList.add('fading'); }
+    setTimeout(() => {
+      frame.src = cap.arquivo + (cap.ancora ? '#' + cap.ancora : '');
+    }, 150);
+
+  } else {
+    // Mesmo arquivo: navega via postMessage (funciona em file:// e http://)
+    scrollParaAncora(cap.ancora);
+  }
+}
+
+// ── CALLBACK APÓS IFRAME CARREGAR ──
+function frameCarregado() {
+  const frame = document.getElementById('ebookFrame');
+  if (!frame) return;
+
+  // Remove o fade assim que o conteúdo estiver pronto
+  const wrap = document.getElementById('ebookWrap');
+  if (wrap) wrap.classList.remove('fading');
+
+  // O hash embutido no src já fez o scroll inicial.
+  // Retry com postMessage após 700ms garante posição correta depois que
+  // o Google Fonts carrega e altera a altura do layout.
+  if (pendingAncora) {
+    const ancora = pendingAncora;
+    pendingAncora = null;
+    setTimeout(() => scrollParaAncora(ancora), 700);
+  }
+}
+
+// ── NAVEGAÇÃO ──
+function irCapitulo(i) {
+  if (i === capAtual) return;
+  capAtual = i;
+  carregarCapitulo();
+  if (window.innerWidth <= 768)
+    document.getElementById('readerSidebar').classList.remove('open');
+}
+
+function navCapitulo(dir) {
+  const novo = capAtual + dir;
+  if (novo >= 0 && novo < ebook.capitulos.length) {
+    capAtual = novo;
+    carregarCapitulo();
+  }
+}
+
+function toggleSidebar() {
+  document.getElementById('readerSidebar').classList.toggle('open');
+}
+
+document.getElementById('readerContent').addEventListener('click', () => {
+  if (window.innerWidth <= 768)
+    document.getElementById('readerSidebar').classList.remove('open');
+});
+
+// ── INICIAR ──
+carregarCapitulo();
+</script>
+</body>
+</html>
