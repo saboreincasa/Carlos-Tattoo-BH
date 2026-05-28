@@ -275,10 +275,8 @@ a{text-decoration:none;color:inherit;}
   border-color:var(--goldbrd);
   box-shadow:0 0 0 3px rgba(196,160,74,.14), var(--sh2);
 }
-.card.locked{
-  opacity:.52;filter:grayscale(.4);cursor:default;
-}
-.card.locked:hover{transform:none;box-shadow:var(--sh2);border-color:var(--brd);}
+.card.locked{cursor:default;}
+.card.locked:hover{transform:translateY(-3px);box-shadow:var(--sh2);}
 
 /* ── THUMB REEL ── */
 .card-thumb{
@@ -902,74 +900,6 @@ a{text-decoration:none;color:inherit;}
   </div>
 </div>
 
-<!-- MODAL CHECKOUT — SOLICITAR PRODUTO -->
-<div class="modal-bg" id="modalCheckout">
-  <div class="modal-box" style="max-width:460px;">
-    <button class="modal-close" onclick="document.getElementById('modalCheckout').classList.remove('open')">✕</button>
-
-    <!-- Header produto -->
-    <div id="ckpIcon" style="font-size:40px;text-align:center;margin-bottom:8px;">📦</div>
-    <div class="modal-title" id="ckpNome" style="font-size:22px;margin-bottom:4px;">—</div>
-    <div id="ckpPreco" style="text-align:center;font-size:24px;font-weight:800;color:var(--gold);margin-bottom:24px;">—</div>
-
-    <!-- Tela formulário -->
-    <div id="ckpForm">
-      <div id="ckpErro" style="display:none;background:#FEF2F2;border:1px solid rgba(220,38,38,.2);border-radius:8px;padding:10px 14px;font-size:13px;color:#DC2626;font-weight:500;margin-bottom:12px;"></div>
-
-      <div style="font-size:11px;font-weight:700;color:var(--tx4);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px;">Confirme seus dados</div>
-
-      <div style="margin-bottom:14px;">
-        <label style="display:block;font-size:11px;font-weight:600;color:var(--tx2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px;">Nome</label>
-        <input type="text" id="ckpNomeInp" style="width:100%;padding:11px 14px;background:var(--off);border:1.5px solid var(--brd);border-radius:9px;font-size:14px;color:var(--txt);outline:none;" placeholder="Seu nome">
-      </div>
-      <div style="margin-bottom:14px;">
-        <label style="display:block;font-size:11px;font-weight:600;color:var(--tx2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px;">Email</label>
-        <input type="email" id="ckpEmailInp" style="width:100%;padding:11px 14px;background:var(--cream2);border:1.5px solid var(--brd);border-radius:9px;font-size:14px;color:var(--tx3);outline:none;" readonly>
-      </div>
-      <div style="margin-bottom:20px;">
-        <label style="display:block;font-size:11px;font-weight:600;color:var(--tx2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px;">WhatsApp</label>
-        <input type="tel" id="ckpWpp" style="width:100%;padding:11px 14px;background:var(--off);border:1.5px solid var(--brd);border-radius:9px;font-size:14px;color:var(--txt);outline:none;" placeholder="31 99999-9999">
-      </div>
-
-      <div style="font-size:11px;font-weight:700;color:var(--tx4);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;">Forma de pagamento</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:20px;">
-        <div id="ckp-pix" onclick="ckpSel('pix')" style="border:1.5px solid var(--goldbrd);border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;background:var(--goldb);">
-          <div style="font-size:20px;">⚡</div><div style="font-size:11px;font-weight:700;color:var(--gold);">PIX</div>
-        </div>
-        <div id="ckp-cartao" onclick="ckpSel('cartao')" style="border:1.5px solid var(--brd);border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;background:var(--off);">
-          <div style="font-size:20px;">💳</div><div style="font-size:11px;font-weight:700;color:var(--tx3);">Cartão</div>
-        </div>
-        <div id="ckp-paypal" onclick="ckpSel('paypal')" style="border:1.5px solid var(--brd);border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;background:var(--off);">
-          <div style="font-size:20px;">🌐</div><div style="font-size:11px;font-weight:700;color:var(--tx3);">PayPal</div>
-        </div>
-      </div>
-
-      <button id="ckpBtn" onclick="ckpEnviar()"
-        style="width:100%;padding:14px;background:var(--nav);color:var(--gold3);border:none;border-radius:10px;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;cursor:pointer;">
-        Confirmar Pedido →
-      </button>
-      <div style="font-size:11px;color:var(--tx4);text-align:center;margin-top:10px;">
-        🔒 Carlos confirmará o pagamento e liberará seu acesso
-      </div>
-    </div>
-
-    <!-- Tela sucesso -->
-    <div id="ckpSucesso" style="display:none;text-align:center;">
-      <div style="font-size:52px;margin-bottom:12px;">🎉</div>
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--txt);margin-bottom:8px;">Pedido enviado!</h3>
-      <p style="font-size:14px;color:var(--tx3);line-height:1.7;margin-bottom:20px;">
-        Seu pedido foi registrado com sucesso.<br>
-        Aguarde a confirmação do Carlos para liberar o acesso.
-      </p>
-      <div id="ckpInfoPgto" style="background:var(--goldb);border:1px solid var(--goldbrd);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--tx2);line-height:1.8;text-align:left;margin-bottom:20px;"></div>
-      <a id="ckpWppLink" href="#" target="_blank"
-        style="display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;padding:12px 28px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;">
-        📲 Falar com Carlos →
-      </a>
-    </div>
-  </div>
-</div>
-
 <!-- MODAL CENTRAL TATTOO -->
 <div class="modal-bg" id="modalCentralTattoo">
   <div class="modal-box">
@@ -1002,6 +932,24 @@ a{text-decoration:none;color:inherit;}
     </div>
   </div>
 </div>
+
+<!-- Fallback de imagens — precisa estar em script normal (não module) -->
+<script>
+window.imgFallback = function(img) {
+  var list = [];
+  try { list = JSON.parse(img.getAttribute('data-fallbacks') || '[]'); } catch(e) {}
+  if (list.length) {
+    var next = list.shift();
+    img.setAttribute('data-fallbacks', JSON.stringify(list));
+    img.src = next;
+  } else {
+    img.onerror = null;
+    img.style.display = 'none';
+    var icon = img.nextElementSibling;
+    if (icon) icon.style.display = 'flex';
+  }
+};
+</script>
 
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
@@ -1302,23 +1250,6 @@ document.getElementById('statProgresso').textContent =
   (vals.length ? Math.round(vals.reduce((a,b) => a + b, 0) / vals.length) : 0) + '%';
 
 // ══════════════════════════════════════
-// HELPER: fallback de imagem em cascata
-// ══════════════════════════════════════
-window.imgFallback = function(img) {
-  const list = JSON.parse(img.getAttribute('data-fallbacks') || '[]');
-  if (list.length) {
-    const next = list.shift();
-    img.setAttribute('data-fallbacks', JSON.stringify(list));
-    img.src = next;
-  } else {
-    img.onerror = null;
-    img.style.display = 'none';
-    const icon = img.nextElementSibling;
-    if (icon) icon.style.display = 'flex';
-  }
-};
-
-// ══════════════════════════════════════
 // HELPER: thumb com fallback para ícone
 // ══════════════════════════════════════
 function buildThumb(p, locked) {
@@ -1466,105 +1397,44 @@ document.getElementById('modalCentralTattoo').addEventListener('click', function
   if (e.target === this) window.fecharModal();
 });
 
-// ══════════════════════════════════════
-// CHECKOUT INLINE — SOLICITAR PRODUTO
-// ══════════════════════════════════════
-const PRECOS_PROD = {
-  'Central Tattoo Pro — Sistema de Gestão': 'R$ 97',
-  'Ebook Iniciante — Tráfego Tattoo':       'R$ 47',
-  'Ebook Instagram — Tattoo que Vende':     'R$ 47',
-  'Ebook Avançado — Posicionamento':        'R$ 97',
-  'Pack Templates — Tatuadores':            'R$ 47',
-  'Contrato Digital — Tatuadores':          'R$ 27',
-  'Mentoria VIP 1:1':                       'R$ 997',
-};
-const ICONES_PROD = {
-  'central-tattoo':'⚙️','ebook-trafego':'📊','ebook-instagram':'📱',
-  'ebook-posicionamento':'🏆','ebook-templates':'🎨','ebook-contrato':'📋',
-  'curso-mentoria':'💎'
-};
-const WPP_CARLOS  = '5531983391576';
-const PIX_CHAVE   = '31983391576';
-const PAYPAL_LINK = 'https://paypal.me/carlostattoobh';
-
-let _ckpProduto = '', _ckpPgto = 'pix';
-
-window.abrirCheckoutPainel = function(nomeProd, idProd) {
-  _ckpProduto = nomeProd;
-  _ckpPgto    = 'pix';
-  document.getElementById('ckpIcon').textContent   = ICONES_PROD[idProd] || '📦';
-  document.getElementById('ckpNome').textContent    = nomeProd;
-  document.getElementById('ckpPreco').textContent   = PRECOS_PROD[nomeProd] || '';
-  document.getElementById('ckpNomeInp').value       = nomeUser;
-  document.getElementById('ckpEmailInp').value      = emailUser;
-  document.getElementById('ckpWpp').value           = '';
-  document.getElementById('ckpForm').style.display    = 'block';
-  document.getElementById('ckpSucesso').style.display = 'none';
-  document.getElementById('ckpErro').style.display    = 'none';
-  ckpSel('pix');
-  document.getElementById('modalCheckout').classList.add('open');
+const SLUG_MAP_PAINEL = {
+  'Central Tattoo Pro — Sistema de Gestão': 'central-tattoo',
+  'Ebook Iniciante — Tráfego Tattoo':       'ebook-trafego',
+  'Ebook Instagram — Tattoo que Vende':     'ebook-instagram',
+  'Ebook Avançado — Posicionamento':        'ebook-posicionamento',
+  'Pack Templates — Tatuadores':            'pack-templates',
+  'Contrato Digital — Tatuadores':          'contrato-digital',
+  'Mentoria VIP 1:1':                       'mentoria-vip',
 };
 
-window.ckpSel = function(tipo) {
-  _ckpPgto = tipo;
-  ['pix','cartao','paypal'].forEach(t => {
-    const el = document.getElementById('ckp-'+t);
-    const sel = t === tipo;
-    el.style.border    = sel ? '1.5px solid var(--goldbrd)' : '1.5px solid var(--brd)';
-    el.style.background = sel ? 'var(--goldb)' : 'var(--off)';
-    el.querySelector('div:last-child').style.color = sel ? 'var(--gold)' : 'var(--tx3)';
-  });
-};
-
-window.ckpEnviar = async function() {
-  const nome  = document.getElementById('ckpNomeInp').value.trim();
-  const email = document.getElementById('ckpEmailInp').value.trim();
-  const wpp   = document.getElementById('ckpWpp').value.trim();
-  const erro  = document.getElementById('ckpErro');
-
-  if (!nome || !wpp) {
-    erro.textContent = 'Preencha seu nome e WhatsApp para continuar.';
-    erro.style.display = 'block'; return;
-  }
-  erro.style.display = 'none';
-
-  const btn = document.getElementById('ckpBtn');
-  btn.disabled = true; btn.textContent = '⏳ Enviando...';
-
+window.abrirCheckoutPainel = async function(nomeProd, idProd) {
+  // Salva interesse no Supabase silenciosamente (background)
   try {
-    const { error } = await supabase.from('leads').insert({
-      nome, email, wpp,
-      produto: _ckpProduto,
-      origem:  _ckpPgto,
-      tipo:    'produto',
-      data:    new Date().toISOString()
+    await supabase.from('leads').insert({
+      nome: nomeUser, email: emailUser, wpp: null,
+      produto: nomeProd, origem: 'painel',
+      tipo: 'interesse', data: new Date().toISOString()
     });
-    if (error) throw error;
+  } catch(e) { /* silencioso */ }
 
-    const preco = PRECOS_PROD[_ckpProduto] || '';
-    let info = '';
-    if (_ckpPgto === 'pix')
-      info = `<strong>PIX:</strong> ${PIX_CHAVE}<br>Valor: <strong>${preco}</strong><br>Envie o comprovante pelo WhatsApp.`;
-    else if (_ckpPgto === 'cartao')
-      info = `Pagamento via <strong>cartão</strong>.<br>Carlos enviará o link de cobrança pelo WhatsApp.`;
-    else
-      info = `Pagamento via <strong>PayPal</strong>:<br><a href="${PAYPAL_LINK}" target="_blank" style="color:var(--gold);">${PAYPAL_LINK}</a><br>Valor: <strong>${preco}</strong>`;
+  // Detecta país pelo timezone e redireciona para pagamento.html
+  const slug = SLUG_MAP_PAINEL[nomeProd] || 'ebook-trafego';
+  let url = `pagamento.html?prod=${slug}`;
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    const brTzs = ['Sao_Paulo','Fortaleza','Manaus','Belem','Recife','Cuiaba','Noronha','Rio_Branco','Boa_Vista','Porto_Velho'];
+    if (!brTzs.some(t => tz.includes(t))) {
+      try {
+        const r = await fetch('https://ipapi.co/country/', { signal: AbortSignal.timeout(2000) });
+        const c = (await r.text()).trim();
+        if (c && c !== 'BR') url += `&country=${c}`;
+      } catch(e) {}
+    }
+  } catch(e) {}
 
-    const msg = encodeURIComponent(
-      `Olá Carlos! 👋\n\nSolicito acesso ao:\n*${_ckpProduto}*\n\n` +
-      `💳 Pagamento: ${_ckpPgto.toUpperCase()}\n📧 Email: ${email}\n\n` +
-      `Pode confirmar?`
-    );
-    document.getElementById('ckpInfoPgto').innerHTML = info;
-    document.getElementById('ckpWppLink').href = `https://wa.me/${WPP_CARLOS}?text=${msg}`;
-    document.getElementById('ckpForm').style.display    = 'none';
-    document.getElementById('ckpSucesso').style.display = 'block';
-  } catch(e) {
-    erro.textContent = 'Erro ao enviar. Tente pelo WhatsApp.';
-    erro.style.display = 'block';
-    btn.disabled = false; btn.textContent = 'Confirmar Pedido →';
-  }
+  window.location.href = url;
 };
+
 </script>
 </body>
 </html>
