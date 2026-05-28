@@ -278,6 +278,21 @@ h1,h2,h3,h4{font-family:'Playfair Display',Georgia,serif;}
 .btn-export{background:var(--gdb);color:var(--gd);border:1px solid rgba(160,120,48,.25);}
 .btn-export:hover{background:#f3e8c8;}
 
+/* Sub-categorias produtos */
+.sub-cat-btn{font-size:12px;font-weight:600;padding:8px 16px;border-radius:8px;transition:all .15s;}
+.sub-cat-btn.active-cat{background:var(--nav)!important;color:#fff!important;border-color:var(--nav)!important;}
+.produto-secao{transition:all .2s;}
+.produto-secao.hidden{display:none!important;}
+
+/* Badge contador nas seções */
+.badge-cnt{
+  display:inline-flex;align-items:center;justify-content:center;
+  background:var(--nav);color:#fff;
+  font-size:10px;font-weight:700;
+  width:20px;height:20px;border-radius:50%;
+  margin-left:4px;
+}
+
 /* ══════════════════════════════════
    TABELAS
 ══════════════════════════════════ */
@@ -506,7 +521,7 @@ table.tbl tr:hover td{background:#FDFCFA;}
     <!-- TABS -->
     <div class="tabs-wrap">
       <button class="tab-btn active" onclick="mudaTab('leads')" id="tab-leads">👥 Leads Tatuagem</button>
-      <button class="tab-btn" onclick="mudaTab('cursos')" id="tab-cursos">🎓 Leads Cursos</button>
+      <button class="tab-btn" onclick="mudaTab('cursos')" id="tab-cursos">📦 Leads Produtos <span id="badge-pendentes" style="display:none;background:#DC2626;color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;margin-left:4px;"></span></button>
       <button class="tab-btn" onclick="mudaTab('usuarios')" id="tab-usuarios">🔐 Membros</button>
       <button class="tab-btn" onclick="mudaTab('vendas')" id="tab-vendas">💰 Vendas</button>
       <button class="tab-btn" onclick="mudaTab('acessos')" id="tab-acessos">📊 Acessos</button>
@@ -528,28 +543,48 @@ table.tbl tr:hover td{background:#FDFCFA;}
       </div>
     </div>
 
-    <!-- ── ABA: LEADS CURSOS ── -->
+    <!-- ── ABA: LEADS PRODUTOS ── -->
     <div id="aba-cursos" style="display:none;">
-      <div class="card">
-        <div class="card-title"><span>🎓</span> Leads de Cursos, Ebooks & Sistema</div>
-        <div class="toolbar">
-          <select class="sel-filtro" id="filtroCurso" onchange="renderLeadsCursos()">
-            <option value="">Todos os produtos</option>
-            <option>Central Tattoo Pro — Sistema de Gestão</option>
-            <option>Instagram para Tatuadores</option>
-            <option>Tráfego Pago para Tatuadores</option>
-            <option>Branding & Posicionamento</option>
-            <option>Mentoria VIP 1:1</option>
-            <option>Ebook Iniciante — Tráfego Tattoo</option>
-            <option>Ebook Instagram — Tattoo que Vende</option>
-            <option>Ebook Avançado — Posicionamento</option>
-            <option>Pack Templates — Tatuadores</option>
-            <option>Contrato Digital — Tatuadores</option>
-          </select>
+
+      <!-- Sub-abas de categoria -->
+      <div style="display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;align-items:center;">
+        <button class="btn btn-pri sub-cat-btn active-cat" id="cat-todos"    onclick="mudarCategoria('todos')"   style="gap:7px;">🗂️ Todos</button>
+        <button class="btn btn-out sub-cat-btn"             id="cat-central"  onclick="mudarCategoria('central')" style="gap:7px;">⚙️ Central Tattoo</button>
+        <button class="btn btn-out sub-cat-btn"             id="cat-ebooks"   onclick="mudarCategoria('ebooks')"  style="gap:7px;">📚 Ebooks</button>
+        <button class="btn btn-out sub-cat-btn"             id="cat-mentoria" onclick="mudarCategoria('mentoria')" style="gap:7px;">💎 Mentoria</button>
+        <div style="margin-left:auto;display:flex;gap:8px;">
+          <button class="btn btn-grn" onclick="abrirRegistrarCompra()">+ Registrar Compra</button>
           <button class="btn btn-export" onclick="exportarCSVCursos()">📥 Exportar CSV</button>
         </div>
-        <div class="tbl-wrap"><div id="tabelaCursos"><div class="tbl-empty">Carregando...</div></div></div>
       </div>
+
+      <!-- Card Central Tattoo -->
+      <div class="card produto-secao" id="secao-central">
+        <div class="card-title">
+          <span>⚙️</span> Central Tattoo Pro — Sistema de Gestão
+          <span class="card-sub" id="ct-central-count"></span>
+        </div>
+        <div class="tbl-wrap"><div id="tabela-central"><div class="tbl-empty">Carregando...</div></div></div>
+      </div>
+
+      <!-- Card Ebooks -->
+      <div class="card produto-secao" id="secao-ebooks">
+        <div class="card-title">
+          <span>📚</span> Ebooks
+          <span class="card-sub" id="ct-ebooks-count"></span>
+        </div>
+        <div class="tbl-wrap"><div id="tabela-ebooks"><div class="tbl-empty">Carregando...</div></div></div>
+      </div>
+
+      <!-- Card Mentoria -->
+      <div class="card produto-secao" id="secao-mentoria">
+        <div class="card-title">
+          <span>💎</span> Mentoria VIP 1:1
+          <span class="card-sub" id="ct-mentoria-count"></span>
+        </div>
+        <div class="tbl-wrap"><div id="tabela-mentoria"><div class="tbl-empty">Carregando...</div></div></div>
+      </div>
+
     </div>
 
     <!-- ── ABA: MEMBROS ── -->
@@ -656,6 +691,56 @@ table.tbl tr:hover td{background:#FDFCFA;}
 
   </div><!-- /admin-content -->
 </div><!-- /adminPanel -->
+
+<!-- ═══ MODAL REGISTRAR COMPRA ═══ -->
+<div class="modal-overlay" id="modalCompra">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">🛒 Registrar Compra</div>
+      <button class="modal-close" onclick="fecharModalCompra()">✕</button>
+    </div>
+    <p style="font-size:12px;color:var(--tx3);margin-bottom:18px;line-height:1.6;">
+      Use quando o cliente pagar por PIX, WhatsApp ou outro meio externo.<br>
+      O produto ficará pendente de liberação na lista abaixo.
+    </p>
+    <div class="mf"><label>Nome do cliente *</label><input type="text" id="cpNome" placeholder="João Silva"></div>
+    <div class="mf"><label>Email *</label><input type="email" id="cpEmail" placeholder="joao@email.com"></div>
+    <div class="mf"><label>WhatsApp</label><input type="text" id="cpWpp" placeholder="31999999999"></div>
+    <div class="mf">
+      <label>Produto comprado *</label>
+      <select id="cpProduto" style="width:100%;padding:11px 14px;background:var(--sur2);border:1.5px solid var(--brd);border-radius:9px;font-size:13px;color:var(--txt);outline:none;">
+        <option value="">— Selecione o produto —</option>
+        <optgroup label="⚙️ Sistema">
+          <option value="Central Tattoo Pro — Sistema de Gestão">Central Tattoo Pro — Sistema de Gestão</option>
+        </optgroup>
+        <optgroup label="📚 Ebooks">
+          <option value="Ebook Iniciante — Tráfego Tattoo">Ebook Tráfego Tattoo</option>
+          <option value="Ebook Instagram — Tattoo que Vende">Ebook Instagram que Vende</option>
+          <option value="Ebook Avançado — Posicionamento">Ebook Posicionamento Premium</option>
+          <option value="Pack Templates — Tatuadores">Pack de Templates Premium</option>
+          <option value="Contrato Digital — Tatuadores">Contrato Digital Profissional</option>
+        </optgroup>
+        <optgroup label="💎 Mentoria">
+          <option value="Mentoria VIP 1:1">Mentoria VIP 1:1</option>
+        </optgroup>
+      </select>
+    </div>
+    <div class="mf">
+      <label>Forma de pagamento</label>
+      <select id="cpOrigem" style="width:100%;padding:11px 14px;background:var(--sur2);border:1.5px solid var(--brd);border-radius:9px;font-size:13px;color:var(--txt);outline:none;">
+        <option value="pix">PIX</option>
+        <option value="cartao">Cartão</option>
+        <option value="whatsapp">WhatsApp</option>
+        <option value="presencial">Presencial</option>
+        <option value="outro">Outro</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:6px;">
+      <button class="btn btn-grn" style="flex:1;padding:13px;font-size:13px;" onclick="salvarCompraEliberar()">🔐 Registrar e Liberar Já</button>
+      <button class="btn btn-out" style="flex:1;padding:13px;font-size:13px;" onclick="salvarCompraApenas()">📋 Só Registrar</button>
+    </div>
+  </div>
+</div>
 
 <!-- ═══ MODAL MEMBRO ═══ -->
 <div class="modal-overlay" id="modalUsuario">
@@ -920,7 +1005,7 @@ function renderDepoimentos() {
 function aprovarDep(id) { const t=JSON.parse(localStorage.getItem('ctbh_deps_pendentes')||'[]'); const i=t.findIndex(d=>d.id===id); if(i>=0)t[i].aprovado=true; localStorage.setItem('ctbh_deps_pendentes',JSON.stringify(t)); renderAll(); }
 function rejeitarDep(id) { if(!confirm('Remover este depoimento?'))return; const t=JSON.parse(localStorage.getItem('ctbh_deps_pendentes')||'[]'); localStorage.setItem('ctbh_deps_pendentes',JSON.stringify(t.filter(d=>d.id!==id))); renderAll(); }
 
-function renderAll() { renderKPIs(); renderAniversariantes(); renderTabela(); renderDepoimentos(); }
+function renderAll() { renderKPIs(); renderAniversariantes(); renderTabela(); renderDepoimentos(); renderLeadsCursos().catch(console.error); }
 setInterval(async () => { const { data: { session } } = await supabaseClient.auth.getSession(); if (session) renderAll(); }, 30000);
 
 // ── ABAS ──
@@ -932,7 +1017,7 @@ function mudaTab(tab) {
     if (btn) btn.classList.toggle('active', t===tab);
   });
   if (tab==='usuarios') renderUsuarios().catch(console.error);
-  if (tab==='cursos') renderLeadsCursos();
+  if (tab==='cursos') renderLeadsCursos().catch(console.error);
   if (tab==='especiais') renderEspeciais();
   if (tab==='acessos') carregarAcessos();
   if (tab==='vendas') carregarVendas();
@@ -1085,34 +1170,227 @@ async function editarUsuario(email) {
   document.getElementById('modalUsuario').classList.add('open');
 }
 
-function exportarCSVUsuarios() {
-  const u = JSON.parse(localStorage.getItem('ct_usuarios') || '[]');
-  const csv = ['Nome,Email,Produtos,Status,Criado', ...u.map(x => `"${x.nome||''}","${x.email}","${(x.produtos||[]).join('|')}","${x.bloqueado?'Bloqueado':'Ativo'}","${x.criado||''}"`)].join('\n');
+async function exportarCSVUsuarios() {
+  const { data: usuarios } = await supabaseClient.from('usuarios').select('*').order('criado_em', {ascending: false});
+  const u = usuarios || [];
+  if (!u.length) { alert('Nenhum membro para exportar!'); return; }
+  const csv = ['Nome,Email,Produtos,Status,Criado', ...u.map(x => `"${x.nome||''}","${x.email}","${(x.produtos||[]).join('|')}","${x.bloqueado?'Bloqueado':'Ativo'}","${x.criado_em||x.criado||''}"`)].join('\n');
   const a = document.createElement('a'); a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv); a.download = 'membros.csv'; a.click();
 }
+window.exportarCSVUsuarios = exportarCSVUsuarios;
 
-// ── LEADS CURSOS ──
-function renderLeadsCursos() {
-  const leads = JSON.parse(localStorage.getItem('ct_leads') || '[]').filter(l => l.tipo==='curso'||l.origem==='pix'||l.origem==='cartao');
-  const filtro = document.getElementById('filtroCurso')?.value || '';
-  const lista = filtro ? leads.filter(l => l.produto && l.produto.toLowerCase().includes(filtro.toLowerCase())) : leads;
-  const el = document.getElementById('tabelaCursos');
-  if (!el) return;
-  if (!lista.length) { el.innerHTML = '<div class="tbl-empty">Nenhum lead de curso registrado ainda.</div>'; return; }
-  el.innerHTML = `<table class="tbl"><thead><tr><th>Nome</th><th>Email</th><th>Produto</th><th>Origem</th><th>Data</th><th>Ação</th></tr></thead><tbody>${
-    lista.map(l => `<tr>
-      <td><strong>${l.nome||'—'}</strong></td>
-      <td style="font-size:12px;color:var(--tx2);">${l.email||'—'}</td>
-      <td><span style="font-size:12px;font-weight:500;color:var(--gd);">${l.produto||'—'}</span></td>
-      <td><span class="bdg ${l.produto?.includes('Sistema')?'bdg-grn':'bdg-gd'}">${l.origem||'site'}</span></td>
-      <td style="font-size:12px;color:var(--tx3);">${l.data?new Date(l.data).toLocaleDateString('pt-BR'):'—'}</td>
-      <td><button class="btn btn-grn btn-sm" onclick="criarAcessoRapido('${l.email}','${l.nome}','${l.produto}')">🔐 Liberar</button></td>
-    </tr>`).join('')
-  }</tbody></table>`;
+// ── LEADS PRODUTOS (Central Tattoo / Ebooks / Mentoria) ──
+
+// Mapeamento produto → categoria
+const PRODUTO_CAT = {
+  'Central Tattoo Pro — Sistema de Gestão': 'central',
+  'Ebook Iniciante — Tráfego Tattoo':       'ebooks',
+  'Ebook Instagram — Tattoo que Vende':     'ebooks',
+  'Ebook Avançado — Posicionamento':        'ebooks',
+  'Pack Templates — Tatuadores':            'ebooks',
+  'Contrato Digital — Tatuadores':          'ebooks',
+  'Instagram para Tatuadores':              'ebooks',
+  'Tráfego Pago para Tatuadores':           'ebooks',
+  'Branding & Posicionamento':              'ebooks',
+  'Mentoria VIP 1:1':                       'mentoria'
+};
+
+// Ícone por produto
+const PRODUTO_ICONE = {
+  'central': '⚙️', 'ebooks': '📚', 'mentoria': '💎'
+};
+
+let _catAtiva = 'todos';
+
+function mudarCategoria(cat) {
+  _catAtiva = cat;
+  // Atualiza botões
+  document.querySelectorAll('.sub-cat-btn').forEach(b => {
+    b.classList.remove('active-cat', 'btn-pri');
+    b.classList.add('btn-out');
+  });
+  const btn = document.getElementById('cat-' + cat);
+  if (btn) { btn.classList.add('active-cat', 'btn-pri'); btn.classList.remove('btn-out'); }
+
+  // Mostra/esconde seções
+  const secoes = ['central','ebooks','mentoria'];
+  secoes.forEach(s => {
+    const el = document.getElementById('secao-' + s);
+    if (el) el.classList.toggle('hidden', cat !== 'todos' && cat !== s);
+  });
+}
+window.mudarCategoria = mudarCategoria;
+
+async function renderLeadsCursos() {
+  // Carrega leads com produto do Supabase
+  const { data: supaLeads } = await supabaseClient
+    .from('leads')
+    .select('*')
+    .not('produto', 'is', null)
+    .order('data', { ascending: false });
+
+  // Também puxa leads do localStorage para compatibilidade
+  const localLeads = JSON.parse(localStorage.getItem('ct_leads') || '[]')
+    .filter(l => l.produto && (l.tipo === 'produto' || l.tipo === 'ebook' || l.tipo === 'curso' || l.origem === 'pix' || l.origem === 'cartao'));
+
+  // Carrega usuarios para cruzar status
+  const { data: usuarios } = await supabaseClient.from('usuarios').select('email,produtos');
+  const userMap = {};
+  (usuarios || []).forEach(u => { userMap[u.email.toLowerCase()] = u.produtos || []; });
+
+  // Mapeia produto nome → id para verificar se já foi liberado
+  const NOME_PARA_ID = {
+    'Central Tattoo Pro — Sistema de Gestão':'central-tattoo',
+    'Ebook Iniciante — Tráfego Tattoo':'ebook-trafego',
+    'Ebook Instagram — Tattoo que Vende':'ebook-instagram',
+    'Ebook Avançado — Posicionamento':'ebook-posicionamento',
+    'Pack Templates — Tatuadores':'ebook-templates',
+    'Contrato Digital — Tatuadores':'ebook-contrato',
+    'Instagram para Tatuadores':'curso-instagram',
+    'Tráfego Pago para Tatuadores':'curso-trafego',
+    'Branding & Posicionamento':'curso-posicionamento',
+    'Mentoria VIP 1:1':'curso-mentoria'
+  };
+
+  // Mescla Supabase + localStorage sem duplicatas por email+produto
+  const vistos = new Set();
+  const todos = [];
+  [...(supaLeads || []), ...localLeads].forEach(l => {
+    const chave = (l.email||'').toLowerCase() + '|' + (l.produto||'');
+    if (!vistos.has(chave)) { vistos.add(chave); todos.push(l); }
+  });
+
+  // Calcula pendentes (produto não liberado ainda)
+  let pendentes = 0;
+  todos.forEach(l => {
+    const pid = NOME_PARA_ID[l.produto];
+    const prods = userMap[(l.email||'').toLowerCase()] || [];
+    if (pid && !prods.includes(pid)) pendentes++;
+  });
+
+  // Atualiza badge na aba
+  const badge = document.getElementById('badge-pendentes');
+  if (badge) {
+    badge.textContent = pendentes;
+    badge.style.display = pendentes > 0 ? 'inline-block' : 'none';
+  }
+
+  // Agrupa por categoria
+  const grupos = { central: [], ebooks: [], mentoria: [] };
+  todos.forEach(l => {
+    const cat = PRODUTO_CAT[l.produto] || 'ebooks';
+    grupos[cat].push(l);
+  });
+
+  renderSecao('central',  grupos.central,  'ct-central-count',  userMap, NOME_PARA_ID);
+  renderSecao('ebooks',   grupos.ebooks,   'ct-ebooks-count',   userMap, NOME_PARA_ID);
+  renderSecao('mentoria', grupos.mentoria, 'ct-mentoria-count', userMap, NOME_PARA_ID);
+  mudarCategoria(_catAtiva);
 }
 
-function criarAcessoRapido(email, nome, produto) {
+function renderSecao(cat, lista, countId, userMap, NOME_PARA_ID) {
+  const el = document.getElementById('tabela-' + cat);
+  const ctEl = document.getElementById(countId);
+  const pendCat = lista.filter(l => {
+    const pid = NOME_PARA_ID[l.produto];
+    const prods = userMap[(l.email||'').toLowerCase()] || [];
+    return pid && !prods.includes(pid);
+  }).length;
+
+  if (ctEl) {
+    ctEl.innerHTML = `${lista.length} lead${lista.length !== 1 ? 's' : ''}` +
+      (pendCat > 0 ? ` &nbsp;<span style="color:var(--red);font-weight:700;">● ${pendCat} pendente${pendCat>1?'s':''}</span>` : '');
+  }
+  if (!el) return;
+
+  if (!lista.length) {
+    el.innerHTML = '<div class="tbl-empty">Nenhum lead nesta categoria ainda.</div>';
+    return;
+  }
+
+  const badgeCls = cat === 'central' ? 'bdg-grn' : cat === 'mentoria' ? 'bdg-pur' : 'bdg-gd';
+
+  el.innerHTML = `<table class="tbl">
+    <thead><tr>
+      <th>Nome</th><th>Email</th><th>WhatsApp</th><th>Produto Comprado</th><th>Origem</th><th>Data</th><th>Status</th>
+    </tr></thead>
+    <tbody>${lista.map(l => {
+      const pid = NOME_PARA_ID[l.produto];
+      const prods = userMap[(l.email||'').toLowerCase()] || [];
+      const jaLiberado = pid && prods.includes(pid);
+      const dataStr = l.data ? new Date(l.data).toLocaleDateString('pt-BR') : '—';
+      const wpp = l.wpp || l.whatsapp || '—';
+      return `<tr style="${jaLiberado ? '' : 'background:#fffbeb;'}">
+        <td><strong>${l.nome||'—'}</strong></td>
+        <td style="font-size:12px;color:var(--tx2);">${l.email||'—'}</td>
+        <td style="font-size:12px;">${wpp !== '—' ? `<a href="https://wa.me/55${wpp.replace(/\D/g,'')}" target="_blank" style="color:var(--grn);font-weight:600;">${wpp}</a>` : '—'}</td>
+        <td>
+          <div style="font-size:12px;font-weight:700;color:var(--gd);">${l.produto||'—'}</div>
+        </td>
+        <td><span class="bdg ${badgeCls}">${l.origem||'site'}</span></td>
+        <td style="font-size:12px;color:var(--tx3);">${dataStr}</td>
+        <td>
+          ${jaLiberado
+            ? `<span class="bdg bdg-grn">✅ Liberado</span>`
+            : `<button class="btn btn-grn btn-sm"
+                onclick="const b=this;b.disabled=true;b.textContent='⏳...';criarAcessoRapido('${l.email}','${l.nome}','${l.produto}').then(()=>renderLeadsCursos()).finally(()=>{b.disabled=false;b.textContent='🔐 Liberar';})">
+                🔐 Liberar
+              </button>`
+          }
+        </td>
+      </tr>`;
+    }).join('')}
+    </tbody>
+  </table>`;
+}
+
+// ── REGISTRAR COMPRA MANUAL ──
+function abrirRegistrarCompra() {
+  document.getElementById('cpNome').value = '';
+  document.getElementById('cpEmail').value = '';
+  document.getElementById('cpWpp').value = '';
+  document.getElementById('cpProduto').value = '';
+  document.getElementById('cpOrigem').value = 'pix';
+  document.getElementById('modalCompra').classList.add('open');
+}
+function fecharModalCompra() {
+  document.getElementById('modalCompra').classList.remove('open');
+}
+
+async function _salvarLead(eLiberar) {
+  const nome    = document.getElementById('cpNome').value.trim();
+  const email   = document.getElementById('cpEmail').value.trim().toLowerCase();
+  const wpp     = document.getElementById('cpWpp').value.trim();
+  const produto = document.getElementById('cpProduto').value;
+  const origem  = document.getElementById('cpOrigem').value;
+
+  if (!nome || !email || !produto) { alert('Preencha nome, email e produto.'); return; }
+
+  // Insere na tabela leads do Supabase
+  const { error } = await supabaseClient.from('leads').insert({
+    nome, email, wpp: wpp || null, produto, origem, tipo: 'produto',
+    data: new Date().toISOString()
+  });
+  if (error) { alert('Erro ao registrar: ' + error.message); return; }
+
+  fecharModalCompra();
+
+  if (eLiberar) {
+    await criarAcessoRapido(email, nome, produto);
+  } else {
+    alert(`✅ Compra registrada!\n\n${nome} — ${produto}\n\nAparecerá na lista de pendentes para liberação.`);
+  }
+  await renderLeadsCursos();
+}
+
+window.abrirRegistrarCompra = abrirRegistrarCompra;
+window.fecharModalCompra = fecharModalCompra;
+window.salvarCompraEliberar = () => _salvarLead(true);
+window.salvarCompraApenas = () => _salvarLead(false);
+
+// ── CRIAR ACESSO RÁPIDO (Supabase) ──
   if (!email || email==='-') { alert('Email não disponível para este lead.'); return; }
+
   const map = {
     'Central Tattoo Pro — Sistema de Gestão':'central-tattoo',
     'Ebook Iniciante — Tráfego Tattoo':'ebook-trafego',
@@ -1126,22 +1404,59 @@ function criarAcessoRapido(email, nome, produto) {
     'Mentoria VIP 1:1':'curso-mentoria'
   };
   const pid = map[produto] || 'ebook-trafego';
-  const usuarios = JSON.parse(localStorage.getItem('ct_usuarios') || '[]');
-  let u = usuarios.find(x => x.email.toLowerCase() === email.toLowerCase());
+  const emailNorm = email.toLowerCase().trim();
+
+  // Busca se usuário já existe no Supabase
+  const { data: u, error: erBusca } = await supabaseClient
+    .from('usuarios')
+    .select('*')
+    .eq('email', emailNorm)
+    .maybeSingle();
+
   if (u) {
-    if (!u.produtos.includes(pid)) u.produtos.push(pid);
-    localStorage.setItem('ct_usuarios', JSON.stringify(usuarios));
-    alert(`Produto "${produto}" liberado para ${nome||email}. ✅`);
+    // ── Já existe: adiciona produto se ainda não tiver ──
+    const produtosAtuais = u.produtos || [];
+    if (produtosAtuais.includes(pid)) {
+      alert(`ℹ️ ${nome||email} já tem acesso a "${produto}".`);
+      return;
+    }
+    produtosAtuais.push(pid);
+    const { error: erUpd } = await supabaseClient
+      .from('usuarios')
+      .update({ produtos: produtosAtuais, plano: produtosAtuais[0] || pid })
+      .eq('email', emailNorm);
+    if (erUpd) { alert('Erro ao liberar: ' + erUpd.message); return; }
+    alert(`✅ "${produto}" liberado para ${nome||email}!\n\nO cliente já pode acessar o produto no painel.`);
   } else {
+    // ── Novo membro: insere na tabela ──
     const senha = gerarSenha();
-    usuarios.push({nome: nome||email.split('@')[0], email: email.toLowerCase(), senha: btoa(senha), produtos:[pid], criado:new Date().toISOString(), firstLogin:true, bloqueado:false, tentativas:0});
-    localStorage.setItem('ct_usuarios', JSON.stringify(usuarios));
-    _credenciais = {nome: nome||email, email: email.toLowerCase(), senha};
-    if (confirm(`Membro criado!\nLogin: ${email}\nSenha: ${senha}\n\nCopiar credenciais?`))
-      navigator.clipboard.writeText(`Login: ${email} | Senha: ${senha}`);
+    const { error: erIns } = await supabaseClient
+      .from('usuarios')
+      .insert({
+        nome: nome || emailNorm.split('@')[0],
+        email: emailNorm,
+        produtos: [pid],
+        plano: pid,
+        bloqueado: false
+      });
+    if (erIns) { alert('Erro ao criar membro: ' + erIns.message); return; }
+
+    // Guarda credenciais para copiar / enviar
+    _credenciais = { nome: nome||emailNorm, email: emailNorm, senha };
+
+    const msg = `✅ Membro criado!\n\nLogin: ${emailNorm}\nSenha sugerida: ${senha}\n\n` +
+      `⚠️ IMPORTANTE: crie o usuário no Supabase Auth:\n` +
+      `Supabase → Authentication → Users → Add user\n` +
+      `com o mesmo email e essa senha.\n\nCopiar credenciais?`;
+    if (confirm(msg)) {
+      navigator.clipboard.writeText(`Login: ${emailNorm} | Senha: ${senha}`)
+        .then(() => alert('Copiado! ✅'))
+        .catch(() => alert(`Login: ${emailNorm}\nSenha: ${senha}`));
+    }
   }
   mudaTab('usuarios');
 }
+window.criarAcessoRapido = criarAcessoRapido;
 
 function exportarCSVCursos() {
   const l = JSON.parse(localStorage.getItem('ct_leads') || '[]');
