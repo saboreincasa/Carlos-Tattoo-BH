@@ -334,6 +334,8 @@ table.tbl tr:hover td{background:#FDFCFA;}
 .bdg-pur{background:#F3E8FF;color:#7E22CE;}
 .bdg-gray{background:#F3F4F6;color:#6B7280;}
 .bdg-paypal{background:#EEF4FF;color:#003087;}
+.bdg-carrinho{background:#FFF3CD;color:#856404;}
+.bdg-interesse{background:#F3F4F6;color:#6B7280;}
 
 /* ANIVERSÁRIO */
 .aniv-row{
@@ -692,6 +694,59 @@ table.tbl tr:hover td{background:#FDFCFA;}
 
   </div><!-- /admin-content -->
 </div><!-- /adminPanel -->
+
+<!-- ═══ MODAL NOTIFICAÇÃO PÓS-LIBERAÇÃO ═══ -->
+<div class="modal-overlay" id="modalNotif">
+  <div class="modal-box" style="max-width:520px;">
+    <div class="modal-header">
+      <div class="modal-title">✅ Produto Liberado!</div>
+      <button class="modal-close" onclick="fecharNotifModal()">✕</button>
+    </div>
+
+    <!-- Resumo -->
+    <div style="background:var(--grnb);border:1px solid rgba(22,163,74,.2);border-radius:10px;padding:14px 18px;margin-bottom:18px;">
+      <div style="font-size:13px;font-weight:700;color:var(--grn);margin-bottom:4px;">✅ Acesso liberado com sucesso</div>
+      <div style="font-size:13px;color:var(--tx2);">
+        <strong id="notifNome">—</strong> agora tem acesso ao
+        <strong style="color:var(--gd);" id="notifProduto">—</strong>
+      </div>
+    </div>
+
+    <!-- Alerta Supabase para novo membro -->
+    <div id="notifSupabaseAviso" style="display:none;background:var(--ambb);border:1px solid rgba(217,119,6,.25);border-radius:9px;padding:11px 14px;margin-bottom:14px;font-size:12px;color:var(--amb);font-weight:500;">
+      ⚠️ <strong>Novo membro:</strong> crie o usuário no Supabase Auth antes de enviar as credenciais.<br>
+      <span style="font-size:11px;opacity:.8;">Supabase → Authentication → Users → Add user</span>
+    </div>
+
+    <!-- Credenciais geradas -->
+    <div id="notifSenhaBox" style="display:none;background:var(--sur2);border:1px solid var(--brd2);border-radius:9px;padding:11px 14px;margin-bottom:16px;">
+      <div style="font-size:11px;font-weight:600;color:var(--tx3);margin-bottom:6px;letter-spacing:.5px;text-transform:uppercase;">Credenciais geradas</div>
+      <div id="notifSenhaVal" style="font-size:13px;font-weight:600;color:var(--txt);font-family:monospace;"></div>
+    </div>
+
+    <!-- Botões de notificação rápida -->
+    <div style="font-size:11px;font-weight:700;color:var(--tx3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px;">Notificar cliente</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
+      <a id="btnNotifWppCliente" href="#" target="_blank"
+        style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 16px;background:#25D366;color:#fff;border-radius:9px;font-size:12px;font-weight:700;text-decoration:none;transition:.2s;">
+        📲 WhatsApp do Cliente
+      </a>
+      <button onclick="copiarEmailNotif()"
+        style="flex:1;padding:11px 16px;background:var(--blub);color:var(--blu);border:1px solid rgba(29,78,216,.2);border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;">
+        📋 Copiar Email
+      </button>
+    </div>
+
+    <!-- Template de email editável -->
+    <div style="font-size:11px;font-weight:700;color:var(--tx3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px;">Template de email</div>
+    <textarea id="notifEmailTxt" rows="7"
+      style="width:100%;padding:10px 12px;background:var(--sur2);border:1.5px solid var(--brd);border-radius:9px;font-size:12px;color:var(--tx2);resize:vertical;line-height:1.6;"></textarea>
+
+    <button onclick="fecharNotifModal()" class="btn btn-out" style="width:100%;margin-top:12px;padding:11px;font-size:13px;justify-content:center;">
+      Fechar
+    </button>
+  </div>
+</div>
 
 <!-- ═══ MODAL REGISTRAR COMPRA ═══ -->
 <div class="modal-overlay" id="modalCompra">
@@ -1262,19 +1317,23 @@ async function renderLeadsCursos() {
     if (!vistos.has(chave)) { vistos.add(chave); todos.push(l); }
   });
 
-  // Calcula pendentes (produto não liberado ainda)
+  // Calcula pendentes (produto não liberado ainda, excluindo abandonos)
   let pendentes = 0;
+  let abandonos = 0;
   todos.forEach(l => {
     const pid = NOME_PARA_ID[l.produto];
     const prods = userMap[(l.email||'').toLowerCase()] || [];
+    const orig = (l.origem||'').toLowerCase();
+    if (orig === 'carrinho' || orig === 'interesse') { abandonos++; return; }
     if (pid && !prods.includes(pid)) pendentes++;
   });
 
   // Atualiza badge na aba
   const badge = document.getElementById('badge-pendentes');
   if (badge) {
-    badge.textContent = pendentes;
-    badge.style.display = pendentes > 0 ? 'inline-block' : 'none';
+    const total = pendentes + abandonos;
+    badge.textContent = total > 0 ? `${pendentes} pend.${abandonos > 0 ? ` · ${abandonos} 🛒` : ''}` : '';
+    badge.style.display = total > 0 ? 'inline-block' : 'none';
   }
 
   // Agrupa por categoria
@@ -1323,17 +1382,24 @@ function renderSecao(cat, lista, countId, userMap, NOME_PARA_ID) {
       const dataStr = l.data ? new Date(l.data).toLocaleDateString('pt-BR') : '—';
       const wpp = l.wpp || l.whatsapp || '—';
       const origem = (l.origem||'site').toLowerCase();
-      const origemBdg = origem === 'paypal' ? 'bdg-paypal'
-                      : origem === 'pix'    ? 'bdg-grn'
-                      : origem === 'cartao' ? 'bdg-blu'
+      const origemBdg = origem === 'paypal'    ? 'bdg-paypal'
+                      : origem === 'pix'      ? 'bdg-grn'
+                      : origem === 'cartao'   ? 'bdg-blu'
+                      : origem === 'carrinho' ? 'bdg-carrinho'
+                      : origem === 'interesse'? 'bdg-interesse'
                       : 'bdg-gd';
       const origemLabel = origem === 'paypal'     ? '💳 PayPal'
                         : origem === 'pix'        ? '⚡ PIX'
                         : origem === 'cartao'     ? '💳 Cartão'
                         : origem === 'whatsapp'   ? '📱 WhatsApp'
                         : origem === 'presencial' ? '🤝 Presencial'
+                        : origem === 'carrinho'   ? '🛒 Abandonou'
+                        : origem === 'interesse'  ? '👀 Interesse'
+                        : origem === 'upsell'     ? '⬆️ Upsell'
                         : l.origem||'site';
-      return `<tr style="${jaLiberado ? '' : 'background:#fffbeb;'}">
+      const eAbandonado = origem === 'carrinho' || origem === 'interesse';
+      const rowBg = jaLiberado ? '' : eAbandonado ? 'background:#FFFFF0;' : 'background:#fffbeb;';
+      return `<tr style="${rowBg}">
         <td><strong>${l.nome||'—'}</strong></td>
         <td style="font-size:12px;color:var(--tx2);">${l.email||'—'}</td>
         <td style="font-size:12px;">${wpp !== '—' ? `<a href="https://wa.me/55${wpp.replace(/\D/g,'')}" target="_blank" style="color:var(--grn);font-weight:600;">${wpp}</a>` : '—'}</td>
@@ -1345,10 +1411,15 @@ function renderSecao(cat, lista, countId, userMap, NOME_PARA_ID) {
         <td>
           ${jaLiberado
             ? `<span class="bdg bdg-grn">✅ Liberado</span>`
-            : `<button class="btn btn-grn btn-sm"
-                onclick="const b=this;b.disabled=true;b.textContent='⏳...';criarAcessoRapido('${l.email}','${l.nome}','${l.produto}').then(()=>renderLeadsCursos()).finally(()=>{b.disabled=false;b.textContent='🔐 Liberar';})">
-                🔐 Liberar
-              </button>`
+            : eAbandonado
+              ? `<a href="https://wa.me/55${wpp !== '—' ? wpp.replace(/\D/g,'') : ''}" target="_blank"
+                  class="btn btn-wpp btn-sm" title="Enviar follow-up pelo WhatsApp">
+                  📲 Follow-up
+                </a>`
+              : `<button class="btn btn-grn btn-sm"
+                  onclick="const b=this;b.disabled=true;b.textContent='⏳...';criarAcessoRapido('${l.email}','${l.nome}','${l.produto}').then(()=>renderLeadsCursos()).finally(()=>{b.disabled=false;b.textContent='🔐 Liberar';})">
+                  🔐 Liberar
+                </button>`
           }
         </td>
       </tr>`;
@@ -1402,6 +1473,7 @@ window.salvarCompraEliberar = () => _salvarLead(true);
 window.salvarCompraApenas = () => _salvarLead(false);
 
 // ── CRIAR ACESSO RÁPIDO (Supabase) ──
+async function criarAcessoRapido(email, nome, produto) {
   if (!email || email==='-') { alert('Email não disponível para este lead.'); return; }
 
   const map = {
@@ -1439,7 +1511,8 @@ window.salvarCompraApenas = () => _salvarLead(false);
       .update({ produtos: produtosAtuais, plano: produtosAtuais[0] || pid })
       .eq('email', emailNorm);
     if (erUpd) { alert('Erro ao liberar: ' + erUpd.message); return; }
-    alert(`✅ "${produto}" liberado para ${nome||email}!\n\nO cliente já pode acessar o produto no painel.`);
+    _credenciais = { nome: nome || emailNorm, email: emailNorm, senha: null };
+    mostrarPainelNotificacao(nome || emailNorm, emailNorm, produto, null);
   } else {
     // ── Novo membro: insere na tabela ──
     const senha = gerarSenha();
@@ -1453,23 +1526,62 @@ window.salvarCompraApenas = () => _salvarLead(false);
         bloqueado: false
       });
     if (erIns) { alert('Erro ao criar membro: ' + erIns.message); return; }
-
-    // Guarda credenciais para copiar / enviar
     _credenciais = { nome: nome||emailNorm, email: emailNorm, senha };
-
-    const msg = `✅ Membro criado!\n\nLogin: ${emailNorm}\nSenha sugerida: ${senha}\n\n` +
-      `⚠️ IMPORTANTE: crie o usuário no Supabase Auth:\n` +
-      `Supabase → Authentication → Users → Add user\n` +
-      `com o mesmo email e essa senha.\n\nCopiar credenciais?`;
-    if (confirm(msg)) {
-      navigator.clipboard.writeText(`Login: ${emailNorm} | Senha: ${senha}`)
-        .then(() => alert('Copiado! ✅'))
-        .catch(() => alert(`Login: ${emailNorm}\nSenha: ${senha}`));
-    }
+    mostrarPainelNotificacao(nome||emailNorm, emailNorm, produto, senha);
   }
   mudaTab('usuarios');
 }
 window.criarAcessoRapido = criarAcessoRapido;
+
+// ── PAINEL DE NOTIFICAÇÃO PÓS-LIBERAÇÃO ──
+function mostrarPainelNotificacao(nome, email, produto, senha) {
+  const wppMsg = encodeURIComponent(
+    `Olá ${nome.split(' ')[0]}! 🎉\n\nSeu acesso ao *${produto}* está liberado!\n\n` +
+    `📍 Acesse: carlostattoo.com.br/acesso.html\n` +
+    `📧 Login: ${email}\n` +
+    (senha ? `🔑 Senha: ${senha}\n\n` : `\n`) +
+    `Qualquer dúvida é só chamar! 😊`
+  );
+  const emailTxt =
+    `Assunto: Seu acesso ao ${produto} está liberado! 🎉\n\n` +
+    `Olá ${nome.split(' ')[0]},\n\n` +
+    `Parabéns! Seu acesso ao ${produto} foi liberado com sucesso.\n\n` +
+    `Acesse agora: carlostattoo.com.br/acesso.html\n` +
+    `Login: ${email}\n` +
+    (senha ? `Senha: ${senha}\n\n` : '\n') +
+    (senha ? `⚠️ Lembre-se de criar este usuário no Supabase Auth antes de enviar!\n\n` : '') +
+    `Qualquer dúvida estou à disposição.\n\nAbraços,\nCarlos Tattoo BH`;
+
+  document.getElementById('notifNome').textContent = nome;
+  document.getElementById('notifProduto').textContent = produto;
+  document.getElementById('notifEmailTxt').value = emailTxt;
+  document.getElementById('btnNotifWpp').href =
+    `https://wa.me/5531983391576?text=${wppMsg}`;
+  document.getElementById('btnNotifWppCliente').href =
+    `https://wa.me/?text=${wppMsg}`;
+
+  if (senha) {
+    document.getElementById('notifSenhaBox').style.display = 'block';
+    document.getElementById('notifSenhaVal').textContent = `Login: ${email}  |  Senha: ${senha}`;
+    document.getElementById('notifSupabaseAviso').style.display = 'block';
+  } else {
+    document.getElementById('notifSenhaBox').style.display = 'none';
+    document.getElementById('notifSupabaseAviso').style.display = 'none';
+  }
+  document.getElementById('modalNotif').classList.add('open');
+}
+
+window.copiarEmailNotif = function() {
+  const txt = document.getElementById('notifEmailTxt').value;
+  navigator.clipboard.writeText(txt).then(() => {
+    const btn = event.target;
+    btn.textContent = '✅ Copiado!';
+    setTimeout(() => btn.textContent = '📋 Copiar Email', 2000);
+  });
+};
+window.fecharNotifModal = function() {
+  document.getElementById('modalNotif').classList.remove('open');
+};
 
 function exportarCSVCursos() {
   const l = JSON.parse(localStorage.getItem('ct_leads') || '[]');
