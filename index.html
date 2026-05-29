@@ -3065,46 +3065,47 @@ html { scroll-behavior: smooth; }
 
 /* SELETOR DE ESTILO */
 .fp-estilos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8px;}
-.fp-estilo-card{background:rgba(255,255,255,.04);border:2px solid rgba(201,168,76,.12);border-radius:12px;padding:12px 8px;text-align:center;cursor:pointer;transition:.2s;}
+.fp-estilo-card{background:rgba(201,168,76,.08);border:2px solid rgba(160,120,56,.25);border-radius:12px;padding:12px 8px;text-align:center;cursor:pointer;transition:.2s;}
 .fp-estilo-card:hover{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.06);}
 .fp-estilo-card.selected{border-color:#E8B800;background:rgba(201,168,76,.1);}
-.fp-estilo-card span{font-family:'Cinzel',serif;font-size:10px;color:#EDE4D4;letter-spacing:1px;display:block;margin-top:6px;}
-.fp-estilo-img{width:100%;height:60px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:4px;}
+.fp-estilo-card span{font-family:'Cinzel',serif;font-size:10px;color:#3a1e08;letter-spacing:1px;display:block;margin-top:6px;}
+.fp-estilo-img{width:100%;height:90px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:6px;overflow:hidden;}
+.fp-estilo-card:hover .fp-estilo-img img{transform:scale(1.08);}
 
 /* LOCAIS */
 .fp-locais-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
-.fp-local-btn{background:rgba(255,255,255,.04);border:1.5px solid rgba(201,168,76,.12);border-radius:8px;padding:10px 6px;font-family:'Cinzel',serif;font-size:9px;color:#EDE4D4;letter-spacing:1px;cursor:pointer;transition:.2s;text-align:center;}
+.fp-local-btn{background:rgba(201,168,76,.08);border:1.5px solid rgba(160,120,56,.25);border-radius:8px;padding:10px 6px;font-family:'Cinzel',serif;font-size:9px;color:#3a1e08;letter-spacing:1px;cursor:pointer;transition:.2s;text-align:center;}
 .fp-local-btn:hover,.fp-local-btn.selected{background:rgba(201,168,76,.1);border-color:#E8B800;color:#E8B800;}
 
 /* TAMANHOS */
 .fp-tamanhos{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:8px;}
-.fp-tam-btn{background:rgba(255,255,255,.04);border:2px solid rgba(201,168,76,.12);border-radius:10px;padding:14px 8px;font-family:'Cinzel',serif;font-size:11px;color:#EDE4D4;cursor:pointer;transition:.2s;text-align:center;line-height:1.4;}
-.fp-tam-btn small{font-size:9px;color:rgba(237,228,212,.5);letter-spacing:1px;}
+.fp-tam-btn{background:rgba(201,168,76,.08);border:2px solid rgba(160,120,56,.25);border-radius:10px;padding:14px 8px;font-family:'Cinzel',serif;font-size:11px;color:#3a1e08;cursor:pointer;transition:.2s;text-align:center;line-height:1.4;}
+.fp-tam-btn small{font-size:9px;color:rgba(90,60,20,.7);letter-spacing:1px;}
 .fp-tam-btn:hover,.fp-tam-btn.selected{background:rgba(201,168,76,.1);border-color:#E8B800;color:#E8B800;}
 .fp-tam-btn.selected small{color:rgba(201,168,76,.6);}
 
 /* ESTIMATIVA */
 .fp-estimativa-box{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.25);border-radius:12px;padding:16px 20px;margin:16px 0;text-align:center;}
-.fp-est-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:rgba(201,168,76,.6);text-transform:uppercase;margin-bottom:6px;}
+.fp-est-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:#7a5010;text-transform:uppercase;margin-bottom:6px;}
 .fp-est-valor{font-family:'Cinzel Decorative',cursive;font-size:22px;color:#E8B800;}
-.fp-est-obs{font-size:10px;color:rgba(237,228,212,.4);margin-top:4px;font-family:'Cinzel',serif;}
+.fp-est-obs{font-size:10px;color:rgba(90,60,20,.65);margin-top:4px;font-family:'Cinzel',serif;}
 
 /* RESUMO */
-.fp-resumo{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.1);border-radius:12px;padding:20px;}
+.fp-resumo{background:rgba(201,168,76,.06);border:1px solid rgba(160,120,56,.2);border-radius:12px;padding:20px;}
 .fp-resumo-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(201,168,76,.06);}
 .fp-resumo-item:last-child{border-bottom:none;}
-.fp-resumo-label{font-family:'Cinzel',serif;font-size:10px;color:rgba(201,168,76,.5);letter-spacing:1px;text-transform:uppercase;}
-.fp-resumo-valor{font-family:'Cinzel',serif;font-size:12px;color:#EDE4D4;font-weight:600;text-align:right;max-width:60%;}
+.fp-resumo-label{font-family:'Cinzel',serif;font-size:10px;color:#7a5010;letter-spacing:1px;text-transform:uppercase;}
+.fp-resumo-valor{font-family:'Cinzel',serif;font-size:12px;color:#1a0a00;font-weight:600;text-align:right;max-width:60%;}
 
 /* ORÇAMENTO */
 .fp-orcamentos{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:4px;}
-.fp-orc-btn{background:rgba(255,255,255,.04);border:1.5px solid rgba(201,168,76,.12);border-radius:8px;padding:10px 6px;font-family:'Cinzel',serif;font-size:9px;color:#EDE4D4;letter-spacing:1px;cursor:pointer;transition:.2s;text-align:center;}
+.fp-orc-btn{background:rgba(201,168,76,.08);border:1.5px solid rgba(160,120,56,.25);border-radius:8px;padding:10px 6px;font-family:'Cinzel',serif;font-size:9px;color:#3a1e08;letter-spacing:1px;cursor:pointer;transition:.2s;text-align:center;}
 .fp-orc-btn:hover,.fp-orc-btn.selected{background:rgba(201,168,76,.1);border-color:#E8B800;color:#E8B800;}
 
 /* BOTÕES */
 .fp-btn-next{width:100%;background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;border:none;padding:16px;border-radius:12px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;cursor:pointer;font-weight:700;transition:.2s;margin-top:8px;}
 .fp-btn-next:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,.4);}
-.fp-btn-back{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.15);color:rgba(237,228,212,.6);padding:12px 20px;border-radius:10px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;transition:.2s;}
+.fp-btn-back{background:rgba(201,168,76,.08);border:1px solid rgba(160,120,56,.25);color:#5a3c18;padding:12px 20px;border-radius:10px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;transition:.2s;}
 .fp-btn-back:hover{border-color:rgba(201,168,76,.4);color:#E8B800;}
 .fp-btn-enviar{width:100%;background:linear-gradient(135deg,#8B1A1A,#C0392B,#8B1A1A);background-size:200%;animation:btnEnviarPulse 3s ease infinite;color:#fff;border:none;padding:18px;border-radius:12px;font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;cursor:pointer;font-weight:700;transition:.2s;margin-top:8px;border:1px solid rgba(255,255,255,.1);}
 .fp-btn-enviar:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(139,26,26,.5);}
@@ -5841,46 +5842,47 @@ html { scroll-behavior: smooth; }
 
 /* SELETOR DE ESTILO */
 .fp-estilos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8px;}
-.fp-estilo-card{background:rgba(255,255,255,.04);border:2px solid rgba(201,168,76,.12);border-radius:12px;padding:12px 8px;text-align:center;cursor:pointer;transition:.2s;}
+.fp-estilo-card{background:rgba(201,168,76,.08);border:2px solid rgba(160,120,56,.25);border-radius:12px;padding:12px 8px;text-align:center;cursor:pointer;transition:.2s;}
 .fp-estilo-card:hover{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.06);}
 .fp-estilo-card.selected{border-color:#E8B800;background:rgba(201,168,76,.1);}
-.fp-estilo-card span{font-family:'Cinzel',serif;font-size:10px;color:#EDE4D4;letter-spacing:1px;display:block;margin-top:6px;}
-.fp-estilo-img{width:100%;height:60px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:4px;}
+.fp-estilo-card span{font-family:'Cinzel',serif;font-size:10px;color:#3a1e08;letter-spacing:1px;display:block;margin-top:6px;}
+.fp-estilo-img{width:100%;height:90px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:6px;overflow:hidden;}
+.fp-estilo-card:hover .fp-estilo-img img{transform:scale(1.08);}
 
 /* LOCAIS */
 .fp-locais-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
-.fp-local-btn{background:rgba(255,255,255,.04);border:1.5px solid rgba(201,168,76,.12);border-radius:8px;padding:10px 6px;font-family:'Cinzel',serif;font-size:9px;color:#EDE4D4;letter-spacing:1px;cursor:pointer;transition:.2s;text-align:center;}
+.fp-local-btn{background:rgba(201,168,76,.08);border:1.5px solid rgba(160,120,56,.25);border-radius:8px;padding:10px 6px;font-family:'Cinzel',serif;font-size:9px;color:#3a1e08;letter-spacing:1px;cursor:pointer;transition:.2s;text-align:center;}
 .fp-local-btn:hover,.fp-local-btn.selected{background:rgba(201,168,76,.1);border-color:#E8B800;color:#E8B800;}
 
 /* TAMANHOS */
 .fp-tamanhos{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:8px;}
-.fp-tam-btn{background:rgba(255,255,255,.04);border:2px solid rgba(201,168,76,.12);border-radius:10px;padding:14px 8px;font-family:'Cinzel',serif;font-size:11px;color:#EDE4D4;cursor:pointer;transition:.2s;text-align:center;line-height:1.4;}
-.fp-tam-btn small{font-size:9px;color:rgba(237,228,212,.5);letter-spacing:1px;}
+.fp-tam-btn{background:rgba(201,168,76,.08);border:2px solid rgba(160,120,56,.25);border-radius:10px;padding:14px 8px;font-family:'Cinzel',serif;font-size:11px;color:#3a1e08;cursor:pointer;transition:.2s;text-align:center;line-height:1.4;}
+.fp-tam-btn small{font-size:9px;color:rgba(90,60,20,.7);letter-spacing:1px;}
 .fp-tam-btn:hover,.fp-tam-btn.selected{background:rgba(201,168,76,.1);border-color:#E8B800;color:#E8B800;}
 .fp-tam-btn.selected small{color:rgba(201,168,76,.6);}
 
 /* ESTIMATIVA */
 .fp-estimativa-box{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.25);border-radius:12px;padding:16px 20px;margin:16px 0;text-align:center;}
-.fp-est-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:rgba(201,168,76,.6);text-transform:uppercase;margin-bottom:6px;}
+.fp-est-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:#7a5010;text-transform:uppercase;margin-bottom:6px;}
 .fp-est-valor{font-family:'Cinzel Decorative',cursive;font-size:22px;color:#E8B800;}
-.fp-est-obs{font-size:10px;color:rgba(237,228,212,.4);margin-top:4px;font-family:'Cinzel',serif;}
+.fp-est-obs{font-size:10px;color:rgba(90,60,20,.65);margin-top:4px;font-family:'Cinzel',serif;}
 
 /* RESUMO */
-.fp-resumo{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.1);border-radius:12px;padding:20px;}
+.fp-resumo{background:rgba(201,168,76,.06);border:1px solid rgba(160,120,56,.2);border-radius:12px;padding:20px;}
 .fp-resumo-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(201,168,76,.06);}
 .fp-resumo-item:last-child{border-bottom:none;}
-.fp-resumo-label{font-family:'Cinzel',serif;font-size:10px;color:rgba(201,168,76,.5);letter-spacing:1px;text-transform:uppercase;}
-.fp-resumo-valor{font-family:'Cinzel',serif;font-size:12px;color:#EDE4D4;font-weight:600;text-align:right;max-width:60%;}
+.fp-resumo-label{font-family:'Cinzel',serif;font-size:10px;color:#7a5010;letter-spacing:1px;text-transform:uppercase;}
+.fp-resumo-valor{font-family:'Cinzel',serif;font-size:12px;color:#1a0a00;font-weight:600;text-align:right;max-width:60%;}
 
 /* ORÇAMENTO */
 .fp-orcamentos{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:4px;}
-.fp-orc-btn{background:rgba(255,255,255,.04);border:1.5px solid rgba(201,168,76,.12);border-radius:8px;padding:10px 6px;font-family:'Cinzel',serif;font-size:9px;color:#EDE4D4;letter-spacing:1px;cursor:pointer;transition:.2s;text-align:center;}
+.fp-orc-btn{background:rgba(201,168,76,.08);border:1.5px solid rgba(160,120,56,.25);border-radius:8px;padding:10px 6px;font-family:'Cinzel',serif;font-size:9px;color:#3a1e08;letter-spacing:1px;cursor:pointer;transition:.2s;text-align:center;}
 .fp-orc-btn:hover,.fp-orc-btn.selected{background:rgba(201,168,76,.1);border-color:#E8B800;color:#E8B800;}
 
 /* BOTÕES */
 .fp-btn-next{width:100%;background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;border:none;padding:16px;border-radius:12px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;cursor:pointer;font-weight:700;transition:.2s;margin-top:8px;}
 .fp-btn-next:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,.4);}
-.fp-btn-back{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.15);color:rgba(237,228,212,.6);padding:12px 20px;border-radius:10px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;transition:.2s;}
+.fp-btn-back{background:rgba(201,168,76,.08);border:1px solid rgba(160,120,56,.25);color:#5a3c18;padding:12px 20px;border-radius:10px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;cursor:pointer;transition:.2s;}
 .fp-btn-back:hover{border-color:rgba(201,168,76,.4);color:#E8B800;}
 .fp-btn-enviar{width:100%;background:linear-gradient(135deg,#8B1A1A,#C0392B,#8B1A1A);background-size:200%;animation:btnEnviarPulse 3s ease infinite;color:#fff;border:none;padding:18px;border-radius:12px;font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;cursor:pointer;font-weight:700;transition:.2s;margin-top:8px;border:1px solid rgba(255,255,255,.1);}
 .fp-btn-enviar:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(139,26,26,.5);}
@@ -7352,38 +7354,56 @@ html { scroll-behavior: smooth; }
           <label class="fp-label" style="color:#5a3c18;">Qual estilo você quer? *</label>
           <div class="fp-estilos-grid">
             <div class="fp-estilo-card" onclick="selecionarEstilo('Realismo','este-realismo')">
-              <div class="fp-estilo-img" style="background:linear-gradient(135deg,#1C1208,#0A0702);">
-                <span style="font-size:28px;">🎨</span>
+              <div class="fp-estilo-img" style="background:#1C1208;overflow:hidden;position:relative;">
+                <img loading="lazy" src="imagens/capa-realismo.jpg" alt="Realismo"
+                  style="width:100%;height:100%;object-fit:cover;display:block;border-radius:6px;transition:transform .3s;"
+                  onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                <span style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;font-size:26px;">🎨</span>
               </div>
               <span>Realismo</span>
             </div>
             <div class="fp-estilo-card" onclick="selecionarEstilo('Black & Grey','este-blackgrey')">
-              <div class="fp-estilo-img" style="background:linear-gradient(135deg,#1C1208,#0A0702);">
-                <span style="font-size:28px;">⬛</span>
+              <div class="fp-estilo-img" style="background:#1C1208;overflow:hidden;position:relative;">
+                <img loading="lazy" src="imagens/capa-blackgrey.jpg" alt="Black & Grey"
+                  style="width:100%;height:100%;object-fit:cover;display:block;border-radius:6px;transition:transform .3s;"
+                  onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                <span style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;font-size:26px;">⬛</span>
               </div>
               <span>Black & Grey</span>
             </div>
             <div class="fp-estilo-card" onclick="selecionarEstilo('Fineline','este-fineline')">
-              <div class="fp-estilo-img" style="background:linear-gradient(135deg,#1C1208,#0A0702);">
-                <span style="font-size:28px;">✏️</span>
+              <div class="fp-estilo-img" style="background:#1C1208;overflow:hidden;position:relative;">
+                <img loading="lazy" src="imagens/capa-fineline.jpg" alt="Fineline"
+                  style="width:100%;height:100%;object-fit:cover;display:block;border-radius:6px;transition:transform .3s;"
+                  onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                <span style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;font-size:26px;">✏️</span>
               </div>
               <span>Fineline</span>
             </div>
             <div class="fp-estilo-card" onclick="selecionarEstilo('Cover Up','este-coverup')">
-              <div class="fp-estilo-img" style="background:linear-gradient(135deg,#8B1A1A,#2A0808);">
-                <span style="font-size:28px;">🔄</span>
+              <div class="fp-estilo-img" style="background:#2A0808;overflow:hidden;position:relative;">
+                <img loading="lazy" src="imagens/capa-coverup.jpg" alt="Cover Up"
+                  style="width:100%;height:100%;object-fit:cover;display:block;border-radius:6px;transition:transform .3s;"
+                  onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                <span style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;font-size:26px;">🔄</span>
               </div>
               <span>Cover Up</span>
             </div>
             <div class="fp-estilo-card" onclick="selecionarEstilo('Colorida','este-colorida')">
-              <div class="fp-estilo-img" style="background:linear-gradient(135deg,#0A2818,#0A0702);">
-                <span style="font-size:28px;">🎨</span>
+              <div class="fp-estilo-img" style="background:#0A2818;overflow:hidden;position:relative;">
+                <img loading="lazy" src="imagens/capa-colorida.jpg" alt="Colorida"
+                  style="width:100%;height:100%;object-fit:cover;display:block;border-radius:6px;transition:transform .3s;"
+                  onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                <span style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;font-size:26px;">🎨</span>
               </div>
               <span>Colorida</span>
             </div>
             <div class="fp-estilo-card" onclick="selecionarEstilo('Personalizada','este-personalizada')">
-              <div class="fp-estilo-img" style="background:linear-gradient(135deg,#1C1208,#0A0702);">
-                <span style="font-size:28px;">✨</span>
+              <div class="fp-estilo-img" style="background:#1C1208;overflow:hidden;position:relative;">
+                <img loading="lazy" src="imagens/capa-personalizada.jpg" alt="Personalizada"
+                  style="width:100%;height:100%;object-fit:cover;display:block;border-radius:6px;transition:transform .3s;"
+                  onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                <span style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;font-size:26px;">✨</span>
               </div>
               <span>Personalizada</span>
             </div>
