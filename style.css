@@ -5964,7 +5964,7 @@ html { scroll-behavior: smooth; }
       .ebook-novo-card{display:grid;grid-template-columns:200px 1fr;background:linear-gradient(135deg,#1C1208,#0A0702);border:1px solid rgba(201,168,76,.18);border-radius:12px;overflow:hidden;transition:all .35s;box-shadow:0 4px 20px rgba(0,0,0,.35);}
       .ebook-novo-card:hover{transform:translateY(-5px);border-color:rgba(201,168,76,.45);box-shadow:0 16px 48px rgba(0,0,0,.5),0 0 0 1px rgba(201,168,76,.15);}
       .ebook-novo-img{position:relative;overflow:hidden;height:220px;min-height:220px;order:1;}
-      .ebook-novo-img img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .4s;position:absolute;inset:0;}
+      .ebook-novo-img img{width:100%;height:100%;object-fit:contain;object-position:center center;display:block;transition:transform .4s;position:absolute;inset:0;background:#0A0702;}
       .ebook-novo-card:hover .ebook-novo-img img{transform:scale(1.05);}
       .ebook-novo-ph{width:100%;height:100%;min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px;text-align:center;background:linear-gradient(135deg,#2A1A08,#0A0702);}
       .ebook-novo-ph span{font-family:'Cinzel Decorative',cursive;font-size:11px;color:var(--g3);letter-spacing:2px;line-height:1.5;}
@@ -6644,6 +6644,9 @@ body { font-size:16px; }
   .central-tattoo-left{
     border-right:none !important;
     border-bottom:1px solid rgba(201,168,76,.15) !important;
+    padding:0 !important;
+  }
+  .central-tattoo-left > div:last-child {
     padding:24px 20px !important;
   }
   .central-tattoo-right{
@@ -7398,11 +7401,77 @@ a.btn.btn-gold {
 /* Frases do formulário — texto escuro sobre fundo creme */
 .funil-box h3,
 .funil-box p,
+.funil-box .fp-step-titulo,
+.funil-box .fp-step-sub,
 #fp-step1 h3,
 #fp-step1 p,
 #fp-step2 h3,
 #fp-step2 p,
 #fp-step3 h3,
-#fp-step3 p {
+#fp-step3 p,
+.fp-step h3,
+.fp-step > div h3,
+.fp-step > div p {
   color: #1a0a00 !important;
+}
+
+/* Google Translate — completamente oculto */
+#google_translate_element,
+.goog-te-gadget,
+.goog-logo-link,
+body > .skiptranslate,
+.goog-te-banner-frame {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* ── Calculadora — textos claros ── */
+.calc-lbl { color: rgba(255,255,255,.75) !important; }
+.calc-price { color: #E8C96A !important; }
+.calc-note { color: rgba(255,255,255,.6) !important; }
+
+/* ── Formulário frases — cor dourada igual às labels ── */
+.funil-box h3,
+#fp-step1 h3, #fp-step2 h3, #fp-step3 h3 { color: #7A5820 !important; }
+.funil-box p,
+#fp-step1 p, #fp-step2 p, #fp-step3 p { color: #7A5820 !important; }
+
+/* ══════════════════════════════════════════
+   BOTÃO VERDE ESMERALDA — VER PORTFÓLIO
+   ══════════════════════════════════════════ */
+.btn-green {
+  background: linear-gradient(180deg, #2ecc71 0%, #27ae60 40%, #1e8449 100%);
+  color: #ffffff !important;
+  font-weight: 700;
+  padding: 16px 38px;
+  box-shadow: 0 6px 0 #145a32, 0 10px 28px rgba(39,174,96,.4), inset 0 1px 0 rgba(255,255,255,.25);
+  clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+  text-shadow: 0 1px 3px rgba(0,0,0,.3);
+  transition: transform .15s, box-shadow .15s, filter .15s;
+}
+.btn-green:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 9px 0 #145a32, 0 16px 36px rgba(39,174,96,.55), inset 0 1px 0 rgba(255,255,255,.3);
+  filter: brightness(1.08);
+}
+.btn-green:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #145a32;
+}
+
+/* ══════════════════════════════════════════
+   HOVER MELHORADO — TODOS OS BOTÕES PRINCIPAIS
+   ══════════════════════════════════════════ */
+.btn-gold:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 9px 0 var(--g6), 0 16px 36px rgba(201,168,76,.55), inset 0 1px 0 rgba(255,255,255,.35) !important;
+  filter: brightness(1.06) !important;
+}
+.btn-wine:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 9px 0 #3D0A0A, 0 16px 36px rgba(139,26,26,.55), inset 0 1px 0 rgba(255,255,255,.15) !important;
+  filter: brightness(1.08) !important;
 }
