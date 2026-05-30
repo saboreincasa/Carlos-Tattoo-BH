@@ -20,4 +20,15 @@
   <!-- ÁREA DE MEMBROS (noindex — excluída do sitemap) -->
   <!-- Removido: acesso.html e painel.html têm robots noindex -->
 
+
+  <!-- Política de Privacidade -->
+  <url>
+    <loc>https://carlostattoo.com.br/privacidade.html</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://carlostattoo.com.br/privacidade.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://carlostattoo.com.br/privacidade.html"/>
+  </url>
+
 </urlset>

@@ -960,6 +960,22 @@ async function criarContaELiberar(origem, transacaoId) {
     const w = window.open(`https://wa.me/5531983391576?text=${msg}`, '_blank');
     if (w) setTimeout(() => w.close(), 2500);
 
+    // ── Registrar na tabela vendas (Supabase) ──
+    try {
+      if(sb){
+        await sb.from('vendas').insert({
+          produto: produto.nome,
+          valor:   paisCliente === 'BR' ? produto.preco : produto.usd,
+          email:   email,
+          nome:    nome,
+          origem:  origem,
+          pais:    paisCliente,
+          transacao_id: transacaoId || null,
+          data:    new Date().toISOString()
+        });
+      }
+    } catch(e){ console.warn('vendas insert:', e); }
+
     mostrarSuccesso(email, senhaGerada);
 
   } catch(err) {

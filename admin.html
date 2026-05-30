@@ -509,7 +509,7 @@ table.tbl tr:hover td{background:#FDFCFA;}
       <div class="topbar-badge">Admin</div>
     </div>
     <div class="topbar-right">
-      <span class="topbar-user">Olá, <span id="topbarNome">Carlos</span></span>
+      <span class="topbar-user">Olá, <span id="topbarNome">Carlos</span> <span id="sb-status" style="font-size:10px;background:rgba(22,163,74,.15);color:#16a34a;border:1px solid rgba(22,163,74,.3);border-radius:4px;padding:2px 8px;letter-spacing:.5px;margin-left:6px;">⚡ Supabase</span></span>
       <a href="index.html" class="btn-topbar">← Site</a>
       <a href="painel.html" class="btn-topbar">👥 Membros</a>
       <button class="btn-topbar btn-topbar-exit" id="btnSair">Sair</button>
@@ -934,6 +934,46 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnSairEl) btnSairEl.addEventListener('click', sair);
 });
 function getClientes() { return JSON.parse(localStorage.getItem('ctbh_leads') || '[]'); }
+
+// Versão Supabase — mescla Supabase + localStorage
+async function getClientesSB() {
+  const local = JSON.parse(localStorage.getItem('ctbh_leads') || '[]');
+  try {
+    if (!supabaseClient) return local;
+    const { data } = await supabaseClient
+      .from('clientes')
+      .select('*')
+      .order('criado_em', { ascending: false })
+      .limit(500);
+    if (!data || !data.length) return local;
+    // Mapeia colunas Supabase → formato do admin
+    const sbMapped = data.map(r => ({
+      nome:        r.nome       || '',
+      tel:         r.tel        || r.whatsapp || '',
+      email:       r.email      || '',
+      cidade:      r.cidade     || '',
+      estilo:      r.estilo     || '',
+      local:       r.local      || '',
+      tamanho:     r.tamanho    || '',
+      ideia:       r.ideia      || '',
+      orcamento:   r.orcamento  || '',
+      aniversario: r.aniversario|| '',
+      dataCadastro:r.criado_em  || r.data || '',
+      origem:      r.origem     || 'supabase',
+      _id:         r.id
+    }));
+    // Mescla sem duplicatas por tel
+    const vistos = new Set(sbMapped.map(x => x.tel.replace(/\D/g,'')).filter(Boolean));
+    const localFiltrado = local.filter(l => {
+      const t = (l.tel||l.whatsapp||'').replace(/\D/g,'');
+      return !t || !vistos.has(t);
+    });
+    return [...sbMapped, ...localFiltrado];
+  } catch(e) {
+    console.warn('getClientesSB fallback:', e);
+    return local;
+  }
+}
 function fmtD(s) { if (!s) return '-'; try { return new Date(s).toLocaleDateString('pt-BR'); } catch(e) { return s; } }
 function fmtR(v) { return 'R$' + parseFloat(v||0).toLocaleString('pt-BR', {minimumFractionDigits:0}); }
 
@@ -950,23 +990,73 @@ function diasAniversario(a) {
 }
 
 // ── KPIs ──
-function renderKPIs() {
-  const leads = getClientes();
-  const usuarios = JSON.parse(localStorage.getItem('ct_usuarios') || '[]');
-  const vendas = JSON.parse(localStorage.getItem('ct_vendas') || '[]');
-  const hoje = vendas.filter(v => new Date(v.data).getMonth() === new Date().getMonth()).reduce((s,v) => s+(v.valor||0), 0);
-  let anivHoje = 0; leads.forEach(x => { if (diasAniversario(x.aniversario) === 0) anivHoje++; });
+async function renderKPIs() {
+  // Leads de tatuagem — Supabase clientes
+  let sbLeads = 0, sbLeadsWpp = 0;
+  try {
+    if (supabaseClient) {
+      const { count } = await supabaseClient.from('clientes').select('*', {count:'exact',head:true});
+      sbLeads = count || 0;
+      const { count: wppCount } = await supabaseClient.from('clientes')
+        .select('*', {count:'exact',head:true}).not('tel','is',null).neq('tel','');
+      sbLeadsWpp = wppCount || 0;
+    }
+  } catch(e){}
+  const localLeads = getClientes();
+  const totalLeads = Math.max(sbLeads, localLeads.length);
+  const totalWpp   = Math.max(sbLeadsWpp, localLeads.filter(x=>x.tel||x.whatsapp).length);
+
+  // Membros — Supabase usuarios
+  let ativos = 0, bloqueados = 0;
+  try {
+    if (supabaseClient) {
+      const { data: us } = await supabaseClient.from('usuarios').select('bloqueado');
+      ativos     = (us||[]).filter(u=>!u.bloqueado).length;
+      bloqueados = (us||[]).filter(u=>u.bloqueado).length;
+    }
+  } catch(e){
+    const us = JSON.parse(localStorage.getItem('ct_usuarios')||'[]');
+    ativos = us.filter(u=>!u.bloqueado).length;
+    bloqueados = us.filter(u=>u.bloqueado).length;
+  }
+
+  // Faturamento — Supabase vendas
+  let faturamentoMes = 0, qtdVendasMes = 0;
+  try {
+    if (supabaseClient) {
+      const mesInicio = new Date(); mesInicio.setDate(1); mesInicio.setHours(0,0,0,0);
+      const { data: vs } = await supabaseClient.from('vendas')
+        .select('valor,data').gte('data', mesInicio.toISOString());
+      faturamentoMes = (vs||[]).reduce((s,v)=>s+(parseFloat(v.valor)||0),0);
+      qtdVendasMes   = (vs||[]).length;
+    }
+  } catch(e){
+    const vs = JSON.parse(localStorage.getItem('ct_vendas')||'[]');
+    const mes = new Date().getMonth();
+    const vsMes = vs.filter(v=>new Date(v.data).getMonth()===mes);
+    faturamentoMes = vsMes.reduce((s,v)=>s+(v.valor||0),0);
+    qtdVendasMes   = vsMes.length;
+  }
+
+  // Aniversários — do localStorage (campo opcional)
+  let anivHoje = 0, anivProximos = 0;
+  localLeads.forEach(x => {
+    const d = diasAniversario(x.aniversario);
+    if (d === 0) anivHoje++;
+    if (d !== null && d > 0 && d <= 2) anivProximos++;
+  });
+
   document.getElementById('kpiGrid').innerHTML = `
-    <div class="kpi-card"><div class="kpi-label">Leads Tatuagem</div><div class="kpi-val">${leads.length}</div><div class="kpi-sub">${leads.filter(x=>x.tel||x.whatsapp).length} com WhatsApp</div></div>
-    <div class="kpi-card green"><div class="kpi-label">Membros Ativos</div><div class="kpi-val">${usuarios.filter(u=>!u.bloqueado).length}</div><div class="kpi-sub">${usuarios.filter(u=>u.bloqueado).length} bloqueados</div></div>
-    <div class="kpi-card amber"><div class="kpi-label">Faturamento Mês</div><div class="kpi-val">${fmtR(hoje)}</div><div class="kpi-sub">${vendas.filter(v=>new Date(v.data).getMonth()===new Date().getMonth()).length} vendas</div></div>
-    <div class="kpi-card blue"><div class="kpi-label">Aniversários Hoje</div><div class="kpi-val">${anivHoje}</div><div class="kpi-sub">Próximos 2 dias: ${leads.filter(x=>{ const d=diasAniversario(x.aniversario); return d!==null&&d>0&&d<=2; }).length}</div></div>`;
-  document.getElementById('ctLeads').textContent = leads.length + ' registros';
+    <div class="kpi-card"><div class="kpi-label">Leads Tatuagem</div><div class="kpi-val">${totalLeads}</div><div class="kpi-sub">${totalWpp} com WhatsApp</div></div>
+    <div class="kpi-card green"><div class="kpi-label">Membros Ativos</div><div class="kpi-val">${ativos}</div><div class="kpi-sub">${bloqueados} bloqueados</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">Faturamento Mês</div><div class="kpi-val">${fmtR(faturamentoMes)}</div><div class="kpi-sub">${qtdVendasMes} vendas</div></div>
+    <div class="kpi-card blue"><div class="kpi-label">Aniversários Hoje</div><div class="kpi-val">${anivHoje}</div><div class="kpi-sub">Próximos 2 dias: ${anivProximos}</div></div>`;
+  document.getElementById('ctLeads').textContent = totalLeads + ' registros';
 }
 
 // ── ANIVERSARIANTES ──
-function renderAniversariantes() {
-  const lista = getClientes();
+async function renderAniversariantes() {
+  const lista = await getClientesSB();
   const prox = lista.filter(c => { const d = diasAniversario(c.aniversario); return d !== null && d >= 0 && d <= 2; }).sort((a,b) => diasAniversario(a.aniversario) - diasAniversario(b.aniversario));
   const el = document.getElementById('aniversariantes');
   if (!prox.length) { el.innerHTML = '<div class="tbl-empty">Nenhum aniversariante nos próximos 2 dias. 🎉</div>'; return; }
@@ -985,10 +1075,10 @@ function renderAniversariantes() {
 }
 
 // ── TABELA LEADS ──
-function renderTabela() {
-  const lista = getClientes();
+async function renderTabela() {
+  const lista = await getClientesSB();
   const busca = (document.getElementById('searchInp')?.value || '').toLowerCase();
-  const fil = lista.filter(c => (c.nome||'').toLowerCase().includes(busca)||(c.tel||'').includes(busca)||(c.cidade||'').toLowerCase().includes(busca)||(c.email||'').toLowerCase().includes(busca)).reverse();
+  const fil = lista.filter(c => (c.nome||'').toLowerCase().includes(busca)||(c.tel||'').includes(busca)||(c.cidade||'').toLowerCase().includes(busca)||(c.email||'').toLowerCase().includes(busca));
   const el = document.getElementById('tabelaClientes');
   if (!fil.length) { el.innerHTML = `<div class="tbl-empty">${lista.length===0?'Nenhum lead ainda. Eles aparecerão aqui quando alguém preencher o formulário no site.':'Nenhum resultado para esta busca.'}</div>`; return; }
   el.innerHTML = `<table class="tbl"><thead><tr><th>Nome</th><th>WhatsApp</th><th>Cidade</th><th>Aniversário</th><th>Cadastrado em</th><th>Ação</th></tr></thead><tbody>${
@@ -1008,8 +1098,8 @@ function renderTabela() {
   }</tbody></table>`;
 }
 
-function exportarCSV() {
-  const lista = getClientes();
+async function exportarCSV() {
+  const lista = await getClientesSB();
   if (!lista.length) { alert('Nenhum lead para exportar!'); return; }
   const csv = ['Nome,WhatsApp,Email,Cidade,Aniversário,Estilo,Orçamento,Cadastro',
     ...lista.map(c => `"${(c.nome||'').replace(/"/g,'""')}","${c.tel||c.whatsapp||''}","${c.email||''}","${c.cidade||''}","${c.aniversario||''}","${c.estilo||''}","${c.orcamento||''}","${c.dataCadastro||''}"`)
@@ -1019,8 +1109,8 @@ function exportarCSV() {
 }
 
 function confirmarLimpar() {
-  if (confirm('⚠️ ATENÇÃO: Apagar TODOS os leads? Esta ação não pode ser desfeita!')) {
-    localStorage.removeItem('ctbh_leads'); renderAll(); alert('Leads apagados.');
+  if (confirm('⚠️ ATENÇÃO: Apagar leads do localStorage? Os dados no Supabase (clientes) NÃO serão apagados. Continuar?')) {
+    localStorage.removeItem('ctbh_leads'); renderAll(); alert('Leads locais apagados. Dados do Supabase preservados.');
   }
 }
 
@@ -1062,7 +1152,7 @@ function renderDepoimentos() {
 function aprovarDep(id) { const t=JSON.parse(localStorage.getItem('ctbh_deps_pendentes')||'[]'); const i=t.findIndex(d=>d.id===id); if(i>=0)t[i].aprovado=true; localStorage.setItem('ctbh_deps_pendentes',JSON.stringify(t)); renderAll(); }
 function rejeitarDep(id) { if(!confirm('Remover este depoimento?'))return; const t=JSON.parse(localStorage.getItem('ctbh_deps_pendentes')||'[]'); localStorage.setItem('ctbh_deps_pendentes',JSON.stringify(t.filter(d=>d.id!==id))); renderAll(); }
 
-function renderAll() { renderKPIs(); renderAniversariantes(); renderTabela(); renderDepoimentos(); renderLeadsCursos().catch(console.error); }
+async function renderAll() { renderKPIs(); renderAniversariantes(); renderTabela(); renderDepoimentos(); renderLeadsCursos().catch(console.error); }
 setInterval(async () => { const { data: { session } } = await supabaseClient.auth.getSession(); if (session) renderAll(); }, 30000);
 
 // ── ABAS ──
@@ -1659,11 +1749,23 @@ function limparAcessos() {
 }
 
 // ── VENDAS ──
-function carregarVendas() {
-  const vendas = JSON.parse(localStorage.getItem('ct_vendas') || '[]');
+async function carregarVendas() {
+  let vendas = JSON.parse(localStorage.getItem('ct_vendas') || '[]');
+  // Busca do Supabase
+  try {
+    if (supabaseClient) {
+      const { data } = await supabaseClient.from('vendas').select('*').order('data',{ascending:false}).limit(200);
+      if (data && data.length) {
+        // Mescla sem duplicatas
+        const sbIds = new Set(data.map(v=>v.id).filter(Boolean));
+        const localFiltrado = vendas.filter(v=>!v._sbid || !sbIds.has(v._sbid));
+        vendas = [...data.map(v=>({...v,produto:v.produto||'Produto',valor:parseFloat(v.valor)||0})), ...localFiltrado];
+      }
+    }
+  } catch(e){ console.warn('vendas supabase:', e); }
   const agora = new Date();
   const mAtual = vendas.filter(v => new Date(v.data).getMonth() === agora.getMonth());
-  const total = mAtual.reduce((s,v) => s+(v.valor||0), 0);
+  const total = mAtual.reduce((s,v) => s+(parseFloat(v.valor)||0), 0);
   const ticket = mAtual.length ? Math.round(total/mAtual.length) : 0;
   document.getElementById('vd-mes-total').textContent = fmtR(total);
   document.getElementById('vd-qtd').textContent = mAtual.length;

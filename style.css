@@ -1798,7 +1798,7 @@ footer{background:var(--ink);border-top:1px solid rgba(201,168,76,.13);padding:6
 footer p { color:#ffffff !important; }
 
 /* Botões do site geral */
-.btn-gold { color:#0a0500 !important; font-weight:700 !important; }
+.btn-gold { font-weight:700 !important; color:#ffffff !important; }
 .btn-wpp { color:#ffffff !important; }
 
 /* Urgency bar */
@@ -4602,7 +4602,7 @@ footer{background:var(--ink);border-top:1px solid rgba(201,168,76,.13);padding:6
 footer p { color:#ffffff !important; }
 
 /* Botões do site geral */
-.btn-gold { color:#0a0500 !important; font-weight:700 !important; }
+.btn-gold { font-weight:700 !important; color:#ffffff !important; }
 .btn-wpp { color:#ffffff !important; }
 
 /* Urgency bar */
@@ -7226,3 +7226,157 @@ button[style*="background:var(--ink)"] {
 .sec.parch .fp-input { background:#ffffff !important; color:#1a0a00 !important; }
 .sec.parch .fp-textarea { background:#ffffff !important; color:#1a0a00 !important; }
 
+
+
+/* ═══════════════════════════════════════════════════════
+   CORREÇÕES FINAIS — 30/05/2026 (rodada 2)
+   1. btn-glass vira dourado igual btn-gold (VER PORTFÓLIO)
+   2. Estimativa: label dourado escuro, valor preto, obs preto
+   3. Botão ENVIAR SOLICITAÇÃO: dourado bonito igual os outros
+   4. Botão NAV "Agendar Tatuagem": já é dourado, garantia
+═══════════════════════════════════════════════════════ */
+
+/* ── 1. btn-glass → dourado (mesmo estilo do btn-gold) ── */
+.btn-glass {
+  background: linear-gradient(180deg, var(--g1) 0%, var(--g2) 30%, var(--g3) 70%, var(--g4) 100%) !important;
+  color: var(--ink) !important;
+  font-weight: 700 !important;
+  padding: 16px 34px !important;
+  border: none !important;
+  box-shadow: 0 6px 0 var(--g6), 0 10px 28px rgba(201,168,76,.35), inset 0 1px 0 rgba(255,255,255,.3) !important;
+  clip-path: polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%) !important;
+}
+.btn-glass:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 9px 0 var(--g6), 0 14px 38px rgba(201,168,76,.5), inset 0 1px 0 rgba(255,255,255,.3) !important;
+  color: var(--ink) !important;
+}
+.btn-glass:active {
+  transform: translateY(5px) !important;
+  box-shadow: 0 1px 0 var(--g6) !important;
+}
+
+/* ── 2. Estimativa de investimento ── */
+/* Label "💰 Estimativa de investimento" — dourado escuro */
+.fp-est-label {
+  font-family: 'Cinzel', serif !important;
+  font-size: 10px !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  color: #7A5820 !important;       /* dourado escuro legível */
+  font-weight: 700 !important;
+  margin-bottom: 6px !important;
+}
+
+/* Valor "R$900-1.600" — preto forte */
+.fp-est-valor {
+  font-family: 'Cinzel Decorative', cursive !important;
+  font-size: 28px !important;
+  color: #1a0a00 !important;       /* preto */
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  margin-bottom: 4px !important;
+}
+
+/* Obs "*Valor final após análise" — preto suave */
+.fp-est-obs {
+  font-size: 11px !important;
+  color: #3a2810 !important;       /* preto-marrom */
+  font-style: italic !important;
+  opacity: .75 !important;
+}
+
+/* Box da estimativa completa */
+.fp-estimativa-box {
+  background: #FAF4E8 !important;
+  border: 1.5px solid rgba(160,120,56,.3) !important;
+  border-radius: 12px !important;
+  padding: 16px 20px !important;
+  text-align: center !important;
+  margin: 12px 0 !important;
+}
+
+/* ── 3. Botão ENVIAR SOLICITAÇÃO — dourado igual btn-gold ── */
+.fp-btn-enviar {
+  width: 100% !important;
+  background: linear-gradient(180deg, var(--g1) 0%, var(--g2) 30%, var(--g3) 70%, var(--g4) 100%) !important;
+  background-size: 100% !important;
+  animation: none !important;
+  color: #ffffff !important;       /* texto branco */
+  border: none !important;
+  padding: 18px !important;
+  border-radius: 12px !important;
+  font-family: 'Cinzel', serif !important;
+  font-size: 13px !important;
+  letter-spacing: 3px !important;
+  cursor: pointer !important;
+  font-weight: 800 !important;
+  transition: .2s !important;
+  margin-top: 8px !important;
+  box-shadow: 0 6px 0 var(--g6), 0 10px 28px rgba(201,168,76,.4), inset 0 1px 0 rgba(255,255,255,.3) !important;
+  clip-path: polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%) !important;
+  text-shadow: none !important;
+}
+.fp-btn-enviar:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 9px 0 var(--g6), 0 14px 38px rgba(201,168,76,.55), inset 0 1px 0 rgba(255,255,255,.3) !important;
+}
+.fp-btn-enviar:active {
+  transform: translateY(5px) !important;
+  box-shadow: 0 1px 0 var(--g6) !important;
+}
+.fp-btn-enviar:disabled {
+  opacity: .6 !important;
+  transform: none !important;
+  cursor: not-allowed !important;
+}
+
+/* ── 4. Botão NAV "Agendar Tatuagem" — garantia dourado ── */
+/* O botão de contato no nav estava vermelho em algumas versões */
+#nav .nav-links a[href="#contato"] {
+  background: linear-gradient(180deg,#E8C96A 0%,#C9A84C 40%,#A07830 100%) !important;
+  color: #0a0500 !important;
+  box-shadow: 0 3px 0 #4A3410, 0 5px 14px rgba(201,168,76,.3), inset 0 1px 0 rgba(255,255,255,.25) !important;
+}
+#nav .nav-links a[href="#contato"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 5px 0 #4A3410, 0 8px 20px rgba(201,168,76,.45) !important;
+}
+
+/* ── 5. Botão "Próximo passo" (fp-btn-next) — manter dourado consistente ── */
+.fp-btn-next {
+  background: linear-gradient(180deg, var(--g1) 0%, var(--g2) 30%, var(--g3) 70%, var(--g4) 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 5px 0 var(--g6), 0 8px 22px rgba(201,168,76,.35) !important;
+  clip-path: polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%) !important;
+  font-weight: 800 !important;
+  letter-spacing: 2px !important;
+  border-radius: 0 !important;
+}
+.fp-btn-next:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 0 var(--g6), 0 12px 30px rgba(201,168,76,.5) !important;
+}
+
+
+
+
+/* ══ REGRA DEFINITIVA — texto branco em todos os botões dourados ══ */
+a.btn.btn-gold,
+button.btn-gold,
+.btn-gold,
+a.btn.btn-glass,
+.btn-glass,
+.hero-btns .btn,
+.nav-links a.btn-gold,
+.fp-btn-enviar,
+.fp-btn-next {
+  color: #ffffff !important;
+  text-shadow: 0 1px 4px rgba(0,0,0,.45) !important;
+}
+a.btn.btn-gold:hover,
+.btn-gold:hover,
+a.btn.btn-glass:hover,
+.btn-glass:hover {
+  color: #ffffff !important;
+}
