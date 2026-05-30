@@ -6831,8 +6831,13 @@ footer .copy {
 .bexc {
   color:#C9B89A !important;
 }
-.nf-msg {
-  color:#EDE4D4 !important;
+/* nf-msg — escuro nos cards brancos, claro em fundo escuro */
+.sec.parch .nf-msg,
+.nf-card .nf-msg {
+  color: #1a0a00 !important;
+}
+.sec.dark .nf-msg {
+  color: #EDE4D4 !important;
 }
 /* mentor testimonials */
 .ttext {
@@ -7474,4 +7479,31 @@ body > .skiptranslate,
   transform: translateY(-3px) !important;
   box-shadow: 0 9px 0 #3D0A0A, 0 16px 36px rgba(139,26,26,.55), inset 0 1px 0 rgba(255,255,255,.15) !important;
   filter: brightness(1.08) !important;
+}
+
+/* ══════════════════════════════════════════
+   CARDS DE DEPOIMENTO — TODOS OS TEXTOS ESCUROS
+   ══════════════════════════════════════════ */
+.nf-card {
+  background: #ffffff !important;
+}
+.nf-card .nf-name {
+  color: #1a0a00 !important;
+  font-family: 'Cinzel', serif !important;
+  font-weight: 700 !important;
+}
+.nf-card .nf-city {
+  color: #5a3c18 !important;
+}
+.nf-card .nf-msg {
+  color: #1a0a00 !important;
+  font-size: 14px !important;
+  line-height: 1.85 !important;
+}
+.nf-card .nf-stars {
+  color: #C9A84C !important;
+  font-size: 15px !important;
+}
+.nf-card .nf-badge {
+  font-weight: 700 !important;
 }
