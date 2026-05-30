@@ -1,67 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
+  <!-- PÁGINA PRINCIPAL — PT-BR -->
   <url>
     <loc>https://carlostattoo.com.br/</loc>
-    <lastmod>2026-05-22</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://carlostattoo.com.br/"/>
+    <xhtml:link rel="alternate" hreflang="en"    href="https://carlostattoo.com.br/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://carlostattoo.com.br/"/>
   </url>
 
-  <url>
-    <loc>https://carlostattoo.com.br/index.html</loc>
-    <lastmod>2026-05-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
+  <!-- CHECKOUT / PAGAMENTO (noindex — não precisa no sitemap; mantido para referência interna) -->
+  <!-- Removido: checkout.html e pagamento.html têm robots noindex -->
 
-  <url>
-    <loc>https://carlostattoo.com.br/pagamento.html</loc>
-    <lastmod>2026-05-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://carlostattoo.com.br/#portfolio</loc>
-    <lastmod>2026-05-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://carlostattoo.com.br/#cobertura</loc>
-    <lastmod>2026-05-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://carlostattoo.com.br/#areolas</loc>
-    <lastmod>2026-05-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://carlostattoo.com.br/#ebooks</loc>
-    <lastmod>2026-05-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://carlostattoo.com.br/#cursos</loc>
-    <lastmod>2026-05-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://carlostattoo.com.br/#contato</loc>
-    <lastmod>2026-05-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
+  <!-- ÁREA DE MEMBROS (noindex — excluída do sitemap) -->
+  <!-- Removido: acesso.html e painel.html têm robots noindex -->
 
 </urlset>
