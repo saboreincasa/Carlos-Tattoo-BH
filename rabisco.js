@@ -22,7 +22,7 @@ var CFG = {
 /* Baseado no System Prompt oficial do Rabisco — Central Tattoo */
 var SYSTEM = {
   saudacoes: [
-    'Oi! Sou o Rabisco 🎨\nAssistente oficial da Central Tattoo.\n\nComo posso te ajudar hoje?',
+    'Oi! Sou o Rabisco 🎨\nAssistente do Carlos Tattoo BH.\n\nTattoo, cursos, ebooks ou sistema de gestão — pode perguntar!',
     'E aí! Sou o Rabisco 🔥\nAqui pra te ajudar com tattoo, cursos ou qualquer dúvida.\n\nO que você precisa?',
     'Salve! Rabisco aqui 👊\nAssistente oficial da Central Tattoo.\n\nTattoo, cursos ou agendamento — pode falar!',
     'Oi! Rabisco na área 🎨\nPosso te ajudar com qualquer dúvida sobre tatuagem ou os materiais da Central Tattoo.\n\nO que você quer saber?'
@@ -47,10 +47,11 @@ var SYSTEM = {
     'A maioria dos tatuadores perde dinheiro por falta de estratégia 👊'
   ],
   sugestoes: [
-    ['Quanto custa uma tattoo?', 'Como agendar?', 'Ver os cursos', 'Fazer cobertura'],
-    ['Quero agendar', 'Preço fineline', 'Planilha de gestão', 'Mentoria VIP'],
+    ['Quanto custa uma tattoo?', 'Como agendar?', 'Sistema Central Tattoo', 'Fazer cobertura'],
+    ['Quero agendar', 'Preço fineline', 'Sistema de gestão', 'Mentoria VIP'],
     ['Cobertura de tattoo', 'Instagram para tatuador', 'Tráfego pago', 'Cuidados pós-tattoo'],
-    ['Quanto custa mentoria?', 'Curso de posicionamento', 'Contrato digital', 'Tatuagem cicatriz']
+    ['Quanto custa mentoria?', 'Curso de posicionamento', 'Contrato digital', 'Tatuagem cicatriz'],
+    ['Ver os ebooks', 'Central Tattoo sistema', 'Quero fazer tattoo', 'Reforma de tattoo']
   ]
 };
 
@@ -214,7 +215,7 @@ r:'Temos política de satisfação 👊\n\nEm caso de dúvida sobre garantias, e
 
 /* ─── PLANILHA ─── */
 {k:['planilha','gestão','gestao','sistema','organização','organizacao','controle','financeiro','finanças','financas'],
-r:'A Planilha Central Tattoo é um sistema completo de gestão 📊\n\n💰 Controle financeiro\n📅 Agenda integrada\n👥 Gestão de clientes\n📦 Estoque\n📈 Métricas e metas\n🎯 CRM de leads\n\nTudo em um só lugar por R$99,90 🚀',cta:'none'},
+r:'A Planilha Central Tattoo é um sistema completo de gestão 📊\n\n💰 Controle financeiro\n📅 Agenda integrada\n👥 Gestão de clientes\n📦 Estoque\n📈 Métricas e metas\n🎯 CRM de leads\n\nTudo em um só lugar no Sistema Central Tattoo 🚀',cta:'none'},
 
 {k:['planilha preço','planilha valor','quanto custa planilha','planilha R$'],
 r:'A Planilha Central Tattoo custa R$99,90 💰\n\nPagamento via PIX ou cartão.\nAcesso imediato após confirmação 🔥\n\nQuer garantir a sua agora? 👊',cta:'form'},
@@ -427,7 +428,7 @@ r:'Trabalho com queimaduras é feito com muita técnica e sensibilidade 💖\n\n
 
 /* ─── MAIS PRODUTOS ─── */
 {k:['ebook','livro digital','pdf','guia','material','apostila'],
-r:'Temos ebooks incríveis para tatuadores 📚\n\n📘 Tráfego Tattoo Iniciante — R$47\n📘 Instagram Tattoo que Vende — R$47\n📘 Posicionamento Avançado — R$97\n\nAcesso imediato no celular ou computador 🔥',cta:'form'},
+r:'Temos ebooks incríveis para tatuadores 📚\n\n📘 Tráfego Pago do Zero — R$97\n📘 Instagram que Atrai e Vende — R$97\n📘 Posicionamento de Alto Valor — R$147\n📄 Contrato Digital — R$27\n🎨 Pack Templates — R$67\n\nAcesso imediato no celular ou computador 🔥',cta:'form'},
 
 {k:['combo','pacote','todos os cursos','bundle','kit','comprar tudo'],
 r:'Temos opções combinadas 💎\n\nA Mentoria VIP já inclui acesso a todos os cursos por R$997.\n\nOu adquira cada material separado conforme sua necessidade.\nQuer uma indicação personalizada? 👊',cta:'form'},
@@ -1141,6 +1142,24 @@ r:'Somos uma referência em tatuagem em BH 💎\n\n✅ 7+ anos de experiência\n
 {k:['tattoo anime','manga','personagem anime','naruto','one piece','dragon ball'],r:'Anime e manga são super procurados! 🎨\n\nRealismo do personagem, estilo do anime original ou adaptado.\nQual personagem você quer eternizar?\nManda referência! 🔥',cta:'wpp'},
 {k:['estilo tradicional','old school','traditional tattoo','sailor jerry'],r:'Old school é um clássico que nunca sai de moda 🌹\n\nLinhas sólidas, cores vibrantes, contorno forte.\nEnvelhecem muito bem pela solidez.\n\nQuer fazer o seu? 🔥',cta:'wpp'}
 
+
+,
+/* ─── SISTEMA CENTRAL TATTOO (melhorado) ─── */
+{k:['sistema central','sistema de gestão','sistema tattoo','central tattoo sistema','o que é a central tattoo','central tattoo o que é'],
+r:'A Central Tattoo é um Sistema de Gestão completo para estúdios 🚀\n\n16 módulos integrados:\n📊 Dashboard · 📅 Agenda · 👥 CRM\n💰 Financeiro · 🧮 Calculadora · 📦 Estoque\n🎯 Leads · 📈 Metas · 🔔 Follow-Up\n💎 Sinais · 🌿 Cicatrização · 💼 Comissões\n📋 Contratos · 📊 Relatórios · 🏷️ Preços · 📱 Marketing\n\nUm sistema profissional por R$499/ano 🔥',cta:'form'},
+
+{k:['central tattoo preço','sistema preço','quanto custa sistema','valor sistema gestão','central tattoo valor'],
+r:'Sistema Central Tattoo — R$499/ano 💰\n\nOu R$41,58 por mês.\nRenovação: apenas R$299/ano.\n\n16 módulos completos com atualizações incluídas!\nAcesso imediato após confirmação 🔥',cta:'form'},
+
+{k:['central tattoo módulos','quantos módulos','o que tem no sistema','módulos do sistema','central tattoo funcionalidades'],
+r:'16 módulos completos no Sistema Central Tattoo 📊\n\n1. Dashboard · 2. Agenda · 3. CRM\n4. Financeiro · 5. Calculadora · 6. Estoque\n7. Leads · 8. Metas · 9. Follow-Up\n10. Sinais · 11. Cicatrização · 12. Comissões\n13. Contratos · 14. Relatórios · 15. Preços · 16. Marketing\n\nTudo integrado em um só lugar 🚀',cta:'form'},
+
+{k:['central tattoo renovação','renovar sistema','renovar assinatura central'],
+r:'Renovação do Sistema Central Tattoo: apenas R$299/ano 🔥\n\nMantém acesso a todos os módulos e atualizações continuamente 💎',cta:'form'},
+
+{k:['diferença planilha sistema','planilha ou sistema','central tattoo é planilha','planilha central tattoo','não é planilha'],
+r:'A Central Tattoo é um Sistema de Gestão completo — não uma simples planilha 💎\n\nCom 16 módulos integrados, relatórios automáticos e atualizações incluídas.\nÉ o sistema de gestão do tatuador profissional 🚀',cta:'form'}
+
 ]; /* fim KB */
 
 /* ═══════════════════════════════════════════════════════
@@ -1497,6 +1516,193 @@ var RabiscoUI = {
     if(el) el.innerHTML='';
   }
 };
+
+
+/* ═══════════════════════════════════════════════════════
+   POP-UP DE SAÍDA — FUNIL QUALIFICADOR via Rabisco
+   Dispara quando mouse sai pelo topo da janela
+   Abre o Rabisco com fluxo de qualificação automático
+═══════════════════════════════════════════════════════ */
+var _exitPopupFired = false;
+var _inactivityTimer = null;
+var _INACTIVITY_MS = 40000; // 40 segundos
+
+// Fluxo de qualificação — perguntas por categoria
+var FUNIL = {
+  tattoo_nova: {
+    perguntas: [
+      { id:'estilo', txt:'Que estilo você prefere?', opts:['Realismo', 'Fineline', 'Black & Grey', 'Colorida', 'Não sei ainda'] },
+      { id:'tamanho', txt:'Qual tamanho aproximado?', opts:['Pequena (até 10cm)', 'Média (10-20cm)', 'Grande (20cm+)', 'Ainda não sei'] },
+      { id:'local', txt:'Onde no corpo?', opts:['Braço/antebraço', 'Perna/coxa', 'Costas/peito', 'Outro local'] }
+    ],
+    wppMsg: function(r){ return 'Olá Carlos! Vim pelo site 🔥
+
+Quero fazer uma tatuagem nova.
+Estilo: '+r.estilo+'
+Tamanho: '+r.tamanho+'
+Local: '+r.local; }
+  },
+  reforma: {
+    perguntas: [
+      { id:'prob', txt:'Qual o problema da sua tattoo atual?', opts:['Está velha/desbotada', 'Não gosto mais', 'Ficou ruim', 'Quero cobrir'] },
+      { id:'local', txt:'Onde fica a tattoo?', opts:['Braço', 'Perna', 'Costas', 'Outro'] }
+    ],
+    wppMsg: function(r){ return 'Olá Carlos! Vim pelo site 🔥
+
+Tenho uma tattoo para reformar.
+Situação: '+r.prob+'
+Local: '+r.local; }
+  },
+  ebook: {
+    perguntas: [
+      { id:'interesse', txt:'Qual área mais te interessa?', opts:['Instagram estratégico', 'Tráfego pago', 'Posicionamento Premium', 'Contrato digital'] }
+    ],
+    wppMsg: function(r){ return 'Olá! Vim pelo site 🔥
+
+Tenho interesse em ebooks.
+Área de interesse: '+r.interesse; }
+  },
+  sistema: {
+    perguntas: [
+      { id:'estudio', txt:'Como é seu estúdio hoje?', opts:['Tenho estúdio próprio', 'Trabalho em estúdio de outro', 'Sou freelancer', 'Estou começando'] }
+    ],
+    wppMsg: function(r){ return 'Olá! Vim pelo site 🔥
+
+Tenho interesse no Sistema Central Tattoo.
+Situação: '+r.estudio; }
+  },
+  mentoria: {
+    perguntas: [
+      { id:'desafio', txt:'Qual seu maior desafio hoje?', opts:['Agenda vazia', 'Cobro pouco', 'Não uso redes sociais', 'Falta de organização'] }
+    ],
+    wppMsg: function(r){ return 'Olá Carlos! Vim pelo site 🔥
+
+Quero saber sobre a Mentoria VIP.
+Meu maior desafio: '+r.desafio; }
+  }
+};
+
+// Sessão de qualificação ativa
+var _funil_ativo = null;
+var _funil_respostas = {};
+var _funil_passo = 0;
+
+function rabiscoIniciarFunil(tipo) {
+  _funil_ativo = tipo;
+  _funil_respostas = {};
+  _funil_passo = 0;
+  var fluxo = FUNIL[tipo];
+  if (!fluxo) return;
+  _rabiscoFazerPergunta();
+}
+
+function _rabiscoFazerPergunta() {
+  if (!_funil_ativo) return;
+  var fluxo = FUNIL[_funil_ativo];
+  var passo = fluxo.perguntas[_funil_passo];
+  if (!passo) {
+    _rabiscoFunilConcluir();
+    return;
+  }
+  // Mostrar pergunta
+  setTimeout(function(){
+    RabiscoUI.addMsg(passo.txt, 'bot');
+    // Mostrar opções como sugestões clicáveis
+    var sugs = document.getElementById('rbSugs');
+    sugs.innerHTML = '';
+    passo.opts.forEach(function(opt){
+      var btn = document.createElement('button');
+      btn.className = 'rb-sug rb-funil-opt';
+      btn.textContent = opt;
+      btn.onclick = function(){
+        _funil_respostas[passo.id] = opt;
+        RabiscoUI.addMsg(opt, 'user');
+        sugs.innerHTML = '';
+        _funil_passo++;
+        _rabiscoFazerPergunta();
+      };
+      sugs.appendChild(btn);
+    });
+  }, 600);
+}
+
+function _rabiscoFunilConcluir() {
+  var fluxo = FUNIL[_funil_ativo];
+  var msg = fluxo.wppMsg(_funil_respostas);
+  setTimeout(function(){
+    RabiscoUI.addMsg('Perfeito! 🔥 Vou te conectar com o Carlos agora.
+Ele já vai saber exatamente o que você precisa 💎', 'bot');
+    setTimeout(function(){
+      var ctas = document.getElementById('rbCtas');
+      ctas.innerHTML = '<a class="rb-cta-wpp" href="'+CFG.wpp+'?text='+encodeURIComponent(msg)+'" target="_blank" rel="noopener">📱 Falar com Carlos no WhatsApp</a>';
+    }, 800);
+  }, 600);
+  _funil_ativo = null;
+}
+
+// Pop-up de saída — dispara quando mouse vai para fora pelo topo
+document.addEventListener('mouseleave', function(e){
+  if (e.clientY <= 5 && !_exitPopupFired && !RabiscoUI.aberto) {
+    _exitPopupFired = true;
+    _dispararRabiscoSaida();
+  }
+});
+
+// Inatividade — 40 segundos sem interação
+function _resetInactivity(){
+  clearTimeout(_inactivityTimer);
+  _inactivityTimer = setTimeout(function(){
+    if (!RabiscoUI.aberto && !_exitPopupFired) {
+      _exitPopupFired = true;
+      _dispararRabiscoSaida();
+    }
+  }, _INACTIVITY_MS);
+}
+['mousemove','keydown','scroll','touchstart','click'].forEach(function(ev){
+  document.addEventListener(ev, _resetInactivity, {passive:true});
+});
+_resetInactivity();
+
+function _dispararRabiscoSaida() {
+  // Abre o Rabisco
+  if (!RabiscoUI.aberto) RabiscoUI.toggle();
+  // Aguarda o painel abrir e envia mensagem de saída
+  setTimeout(function(){
+    if (!RabiscoUI.iniciado) {
+      RabiscoUI.iniciado = true;
+    }
+    // Limpar msgs anteriores se for primeira vez
+    var msgs = document.getElementById('rbMsgs');
+    if (msgs.children.length === 0) {
+      RabiscoUI.addMsg('Ei! 👀 Antes de ir...\n\nO que você estava procurando hoje?', 'bot');
+    } else {
+      RabiscoUI.addMsg('Posso te ajudar antes de você ir? 🎨', 'bot');
+    }
+    // Mostrar opções de qualificação
+    setTimeout(function(){
+      var sugs = document.getElementById('rbSugs');
+      sugs.innerHTML = '';
+      var opcoes = [
+        { txt:'🎨 Fazer uma tatuagem', tipo:'tattoo_nova' },
+        { txt:'🔄 Reformar tattoo antiga', tipo:'reforma' },
+        { txt:'📚 Ebooks para tatuadores', tipo:'ebook' },
+        { txt:'⚙️ Sistema Central Tattoo', tipo:'sistema' },
+        { txt:'💎 Mentoria VIP', tipo:'mentoria' }
+      ];
+      opcoes.forEach(function(op){
+        var btn = document.createElement('button');
+        btn.className = 'rb-sug rb-funil-opt';
+        btn.textContent = op.txt;
+        btn.onclick = function(){
+          RabiscoUI.addMsg(op.txt, 'user');
+          sugs.innerHTML = '';
+          rabiscoIniciarFunil(op.tipo);
+        };
+        sugs.appendChild(btn);
+      });
+    }, 800);
+  }, 400);
+}
 
 /* ─── EXPOR GLOBALMENTE ─── */
 window.RabiscoUI = RabiscoUI;
