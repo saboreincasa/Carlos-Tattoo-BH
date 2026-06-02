@@ -794,6 +794,21 @@ CREATE POLICY "auth delete" ON rabisco_eventos FOR DELETE TO authenticated USING
 
       </div>
 
+      <!-- Tamanho + Urgência — dados do pré-preenchimento automático -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;" class="rb-grid-2col">
+
+        <div class="card">
+          <div class="card-title"><span>📏</span> Tamanho Solicitado <span class="card-sub" style="font-size:11px;color:var(--tx3);">via funil automático</span></div>
+          <div id="rb-tamanhos" style="display:flex;flex-direction:column;gap:8px;"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><span>⚡</span> Urgência do Cliente <span class="card-sub" style="font-size:11px;color:var(--tx3);">quando quer tatuar</span></div>
+          <div id="rb-urgencias" style="display:flex;flex-direction:column;gap:8px;"></div>
+        </div>
+
+      </div>
+
       <!-- Seções mais visitadas + Log -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;" class="rb-grid-2col">
         <div class="card">
@@ -1922,6 +1937,30 @@ function exportarVendas() {
 
 
 // ══════════════════════════════════════════════════
+//  LABELS LEGÍVEIS — Rabisco
+// ══════════════════════════════════════════════════
+var _rbLabels = {
+  interesse: {
+    tattoo_nova: '🎨 Tattoo nova',
+    cobertura:   '🔄 Cover up',
+    areola:      '💖 Aréola',
+    tatuador:    '📚 Tatuador'
+  },
+  tamanho: {
+    pequena:  '🔹 Pequena',
+    media:    '🔸 Média',
+    grande:   '🔶 Grande',
+    projeto:  '🔥 Projeto completo'
+  },
+  urgencia: {
+    urgente:     '⚡ Urgente',
+    mes:         '📅 Esse mês',
+    trimestre:   '🗓️ 2-3 meses',
+    pesquisando: '🤔 Pesquisando'
+  }
+};
+
+// ══════════════════════════════════════════════════
 //  ABA RABISCO IA — Analytics
 // ══════════════════════════════════════════════════
 async function carregarRabisco() {
@@ -1941,8 +1980,10 @@ async function carregarRabisco() {
         log = eventos; // log vem do Supabase
 
         // Reconstruir stats a partir dos eventos
-        stats = { conversas:0, msgs:0, cliquesForm:0, funisConcluidos:0,
+        stats = { conversas:0, msgs:0, cliquesForm:0, funisConcluidos:0, formPreenchidoAuto:0,
           qualificacoes:{ tattoo_nova:0, cobertura:0, areola:0, tatuador:0 },
+          tamanhos:{ pequena:0, media:0, grande:0, projeto:0 },
+          urgencias:{ urgente:0, mes:0, trimestre:0, pesquisando:0 },
           secoes:{}, horarios:{}, ultimaConversa:null };
 
         eventos.forEach(function(ev) {
@@ -1951,6 +1992,16 @@ async function carregarRabisco() {
           if (ev.evento === 'conversa_iniciada') { stats.conversas++; stats.ultimaConversa = ev.criado_em; }
           if (ev.evento === 'mensagem_enviada')   stats.msgs++;
           if (ev.evento === 'form_clicado')        stats.cliquesForm++;
+          if (ev.evento === 'form_preenchido_auto') {
+            stats.formPreenchidoAuto++;
+            try {
+              var d2 = typeof ev.dados === 'string' ? JSON.parse(ev.dados) : ev.dados;
+              if (d2) {
+                if (d2.tamanho  && stats.tamanhos[d2.tamanho]  !== undefined) stats.tamanhos[d2.tamanho]++;
+                if (d2.urgencia && stats.urgencias[d2.urgencia] !== undefined) stats.urgencias[d2.urgencia]++;
+              }
+            } catch(e){}
+          }
           if (ev.evento === 'funil_concluido') {
             stats.funisConcluidos++;
             try {
@@ -1978,27 +2029,32 @@ async function carregarRabisco() {
     try { log   = JSON.parse(localStorage.getItem('rb_log')   || '[]');         } catch(e){}
   }
 
-  var conversas      = stats.conversas       || 0;
-  var msgs           = stats.msgs            || 0;
-  var cliquesForm    = stats.cliquesForm     || 0;
-  var funisConcluidos= stats.funisConcluidos || 0;
-  var qualif         = stats.qualificacoes   || {};
-  var secoes         = stats.secoes          || {};
-  var horarios       = stats.horarios        || {};
-  var ultimaConversa = stats.ultimaConversa  || null;
+  var conversas           = stats.conversas          || 0;
+  var msgs                = stats.msgs               || 0;
+  var cliquesForm         = stats.cliquesForm        || 0;
+  var formPreenchidoAuto  = stats.formPreenchidoAuto || 0;
+  var funisConcluidos     = stats.funisConcluidos    || 0;
+  var qualif              = stats.qualificacoes      || {};
+  var tamanhos            = stats.tamanhos           || {};
+  var urgencias           = stats.urgencias          || {};
+  var secoes              = stats.secoes             || {};
+  var horarios            = stats.horarios           || {};
+  var ultimaConversa      = stats.ultimaConversa     || null;
 
   // ── Taxa de conversão ──
-  var taxaForm  = conversas > 0 ? Math.round(cliquesForm / conversas * 100)   : 0;
-  var taxaFunil = conversas > 0 ? Math.round(funisConcluidos / conversas * 100): 0;
-  var msgMedia  = conversas > 0 ? (msgs / conversas).toFixed(1)               : '0';
+  var taxaForm       = conversas > 0 ? Math.round(cliquesForm / conversas * 100)          : 0;
+  var taxaPreenchido = conversas > 0 ? Math.round(formPreenchidoAuto / conversas * 100)   : 0;
+  var taxaFunil      = conversas > 0 ? Math.round(funisConcluidos / conversas * 100)      : 0;
+  var msgMedia       = conversas > 0 ? (msgs / conversas).toFixed(1)                      : '0';
 
   // ── KPIs ──
   var kpiGrid = document.getElementById('rb-kpi-grid');
   if (kpiGrid) kpiGrid.innerHTML = [
-    { lbl:'Conversas Iniciadas', val: conversas,       sub:'Total histórico',            cls:'rb-kpi-skull' },
-    { lbl:'Msgs por Conversa',   val: msgMedia,         sub:'Média de engajamento',       cls:'amber' },
-    { lbl:'Cliques no Formulário',val: cliquesForm,    sub: taxaForm+'% de conversão',   cls:'green' },
-    { lbl:'Funis Concluídos',    val: funisConcluidos, sub: taxaFunil+'% dos visitantes', cls:'blue' },
+    { lbl:'Conversas Iniciadas',      val: conversas,            sub:'Total histórico',                     cls:'rb-kpi-skull' },
+    { lbl:'Msgs por Conversa',        val: msgMedia,             sub:'Média de engajamento',                cls:'amber' },
+    { lbl:'Form Preenchido (Auto)',   val: formPreenchidoAuto,   sub: taxaPreenchido+'% tiveram funil OK',  cls:'green' },
+    { lbl:'Cliques no Formulário',    val: cliquesForm,          sub: taxaForm+'% de conversão',            cls:'blue' },
+    { lbl:'Funis Concluídos',         val: funisConcluidos,      sub: taxaFunil+'% dos visitantes',         cls:'amber' },
   ].map(function(k){
     return '<div class="kpi-card '+k.cls+'"><div class="kpi-label">'+k.lbl+'</div>'
       +'<div class="kpi-val">'+k.val+'</div>'
@@ -2031,7 +2087,7 @@ async function carregarRabisco() {
     if (!conversas) funil.innerHTML = '<div class="tbl-empty" style="width:100%;">Nenhuma conversa registrada ainda. O Rabisco precisa ser usado no site.</div>';
   }
 
-  // ── Qualificações ──
+  // ── Qualificações (interesse) ──
   var qEl = document.getElementById('rb-qualif');
   if (qEl) {
     var qLabels = { tattoo_nova:'🎨 Tattoo nova', cobertura:'🔄 Cover up / Reforma', areola:'💖 Reconstrução de Aréola', tatuador:'📚 Sou Tatuador' };
@@ -2043,6 +2099,40 @@ async function carregarRabisco() {
       return '<div class="rb-bar-row">'
         +'<span class="rb-bar-lbl">'+lbl+'</span>'
         +'<div class="rb-bar-track"><div class="rb-bar-fill" style="width:'+pct+'%;"></div></div>'
+        +'<span class="rb-bar-val">'+v+'</span>'
+        +'</div>';
+    }).join('') || '<div class="tbl-empty">Sem dados ainda.</div>';
+  }
+
+  // ── Tamanho solicitado ──
+  var tEl = document.getElementById('rb-tamanhos');
+  if (tEl) {
+    var tLabels = { pequena:'🔹 Pequena (até 10cm)', media:'🔸 Média (10–20cm)', grande:'🔶 Grande (acima 20cm)', projeto:'🔥 Projeto completo' };
+    var tTotal  = Object.values(tamanhos).reduce(function(a,b){ return a+b; }, 0) || 1;
+    tEl.innerHTML = Object.entries(tLabels).map(function(entry){
+      var k = entry[0], lbl = entry[1];
+      var v   = tamanhos[k] || 0;
+      var pct = Math.round(v / tTotal * 100);
+      return '<div class="rb-bar-row">'
+        +'<span class="rb-bar-lbl">'+lbl+'</span>'
+        +'<div class="rb-bar-track"><div class="rb-bar-fill" style="width:'+pct+'%;background:linear-gradient(90deg,#A07830,#E8B800);"></div></div>'
+        +'<span class="rb-bar-val">'+v+'</span>'
+        +'</div>';
+    }).join('') || '<div class="tbl-empty">Sem dados ainda.</div>';
+  }
+
+  // ── Urgência / quando quer tatuar ──
+  var uEl = document.getElementById('rb-urgencias');
+  if (uEl) {
+    var uLabels = { urgente:'⚡ O mais rápido possível', mes:'📅 Esse mês', trimestre:'🗓️ Próximos 2-3 meses', pesquisando:'🤔 Ainda pesquisando' };
+    var uTotal  = Object.values(urgencias).reduce(function(a,b){ return a+b; }, 0) || 1;
+    uEl.innerHTML = Object.entries(uLabels).map(function(entry){
+      var k = entry[0], lbl = entry[1];
+      var v   = urgencias[k] || 0;
+      var pct = Math.round(v / uTotal * 100);
+      return '<div class="rb-bar-row">'
+        +'<span class="rb-bar-lbl">'+lbl+'</span>'
+        +'<div class="rb-bar-track"><div class="rb-bar-fill" style="width:'+pct+'%;background:linear-gradient(90deg,#16A34A,#4ADE80);"></div></div>'
         +'<span class="rb-bar-val">'+v+'</span>'
         +'</div>';
     }).join('') || '<div class="tbl-empty">Sem dados ainda.</div>';
@@ -2084,22 +2174,42 @@ async function carregarRabisco() {
   var lEl = document.getElementById('rb-log');
   if (lEl) {
     var tipoMap = {
-      conversa_iniciada: { cls:'conversa', ico:'💬', lbl:'Conversa' },
-      mensagem_enviada:  { cls:'mensagem', ico:'✉️',  lbl:'Mensagem' },
-      form_clicado:      { cls:'form',     ico:'📋', lbl:'Formulário' },
-      funil_concluido:   { cls:'funil',    ico:'🎯', lbl:'Funil OK' },
-      secao_vista:       { cls:'secao',    ico:'📍', lbl:'Seção' }
+      conversa_iniciada:    { cls:'conversa', ico:'💬', lbl:'Conversa' },
+      mensagem_enviada:     { cls:'mensagem', ico:'✉️',  lbl:'Mensagem' },
+      form_clicado:         { cls:'form',     ico:'📋', lbl:'Form Clicado' },
+      form_preenchido_auto: { cls:'form',     ico:'✅', lbl:'Form Preenchido (Auto)' },
+      funil_concluido:      { cls:'funil',    ico:'🎯', lbl:'Funil OK' },
+      secao_vista:          { cls:'secao',    ico:'📍', lbl:'Seção' }
     };
     var recentes = log.slice().reverse().slice(0, 40);
     lEl.innerHTML = recentes.length ? recentes.map(function(ev){
-      var t   = tipoMap[ev.tipo] || { cls:'secao', ico:'•', lbl: ev.tipo };
-      var dt  = ev.ts ? new Date(ev.ts).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) : '';
+      var evTipo = ev.evento || ev.tipo || '';
+      var t   = tipoMap[evTipo] || { cls:'secao', ico:'•', lbl: evTipo };
+      var dt  = (ev.criado_em || ev.ts) ? new Date(ev.criado_em || ev.ts).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) : '';
       var det = '';
-      if (ev.dados) {
-        if (ev.dados.msg)      det = '"' + ev.dados.msg + '"';
-        if (ev.dados.secao)    det = 'Seção: ' + ev.dados.secao;
-        if (ev.dados.interesse)det = 'Interesse: ' + ev.dados.interesse;
-      }
+      try {
+        var d = ev.dados ? (typeof ev.dados === 'string' ? JSON.parse(ev.dados) : ev.dados) : null;
+        if (d) {
+          if (d.msg)       det = '"' + d.msg + '"';
+          if (d.secao)     det = 'Seção: ' + d.secao;
+          if (d.interesse) det = 'Interesse: ' + d.interesse;
+          // Novos campos do funil completo
+          if (evTipo === 'form_preenchido_auto' || evTipo === 'form_clicado') {
+            var partes = [];
+            if (d.interesse) partes.push(_rbLabels.interesse[d.interesse] || d.interesse);
+            if (d.tamanho)   partes.push(_rbLabels.tamanho[d.tamanho]    || d.tamanho);
+            if (d.urgencia)  partes.push(_rbLabels.urgencia[d.urgencia]  || d.urgencia);
+            det = partes.join(' · ');
+          }
+          if (evTipo === 'funil_concluido') {
+            var partes2 = [];
+            if (d.interesse) partes2.push(_rbLabels.interesse[d.interesse] || d.interesse);
+            if (d.tamanho)   partes2.push(_rbLabels.tamanho[d.tamanho]    || d.tamanho);
+            if (d.urgencia)  partes2.push(_rbLabels.urgencia[d.urgencia]  || d.urgencia);
+            det = partes2.join(' · ');
+          }
+        }
+      } catch(e) { det = String(ev.dados || ''); }
       return '<div class="rb-log-item">'
         +'<span class="rb-log-tipo '+t.cls+'">'+t.ico+' '+t.lbl+'</span>'
         +'<span class="rb-log-det">'+det+'</span>'

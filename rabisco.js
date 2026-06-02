@@ -385,6 +385,10 @@ Você é o Rabisco 💀 — o melhor assistente de tatuagem do Brasil. Cada resp
   function concluirFunil() {
     _funilAtivo = false;
     rbTrack('funil_concluido', qualificacao);
+
+    // Pré-preenche o formulário imediatamente com os dados do funil
+    preencherFormulario(qualificacao);
+
     var interesse = qualificacao.interesse || '';
     var msgs = {
       tattoo_nova: 'Perfeito! 🔥 Com 2.400+ tattoos feitas e 5.0★ no Google, você veio ao lugar certo!\n\nPreenche o formulário abaixo — são só 3 passinhos e o Carlos te responde **direto no WhatsApp** com tudo personalizado 👇',
@@ -397,6 +401,115 @@ Você é o Rabisco 💀 — o melhor assistente de tatuagem do Brasil. Cada resp
       RabiscoUI.addMsg(texto, 'bot');
       RabiscoUI.mostrarCardFormulario();
     }, 500);
+  }
+
+  /* ══════════════════════════════════════
+     PRÉ-PREENCHIMENTO AUTOMÁTICO DO FORMULÁRIO
+     Mapeia os dados do funil nos campos reais do site
+  ══════════════════════════════════════ */
+  function preencherFormulario(q) {
+    if (!q) return;
+    try {
+      // ── Mapa: interesse → estilo do formulário ──
+      var mapaEstilo = {
+        tattoo_nova: null,          // não força estilo — cliente escolhe livremente
+        cobertura:   'Reforma / Cover Up',
+        areola:      null,          // seção especial, não usa o fp-form padrão
+        tatuador:    null
+      };
+      // ── Mapa: tamanho do funil → valor do campo fp-tamanho ──
+      var mapaTamanho = {
+        pequena:  'Pequena (até 10cm)',
+        media:    'Média (10 a 20cm)',
+        grande:   'Grande (acima 20cm)',
+        projeto:  'Projeto Completo'
+      };
+      // ── Mapa: urgência → orçamento estimado pré-selecionado ──
+      var mapaOrcamento = {
+        urgente:     'Preciso logo',
+        mes:         'Esse mês',
+        trimestre:   'Próximos meses',
+        pesquisando: 'Ainda pesquisando'
+      };
+
+      var interesse  = q.interesse  || '';
+      var tamanho    = q.tamanho    || '';
+      var urgencia   = q.urgencia   || '';
+
+      // 1. Pré-selecionar estilo se for cobertura
+      var estiloVal = mapaEstilo[interesse];
+      if (estiloVal) {
+        var fpEstilo = document.getElementById('fp-estilo');
+        if (fpEstilo) fpEstilo.value = estiloVal;
+        // Marcar visualmente o card de estilo correspondente
+        document.querySelectorAll('.fp-estilo-card').forEach(function(card) {
+          card.classList.remove('selected');
+          if (card.textContent.indexOf('Reforma') !== -1 || card.textContent.indexOf('Cover') !== -1) {
+            card.classList.add('selected');
+          }
+        });
+      }
+
+      // 2. Pré-selecionar tamanho
+      if (tamanho && mapaTamanho[tamanho]) {
+        var fpTamanho = document.getElementById('fp-tamanho');
+        if (fpTamanho) fpTamanho.value = mapaTamanho[tamanho];
+        // Marcar visualmente o botão de tamanho
+        document.querySelectorAll('.fp-tamanhos button, [onclick*="selecionarTamanho"], .fp-tam-btn').forEach(function(btn) {
+          if (btn.textContent.indexOf(mapaTamanho[tamanho].split(' ')[0]) !== -1) {
+            btn.click(); // dispara a função nativa do site
+          }
+        });
+      }
+
+      // 3. Pré-preencher ideia com contexto do funil
+      var fpIdeia = document.getElementById('fp-ideia');
+      if (fpIdeia && !fpIdeia.value) {
+        var textoIdeia = '';
+        if (interesse === 'cobertura') {
+          textoIdeia = 'Quero reformar/cobrir uma tatuagem antiga.';
+          if (tamanho) textoIdeia += ' Tamanho aproximado: ' + (mapaTamanho[tamanho] || tamanho) + '.';
+        } else if (interesse === 'tattoo_nova') {
+          textoIdeia = 'Quero fazer uma tatuagem nova.';
+          if (tamanho) textoIdeia += ' Tamanho aproximado: ' + (mapaTamanho[tamanho] || tamanho) + '.';
+        }
+        if (textoIdeia) fpIdeia.value = textoIdeia;
+      }
+
+      // 4. Gravar no campo hidden de urgência se existir
+      var fpUrgencia = document.getElementById('rb_urgencia');
+      if (fpUrgencia) fpUrgencia.value = urgencia;
+
+    } catch(e) {}
+
+    // Gravar evento no Supabase com dados completos do funil
+    rbTrackFormPreenchido(q);
+  }
+
+  function rbTrackFormPreenchido(q) {
+    // Grava um evento enriquecido separado no Supabase para o admin visualizar
+    try {
+      fetch('https://ejapatxehmxondjqsgvv.supabase.co/rest/v1/rabisco_eventos', {
+        method: 'POST',
+        headers: {
+          'apikey':        'sb_publishable_B6_fpfgSxN56V2HoRQJCPg_ELaiatZr',
+          'Authorization': 'Bearer sb_publishable_B6_fpfgSxN56V2HoRQJCPg_ELaiatZr',
+          'Content-Type':  'application/json',
+          'Prefer':        'return=minimal'
+        },
+        body: JSON.stringify({
+          evento:    'form_preenchido_auto',
+          dados:     JSON.stringify({
+            interesse: q.interesse  || '',
+            tamanho:   q.tamanho    || '',
+            urgencia:  q.urgencia   || '',
+            secao:     secaoAtual   || 'inicio'
+          }),
+          secao:     secaoAtual || null,
+          criado_em: new Date().toISOString()
+        })
+      }).catch(function(){});
+    } catch(e) {}
   }
 
   /* ══════════════════════════════════════
@@ -898,7 +1011,14 @@ Você é o Rabisco 💀 — o melhor assistente de tatuagem do Brasil. Cada resp
       btn.onclick = function () {
         var formEl = document.querySelector(CFG.form);
         if (formEl) {
-          rbTrack('form_clicado', { secao: secaoAtual, qualificacao: qualificacao });
+          rbTrack('form_clicado', {
+            secao:      secaoAtual,
+            interesse:  qualificacao.interesse || '',
+            tamanho:    qualificacao.tamanho   || '',
+            urgencia:   qualificacao.urgencia  || ''
+          });
+          // Re-aplica o preenchimento automático antes de rolar
+          preencherFormulario(qualificacao);
           formEl.scrollIntoView({ behavior:'smooth' });
           setTimeout(function(){
             var n = document.getElementById('fp-nome');
