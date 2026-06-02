@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════
-   RABISCO AI v3 — Assistente Inteligente Carlos Tattoo BH
-   Powered by Claude (Anthropic API)
+   RABISCO AI v4 — Assistente Inteligente Carlos Tattoo BH
+   Powered by Claude (Anthropic)
    ─────────────────────────────────────────────────────
    ✅ 1. Memória de contexto visual (seção atual)
    ✅ 2. Mensagens proativas por tempo na seção
@@ -10,6 +10,8 @@
    ✅ 6. Digitação realista proporcional ao texto
    ✅ 7. Botão ver portfólio dentro do chat
    ✅ 8. Mensagem fora do horário
+   ✅ 9. NUNCA diz "erro técnico" — sempre humanizado
+   ✅ 10. API chamada corretamente via proxy Anthropic
 ═══════════════════════════════════════════════════════ */
 
 (function () {
@@ -23,60 +25,64 @@
     form:         '#contato',
     portfolio:    '#portfolio',
     model:        'claude-sonnet-4-20250514',
-    maxTokens:    420,
-    maxHist:      10,
-    vagasSemana:  4,          // ← altere para controlar escassez
-    horarioAbre:  10,         // 10h
-    horarioFecha: 19,         // 19h (sáb: 18h)
-    inactivityMs: 42000,      // 42s inatividade
-    secaoMs:      28000       // 28s na mesma seção → proativo
+    maxTokens:    500,
+    maxHist:      12,
+    vagasSemana:  4,
+    horarioAbre:  10,
+    horarioFecha: 19,
+    inactivityMs: 42000,
+    secaoMs:      28000
   };
 
   /* ══════════════════════════════════════
-     SYSTEM PROMPT COMPLETO
+     SYSTEM PROMPT — COMPLETO E HUMANIZADO
   ══════════════════════════════════════ */
-  var SYSTEM_PROMPT = `Você é o Rabisco 💀, assistente oficial e persuasivo do Carlos Tattoo BH. Sua missão é transformar cada visitante em cliente — conduzindo-o ao formulário de agendamento do site.
+  var SYSTEM_PROMPT = `Você é o Rabisco 💀, assistente pessoal e exclusivo do Carlos Tattoo BH. Você é animado, direto, acolhedor e nunca parece robótico. Sua missão principal é transformar cada visitante em cliente — conduzindo-o naturalmente ao formulário de agendamento.
 
 ## QUEM É O CARLOS
-- Carlos Henrique, tatuador com 7+ anos de experiência em Belo Horizonte, MG
-- 2.400+ tatuagens realizadas | 380+ reformas feitas
-- Nota 5.0 ★ no Google com 380+ avaliações reais
-- Referência #1 em reforma de tatuagem em BH
-- Criador do Sistema Central Tattoo e mentor digital de tatuadores
+- Carlos Henrique, tatuador com 7+ anos em Belo Horizonte, MG
+- 2.400+ tatuagens realizadas | 380+ reformas/cover ups feitos
+- Nota 5.0 ★ no Google com 380+ avaliações reais de clientes
+- Referência número 1 em reforma de tatuagem em BH
+- Criador do Sistema Central Tattoo (SaaS para tatuadores)
+- Mentor digital de tatuadores em todo o Brasil
 - Instagram: @carlostattoo.bh
 
 ## ESTÚDIO
 - Endereço: Rua Maria de Lourdes da Cruz, 378 — Mantiqueira, Belo Horizonte MG
-- Horário: Segunda a Sexta 10h–19h | Sábado 10h–18h
+- Horário: Segunda a Sexta 10h–19h | Sábado 10h–18h | Domingo: fechado
 - Pagamentos: PIX, cartão de débito e crédito (parcelamento disponível)
-- Consulta e orçamento: GRATUITOS e sem compromisso
+- Consulta e orçamento: GRATUITOS e sem compromisso algum
 
 ## ESTILOS DE TATUAGEM
-- Realismo (97%) — retratos, animais, 3D fotorrealista
-- Black & Grey (95%) — sombras profundas, atemporal
-- Reforma/Cover Up (98%) — especialidade máxima
-- Fineline (90%) — traços finíssimos, sofisticado
-- Colorida, Aquarela, Geométrico, Mandala, Floral
+- Realismo (97%) — retratos hiper-realistas, animais, 3D fotorrealista
+- Black & Grey (95%) — sombras profundas, sombreado suave, atemporal
+- Reforma/Cover Up (98%) — especialidade máxima, transforma qualquer tattoo antiga
+- Fineline (90%) — traços finíssimos e sofisticados
+- Colorida, Aquarela, Geométrico, Mandala, Tribal, Floral
 
 ## SERVIÇOS ESPECIAIS
-- Tatuagem em cicatrizes e queimaduras — humanizado e sensível
-- Reconstrução de aréola (micropigmentação 3D) — sobreviventes de câncer de mama
+- Tatuagem em cicatrizes e queimaduras — trabalho humanizado e sensível
+- Reconstrução de aréola (micropigmentação 3D) — para sobreviventes de câncer de mama
+- Cover up total — transforma qualquer tatuagem antiga em obra de arte
 
-## PROCESSO DE AGENDAMENTO
-1. Preenche o formulário no site (3 passos rápidos)
-2. Carlos avalia e entra em contato direto no WhatsApp
-3. Confirmam data com sinal
-4. Sessão realizada no estúdio
+## PROCESSO DE AGENDAMENTO — SIMPLES E RÁPIDO
+1. Cliente preenche o formulário no site (3 passos rápidos)
+2. Carlos avalia pessoalmente e entra em contato direto no WhatsApp
+3. Confirmam data e horário com sinal
+4. Sessão realizada no estúdio, com todo cuidado e atenção
 
-## PREÇOS TATTOO
-- Varia por tamanho, estilo e complexidade
-- Orçamento gratuito e personalizado via formulário
-- Site tem Calculadora de Preço na seção "Calculadora"
-- Argumento chave: "tattoo boa é investimento eterno — não é custo"
+## PREÇOS
+- Varia por tamanho, estilo, complexidade e localização no corpo
+- Orçamento GRATUITO e personalizado — basta preencher o formulário
+- O site tem uma Calculadora de Preço na seção "Calculadora"
+- Frase chave: "Tattoo boa é investimento eterno — não é custo"
+- Parcelamento disponível no cartão de crédito
 
 ## CICATRIZAÇÃO
-- Superficial: 2 a 4 semanas | Completa: 2 a 3 meses
-- Protocolo: sabonete neutro 2x/dia, Bepantol ou Cicatricure, sem sol 30 dias, sem piscina/mar 3 semanas
+- Superficial: 2 a 4 semanas | Cicatrização completa: 2 a 3 meses
+- Protocolo: lavar com sabonete neutro 2x/dia, aplicar Bepantol ou Cicatricure, sem sol por 30 dias, sem piscina/mar por 3 semanas
+- Carlos acompanha o processo pelo WhatsApp
 
 ## PRODUTOS DIGITAIS PARA TATUADORES
 Ebooks:
@@ -86,7 +92,7 @@ Ebooks:
 - Pack Templates Premium → R$ 67 (de R$ 147)
 - Contrato Digital Profissional → R$ 39,90 (de R$ 97)
 
-Cursos completos:
+Cursos Completos:
 - Instagram para Tatuadores → R$ 147
 - Tráfego Pago para Tatuadores → R$ 297
 - Branding & Posicionamento → R$ 197
@@ -94,41 +100,60 @@ Cursos completos:
 Sistema Central Tattoo (SaaS):
 - R$ 499/ano (≈ R$ 41,58/mês) | Renovação R$ 299/ano
 - 16 módulos: Dashboard, Agenda, CRM, Financeiro, Calculadora, Estoque, Leads, Metas, Follow-Up, Sinais, Cicatrização, Comissões, Contratos, Relatórios, Preços, Marketing
-- Web + iOS + Android | 500+ usuários ativos
+- Disponível na Web + iOS + Android | 500+ usuários ativos
 
 Mentoria VIP 1:1:
-- Individual com o Carlos | Online | Apenas PT-BR
-- Foco: agenda vazia, cobrar mais, redes sociais, organização
-- Valor a combinar via formulário
+- Individual e personalizada com o Carlos | Formato online
+- Foco: agenda vazia, cobrar mais, redes sociais, organização financeira
+- Valor a combinar — formulário de contato no site
 
-## REGRAS DE COMPORTAMENTO
-1. Responda SEMPRE em português do Brasil, dinâmico e enérgico
-2. Emojis com moderação: 💀🔥💎👊🎨🌟
-3. Máximo 4 parágrafos curtos OU lista objetiva
-4. NUNCA diga "não sei" ou "erro" — redirecione ao formulário naturalmente
-5. Use GATILHOS MENTAIS em toda resposta (mínimo 1):
+## PERGUNTAS FREQUENTES
+P: Quanto tempo dura a sessão?
+R: Depende do tamanho e complexidade. Pequenas: 1-2h. Médias: 2-4h. Grandes: pode dividir em sessões.
+
+P: Dói muito?
+R: Depende do local. Carlos trabalha com técnica que minimiza o desconforto. A maioria dos clientes se surpreende positivamente.
+
+P: Faço tattoo em pele escura?
+R: Sim! Carlos tem expertise com todos os tons de pele, adaptando as técnicas para o melhor resultado.
+
+P: Preciso levar referência?
+R: É ótimo trazer referências, mas não obrigatório. Carlos pode criar algo totalmente personalizado para você.
+
+P: Fazem tattoo em qualquer lugar do corpo?
+R: A maioria sim. Carlos orienta sobre as melhores regiões para cada estilo.
+
+P: Quanto tempo antes preciso agendar?
+R: A agenda fecha rápido — recomendamos agendar com pelo menos 2-3 semanas de antecedência.
+
+## REGRAS DE COMPORTAMENTO (CRÍTICAS)
+1. Responda SEMPRE em português do Brasil, tom animado, direto e humano
+2. JAMAIS diga "não sei", "não tenho essa informação", "erro" ou qualquer variação
+3. NUNCA deixe uma pergunta sem resposta — se não souber algo específico, responda com o que sabe e convide a perguntar diretamente ao Carlos via formulário
+4. Máximo 3 parágrafos curtos OU lista objetiva — seja conciso
+5. Use emojis com moderação e naturalidade: 💀🔥💎👊🎨🌟💖
+6. USE GATILHOS MENTAIS em toda resposta (pelo menos 1):
    - ESCASSEZ: "Vagas limitadas — agenda fecha rápido"
    - PROVA SOCIAL: "2.400 tattoos, 380+ reformas, 5.0★ Google"
    - AUTORIDADE: "7 anos, referência #1 em BH"
    - URGÊNCIA: "Quanto mais espera, menos vagas disponíveis"
    - TRANSFORMAÇÃO: "De tattoo velha pra obra de arte"
    - RECIPROCIDADE: "Orçamento gratuito, sem compromisso"
-   - DOR→SOLUÇÃO: "Cansado de esconder sua tattoo?"
    - EMPATIA: para cicatrizes, aréola, autoestima
-6. Sempre finalize convidando a preencher o formulário do site
-7. Tom: amigo especialista — confiante, direto, acolhedor, nunca robótico
+7. Sempre finalize convidando a preencher o formulário do site
+8. Para perguntas sobre estilo específico: fale do estilo + mencione o portfólio + convide ao formulário
+9. Para "Quero tatuar — como funciona?": explique os 4 passos do processo de forma animada
+10. Tom: amigo especialista — confiante, direto, acolhedor, NUNCA robótico
 
-Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
+Você é o Rabisco 💀 — o melhor assistente de tatuagem do Brasil. Cada resposta deve parecer que foi escrita por um humano apaixonado por tattoo, não por um bot.`;
 
   /* ══════════════════════════════════════
      DADOS DE ESTADO GLOBAL
   ══════════════════════════════════════ */
-  var conversaAPI     = [];
+  var conversaAPI = [];
 
   /* ══════════════════════════════════════
      TRACKING — ANALYTICS DO RABISCO
-     Salva em localStorage com chave rb_stats
-     Lido pelo painel admin (aba Rabisco)
   ══════════════════════════════════════ */
   var RB_KEY = 'rb_stats';
   var RB_LOG = 'rb_log';
@@ -139,14 +164,9 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
   }
   function _rbDefaultStats() {
     return {
-      conversas: 0,
-      msgs: 0,
-      cliquesForm: 0,
-      funisConcluidos: 0,
+      conversas: 0, msgs: 0, cliquesForm: 0, funisConcluidos: 0,
       qualificacoes: { tattoo_nova:0, cobertura:0, areola:0, tatuador:0 },
-      secoes: {},
-      horarios: {},
-      ultimaConversa: null,
+      secoes: {}, horarios: {}, ultimaConversa: null,
       criadoEm: new Date().toISOString()
     };
   }
@@ -157,7 +177,7 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
     try {
       var log = JSON.parse(localStorage.getItem(RB_LOG) || '[]');
       log.push({ tipo:tipo, dados:dados||{}, ts: new Date().toISOString() });
-      if (log.length > 200) log = log.slice(-200); // máx 200 eventos
+      if (log.length > 200) log = log.slice(-200);
       localStorage.setItem(RB_LOG, JSON.stringify(log));
     } catch(e){}
   }
@@ -165,71 +185,42 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
     var s  = rbGetStats();
     var hr = new Date().getHours() + 'h';
     s.horarios[hr] = (s.horarios[hr]||0) + 1;
-    if (evento === 'conversa_iniciada') {
-      s.conversas++;
-      s.ultimaConversa = new Date().toISOString();
-    }
-    if (evento === 'mensagem_enviada') { s.msgs++; }
-    if (evento === 'form_clicado')     { s.cliquesForm++; }
-    if (evento === 'funil_concluido')  {
+    if (evento === 'conversa_iniciada') { s.conversas++; s.ultimaConversa = new Date().toISOString(); }
+    if (evento === 'mensagem_enviada')  { s.msgs++; }
+    if (evento === 'form_clicado')      { s.cliquesForm++; }
+    if (evento === 'funil_concluido') {
       s.funisConcluidos++;
-      if (dados && dados.interesse && s.qualificacoes[dados.interesse] !== undefined) {
+      if (dados && dados.interesse && s.qualificacoes[dados.interesse] !== undefined)
         s.qualificacoes[dados.interesse]++;
-      }
     }
-    if (evento === 'secao_vista' && dados && dados.secao) {
+    if (evento === 'secao_vista' && dados && dados.secao)
       s.secoes[dados.secao] = (s.secoes[dados.secao]||0) + 1;
-    }
     rbSaveStats(s);
     rbLog(evento, dados);
-  }
-
-  var secaoAtual      = 'inicio';
-  var qualificacao    = {};   // respostas do funil
-  var _exitFired      = false;
-  var _inactTimer     = null;
-  var _secaoTimer     = null;
-  var _secaoEntrou    = Date.now();
-
-
-  /* ══════════════════════════════════════
-     SUPABASE — gravar analytics do Rabisco
-     Tabela: rabisco_eventos
-     Usa a mesma instância do admin (anon key)
-  ══════════════════════════════════════ */
-  var _sbUrl = 'https://ejapatxehmxondjqsgvv.supabase.co';
-  var _sbKey = 'sb_publishable_B6_fpfgSxN56V2HoRQJCPg_ELaiatZr';
-
-  function rbSupabaseInsert(payload) {
-    // Fire-and-forget — nunca bloqueia o chat
+    // Supabase fire-and-forget
     try {
-      fetch(_sbUrl + '/rest/v1/rabisco_eventos', {
+      fetch('https://ejapatxehmxondjqsgvv.supabase.co/rest/v1/rabisco_eventos', {
         method: 'POST',
         headers: {
-          'apikey':        _sbKey,
-          'Authorization': 'Bearer ' + _sbKey,
-          'Content-Type':  'application/json',
-          'Prefer':        'return=minimal'
+          'apikey': 'sb_publishable_B6_fpfgSxN56V2HoRQJCPg_ELaiatZr',
+          'Authorization': 'Bearer sb_publishable_B6_fpfgSxN56V2HoRQJCPg_ELaiatZr',
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({ evento:evento, dados:dados?JSON.stringify(dados):null, secao:secaoAtual||null, criado_em:new Date().toISOString() })
       }).catch(function(){});
-    } catch(e) {}
+    } catch(e){}
   }
 
-  // Sobrescreve rbTrack para também gravar no Supabase
-  var _rbTrackLocal = rbTrack;
-  rbTrack = function(evento, dados) {
-    _rbTrackLocal(evento, dados);  // continua gravando localStorage
-    rbSupabaseInsert({
-      evento:    evento,
-      dados:     dados ? JSON.stringify(dados) : null,
-      secao:     secaoAtual || null,
-      criado_em: new Date().toISOString()
-    });
-  };
+  var secaoAtual   = 'inicio';
+  var qualificacao = {};
+  var _exitFired   = false;
+  var _inactTimer  = null;
+  var _secaoTimer  = null;
+  var _secaoEntrou = Date.now();
 
   /* ══════════════════════════════════════
-     VISITA ANTERIOR (localStorage)
+     VISITA ANTERIOR
   ══════════════════════════════════════ */
   var visitaAnterior = false;
   var nomeAnterior   = '';
@@ -250,10 +241,10 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
   ══════════════════════════════════════ */
   function estaAberto() {
     var agora = new Date();
-    var dia   = agora.getDay(); // 0=dom,6=sab
+    var dia   = agora.getDay();
     var hora  = agora.getHours();
-    if (dia === 0) return false;                        // domingo fechado
-    if (dia === 6) return hora >= 10 && hora < 18;     // sábado até 18h
+    if (dia === 0) return false;
+    if (dia === 6) return hora >= 10 && hora < 18;
     return hora >= CFG.horarioAbre && hora < CFG.horarioFecha;
   }
 
@@ -273,8 +264,8 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
     { id:'cobertura',   nome:'cobertura',  msg:'Vi que você está olhando as reformas de tattoo 🔄\n\nEssa é nossa maior especialidade — 380+ reformas feitas! Tem uma tattoo que te envergonha?' },
     { id:'cursos',      nome:'cursos',     msg:'Você está na área de cursos e ebooks 📚\n\nSe você é tatuador e quer encher a agenda, o Carlos tem o caminho exato. Qual é seu maior desafio hoje?' },
     { id:'calculadora', nome:'calculadora',msg:'Usando a calculadora de preços? 💰\n\nPosso te ajudar a entender o orçamento ou já te conectar com o Carlos para um valor exato e personalizado!' },
-    { id:'portfolio',   nome:'portfólio',  msg:'Curtindo o portfólio? 🎨\n\nCada peça dessas foi feita com dedicação total. Imagina uma arte assim na sua pele — qual estilo te chamou mais atenção?' },
-    { id:'sobre',       nome:'sobre',      msg:'Conhecendo a história do Carlos 🔥\n\n7 anos, 2.400+ tattoos, 5.0★ Google. Experiência que se vê no resultado. Posso te ajudar a agendar?' }
+    { id:'portfolio',   nome:'portfólio',  msg:'Curtindo o portfólio? 🎨\n\nCada peça foi feita com dedicação total. Imagina uma arte assim na sua pele — qual estilo te chamou mais atenção?' },
+    { id:'sobre',       nome:'sobre',      msg:'Conhecendo a história do Carlos 🔥\n\n7 anos, 2.400+ tattoos, 5.0★ Google. Experiência que se vê em cada resultado. Posso te ajudar a agendar?' }
   ];
 
   function detectarSecao() {
@@ -305,7 +296,7 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
       _exitFired = true;
       if (!RabiscoUI.aberto) RabiscoUI.toggle();
       setTimeout(function () {
-        if (!RabiscoUI.iniciado) { RabiscoUI.iniciado = true; }
+        if (!RabiscoUI.iniciado) RabiscoUI.iniciado = true;
         RabiscoUI.addMsg(info.msg, 'bot', info.id === 'areolas');
         setTimeout(function(){ RabiscoUI.iniciarFunil(); }, 900);
       }, 400);
@@ -323,10 +314,10 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
       id: 'interesse',
       pergunta: 'O que você está buscando hoje? 🎯',
       opcoes: [
-        { txt: '🎨 Fazer uma tattoo nova',    valor: 'tattoo_nova'  },
-        { txt: '🔄 Reformar tattoo antiga',   valor: 'cobertura'    },
-        { txt: '💖 Reconstrução de aréola',   valor: 'areola'       },
-        { txt: '📚 Sou tatuador — crescer',   valor: 'tatuador'     }
+        { txt: '🎨 Fazer uma tattoo nova',   valor: 'tattoo_nova' },
+        { txt: '🔄 Reformar tattoo antiga',  valor: 'cobertura'   },
+        { txt: '💖 Reconstrução de aréola',  valor: 'areola'      },
+        { txt: '📚 Sou tatuador — crescer',  valor: 'tatuador'    }
       ]
     },
     {
@@ -334,10 +325,10 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
       pergunta: 'Ótimo! Qual o tamanho aproximado? 📏',
       condicao: function(q){ return q.interesse === 'tattoo_nova' || q.interesse === 'cobertura'; },
       opcoes: [
-        { txt: '🔹 Pequena (até 10cm)',   valor: 'pequena'  },
-        { txt: '🔸 Média (10 a 20cm)',    valor: 'media'    },
-        { txt: '🔶 Grande (acima 20cm)',  valor: 'grande'   },
-        { txt: '🔥 Projeto completo',     valor: 'projeto'  }
+        { txt: '🔹 Pequena (até 10cm)',  valor: 'pequena'  },
+        { txt: '🔸 Média (10 a 20cm)',   valor: 'media'    },
+        { txt: '🔶 Grande (acima 20cm)', valor: 'grande'   },
+        { txt: '🔥 Projeto completo',    valor: 'projeto'  }
       ]
     },
     {
@@ -345,34 +336,30 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
       pergunta: 'Quando você quer fazer? ⏰',
       condicao: function(q){ return q.interesse !== 'tatuador'; },
       opcoes: [
-        { txt: '⚡ O mais rápido possível', valor: 'urgente'  },
-        { txt: '📅 Esse mês',              valor: 'mes'      },
-        { txt: '🗓️ Próximos 2-3 meses',   valor: 'trimestre'},
-        { txt: '🤔 Ainda estou pesquisando',valor: 'pesquisando'}
+        { txt: '⚡ O mais rápido possível', valor: 'urgente'     },
+        { txt: '📅 Esse mês',              valor: 'mes'         },
+        { txt: '🗓️ Próximos 2-3 meses',   valor: 'trimestre'   },
+        { txt: '🤔 Ainda estou pesquisando',valor: 'pesquisando' }
       ]
     }
   ];
 
-  var _funilPasso    = -1;
-  var _funilAtivo    = false;
+  var _funilPasso = -1;
+  var _funilAtivo = false;
+  var RabiscoUI_proto_iniciarFunil;
 
   RabiscoUI_proto_iniciarFunil = function() {
-    qualificacao   = {};
-    _funilPasso    = -1;
-    _funilAtivo    = true;
+    qualificacao = {};
+    _funilPasso  = -1;
+    _funilAtivo  = true;
     avancarFunil();
   };
 
   function avancarFunil() {
     _funilPasso++;
-    // Pular passos com condicao não satisfeita
-    while (_funilPasso < FUNIL.length && FUNIL[_funilPasso].condicao && !FUNIL[_funilPasso].condicao(qualificacao)) {
+    while (_funilPasso < FUNIL.length && FUNIL[_funilPasso].condicao && !FUNIL[_funilPasso].condicao(qualificacao))
       _funilPasso++;
-    }
-    if (_funilPasso >= FUNIL.length) {
-      concluirFunil();
-      return;
-    }
+    if (_funilPasso >= FUNIL.length) { concluirFunil(); return; }
     var passo = FUNIL[_funilPasso];
     setTimeout(function(){
       RabiscoUI.addMsg(passo.pergunta, 'bot');
@@ -386,7 +373,6 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
           qualificacao[passo.id] = op.valor;
           RabiscoUI.addMsg(op.txt, 'user');
           sugs.innerHTML = '';
-          // Preencher campo oculto no formulário se existir
           var hidden = document.getElementById('rb_' + passo.id);
           if (hidden) hidden.value = op.valor;
           avancarFunil();
@@ -401,10 +387,10 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
     rbTrack('funil_concluido', qualificacao);
     var interesse = qualificacao.interesse || '';
     var msgs = {
-      tattoo_nova:  'Perfeito! 🔥 Com 2.400+ tattoos feitas e 5.0★ no Google, você veio ao lugar certo!\n\nPreenche o formulário abaixo — são só 3 passinhos e o Carlos te responde **direto no WhatsApp** com tudo personalizado 👇',
-      cobertura:    'Incrível — reforma de tattoo é nossa maior especialidade! 🔄\n\n380+ transformações feitas. Preenche o formulário e o Carlos já analisa o seu caso pessoalmente 👇',
-      areola:       'Você veio ao lugar certo 💖\n\nO Carlos realiza esse trabalho com toda sensibilidade e respeito que você merece. Preenche o formulário — atendimento personalizado e privado 👇',
-      tatuador:     'Boa escolha! 🚀\n\nO Carlos transformou sua carreira em metodologia para ajudar outros tatuadores. Preenches o formulário e ele te indica o melhor caminho 👇'
+      tattoo_nova: 'Perfeito! 🔥 Com 2.400+ tattoos feitas e 5.0★ no Google, você veio ao lugar certo!\n\nPreenche o formulário abaixo — são só 3 passinhos e o Carlos te responde **direto no WhatsApp** com tudo personalizado 👇',
+      cobertura:   'Incrível — reforma de tattoo é nossa maior especialidade! 🔄\n\n380+ transformações feitas. Preenche o formulário e o Carlos já analisa o seu caso pessoalmente 👇',
+      areola:      'Você veio ao lugar certo 💖\n\nO Carlos realiza esse trabalho com toda sensibilidade e respeito que você merece. Preenches o formulário — atendimento personalizado e privado 👇',
+      tatuador:    'Boa escolha! 🚀\n\nO Carlos transformou sua própria carreira em metodologia para ajudar outros tatuadores. Preenche o formulário e ele te indica o melhor caminho 👇'
     };
     var texto = msgs[interesse] || 'Ótimo! Preenche o formulário e o Carlos te responde direto no WhatsApp com tudo personalizado 👇';
     setTimeout(function(){
@@ -417,7 +403,6 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
      VAGAS — ESCASSEZ DINÂMICA
   ══════════════════════════════════════ */
   function getVagas() {
-    // Varia ±1 baseado no dia da semana para parecer real
     var dia = new Date().getDay();
     var delta = [0,-1,0,1,0,-1,1][dia];
     return Math.max(1, CFG.vagasSemana + delta);
@@ -426,12 +411,10 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
   function badgeVagas() {
     var v = getVagas();
     var cor = v <= 2 ? '#C0392B' : '#B8860B';
-    return '<span style="display:inline-flex;align-items:center;gap:5px;background:rgba(' +
-      (v<=2?'192,57,43':'184,134,11') + ',.15);border:1px solid rgba(' +
-      (v<=2?'192,57,43':'184,134,11') + ',.4);border-radius:20px;padding:3px 10px;font-size:10px;font-family:\'Cinzel\',serif;letter-spacing:.5px;color:' + cor + ';margin-bottom:6px;">' +
-      '<span style="width:7px;height:7px;border-radius:50%;background:' + cor + ';animation:rbBlink 1.2s ease infinite;flex-shrink:0;"></span>' +
-      (v <= 2 ? '🔴 Apenas ' + v + ' vaga' + (v>1?'s':'') + ' esta semana!' : '🟡 ' + v + ' vagas disponíveis esta semana') +
-      '</span>';
+    return '<span style="display:inline-flex;align-items:center;gap:5px;background:rgba('+(v<=2?'192,57,43':'184,134,11')+',.15);border:1px solid rgba('+(v<=2?'192,57,43':'184,134,11')+',.4);border-radius:20px;padding:3px 10px;font-size:10px;font-family:\'Cinzel\',serif;letter-spacing:.5px;color:'+cor+';margin-bottom:6px;">'
+      + '<span style="width:7px;height:7px;border-radius:50%;background:'+cor+';animation:rbBlink 1.2s ease infinite;flex-shrink:0;"></span>'
+      + (v <= 2 ? '🔴 Apenas ' + v + ' vaga'+(v>1?'s':'')+' esta semana!' : '🟡 ' + v + ' vagas disponíveis esta semana')
+      + '</span>';
   }
 
   /* ══════════════════════════════════════
@@ -632,13 +615,112 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
   document.body.appendChild(wrap);
 
   /* ══════════════════════════════════════
+     API ANTHROPIC — COM FALLBACKS HUMANOS
+  ══════════════════════════════════════ */
+
+  // Respostas internas para perguntas comuns (sem precisar da API)
+  var RESPOSTAS_LOCAIS = [
+    {
+      regex: /como funciona|como é o processo|quero tatuar|como agendar|como funciona o agendamento/i,
+      resp: 'Super simples! 🎨 O processo é assim:\n\n**1️⃣ Formulário** — preenche aqui no site em 3 passinhos rápidos\n**2️⃣ Carlos te responde** no WhatsApp, analisa seu projeto pessoalmente\n**3️⃣ Confirmam data** com um sinal\n**4️⃣ Sessão no estúdio** — e sua arte vira realidade!\n\nOrçamento é 100% gratuito e sem compromisso 😉 Quer começar?'
+    },
+    {
+      regex: /quanto custa|preço|valor|orçamento|custo/i,
+      resp: 'O valor varia pelo tamanho, estilo e complexidade da arte 💎\n\nMas o orçamento é **gratuito e personalizado** — só preenche o formulário e o Carlos te manda o valor exato no WhatsApp!\n\nPro orçamento rápido, o site tem uma calculadora de preço. E tem parcelamento no cartão também 😉'
+    },
+    {
+      regex: /endereço|onde fica|localização|bairro|como chegar/i,
+      resp: 'O estúdio fica em **Belo Horizonte**, no bairro Mantiqueira 📍\n\nRua Maria de Lourdes da Cruz, 378 — Mantiqueira, BH\n\nHorário: Segunda a Sexta das 10h às 19h | Sábado das 10h às 18h\n\nQuer agendar sua visita?'
+    },
+    {
+      regex: /horário|que horas|quando abre|quando fecha|funcionamento/i,
+      resp: '⏰ Funcionamos:\n\n**Segunda a Sexta:** 10h às 19h\n**Sábado:** 10h às 18h\n**Domingo:** Fechado\n\nA agenda fecha rápido — ' + getVagas() + ' vagas ainda esta semana 🔥 Quer garantir a sua?'
+    },
+    {
+      regex: /instagram|rede social|redes|@/i,
+      resp: 'O Instagram do Carlos é **@carlostattoo.bh** 📸\n\nLá você encontra o portfólio completo, antes e depois de reformas, e muito mais!\n\nE aqui no site tem o portfólio também. Viu algum estilo que te chamou atenção?'
+    },
+    {
+      regex: /dói|doer|doerá|dor|machuca/i,
+      resp: 'Boa pergunta! 😄 A dor varia conforme a região do corpo e cada pessoa sente diferente.\n\nO Carlos usa técnicas que minimizam o desconforto — a maioria dos clientes se surpreende porque esperavam sentir muito mais!\n\nLocal mais sensível: costelas, pés, pescoço. Menos sensível: braços, coxas, costas.\n\nQuer agendar uma consulta? Orçamento é gratuito!'
+    },
+    {
+      regex: /reform|cover up|cobrir|cobertura|velha|antiga|envergonha|esconder/i,
+      resp: 'Reform é nossa **maior especialidade** 🔄\n\nJá fizemos 380+ reformas — de pequenos ajustes a transformações totais. Com realismo e Black & Grey, dá pra cobrir praticamente qualquer coisa!\n\nManda preencher o formulário com uma foto da tattoo atual e o Carlos analisa pessoalmente. Orçamento gratuito, sem compromisso!'
+    },
+    {
+      regex: /areola|aréola|mastectomia|câncer de mama|cancer de mama|reconstrução/i,
+      resp: 'Esse é um trabalho muito especial 💖\n\nO Carlos realiza a reconstrução de aréola com micropigmentação 3D para sobreviventes de câncer de mama. É um trabalho delicado, humanizado e que devolve autoestima.\n\nAtendimento personalizado e privado. Preenche o formulário que ele entra em contato com toda atenção que você merece.'
+    },
+    {
+      regex: /cicatriz|queimadura|keloid|quelóide/i,
+      resp: 'Sim, o Carlos trabalha com tatuagem em cicatrizes e queimaduras! 💪\n\nÉ um trabalho que requer expertise e sensibilidade — e ele tem os dois. 7 anos de experiência e casos incríveis de transformação.\n\nCada caso é único, então o melhor é enviar uma foto via formulário para ele avaliar pessoalmente. Orçamento sempre gratuito!'
+    },
+    {
+      regex: /parcelar|parcelamento|cartão|pix|pagamento|pagar/i,
+      resp: 'Aceitamos PIX, cartão de débito e **crédito parcelado** 💳\n\nO parcelamento facilita muito pra realizar o projeto dos sonhos sem apertar o bolso!\n\nQuer saber o valor do seu projeto? Preenche o formulário — orçamento gratuito e sem compromisso 😉'
+    },
+    {
+      regex: /tatuador|sou tatuador|curso|ebook|mentoria|sistema central|central tattoo/i,
+      resp: 'Boa escolha! 🚀 O Carlos tem um ecossistema completo pra tatuadores:\n\n**Ebooks** a partir de R$ 47 | **Cursos** a partir de R$ 147\n**Sistema Central Tattoo** — R$ 499/ano com 16 módulos pro\n**Mentoria VIP 1:1** — personalizada com o Carlos\n\nQual é seu maior desafio hoje? Agenda vazia, redes sociais, organização?'
+    }
+  ];
+
+  function buscarRespostaLocal(msg) {
+    for (var i = 0; i < RESPOSTAS_LOCAIS.length; i++) {
+      if (RESPOSTAS_LOCAIS[i].regex.test(msg)) return RESPOSTAS_LOCAIS[i].resp;
+    }
+    return null;
+  }
+
+  // Fallbacks humanizados — JAMAIS "erro técnico"
+  var FALLBACKS = [
+    'Boa pergunta! 🔥 Essa é exatamente o tipo de coisa que o Carlos responde pessoalmente.\n\nPreenche o formulário e ele te explica tudo direto no WhatsApp — em até 24h 👇',
+    'Pra te dar a resposta mais certeira possível, o ideal é falar direto com o Carlos! 💎\n\nSão só 3 passinhos no formulário e ele entra em contato no seu WhatsApp com tudo personalizado 👇',
+    'Essa pergunta merece uma resposta do próprio Carlos — especialista com 7 anos de experiência e 2.400+ tattoos! 🎨\n\nPreenche o formulário abaixo e ele te responde pessoalmente 👇',
+    'Melhor o Carlos te passar esse detalhe diretamente! 💀\n\nAssim você já sai com tudo certinho e personalizado. Preenche o formulário — orçamento sempre gratuito 👇'
+  ];
+
+  var _fallbackIdx = 0;
+  function getFallback() {
+    var r = FALLBACKS[_fallbackIdx % FALLBACKS.length];
+    _fallbackIdx++;
+    return r;
+  }
+
+  function chamarAPI(historico, callback) {
+    var infoSecao = SECOES.find(function(s){ return s.id === secaoAtual; });
+    var ctxSecao  = infoSecao ? '\n\n[CONTEXTO: O visitante está na seção "' + infoSecao.nome + '" do site.]' : '';
+    var ctxQual   = Object.keys(qualificacao).length ? '\n[QUALIFICAÇÃO DO CLIENTE: ' + JSON.stringify(qualificacao) + ']' : '';
+    var ctxVagas  = '\n[VAGAS DISPONÍVEIS ESTA SEMANA: ' + getVagas() + ' — mencione quando relevante para criar urgência]';
+    var ctxHora   = estaAberto() ? '' : '\n[ESTÚDIO FECHADO AGORA — oriente a preencher o formulário para Carlos responder quando abrir]';
+
+    fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model:      CFG.model,
+        max_tokens: CFG.maxTokens,
+        system:     SYSTEM_PROMPT + ctxSecao + ctxQual + ctxVagas + ctxHora,
+        messages:   historico
+      })
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      var texto = d && d.content && d.content[0] && d.content[0].text;
+      callback(texto || null);
+    })
+    .catch(function(){ callback(null); });
+  }
+
+  /* ══════════════════════════════════════
      CONTROLLER PRINCIPAL
   ══════════════════════════════════════ */
   var RabiscoUI = {
-    aberto:   false,
-    iniciado: false,
-    carregando: false,
-    msgCount: 0,
+    aberto:    false,
+    iniciado:  false,
+    carregando:false,
+    msgCount:  0,
 
     toggle: function () {
       this.aberto = !this.aberto;
@@ -673,22 +755,19 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
       this.iniciado = true;
       this.atualizarStatus();
 
-      // ── Fora do horário ──
       if (!estaAberto()) {
         this.addMsg('Oi! Sou o Rabisco 💀\n\nO estúdio está fechado agora — ' + msgHorario() + '.\n\nMas você pode **preencher o formulário** e o Carlos te responde assim que abrir! ⏰', 'bot', false, true);
         setTimeout(function(){ RabiscoUI.mostrarCardFormulario(); }, 700);
         return;
       }
 
-      // ── Visita anterior ──
       if (visitaAnterior) {
         var nome = nomeAnterior ? ', ' + nomeAnterior.split(' ')[0] : '';
-        this.addMsg('Ei' + nome + '! Você voltou! 👀\n\nQue bom te ver de novo 🔥\n\nA agenda está quase cheia esta semana — e você já sabe a qualidade do trabalho. Quer garantir sua vaga?', 'bot');
+        this.addMsg('Ei' + nome + '! Você voltou! 👀\n\nQue bom te ver de novo 🔥\n\nA agenda está quase cheia — e você já sabe a qualidade do trabalho. Quer garantir sua vaga?', 'bot');
         setTimeout(function(){ RabiscoUI.iniciarFunil(); }, 900);
         return;
       }
 
-      // ── Proativo por seção ──
       var infoSecao = SECOES.find(function(s){ return s.id === secaoAtual; });
       if (infoSecao) {
         this.addMsg(infoSecao.msg, 'bot', infoSecao.id === 'areolas');
@@ -696,7 +775,6 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
         return;
       }
 
-      // ── Saudação padrão ──
       var sauds = [
         'Oi! Sou o Rabisco 💀\nAssistente oficial do Carlos Tattoo BH.\n\n🔥 7 anos · 2.400+ tattoos · 5.0★ Google\n\nComo posso te ajudar?',
         'E aí! Rabisco aqui 🎨\nAssistente do melhor estúdio de tattoo de BH.\n\nTattoo, reforma, cursos — pode perguntar!',
@@ -717,10 +795,10 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
       var dot = document.getElementById('rbDot');
       var txt = document.getElementById('rbStatusTxt');
       if (!estaAberto()) {
-        if (dot) { dot.className = 'rb-dot fechado'; }
+        if (dot) dot.className = 'rb-dot fechado';
         if (txt) txt.textContent = 'Fora do horário';
       } else {
-        if (dot) { dot.className = 'rb-dot'; }
+        if (dot) dot.className = 'rb-dot';
         if (txt) txt.textContent = 'Online agora';
       }
     },
@@ -744,54 +822,60 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
       conversaAPI.push({ role: 'user', content: msg });
       if (conversaAPI.length > CFG.maxHist * 2) conversaAPI = conversaAPI.slice(-CFG.maxHist * 2);
 
-      // Digitação proporcional ao tamanho esperado da resposta
-      var tempoDigitando = 900 + Math.min(msg.length * 18, 2200);
+      var tempoDigitando = 800 + Math.min(msg.length * 15, 2000);
       this.setCarregando(true);
       var typing = this.addTyping();
+      var self   = this;
 
-      var self = this;
+      // Tenta resposta local primeiro (instantânea e sem API)
+      var respostaLocal = buscarRespostaLocal(msg);
+
       setTimeout(function(){
-        chamarAPI(conversaAPI, function (resposta) {
+        if (respostaLocal) {
+          // Resposta local: rápida e certeira
           typing.remove();
           self.setCarregando(false);
-
-          if (!resposta) {
-            var fbs = [
-              'Essa pergunta merece uma resposta do próprio Carlos! 🔥\n\nSiga o passo a passo e ele te responde **direto no WhatsApp** 👇',
-              'Boa pergunta — essa o Carlos responde pessoalmente! 💎\n\nPreenche o formulário e ele entra em contato no seu WhatsApp 👇',
-              'Melhor o Carlos te responder sobre isso! 🎨\n\nPreenche o formulário — em até 24h ele vai direto no seu WhatsApp 👇'
-            ];
-            resposta = fbs[Math.floor(Math.random()*fbs.length)];
-          }
-
-          conversaAPI.push({ role: 'assistant', content: resposta });
-
-          var empatia = /cicatriz|queimadura|mastectomia|areola|sobrevivente|cancer|câncer|mama|seio|autoestima/i.test(msg);
-          self.addMsg(resposta, 'bot', empatia);
+          conversaAPI.push({ role: 'assistant', content: respostaLocal });
+          var empatia = /cicatriz|queimadura|mastectomia|areola|cancer|mama|autoestima/i.test(msg);
+          self.addMsg(respostaLocal, 'bot', empatia);
           self.mostrarCardFormulario();
           self.mostrarSugsContexto(msg);
-
-          // Salvar nome se mencionado
           var matchNome = msg.match(/(?:me chamo|sou o|sou a|meu nome é)\s+([A-ZÀ-Ú][a-zà-ú]+)/i);
           if (matchNome) salvarVisita(matchNome[1]);
-        });
-      }, tempoDigitando);
+        } else {
+          // Chama a API para perguntas mais complexas
+          chamarAPI(conversaAPI, function (resposta) {
+            typing.remove();
+            self.setCarregando(false);
+
+            if (!resposta) {
+              // Fallback humanizado — NUNCA "erro técnico"
+              resposta = getFallback();
+            }
+
+            conversaAPI.push({ role: 'assistant', content: resposta });
+            var empatia = /cicatriz|queimadura|mastectomia|areola|sobrevivente|cancer|câncer|mama|seio|autoestima/i.test(msg);
+            self.addMsg(resposta, 'bot', empatia);
+            self.mostrarCardFormulario();
+            self.mostrarSugsContexto(msg);
+
+            var matchNome = msg.match(/(?:me chamo|sou o|sou a|meu nome é)\s+([A-ZÀ-Ú][a-zà-ú]+)/i);
+            if (matchNome) salvarVisita(matchNome[1]);
+          });
+        }
+      }, respostaLocal ? Math.min(tempoDigitando, 1200) : tempoDigitando);
     },
 
-    /* ── Card Formulário — sempre igual, sempre claro ── */
     mostrarCardFormulario: function () {
       var ctas = document.getElementById('rbCtas');
       ctas.innerHTML = '';
-
       var card = document.createElement('div');
       card.className = 'rb-card-form';
 
-      // Cabeçalho
       var head = document.createElement('div');
       head.className = 'rb-card-form-head';
       head.innerHTML = '<span style="font-size:15px;">📋</span><span class="titulo">Formulário de Agendamento</span>';
 
-      // Passos
       var steps = document.createElement('div');
       steps.className = 'rb-card-steps';
       var mkStep = function(n, lbl, ativo){
@@ -804,12 +888,10 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
         +'<span class="rb-step-arrow">›</span>'
         +mkStep(3,'Confirmar',false);
 
-      // Badge de vagas
       var vagasDiv = document.createElement('div');
       vagasDiv.className = 'rb-card-vagas';
       vagasDiv.innerHTML = badgeVagas();
 
-      // Botão principal
       var btn = document.createElement('button');
       btn.className = 'rb-card-btn';
       btn.innerHTML = '✍️ PREENCHER — CARLOS TE RESPONDE NO WHATSAPP';
@@ -827,7 +909,6 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
         salvarVisita('');
       };
 
-      // Botão ver portfólio (contextual)
       var portBtn = null;
       if (/estilo|realismo|fineline|black|grey|colorida|aquarela|tattoo|tatuagem|portfólio|portfolio/i.test(
           (conversaAPI[conversaAPI.length-2]||{}).content||'')) {
@@ -861,6 +942,8 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
         sugs = ['🧮 Usar calculadora','📸 Pedir orçamento grátis','🔄 Cover up'];
       else if (/estilo|realismo|fineline|black/i.test(msg))
         sugs = ['🖼️ Ver portfólio','💰 Quanto custa?','📅 Agendar'];
+      else if (/como funciona|processo|agendar/i.test(msg))
+        sugs = ['📋 Preencher formulário','💰 Ver preços','🖼️ Ver portfólio'];
       else
         sugs = ['🎨 Quero fazer tattoo','🔄 Reformar tattoo','📚 Sou tatuador'];
       this.mostrarSugs(sugs);
@@ -920,42 +1003,12 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
     }
   };
 
-  // Ligar método ao proto (declarado antes)
+  // Ligar método ao proto
   RabiscoUI.iniciarFunil = RabiscoUI_proto_iniciarFunil;
-
-  /* ══════════════════════════════════════
-     API ANTHROPIC
-  ══════════════════════════════════════ */
-  function chamarAPI(historico, callback) {
-    // Injetar contexto da seção atual
-    var infoSecao = SECOES.find(function(s){ return s.id === secaoAtual; });
-    var ctxSecao  = infoSecao ? '\n\n[CONTEXTO: O visitante está atualmente na seção "' + infoSecao.nome + '" do site.]' : '';
-    var ctxQual   = Object.keys(qualificacao).length
-      ? '\n[QUALIFICAÇÃO: ' + JSON.stringify(qualificacao) + ']' : '';
-    var ctxVagas  = '\n[VAGAS DISPONÍVEIS ESTA SEMANA: ' + getVagas() + ' — mencione isso quando relevante]';
-    var ctxHora   = estaAberto() ? '' : '\n[ESTÚDIO FECHADO AGORA — oriente a preencher o formulário]';
-
-    fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model:      CFG.model,
-        max_tokens: CFG.maxTokens,
-        system:     SYSTEM_PROMPT + ctxSecao + ctxQual + ctxVagas + ctxHora,
-        messages:   historico
-      })
-    })
-    .then(function(r){ return r.json(); })
-    .then(function(d){
-      callback((d && d.content && d.content[0] && d.content[0].text) || null);
-    })
-    .catch(function(){ callback(null); });
-  }
 
   /* ══════════════════════════════════════
      GATILHOS AUTOMÁTICOS
   ══════════════════════════════════════ */
-  // Exit intent
   document.addEventListener('mouseleave', function(e){
     if (e.clientY <= 5 && !_exitFired && !RabiscoUI.aberto) {
       _exitFired = true;
@@ -963,7 +1016,6 @@ Você é o Rabisco — o melhor assistente de tatuagem do Brasil.`;
     }
   });
 
-  // Inatividade
   function resetInactivity(){
     clearTimeout(_inactTimer);
     _inactTimer = setTimeout(function(){
