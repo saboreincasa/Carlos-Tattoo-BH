@@ -6347,7 +6347,8 @@ function recusarCookies(){
 </div>
 
 <!-- ═══ BOTÃO VOLTAR AO TOPO PREMIUM ═══ -->
-<button id="scroll-top-btn" aria-label="Voltar ao topo" onclick="scrollToTopSmooth()">
+<button id="scroll-top-btn" aria-label="Voltar ao topo" onclick="scrollToTopSmooth()"
+  style="position:fixed;bottom:100px;right:24px;z-index:9999;width:52px;height:52px;border-radius:50%;background:linear-gradient(145deg,#1C1208,#0A0702);border:none;cursor:pointer;display:none;flex-direction:column;align-items:center;justify-content:center;gap:1px;box-shadow:0 4px 20px rgba(0,0,0,.5),0 0 0 1px rgba(201,168,76,.18);">
   <span class="stt-progress-ring">
     <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle class="stt-track" cx="26" cy="26" r="23" stroke-width="2"/>
@@ -6379,28 +6380,33 @@ function recusarCookies(){
 function scrollToTopSmooth(){
   window.scrollTo({top:0,behavior:'smooth'});
 }
-(function(){
+
+// Aguarda DOM e todos os scripts carregarem
+window.addEventListener('load', function(){
   var btn = document.getElementById('scroll-top-btn');
-  if(!btn) return;
+  if(!btn){ console.warn('scroll-top-btn não encontrado'); return; }
+
   var bar = btn.querySelector('.stt-bar');
-  var CIRC = 144.5; // 2π × 23
+  var CIRC = 144.5;
 
   function atualizar(){
-    var scrolled = window.scrollY;
-    var total    = document.documentElement.scrollHeight - window.innerHeight;
-    var pct      = total > 0 ? scrolled / total : 0;
+    var scrolled = window.scrollY || window.pageYOffset;
+    var total = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = total > 0 ? scrolled / total : 0;
 
-    // Visibilidade
-    if(scrolled > 500) btn.classList.add('visible');
-    else               btn.classList.remove('visible');
+    if(scrolled > 300){
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
 
-    // Anel de progresso
     if(bar) bar.style.strokeDashoffset = CIRC - (CIRC * pct);
   }
 
   window.addEventListener('scroll', atualizar, {passive:true});
+  // Chamar imediatamente para estado inicial
   atualizar();
-})();
+});
 </script>
 
 <!-- ═══════════════════════════════════════════════════════

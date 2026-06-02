@@ -6431,9 +6431,10 @@ html { scroll-behavior: smooth; }
   padding:0;
 }
 #scroll-top-btn.visible{
-  display:flex;
-  opacity:1;
-  transform:translateY(0) scale(1);
+  display:flex !important;
+  opacity:1 !important;
+  transform:translateY(0) scale(1) !important;
+  visibility:visible !important;
 }
 #scroll-top-btn:hover{
   box-shadow:0 8px 32px rgba(201,168,76,.35), 0 0 0 1px rgba(201,168,76,.4);
