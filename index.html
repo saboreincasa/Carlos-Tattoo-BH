@@ -4402,7 +4402,7 @@ const _origConfirmarPix = confirmarPix;
   <div class="drawer-links">
     <a class="drawer-link" href="#portfolio" onclick="toggleDrawer()"><span class="drawer-link-icon">🎨</span><span class="drawer-link-txt">Portfólio</span></a>
     <a class="drawer-link" href="#cobertura" onclick="toggleDrawer()"><span class="drawer-link-icon">🔄</span><span class="drawer-link-txt">Reforma</span></a>
-    <a class="drawer-link" href="#cursos" onclick="toggleDrawer()"><span class="drawer-link-icon">🎓</span><span class="drawer-link-txt">Cursos</span></a>
+    <a class="drawer-link" href="#cursos" onclick="toggleDrawer()"><span class="drawer-link-icon" style="display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22" aria-hidden="true"><path d="M12 3L2 8l10 5 10-5-10-5z" fill="white"/><path d="M2 8v6" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M6 10.5v4.5c0 1.5 2.5 3 6 3s6-1.5 6-3V10.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="drawer-link-txt">Cursos</span></a>
     <a class="drawer-link" href="#ebooks" onclick="toggleDrawer()"><span class="drawer-link-icon">📚</span><span class="drawer-link-txt">Ebooks</span></a>
     <a class="drawer-link" href="#studio" onclick="toggleDrawer()"><span class="drawer-link-icon">🏛️</span><span class="drawer-link-txt">Estúdio</span></a>
     <a class="drawer-link" href="#sobre" onclick="toggleDrawer()"><span class="drawer-link-icon">👤</span><span class="drawer-link-txt">Sobre Carlos</span></a>
@@ -4433,7 +4433,7 @@ const _origConfirmarPix = confirmarPix;
       <span class="mbn-center-icon">📅</span>
     </button>
     <button class="mbn-item" onclick="document.querySelector('#cursos').scrollIntoView({behavior:'smooth'})">
-      <span class="mbn-item-icon">🎓</span>
+      <span class="mbn-item-icon" style="display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22" aria-hidden="true"><path d="M12 3L2 8l10 5 10-5-10-5z" fill="white"/><path d="M2 8v6" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M6 10.5v4.5c0 1.5 2.5 3 6 3s6-1.5 6-3V10.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       <span class="mbn-item-label">Cursos</span>
     </button>
     <button aria-label="Abrir menu" class="mbn-item" onclick="toggleDrawer()">
@@ -6342,23 +6342,25 @@ function recusarCookies(){
 
 
 
-<!-- ═══ SCROLL TOP ═══ -->
-<div id="wpp-float-group" aria-label="Botões de contato flutuantes" role="group">
-</div>
+<!-- ═══ GRUPO FLUTUANTE (vazio — reservado para futuros botões) ═══ -->
+<div id="wpp-float-group" aria-label="Botões de contato flutuantes" role="group"></div>
 
-<!-- ═══ BOTÃO VOLTAR AO TOPO PREMIUM ═══ -->
-<button id="scroll-top-btn" aria-label="Voltar ao topo" onclick="scrollToTopSmooth()"
-  style="position:fixed;bottom:100px;right:24px;z-index:9999;width:52px;height:52px;border-radius:50%;background:linear-gradient(145deg,#1C1208,#0A0702);border:none;cursor:pointer;display:none;flex-direction:column;align-items:center;justify-content:center;gap:1px;box-shadow:0 4px 20px rgba(0,0,0,.5),0 0 0 1px rgba(201,168,76,.18);">
+<!-- ═══ BOTÃO VOLTAR AO TOPO
+     Posição: fixed bottom:16px right:26px
+     Fica abaixo do #skullBtn (Rabisco) sem se sobrepor.
+     Aparece somente após 300px de scroll.
+═══════════════════════════════════════════════════ -->
+<button id="scroll-top-btn" aria-label="Voltar ao topo" onclick="scrollToTopSmooth()">
   <span class="stt-progress-ring">
-    <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle class="stt-track" cx="26" cy="26" r="23" stroke-width="2"/>
-      <circle class="stt-bar"   cx="26" cy="26" r="23" stroke-width="2"
-        stroke-dasharray="144.5" stroke-dashoffset="144.5"/>
+    <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle class="stt-track" cx="22" cy="22" r="19" stroke-width="1.5"/>
+      <circle class="stt-bar"   cx="22" cy="22" r="19" stroke-width="1.5"
+        stroke-dasharray="119.4" stroke-dashoffset="119.4"/>
     </svg>
   </span>
   <span class="stt-icon">
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-      <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.5"
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="15" height="15">
+      <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2"
         stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </span>
@@ -6387,7 +6389,7 @@ window.addEventListener('load', function(){
   if(!btn){ console.warn('scroll-top-btn não encontrado'); return; }
 
   var bar = btn.querySelector('.stt-bar');
-  var CIRC = 144.5;
+  var CIRC = 119.4;
 
   function atualizar(){
     var scrolled = window.scrollY || window.pageYOffset;
