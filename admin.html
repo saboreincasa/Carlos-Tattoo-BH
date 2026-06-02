@@ -466,6 +466,53 @@ table.tbl tr:hover td{background:#FDFCFA;}
   .kpi-grid{grid-template-columns:1fr 1fr;}
   .prods-grid{grid-template-columns:1fr;}
 }
+
+/* ══════════════════════════════════
+   ABA RABISCO IA
+══════════════════════════════════ */
+.rb-kpi-skull::before{ background: linear-gradient(135deg,#A07830,#E8B800) !important; }
+.rb-funil-step{
+  display:flex;flex-direction:column;align-items:center;gap:6px;min-width:90px;
+}
+.rb-funil-bar-wrap{
+  width:64px;display:flex;align-items:flex-end;justify-content:center;
+  height:100px;
+}
+.rb-funil-bar{
+  width:48px;border-radius:6px 6px 0 0;
+  background:linear-gradient(to top,#A07830,#E8B800);
+  min-height:8px;transition:height .4s;
+  display:flex;align-items:flex-start;justify-content:center;padding-top:6px;
+}
+.rb-funil-bar-val{font-size:11px;font-weight:700;color:#0a0500;}
+.rb-funil-lbl{font-size:10px;color:var(--tx3);text-align:center;font-weight:500;max-width:88px;line-height:1.3;}
+.rb-funil-pct{font-size:11px;font-weight:700;color:var(--gd);}
+.rb-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:4px;}
+.rb-bar-lbl{font-size:11px;color:var(--tx2);min-width:90px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rb-bar-track{flex:1;height:8px;background:var(--bg);border-radius:4px;overflow:hidden;}
+.rb-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#A07830,#E8B800);transition:width .5s;}
+.rb-bar-val{font-size:11px;color:var(--tx3);min-width:28px;text-align:right;}
+.rb-log-item{
+  display:flex;align-items:flex-start;gap:8px;
+  padding:7px 0;border-bottom:1px solid var(--brd);font-size:12px;
+}
+.rb-log-item:last-child{border-bottom:none;}
+.rb-log-tipo{
+  font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+  padding:2px 7px;border-radius:10px;white-space:nowrap;flex-shrink:0;
+}
+.rb-log-tipo.conversa{background:var(--gdb);color:var(--gd);}
+.rb-log-tipo.mensagem{background:var(--blub);color:var(--blu);}
+.rb-log-tipo.form{background:var(--grnb);color:var(--grn);}
+.rb-log-tipo.funil{background:#F3E8FF;color:#7E22CE;}
+.rb-log-tipo.secao{background:var(--bg);color:var(--tx3);}
+.rb-log-ts{font-size:10px;color:var(--tx3);white-space:nowrap;}
+.rb-log-det{color:var(--tx2);flex:1;}
+.rb-taxa{font-size:11px;color:var(--tx3);margin-top:4px;}
+@media(max-width:768px){
+  .rb-grid-2col{grid-template-columns:1fr !important;}
+}
+
 </style>
 </head>
 <body>
@@ -531,6 +578,7 @@ table.tbl tr:hover td{background:#FDFCFA;}
       <button class="tab-btn" onclick="mudaTab('especiais')" id="tab-especiais">💗 Especiais</button>
       <button class="tab-btn" onclick="mudaTab('depoimentos')" id="tab-depoimentos">💬 Depoimentos</button>
       <button class="tab-btn" onclick="mudaTab('aniversarios')" id="tab-aniversarios">🎂 Aniversários</button>
+      <button class="tab-btn" onclick="mudaTab('rabisco')" id="tab-rabisco">🤖 Rabisco IA</button>
     </div>
 
     <!-- ── ABA: LEADS TATUAGEM ── -->
@@ -689,6 +737,79 @@ table.tbl tr:hover td{background:#FDFCFA;}
       <div class="card">
         <div class="card-title"><span>🎂</span> Aniversariantes nos próximos 2 dias</div>
         <div id="aniversariantes"><div class="tbl-empty">Nenhum aniversariante nos próximos 2 dias.</div></div>
+      </div>
+    </div>
+
+
+    <!-- ── ABA: RABISCO IA ── -->
+    <div id="aba-rabisco" style="display:none;">
+
+      <!-- Aviso SQL setup -->
+      <div id="rb-setup-aviso" style="background:var(--ambb);border:1px solid rgba(217,119,6,.25);border-radius:12px;padding:16px 20px;margin-bottom:18px;display:flex;align-items:flex-start;gap:12px;">
+        <span style="font-size:22px;flex-shrink:0;">⚙️</span>
+        <div style="flex:1;">
+          <div style="font-weight:700;color:var(--amb);font-size:13px;margin-bottom:6px;">Configuração necessária — criar tabela no Supabase</div>
+          <div style="font-size:12px;color:var(--tx2);margin-bottom:10px;">Execute este SQL uma vez no Supabase SQL Editor para ativar o tracking do Rabisco:</div>
+          <div style="position:relative;">
+            <pre id="rb-sql-code" style="background:#1e1e1e;color:#d4d4d4;padding:12px 14px;border-radius:8px;font-size:11px;overflow-x:auto;margin:0;line-height:1.6;">CREATE TABLE IF NOT EXISTS rabisco_eventos (
+  id         bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  evento     text NOT NULL,
+  dados      text,
+  secao      text,
+  criado_em  timestamptz DEFAULT now()
+);
+ALTER TABLE rabisco_eventos ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "anon insert" ON rabisco_eventos FOR INSERT TO anon WITH CHECK (true);
+CREATE POLICY "auth select" ON rabisco_eventos FOR SELECT TO authenticated USING (true);
+CREATE POLICY "auth delete" ON rabisco_eventos FOR DELETE TO authenticated USING (true);</pre>
+            <button onclick="rbCopiarSQL()" style="position:absolute;top:8px;right:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;padding:4px 10px;border-radius:6px;font-size:10px;cursor:pointer;font-family:'DM Sans',sans-serif;" id="rb-copy-sql-btn">📋 Copiar</button>
+          </div>
+          <button onclick="document.getElementById('rb-setup-aviso').style.display='none'" style="margin-top:10px;background:none;border:none;color:var(--tx3);font-size:11px;cursor:pointer;text-decoration:underline;">Fechar aviso (já executei)</button>
+        </div>
+      </div>
+
+      <!-- KPIs do Rabisco -->
+      <div class="kpi-grid" id="rb-kpi-grid" style="margin-bottom:20px;"></div>
+
+      <!-- Funil de conversão -->
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-title"><span>🎯</span> Funil de Conversão do Rabisco</div>
+        <div id="rb-funil-visual" style="display:flex;align-items:flex-end;gap:12px;padding:8px 0 16px;overflow-x:auto;"></div>
+      </div>
+
+      <!-- Grid linha 2 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;" class="rb-grid-2col">
+
+        <!-- Qualificações do funil -->
+        <div class="card">
+          <div class="card-title"><span>📊</span> Qualificação dos Leads</div>
+          <div id="rb-qualif" style="display:flex;flex-direction:column;gap:10px;"></div>
+        </div>
+
+        <!-- Horário de pico -->
+        <div class="card">
+          <div class="card-title"><span>⏰</span> Horário de Pico</div>
+          <div id="rb-horarios" style="display:flex;flex-direction:column;gap:8px;"></div>
+        </div>
+
+      </div>
+
+      <!-- Seções mais visitadas + Log -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;" class="rb-grid-2col">
+        <div class="card">
+          <div class="card-title"><span>📍</span> Seções Mais Visitadas</div>
+          <div id="rb-secoes" style="display:flex;flex-direction:column;gap:8px;"></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span>📋</span> Log de Eventos Recentes <span class="card-sub"><button class="btn btn-danger btn-sm" onclick="rbLimparLog()">🗑️ Limpar log</button></span></div>
+          <div id="rb-log" style="max-height:260px;overflow-y:auto;"></div>
+        </div>
+      </div>
+
+      <!-- Botão reset -->
+      <div style="text-align:right;">
+        <button class="btn btn-danger btn-sm" onclick="rbResetarStats()">🗑️ Zerar todas as estatísticas do Rabisco</button>
+        <button class="btn btn-export btn-sm" style="margin-left:8px;" onclick="rbExportarCSV()">📥 Exportar CSV</button>
       </div>
     </div>
 
@@ -1167,6 +1288,7 @@ function mudaTab(tab) {
   if (tab==='cursos') renderLeadsCursos().catch(console.error);
   if (tab==='especiais') renderEspeciais();
   if (tab==='acessos') carregarAcessos();
+  if (tab==='rabisco')  carregarRabisco();
   if (tab==='vendas') carregarVendas();
 }
 
@@ -1797,6 +1919,251 @@ function exportarVendas() {
   const csv = ['Produto,Valor,Data', ...v.map(x => `"${x.produto}",${x.valor},"${x.data}"`)].join('\n');
   const a = document.createElement('a'); a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv); a.download = 'vendas.csv'; a.click();
 }
+
+
+// ══════════════════════════════════════════════════
+//  ABA RABISCO IA — Analytics
+// ══════════════════════════════════════════════════
+async function carregarRabisco() {
+  var stats = {};
+  var log   = [];
+
+  // ── Buscar do Supabase primeiro (fonte principal) ──
+  try {
+    if (supabaseClient) {
+      const { data: eventos } = await supabaseClient
+        .from('rabisco_eventos')
+        .select('*')
+        .order('criado_em', { ascending: false })
+        .limit(500);
+
+      if (eventos && eventos.length) {
+        log = eventos; // log vem do Supabase
+
+        // Reconstruir stats a partir dos eventos
+        stats = { conversas:0, msgs:0, cliquesForm:0, funisConcluidos:0,
+          qualificacoes:{ tattoo_nova:0, cobertura:0, areola:0, tatuador:0 },
+          secoes:{}, horarios:{}, ultimaConversa:null };
+
+        eventos.forEach(function(ev) {
+          var hr = ev.criado_em ? new Date(ev.criado_em).getHours()+'h' : '?h';
+          stats.horarios[hr] = (stats.horarios[hr]||0) + 1;
+          if (ev.evento === 'conversa_iniciada') { stats.conversas++; stats.ultimaConversa = ev.criado_em; }
+          if (ev.evento === 'mensagem_enviada')   stats.msgs++;
+          if (ev.evento === 'form_clicado')        stats.cliquesForm++;
+          if (ev.evento === 'funil_concluido') {
+            stats.funisConcluidos++;
+            try {
+              var d = typeof ev.dados === 'string' ? JSON.parse(ev.dados) : ev.dados;
+              if (d && d.interesse && stats.qualificacoes[d.interesse] !== undefined)
+                stats.qualificacoes[d.interesse]++;
+            } catch(e){}
+          }
+          if (ev.evento === 'secao_vista' && ev.secao)
+            stats.secoes[ev.secao] = (stats.secoes[ev.secao]||0) + 1;
+        });
+
+      } else {
+        // Fallback localStorage se Supabase vazio
+        try { stats = JSON.parse(localStorage.getItem('rb_stats') || 'null') || {}; } catch(e){}
+        try { log   = JSON.parse(localStorage.getItem('rb_log')   || '[]');         } catch(e){}
+      }
+    } else {
+      try { stats = JSON.parse(localStorage.getItem('rb_stats') || 'null') || {}; } catch(e){}
+      try { log   = JSON.parse(localStorage.getItem('rb_log')   || '[]');         } catch(e){}
+    }
+  } catch(sbErr) {
+    console.warn('Supabase Rabisco:', sbErr);
+    try { stats = JSON.parse(localStorage.getItem('rb_stats') || 'null') || {}; } catch(e){}
+    try { log   = JSON.parse(localStorage.getItem('rb_log')   || '[]');         } catch(e){}
+  }
+
+  var conversas      = stats.conversas       || 0;
+  var msgs           = stats.msgs            || 0;
+  var cliquesForm    = stats.cliquesForm     || 0;
+  var funisConcluidos= stats.funisConcluidos || 0;
+  var qualif         = stats.qualificacoes   || {};
+  var secoes         = stats.secoes          || {};
+  var horarios       = stats.horarios        || {};
+  var ultimaConversa = stats.ultimaConversa  || null;
+
+  // ── Taxa de conversão ──
+  var taxaForm  = conversas > 0 ? Math.round(cliquesForm / conversas * 100)   : 0;
+  var taxaFunil = conversas > 0 ? Math.round(funisConcluidos / conversas * 100): 0;
+  var msgMedia  = conversas > 0 ? (msgs / conversas).toFixed(1)               : '0';
+
+  // ── KPIs ──
+  var kpiGrid = document.getElementById('rb-kpi-grid');
+  if (kpiGrid) kpiGrid.innerHTML = [
+    { lbl:'Conversas Iniciadas', val: conversas,       sub:'Total histórico',            cls:'rb-kpi-skull' },
+    { lbl:'Msgs por Conversa',   val: msgMedia,         sub:'Média de engajamento',       cls:'amber' },
+    { lbl:'Cliques no Formulário',val: cliquesForm,    sub: taxaForm+'% de conversão',   cls:'green' },
+    { lbl:'Funis Concluídos',    val: funisConcluidos, sub: taxaFunil+'% dos visitantes', cls:'blue' },
+  ].map(function(k){
+    return '<div class="kpi-card '+k.cls+'"><div class="kpi-label">'+k.lbl+'</div>'
+      +'<div class="kpi-val">'+k.val+'</div>'
+      +'<div class="kpi-sub">'+k.sub+'</div></div>';
+  }).join('');
+
+  // ── Funil visual ──
+  var funil = document.getElementById('rb-funil-visual');
+  if (funil) {
+    var etapas = [
+      { lbl:'Visitantes abriram', val: conversas },
+      { lbl:'Completaram funil',  val: funisConcluidos },
+      { lbl:'Clicaram no form',   val: cliquesForm },
+    ];
+    var maxVal = Math.max.apply(null, etapas.map(function(e){ return e.val; }).concat([1]));
+    funil.innerHTML = etapas.map(function(e, i){
+      var pct   = conversas > 0 ? Math.round(e.val / conversas * 100) : 0;
+      var hPct  = Math.round(e.val / maxVal * 90);
+      var cores = ['#E8B800','#A07830','#16A34A'];
+      return '<div class="rb-funil-step">'
+        +'<div class="rb-funil-bar-wrap">'
+        +'<div class="rb-funil-bar" style="height:'+hPct+'px;background:'+cores[i]+';min-height:16px;">'
+        +'<span class="rb-funil-bar-val" style="color:'+(i===0?'#0a0500':'#fff')+';">'+e.val+'</span>'
+        +'</div></div>'
+        +'<div class="rb-funil-lbl">'+e.lbl+'</div>'
+        +'<div class="rb-funil-pct">'+pct+'%</div>'
+        +'</div>'
+        + (i < etapas.length-1 ? '<div style="align-self:center;padding-bottom:32px;color:var(--tx3);font-size:20px;flex-shrink:0;">›</div>' : '');
+    }).join('');
+    if (!conversas) funil.innerHTML = '<div class="tbl-empty" style="width:100%;">Nenhuma conversa registrada ainda. O Rabisco precisa ser usado no site.</div>';
+  }
+
+  // ── Qualificações ──
+  var qEl = document.getElementById('rb-qualif');
+  if (qEl) {
+    var qLabels = { tattoo_nova:'🎨 Tattoo nova', cobertura:'🔄 Cover up / Reforma', areola:'💖 Reconstrução de Aréola', tatuador:'📚 Sou Tatuador' };
+    var qTotal  = Object.values(qualif).reduce(function(a,b){ return a+b; }, 0) || 1;
+    qEl.innerHTML = Object.entries(qLabels).map(function(entry){
+      var k = entry[0], lbl = entry[1];
+      var v   = qualif[k] || 0;
+      var pct = Math.round(v / qTotal * 100);
+      return '<div class="rb-bar-row">'
+        +'<span class="rb-bar-lbl">'+lbl+'</span>'
+        +'<div class="rb-bar-track"><div class="rb-bar-fill" style="width:'+pct+'%;"></div></div>'
+        +'<span class="rb-bar-val">'+v+'</span>'
+        +'</div>';
+    }).join('') || '<div class="tbl-empty">Sem dados ainda.</div>';
+  }
+
+  // ── Horários de pico ──
+  var hEl = document.getElementById('rb-horarios');
+  if (hEl) {
+    var hEntries = Object.entries(horarios).sort(function(a,b){ return b[1]-a[1]; }).slice(0,8);
+    var hMax = hEntries.length ? hEntries[0][1] : 1;
+    hEl.innerHTML = hEntries.length ? hEntries.map(function(e){
+      var pct = Math.round(e[1]/hMax*100);
+      return '<div class="rb-bar-row">'
+        +'<span class="rb-bar-lbl">'+e[0]+'</span>'
+        +'<div class="rb-bar-track"><div class="rb-bar-fill" style="width:'+pct+'%;background:linear-gradient(90deg,#1D4ED8,#60A5FA);"></div></div>'
+        +'<span class="rb-bar-val">'+e[1]+'</span>'
+        +'</div>';
+    }).join('') : '<div class="tbl-empty">Sem dados ainda.</div>';
+  }
+
+  // ── Seções mais visitadas ──
+  var sEl = document.getElementById('rb-secoes');
+  if (sEl) {
+    var sNomes = { portfolio:'🎨 Portfólio', cobertura:'🔄 Cover Up', cursos:'📚 Cursos', calculadora:'🧮 Calculadora', areolas:'💖 Aréolas', sobre:'ℹ️ Sobre' };
+    var sEntries = Object.entries(secoes).sort(function(a,b){ return b[1]-a[1]; }).slice(0,6);
+    var sMax = sEntries.length ? sEntries[0][1] : 1;
+    sEl.innerHTML = sEntries.length ? sEntries.map(function(e){
+      var lbl = sNomes[e[0]] || e[0];
+      var pct = Math.round(e[1]/sMax*100);
+      return '<div class="rb-bar-row">'
+        +'<span class="rb-bar-lbl">'+lbl+'</span>'
+        +'<div class="rb-bar-track"><div class="rb-bar-fill" style="width:'+pct+'%;background:linear-gradient(90deg,#7E22CE,#A855F7);"></div></div>'
+        +'<span class="rb-bar-val">'+e[1]+'</span>'
+        +'</div>';
+    }).join('') : '<div class="tbl-empty">Sem dados ainda.</div>';
+  }
+
+  // ── Log de eventos ──
+  var lEl = document.getElementById('rb-log');
+  if (lEl) {
+    var tipoMap = {
+      conversa_iniciada: { cls:'conversa', ico:'💬', lbl:'Conversa' },
+      mensagem_enviada:  { cls:'mensagem', ico:'✉️',  lbl:'Mensagem' },
+      form_clicado:      { cls:'form',     ico:'📋', lbl:'Formulário' },
+      funil_concluido:   { cls:'funil',    ico:'🎯', lbl:'Funil OK' },
+      secao_vista:       { cls:'secao',    ico:'📍', lbl:'Seção' }
+    };
+    var recentes = log.slice().reverse().slice(0, 40);
+    lEl.innerHTML = recentes.length ? recentes.map(function(ev){
+      var t   = tipoMap[ev.tipo] || { cls:'secao', ico:'•', lbl: ev.tipo };
+      var dt  = ev.ts ? new Date(ev.ts).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) : '';
+      var det = '';
+      if (ev.dados) {
+        if (ev.dados.msg)      det = '"' + ev.dados.msg + '"';
+        if (ev.dados.secao)    det = 'Seção: ' + ev.dados.secao;
+        if (ev.dados.interesse)det = 'Interesse: ' + ev.dados.interesse;
+      }
+      return '<div class="rb-log-item">'
+        +'<span class="rb-log-tipo '+t.cls+'">'+t.ico+' '+t.lbl+'</span>'
+        +'<span class="rb-log-det">'+det+'</span>'
+        +'<span class="rb-log-ts">'+dt+'</span>'
+        +'</div>';
+    }).join('') : '<div class="tbl-empty">Sem eventos registrados ainda.</div>';
+  }
+}
+
+window.rbResetarStats = async function() {
+  if (confirm('⚠️ Zerar TODAS as estatísticas do Rabisco? Esta ação não pode ser desfeita.\n\nIsso vai apagar os dados do Supabase e do localStorage.')) {
+    try {
+      if (supabaseClient) {
+        await supabaseClient.from('rabisco_eventos').delete().neq('id', 0);
+      }
+    } catch(e) { console.warn('Reset Supabase:', e); }
+    localStorage.removeItem('rb_stats');
+    localStorage.removeItem('rb_log');
+    carregarRabisco();
+  }
+};
+
+window.rbLimparLog = async function() {
+  if (confirm('Limpar o log de eventos? (apaga do Supabase e localStorage)')) {
+    try {
+      if (supabaseClient)
+        await supabaseClient.from('rabisco_eventos').delete().neq('id', 0);
+    } catch(e){}
+    localStorage.removeItem('rb_log');
+    carregarRabisco();
+  }
+};
+
+window.rbCopiarSQL = function() {
+  var sql = document.getElementById('rb-sql-code').textContent;
+  navigator.clipboard.writeText(sql).then(function(){
+    var btn = document.getElementById('rb-copy-sql-btn');
+    btn.textContent = '✅ Copiado!';
+    setTimeout(function(){ btn.textContent = '📋 Copiar'; }, 2500);
+  });
+};
+
+window.rbExportarCSV = async function() {
+  try {
+    var rows = [];
+    if (supabaseClient) {
+      const { data } = await supabaseClient.from('rabisco_eventos').select('*').order('criado_em',{ascending:false}).limit(1000);
+      if (data) rows = data;
+    }
+    if (!rows.length) rows = JSON.parse(localStorage.getItem('rb_log') || '[]');
+    var csv = ['Evento,Dados,Secao,Data'];
+    rows.forEach(function(ev){
+      var det = (ev.dados||'').toString().replace(/"/g,"'");
+      var sec = ev.secao || ev.dados?.secao || '';
+      var ts  = ev.criado_em || ev.ts || '';
+      csv.push('"'+(ev.evento||ev.tipo||'')+'","'+det+'","'+sec+'","'+ts+'"');
+    });
+    var a = document.createElement('a');
+    a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv.join('\n'));
+    a.download = 'rabisco_analytics.csv';
+    a.click();
+  } catch(e) { alert('Erro ao exportar: ' + e.message); }
+};
+
 </script>
 </body>
 </html>
