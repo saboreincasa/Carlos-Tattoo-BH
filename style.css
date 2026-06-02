@@ -6505,12 +6505,7 @@ html { scroll-behavior: smooth; }
     width:46px !important;
     height:46px !important;
   }
-}#scroll-top-btn:hover{
-  background:rgba(201,168,76,.15);
-  border-color:rgba(201,168,76,.6);
-  transform:translateY(-3px);
 }
-#scroll-top-btn.visible{display:flex;}
 @media(max-width:480px){
   #wpp-float-group{bottom:28px;right:16px;}
 }
