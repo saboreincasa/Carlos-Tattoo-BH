@@ -1070,15 +1070,9 @@ function googleTranslateElementInit(){
 
       <!-- Imagem 1 — Antes & Depois -->
       <div class="cvid-card">
-        <div style="position:relative;overflow:hidden;aspect-ratio:9/16;background:linear-gradient(135deg,#1C1208,#0A0702);">
-          <img loading="lazy" src="imagens/cobertura-antes-depois.jpg" alt="Reforma de tatuagem antes e depois — Carlos Tattoo BH"
-            style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;flex-direction:column;gap:10px;padding:24px;text-align:center;">
-            <span style="font-size:40px;">🔄</span>
-            <span style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:rgba(201,168,76,.5);">COBERTURA — ANTES &amp; DEPOIS</span>
-            <span style="font-size:10px;color:rgba(201,168,76,.3);font-family:'Cinzel',serif;">Adicione: imagens/cobertura-antes-depois.jpg</span>
-          </div>
+        <div style="position:relative;overflow:hidden;aspect-ratio:9/16;background:#000;">
+          <img loading="lazy" src="imagens/antes.jpeg" alt="Reforma de tatuagem antes — Carlos Tattoo BH"
+            style="width:100%;height:100%;object-fit:contain;display:block;background:#000;">
           <div style="position:absolute;top:10px;left:10px;background:rgba(5,3,1,.75);border:1px solid rgba(201,168,76,.3);padding:4px 10px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:var(--g3);text-transform:uppercase;border-radius:4px;">Antes & Depois</div>
         </div>
         <div class="cvid-info">
@@ -1087,17 +1081,17 @@ function googleTranslateElementInit(){
         </div>
       </div>
 
-      <!-- Imagem 2 — Processo de Cobertura -->
+      <!-- Vídeo — Processo de Cobertura -->
       <div class="cvid-card">
-        <div style="position:relative;overflow:hidden;aspect-ratio:9/16;background:linear-gradient(135deg,#1C1208,#0A0702);">
-          <img loading="lazy" src="imagens/cobertura-processo.jpg" alt="Processo de reforma de tatuagem — Carlos Tattoo BH"
-            style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;flex-direction:column;gap:10px;padding:24px;text-align:center;">
-            <span style="font-size:40px;">🎬</span>
-            <span style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:rgba(201,168,76,.5);">PROCESSO DE COBERTURA</span>
-            <span style="font-size:10px;color:rgba(201,168,76,.3);font-family:'Cinzel',serif;">Adicione: imagens/cobertura-processo.jpg</span>
-          </div>
+        <div style="position:relative;overflow:hidden;aspect-ratio:9/16;background:#000;">
+          <iframe
+            src="https://www.youtube.com/embed/0sSaLNqBh0g?rel=0&playsinline=1"
+            title="Processo de reforma de tatuagem — Carlos Tattoo BH"
+            style="position:absolute;inset:0;width:100%;height:100%;border:none;"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
           <div style="position:absolute;top:10px;left:10px;background:rgba(5,3,1,.75);border:1px solid rgba(201,168,76,.3);padding:4px 10px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:var(--g3);text-transform:uppercase;border-radius:4px;">Em Processo</div>
         </div>
         <div class="cvid-info">
@@ -1108,15 +1102,9 @@ function googleTranslateElementInit(){
 
       <!-- Imagem 3 — Resultado Final -->
       <div class="cvid-card cvid-destaque">
-        <div style="position:relative;overflow:hidden;aspect-ratio:9/16;background:linear-gradient(135deg,#3a0a0a,#1a0505);">
-          <img loading="lazy" src="imagens/cobertura-resultado.jpg" alt="Resultado final de reforma — Carlos Tattoo BH"
-            style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;flex-direction:column;gap:10px;padding:24px;text-align:center;">
-            <span style="font-size:40px;">⚠️</span>
-            <span style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:rgba(201,168,76,.5);">POR QUE O PROFISSIONAL CERTO IMPORTA</span>
-            <span style="font-size:10px;color:rgba(201,168,76,.3);font-family:'Cinzel',serif;">Adicione: imagens/cobertura-resultado.jpg</span>
-          </div>
+        <div style="position:relative;overflow:hidden;aspect-ratio:9/16;background:#000;">
+          <img loading="lazy" src="imagens/depois.jpeg" alt="Resultado final de reforma — Carlos Tattoo BH"
+            style="width:100%;height:100%;object-fit:contain;display:block;background:#000;">
           <div style="position:absolute;top:10px;left:10px;background:rgba(139,26,26,.8);border:1px solid rgba(255,100,100,.3);padding:4px 10px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:#FFD0D0;text-transform:uppercase;border-radius:4px;">Resultado Final</div>
         </div>
         <div class="cvid-info">
@@ -2008,15 +1996,24 @@ function googleTranslateElementInit(){
 <div class="odiv"><span class="odiv-sym">✦ ✦ ✦</span></div>
 
 <!-- ═══ ARÉOLAS — RECONSTRUÇÃO DE ARÉOLA ═══ -->
+<style>
+/* Remove sombra que cortava o texto abaixo da imagem aréola */
+.areola-hero-wrap::after,
+.areola-hero-wrap::before { display:none !important; }
+.areola-hero-wrap { overflow:visible !important; box-shadow:none !important; }
+.areola-hero-wrap img { border-radius:16px; }
+.sec-areola { padding-bottom:60px; }
+</style>
 <section class="sec-areola" id="areolas" aria-label="Reconstrução de aréola por tatuagem">
   <div class="areola-particles" id="areolaParticles"></div>
   <div class="ar-inner">
 
     <!-- FOTO HERO -->
-    <div class="areola-hero-wrap rv">
+    <div class="areola-hero-wrap rv" style="margin-bottom:40px;">
       <img
         src="imagens/areola-hero.jpg"
         alt="Reconstrução de Aréola — Arte que Cura"
+        style="display:block;width:100%;max-width:860px;margin:0 auto;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,.5);object-fit:cover;"
         onerror="this.parentElement.innerHTML='<div class=areola-hero-placeholder><span style=font-size:48px>🌸</span><p>Adicione a imagem: imagens/areola-hero.jpg</p><p style=font-size:10px;color:rgba(201,160,160,.35);>Tamanho ideal: 900 × 420px</p></div>'"
       >
     </div>
@@ -2773,8 +2770,8 @@ function googleTranslateElementInit(){
     <div class="blog-grid rv">
       <div class="bcard big">
         <div class="bthumb" style="position:relative;overflow:hidden;">
-          <img loading="lazy" src="imagens/blog-capa-01.jpg" alt="Quanto custa tatuagem BH" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';document.createElement('div')">
-          <div class="bthumb-ph" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:52px;background:linear-gradient(135deg,#1C1208,#2A1A08);">🖋️</div>
+          <img loading="lazy" src="imagens/blog-quanto-custa.PNG" alt="Quanto custa tatuagem BH" style="width:100%;height:100%;object-fit:contain;position:relative;z-index:2;" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none'">
+          <div class="bthumb-ph" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:52px;background:linear-gradient(135deg,#1C1208,#2A1A08);z-index:1;">🖋️</div>
           <span class="bcat">CLIENTES</span>
         </div>
         <div class="bbody">
@@ -2792,8 +2789,8 @@ function googleTranslateElementInit(){
       </div>
       <div class="bcard">
         <div class="bthumb" style="position:relative;overflow:hidden;">
-          <img loading="lazy" src="imagens/blog-capa-02.jpg" alt="Tráfego pago tatuadores" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
-          <div class="bthumb-ph" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:44px;background:linear-gradient(135deg,#1C1208,#2A1A08);">💪</div>
+          <img loading="lazy" src="imagens/blog-trafego.jpg" alt="Tráfego pago tatuadores" style="width:100%;height:100%;object-fit:contain;position:relative;z-index:2;" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none'">
+          <div class="bthumb-ph" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:44px;background:linear-gradient(135deg,#1C1208,#2A1A08);z-index:1;">💪</div>
           <span class="bcat">TATUADORES</span>
         </div>
         <div class="bbody">
@@ -2810,8 +2807,8 @@ function googleTranslateElementInit(){
       </div>
       <div class="bcard">
         <div class="bthumb" style="position:relative;overflow:hidden;">
-          <img loading="lazy" src="imagens/blog-capa-03.jpg" alt="Reforma de tattoo BH" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
-          <div class="bthumb-ph" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:44px;background:linear-gradient(135deg,#1C1208,#2A1A08);">🔄</div>
+          <img loading="lazy" src="imagens/blog-reforma.PNG" alt="Reforma de tattoo BH" style="width:100%;height:100%;object-fit:contain;position:relative;z-index:2;" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none'">
+          <div class="bthumb-ph" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:44px;background:linear-gradient(135deg,#1C1208,#2A1A08);z-index:1;">🔄</div>
           <span class="bcat">REFORMA</span>
         </div>
         <div class="bbody">
@@ -3754,7 +3751,15 @@ document.addEventListener('keydown', function(e){
 </script>
 
 
-<!-- ═══ CARROSSEL LIGHTBOX ═══ -->
+<!-- ═══ CARROSSEL LIGHTBOX — tamanho desktop ═══ -->
+<style>
+.carrossel-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.92); z-index:9999; flex-direction:column; align-items:center; justify-content:center; padding:20px; }
+.carrossel-overlay.open { display:flex; }
+.carrossel-main { display:flex; align-items:center; gap:16px; width:100%; max-width:900px; justify-content:center; }
+.carrossel-img-wrap { display:flex; align-items:center; justify-content:center; width:100%; max-width:640px; }
+.carrossel-img { max-height:75vh; max-width:100%; width:auto; height:auto; object-fit:contain; border-radius:8px; transition:opacity .3s; display:block; }
+@media(max-width:600px){ .carrossel-img { max-height:60vh; } .carrossel-img-wrap { max-width:100%; } }
+</style>
 <div class="carrossel-overlay" id="carrosselOverlay">
   <div class="carrossel-top">
     <div>
@@ -3976,168 +3981,11 @@ document.getElementById('exit-popup').addEventListener('click',function(e){
 });
 
 // ════════════════════════════════════════
-// CHAT IA COM CLAUDE API
+// CHAT IA — substituído pelo rabisco.js
 // ════════════════════════════════════════
 let chatAberto = false;
-let chatHistorico = [];
 
-function toggleChat(){
-  try {
-    chatAberto = !chatAberto;
-    const panel = document.getElementById('chat-ia-panel');
-    if(!panel){ console.error('Chat panel not found'); return; }
-    if(chatAberto){
-      panel.style.display = 'flex';
-      panel.style.flexDirection = 'column';
-      panel.classList.add('open');
-      const input = document.getElementById('chatInput');
-      if(input) input.focus();
-      const badge = document.querySelector('.chat-ia-badge');
-      if(badge) badge.style.display='none';
-      if(typeof registrarAcesso === 'function') registrarAcesso('tatuagem');
-    } else {
-      panel.style.display = 'none';
-      panel.classList.remove('open');
-    }
-  } catch(e){ console.error('toggleChat error:', e); }
-}
-
-async function enviarChat(){
-  const input = document.getElementById('chatInput');
-  const msg = input.value.trim();
-  if(!msg) return;
-  input.value = '';
-  chatPergunta(msg);
-}
-
-let chatLeadColetado = false;
-let chatLeadNome = '';
-
-async function chatPergunta(pergunta){
-  // Esconder sugestões após primeira mensagem
-  const sugs = document.getElementById('chatSugs');
-  if(sugs) sugs.style.display='none';
-
-  // Coletar lead na primeira mensagem
-  if(!chatLeadColetado && chatHistorico.length === 0){
-    adicionarMsg(pergunta, 'user');
-    // Pedir nome primeiro
-    adicionarMsg('Olá! 😊 Antes de tudo, qual é o seu nome?', 'bot');
-    chatHistorico.push({role:'system_lead_nome', content: pergunta});
-    return;
-  }
-  
-  // Se estamos coletando nome
-  if(chatHistorico.length === 1 && chatHistorico[0].role === 'system_lead_nome'){
-    chatLeadNome = pergunta;
-    adicionarMsg(pergunta, 'user');
-    adicionarMsg(`Prazer, ${pergunta}! 🙌 E qual é o seu WhatsApp? (Prometo não fazer spam — só usamos para te responder)`, 'bot');
-    chatHistorico.push({role:'system_lead_wpp', content: pergunta});
-    return;
-  }
-  
-  // Se estamos coletando WhatsApp
-  if(chatHistorico.length === 2 && chatHistorico[1].role === 'system_lead_wpp'){
-    const wpp = pergunta;
-    adicionarMsg(pergunta, 'user');
-    chatLeadColetado = true;
-    // Salvar lead
-    const leads = JSON.parse(localStorage.getItem('ct_leads')||'[]');
-    leads.push({nome:chatLeadNome, wpp, origem:'chat_ia', tipo:'tatuagem', data:new Date().toISOString()});
-    localStorage.setItem('ct_leads', JSON.stringify(leads));
-    // Limpar histórico de coleta e iniciar conversa real
-    const perguntaOriginal = chatHistorico[0].content;
-    chatHistorico = [];
-    adicionarMsg(`Perfeito, ${chatLeadNome}! Agora me conta: ${perguntaOriginal}`, 'bot');
-    chatHistorico.push({role:'user', content: perguntaOriginal});
-    // Registrar no Meta Ads
-    if(typeof fbq !== 'undefined') fbq('track','Lead',{content_name:'Chat IA'});
-    return;
-  }
-
-  // Adicionar mensagem do usuário
-  adicionarMsg(pergunta, 'user');
-  chatHistorico.push({role:'user', content: pergunta});
-
-  // Mostrar digitando...
-  const typingId = 'typing_' + Date.now();
-  adicionarMsg('...', 'bot', typingId);
-
-  try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 1000,
-        system: `Você é o assistente virtual do Carlos Tattoo BH, estúdio premium de tatuagem em Belo Horizonte, MG. 
-        
-Seu papel é ajudar clientes e tatuadores interessados nos serviços e cursos.
-
-SOBRE O ESTÚDIO:
-- Endereço: Rua Maria de Lourdes da Cruz, 378 — Bairro Mantiqueira, BH
-- Contato: via formulário no site (seção Agendar Tatuagem)
-- Instagram: @carlostattoo.bh
-- Especialidades: Realismo, Black & Grey, Fineline, Reforma de Tatuagem, Personalizadas, Colorida
-- 7+ anos de experiência, 2.400+ tatuagens realizadas, 5★ no Google
-
-CURSOS DISPONÍVEIS:
-- Instagram para Tatuadores: R$147
-- Tráfego Pago para Tatuadores: R$297
-- Branding & Posicionamento: R$197
-- Mentoria VIP 1:1: R$997
-
-EBOOKS:
-- Tráfego Tattoo: R$97
-- Instagram que Vende: R$97
-- Posicionamento Avançado: R$197
-- Pack Templates: R$47
-- Contrato Digital: R$39,90
-- Central Tattoo (sistema de gestão anual): R$499/ano
-
-REGRAS:
-- Seja simpático, objetivo e use emojis com moderação
-- Para agendamento, sempre direcione para o formulário no site (seção #contato)
-- Responda em português brasileiro
-- Máximo 3 parágrafos curtos por resposta
-- Se não souber algo específico, direcione para o formulário de contato no site`,
-        messages: chatHistorico
-      })
-    });
-    
-    const data = await response.json();
-    const resposta = data.content && data.content[0] ? data.content[0].text : 'Desculpe, não consegui processar. Preencha o formulário de contato no site 😊';
-    
-    // Remover digitando e adicionar resposta real
-    const typingEl = document.getElementById(typingId);
-    if(typingEl) typingEl.remove();
-    
-    adicionarMsg(resposta, 'bot');
-    chatHistorico.push({role:'assistant', content: resposta});
-    
-    // Manter histórico pequeno
-    if(chatHistorico.length > 10) chatHistorico = chatHistorico.slice(-10);
-    
-  } catch(err) {
-    const typingEl = document.getElementById(typingId);
-    if(typingEl) typingEl.remove();
-    adicionarMsg('Tive um problema técnico 😅 Por favor, preencha o formulário de contato no site para falar com Carlos.', 'bot');
-  }
-}
-
-function adicionarMsg(texto, tipo, id){
-  const msgs = document.getElementById('chatMsgs');
-  const div = document.createElement('div');
-  div.className = 'chat-msg ' + tipo;
-  if(id) div.id = id;
-  if(tipo === 'bot'){
-    div.innerHTML = '<div class="chat-msg-name">ASSISTENTE IA</div>' + texto;
-  } else {
-    div.textContent = texto;
-  }
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
-}
+function toggleChat(){ /* substituído pelo rabisco.js */ }
 
 // ════════════════════════════════════════
 // SCROLL SUAVE APRIMORADO
@@ -4444,9 +4292,11 @@ const _origConfirmarPix = confirmarPix;
 </nav>
 
 <!-- ════════════════════════════════════
-     SKULL BOT 💀
+     RABISCO v5 — Gerenciado por rabisco.js
+     O botão, painel e toda lógica são
+     criados dinamicamente pelo script.
      ════════════════════════════════════ -->
-<button id="skullBtn" onclick="toggleSkull()" aria-label="Assistente Skull">
+<div id="skullBtn" style="display:none;" aria-hidden="true">
   <svg class="skull-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
   <!-- Crânio principal — branco -->
   <path d="M50 8 C28 8 16 24 16 40 C16 54 24 64 36 70 L36 72 L64 72 L64 70 C76 64 84 54 84 40 C84 24 72 8 50 8Z" fill="#F5F5F5" stroke="#1a1a1a" stroke-width="2.5"/>
@@ -4484,14 +4334,10 @@ const _origConfirmarPix = confirmarPix;
   <div class="skull-badge">IA</div>
 </button>
 
-<!-- BUBBLE DE PERSUASÃO -->
-<div id="skullBubble" style="display:none;" class="skull-bubble" onclick="toggleSkull()">
-  <button class="skull-bubble-close" onclick="event.stopPropagation();fecharBubble()">✕</button>
-  <span id="skullBubbleText">Fala! Posso te ajudar a encontrar o que procura? 👋</span>
-</div>
+<!-- Bubble do Rabisco é criada dinamicamente pelo rabisco.js -->
 
-<!-- PAINEL DO SKULL -->
-<div id="skullPanel">
+<!-- PAINEL ANTIGO — OCULTO (substituído pelo rabisco.js) -->
+<div id="skullPanel" style="display:none!important;visibility:hidden;">
   <div class="skull-panel-header">
     <div class="skull-avatar">
       <svg width="32" height="32" viewBox="0 0 100 100" fill="none">
@@ -4642,7 +4488,7 @@ if('IntersectionObserver' in window){
         frasesMostradas.add(id);
         clearTimeout(fraseTimer);
         fraseTimer = setTimeout(()=>{
-          if(!skullAberto) mostrarBubble(frase.txt);
+          if(window.mostrarBubble&&!RabiscoUI.aberto) window.mostrarBubble(frase.txt);
         }, frase.delay);
       }
     });
@@ -4655,7 +4501,7 @@ if('IntersectionObserver' in window){
 
 // Frase inicial após 10s
 setTimeout(()=>{
-  if(!skullAberto && !skullBubbleAtivo && skullMsgCount===0){
+  if(window.mostrarBubble&&typeof RabiscoUI!=='undefined'&&!RabiscoUI.aberto){
     mostrarBubble('Fala! Sou o Rabisco — posso te ajudar a encontrar o que procura? 👋');
   }
 }, 10000);
@@ -4665,7 +4511,7 @@ let idleTimer;
 function resetIdle(){
   clearTimeout(idleTimer);
   idleTimer = setTimeout(()=>{
-    if(!skullAberto && skullMsgCount < 2){
+    if(window.mostrarBubble&&typeof RabiscoUI!=='undefined'&&!RabiscoUI.aberto){
       mostrarBubble('Tô vendo que você tá pesquisando... 🤔 Me fala o que tá buscando que ajudo rápido.');
     }
   }, 90000);
@@ -4686,157 +4532,24 @@ const hora = new Date().getHours();
 const diaSemana = new Date().getDay();
 if(hora >= 19 || hora < 7){
   setTimeout(()=>{
-    if(!skullAberto && !skullBubbleAtivo)
+    if(window.mostrarBubble&&typeof RabiscoUI!=='undefined'&&!RabiscoUI.aberto)
       mostrarBubble('Pesquisando tatuagem à noite? 🌙 Boa hora pra decidir! Me pergunta qualquer coisa.');
   }, 20000);
 } else if(diaSemana === 0 || diaSemana === 6){
   setTimeout(()=>{
-    if(!skullAberto && !skullBubbleAtivo)
+    if(window.mostrarBubble&&typeof RabiscoUI!=='undefined'&&!RabiscoUI.aberto)
       mostrarBubble('Final de semana é bom pra pensar em tatuagem! Carlos atende Seg-Sáb. Quer garantir seu horário?');
   }, 25000);
 }
 
 // ══════════════════════════════════════
-// SKULL BOT — MENSAGENS
+// SKULL BOT — substituído pelo rabisco.js
 // ══════════════════════════════════════
-async function enviarSkull(){
-  const input = document.getElementById('skullInput');
-  const msg = input.value.trim();
-  if(!msg) return;
-  input.value = '';
-  await skullPergunta(msg);
-}
-
-async function skullPergunta(pergunta){
-  // Esconder sugestões
-  const sugs = document.getElementById('skullSugs');
-  if(sugs) sugs.style.display = 'none';
-  skullMsgCount++;
-
-  // Coletar nome na primeira mensagem
-  if(!skullLeadColetado && skullHistorico.length === 0){
-    adicionarSkullMsg(pergunta, 'user');
-    adicionarSkullMsg('Antes de tudo — qual é o seu nome? 😊', 'bot');
-    skullHistorico.push({role:'system_nome', content:pergunta});
-    return;
-  }
-  if(skullHistorico.length===1 && skullHistorico[0].role==='system_nome'){
-    skullLeadNome = pergunta;
-    adicionarSkullMsg(pergunta, 'user');
-    adicionarSkullMsg(`Prazer, ${pergunta}! E qual é o seu WhatsApp? (Só pra Carlos poder te responder se precisar)`, 'bot');
-    skullHistorico.push({role:'system_wpp', content:pergunta});
-    return;
-  }
-  if(skullHistorico.length===2 && skullHistorico[1].role==='system_wpp'){
-    adicionarSkullMsg(pergunta, 'user');
-    skullLeadColetado = true;
-    const leads = JSON.parse(localStorage.getItem('ct_leads')||'[]');
-    leads.push({nome:skullLeadNome, wpp:pergunta, origem:'rabisco', tipo:'tatuagem', data:new Date().toISOString()});
-    localStorage.setItem('ct_leads', JSON.stringify(leads));
-    const perguntaOriginal = skullHistorico[0].content;
-    skullHistorico = [];
-    adicionarSkullMsg(`Perfeito, ${skullLeadNome}! Agora me conta mais sobre: "${perguntaOriginal}"`, 'bot');
-    skullHistorico.push({role:'user', content:perguntaOriginal});
-    if(typeof fbq!=='undefined') fbq('track','Lead',{content_name:'Rabisco'});
-    return;
-  }
-
-  adicionarSkullMsg(pergunta, 'user');
-  skullHistorico.push({role:'user', content:pergunta});
-  const typingId = 'typing_'+Date.now();
-  adicionarSkullMsg('...', 'bot', typingId);
-
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:600,
-        system:`Você é o Rabisco, assistente virtual do Carlos Tattoo BH — estúdio premium de tatuagem em Belo Horizonte, MG.
-
-PERSONALIDADE:
-- Tom: descontraído, direto, usa linguagem do universo tattoo
-- Apelido: Rabisco
-- Nunca enrola — resposta objetiva e útil
-- Máximo 3 parágrafos curtos por resposta
-- Use 1-2 emojis por resposta (não exagere)
-- Para aréola e queimadura: tom suave, acolhedor e delicado
-
-SOBRE O ESTÚDIO:
-- Nome: Carlos Tattoo BH
-- Tatuador: Carlos Henrique — 7 anos de experiência, 2.400+ tatuagens
-- Endereço: Rua Maria de Lourdes da Cruz, 378 — Bairro Mantiqueira, BH
-- Contato: via formulário no site (seção Agendar Tatuagem)
-- Instagram: @carlostattoo.bh
-- Horários: Segunda a Sábado, 10h às 19h
-- Avaliação: 5.0 estrelas no Google — 380+ avaliações
-
-ESPECIALIDADES:
-- Realismo, Black & Grey, Fineline, Reforma de Tatuagem, Personalizadas, Colorida
-- Tatuagem em cicatrizes de queimadura
-- Reconstrução de aréola (micropigmentação 3D — pós-mastectomia)
-
-PREÇOS APROXIMADOS (estimativas):
-- Fineline pequena: R$350-650
-- Black & Grey médio: R$600-1.000
-- Realismo médio: R$900-1.600
-- Reforma de tatuagem: a partir de R$800
-- Consulta: GRATUITA
-
-CURSOS (para tatuadores):
-- Instagram para Tatuadores: R$147 (3x R$52)
-- Tráfego Pago para Tatuadores: R$297 (6x R$52) — MAIS VENDIDO
-- Branding & Posicionamento: R$197 (4x R$52)
-- Mentoria VIP 1:1: R$997 (10x R$110)
-
-EBOOKS:
-- Ebook Tráfego Iniciante: R$47
-- Ebook Instagram — Tattoo que Vende: R$47
-- Ebook Posicionamento Avançado: R$97
-- Pack Templates: R$47
-- Contrato Digital: R$27
-
-PAGAMENTO: PIX (chave: 31983391576 — Carlos Henrique) ou cartão via Mercado Pago
-
-REGRAS:
-- Para agendamento → direcionar para o formulário de contato no site (seção #contato)
-- Para aréola/queimadura → direcionar para o formulário especial na seção #areolas
-- Responda em português brasileiro
-- Se não souber algo específico → direcionar para o formulário de contato no site`,
-        messages:skullHistorico
-      })
-    });
-    const data = await res.json();
-    const resposta = data.content?.[0]?.text || 'Tive um problema técnico. Fala diretamente com Carlos: (31) 98339-1576 😊';
-    document.getElementById(typingId)?.remove();
-    adicionarSkullMsg(resposta, 'bot');
-    skullHistorico.push({role:'assistant', content:resposta});
-    if(skullHistorico.length > 12) skullHistorico = skullHistorico.slice(-12);
-  } catch(e){
-    document.getElementById(typingId)?.remove();
-    adicionarSkullMsg('Deu um problema técnico 😅 Preencha o formulário de contato no site e Carlos entrará em contato em breve.', 'bot');
-  }
-}
-
-function adicionarSkullMsg(texto, tipo, id){
-  const msgs = document.getElementById('skullMsgs');
-  if(!msgs) return;
-  const div = document.createElement('div');
-  div.className = 'skull-msg ' + tipo;
-  if(id) div.id = id;
-  if(tipo==='bot'){
-    div.innerHTML = '<div class="skull-msg-name">RABISCO</div>' + texto;
-  } else {
-    div.textContent = texto;
-  }
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-// Remover chat IA antigo (foi substituído pelo Skull)
+function enviarSkull(){ if(window.RabiscoUI) RabiscoUI.toggle(); }
+function skullPergunta(msg){ if(window.RabiscoUI) RabiscoUI.processar(msg); }
+function adicionarSkullMsg(){}
+// Rabisco agora é gerenciado pelo rabisco.js externo
 const oldChatPanel = document.getElementById('chat-ia-panel');
-if(oldChatBtn) oldChatBtn.style.display = 'none';
 if(oldChatPanel) oldChatPanel.style.display = 'none';
 </script>
 
@@ -5312,12 +5025,12 @@ const catalogoGaleria = {
   },
   fineline:  { titulo:'Fineline',  emoji:'✨', cor:'#EDE4D4', tagline:'Linhas finas que dizem muito. Para quem quer sofisticação sem abrir mão da delicadeza.',
     imagens:[
-      {src:'imagens/portfolio/fineline-01.jpg', leg:'Delicadeza Pura',      desc:'Traços que encantam'},
-      {src:'imagens/portfolio/fineline-02.jpg', leg:'Botânico Artístico',   desc:'Natureza em linhas finas'},
-      {src:'imagens/portfolio/fineline-03.jpg', leg:'Geométrico Preciso',   desc:'Harmonia matemática'},
-      {src:'imagens/portfolio/fineline-04.jpg', leg:'Script Elegante',      desc:'Palavras eternizadas'},
-      {src:'imagens/portfolio/fineline-05.jpg', leg:'Minimalismo Total',    desc:'Menos é mais'},
-      {src:'imagens/portfolio/fineline-06.jpg', leg:'Ilustração Sutil',     desc:'Arte discreta e poderosa'},
+      {src:'imagens/Leoa-delicada.jpg',    leg:'Leoa Delicada',            desc:'Força em traço fino'},
+      {src:'imagens/Mudança.jpg',          leg:'A Mudança Exige Tempo',    desc:'Filosofia na pele'},
+      {src:'imagens/seja-forte.jpg',       leg:'Tudo Passa',               desc:'Delicadeza com significado'},
+      {src:'imagens/frase.jpg',            leg:'Flores & Palavras',         desc:'Arte que fala'},
+      {src:'imagens/jerry.PNG',            leg:'Fofa e Grossa',             desc:'Ilustração com personalidade'},
+      {src:'imagens/leoa-com-frase.jpg',   leg:'Onça com Lírios',           desc:'Poder e beleza'},
     ]
   },
   coverup:   { titulo:'Cover Up',  emoji:'🔄', cor:'#E88040', tagline:'Aquela tatuagem que você se arrepende? Vira obra de arte. 380+ transformações realizadas.',
@@ -5479,9 +5192,9 @@ function abrirGaleriaNetflix(cat){
       style="position:absolute;left:20px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#fff;width:52px;height:52px;border-radius:50%;font-size:28px;cursor:pointer;z-index:2;display:flex;align-items:center;justify-content:center;transition:.2s;line-height:1;"
       onmouseover="this.style.background='rgba(255,255,255,.2)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">‹</button>
 
-    <div class="gnf-lb-inner" style="animation:gnfLb .26s ease;text-align:center;max-width:min(370px,82vw);padding:0 78px;width:100%;">
+    <div class="gnf-lb-inner" style="animation:gnfLb .26s ease;text-align:center;max-width:min(680px,90vw);padding:0 78px;width:100%;">
       <img loading="lazy" id="gnf-lb-img" src="" alt=""
-        style="max-width:100%;max-height:62vh;object-fit:contain;border-radius:6px;box-shadow:0 28px 80px rgba(0,0,0,.95);display:block;margin:0 auto;">
+        style="max-width:100%;max-height:78vh;object-fit:contain;border-radius:6px;box-shadow:0 28px 80px rgba(0,0,0,.95);display:block;margin:0 auto;">
       <div style="margin-top:16px;padding:18px 22px;background:rgba(255,255,255,.04);border-radius:10px;border:1px solid rgba(255,255,255,.08);">
         <div id="gnf-lb-leg" style="font-family:'Cinzel',serif;font-size:16px;letter-spacing:1.5px;color:#ffffff;text-transform:uppercase;font-weight:700;margin-bottom:4px;"></div>
         <div id="gnf-lb-desc" style="font-family:'IM Fell English',serif;font-style:italic;font-size:14px;color:rgba(255,255,255,.6);margin-bottom:14px;line-height:1.55;"></div>
@@ -6064,7 +5777,19 @@ document.head.appendChild(styleShare);
 
 
 <!-- ═══ POPUP PROMOÇÃO ═══ -->
-<div id="promo-popup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:99999;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px);">
+<style>
+/* ── Promo popup mobile fix ── */
+#promo-popup { overflow-y:auto; -webkit-overflow-scrolling:touch; }
+@media (max-width:600px) {
+  #promo-popup { padding:10px 8px !important; align-items:flex-start !important; }
+  .promo-box { max-width:100% !important; width:100% !important; margin:auto !important; padding:50px 14px 22px !important; border-radius:14px !important; }
+  .promo-close { top:10px !important; right:10px !important; width:38px !important; height:38px !important; font-size:20px !important; z-index:100 !important; position:absolute !important; display:flex !important; align-items:center !important; justify-content:center !important; }
+  .promo-title { font-size:clamp(20px,6vw,28px) !important; }
+  .promo-timer-display { font-size:28px !important; }
+  .promo-btn-sim { font-size:13px !important; padding:14px 16px !important; }
+}
+</style>
+<div id="promo-popup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:99999;align-items:flex-start;justify-content:center;padding:20px;backdrop-filter:blur(6px);overflow-y:auto;-webkit-overflow-scrolling:touch;">
 
   <!-- Estrelas de fundo -->
   <div class="promo-stars" aria-hidden="true">
@@ -6562,5 +6287,8 @@ window.addEventListener('load', function(){
   } catch(e){}
 })();
 </script>
+
+<!-- ════ RABISCO v5 — Assistente 100% local ════ -->
+<script src="rabisco.js" defer></script>
 </body>
 </html>

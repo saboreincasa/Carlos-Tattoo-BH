@@ -1980,7 +1980,7 @@ async function carregarRabisco() {
         log = eventos; // log vem do Supabase
 
         // Reconstruir stats a partir dos eventos
-        stats = { conversas:0, msgs:0, cliquesForm:0, funisConcluidos:0, formPreenchidoAuto:0,
+        stats = { conversas:0, msgs:0, cliquesForm:0, funisConcluidos:0, formPreenchidoAuto:0, leadsCapturados:0,
           qualificacoes:{ tattoo_nova:0, cobertura:0, areola:0, tatuador:0 },
           tamanhos:{ pequena:0, media:0, grande:0, projeto:0 },
           urgencias:{ urgente:0, mes:0, trimestre:0, pesquisando:0 },
@@ -2002,6 +2002,7 @@ async function carregarRabisco() {
               }
             } catch(e){}
           }
+          if (ev.evento === 'lead_capturado') stats.leadsCapturados++;
           if (ev.evento === 'funil_concluido') {
             stats.funisConcluidos++;
             try {
@@ -2051,8 +2052,8 @@ async function carregarRabisco() {
   var kpiGrid = document.getElementById('rb-kpi-grid');
   if (kpiGrid) kpiGrid.innerHTML = [
     { lbl:'Conversas Iniciadas',      val: conversas,            sub:'Total histórico',                     cls:'rb-kpi-skull' },
+    { lbl:'Leads Capturados no Chat', val: stats.leadsCapturados||0, sub:'Nome + WhatsApp coletados',       cls:'green' },
     { lbl:'Msgs por Conversa',        val: msgMedia,             sub:'Média de engajamento',                cls:'amber' },
-    { lbl:'Form Preenchido (Auto)',   val: formPreenchidoAuto,   sub: taxaPreenchido+'% tiveram funil OK',  cls:'green' },
     { lbl:'Cliques no Formulário',    val: cliquesForm,          sub: taxaForm+'% de conversão',            cls:'blue' },
     { lbl:'Funis Concluídos',         val: funisConcluidos,      sub: taxaFunil+'% dos visitantes',         cls:'amber' },
   ].map(function(k){
@@ -2176,6 +2177,7 @@ async function carregarRabisco() {
     var tipoMap = {
       conversa_iniciada:    { cls:'conversa', ico:'💬', lbl:'Conversa' },
       mensagem_enviada:     { cls:'mensagem', ico:'✉️',  lbl:'Mensagem' },
+      lead_capturado:       { cls:'form',     ico:'👤', lbl:'Lead Capturado' },
       form_clicado:         { cls:'form',     ico:'📋', lbl:'Form Clicado' },
       form_preenchido_auto: { cls:'form',     ico:'✅', lbl:'Form Preenchido (Auto)' },
       funil_concluido:      { cls:'funil',    ico:'🎯', lbl:'Funil OK' },
