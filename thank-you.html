@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Compra Confirmada — Carlos Tattoo BH</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;700&display=swap" rel="stylesheet">
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1151853265430926');
+// Produto e valor lido do localStorage (salvo no clique do botão comprar)
+var _prod = localStorage.getItem('ct_last_produto') || 'ebook';
+var _valores = {trafego:97, instagram:97, posicionamento:147, templates:67, central:499};
+var _val = _valores[_prod] || 97;
+fbq('track','Purchase',{currency:'BRL',value:_val,content_name:_prod});
+</script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CWJT7F85XN"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CWJT7F85XN');var _p2 = localStorage.getItem('ct_last_produto') || 'ebook';
+var _v2 = {trafego:97,instagram:97,posicionamento:147,templates:67,central:499}[_p2] || 97;
+gtag('event','purchase',{currency:'BRL',value:_v2,items:[{item_name:_p2}]});</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Raleway',sans-serif;background:linear-gradient(145deg,#0A0702,#1C1208);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;color:#EDE4D4;}
+:root{--g2:#E8C96A;--g3:#C9A84C;--g4:#A07830;--d1:#1C1208;--d2:#120C04;}
+.wrap{max-width:640px;width:100%;}
+.check-circle{width:80px;height:80px;background:linear-gradient(135deg,#128C7E,#25D366);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 28px;box-shadow:0 0 40px rgba(37,211,102,.4);animation:popIn .5s ease;}
+@keyframes popIn{0%{transform:scale(0)}80%{transform:scale(1.1)}100%{transform:scale(1)}}
+h1{font-family:'Cinzel Decorative',cursive;font-size:clamp(22px,4vw,34px);color:#fff;margin-bottom:12px;line-height:1.2;}
+.sub{font-size:16px;color:rgba(237,228,212,.7);margin-bottom:40px;line-height:1.6;}
+.steps{display:flex;flex-direction:column;gap:14px;margin-bottom:40px;text-align:left;}
+.step{display:flex;align-items:flex-start;gap:16px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.18);border-radius:12px;padding:18px 20px;}
+.step-ico{font-size:24px;flex-shrink:0;margin-top:2px;}
+.step-txt strong{font-family:'Cinzel',serif;font-size:12px;letter-spacing:1px;color:var(--g3);text-transform:uppercase;display:block;margin-bottom:4px;}
+.step-txt p{font-size:14px;color:rgba(237,228,212,.7);line-height:1.6;}
+.sep{border:none;border-top:1px solid rgba(201,168,76,.15);margin:10px 0 32px;}
+.upsell{background:linear-gradient(135deg,rgba(139,26,26,.15),rgba(201,168,76,.06));border:1px solid rgba(201,168,76,.3);border-radius:16px;padding:32px;margin-bottom:32px;}
+.upsell-tag{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:var(--g4);text-transform:uppercase;display:block;margin-bottom:12px;}
+.upsell h2{font-family:'Cinzel Decorative',cursive;font-size:clamp(16px,2.5vw,22px);color:#fff;margin-bottom:8px;line-height:1.3;}
+.upsell p{font-size:14px;color:rgba(237,228,212,.65);margin-bottom:20px;line-height:1.6;}
+.upsell-price{font-family:'Cinzel Decorative',cursive;font-size:32px;color:var(--g3);margin-bottom:4px;}
+.upsell-old{font-size:13px;color:rgba(255,255,255,.35);text-decoration:line-through;margin-bottom:18px;display:block;}
+.btn-gold{display:inline-block;background:linear-gradient(180deg,#F5DFA0,#E8C96A 30%,#C9A84C 70%,#A07830 100%);color:#1a0800;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;font-weight:700;padding:15px 36px;border-radius:4px;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);text-transform:uppercase;text-decoration:none;box-shadow:0 6px 0 #4A3410;transition:transform .15s;}
+.btn-gold:hover{transform:translateY(-2px);}
+.btn-wpp{display:inline-block;background:linear-gradient(135deg,#128C7E,#25D366);color:#fff;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;font-weight:700;padding:15px 32px;border-radius:50px;text-transform:uppercase;text-decoration:none;margin-top:12px;}
+.back{font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;color:rgba(201,168,76,.4);margin-top:24px;display:block;}
+.back:hover{color:var(--g3);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="check-circle">✓</div>
+  <h1>Compra Confirmada!</h1>
+  <p class="sub">Seu pagamento foi processado com sucesso. Você receberá o acesso por email em instantes.</p>
+
+  <div class="steps">
+    <div class="step">
+      <span class="step-ico">📧</span>
+      <div class="step-txt">
+        <strong>Verifique seu email</strong>
+        <p>O link de acesso ao ebook foi enviado para o email informado no pagamento. Verifique a caixa de spam se não encontrar.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-ico">💬</span>
+      <div class="step-txt">
+        <strong>Entre no grupo exclusivo</strong>
+        <p>Alunos têm acesso ao grupo no WhatsApp com conteúdo bônus, atualizações e suporte direto do Carlos.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-ico">📲</span>
+      <div class="step-txt">
+        <strong>Implemente e compartilhe seu resultado</strong>
+        <p>Marque @carlostattoo.bh quando tiver resultado. Os melhores cases ganham destaque e mentoria bônus.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- UPSELL: Central Tattoo -->
+  <div class="upsell" id="upsell-central">
+    <span class="upsell-tag">🎁 Oferta exclusiva para quem acabou de comprar</span>
+    <h2>Gerencie seu estúdio como uma empresa — por menos de R$42/mês</h2>
+    <p>O Central Tattoo é o sistema completo que Carlos usa no próprio estúdio. Agenda, CRM, financeiro, contratos digitais e marketing — tudo num lugar só. Hoje com desconto especial para novos alunos.</p>
+    <div class="upsell-price">R$399/ano</div>
+    <span class="upsell-old">Valor normal: R$499/ano</span>
+    <br>
+    <a href="https://buy.stripe.com/fZu8wR79f8oj89S4Gd3wQ03" target="_blank" rel="noopener" class="btn-gold">QUERO O CENTRAL TATTOO COM DESCONTO</a>
+    <br>
+    
+  </div>
+
+  <a href="index.html" class="back">← Voltar ao site principal</a>
+</div>
+
+<script>
+// Detectar qual produto foi comprado pela URL e personalizar mensagem
+const params=new URLSearchParams(location.search);
+const prod=params.get('produto');
+if(prod==='central'){
+  document.getElementById('upsell-central').style.display='none';
+  // Se comprou Central Tattoo, mostrar upsell de mentoria
+  const u=document.querySelector('.upsell');
+  if(u){
+    u.innerHTML=`
+      <span class="upsell-tag">🏆 Próximo passo natural</span>
+      <h2>Quer que o Carlos olhe seu estúdio pessoalmente?</h2>
+      <p>A Mentoria VIP é uma sessão 1:1 de 2h com Carlos para diagnosticar e traçar um plano de crescimento personalizado para o seu estúdio.</p>
+      <div class="upsell-price">R$997</div>
+      <span class="upsell-old">Vagas limitadas — apenas 4 por mês</span>
+      <br>
+      <a href="mailto:carlostattoobh@gmail.com?subject=Mentoria%20VIP&body=Acabei%20de%20assinar%20o%20Central%20Tattoo%20e%20quero%20saber%20sobre%20a%20Mentoria%20VIP" target="_blank" class="btn-gold">QUERO UMA VAGA NA MENTORIA VIP</a>
+    `;
+    u.style.display='block';
+  }
+}
+</script>
+
+<script>
+(function(){
+  var prod = localStorage.getItem('ct_last_produto') || 'ebook';
+  var nomes = {
+    trafego: 'Tráfego do Zero',
+    instagram: 'Instagram que Atrai e Vende',
+    posicionamento: 'Posicionamento Premium',
+    templates: 'Pack Templates',
+    central: 'Central Tattoo Pro'
+  };
+  var nome = nomes[prod] || 'seu produto';
+  
+  // Personalizar título
+  var h1 = document.querySelector('h1');
+  if(h1) h1.textContent = 'Compra Confirmada!';
+  
+  var sub = document.querySelector('.sub');
+  if(sub) sub.innerHTML = '<strong>' + nome + '</strong> foi liberado com sucesso. Você receberá o acesso por email em instantes.';
+
+  // Personalizar upsell conforme produto
+  var upsell = document.getElementById('upsell-central');
+  if(prod === 'central' && upsell){
+    upsell.innerHTML = '<span class="upsell-tag">🏆 Próximo passo natural</span>'
+      + '<h2>Quer que o Carlos olhe seu estúdio pessoalmente?</h2>'
+      + '<p>A Mentoria VIP é uma sessão 1:1 de 2h com Carlos para diagnosticar e traçar um plano de crescimento personalizado para o seu estúdio.</p>'
+      + '<div class="upsell-price">R$997</div>'
+      + '<span class="upsell-old">Apenas 4 vagas por mês</span><br>'
+      + '<a href="mailto:carlostattoobh@gmail.com?subject=Mentoria%20VIP&body=Acabei%20de%20assinar%20o%20Central%20Tattoo%20e%20quero%20uma%20vaga%20na%20Mentoria%20VIP" class="btn-gold">QUERO UMA VAGA NA MENTORIA VIP</a>';
+  } else if((prod === 'trafego' || prod === 'instagram' || prod === 'posicionamento') && upsell){
+    upsell.innerHTML = '<span class="upsell-tag">🔥 Oferta exclusiva pós-compra</span>'
+      + '<h2>Complete seu kit com o Central Tattoo Pro</h2>'
+      + '<p>Você acabou de aprender a gerar clientes. Agora organize tudo: agenda, financeiro, contratos e leads em um só sistema. Oferta especial para quem acabou de comprar.</p>'
+      + '<div class="upsell-price">R$399<small style="font-size:18px">/ano</small></div>'
+      + '<span class="upsell-old">Preço normal: R$499/ano — você economiza R$100</span><br>'
+      + '<a href="https://buy.stripe.com/fZu8wR79f8oj89S4Gd3wQ03" target="_blank" rel="noopener" class="btn-gold" onclick="fbq('track','InitiateCheckout',{content_name:'central_upsell'})">ASSINAR CENTRAL TATTOO — R$399/ANO</a>'
+      + '<br><a href="mailto:carlostattoobh@gmail.com?subject=Upsell%20Central%20Tattoo&body=Acabei%20de%20comprar%20' + encodeURIComponent(nome) + '%20e%20quero%20o%20desconto%20no%20Central%20Tattoo" class="btn-wpp" style="display:inline-block;margin-top:10px;background:var(--g4);color:#fff;font-family:Cinzel,serif;font-size:10px;letter-spacing:1px;padding:12px 24px;border-radius:4px;text-decoration:none;">✉️ QUERO O DESCONTO — ENVIAR EMAIL</a>';
+  } else if(prod === 'templates' && upsell){
+    upsell.innerHTML = '<span class="upsell-tag">📚 Continue evoluindo</span>'
+      + '<h2>Aprenda a gerar clientes com os 3 ebooks completos</h2>'
+      + '<p>Os templates são o começo. Os ebooks de Tráfego, Instagram e Posicionamento te ensinam a usar tudo isso para lotar a agenda.</p>'
+      + '<div class="upsell-price">R$247</div>'
+      + '<span class="upsell-old">Bundle dos 3 ebooks (de R$341)</span><br>'
+      + '<a href="mailto:carlostattoobh@gmail.com?subject=Bundle%203%20Ebooks&body=Comprei%20o%20Pack%20Templates%20e%20quero%20o%20bundle%20dos%203%20ebooks%20por%20R%24247" class="btn-gold">QUERO O BUNDLE — R$247</a>';
+  }
+
+  // Limpar localStorage após usar
+  localStorage.removeItem('ct_last_produto');
+})();
+</script>
+
+</body>
+</html>

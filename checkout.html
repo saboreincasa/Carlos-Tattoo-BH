@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Checkout Seguro — Carlos Tattoo BH</title>
 <meta name="robots" content="noindex, nofollow">
-<link rel="canonical" href="https://carlostattoo.com.br/checkout.html">
+<link rel="canonical" href="https://carlostattoobh.com.br/checkout.html">
 <!-- hreflang: página disponível em PT e EN -->
-<link rel="alternate" hreflang="pt-BR" href="https://carlostattoo.com.br/checkout.html">
-<link rel="alternate" hreflang="en"    href="https://carlostattoo.com.br/checkout.html?lang=en">
-<link rel="alternate" hreflang="x-default" href="https://carlostattoo.com.br/checkout.html">
+<link rel="alternate" hreflang="pt-BR" href="https://carlostattoobh.com.br/checkout.html">
+<link rel="alternate" hreflang="en"    href="https://carlostattoobh.com.br/checkout.html?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://carlostattoobh.com.br/checkout.html">
 
 <!-- Schema: WebPage + Offer (produto carregado dinamicamente via JS) -->
 <script type="application/ld+json">
@@ -17,13 +17,13 @@
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Checkout Seguro — Carlos Tattoo BH",
-  "url": "https://carlostattoo.com.br/checkout.html",
-  "isPartOf": { "@type": "WebSite", "url": "https://carlostattoo.com.br/" },
+  "url": "https://carlostattoobh.com.br/checkout.html",
+  "isPartOf": { "@type": "WebSite", "url": "https://carlostattoobh.com.br/" },
   "breadcrumb": {
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Início",  "item": "https://carlostattoo.com.br/" },
-      { "@type": "ListItem", "position": 2, "name": "Checkout","item": "https://carlostattoo.com.br/checkout.html" }
+      { "@type": "ListItem", "position": 1, "name": "Início",  "item": "https://carlostattoobh.com.br/" },
+      { "@type": "ListItem", "position": 2, "name": "Checkout","item": "https://carlostattoobh.com.br/checkout.html" }
     ]
   }
 }
@@ -626,10 +626,7 @@ a{color:inherit;}
 
     <p style="text-align:center;font-size:12px;color:var(--tx3);margin-top:8px;line-height:1.7;">
       Dúvidas? Fale com Carlos:
-      <a href="https://wa.me/5531983391576"
-        style="color:var(--g1);text-decoration:none;"
-        aria-label="Enviar mensagem pelo WhatsApp para Carlos, +55 31 98339-1576">
-        +55 31 98339-1576
+      <a href="https://carlostattoobh.com.br/#contato" +55 31 98339-1576
       </a>
     </p>
   </section>
@@ -722,7 +719,7 @@ function injetarSchemaProduct(p, id) {
     brand: { '@type': 'Brand', name: 'Carlos Tattoo BH' },
     offers: {
       '@type': 'Offer',
-      url: 'https://carlostattoo.com.br/checkout.html?id=' + id,
+      url: 'https://carlostattoobh.com.br/checkout.html?id=' + id,
       priceCurrency: 'BRL',
       price: p.preco,
       availability: 'https://schema.org/InStock',
@@ -915,7 +912,7 @@ function carregarPayPal(moeda, valor) {
       },
       onError: err => {
         console.error(err);
-        alert('Erro no pagamento. Entre em contato: wa.me/5531983391576');
+        alert('Erro no pagamento. Entre em contato: carlostattoobh@gmail.com');
       }
     }).render('#paypal-container');
   };
@@ -957,7 +954,7 @@ async function criarContaELiberar(origem, transacaoId) {
 
     // Notificar Carlos
     const msg = encodeURIComponent(`🔔 *Nova compra — Carlos Tattoo BH!*\n\n👤 ${nome}\n📧 ${email}\n🌍 País: ${paisCliente}\n🛍️ ${produto.nome}\n💳 ${origem.toUpperCase()}\n⏰ ${new Date().toLocaleString('pt-BR')}`);
-    const w = window.open(`https://wa.me/5531983391576?text=${msg}`, '_blank');
+    const w = window.open(`mailto:carlostattoobh@gmail.com?subject=Acesso+Adquirido&body=${encodeURIComponent(msg)}`, '_blank');
     if (w) setTimeout(() => w.close(), 2500);
 
     // ── Registrar na tabela vendas (Supabase) ──
@@ -983,7 +980,7 @@ async function criarContaELiberar(origem, transacaoId) {
     esconderOverlay();
     const btn = document.getElementById('btnConfirmarPix');
     if (btn) { btn.disabled = false; btn.innerHTML = '<span aria-hidden="true">✅</span> Já realizei o pagamento PIX →'; }
-    alert('Erro ao criar acesso: ' + err.message + '\n\nEntre em contato: wa.me/5531983391576');
+    alert('Erro ao criar acesso: ' + err.message + '\n\nEntre em contato: carlostattoobh@gmail.com');
   }
 }
 
@@ -1011,8 +1008,8 @@ function copiar(id) {
 
 function enviarCredenciaisWpp() {
   const primeiroNome = dadosCliente.nome.split(' ')[0];
-  const msg = encodeURIComponent(`Oi ${primeiroNome}! Seu acesso ao *Carlos Tattoo BH* está pronto! 🎉\n\n👉 *carlostattoo.com.br/acesso.html*\n\n📧 Login: ${dadosCliente.email}\n🔑 Senha: ${senhaGerada}\n\nQualquer dúvida é só chamar! 😊🖤`);
-  window.open(`https://wa.me/?text=${msg}`, '_blank');
+  const msg = encodeURIComponent(`Oi ${primeiroNome}! Seu acesso ao *Carlos Tattoo BH* está pronto! 🎉\n\n👉 *carlostattoobh.com.br/acesso.html*\n\n📧 Login: ${dadosCliente.email}\n🔑 Senha: ${senhaGerada}\n\nQualquer dúvida é só chamar! 😊🖤`);
+  // compartilhamento WhatsApp removido
 }
 
 /* ══════════════════════════════════════════

@@ -1,34 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-  <!-- PÁGINA PRINCIPAL — PT-BR -->
+  <!-- HOME PT-BR (principal) -->
   <url>
-    <loc>https://carlostattoo.com.br/</loc>
-    <lastmod>2026-05-30</lastmod>
+    <loc>https://carlostattoobh.com.br/</loc>
+    <lastmod>2026-06-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://carlostattoo.com.br/"/>
-    <xhtml:link rel="alternate" hreflang="en"    href="https://carlostattoo.com.br/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://carlostattoo.com.br/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR"     href="https://carlostattoobh.com.br/"/>
+    <xhtml:link rel="alternate" hreflang="en"         href="https://carlostattoobh.com.br/en/"/>
+    <xhtml:link rel="alternate" hreflang="es"         href="https://carlostattoobh.com.br/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://carlostattoobh.com.br/"/>
   </url>
 
-  <!-- CHECKOUT / PAGAMENTO (noindex — não precisa no sitemap; mantido para referência interna) -->
-  <!-- Removido: checkout.html e pagamento.html têm robots noindex -->
-
-  <!-- ÁREA DE MEMBROS (noindex — excluída do sitemap) -->
-  <!-- Removido: acesso.html e painel.html têm robots noindex -->
-
-
-  <!-- Política de Privacidade -->
+  <!-- HOME EN -->
   <url>
-    <loc>https://carlostattoo.com.br/privacidade.html</loc>
-    <lastmod>2026-05-30</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://carlostattoo.com.br/privacidade.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://carlostattoo.com.br/privacidade.html"/>
+    <loc>https://carlostattoobh.com.br/en/</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="pt-BR"     href="https://carlostattoobh.com.br/"/>
+    <xhtml:link rel="alternate" hreflang="en"         href="https://carlostattoobh.com.br/en/"/>
+    <xhtml:link rel="alternate" hreflang="es"         href="https://carlostattoobh.com.br/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://carlostattoobh.com.br/"/>
   </url>
+
+  <!-- HOME ES -->
+  <url>
+    <loc>https://carlostattoobh.com.br/es/</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="pt-BR"     href="https://carlostattoobh.com.br/"/>
+    <xhtml:link rel="alternate" hreflang="en"         href="https://carlostattoobh.com.br/en/"/>
+    <xhtml:link rel="alternate" hreflang="es"         href="https://carlostattoobh.com.br/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://carlostattoobh.com.br/"/>
+  </url>
+
+  <!-- BLOG: Quanto Custa Tatuagem em BH — keyword alta intenção -->
+  <url>
+    <loc>https://carlostattoobh.com.br/blog-quanto-custa-tatuagem-bh.html</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- BLOG: Cover Up em BH -->
+  <url>
+    <loc>https://carlostattoobh.com.br/blog-cover-up-bh.html</loc>
+    <lastmod>2026-01-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- BLOG: Tráfego Pago para Tatuadores -->
+  <url>
+    <loc>https://carlostattoobh.com.br/blog-trafego-pago-tatuadores.html</loc>
+    <lastmod>2026-01-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- BLOG: Cuidados Pós-Tattoo -->
+  <url>
+    <loc>https://carlostattoobh.com.br/blog-cuidados-pos-tattoo.html</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- BLOG: Central Tattoo — Software Gestão Estúdio -->
+  <url>
+    <loc>https://carlostattoobh.com.br/blog-central-tattoo.html</loc>
+    <lastmod>2026-02-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- BLOG: Tráfego Pago Completo -->
+  <url>
+    <loc>https://carlostattoobh.com.br/blog-trafego-pago-COMPLETO.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- CENTRAL TATTOO -->
+  <url>
+    <loc>https://carlostattoobh.com.br/central_tattoo.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+
+  <!-- POLÍTICA DE PRIVACIDADE -->
+  <url>
+    <loc>https://carlostattoobh.com.br/privacidade.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.30</priority>
+  </url>
+
+  <!--
+    NÃO INDEXADOS (noindex ou internos):
+    /admin.html, /acesso.html, /painel.html, /leitor.html,
+    /checkout.html, /pagamento.html, /thank-you.html
+  -->
 
 </urlset>

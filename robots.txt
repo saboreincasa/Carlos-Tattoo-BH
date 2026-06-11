@@ -1,10 +1,15 @@
 # robots.txt — Carlos Tattoo BH
-# https://carlostattoo.com.br
+# https://carlostattoobh.com.br
 
 User-agent: *
 Allow: /
 Disallow: /admin.html
 Disallow: /acesso.html
+Disallow: /painel.html
+Disallow: /leitor.html
+Disallow: /README.txt
+Disallow: /LEIA-ME-ANTES-DE-SUBIR.txt
+Disallow: /LEIA-ME-IMPLEMENTACAO.md
 
 # Sitemap
-Sitemap: https://carlostattoo.com.br/sitemap.xml
+Sitemap: https://carlostattoobh.com.br/sitemap.xml
