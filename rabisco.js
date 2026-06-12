@@ -1,11 +1,14 @@
 /* ═══════════════════════════════════════════════════════
-   RABISCO v8 — Assistente Carlos Tattoo BH
+   RABISCO v9 — Assistente Carlos Tattoo BH
    ─────────────────────────────────────────────────────
-   ✅ Visual híbrido: header escuro + conversa branca
-   ✅ Captura obrigatória nome + WhatsApp antes de tudo
-   ✅ Funil "Sou Tatuador" com produtos reais
-   ✅ Fallback humanizado — sem WhatsApp, só formulário
-   ✅ 45+ tópicos, correção ortográfica, bubble proativa
+   ✅ Captura DEPOIS de 2 mensagens livres (não obrigatória logo)
+   ✅ CTA de formulário só em respostas relevantes
+   ✅ Fallback inteligente com botões de direcionamento
+   ✅ Funil só inicia se cliente ficar 15s sem digitar
+   ✅ Sugestões dinâmicas — nunca repete na mesma conversa
+   ✅ Memória básica de contexto (parte do corpo, estilo)
+   ✅ Sinônimos expandidos — blackwork, japonesa, trash polka...
+   ✅ Motor de busca com score ponderado melhorado
    ✅ Tracking Supabase + localStorage intacto
 ═══════════════════════════════════════════════════════ */
 
@@ -21,9 +24,10 @@
     vagasSemana:  4,
     horarioAbre:  10,
     horarioFecha: 19,
-    inactivityMs: 42000,
-    secaoMs:      28000,
-    bubbleDelay:  10000
+    inactivityMs: 999999,
+    secaoMs:      999999,
+    bubbleDelay:  40000,
+    msgsLivresAntesCaptura: 2   // quantas mensagens livres antes de pedir dados
   };
 
   var SB_URL = 'https://ejapatxehmxondjqsgvv.supabase.co';
@@ -58,7 +62,10 @@
     'nao':'não','cicatrizacao':'cicatrização','piercing':'piercing',
     'piercin':'piercing','gravidez':'gravidez','gravida':'grávida',
     'portfolio':'portfólio','portifolio':'portfólio','insta':'instagram','ig':'instagram',
-    'horario':'horário','endereco':'endereço','sinal':'sinal','deposito':'depósito'
+    'horario':'horário','endereco':'endereço','sinal':'sinal','deposito':'depósito',
+    'blackwork':'black and grey','japones':'japonesa','japinha':'japonesa',
+    'old school':'oldschool','new school':'newschool','trash':'trash polka',
+    'geometrica':'geometrico','geometricas':'geometrico','dotw':'dotwork'
   };
 
   function corrigirTypos(msg) {
@@ -103,244 +110,328 @@
   }
 
   /* ══════════════════════════════════════
-     BASE DE CONHECIMENTO — 45+ TÓPICOS
+     MEMÓRIA DE CONTEXTO DA CONVERSA
   ══════════════════════════════════════ */
+  var ctx = {
+    partCorpo: '',   // ex: 'antebraço', 'costela'
+    estilo:    '',   // ex: 'realismo', 'fineline'
+    interesse: ''    // ex: 'tattoo_nova', 'cobertura'
+  };
+
+  function atualizarContexto(norm) {
+    var partes = ['antebraco','braco','costela','perna','coxa','costas','pescoco','ombro','tornozelo','pulso','mao','dedos','omoplata','barriga','pe','canela','joelho','cotovelo','nuca'];
+    var estilos = ['realismo','fineline','black and grey','blackgrey','colorida','aquarela','mandala','geometrico','floral','lettering','oldschool','newschool','trash polka','japonesa','dotwork','neotradicional','biomecânico','biomechanico'];
+    partes.forEach(function(p){ if(norm.indexOf(p)!==-1) ctx.partCorpo=p; });
+    estilos.forEach(function(e){ if(norm.indexOf(normalizar(e))!==-1) ctx.estilo=e; });
+    if(/reform|cover|cobrir|antiga|velha|arrependi/.test(norm)) ctx.interesse='cobertura';
+    if(/tattoo nova|nova tattoo|fazer tattoo|quero tatuar|primeira/.test(norm)) ctx.interesse='tattoo_nova';
+    if(/areola|mastectomia|cancer de mama/.test(norm)) ctx.interesse='areola';
+  }
+
+  function injetarContexto(resp) {
+    // Se temos contexto de parte do corpo e a resposta fala de orçamento, personaliza
+    if(ctx.partCorpo && resp.indexOf('Orçamento')!==-1) {
+      resp = resp.replace('Orçamento gratuito', 'Orçamento gratuito para '+ctx.partCorpo);
+    }
+    return resp;
+  }
+
+  /* ══════════════════════════════════════
+     BASE DE CONHECIMENTO — 55+ TÓPICOS
+  ══════════════════════════════════════ */
+  // cta:true = mostra card de formulário | cta:false = só informa, sem push
   var BASE = [
 
     /* ── SAUDAÇÕES ── */
-    { pri:10, tags:['oi','ola','opa','ei','eai','e ai','salve','fala','bom dia','boa tarde','boa noite','tudo bem','tudo bom','como vai','hello','hey','hi'],
-      resp:'Oi! 😊 Que bom te ver por aqui!\n\nSou o Rabisco, assistente oficial do **Carlos Tattoo BH**.\n\nPosso te ajudar com:\n🎨 Tattoos novas e estilos\n🔄 Reforma de tatuagem\n💰 Preços e agendamento\n📚 Produtos para tatuadores\n\nO que você está buscando hoje?' },
+    { pri:10, cta:false, tags:['oi','ola','opa','ei','eai','e ai','salve','fala','bom dia','boa tarde','boa noite','tudo bem','tudo bom','como vai','hello','hey','hi'],
+      resp:'Oi! 😊 Que bom te ver por aqui!\n\nSou o Rabisco, assistente do **Carlos Tattoo BH**. Posso te ajudar com:\n\n🎨 Tattoos novas e estilos\n🔄 Reforma de tatuagem\n💰 Preços e agendamento\n📚 Produtos para tatuadores\n\nO que você está buscando hoje?' },
 
     /* ── CONFIRMAÇÕES ── */
-    { pri:10, tags:['sim','s','yes','claro','pode ser','quero','bora','vamos','ok','certo','ta'],
-      resp:'Ótimo! 🔥 Então bora dar o próximo passo!\n\nPreenche o formulário aqui no site — são 3 passinhos e o Carlos te responde no WhatsApp!\n\nOrçamento 100% gratuito, sem compromisso.' },
+    { pri:10, cta:true, tags:['sim','s','yes','claro','pode ser','quero','bora','vamos','ok','certo','ta'],
+      resp:'Ótimo! 🔥 Bora dar o próximo passo!\n\nPreenche o formulário — são 3 passinhos e o Carlos te responde no WhatsApp.\n\nOrçamento 100% gratuito, sem compromisso.' },
 
     /* ── OBRIGADO ── */
-    { pri:10, tags:['obrigado','obrigada','valeu','vlw','muito obrigado','muito obrigada','brigado','brigada','thanks'],
-      resp:'Fico feliz em ajudar! 😊\n\nQualquer dúvida é só perguntar. Carlos vai adorar transformar sua ideia em arte!' },
+    { pri:10, cta:false, tags:['obrigado','obrigada','valeu','vlw','muito obrigado','muito obrigada','brigado','brigada','thanks'],
+      resp:'Fico feliz em ajudar! 😊\n\nSe surgir mais alguma dúvida é só perguntar. Carlos vai adorar transformar sua ideia em arte!' },
 
     /* ── PROCESSO / AGENDAMENTO ── */
-    { tags:['como funciona','como e o processo','quero tatuar','como agendar','processo','como faco','quero marcar','por onde comeco','primeiro passo','comecar'],
+    { cta:true, tags:['como funciona','como e o processo','quero tatuar','como agendar','processo','como faco','quero marcar','por onde comeco','primeiro passo','comecar'],
       resp:'Super simples! 🎨\n\n**1️⃣ Formulário** — preenche no site em 3 passos\n**2️⃣ Carlos te responde** no WhatsApp pessoalmente\n**3️⃣ Confirmam data** com um sinal\n**4️⃣ Sessão no estúdio** — arte na pele! 🔥\n\nOrçamento 100% gratuito. Quer começar?' },
 
     /* ── PORTFÓLIO ── */
-    { tags:['portfolio','portifolio','ver trabalhos','ver fotos','exemplos','trabalhos','ver tatuagens','antes e depois','ver arte'],
+    { cta:false, tags:['portfolio','portifolio','ver trabalhos','ver fotos','exemplos','trabalhos','ver tatuagens','antes e depois','ver arte'],
       resp:'O portfólio está aqui no site! 🎨\n\nRole até a seção **Portfólio** para ver as obras mais recentes — realismo, fineline, reformas e muito mais.\n\nTambém tem no Instagram: **@carlostattoo.bh**\n\n2.400+ tattoos feitas, 5.0★ Google.' },
 
     /* ── PREÇO / PAGAMENTO ── */
-    { tags:['quanto custa','preco','valor','orcamento','custo','quanto fica','quanto cobra','caro','barato','parcelamento','parcela','cartao','pix','pagamento','pagar','aceita','credito','debito'],
-      resp:'O valor varia pelo tamanho, estilo e complexidade 💰\n\nEstimativas:\n• **Fineline pequena:** R$ 350–650\n• **Black & Grey médio:** R$ 600–1.000\n• **Realismo médio:** R$ 900–1.600\n• **Reforma:** a partir de R$ 800\n\nOrçamento **gratuito e personalizado** — preenche o formulário e Carlos manda o valor exato!\n\n💳 PIX, débito e crédito parcelado.' },
+    { cta:true, tags:['quanto custa','preco','valor','orcamento','custo','quanto fica','quanto cobra','caro','barato','parcelamento','parcela','cartao','pix','pagamento','pagar','aceita','credito','debito'],
+      resp:'O valor varia pelo tamanho, estilo e complexidade 💰\n\nEstimativas:\n• **Fineline pequena:** R$ 350–650\n• **Black & Grey médio:** R$ 600–1.000\n• **Realismo médio:** R$ 900–1.600\n• **Reforma:** a partir de R$ 800\n\nOrçamento **gratuito e personalizado** — Carlos manda o valor exato!\n\n💳 PIX, débito e crédito parcelado.' },
 
     /* ── SINAL / DEPÓSITO ── */
-    { tags:['sinal','deposito','reserva','entrada','garantir vaga','precisa de sinal','reservar','confirmar'],
-      resp:'Para reservar sua data, Carlos solicita um **sinal de confirmação** 💎\n\nO valor é combinado diretamente com ele no WhatsApp após o orçamento — e é descontado do total da sessão!\n\nQuer agendar? Preenches o formulário!' },
+    { cta:true, tags:['sinal','deposito','reserva','entrada','garantir vaga','precisa de sinal','reservar','confirmar'],
+      resp:'Para reservar sua data, Carlos solicita um **sinal de confirmação** 💎\n\nO valor é combinado diretamente com ele após o orçamento — e é descontado do total da sessão!' },
 
     /* ── CANCELAMENTO ── */
-    { tags:['cancelar','cancelamento','remarcar','desmarcar','nao posso ir','mudei de ideia','reagendar'],
-      resp:'Carlos entende que imprevistos acontecem! 📅\n\nA política de cancelamento e remarcação é combinada diretamente com ele no WhatsApp no momento do agendamento.\n\nSempre avise com antecedência — facilita o reagendamento! 😊' },
+    { cta:false, tags:['cancelar','cancelamento','remarcar','desmarcar','nao posso ir','mudei de ideia','reagendar'],
+      resp:'Carlos entende que imprevistos acontecem! 📅\n\nA política de cancelamento é combinada diretamente com ele no WhatsApp no momento do agendamento. Sempre avise com antecedência!' },
 
     /* ── CALCULADORA ── */
-    { tags:['calculadora','calcular','calcule','estimativa de preco','simular'],
-      resp:'O site tem uma **Calculadora de Preço** na seção Calculadora! 🧮\n\nMas o orçamento mais preciso vem do Carlos direto, sem custo. Preenches o formulário que ele manda o valor exato!' },
+    { cta:false, tags:['calculadora','calcular','calcule','estimativa de preco','simular'],
+      resp:'O site tem uma **Calculadora de Preço** na seção Calculadora! 🧮\n\nPara o orçamento mais preciso, o Carlos faz gratuitamente — role até o formulário no site.' },
 
     /* ── ENDEREÇO ── */
-    { tags:['endereco','onde fica','localizacao','bairro','como chegar','mantiqueira','rua','cep','belo horizonte','bh','estudio'],
+    { cta:false, tags:['endereco','onde fica','localizacao','bairro','como chegar','mantiqueira','rua','cep','belo horizonte','bh','estudio'],
       resp:'O estúdio fica em Belo Horizonte! 📍\n\n**Rua Maria de Lourdes da Cruz, 378**\nBairro Mantiqueira — BH/MG\n\n• **Seg a Sex:** 10h às 19h\n• **Sábado:** 10h às 18h\n• **Domingo:** fechado' },
 
     /* ── HORÁRIO ── */
-    { tags:['horario','que horas','quando abre','quando fecha','funcionamento','atende','abre','fecha','domingo','sabado','semana'],
-      resp:'⏰ Horários:\n\n• **Seg a Sex:** 10h às 19h\n• **Sábado:** 10h às 18h\n• **Domingo:** Fechado\n\nA agenda fecha rápido — **'+getVagas()+' vagas** ainda esta semana! 🔥' },
+    { cta:false, tags:['horario','que horas','quando abre','quando fecha','funcionamento','atende','abre','fecha','domingo','sabado','semana'],
+      resp:'⏰ Horários do estúdio:\n\n• **Seg a Sex:** 10h às 19h\n• **Sábado:** 10h às 18h\n• **Domingo:** Fechado\n\nA agenda fecha rápido — **'+getVagas()+' vagas** ainda esta semana! 🔥' },
 
     /* ── INSTAGRAM ── */
-    { tags:['instagram','insta','ig','rede social','redes','arroba','perfil','seguir','social'],
-      resp:'O Instagram do Carlos é **@carlostattoo.bh** 📸\n\nLá você encontra portfólio completo, antes/depois de reformas, bastidores e novidades!\n\nAqui no site também tem o portfólio.' },
+    { cta:false, tags:['instagram','insta','ig','rede social','redes','arroba','perfil','seguir','social'],
+      resp:'O Instagram do Carlos é **@carlostattoo.bh** 📸\n\nPortfólio completo, antes/depois de reformas, bastidores e novidades!\n\nAqui no site também tem galeria completa.' },
 
     /* ── DOR ── */
-    { tags:['doi','doer','doera','dor','machuca','doi muito','vai doer','sente dor','doloroso','suportar'],
-      resp:'A dor varia conforme a região e cada pessoa! 😄\n\nCarlos usa técnicas que **minimizam o desconforto** — a maioria se surpreende porque esperava sentir muito mais!\n\n📍 **Mais sensível:** costelas, pés, pescoço\n📍 **Menos sensível:** braços, coxas, costas\n\nConsulta gratuita sem compromisso!' },
+    { cta:false, tags:['doi','doer','doera','dor','machuca','doi muito','vai doer','sente dor','doloroso','suportar'],
+      resp:'A dor varia conforme a região e cada pessoa! 😄\n\nCarlos usa técnicas que **minimizam o desconforto** — a maioria se surpreende porque esperava sentir muito mais!\n\n📍 **Mais sensível:** costelas, pés, pescoço\n📍 **Menos sensível:** braços, coxas, costas' },
 
     /* ── REFORMA / COVER UP ── */
-    { tags:['reform','cover up','cobrir','cobertura','velha','antiga','envergonha','esconder','reformar','consertar','tattoo antiga','tatuagem feia','arrependi','arrependimento'],
-      resp:'Reforma é nossa **maior especialidade**! 🔄\n\n**380+ reformas feitas** — transformações totais!\n\n✅ 98% de satisfação em reformas\n✅ Carlos avalia com foto, gratuitamente\n✅ Realismo e Black & Grey cobrem praticamente tudo\n\nManda o formulário com foto da tattoo atual!' },
+    { cta:true, tags:['reform','cover up','cobrir','cobertura','velha','antiga','envergonha','esconder','reformar','consertar','tattoo antiga','tatuagem feia','arrependi','arrependimento'],
+      resp:'Reforma é nossa **maior especialidade**! 🔄\n\n**380+ reformas feitas** — transformações totais!\n\n✅ 98% de satisfação em reformas\n✅ Carlos avalia com foto, gratuitamente\n✅ Realismo e Black & Grey cobrem praticamente tudo' },
 
     /* ── ARÉOLA ── */
-    { tags:['areola','mastectomia','cancer de mama','cancer','reconstrucao','mama','seio','cirurgia','pos-cirurgia','sobrevivente','micropigmentacao'],
-      resp:'Esse é um trabalho muito especial 💖\n\nCarlos realiza **reconstrução de aréola com micropigmentação 3D** para sobreviventes de câncer de mama.\n\n• Atendimento personalizado e privado\n• Carlos acompanha cada etapa com cuidado\n\nPreenches o formulário — ele entra em contato com toda atenção que você merece 🌸', empatia:true },
+    { cta:true, tags:['areola','mastectomia','cancer de mama','cancer','reconstrucao','mama','seio','cirurgia','pos-cirurgia','sobrevivente','micropigmentacao'],
+      resp:'Esse é um trabalho muito especial 💖\n\nCarlos realiza **reconstrução de aréola com micropigmentação 3D** para sobreviventes de câncer de mama.\n\n• Atendimento personalizado e privado\n• Carlos acompanha cada etapa com cuidado', empatia:true },
 
     /* ── CICATRIZ / QUEIMADURA ── */
-    { tags:['cicatriz','queimadura','keloid','queloide','marca','cicatrizes','queimaduras','pele com marca'],
+    { cta:true, tags:['cicatriz','queimadura','keloid','queloide','marca','cicatrizes','queimaduras','pele com marca'],
       resp:'Sim, Carlos trabalha com tatuagem em cicatrizes e queimaduras! 💪\n\nExige expertise e sensibilidade — e ele tem os dois. Envie uma foto via formulário para avaliação gratuita!' },
 
     /* ── CICATRIZAÇÃO ── */
-    { tags:['cicatrizacao','cicatrizar','cuidado','depois da tattoo','pos tattoo','pomada','bepantol','sol','piscina','protecao','quanto tempo cicatriza','cuidados','descascar','cocar','casquinha'],
-      resp:'Protocolo de cicatrização 🌿\n\n**Superficial:** 2–4 semanas | **Completa:** 2–3 meses\n\n✅ Lavar com sabonete neutro 2x/dia\n✅ Aplicar Bepantol ou Cicatricure\n☀️ Sem sol por 30 dias\n🏊 Sem piscina/mar por 3 semanas\n❌ Não coçar ou arrancar casquinhas\n\nCarlos acompanha pelo WhatsApp!' },
+    { cta:false, tags:['cicatrizacao','cicatrizar','cuidado','depois da tattoo','pos tattoo','pomada','bepantol','sol','piscina','protecao','quanto tempo cicatriza','cuidados','descascar','cocar','casquinha'],
+      resp:'Protocolo de cicatrização 🌿\n\n**Superficial:** 2–4 semanas | **Completa:** 2–3 meses\n\n✅ Lavar com sabonete neutro 2x/dia\n✅ Aplicar Bepantol ou Cicatricure\n☀️ Sem sol por 30 dias\n🏊 Sem piscina/mar por 3 semanas\n❌ Não coçar nem arrancar casquinhas\n\nCarlos acompanha pelo WhatsApp!' },
 
     /* ── GRAVIDEZ ── */
-    { tags:['gravida','gravidez','gestante','gestacao','amamentando','amamentacao','lactante'],
-      resp:'⚠️ De forma geral, **não é recomendado** tatuar durante gravidez ou amamentação:\n\n• Tintas podem ser absorvidas pelo organismo\n• Sistema imunológico fica diferente\n• Risco de infecção é maior\n\nCarlos prioriza saúde e segurança acima de tudo. Aguarde o término da amamentação e consulte seu médico. Quando estiver pronta, estaremos aqui! 💖', empatia:true },
+    { cta:false, tags:['gravida','gravidez','gestante','gestacao','amamentando','amamentacao','lactante'],
+      resp:'⚠️ De forma geral, **não é recomendado** tatuar durante gravidez ou amamentação:\n\n• Tintas podem ser absorvidas pelo organismo\n• Sistema imunológico fica diferente\n• Risco de infecção é maior\n\nCarlos prioriza saúde e segurança acima de tudo. Aguarde o fim da amamentação e consulte seu médico. Quando estiver pronta, estaremos aqui! 💖', empatia:true },
 
     /* ── MASCULINA / FEMININA ── */
-    { tags:['masculina','masculino','homem','tatuagem masculina','feminina','feminino','mulher','menina','tatuagem feminina','delicada','delicado'],
+    { cta:false, tags:['masculina','masculino','homem','tatuagem masculina','feminina','feminino','mulher','menina','tatuagem feminina','delicada','delicado'],
       resp:'Carlos trabalha com **todos os estilos para todos os públicos**! 💪💖\n\nNão existe tattoo "só de homem" ou "só de mulher" — existe a arte que combina com você!\n\nVer portfólio é o melhor jeito de se inspirar 🎨' },
 
     /* ── PIERCING ── */
-    { tags:['piercing','piercin','percin','faz piercing','tem piercing','brinco','argola'],
-      resp:'O estúdio é **especializado em tatuagem** 🎨\n\nPiercing não é um serviço oferecido aqui. Mas se você quer uma tattoo incrível, pode contar com o Carlos!\n\nOrçamento gratuito — preenches o formulário!' },
+    { cta:false, tags:['piercing','piercin','percin','faz piercing','tem piercing','brinco','argola'],
+      resp:'O estúdio é **especializado em tatuagem** 🎨\n\nPiercing não é um serviço oferecido aqui. Mas se você quer uma tattoo incrível, Carlos está disponível!' },
 
     /* ── ESTILO: REALISMO ── */
-    { tags:['realismo','realista','retrato','3d','fotorrealista','portrait','hiper realismo','rosto','face'],
-      resp:'Realismo é um dos pontos fortes do Carlos! 🎨\n\n**97% de satisfação**\n\n• Retratos hiper-realistas de pessoas e animais\n• Efeito 3D fotorrealista\n• Sombreados profundos e detalhes incríveis\n\n2.400+ tattoos, 5.0★ Google. Orçamento gratuito!' },
+    { cta:true, tags:['realismo','realista','retrato','3d','fotorrealista','portrait','hiper realismo','rosto','face'],
+      resp:'Realismo é um dos pontos fortes do Carlos! 🎨\n\n**97% de satisfação**\n\n• Retratos hiper-realistas de pessoas e animais\n• Efeito 3D fotorrealista\n• Sombreados profundos e detalhes incríveis\n\n2.400+ tattoos, 5.0★ Google.' },
 
-    /* ── ESTILO: BLACK & GREY ── */
-    { tags:['black','grey','preto e cinza','black and grey','blackgrey','sombreado','sombra','monocromatico'],
+    /* ── ESTILO: BLACK & GREY / BLACKWORK ── */
+    { cta:true, tags:['black','grey','preto e cinza','black and grey','blackgrey','sombreado','sombra','monocromatico','blackwork','black work','somente preto','so preto'],
       resp:'Black & Grey é atemporal e o Carlos domina! 🖤\n\n**95% de satisfação**\n\n• Sombras profundas e suaves\n• Transições perfeitas\n• Envelhece muito melhor que colorido\n\nOrçamento gratuito! 🔥' },
 
     /* ── ESTILO: FINELINE ── */
-    { tags:['fineline','fine line','traco fino','minimalista','delicada','linha fina','leve'],
+    { cta:true, tags:['fineline','fine line','traco fino','minimalista','delicada','linha fina','leve'],
       resp:'Fineline é sofisticação no máximo! ✨\n\n**90% de satisfação**\n\n• Traços finíssimos e elegantes\n• Perfeito para tattoos delicadas e minimalistas\n• Flores, frases, símbolos\n\nOrçamento gratuito! 💖' },
 
     /* ── ESTILO: COLORIDA / AQUARELA ── */
-    { tags:['colorida','cor','aquarela','colorido','watercolor','vibrante','color'],
+    { cta:true, tags:['colorida','cor','aquarela','colorido','watercolor','vibrante','color'],
       resp:'Tatuagem colorida é pura arte! 🌈\n\nCarlos trabalha com colorida, aquarela e estilos vibrantes. ⚠️ Dica: cores precisam de mais proteção solar durante cicatrização!\n\nOrçamento gratuito!' },
 
+    /* ── ESTILO: JAPONESA ── */
+    { cta:true, tags:['japonesa','japones','japinha','irezumi','koi','carpa','samurai','gueixa','oni','dragao japones'],
+      resp:'Japonesa é um estilo clássico e poderoso! 🐉\n\n• Carpas Koi, dragões, ondas, flores de cerejeira\n• Muito forte em omoplata, costas e manga\n• Carlos domina composição e preenchimento\n\nOrçamento gratuito!' },
+
+    /* ── ESTILO: NEOTRADICIONAL ── */
+    { cta:true, tags:['neotradicional','neo tradicional','neo-tradicional','old school','oldschool','new school','newschool','tradicional americano','americana'],
+      resp:'Old School e Neotradicional têm personalidade! 🎨\n\n• Traços marcados e cores sólidas\n• Iconografia clássica ou releituras modernas\n• Envelhece bem quando bem feito\n\nOrçamento gratuito!' },
+
+    /* ── ESTILO: TRASH POLKA ── */
+    { cta:true, tags:['trash polka','trash','caos','vermelho e preto','abstracto','abstrato','sketch'],
+      resp:'Trash Polka é impacto total! ⚡\n\n• Mistura de realismo, abstrato e tipografia\n• Preto + vermelho — marcante e único\n• Projetos grandes ficam incríveis\n\nOrçamento gratuito!' },
+
+    /* ── ESTILO: DOTWORK / PONTILHISMO ── */
+    { cta:true, tags:['dotwork','dot work','pontilhismo','pontos','dotw'],
+      resp:'Dotwork é técnica e paciência — Carlos tem os dois! 🔷\n\n• Criado inteiramente com pontos\n• Efeito suave e detalhado\n• Ótimo para mandalas e geométricos\n\nOrçamento gratuito!' },
+
+    /* ── ESTILO: BIOMECÂNICO ── */
+    { cta:true, tags:['biomecanico','biomechanico','biomecânico','maquina','robotico','cyborg','engrena','engrenagem'],
+      resp:'Biomecânico é arte de outro mundo! 🤖\n\n• Efeito de máquinas sob a pele\n• Muito impactante em braços e costas\n• Exige domínio de perspectiva e sombreado\n\nOrçamento gratuito!' },
+
     /* ── ESTILO: MANDALA / GEOMÉTRICO ── */
-    { tags:['mandala','geometrico','geometrica','tribal','ornamental','pontilhismo','dotwork','simetria'],
-      resp:'Mandala, geométrico e tribal são especialidades! 🔷\n\n• Mandalas com simetria perfeita\n• Geométrico moderno e impactante\n• Pontilhismo (dotwork) com precisão\n\nOrçamento gratuito! ✨' },
+    { cta:true, tags:['mandala','geometrico','geometrica','tribal','ornamental','pontilhismo','dotwork','simetria'],
+      resp:'Mandala e geométrico são especialidades! 🔷\n\n• Mandalas com simetria perfeita\n• Geométrico moderno e impactante\n• Pontilhismo (dotwork) com precisão\n\nOrçamento gratuito! ✨' },
 
     /* ── ESTILO: FLORAL ── */
-    { tags:['floral','flores','rosa','flor','botanico','botanica','girassol','orquidea','ramo','bouquet'],
+    { cta:true, tags:['floral','flores','rosa','flor','botanico','botanica','girassol','orquidea','ramo','bouquet'],
       resp:'Floral o Carlos faz com maestria! 🌸\n\n• Rosas realistas ou estilizadas\n• Arranjos florais complexos\n• Ótimo em antebraço, costela, ombro, coxa\n\nOrçamento gratuito! 🎨' },
 
     /* ── ESTILO: LETTERING ── */
-    { tags:['frase','texto','letra','lettering','escrita','caligrafia','palavra','nome','dedicatoria','letreiro'],
-      resp:'Lettering e frases ficam incríveis na pele! ✍️\n\n• Caligrafia personalizada\n• Vários estilos (gótico, cursivo, bastão)\n• Integração com flores e geometric\n\nCarlos orienta o melhor local! Preenches o formulário.' },
+    { cta:true, tags:['frase','texto','letra','lettering','escrita','caligrafia','palavra','nome','dedicatoria','letreiro'],
+      resp:'Lettering e frases ficam incríveis na pele! ✍️\n\n• Caligrafia personalizada\n• Vários estilos: gótico, cursivo, bastão\n• Integração com flores e geométrico\n\nCarlos orienta o melhor local! 🎨' },
 
     /* ── ESTILO: TATUAGEM BRANCA ── */
-    { tags:['tatuagem branca','tinta branca','white ink','tattoo branca','branca','invisivel','discreta'],
-      resp:'Tatuagem branca (white ink) é linda e discreta! 🤍\n\n• Quase invisível em pele clara\n• Efeito delicado e sofisticado\n• Requer mais cuidado com sol\n\nO resultado varia com o tom de pele. Carlos avalia seu caso! Preenches o formulário.' },
+    { cta:true, tags:['tatuagem branca','tinta branca','white ink','tattoo branca','branca','invisivel','discreta'],
+      resp:'Tatuagem branca (white ink) é linda e discreta! 🤍\n\n• Quase invisível em pele clara\n• Efeito delicado e sofisticado\n• Requer mais cuidado com sol\n\nO resultado varia com o tom de pele. Carlos avalia! 🎨' },
 
     /* ── ESTILO: UV / NEON ── */
-    { tags:['uv','neon','ultravioleta','luz negra','brilha no escuro','fluorescente','glow','balada'],
-      resp:'Tatuagem UV/Neon é incrível! 🌟\n\n• De dia: normal ou quase invisível\n• Sob luz UV: fica fluorescente!\n• Perfeita para quem quer algo discreto no dia a dia\n\n⚠️ A tinta UV é mais sensível ao sol. Carlos avalia cada caso!\n\nPreenches o formulário!' },
-
-    /* ── COURO CABELUDO ── */
-    { tags:['couro cabeludo','escalpo','cabeca','cabelo raspado','careca','calvicie','calvo','head tattoo','scalp'],
-      resp:'Tatuagem no couro cabeludo é possível! 💇\n\nMuito pedida por homens carecas para cobrir manchas, cicatrizes ou estética.\n\n⚠️ Área sensível — exige técnica específica. Carlos avalia cada caso com foto.\n\nPreenches o formulário para avaliação gratuita!' },
+    { cta:true, tags:['uv','neon','ultravioleta','luz negra','brilha no escuro','fluorescente','glow','balada'],
+      resp:'Tatuagem UV/Neon é incrível! 🌟\n\n• De dia: normal ou quase invisível\n• Sob luz UV: fica fluorescente!\n• Perfeita para quem quer algo discreto no dia a dia\n\n⚠️ A tinta UV é mais sensível ao sol. Carlos avalia cada caso!' },
 
     /* ── PARTES DO CORPO ── */
-    { tags:['antebraco','antebraço','braco','braço','costela','perna','coxa','costas','pescoco','pescoço','ombro','tornozelo','pulso','mao','mão','dedos','omoplata','barriga','pe','pé','canela','joelho','cotovelo','nuca'],
-      resp:'Carlos trabalha em praticamente qualquer parte do corpo! 💪\n\n• **Antebraço e coxa:** ótimos para trabalhos maiores\n• **Pulso e tornozelo:** ideais para fineline\n• **Costela:** exige coragem mas fica incrível!\n• **Omoplata/costas:** excelente para projetos grandes\n\nOrçamento gratuito!' },
+    { cta:false, tags:['antebraco','antebraço','braco','braço','costela','perna','coxa','costas','pescoco','pescoço','ombro','tornozelo','pulso','mao','mão','dedos','omoplata','barriga','pe','pé','canela','joelho','cotovelo','nuca'],
+      resp:'Carlos trabalha em praticamente qualquer parte do corpo! 💪\n\n• **Antebraço e coxa:** ótimos para trabalhos maiores\n• **Pulso e tornozelo:** ideais para fineline\n• **Costela:** exige coragem mas fica incrível!\n• **Omoplata/costas:** excelente para projetos grandes' },
+
+    /* ── COURO CABELUDO ── */
+    { cta:true, tags:['couro cabeludo','escalpo','cabeca','cabelo raspado','careca','calvicie','calvo','head tattoo','scalp'],
+      resp:'Tatuagem no couro cabeludo é possível! 💇\n\nMuito pedida por homens carecas para cobrir manchas, cicatrizes ou estética.\n\n⚠️ Área sensível — exige técnica específica. Carlos avalia cada caso com foto.' },
 
     /* ── PELE ESCURA ── */
-    { tags:['pele escura','pele negra','pele morena','tom de pele','pele clara','pele branca'],
-      resp:'Carlos tem expertise com **todos os tons de pele**! 💪\n\nAdapta técnicas e pigmentos para o melhor resultado em qualquer tom. 5.0★ Google com 380+ avaliações!\n\nOrçamento gratuito!' },
+    { cta:false, tags:['pele escura','pele negra','pele morena','tom de pele','pele clara','pele branca'],
+      resp:'Carlos tem expertise com **todos os tons de pele**! 💪\n\nAdapta técnicas e pigmentos para o melhor resultado em qualquer tom. 5.0★ Google com 380+ avaliações!' },
 
     /* ── REFERÊNCIA ── */
-    { tags:['referencia','preciso levar','levar foto','inspiracao','ideia','sem ideia','nao tenho ideia','personalizado','exclusivo'],
-      resp:'Referência é bem-vinda, mas **não é obrigatória**! 🎨\n\nCarlos pode criar algo totalmente exclusivo — só precisa do conceito, estilo e onde quer.\n\nPreenches o formulário e vamos conversar! 🔥' },
+    { cta:false, tags:['referencia','preciso levar','levar foto','inspiracao','ideia','sem ideia','nao tenho ideia','personalizado','exclusivo'],
+      resp:'Referência é bem-vinda, mas **não é obrigatória**! 🎨\n\nCarlos pode criar algo totalmente exclusivo — só precisa do conceito, estilo e localização.\n\nO que você tem em mente?' },
 
     /* ── DURAÇÃO ── */
-    { tags:['quanto tempo','duracao','dura','horas','sessao','tempo de sessao','demora'],
+    { cta:false, tags:['quanto tempo','duracao','dura','horas','sessao','tempo de sessao','demora'],
       resp:'O tempo depende do tamanho e complexidade! ⏱️\n\n• **Pequenas:** 1–2 horas\n• **Médias:** 2–4 horas\n• **Grandes:** dividir em sessões\n\nCarlos nunca apressa — atenção total em cada sessão!' },
 
     /* ── AGENDA / VAGA ── */
-    { tags:['quando posso','prazo','antecedencia','vaga','agenda','disponibilidade','proxima vaga','tem vaga','data'],
-      resp:'A agenda fecha **muito rápido** ⚡\n\nRecomendamos agendar com **2–3 semanas** de antecedência.\n\nAinda temos **'+getVagas()+' vagas** esta semana!\n\nPreenches o formulário agora! 🔥' },
+    { cta:true, tags:['quando posso','prazo','antecedencia','vaga','agenda','disponibilidade','proxima vaga','tem vaga','data'],
+      resp:'A agenda fecha **muito rápido** ⚡\n\nRecomendamos agendar com **2–3 semanas** de antecedência.\n\nAinda temos **'+getVagas()+' vagas** esta semana!' },
 
     /* ── PREPARO ── */
-    { tags:['preparo','me preparar','antes da sessao','o que fazer antes','jejum','comer','beber','dormir','alcool','bebida'],
-      resp:'Preparação para o dia da tattoo! 📋\n\n✅ Durma bem, coma antes, hidrate-se\n✅ Use roupa com acesso à área\n❌ Álcool nas 24h anteriores (afina o sangue!)\n❌ Sol excessivo na área\n\nCarlos orienta tudo pelo WhatsApp após agendar!' },
+    { cta:false, tags:['preparo','me preparar','antes da sessao','o que fazer antes','jejum','comer','beber','dormir','alcool','bebida'],
+      resp:'Preparação para o dia da tattoo! 📋\n\n✅ Durma bem, coma antes, hidrate-se\n✅ Use roupa com acesso à área\n❌ Álcool nas 24h anteriores (afina o sangue!)\n❌ Sol excessivo na área' },
 
     /* ── RETOQUE ── */
-    { tags:['retoque','retoca','garantia','desbotar','desbotou','saiu','nao ficou','touch up','sumiu','clareou'],
+    { cta:false, tags:['retoque','retoca','garantia','desbotar','desbotou','saiu','nao ficou','touch up','sumiu','clareou'],
       resp:'Carlos acompanha o resultado! 💎\n\nDurante a cicatrização (2–3 meses) é normal ajustes finos. Ele está disponível pelo WhatsApp para orientar e avaliar retoques!\n\nO compromisso com qualidade vai além da sessão! 🌿' },
 
     /* ── PRIMEIRA VEZ ── */
-    { tags:['primeira vez','nunca fiz','nunca tatuei','minha primeira','iniciante','medo','nervosa','nervoso','ansiedade'],
-      resp:'Primeira tatuagem? Que momento especial! 🎨\n\nCarlos tem experiência com clientes de primeira vez:\n\n• Explica tudo antes de começar\n• Ritmo ajustado conforme você se sente\n• Pausa quando necessário\n\nA maioria se surpreende — esperava sentir muito mais! 😄\n\nConsulta gratuita!' },
+    { cta:true, tags:['primeira vez','nunca fiz','nunca tatuei','minha primeira','iniciante','medo','nervosa','nervoso','ansiedade'],
+      resp:'Primeira tatuagem? Que momento especial! 🎨\n\nCarlos tem experiência com clientes de primeira vez:\n\n• Explica tudo antes de começar\n• Ritmo ajustado conforme você se sente\n• Pausa quando necessário\n\nA maioria se surpreende — esperava sentir muito mais! 😄' },
 
     /* ── MENOR DE IDADE ── */
-    { tags:['menor de idade','menor','crianca','filho','adolescente','autorizacao','18 anos','responsavel'],
-      resp:'Para menores de 18 anos é necessária **autorização dos pais** 📋\n\n• Responsável precisa comparecer ao estúdio\n• Assinar o termo de consentimento\n• Documento com foto\n\nPreenches o formulário e Carlos esclarece tudo.' },
+    { cta:true, tags:['menor de idade','menor','crianca','filho','adolescente','autorizacao','18 anos','responsavel'],
+      resp:'Para menores de 18 anos é necessária **autorização dos pais** 📋\n\n• Responsável precisa comparecer ao estúdio\n• Assinar o termo de consentimento\n• Documento com foto' },
 
     /* ── SOBRE O CARLOS ── */
-    { tags:['quem e','carlos','sobre','historia','experiencia','anos','tatuador','conhecer','quem faz','quem tatua','o artista'],
+    { cta:false, tags:['quem e','carlos','sobre','historia','experiencia','anos','tatuador','conhecer','quem faz','quem tatua','o artista'],
       resp:'Carlos Henrique é referência #1 em reforma de tatuagem em BH! 🔥\n\n• **7+ anos** de experiência\n• **2.400+ tatuagens** realizadas\n• **380+ reformas** feitas\n• **5.0★** Google com 380+ avaliações\n• Criador do **Sistema Central Tattoo**\n• Mentor digital de tatuadores em todo o Brasil\n• Instagram: **@carlostattoo.bh**' },
 
     /* ── AVALIAÇÕES ── */
-    { tags:['avaliacao','review','nota','estrela','confiavel','seguro','reputacao','google','recomendacao','depoimento','confio'],
-      resp:'Carlos Tattoo BH tem **5.0★ no Google** com **380+ avaliações reais**! 🌟\n\nSão 7 anos de trabalho consistente e atendimento humanizado.\n\nVeja: busque **"Carlos Tattoo BH Belo Horizonte"** no Google Maps.' },
+    { cta:false, tags:['avaliacao','review','nota','estrela','confiavel','seguro','reputacao','google','recomendacao','depoimento','confio'],
+      resp:'Carlos Tattoo BH tem **5.0★ no Google** com **380+ avaliações reais**! 🌟\n\nSão 7 anos de trabalho consistente e atendimento humanizado.\n\nBusque **"Carlos Tattoo BH Belo Horizonte"** no Google Maps para conferir.' },
 
     /* ── CONTATO ── */
-    { tags:['whatsapp','wpp','zap','telefone','contato','ligar','chamar','falar','numero','como falo'],
-      resp:'O caminho mais rápido é pelo **formulário aqui no site** 📋\n\nCarlos recebe as informações do projeto e responde de forma personalizada!\n\n📸 **Instagram:** @carlostattoo.bh' },
+    { cta:false, tags:['whatsapp','wpp','zap','telefone','contato','ligar','chamar','falar','numero','como falo'],
+      resp:'O caminho mais rápido é pelo **formulário aqui no site** 📋\n\nCarlos recebe os detalhes do projeto e responde de forma personalizada.\n\n📸 **Instagram:** @carlostattoo.bh' },
 
     /* ── HIGIENE / SEGURANÇA ── */
-    { tags:['higiene','esterilizacao','agulha','descartavel','limpo','seguro','biosseguranca','hiv','hepatite'],
+    { cta:false, tags:['higiene','esterilizacao','agulha','descartavel','limpo','seguro','biosseguranca','hiv','hepatite'],
       resp:'Segurança é prioridade absoluta! 🛡️\n\n• **Agulhas 100% descartáveis** — uma por cliente\n• Equipamentos esterilizados em autoclave\n• Luvas e EPIs em toda sessão\n• Tintas de marcas reconhecidas\n\nTodos os protocolos de biossegurança seguidos! ✅' },
 
     /* ── ESTRIAS ── */
-    { tags:['estria','estrias','listra','listras na pele','marcas de crescimento','marcas no corpo'],
-      resp:'Tatuagem em estrias é possível em alguns casos! 🎨\n\nDepende da coloração, profundidade e tempo das estrias. Carlos avalia com foto gratuitamente!\n\nPreenches o formulário.' },
+    { cta:true, tags:['estria','estrias','listra','listras na pele','marcas de crescimento','marcas no corpo'],
+      resp:'Tatuagem em estrias é possível em alguns casos! 🎨\n\nDepende da coloração, profundidade e tempo das estrias. Carlos avalia com foto gratuitamente!' },
 
     /* ── REMOÇÃO A LASER ── */
-    { tags:['laser','remover','remocao','removeu','apagar','apagada','desaparecer','sumir','clarear'],
+    { cta:true, tags:['laser','remover','remocao','removeu','apagar','apagada','desaparecer','sumir','clarear'],
       resp:'Remoção a laser não é um serviço do estúdio. Mas Carlos é especialista em **reforma** — que muitas vezes é melhor que remover! 🔄\n\n380+ reformas feitas. Manda uma foto e Carlos avalia gratuitamente!' },
 
     /* ── AMBIENTE ── */
-    { tags:['estudio','ambiente','local','espaco','climatizado','confortavel','privacidade','musica'],
+    { cta:false, tags:['estudio','ambiente','local','espaco','climatizado','confortavel','privacidade','musica'],
       resp:'O estúdio é cuidadosamente preparado! 🏠\n\n• Ambiente limpo, climatizado e confortável\n• Atendimento privativo\n• Música para deixar o clima leve\n\n**Rua Maria de Lourdes da Cruz, 378 — Mantiqueira, BH**\nSeg–Sex 10h–19h | Sáb 10h–18h' }
   ];
 
   /* ══════════════════════════════════════
-     MOTOR DE BUSCA
+     MOTOR DE BUSCA MELHORADO
   ══════════════════════════════════════ */
   function buscarResposta(msgOriginal) {
-    var msg = corrigirTypos(msgOriginal);
+    var msg  = corrigirTypos(msgOriginal);
     var norm = normalizar(msg);
+    atualizarContexto(norm);
+
+    // 1ª passagem: match exato de tag
     for (var i=0; i<BASE.length; i++) {
       for (var j=0; j<BASE[i].tags.length; j++) {
         if (norm.indexOf(normalizar(BASE[i].tags[j]))!==-1) return BASE[i];
       }
     }
+
+    // 2ª passagem: score ponderado com palavras ≥3 chars
     var melhor=null, melhorScore=0;
     var palavras = norm.split(/\s+/).filter(function(p){return p.length>=3;});
     for (var i=0; i<BASE.length; i++) {
       var score=0, pri=BASE[i].pri||1;
       for (var p=0; p<palavras.length; p++) {
         for (var j=0; j<BASE[i].tags.length; j++) {
-          if (normalizar(BASE[i].tags[j]).indexOf(palavras[p])!==-1) score+=pri;
+          var tagNorm = normalizar(BASE[i].tags[j]);
+          // match parcial bidirecional
+          if (tagNorm.indexOf(palavras[p])!==-1 || palavras[p].indexOf(tagNorm)!==-1) score+=pri;
         }
       }
       if (score>melhorScore) { melhorScore=score; melhor=BASE[i]; }
     }
-    return melhorScore>=1 ? melhor : null;
+    return melhorScore>=2 ? melhor : null;
   }
 
   /* ══════════════════════════════════════
-     FALLBACK HUMANIZADO — SEM WHATSAPP
+     FALLBACK INTELIGENTE COM BOTÕES
   ══════════════════════════════════════ */
-  var FALLBACKS = [
-    'Essa pergunta é mais específica — o próprio **Carlos vai responder pessoalmente** para você! 😊\n\nPreenche o formulário aqui embaixo e ele entra em contato direto no WhatsApp. Ele não deixa ninguém sem resposta! 📋',
-    'Ótima pergunta! Para essa eu vou deixar o **Carlos responder diretamente** — ele conhece cada detalhe do próprio trabalho.\n\nPreenche o formulário e ele te dá o retorno personalizado! 💎',
-    'Isso merece a atenção do próprio **Carlos** — ele vai te responder com muito mais precisão do que eu conseguiria! 🎨\n\nPreenche o formulário e aguarda o contato no WhatsApp, é rapidinho! 📋'
-  ];
-  var _fbIdx=0;
-  function getFallback(){ return FALLBACKS[(_fbIdx++)%FALLBACKS.length]; }
+  function mostrarFallbackInteligente() {
+    RabiscoUI.addMsg('Não entendi muito bem 😅\n\nSobre o que você quer saber?', 'bot');
+    setTimeout(function(){
+      var sugs = document.getElementById('rbSugs');
+      if(!sugs) return;
+      sugs.innerHTML = '';
+      ['💰 Preços','🎨 Estilos','📅 Agendamento','🔄 Reforma de tattoo'].forEach(function(txt){
+        var b = document.createElement('button');
+        b.className = 'rb-sug';
+        b.textContent = txt;
+        b.onclick = function(){ RabiscoUI.processar(txt); };
+        sugs.appendChild(b);
+      });
+    }, 400);
+  }
 
   /* ══════════════════════════════════════
-     SUGESTÕES CONTEXTUAIS
+     SUGESTÕES DINÂMICAS (sem repetição)
   ══════════════════════════════════════ */
+  var _sugsUsadas = [];
   function getSugs(msg) {
-    var m=normalizar(msg);
-    if (/cover|cobertura|reform|antiga|velha|arrependi/.test(m)) return ['💰 Quanto custa reforma?','🔄 Como funciona?'];
-    if (/areola|mastectomia|cancer|sobrevivente/.test(m))        return ['💖 Quero saber mais','📋 Agendar consulta'];
-    if (/preco|quanto|custo|valor|orcamento/.test(m))            return ['🧮 Usar calculadora','📸 Pedir orçamento grátis'];
-    if (/estilo|realismo|fineline|black|floral|mandala|colorida/.test(m)) return ['🖼️ Ver portfólio','💰 Ver preços'];
-    if (/como funciona|processo|agendar|comecar/.test(m))        return ['📋 Preencher formulário','💰 Ver preços'];
-    if (/doi|dor|machuca/.test(m))                               return ['🎨 Quero tatuar mesmo assim!'];
-    if (/oi|ola|bom dia|boa tarde|boa noite/.test(m))           return ['🎨 Quero fazer tattoo','🔄 Reformar tattoo','💰 Ver preços'];
-    return ['🎨 Quero fazer tattoo','🔄 Reformar tattoo'];
+    var m = normalizar(msg);
+    var candidatas;
+    if (/cover|cobertura|reform|antiga|velha|arrependi/.test(m))
+      candidatas = ['💰 Quanto custa reforma?','🔄 Como funciona?','📸 Mandar foto para avaliação'];
+    else if (/areola|mastectomia|cancer|sobrevivente/.test(m))
+      candidatas = ['💖 Quero saber mais','📋 Agendar consulta'];
+    else if (/preco|quanto|custo|valor|orcamento/.test(m))
+      candidatas = ['🧮 Usar calculadora','📸 Pedir orçamento grátis','📅 Ver disponibilidade'];
+    else if (/realismo|fineline|black|floral|mandala|colorida|japones|biomecanico|trash|neotradicional|dotwork/.test(m))
+      candidatas = ['🖼️ Ver portfólio','💰 Ver preços','📅 Agendar consulta'];
+    else if (/como funciona|processo|agendar|comecar/.test(m))
+      candidatas = ['📋 Preencher formulário','💰 Ver preços','📅 Ver disponibilidade'];
+    else if (/doi|dor|machuca/.test(m))
+      candidatas = ['🎨 Quero tatuar mesmo assim!','📍 Regiões menos dolorosas?'];
+    else if (/oi|ola|bom dia|boa tarde|boa noite/.test(m))
+      candidatas = ['🎨 Quero fazer tattoo','🔄 Reformar tattoo','💰 Ver preços','🖼️ Ver portfólio'];
+    else if (/higiene|seguro|limpo|biosseguranca/.test(m))
+      candidatas = ['🎨 Quero agendar','🖼️ Ver portfólio'];
+    else if (/cicatriz|cicatrizacao|cuidado|depois/.test(m))
+      candidatas = ['📋 Agendar consulta','🔄 Tenho dúvida sobre retoque'];
+    else
+      candidatas = ['🎨 Quero fazer tattoo','🔄 Reformar tattoo','💰 Ver preços','🖼️ Ver portfólio'];
+
+    // Filtra as que já foram usadas nessa conversa
+    var novas = candidatas.filter(function(s){ return _sugsUsadas.indexOf(s)===-1; });
+    if(novas.length === 0) { _sugsUsadas = []; novas = candidatas; } // reset se esgotou
+    var escolhidas = novas.slice(0, 3);
+    escolhidas.forEach(function(s){ _sugsUsadas.push(s); });
+    return escolhidas;
   }
 
   /* ══════════════════════════════════════
@@ -371,16 +462,18 @@
   /* ══════════════════════════════════════
      ESTADO GLOBAL
   ══════════════════════════════════════ */
-  var qualificacao = {};
-  var _exitFired   = false;
-  var _inactTimer  = null;
-  var _secaoTimer  = null;
-  var _bubbleFired = {};
+  var qualificacao  = {};
+  var _exitFired    = false;
+  var _inactTimer   = null;
+  var _secaoTimer   = null;
+  var _bubbleFired  = {};
+  var _msgsLivres   = 0;      // contador de mensagens antes da captura
+  var _capturando   = false;  // evita dupla captura
 
   // Lead
-  var leadNome    = '';
-  var leadWpp     = '';
-  var leadStep    = 0; // 0=antes de abrir, 1=pediu nome, 2=pediu wpp, 3=concluido
+  var leadNome = '';
+  var leadWpp  = '';
+  var leadStep = 0; // 0=antes de abrir, 1=pediu nome, 2=pediu wpp, 3=concluido
 
   function salvarLead() {
     sbPost('leads',{nome:leadNome,wpp:leadWpp,origem:'rabisco',tipo:'tatuagem',data:new Date().toISOString()});
@@ -398,6 +491,8 @@
   try {
     var _ld=JSON.parse(localStorage.getItem('rb_visita')||'null');
     if(_ld&&Date.now()-_ld.ts<30*24*3600*1000){visitaAnterior=true;nomeAnterior=_ld.nome||'';}
+    // Se voltou e já temos dados, skip captura
+    if(visitaAnterior && nomeAnterior) { leadNome=nomeAnterior; leadStep=3; }
   } catch(e){}
   function salvarVisita(nome){ try{localStorage.setItem('rb_visita',JSON.stringify({ts:Date.now(),nome:nome||''}));}catch(e){} }
 
@@ -405,12 +500,12 @@
      DETECTOR DE SEÇÃO
   ══════════════════════════════════════ */
   var SECOES=[
-    {id:'areolas',     nome:'aréola',    empatia:true,  msg:'Vi que você está na seção de Reconstrução de Aréola 💖\n\nÉ um trabalho delicado e transformador. Posso te conectar com o Carlos?', bubble:'Esse serviço é muito especial 🌸 Posso te conectar com o Carlos com total discrição.'},
-    {id:'cobertura',   nome:'cobertura', empatia:false, msg:'Vi que você está olhando as reformas! 🔄\n\n380+ reformas feitas — essa é nossa maior especialidade. Tem uma tattoo que quer transformar?', bubble:'Reforma é especialidade aqui. 380+ reformas feitas. Quer transformar alguma tattoo?'},
-    {id:'cursos',      nome:'cursos',    empatia:false, msg:'Você está na área de cursos e produtos para tatuadores! 📚\n\nO Carlos tem ebooks, cursos, sistema de gestão e mentoria. Qual é seu maior desafio hoje?', bubble:'Psst... 👀 Mais de 300 tatuadores já aplicaram essas estratégias!'},
-    {id:'calculadora', nome:'calculadora',empatia:false,msg:'Usando a calculadora de preços? 💰\n\nPosso te ajudar a entender o orçamento ou te conectar com o Carlos para um valor exato!', bubble:'Quer um orçamento ainda mais preciso? O Carlos faz gratuitamente!'},
-    {id:'portfolio',   nome:'portfólio', empatia:false, msg:'Curtindo o portfólio? 🎨\n\nCada peça foi feita com dedicação total. Qual estilo te chamou mais atenção?', bubble:'Impressionante né? 😏 Quer saber como agendar o seu?'},
-    {id:'sobre',       nome:'sobre',     empatia:false, msg:'Conhecendo a história do Carlos! 🔥\n\n7 anos, 2.400+ tattoos, 5.0★ Google. Posso te ajudar a agendar?', bubble:'7 anos de experiência e 5.0★ Google. Quer garantir sua vaga? 🔥'}
+    {id:'areolas',     nome:'aréola',     empatia:true,  bubble:'Esse serviço é muito especial 🌸 Posso te conectar com o Carlos com total discrição.'},
+    {id:'cobertura',   nome:'cobertura',  empatia:false, bubble:'Reforma é especialidade aqui. 380+ reformas feitas. Quer transformar alguma tattoo?'},
+    {id:'cursos',      nome:'cursos',     empatia:false, bubble:'Mais de 300 tatuadores já aplicaram essas estratégias! 👀'},
+    {id:'calculadora', nome:'calculadora',empatia:false, bubble:'Quer um orçamento ainda mais preciso? O Carlos faz gratuitamente!'},
+    {id:'portfolio',   nome:'portfólio',  empatia:false, bubble:'Impressionante né? 😏 Quer saber como agendar o seu?'},
+    {id:'sobre',       nome:'sobre',      empatia:false, bubble:'7 anos de experiência e 5.0★ Google. Quer garantir sua vaga? 🔥'}
   ];
 
   function detectarSecao(){
@@ -423,24 +518,13 @@
       secaoAtual=nova; resetSecaoTimer(); rbTrack('secao_vista',{secao:nova});
       if(nova!=='inicio'&&!_bubbleFired[nova]){
         var info=SECOES.find(function(s){return s.id===nova;});
-        if(info){ _bubbleFired[nova]=true; setTimeout(function(){ if(!RabiscoUI.aberto) mostrarBubble(info.bubble); },18000); }
+        if(info){ _bubbleFired[nova]=true; setTimeout(function(){ if(!RabiscoUI.aberto) mostrarBubble(info.bubble); },50000); }
       }
     }
   }
 
   function resetSecaoTimer(){
-    clearTimeout(_secaoTimer); if(RabiscoUI.aberto) return;
-    _secaoTimer=setTimeout(function(){
-      if(RabiscoUI.aberto||_exitFired) return;
-      var info=SECOES.find(function(s){return s.id===secaoAtual;});
-      if(!info) return; _exitFired=true;
-      if(!RabiscoUI.aberto) RabiscoUI.toggle();
-      setTimeout(function(){
-        if(!RabiscoUI.iniciado) RabiscoUI.iniciado=true;
-        RabiscoUI.addMsg(info.msg,'bot',info.empatia);
-        setTimeout(function(){ if(leadStep===3) RabiscoUI.iniciarFunil(); },900);
-      },400);
-    },CFG.secaoMs);
+    clearTimeout(_secaoTimer); // desativado — não abre chat automaticamente
   }
   window.addEventListener('scroll',detectarSecao,{passive:true});
   detectarSecao();
@@ -454,10 +538,14 @@
     if(!b||!t) return; t.textContent=texto; b.style.display='block';
     setTimeout(function(){ if(!RabiscoUI.aberto) b.style.display='none'; },8000);
   }
-  setTimeout(function(){ if(!RabiscoUI.aberto) mostrarBubble(visitaAnterior?'Fala de novo'+(nomeAnterior?' '+nomeAnterior.split(' ')[0]:'')+'! 👊 Decidiu sobre a tattoo? A agenda está quase cheia 🔥':'Fala! Sou o Rabisco — posso te ajudar a encontrar o que procura? 👋'); },CFG.bubbleDelay);
+  setTimeout(function(){
+    if(!RabiscoUI.aberto) mostrarBubble(visitaAnterior&&nomeAnterior
+      ? 'Fala de novo, '+nomeAnterior.split(' ')[0]+'! 👊 A agenda está quase cheia 🔥'
+      : 'Olá! Tem alguma dúvida? É só perguntar 😊');
+  }, CFG.bubbleDelay);
 
   var _idleTimer;
-  function resetIdle(){ clearTimeout(_idleTimer); _idleTimer=setTimeout(function(){ if(!RabiscoUI.aberto) mostrarBubble('Tô vendo que você tá pesquisando... 🤔 Me fala o que tá buscando!'); },60000); }
+  function resetIdle(){ clearTimeout(_idleTimer); _idleTimer=setTimeout(function(){ if(!RabiscoUI.aberto) mostrarBubble('Tem alguma dúvida? Estou aqui 😊'); },180000); }
   ['mousemove','keydown','scroll','touchstart','click'].forEach(function(ev){ document.addEventListener(ev,resetIdle,{passive:true}); });
   resetIdle();
 
@@ -494,7 +582,7 @@
   ];
 
   /* ══════════════════════════════════════
-     FUNIL TATUADOR — COMPLETO
+     FUNIL TATUADOR
   ══════════════════════════════════════ */
   var FUNIL_TATUADOR=[
     {id:'desafio', pergunta:'Qual é o seu maior desafio agora? 🎯',
@@ -543,6 +631,7 @@
   };
 
   var _funilPasso=-1, _funilAtivo=false, _funilTipo='principal';
+  var _funilIdleTimer=null;
 
   function iniciarFunilPrincipal(){ qualificacao={}; _funilPasso=-1; _funilAtivo=true; _funilTipo='principal'; avancarFunil(); }
   function iniciarFunilTatuador(){  qualificacao={}; _funilPasso=-1; _funilAtivo=true; _funilTipo='tatuador';  avancarFunilTatuador(); }
@@ -619,13 +708,10 @@
         +'<div style="flex:1;">'
         +'<div style="font-size:12px;font-weight:700;color:#1A1208;margin-bottom:2px;">'+item.nome+'</div>'
         +'<div style="font-size:11px;color:#5A4A38;line-height:1.4;margin-bottom:6px;">'+item.desc+'</div>'
-        +'<div style="display:flex;align-items:center;justify-content:space-between;">'
         +'<span style="font-size:13px;font-weight:700;color:#A07830;">'+item.preco+'</span>'
-        +'</div>'
         +'</div></div>';
       wrap.appendChild(card);
     });
-    // Botão formulário
     var btn=document.createElement('button'); btn.className='rb-card-btn-tatuador';
     btn.innerHTML='📋 QUERO SABER MAIS — CARLOS ME RESPONDE';
     btn.onclick=function(){
@@ -642,7 +728,7 @@
     rbTrack('funil_concluido',qualificacao);
     preencherFormulario(qualificacao);
     var msgs={
-      tattoo_nova:'Incrível! 🎨 Carlos vai adorar criar isso pra você.\n\nPreenche o formulário com os detalhes — ele te responde no WhatsApp com a proposta!',
+      tattoo_nova:'Incrível! 🎨 Carlos vai adorar criar isso pra você.\n\nPreenche o formulário — ele te responde no WhatsApp com a proposta!',
       cobertura:'Perfeito! 🔄 Reforma é nossa especialidade #1.\n\nPreenches com uma foto da tattoo atual — Carlos analisa gratuitamente!',
       areola:'Entendido 💖 Carlos faz esse trabalho com muito cuidado.\n\nPreenches o formulário — ele entra em contato com toda atenção.',
     };
@@ -665,19 +751,17 @@
         if(q.interesse==='cobertura') txt='Quero reformar/cobrir uma tatuagem antiga.';
         else if(q.interesse==='tattoo_nova') txt='Quero fazer uma tatuagem nova.';
         if(txt&&q.tamanho) txt+=' Tamanho: '+(mapaTamanho[q.tamanho]||q.tamanho)+'.';
+        if(ctx.partCorpo) txt+=' Local: '+ctx.partCorpo+'.';
+        if(ctx.estilo) txt+=' Estilo de interesse: '+ctx.estilo+'.';
         if(txt) fi.value=txt;
       }
     }catch(e){}
   }
 
   /* ══════════════════════════════════════
-     CSS — VISUAL HÍBRIDO
-     Header escuro dourado + chat branco
+     CSS
   ══════════════════════════════════════ */
   var CSS=`
-/* ── Botão flutuante ── */
-
-/* ── Botão voltar ao topo ── */
 #btt{position:fixed;bottom:22px;right:20px;z-index:7400;width:62px;height:62px;border-radius:50%;border:2px solid rgba(201,168,76,.4);background:linear-gradient(135deg,#0A0702,#1C1208);cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.45);transition:transform .2s,opacity .3s;color:#C9A84C;font-size:22px;flex-direction:column;gap:0;line-height:1;}
 #btt:hover{transform:scale(1.08);border-color:rgba(201,168,76,.8);}
 #btt.visible{display:flex;}
@@ -690,20 +774,14 @@
 @keyframes rabiscoPulse{0%,100%{box-shadow:0 4px 20px rgba(0,0,0,.5),0 0 0 0 rgba(201,168,76,.35);}50%{box-shadow:0 4px 20px rgba(0,0,0,.5),0 0 0 13px rgba(201,168,76,0);}}
 #rabiscoBadge{position:absolute;top:-6px;right:-6px;background:linear-gradient(135deg,#C0392B,#8B1A1A);color:#fff;font-size:9px;font-family:'Cinzel',serif;font-weight:700;letter-spacing:.5px;padding:3px 7px;border-radius:10px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.4);animation:badgePulse 2s ease infinite;}
 @keyframes badgePulse{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
-
-/* ── Bubble proativa ── */
 #rbBubble{position:fixed;bottom:172px;right:20px;z-index:7499;background:#fff;border:1px solid #E2DDD6;border-radius:14px;padding:12px 36px 12px 14px;max-width:260px;cursor:pointer;box-shadow:0 8px 30px rgba(0,0,0,.15);animation:bubbleIn .3s ease;}
 @keyframes bubbleIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 #rbBubble::after{content:'';position:absolute;bottom:-8px;right:26px;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid #E2DDD6;}
 #rbBubbleText{font-size:12px;color:#1A1208;line-height:1.5;font-family:'Raleway',sans-serif;font-weight:500;}
 #rbBubbleClose{position:absolute;top:6px;right:8px;background:none;border:none;color:#9A8A78;font-size:14px;cursor:pointer;line-height:1;padding:2px;}
-
-/* ── Painel principal ── */
 #rabiscoPanel{position:fixed;bottom:172px;right:20px;z-index:7500;width:360px;max-height:560px;background:#fff;border:1px solid #E2DDD6;border-radius:18px;display:none;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.18),0 8px 24px rgba(0,0,0,.08);animation:rbSlide .28s cubic-bezier(.34,1.56,.64,1);}
 @keyframes rbSlide{from{opacity:0;transform:translateY(20px) scale(.96);}to{opacity:1;transform:translateY(0) scale(1);}}
 #rabiscoPanel.open{display:flex;}
-
-/* ── Header — ESCURO COM DOURADO (identidade da marca) ── */
 .rb-header{padding:14px 16px;display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,#1a1208,#2a1c0c);flex-shrink:0;}
 .rb-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#8B5E0A,#E8B800);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;box-shadow:0 2px 8px rgba(201,168,76,.4);}
 .rb-info h4{font-family:'Cinzel',serif;font-size:13px;color:#FFD540;margin:0 0 2px;font-weight:700;letter-spacing:.3px;}
@@ -714,48 +792,28 @@
 @keyframes rbBlink{0%,100%{opacity:.35;}50%{opacity:1;}}
 .rb-close{margin-left:auto;background:none;border:none;color:rgba(255,255,255,.4);font-size:20px;cursor:pointer;padding:4px;line-height:1;transition:color .2s;}
 .rb-close:hover{color:rgba(255,255,255,.75);}
-
-/* ── Tag de seção ── */
 .rb-secao-tag{padding:5px 14px;background:#FBF5E8;border-bottom:1px solid #E8DCC8;font-family:'Cinzel',serif;font-size:9px;letter-spacing:1.5px;color:#A07830;text-transform:uppercase;flex-shrink:0;display:flex;align-items:center;gap:6px;}
-
-/* ── Área de mensagens — BRANCA ── */
 .rb-msgs{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;background:#fff;}
 .rb-msgs::-webkit-scrollbar{width:4px;}
 .rb-msgs::-webkit-scrollbar-thumb{background:#E2DDD6;border-radius:2px;}
-
-/* ── Mensagens ── */
 .rb-msg-wrap{display:flex;flex-direction:column;}
 .rb-msg{max-width:85%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.55;word-break:break-word;font-family:'Raleway',sans-serif;}
-
-/* Bot: fundo cinza claro, texto escuro (leitura fácil) */
 .rb-msg.bot{background:#F4F1EC;border:1px solid #E2DDD6;color:#1A1208;border-radius:4px 14px 14px 14px;align-self:flex-start;}
 .rb-msg.bot.empatia{background:#FEF2F2;border-color:rgba(220,38,38,.2);}
 .rb-msg.bot.horario{background:#FFFBEB;border-color:rgba(217,119,6,.2);}
-
-/* Usuário: dourado (identidade da marca) */
 .rb-msg.user{background:linear-gradient(135deg,#A07830,#C9A84C);color:#fff;font-weight:600;border-radius:14px 14px 4px 14px;align-self:flex-end;}
-
-/* Nome do bot */
 .rb-msg-name{font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:1.5px;color:#A07830;margin-bottom:4px;text-transform:uppercase;font-weight:700;}
-
-/* Typing dots */
 .rb-typing{display:flex;gap:4px;align-items:center;padding:4px 0;}
 .rb-typing span{width:7px;height:7px;border-radius:50%;background:#C9A84C;animation:rbTyp .7s ease infinite;}
 .rb-typing span:nth-child(2){animation-delay:.15s;}
 .rb-typing span:nth-child(3){animation-delay:.3s;}
 @keyframes rbTyp{0%,60%,100%{transform:translateY(0);opacity:.4;}30%{transform:translateY(-5px);opacity:1;}}
-
-/* ── Sugestões ── */
 .rb-sugs{display:flex;flex-wrap:wrap;gap:6px;padding:8px 14px;flex-shrink:0;background:#fff;border-top:1px solid #F0EDE8;}
 .rb-sug{background:#fff;border:1.5px solid #C9A84C;color:#A07830;font-size:11px;font-family:'Cinzel',serif;letter-spacing:.3px;padding:5px 12px;border-radius:20px;cursor:pointer;transition:all .2s;white-space:nowrap;font-weight:600;}
 .rb-sug:hover{background:#A07830;color:#fff;border-color:#A07830;}
 .rb-funil-opt{background:#FBF5E8;border-color:#A07830;color:#A07830;}
 .rb-funil-opt:hover{background:#A07830;color:#fff;}
-
-/* ── Card CTAs ── */
 #rbCtas{padding:0 14px 10px;flex-shrink:0;background:#fff;}
-
-/* Card formulário */
 .rb-card-form{background:#FAFAF8;border:1.5px solid #C9A84C;border-radius:12px;padding:14px;margin-top:4px;}
 .rb-card-form-head{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-family:'Cinzel',serif;font-size:11px;color:#1A1208;letter-spacing:.5px;font-weight:700;}
 .rb-card-steps{display:flex;align-items:center;gap:4px;margin-bottom:10px;flex-wrap:wrap;}
@@ -765,12 +823,8 @@
 .rb-card-vagas{margin-bottom:10px;}
 .rb-card-btn{width:100%;padding:12px;background:linear-gradient(135deg,#A07830,#C9A84C);color:#fff;font-family:'Cinzel',serif;font-size:11px;font-weight:700;letter-spacing:.8px;border:none;border-radius:9px;cursor:pointer;transition:all .2s;text-transform:uppercase;box-shadow:0 4px 12px rgba(160,120,48,.3);}
 .rb-card-btn:hover{background:linear-gradient(135deg,#8B6820,#A07830);transform:translateY(-1px);}
-
-/* Card tatuador */
 .rb-card-btn-tatuador{width:100%;padding:12px;background:linear-gradient(135deg,#A07830,#C9A84C);color:#fff;font-family:'Cinzel',serif;font-size:10px;font-weight:700;letter-spacing:.8px;border:none;border-radius:9px;cursor:pointer;transition:all .2s;text-transform:uppercase;margin-top:10px;box-shadow:0 4px 12px rgba(160,120,48,.3);}
 .rb-card-btn-tatuador:hover{background:linear-gradient(135deg,#8B6820,#A07830);transform:translateY(-1px);}
-
-/* ── Input area ── */
 .rb-input-wrap{display:flex;align-items:center;gap:8px;padding:10px 14px;border-top:1px solid #E2DDD6;flex-shrink:0;background:#FAFAF8;}
 .rb-input{flex:1;background:#fff;border:1.5px solid #E2DDD6;border-radius:22px;padding:9px 16px;color:#1A1208;font-size:13px;font-family:'Raleway',sans-serif;outline:none;transition:border .2s;}
 .rb-input::placeholder{color:#9A8A78;}
@@ -778,14 +832,11 @@
 .rb-send{width:36px;height:36px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,#A07830,#C9A84C);border:none;color:#fff;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;box-shadow:0 2px 8px rgba(160,120,48,.3);}
 .rb-send:hover{background:linear-gradient(135deg,#8B6820,#A07830);transform:scale(1.08);}
 .rb-send:disabled{opacity:.4;cursor:not-allowed;}
-
-/* ── Lead input ── */
 .rb-lead-input{width:100%;background:#fff;border:1.5px solid #C9A84C;border-radius:10px;padding:10px 14px;color:#1A1208;font-size:13px;font-family:'Raleway',sans-serif;outline:none;margin-top:6px;box-sizing:border-box;}
 .rb-lead-input::placeholder{color:#9A8A78;}
 .rb-lead-input:focus{border-color:#A07830;box-shadow:0 0 0 3px rgba(160,120,48,.1);}
 .rb-lead-btn{width:100%;padding:11px;background:linear-gradient(135deg,#A07830,#C9A84C);color:#fff;font-family:'Cinzel',serif;font-size:11px;font-weight:700;letter-spacing:.5px;border:none;border-radius:9px;cursor:pointer;margin-top:8px;transition:all .2s;}
 .rb-lead-btn:hover{background:linear-gradient(135deg,#8B6820,#A07830);}
-
 @media(max-width:768px){
   #rabiscoBtn{bottom:90px;right:16px;}
   #rabiscoPanel{bottom:160px;right:8px;left:8px;width:auto;max-height:68vh;}
@@ -824,7 +875,7 @@
 
 <div id="rbBubble" style="display:none;" onclick="RabiscoUI.toggle()">
   <button id="rbBubbleClose" onclick="event.stopPropagation();document.getElementById('rbBubble').style.display='none'">✕</button>
-  <span id="rbBubbleText">Fala! Posso te ajudar a encontrar o que procura? 👋</span>
+  <span id="rbBubbleText">Olá! Tem alguma dúvida? É só perguntar 😊</span>
 </div>
 
 <div id="rabiscoPanel">
@@ -854,37 +905,44 @@
   var wrap=document.createElement('div'); wrap.innerHTML=HTML; document.body.appendChild(wrap);
 
   /* ══════════════════════════════════════
-     CAPTURA OBRIGATÓRIA DE LEAD
-     Fluxo: nome → whatsapp → inicia funil
+     CAPTURA DE LEAD — APÓS 2 MENSAGENS LIVRES
+     (ou imediatamente se voltou e já temos nome)
   ══════════════════════════════════════ */
-  function iniciarCapturaLead(){
-    leadStep=1;
+  function tentarCapturarLead() {
+    if(leadStep>=1 || _capturando) return; // já capturando ou concluído
+    _capturando = true;
+    leadStep = 1;
     setTimeout(function(){
-      RabiscoUI.addMsg('Antes de começar, preciso de dois dados rápidos! 😊\n\n**Qual é o seu nome?**','bot');
-      mostrarInputLead('nome','Seu nome completo','Próximo →',function(val){
+      var primeiro = leadNome ? leadNome.split(' ')[0] : '';
+      RabiscoUI.addMsg('Antes de continuar, posso saber seu nome? 😊\n\nAssim o Carlos te responde de forma personalizada!', 'bot');
+      mostrarInputLead('nome','Seu nome','Continuar →', function(val){
         if(!val.trim()||val.trim().length<2){ alert('Por favor, informe seu nome.'); return; }
-        leadNome=val.trim();
+        leadNome = val.trim();
         RabiscoUI.addMsg(leadNome,'user');
         document.getElementById('rbLeadWrap').remove();
         setTimeout(function(){
-          RabiscoUI.addMsg('Prazer, **'+leadNome.split(' ')[0]+'**! 🙌\n\n**Qual é o seu WhatsApp?**\n\nAssim o Carlos pode te responder diretamente se precisar!','bot');
-          mostrarInputLead('tel','(31) 99999-9999','Continuar →',function(val){
-            var nums=val.replace(/\D/g,'');
+          RabiscoUI.addMsg('Prazer, **'+leadNome.split(' ')[0]+'**! 🙌\n\nQual é o seu WhatsApp? Assim o Carlos pode te responder direto se precisar.','bot');
+          mostrarInputLead('tel','(31) 99999-9999','Pronto →', function(val2){
+            var nums = val2.replace(/\D/g,'');
             if(nums.length<10){ alert('Por favor, informe um WhatsApp válido.'); return; }
-            leadWpp=nums;
-            RabiscoUI.addMsg(val,'user');
+            leadWpp = nums;
+            RabiscoUI.addMsg(val2,'user');
             document.getElementById('rbLeadWrap').remove();
             salvarLead();
             salvarVisita(leadNome);
-            leadStep=3;
+            leadStep = 3;
+            _capturando = false;
             setTimeout(function(){
-              RabiscoUI.addMsg('Perfeito! 🔥 Agora sim vamos conversar!\n\nSou o **Rabisco**, assistente oficial do **Carlos Tattoo BH**. O que você está buscando?','bot');
-              setTimeout(function(){ iniciarFunilPrincipal(); },800);
-            },500);
+              RabiscoUI.addMsg('Perfeito! 🔥 Pode continuar perguntando à vontade.\n\nSe quiser ir direto ao ponto, é só clicar abaixo 👇','bot');
+              // Funil inicia só se cliente ficar 15s sem digitar
+              _funilIdleTimer = setTimeout(function(){
+                if(!_funilAtivo && leadStep===3) iniciarFunilPrincipal();
+              }, 15000);
+            }, 500);
           });
-        },600);
+        }, 600);
       });
-    },400);
+    }, 800);
   }
 
   function mostrarInputLead(tipo, placeholder, btnTxt, callback){
@@ -936,11 +994,21 @@
         this.addMsg('Oi! Sou o Rabisco 💀\n\nO estúdio está fechado agora — '+msgHorario()+'.\n\nMas você pode **preencher o formulário** e o Carlos te responde assim que abrir! ⏰','bot',false,true);
         setTimeout(function(){ RabiscoUI.mostrarCardFormulario(); },700); return;
       }
-      // Captura obrigatória — sempre primeiro
-      iniciarCapturaLead();
+      // Visitante que voltou — já temos nome, vai direto
+      if(visitaAnterior && nomeAnterior && leadStep===3){
+        var fn=nomeAnterior.split(' ')[0];
+        setTimeout(function(){
+          RabiscoUI.addMsg('Fala, **'+fn+'**! Que bom te ver de volta 😊\n\nO que posso te ajudar hoje?','bot');
+          setTimeout(function(){ iniciarFunilPrincipal(); },15000);
+        },1800);
+        return;
+      }
+      // Visitante novo — primeira mensagem com delay humanizado
+      setTimeout(function(){
+        RabiscoUI.addMsg('Oi! 😊 Sou o **Rabisco**, assistente do Carlos Tattoo BH.\n\nPode me perguntar o que quiser — preços, estilos, agendamento, reforma...','bot');
+        RabiscoUI.mostrarSugs(['🎨 Quero fazer tattoo','🔄 Reformar tattoo','💰 Ver preços','🖼️ Ver portfólio']);
+      },1800);
     },
-
-    iniciarFunil: function(){ iniciarFunilPrincipal(); },
 
     atualizarStatus:function(){
       var dot=document.getElementById('rbDot'),txt=document.getElementById('rbStatusTxt');
@@ -949,25 +1017,55 @@
     },
 
     enviar:function(){
-      if(this.carregando||_funilAtivo||leadStep<3) return;
+      if(this.carregando||_funilAtivo||leadStep===1||leadStep===2) return;
       var input=document.getElementById('rbInput'),msg=(input.value||'').trim();
       if(!msg) return; input.value=''; this.processar(msg);
     },
 
     processar:function(msg){
+      // Cancela o timer do funil idle se cliente digitou
+      clearTimeout(_funilIdleTimer);
+
       this.addMsg(msg,'user'); this.hideSugs(); this.hideCtas(); this.msgCount++;
       rbTrack('mensagem_enviada',{msg:msg.substring(0,60)});
       var tempo=700+Math.min(msg.length*12,1800);
       this.setCarregando(true); var typing=this.addTyping(); var self=this;
+
       setTimeout(function(){
         typing.remove(); self.setCarregando(false);
         var resultado=buscarResposta(msg);
-        var resposta=resultado?resultado.resp:getFallback();
-        var empatia=resultado?!!resultado.empatia:false;
-        empatia=empatia||/cicatriz|queimadura|mastectomia|areola|cancer|mama|sobrevivente|gravida/i.test(msg);
+
+        if(!resultado){
+          // Fallback inteligente com botões
+          mostrarFallbackInteligente();
+          return;
+        }
+
+        var resposta = injetarContexto(resultado.resp);
+        var empatia  = !!resultado.empatia;
+        empatia = empatia || /cicatriz|queimadura|mastectomia|areola|cancer|mama|sobrevivente|gravida/i.test(msg);
         self.addMsg(resposta,'bot',empatia);
-        self.mostrarCardFormulario();
+
+        // CTA de formulário só quando a resposta pede
+        if(resultado.cta) self.mostrarCardFormulario();
+
         self.mostrarSugs(getSugs(msg));
+
+        // Conta mensagens livres e dispara captura no momento certo
+        if(leadStep===0){
+          _msgsLivres++;
+          if(_msgsLivres >= CFG.msgsLivresAntesCaptura) {
+            setTimeout(function(){ tentarCapturarLead(); }, 1200);
+          }
+        }
+
+        // Reinicia timer do funil após resposta
+        if(leadStep===3 && !_funilAtivo){
+          _funilIdleTimer = setTimeout(function(){
+            if(!_funilAtivo && leadStep===3) iniciarFunilPrincipal();
+          }, 15000);
+        }
+
       },tempo);
     },
 
@@ -1024,52 +1122,44 @@
   };
 
   /* ══════════════════════════════════════
-     GATILHOS AUTOMÁTICOS
+     GATILHO SAÍDA — só bubble, não abre painel
   ══════════════════════════════════════ */
   document.addEventListener('mouseleave',function(e){
-    if(e.clientY<=5&&!_exitFired&&!RabiscoUI.aberto){ _exitFired=true; dispararSaida(); }
+    if(e.clientY<=5&&!_exitFired&&!RabiscoUI.aberto){
+      _exitFired=true;
+      mostrarBubble(visitaAnterior
+        ? 'Fala'+(nomeAnterior?' '+nomeAnterior.split(' ')[0]:'')+'! 👊 A agenda está quase cheia. Posso ajudar?'
+        : 'Tem alguma dúvida? Estou aqui pra ajudar 😊');
+    }
   });
+
   function resetInactivity(){
     clearTimeout(_inactTimer);
-    _inactTimer=setTimeout(function(){ if(!RabiscoUI.aberto&&!_exitFired){ _exitFired=true; dispararSaida(); } },CFG.inactivityMs);
+    _inactTimer=setTimeout(function(){
+      if(!RabiscoUI.aberto&&!_exitFired){
+        _exitFired=true;
+        mostrarBubble('Tem alguma dúvida? Estou aqui 😊');
+      }
+    }, CFG.inactivityMs);
   }
   ['mousemove','keydown','scroll','touchstart','click'].forEach(function(ev){ document.addEventListener(ev,resetInactivity,{passive:true}); });
   resetInactivity();
 
-  function dispararSaida(){
-    if(!RabiscoUI.aberto) RabiscoUI.toggle();
-    setTimeout(function(){
-      if(!RabiscoUI.iniciado) RabiscoUI.iniciado=true;
-      var msgs=document.getElementById('rbMsgs'); if(!msgs) return;
-      if(msgs.children.length===0) RabiscoUI.addMsg('Ei! 👀 Antes de ir...\n\nO Carlos tem **'+getVagas()+' vagas** esta semana — fecha rápido!\n\nO que você veio buscar hoje?','bot');
-      else RabiscoUI.addMsg('Posso te ajudar mais alguma coisa? 😊\n\nLembra: **'+getVagas()+' vagas** ainda esta semana!','bot');
-    },400);
-  }
-
-
   /* ══════════════════════════════════════
      BOTÃO VOLTAR AO TOPO
-     — Fica abaixo do robô Rabisco
-     — Aparece após 400px de scroll
   ══════════════════════════════════════ */
   (function(){
-    var btt = document.createElement('button');
-    btt.id = 'btt';
+    var btt=document.createElement('button');
+    btt.id='btt';
     btt.setAttribute('aria-label','Voltar ao topo da página');
     btt.setAttribute('title','Voltar ao topo');
-    btt.innerHTML = '<span class="btt-arrow">▲</span><span class="btt-lbl">topo</span>';
-    btt.addEventListener('click', function(){
-      window.scrollTo({top:0, behavior:'smooth'});
-    });
+    btt.innerHTML='<span class="btt-arrow">▲</span><span class="btt-lbl">topo</span>';
+    btt.addEventListener('click',function(){ window.scrollTo({top:0,behavior:'smooth'}); });
     document.body.appendChild(btt);
-
-    window.addEventListener('scroll', function(){
-      if(window.scrollY > 400){
-        btt.classList.add('visible');
-      } else {
-        btt.classList.remove('visible');
-      }
-    }, {passive:true});
+    window.addEventListener('scroll',function(){
+      if(window.scrollY>400) btt.classList.add('visible');
+      else btt.classList.remove('visible');
+    },{passive:true});
   })();
 
   window.RabiscoUI=RabiscoUI;

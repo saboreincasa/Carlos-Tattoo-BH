@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Guia: Verificar Google Search Console — Carlos Tattoo BH</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Raleway',sans-serif;background:#FAF4E8;color:#1A0A00;padding:40px 20px;line-height:1.7}
+.wrap{max-width:680px;margin:0 auto}
+h1{font-family:'Cinzel',serif;font-size:clamp(20px,3vw,28px);color:#1A0A00;margin-bottom:8px}
+.intro{font-size:15px;color:#5A3C18;margin-bottom:36px;padding:16px 20px;background:#fff;border-left:4px solid #C9A84C;border-radius:0 8px 8px 0}
+.step{display:flex;gap:20px;margin-bottom:28px;align-items:flex-start}
+.step-num{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:16px;font-weight:700;flex-shrink:0}
+.step-body h3{font-family:'Cinzel',serif;font-size:15px;color:#1A0A00;margin-bottom:6px}
+.step-body p{font-size:14px;color:#5A3C18;line-height:1.7}
+.step-body code{background:#1A0A00;color:#E8B800;padding:3px 8px;border-radius:4px;font-size:13px;font-family:monospace}
+.step-body a{color:#A07830;font-weight:600}
+.alert{background:#FFF8F0;border:1px solid rgba(160,120,56,.3);border-radius:8px;padding:14px 18px;margin:12px 0;font-size:13px;color:#7A5020}
+.alert strong{color:#A07830}
+.done{background:#F0FAF0;border:1px solid rgba(56,150,56,.3);border-radius:8px;padding:16px 20px;margin-top:36px;text-align:center}
+.done h2{font-family:'Cinzel',serif;font-size:18px;color:#1A6030;margin-bottom:8px}
+.done p{font-size:14px;color:#2A6030}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Como verificar o site no Google Search Console</h1>
+  <div class="intro">
+    <strong>Tempo estimado: 5 minutos.</strong> Isso permite ao Google indexar seu site e aparecer nas buscas de "tatuagem BH", "cover up BH" etc. Sem isso, nenhum SEO funciona.
+  </div>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h3>Acesse o Google Search Console</h3>
+      <p>Vá em <a href="https://search.google.com/search-console" target="_blank">search.google.com/search-console</a> e faça login com sua conta Google.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h3>Adicionar propriedade</h3>
+      <p>Clique em <strong>"Adicionar propriedade"</strong> → escolha <strong>"Prefixo de URL"</strong> → cole o endereço: <code>https://carlostattoo.com.br</code> → clique <strong>Continuar</strong>.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h3>Método de verificação: tag HTML</h3>
+      <p>Na tela de verificação, selecione a aba <strong>"Tag HTML"</strong>. O Google vai mostrar um código assim:</p>
+      <p><code>&lt;meta name="google-site-verification" content="<strong>SUA_CHAVE_AQUI</strong>"&gt;</code></p>
+      <div class="alert"><strong>Copie apenas o valor do content</strong> — a parte depois de <code>content="</code> e antes de <code>"&gt;</code>. Parece algo assim: <code>abc123XYZdefGHI</code></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <h3>Colar no index.html</h3>
+      <p>No arquivo <code>index.html</code>, procure o trecho:</p>
+      <p><code>&lt;meta name="google-site-verification" content="COLE_SUA_CHAVE_AQUI"&gt;</code></p>
+      <p>Substitua <code>COLE_SUA_CHAVE_AQUI</code> pela chave que o Google te deu. Salve e suba o arquivo no servidor.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-body">
+      <h3>Verificar no Google Search Console</h3>
+      <p>Volte ao Google Search Console e clique em <strong>"Verificar"</strong>. Se aparecer <em>"Propriedade verificada"</em>, está feito!</p>
+      <div class="alert"><strong>Não funcionou?</strong> Aguarde 5 minutos e tente novamente. O arquivo precisa já estar no servidor.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">6</div>
+    <div class="step-body">
+      <h3>Submeter o sitemap</h3>
+      <p>Após verificar, vá em <strong>Sitemaps</strong> (menu esquerdo) → cole: <code>https://carlostattoo.com.br/sitemap.xml</code> → clique <strong>Enviar</strong>.</p>
+      <p>O Google vai começar a rastrear todas as páginas do site. Em 24–72h suas páginas aparecem no Google.</p>
+    </div>
+  </div>
+
+  <div class="done">
+    <h2>✅ Pronto! Seu site está no Google.</h2>
+    <p>Acompanhe o crescimento no Search Console: quantas impressões, cliques e quais palavras-chave estão trazendo visitantes.</p>
+  </div>
+</div>
+</body>
+</html>

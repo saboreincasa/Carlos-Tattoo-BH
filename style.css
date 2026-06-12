@@ -8068,3 +8068,502 @@ img{
   #twopaths .path-div { display: none !important; }
 }
 
+
+/* ══════════════════════════════════════════════════════════
+   PORTFÓLIO & SERVIÇOS — CORREÇÕES MOBILE (bloco definitivo)
+   Sobrescreve todos os blocos anteriores conflitantes.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── TABLET (≤ 900px) ── */
+@media(max-width:900px){
+  /* Serviços: 3 → 2 colunas */
+  .spec-grid{
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:12px !important;
+  }
+  /* Portfolio vídeos: 4 → 3 colunas */
+  .portfolio-grid-full{
+    grid-template-columns:repeat(3,1fr) !important;
+    gap:10px !important;
+  }
+}
+
+/* ── MOBILE (≤ 768px) ── */
+@media(max-width:768px){
+
+  /* --- SERVIÇOS / SPEC-GRID --- */
+  .spec-grid{
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:10px !important;
+  }
+  /* Foto com altura controlada — sem sobreposição */
+  .scard-foto,
+  .scard-foto-placeholder{
+    height:160px !important;
+    width:100% !important;
+    object-fit:cover !important;
+  }
+  /* Número decorativo reposicionado para a foto mobile */
+  .snum{
+    top:170px !important;  /* logo abaixo da foto de 160px */
+    font-size:38px !important;
+    right:10px !important;
+  }
+  /* Corpo do card com padding adequado */
+  .scard-body{
+    padding:14px 14px 18px !important;
+  }
+  .sname{
+    font-size:13px !important;
+    margin-bottom:6px !important;
+  }
+  /* Descrição: mostra resumida no mobile em vez de sumir */
+  .sdesc{
+    display:-webkit-box !important;
+    -webkit-line-clamp:2 !important;
+    -webkit-box-orient:vertical !important;
+    overflow:hidden !important;
+    font-size:11px !important;
+    line-height:1.5 !important;
+    margin-bottom:10px !important;
+    color:rgba(237,228,212,.75) !important;
+  }
+  .scta{
+    font-size:9px !important;
+    padding:8px 12px !important;
+    letter-spacing:1px !important;
+  }
+
+  /* --- PORTFÓLIO EM VÍDEO --- */
+  .portfolio-grid-full{
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:8px !important;
+    margin-top:20px !important;
+  }
+  /* Aspect-ratio 9/16 em 2 colunas é muito alto — usar ratio mais curto */
+  .pv-item{
+    aspect-ratio:3/4 !important;
+    border-radius:10px !important;
+  }
+  /* Play button menor */
+  .pv-play-btn{
+    width:42px !important;
+    height:42px !important;
+    font-size:16px !important;
+  }
+  /* Label menor */
+  .pv-label{
+    font-size:8px !important;
+    letter-spacing:1px !important;
+    padding:8px !important;
+  }
+}
+
+/* ── MOBILE PEQUENO (≤ 480px) ── */
+@media(max-width:480px){
+
+  /* Serviços: 2 → 1 coluna em telas muito pequenas */
+  .spec-grid{
+    grid-template-columns:1fr !important;
+    gap:8px !important;
+  }
+  /* Foto maior em 1 coluna — mais impacto visual */
+  .scard-foto,
+  .scard-foto-placeholder{
+    height:200px !important;
+  }
+  .snum{
+    top:210px !important;
+    font-size:44px !important;
+  }
+  /* Descrição volta completa em 1 coluna (espaço suficiente) */
+  .sdesc{
+    -webkit-line-clamp:3 !important;
+    font-size:12px !important;
+  }
+
+  /* Portfólio em vídeo: mantém 2 colunas com ratio ainda menor */
+  .portfolio-grid-full{
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:6px !important;
+  }
+  .pv-item{
+    aspect-ratio:2/3 !important;
+  }
+  .pv-label{
+    font-size:7px !important;
+    letter-spacing:.5px !important;
+  }
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   MOBILE MASTER FIX — Carlos Tattoo BH
+   Corrige todos os problemas visuais identificados nos prints
+   Bloco final — sobrescreve tudo anterior com !important
+   ══════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────
+   1. BLOG CARD CENTRAL TATTOO
+   Texto cortando, grid transbordando
+───────────────────────────────────────── */
+@media(max-width:768px){
+  .bcard-central{
+    grid-template-columns:1fr !important;
+    min-height:unset !important;
+    overflow:hidden !important;
+  }
+  .bcard-central > div:first-child{
+    height:180px !important;
+    min-height:unset !important;
+    width:100% !important;
+  }
+  .bcard-central .bbody{
+    padding:16px !important;
+    gap:12px !important;
+    overflow:hidden !important;
+    width:100% !important;
+    box-sizing:border-box !important;
+  }
+  /* Título não transborda */
+  .bcard-central .btitle{
+    font-size:15px !important;
+    line-height:1.35 !important;
+    word-break:break-word !important;
+  }
+  /* Texto não transborda */
+  .bcard-central .bexc{
+    font-size:12px !important;
+    line-height:1.65 !important;
+    overflow:hidden !important;
+    display:-webkit-box !important;
+    -webkit-line-clamp:4 !important;
+    -webkit-box-orient:vertical !important;
+  }
+  /* Grade de módulos 4 colunas compacta */
+  .bcard-central .ct-modulos-grid{
+    grid-template-columns:repeat(4,1fr) !important;
+    gap:5px !important;
+    width:100% !important;
+  }
+  .bcard-central .ct-modulos-grid > div{
+    padding:7px 3px !important;
+    border-radius:8px !important;
+  }
+  .bcard-central .ct-modulos-grid > div > div:first-child{
+    font-size:17px !important;
+    margin-bottom:3px !important;
+  }
+  .bcard-central .ct-modulos-grid > div > div:last-child{
+    font-size:7.5px !important;
+    letter-spacing:.2px !important;
+  }
+  /* Stats 16 / 500+ / R$41 */
+  .bcard-central .ct-prova-social{
+    display:flex !important;
+    justify-content:space-around !important;
+    gap:8px !important;
+    flex-wrap:nowrap !important;
+  }
+  /* Frase de fechamento que transbordava */
+  .bcard-central .ct-rodape-actions{
+    flex-direction:column !important;
+    align-items:stretch !important;
+    gap:8px !important;
+  }
+  .bcard-central .ct-rodape-actions .bmore{
+    width:100% !important;
+    text-align:center !important;
+    box-sizing:border-box !important;
+  }
+  /* Frase "UM ÚNICO LEAD..." não corta mais */
+  .bcard-central [style*="font-size:10px;letter-spacing:1px"]{
+    white-space:normal !important;
+    overflow:visible !important;
+    text-overflow:unset !important;
+    font-size:9px !important;
+  }
+}
+
+@media(max-width:400px){
+  .bcard-central .ct-modulos-grid > div > div:last-child{
+    display:none !important;
+  }
+  .bcard-central .ct-modulos-grid > div{
+    padding:9px 3px !important;
+  }
+}
+
+/* ─────────────────────────────────────────
+   2. GALERIA NETFLIX — OVERLAY MOBILE
+   Painel Carlos some, grid ocupa tudo,
+   header fica compacto e legível
+───────────────────────────────────────── */
+@media(max-width:768px){
+  /* Body do overlay: flex coluna */
+  #galeria-netflix-overlay{
+    overflow-y:auto !important;
+  }
+
+  /* Header compacto */
+  .gnf-header-row{
+    padding:12px 14px 10px !important;
+    flex-direction:column !important;
+    align-items:flex-start !important;
+    gap:10px !important;
+  }
+  .gnf-title{
+    font-size:16px !important;
+  }
+  .gnf-header-sub{
+    font-size:13px !important;
+    line-height:1.5 !important;
+  }
+
+  /* Filtros: scroll horizontal, não quebra linha */
+  .gnf-filtros{
+    padding:8px 12px !important;
+    flex-wrap:nowrap !important;
+    overflow-x:auto !important;
+    -webkit-overflow-scrolling:touch !important;
+    gap:6px !important;
+    scrollbar-width:none !important;
+  }
+  .gnf-filtros::-webkit-scrollbar{ display:none !important; }
+  .gnf-filtros button{
+    flex-shrink:0 !important;
+    padding:7px 14px !important;
+    font-size:9px !important;
+    white-space:nowrap !important;
+  }
+
+  /* Corpo: painel Carlos some, grid ocupa 100% */
+  .gnf-body{
+    grid-template-columns:1fr !important;
+    overflow:visible !important;
+    display:block !important;
+  }
+  .gnf-right-panel{
+    display:none !important;
+  }
+  .gnf-grid{
+    padding:12px 10px !important;
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:8px !important;
+    overflow-y:visible !important;
+    min-height:0 !important;
+  }
+  /* Botão agendar agora no header mobile */
+  .gnf-header-row > div:last-child{
+    width:100% !important;
+    justify-content:space-between !important;
+  }
+  .gnf-header-row > div:last-child > a{
+    flex:1 !important;
+    justify-content:center !important;
+    font-size:10px !important;
+    padding:10px 14px !important;
+  }
+}
+
+@media(max-width:480px){
+  /* Grid de fotos ainda mais compacto */
+  .gnf-grid{
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:6px !important;
+    padding:8px !important;
+  }
+  /* Texto do card menor */
+  .gnf-grid [style*="font-size:12px"]{
+    font-size:10px !important;
+  }
+  .gnf-grid [style*="font-size:11px"]{
+    font-size:10px !important;
+  }
+}
+
+/* ─────────────────────────────────────────
+   3. LIGHTBOX DA GALERIA NETFLIX
+   Padding, setas, imagem — tudo mobile
+───────────────────────────────────────── */
+@media(max-width:768px){
+  .gnf-lb-inner{
+    padding:0 50px !important;
+    max-width:100vw !important;
+  }
+  .gnf-lb-inner img{
+    max-height:52vh !important;
+  }
+  .gnf-lb-arrow{
+    width:40px !important;
+    height:40px !important;
+    font-size:22px !important;
+  }
+  [style*="position:absolute;left:20px;top:50%"]{
+    left:4px !important;
+  }
+  [style*="position:absolute;right:20px;top:50%"]{
+    right:4px !important;
+  }
+}
+
+/* ─────────────────────────────────────────
+   4. CARDS DE SERVIÇO (spec-grid / scard)
+   Corrige foto cortando e número flutuando
+───────────────────────────────────────── */
+@media(max-width:768px){
+  .spec-grid{
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:10px !important;
+  }
+  .scard-foto,
+  .scard-foto-placeholder{
+    height:150px !important;
+    width:100% !important;
+    object-fit:cover !important;
+  }
+  .snum{
+    top:158px !important;
+    font-size:36px !important;
+    right:8px !important;
+  }
+  .scard-body{
+    padding:12px 12px 16px !important;
+  }
+  .sname{
+    font-size:12px !important;
+    margin-bottom:4px !important;
+  }
+  .sdesc{
+    display:-webkit-box !important;
+    -webkit-line-clamp:2 !important;
+    -webkit-box-orient:vertical !important;
+    overflow:hidden !important;
+    font-size:11px !important;
+    line-height:1.5 !important;
+    margin-bottom:8px !important;
+  }
+  .scta{
+    font-size:8.5px !important;
+    padding:7px 10px !important;
+    letter-spacing:.8px !important;
+  }
+}
+
+@media(max-width:480px){
+  .spec-grid{
+    grid-template-columns:1fr !important;
+    gap:8px !important;
+  }
+  .scard-foto,
+  .scard-foto-placeholder{
+    height:190px !important;
+  }
+  .snum{
+    top:198px !important;
+    font-size:42px !important;
+  }
+  .sdesc{
+    -webkit-line-clamp:3 !important;
+    font-size:12px !important;
+  }
+}
+
+/* ─────────────────────────────────────────
+   5. PORTFÓLIO EM VÍDEO (pv-item)
+   Ratio 9/16 em 2 colunas = muito alto
+───────────────────────────────────────── */
+@media(max-width:768px){
+  .portfolio-grid-full{
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:8px !important;
+    margin-top:16px !important;
+  }
+  .pv-item{
+    aspect-ratio:3/4 !important;
+    border-radius:10px !important;
+  }
+  .pv-play-btn{
+    width:40px !important;
+    height:40px !important;
+    font-size:15px !important;
+  }
+  .pv-label{
+    font-size:7.5px !important;
+    letter-spacing:.8px !important;
+    padding:7px !important;
+  }
+}
+
+@media(max-width:480px){
+  .pv-item{
+    aspect-ratio:2/3 !important;
+  }
+  .pv-label{
+    font-size:7px !important;
+  }
+}
+
+/* ─────────────────────────────────────────
+   6. BLOG GRID — cards não transbordam
+───────────────────────────────────────── */
+@media(max-width:768px){
+  .blog-grid{
+    grid-template-columns:1fr !important;
+    gap:8px !important;
+  }
+  .bcard.big{ grid-column:1 !important; }
+  .bthumb{ height:180px !important; }
+  .bcard.big .bthumb{ height:200px !important; }
+  .btitle{ font-size:14px !important; line-height:1.35 !important; }
+  .bexc{
+    font-size:12px !important;
+    display:-webkit-box !important;
+    -webkit-line-clamp:3 !important;
+    -webkit-box-orient:vertical !important;
+    overflow:hidden !important;
+  }
+  .bbody{ padding:14px !important; }
+  .share-bar{ padding:8px 0 0 !important; }
+}
+
+/* ─────────────────────────────────────────
+   7. SEÇÃO ESTÚDIO — fotos não transbordam
+───────────────────────────────────────── */
+@media(max-width:768px){
+  .studio-grid{
+    grid-template-columns:1fr 1fr !important;
+    gap:8px !important;
+  }
+  .studio-card.big{
+    grid-column:1/-1 !important;
+    min-height:200px !important;
+  }
+  .studio-card{
+    min-height:130px !important;
+  }
+}
+
+/* ─────────────────────────────────────────
+   8. OVERFLOW GLOBAL — nada vaza da tela
+───────────────────────────────────────── */
+@media(max-width:768px){
+  .si-inner{
+    padding:0 14px !important;
+    overflow:hidden !important;
+  }
+  /* Qualquer grid inline no HTML que não foi previsto */
+  [style*="grid-template-columns:1fr 1fr"]{
+    grid-template-columns:1fr !important;
+  }
+  /* Exceto casos específicos que devem manter 2 colunas */
+  .studio-grid[style*="grid-template-columns"],
+  .evid-wrap[style*="grid-template-columns"],
+  .como-grid[style*="grid-template-columns"],
+  .ct-modulos-grid[style*="grid-template-columns"]{
+    grid-template-columns:1fr 1fr !important;
+  }
+  .ct-modulos-grid[style*="grid-template-columns"]{
+    grid-template-columns:repeat(4,1fr) !important;
+  }
+}

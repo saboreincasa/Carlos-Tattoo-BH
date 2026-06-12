@@ -325,8 +325,210 @@ textarea.fi{resize:vertical;min-height:76px;}
 .cont-model p{font-size:12.5px;color:var(--tx3);margin-bottom:12px;line-height:1.6;}
 .cont-leis{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px;}
 </style>
+
+<!-- Supabase -->
+<script type="importmap">{"imports":{"@supabase/supabase-js":"https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"}}</script>
+
+<style>
+/* ══════════════════════════════════════
+   SISTEMA DE TRIAL — CARLOS TATTOO BH
+══════════════════════════════════════ */
+
+/* ── OVERLAY INICIAL (enquanto verifica) ── */
+#trial-loading{position:fixed;inset:0;z-index:9999;background:#1A0F06;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+#trial-loading .tl-logo{font-family:'Cormorant Garamond',serif;font-size:32px;color:#FBBF24;letter-spacing:2px;}
+#trial-loading .tl-spin{width:36px;height:36px;border:3px solid rgba(251,191,36,.2);border-top-color:#FBBF24;border-radius:50%;animation:tlspin .8s linear infinite;}
+@keyframes tlspin{to{transform:rotate(360deg)}}
+
+/* ── MODAL CADASTRO TRIAL ── */
+#trial-modal{display:none;position:fixed;inset:0;z-index:9990;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:16px;}
+#trial-modal.show{display:flex;}
+.tm-box{background:#fff;border-radius:20px;width:100%;max-width:480px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.35);}
+.tm-header{background:linear-gradient(135deg,#1A0F06,#3D1F08);padding:32px 36px 24px;text-align:center;position:relative;}
+.tm-header::after{content:'⚡';position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:80px;opacity:.06;}
+.tm-badge{display:inline-block;background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.3);color:#FBBF24;font-size:10px;letter-spacing:3px;padding:4px 14px;border-radius:20px;margin-bottom:12px;font-family:'Cormorant Garamond',serif;font-weight:700;}
+.tm-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.2;}
+.tm-sub{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;}
+.tm-body{padding:28px 36px 32px;}
+.tm-fg{margin-bottom:16px;}
+.tm-fg label{display:block;font-size:11px;font-weight:700;color:#374151;letter-spacing:.7px;text-transform:uppercase;margin-bottom:6px;}
+.tm-fi{width:100%;background:#fff;border:1.5px solid #D1D5DB;border-radius:8px;padding:11px 14px;font-size:14px;color:#111827;transition:border .2s;outline:none;font-family:'Inter',sans-serif;}
+.tm-fi:focus{border-color:#B45309;box-shadow:0 0 0 3px rgba(180,83,9,.08);}
+.tm-fi::placeholder{color:#9CA3AF;}
+.tm-modules{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0 20px;}
+.tm-mod{background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:10px 12px;font-size:12px;color:#374151;display:flex;align-items:center;gap:7px;}
+.tm-mod.free{border-color:#A7F3D0;background:#ECFDF5;color:#065F46;}
+.tm-mod.lock{border-color:#FDE68A;background:#FFFBEB;color:#92400E;}
+.tm-btn{width:100%;background:linear-gradient(135deg,#92400E,#FBBF24);color:#1A0F06;border:none;padding:15px;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.5px;transition:all .2s;}
+.tm-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(180,83,9,.3);}
+.tm-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.tm-err{background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:10px 14px;font-size:13px;color:#B91C1C;margin-bottom:14px;display:none;}
+.tm-footer{font-size:11px;color:#9CA3AF;text-align:center;margin-top:12px;line-height:1.6;}
+
+/* ── BANNER TRIAL TOPO ── */
+#trial-banner{background:linear-gradient(90deg,#1A0F06,#3D1F08,#1A0F06);border-bottom:1px solid rgba(251,191,36,.25);padding:10px 20px;display:none;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;position:sticky;top:56px;z-index:290;}
+#trial-banner.show{display:flex;}
+#trial-banner.urgent{background:linear-gradient(90deg,#7F1D1D,#991B1B,#7F1D1D);border-color:rgba(252,165,165,.3);}
+.tb-left{display:flex;align-items:center;gap:10px;}
+.tb-icon{font-size:18px;}
+.tb-text{font-size:12px;color:rgba(255,255,255,.8);font-family:'Inter',sans-serif;}
+.tb-text strong{color:#FBBF24;font-weight:700;}
+#trial-banner.urgent .tb-text strong{color:#FCA5A5;}
+.tb-timer{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#FBBF24;letter-spacing:1px;min-width:100px;}
+#trial-banner.urgent .tb-timer{color:#FCA5A5;}
+.tb-btn{background:linear-gradient(135deg,#92400E,#FBBF24);color:#1A0F06;border:none;padding:8px 20px;border-radius:6px;font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.5px;white-space:nowrap;transition:all .2s;}
+.tb-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(180,83,9,.4);}
+
+/* ── SIDEBAR CADEADO ── */
+.sb-i.locked{opacity:.65;position:relative;}
+.sb-i.locked::after{content:'🔒';font-size:11px;margin-left:auto;flex-shrink:0;}
+.sb-i.locked:hover{background:#FFFBEB;color:var(--gold);}
+
+/* ── MODAL MÓDULO BLOQUEADO ── */
+#lock-modal{display:none;position:fixed;inset:0;z-index:9980;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:16px;}
+#lock-modal.show{display:flex;}
+.lm-box{background:#fff;border-radius:16px;width:100%;max-width:420px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.3);}
+.lm-top{background:linear-gradient(135deg,#1A0F06,#3D1F08);padding:28px 28px 20px;text-align:center;}
+.lm-icon{font-size:40px;margin-bottom:10px;}
+.lm-title{font-family:'Cormorant Garamond',serif;font-size:22px;color:#fff;font-weight:700;margin-bottom:6px;}
+.lm-desc{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;}
+.lm-body{padding:24px 28px;}
+.lm-features{list-style:none;margin-bottom:20px;}
+.lm-features li{font-size:13px;color:#374151;padding:6px 0;border-bottom:1px solid #F3F4F6;display:flex;align-items:center;gap:8px;}
+.lm-features li:last-child{border-bottom:none;}
+.lm-features li::before{content:'✦';color:#B45309;font-size:10px;flex-shrink:0;}
+.lm-btn{width:100%;background:linear-gradient(135deg,#92400E,#FBBF24);color:#1A0F06;border:none;padding:14px;border-radius:8px;font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:10px;letter-spacing:.3px;transition:all .2s;}
+.lm-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(180,83,9,.35);}
+.lm-close{width:100%;background:transparent;border:1.5px solid #E5E7EB;color:#6B7280;padding:10px;border-radius:8px;font-size:13px;cursor:pointer;transition:all .2s;}
+.lm-close:hover{border-color:#D1D5DB;color:#374151;}
+
+/* ── MODAL EXPIRADO (bloqueante) ── */
+#expired-modal{display:none;position:fixed;inset:0;z-index:9995;background:rgba(0,0,0,.9);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:16px;}
+#expired-modal.show{display:flex;}
+.em-box{background:#fff;border-radius:20px;width:100%;max-width:500px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.5);}
+.em-top{background:linear-gradient(135deg,#1A0F06,#3D1F08);padding:36px 36px 28px;text-align:center;position:relative;overflow:hidden;}
+.em-top::before{content:'⏰';position:absolute;right:20px;top:10px;font-size:90px;opacity:.05;}
+.em-badge{display:inline-block;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:#FCA5A5;font-size:10px;letter-spacing:3px;padding:4px 14px;border-radius:20px;margin-bottom:14px;}
+.em-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:8px;}
+.em-sub{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;}
+.em-body{padding:28px 36px 32px;}
+.em-price-box{background:linear-gradient(135deg,#FFFBEB,#FEF9E7);border:1px solid #FDE68A;border-radius:12px;padding:20px;text-align:center;margin-bottom:20px;}
+.em-price-lbl{font-size:11px;font-weight:700;color:#92400E;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;}
+.em-price{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:700;color:#92400E;line-height:1;}
+.em-price-period{font-size:13px;color:#B45309;margin-top:4px;}
+.em-price-month{font-size:12px;color:#D97706;}
+.em-btn{width:100%;background:linear-gradient(135deg,#92400E,#FBBF24);color:#1A0F06;border:none;padding:16px;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:10px;letter-spacing:.5px;transition:all .2s;}
+.em-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(180,83,9,.4);}
+.em-btn2{width:100%;background:transparent;border:1.5px solid #E5E7EB;color:#6B7280;padding:12px;border-radius:10px;font-size:13px;cursor:pointer;transition:all .2s;}
+.em-btn2:hover{border-color:#D1D5DB;color:#374151;}
+.em-features{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px;}
+.em-feat{background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:8px 10px;font-size:11px;color:#374151;display:flex;align-items:center;gap:6px;}
+.em-feat::before{content:'✓';color:#059669;font-weight:700;flex-shrink:0;}
+</style>
+
 </head>
 <body>
+
+<!-- ══════════════════════════════════════
+     SISTEMA DE TRIAL — CARLOS TATTOO BH
+══════════════════════════════════════ -->
+
+<!-- LOADING OVERLAY -->
+<div id="trial-loading">
+  <div class="tl-logo">✦ Central Tattoo</div>
+  <div class="tl-spin"></div>
+</div>
+
+<!-- MODAL CADASTRO TRIAL -->
+<div id="trial-modal" role="dialog" aria-modal="true" aria-labelledby="tm-title-el">
+  <div class="tm-box">
+    <div class="tm-header">
+      <div class="tm-badge" id="tm-badge-text">TESTE GRATUITO · 48 HORAS</div>
+      <div class="tm-title" id="tm-title-el">Experimente o Central Tattoo Pro</div>
+      <div class="tm-sub" id="tm-sub-text">Acesso completo por 48 horas. Sem cartão de crédito.</div>
+    </div>
+    <div class="tm-body">
+      <div class="tm-err" id="tm-err"></div>
+
+      <div class="tm-fg">
+        <label id="tm-lbl-nome">Seu nome</label>
+        <input class="tm-fi" type="text" id="tm-nome" placeholder="Carlos Henrique">
+      </div>
+      <div class="tm-fg">
+        <label id="tm-lbl-email">Email</label>
+        <input class="tm-fi" type="email" id="tm-email" placeholder="seu@email.com">
+      </div>
+      <div class="tm-fg">
+        <label id="tm-lbl-wpp">WhatsApp</label>
+        <input class="tm-fi" type="tel" id="tm-wpp" placeholder="+55 31 99999-9999">
+      </div>
+
+      <!-- Módulos liberados/bloqueados -->
+      <div style="margin:16px 0 8px;font-size:11px;font-weight:700;color:#374151;letter-spacing:.7px;text-transform:uppercase;" id="tm-modules-title">O que você vai testar:</div>
+      <div class="tm-modules">
+        <div class="tm-mod free">📊 <span id="tm-mod1">Dashboard</span></div>
+        <div class="tm-mod free">📅 <span id="tm-mod2">Agenda</span></div>
+        <div class="tm-mod free">🧮 <span id="tm-mod3">Calculadora</span></div>
+        <div class="tm-mod free">📖 <span id="tm-mod4">Tutorial</span></div>
+        <div class="tm-mod lock">🔒 <span id="tm-mod5">+12 módulos Premium</span></div>
+        <div class="tm-mod lock">💎 <span id="tm-mod6">Acesso completo na assinatura</span></div>
+      </div>
+
+      <button class="tm-btn" id="tm-submit-btn" onclick="iniciarTrial()">
+        <span id="tm-btn-text">INICIAR MEU TRIAL GRATUITO →</span>
+      </button>
+      <div class="tm-footer" id="tm-footer-text">
+        🔒 Seus dados são protegidos · Sem cobrança automática · Cancele quando quiser
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL MÓDULO BLOQUEADO -->
+<div id="lock-modal" role="dialog" aria-modal="true">
+  <div class="lm-box">
+    <div class="lm-top">
+      <div class="lm-icon" id="lm-icon">🔒</div>
+      <div class="lm-title" id="lm-title">Módulo Premium</div>
+      <div class="lm-desc" id="lm-desc">Este módulo está disponível na versão completa.</div>
+    </div>
+    <div class="lm-body">
+      <ul class="lm-features" id="lm-features"></ul>
+      <button class="lm-btn" id="lm-subscribe-btn" onclick="mostrarModalExpirado()">VER PLANOS E ASSINAR</button>
+      <button class="lm-close" onclick="document.getElementById('lock-modal').classList.remove('show')">Voltar ao sistema</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL EXPIRADO (bloqueante) -->
+<div id="expired-modal" role="dialog" aria-modal="true">
+  <div class="em-box">
+    <div class="em-top">
+      <div class="em-badge" id="em-badge">SEU TRIAL EXPIROU</div>
+      <div class="em-title" id="em-title">Suas 48 horas acabaram</div>
+      <div class="em-sub" id="em-sub">Você explorou o sistema. Agora é hora de desbloquear tudo e profissionalizar seu estúdio de verdade.</div>
+    </div>
+    <div class="em-body">
+      <div class="em-features">
+        <div class="em-feat" id="em-f1">16 módulos completos</div>
+        <div class="em-feat" id="em-f2">Agenda ilimitada</div>
+        <div class="em-feat" id="em-f3">CRM de clientes</div>
+        <div class="em-feat" id="em-f4">Controle financeiro</div>
+        <div class="em-feat" id="em-f5">Contratos digitais</div>
+        <div class="em-feat" id="em-f6">Suporte do Carlos</div>
+      </div>
+      <div class="em-price-box">
+        <div class="em-price-lbl" id="em-price-lbl">PLANO ANUAL</div>
+        <div class="em-price" id="em-price">R$499</div>
+        <div class="em-price-period" id="em-period">por ano · acesso imediato</div>
+        <div class="em-price-month" id="em-month">≈ R$41,58 por mês</div>
+      </div>
+      <button class="em-btn" id="em-cta-btn" onclick="irParaCompra()">ASSINAR AGORA — ACESSO IMEDIATO</button>
+      <button class="em-btn2" id="em-wpp-btn" onclick="falarCarlosWpp()">💬 Falar com Carlos antes de assinar</button>
+    </div>
+  </div>
+</div>
+
 <header class="hdr">
   <div class="hdr-l">
     <button class="hbg" id="hbgBtn" onclick="toggleSb()" aria-label="Menu">
@@ -341,6 +543,19 @@ textarea.fi{resize:vertical;min-height:76px;}
     <button class="btn-exit" onclick="sair()">Sair →</button>
   </div>
 </header>
+<!-- BANNER TRIAL TOPO -->
+<div id="trial-banner">
+  <div class="tb-left">
+    <span class="tb-icon">⚡</span>
+    <span class="tb-text"><strong id="tb-label">Trial Gratuito</strong> · <span id="tb-name"></span></span>
+  </div>
+  <div class="tb-timer" id="tb-timer">48:00:00</div>
+  <button class="tb-btn" id="tb-cta-btn" onclick="mostrarModalExpirado()">
+    <span id="tb-cta-text">ASSINAR AGORA</span>
+  </button>
+</div>
+
+
 <div class="sb-overlay" id="sbOverlay" onclick="toggleSb()"></div>
 <div class="layout">
 <aside class="sb" id="sb"></aside>
@@ -802,12 +1017,31 @@ const META_I=[
 ];
 const COM_DEF=[{f:'Tatuador Principal',p:60},{f:'Tatuador',p:55},{f:'Atendimento',p:30},{f:'Piercing',p:50}];
 const ADM_M=[
-  {s:'GESTÃO'},{id:'dashboard',ic:'📊',lb:'Dashboard'},{id:'agenda',ic:'📅',lb:'Agenda'},{id:'clientes',ic:'👥',lb:'Clientes CRM'},{id:'followup',ic:'🔔',lb:'Follow-Up'},
-  {s:'FINANCEIRO'},{id:'financeiro',ic:'💰',lb:'Financeiro'},{id:'calculadora',ic:'🧮',lb:'Calculadora'},{id:'comissoes',ic:'💼',lb:'Comissões'},
-  {s:'OPERACIONAL'},{id:'estoque',ic:'📦',lb:'Estoque'},{id:'leads',ic:'🎯',lb:'Leads'},{id:'metas',ic:'📈',lb:'Metas'},{id:'sinais',ic:'💎',lb:'Sinais'},
-  {s:'MÓDULOS'},{id:'cicatrizacao',ic:'🌿',lb:'Cicatrização'},{id:'contratos',ic:'📋',lb:'Contratos'},{id:'relatorio',ic:'📊',lb:'Relatório'},{id:'precos',ic:'🏷️',lb:'Preços'},{id:'marketing',ic:'📱',lb:'Marketing'},
-  {s:'SISTEMA'},{id:'tutorial',ic:'📖',lb:'Tutorial'},{id:'configuracoes',ic:'⚙️',lb:'Configurações'},
+  {s:'GESTÃO'},{id:'dashboard',ic:'📊',lb:'Dashboard'},{id:'agenda',ic:'📅',lb:'Agenda'},{id:'clientes',ic:'👥',lb:'Clientes CRM',trial_lock:true},{id:'followup',ic:'🔔',lb:'Follow-Up',trial_lock:true},
+  {s:'FINANCEIRO'},{id:'financeiro',ic:'💰',lb:'Financeiro',trial_lock:true},{id:'calculadora',ic:'🧮',lb:'Calculadora'},{id:'comissoes',ic:'💼',lb:'Comissões',trial_lock:true},
+  {s:'OPERACIONAL'},{id:'estoque',ic:'📦',lb:'Estoque',trial_lock:true},{id:'leads',ic:'🎯',lb:'Leads',trial_lock:true},{id:'metas',ic:'📈',lb:'Metas',trial_lock:true},{id:'sinais',ic:'💎',lb:'Sinais',trial_lock:true},
+  {s:'MÓDULOS'},{id:'cicatrizacao',ic:'🌿',lb:'Cicatrização',trial_lock:true},{id:'contratos',ic:'📋',lb:'Contratos',trial_lock:true},{id:'relatorio',ic:'📊',lb:'Relatório',trial_lock:true},{id:'precos',ic:'🏷️',lb:'Preços',trial_lock:true},{id:'marketing',ic:'📱',lb:'Marketing',trial_lock:true},
+  {s:'SISTEMA'},{id:'tutorial',ic:'📖',lb:'Tutorial'},{id:'configuracoes',ic:'⚙️',lb:'Configurações',trial_lock:true},
 ];
+// Módulos liberados no trial
+const TRIAL_FREE=['dashboard','agenda','calculadora','tutorial'];
+// Infos dos módulos para o modal de bloqueio
+const LOCK_INFO={
+  clientes:{ic:'👥',title:'CRM de Clientes',desc:'Cadastro completo, fidelização e histórico de cada cliente.',feats:['Cadastro com foto e histórico','Ticket médio automático','NPS de satisfação','Controle de retornos']},
+  followup:{ic:'🔔',title:'Follow-Up Automático',desc:'Nunca perca um cliente por falta de contato.',feats:['Clientes sem visita há 30/60/90 dias','Mensagem WhatsApp pré-pronta','Prioridade automática','Histórico de contatos']},
+  financeiro:{ic:'💰',title:'Financeiro Completo',desc:'Receitas, despesas, DRE e fluxo de caixa.',feats:['Grade mensal editável','DRE automático','Fluxo de caixa anual','Exportação Excel']},
+  comissoes:{ic:'💼',title:'Gestão de Comissões',desc:'Controle de comissões da equipe com cálculo automático.',feats:['% por função','Cálculo automático','Histórico de pagamentos','Relatório da equipe']},
+  estoque:{ic:'📦',title:'Controle de Estoque',desc:'Monitore materiais e nunca fique sem insumos.',feats:['17 itens pré-cadastrados','Alerta de reposição','Valor total do estoque','Controle por categoria']},
+  leads:{ic:'🎯',title:'Pipeline de Leads',desc:'Funil de vendas completo para nunca perder um orçamento.',feats:['Kanban visual 6 etapas','Temperatura do lead','Valor do pipeline','Integração com WhatsApp']},
+  metas:{ic:'📈',title:'Metas e KPIs',desc:'Acompanhe seu progresso mês a mês com dados reais.',feats:['Grade 2026 editável','9 indicadores-chave','Meta vs Realizado','Exportação Excel']},
+  sinais:{ic:'💎',title:'Sinais e Alertas',desc:'Saúde do negócio em tempo real com alertas inteligentes.',feats:['9 sinais automáticos','Alertas de perigo','Margem de lucro','Taxa de cancelamento']},
+  cicatrizacao:{ic:'🌿',title:'Cicatrização',desc:'Acompanhamento pós-tattoo e controle de retoques.',feats:['Guia pós-tattoo completo','Controle de retoque grátis','Avaliação do cliente','Alertas de retorno']},
+  contratos:{ic:'📋',title:'Contratos Digitais',desc:'3 modelos com respaldo jurídico completo.',feats:['Contrato padrão de sessão','Autorização menor de idade','Contrato de cover-up','Geração em Word automática']},
+  relatorio:{ic:'📊',title:'Relatórios Gerenciais',desc:'Dados consolidados de todo o negócio.',feats:['Top 10 clientes','Receita por estilo','Resumo mensal 2026','Exportação Excel completa']},
+  precos:{ic:'🏷️',title:'Tabela de Preços',desc:'Referência de preços por estilo e tamanho.',feats:['Cadastro por estilo','Faixa de preço min/max','Comparativo de mercado BH','Acesso rápido']},
+  marketing:{ic:'📱',title:'Calendário de Marketing',desc:'Planeje e controle todo seu conteúdo digital.',feats:['Calendário editorial','Instagram + TikTok + Facebook','Status de publicação','KPIs de marketing']},
+  configuracoes:{ic:'⚙️',title:'Configurações',desc:'Personalize o sistema com os dados do seu estúdio.',feats:['Logo nos contratos e recibos','Dados do estúdio completos','Backup e restauração','Gestão de usuários']},
+};
 const CLI_M=[{s:'MINHA ÁREA'},{id:'portal',ic:'👤',lb:'Meu Painel'},{id:'cicatrizacao',ic:'🌿',lb:'Guia de Cicatrização'}];
 const CIC_DATA=[
   {day:'1–3',ic:'🩹',t:'Primeiros Dias',items:['Mantenha o curativo por 2-4 horas','Lave suavemente com sabonete neutro','Aplique Bepantol (camada fina)','Evite sol, piscina e mar completamente','Não coçar ou esfregar — JAMAIS']},
@@ -867,11 +1101,22 @@ function sair(){sessionStorage.removeItem('ct_sessao');window.location.href='ace
 function toggleSb(){const sb=document.getElementById('sb'),ov=document.getElementById('sbOverlay');sb.classList.toggle('open');ov.classList.toggle('on');}
 function buildSb(){
   const mn=IS_ADM?ADM_M:CLI_M;
-  document.getElementById('sb').innerHTML=mn.map(m=>{if(m.s)return`<div class="sb-sec">${m.s}</div>`;return`<div class="sb-i" id="si-${m.id}" onclick="go('${m.id}')"><span class="sb-icon">${m.ic}</span>${m.lb}</div>`;}).join('');
+  const isTrial=window.TRIAL_MODE===true;
+  document.getElementById('sb').innerHTML=mn.map(m=>{
+    if(m.s)return`<div class="sb-sec">${m.s}</div>`;
+    const isLocked=isTrial&&m.trial_lock;
+    const clickFn=isLocked?`abrirLockModal('${m.id}')`:`go('${m.id}')`;
+    return`<div class="sb-i${isLocked?' locked':''}" id="si-${m.id}" onclick="${clickFn}"><span class="sb-icon">${m.ic}</span>${m.lb}</div>`;
+  }).join('');
   const f=IS_ADM?'si-dashboard':'si-portal';
   const si=document.getElementById(f);if(si)si.classList.add('on');
 }
 function go(id){
+  // Bloquear módulos premium no modo trial
+  if(window.TRIAL_MODE){
+    const modInfo=ADM_M.find(m=>m.id===id);
+    if(modInfo&&modInfo.trial_lock){abrirLockModal(id);return;}
+  }
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.sb-i').forEach(s=>s.classList.remove('on'));
   const p=document.getElementById('p-'+id),s=document.getElementById('si-'+id);
@@ -1048,7 +1293,221 @@ function geraRecibo(id){
   const s=gdb('ct_sessoes').find(x=>x.id===id);if(!s)return;
   const cf=conf();const lg=localStorage.getItem('ct_logo');
   const lH=lg?`<img src="${lg}" style="max-height:70px;margin-bottom:4px"><br>`:'';
-  const html=`<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><style>body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#111;margin:2cm 2.5cm}.hd{text-align:center;border-bottom:3px solid #1A0F06;padding-bottom:14px;margin-bottom:22px}.sn{font-size:21pt;font-weight:bold;color:#1A0F06;font-family:Georgia,serif}.su{font-size:9.5pt;color:#555;margin-top:3px}.tt{font-size:17pt;font-weight:bold;color:#1A0F06;text-align:center;margin:22px 0 18px;font-family:Georgia,serif;letter-spacing:1px}.bx{border:1px solid #D1D5DB;border-radius:6px;padding:14px 18px;margin-bottom:14px;background:#FAFAFA}.bx h3{font-size:9.5pt;font-weight:bold;color:#92400E;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;border-bottom:1px solid #E5E7EB;padding-bottom:5px}table.dt{width:100%;border-collapse:collapse}table.dt td{padding:5px 7px;font-size:10.5pt;border-bottom:1px solid #E5E7EB}table.dt td:first-child{font-weight:bold;width:40%;color:#374151}.vb{background:#1A0F06;color:#FBBF24;padding:18px 22px;border-radius:8px;text-align:center;margin:18px 0}.vt{font-size:9.5pt;letter-spacing:2px;text-transform:uppercase;opacity:.7;margin-bottom:4px}.vn{font-size:26pt;font-weight:bold;font-family:Georgia,serif}.ft{text-align:center;font-size:8.5pt;color:#9CA3AF;margin-top:28px;padding-top:10px;border-top:1px solid #E5E7EB}</style></head><body>
+  const html=`<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><style>body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#111;margin:2cm 2.5cm}.hd{text-align:center;border-bottom:3px solid #1A0F06;padding-bottom:14px;margin-bottom:22px}.sn{font-size:21pt;font-weight:bold;color:#1A0F06;font-family:Georgia,serif}.su{font-size:9.5pt;color:#555;margin-top:3px}.tt{font-size:17pt;font-weight:bold;color:#1A0F06;text-align:center;margin:22px 0 18px;font-family:Georgia,serif;letter-spacing:1px}.bx{border:1px solid #D1D5DB;border-radius:6px;padding:14px 18px;margin-bottom:14px;background:#FAFAFA}.bx h3{font-size:9.5pt;font-weight:bold;color:#92400E;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;border-bottom:1px solid #E5E7EB;padding-bottom:5px}table.dt{width:100%;border-collapse:collapse}table.dt td{padding:5px 7px;font-size:10.5pt;border-bottom:1px solid #E5E7EB}table.dt td:first-child{font-weight:bold;width:40%;color:#374151}.vb{background:#1A0F06;color:#FBBF24;padding:18px 22px;border-radius:8px;text-align:center;margin:18px 0}.vt{font-size:9.5pt;letter-spacing:2px;text-transform:uppercase;opacity:.7;margin-bottom:4px}.vn{font-size:26pt;font-weight:bold;font-family:Georgia,serif}.ft{text-align:center;font-size:8.5pt;color:#9CA3AF;margin-top:28px;padding-top:10px;border-top:1px solid #E5E7EB}</style>
+<!-- Supabase -->
+<script type="importmap">{"imports":{"@supabase/supabase-js":"https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"}}</script>
+
+<style>
+/* ══════════════════════════════════════
+   SISTEMA DE TRIAL — CARLOS TATTOO BH
+══════════════════════════════════════ */
+
+/* ── OVERLAY INICIAL (enquanto verifica) ── */
+#trial-loading{position:fixed;inset:0;z-index:9999;background:#1A0F06;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+#trial-loading .tl-logo{font-family:'Cormorant Garamond',serif;font-size:32px;color:#FBBF24;letter-spacing:2px;}
+#trial-loading .tl-spin{width:36px;height:36px;border:3px solid rgba(251,191,36,.2);border-top-color:#FBBF24;border-radius:50%;animation:tlspin .8s linear infinite;}
+@keyframes tlspin{to{transform:rotate(360deg)}}
+
+/* ── MODAL CADASTRO TRIAL ── */
+#trial-modal{display:none;position:fixed;inset:0;z-index:9990;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:16px;}
+#trial-modal.show{display:flex;}
+.tm-box{background:#fff;border-radius:20px;width:100%;max-width:480px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.35);}
+.tm-header{background:linear-gradient(135deg,#1A0F06,#3D1F08);padding:32px 36px 24px;text-align:center;position:relative;}
+.tm-header::after{content:'⚡';position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:80px;opacity:.06;}
+.tm-badge{display:inline-block;background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.3);color:#FBBF24;font-size:10px;letter-spacing:3px;padding:4px 14px;border-radius:20px;margin-bottom:12px;font-family:'Cormorant Garamond',serif;font-weight:700;}
+.tm-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.2;}
+.tm-sub{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;}
+.tm-body{padding:28px 36px 32px;}
+.tm-fg{margin-bottom:16px;}
+.tm-fg label{display:block;font-size:11px;font-weight:700;color:#374151;letter-spacing:.7px;text-transform:uppercase;margin-bottom:6px;}
+.tm-fi{width:100%;background:#fff;border:1.5px solid #D1D5DB;border-radius:8px;padding:11px 14px;font-size:14px;color:#111827;transition:border .2s;outline:none;font-family:'Inter',sans-serif;}
+.tm-fi:focus{border-color:#B45309;box-shadow:0 0 0 3px rgba(180,83,9,.08);}
+.tm-fi::placeholder{color:#9CA3AF;}
+.tm-modules{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0 20px;}
+.tm-mod{background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:10px 12px;font-size:12px;color:#374151;display:flex;align-items:center;gap:7px;}
+.tm-mod.free{border-color:#A7F3D0;background:#ECFDF5;color:#065F46;}
+.tm-mod.lock{border-color:#FDE68A;background:#FFFBEB;color:#92400E;}
+.tm-btn{width:100%;background:linear-gradient(135deg,#92400E,#FBBF24);color:#1A0F06;border:none;padding:15px;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.5px;transition:all .2s;}
+.tm-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(180,83,9,.3);}
+.tm-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.tm-err{background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:10px 14px;font-size:13px;color:#B91C1C;margin-bottom:14px;display:none;}
+.tm-footer{font-size:11px;color:#9CA3AF;text-align:center;margin-top:12px;line-height:1.6;}
+
+/* ── BANNER TRIAL TOPO ── */
+#trial-banner{background:linear-gradient(90deg,#1A0F06,#3D1F08,#1A0F06);border-bottom:1px solid rgba(251,191,36,.25);padding:10px 20px;display:none;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;position:sticky;top:56px;z-index:290;}
+#trial-banner.show{display:flex;}
+#trial-banner.urgent{background:linear-gradient(90deg,#7F1D1D,#991B1B,#7F1D1D);border-color:rgba(252,165,165,.3);}
+.tb-left{display:flex;align-items:center;gap:10px;}
+.tb-icon{font-size:18px;}
+.tb-text{font-size:12px;color:rgba(255,255,255,.8);font-family:'Inter',sans-serif;}
+.tb-text strong{color:#FBBF24;font-weight:700;}
+#trial-banner.urgent .tb-text strong{color:#FCA5A5;}
+.tb-timer{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#FBBF24;letter-spacing:1px;min-width:100px;}
+#trial-banner.urgent .tb-timer{color:#FCA5A5;}
+.tb-btn{background:linear-gradient(135deg,#92400E,#FBBF24);color:#1A0F06;border:none;padding:8px 20px;border-radius:6px;font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.5px;white-space:nowrap;transition:all .2s;}
+.tb-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(180,83,9,.4);}
+
+/* ── SIDEBAR CADEADO ── */
+.sb-i.locked{opacity:.65;position:relative;}
+.sb-i.locked::after{content:'🔒';font-size:11px;margin-left:auto;flex-shrink:0;}
+.sb-i.locked:hover{background:#FFFBEB;color:var(--gold);}
+
+/* ── MODAL MÓDULO BLOQUEADO ── */
+#lock-modal{display:none;position:fixed;inset:0;z-index:9980;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:16px;}
+#lock-modal.show{display:flex;}
+.lm-box{background:#fff;border-radius:16px;width:100%;max-width:420px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.3);}
+.lm-top{background:linear-gradient(135deg,#1A0F06,#3D1F08);padding:28px 28px 20px;text-align:center;}
+.lm-icon{font-size:40px;margin-bottom:10px;}
+.lm-title{font-family:'Cormorant Garamond',serif;font-size:22px;color:#fff;font-weight:700;margin-bottom:6px;}
+.lm-desc{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;}
+.lm-body{padding:24px 28px;}
+.lm-features{list-style:none;margin-bottom:20px;}
+.lm-features li{font-size:13px;color:#374151;padding:6px 0;border-bottom:1px solid #F3F4F6;display:flex;align-items:center;gap:8px;}
+.lm-features li:last-child{border-bottom:none;}
+.lm-features li::before{content:'✦';color:#B45309;font-size:10px;flex-shrink:0;}
+.lm-btn{width:100%;background:linear-gradient(135deg,#92400E,#FBBF24);color:#1A0F06;border:none;padding:14px;border-radius:8px;font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:10px;letter-spacing:.3px;transition:all .2s;}
+.lm-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(180,83,9,.35);}
+.lm-close{width:100%;background:transparent;border:1.5px solid #E5E7EB;color:#6B7280;padding:10px;border-radius:8px;font-size:13px;cursor:pointer;transition:all .2s;}
+.lm-close:hover{border-color:#D1D5DB;color:#374151;}
+
+/* ── MODAL EXPIRADO (bloqueante) ── */
+#expired-modal{display:none;position:fixed;inset:0;z-index:9995;background:rgba(0,0,0,.9);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:16px;}
+#expired-modal.show{display:flex;}
+.em-box{background:#fff;border-radius:20px;width:100%;max-width:500px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.5);}
+.em-top{background:linear-gradient(135deg,#1A0F06,#3D1F08);padding:36px 36px 28px;text-align:center;position:relative;overflow:hidden;}
+.em-top::before{content:'⏰';position:absolute;right:20px;top:10px;font-size:90px;opacity:.05;}
+.em-badge{display:inline-block;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:#FCA5A5;font-size:10px;letter-spacing:3px;padding:4px 14px;border-radius:20px;margin-bottom:14px;}
+.em-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:8px;}
+.em-sub{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;}
+.em-body{padding:28px 36px 32px;}
+.em-price-box{background:linear-gradient(135deg,#FFFBEB,#FEF9E7);border:1px solid #FDE68A;border-radius:12px;padding:20px;text-align:center;margin-bottom:20px;}
+.em-price-lbl{font-size:11px;font-weight:700;color:#92400E;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;}
+.em-price{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:700;color:#92400E;line-height:1;}
+.em-price-period{font-size:13px;color:#B45309;margin-top:4px;}
+.em-price-month{font-size:12px;color:#D97706;}
+.em-btn{width:100%;background:linear-gradient(135deg,#92400E,#FBBF24);color:#1A0F06;border:none;padding:16px;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:10px;letter-spacing:.5px;transition:all .2s;}
+.em-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(180,83,9,.4);}
+.em-btn2{width:100%;background:transparent;border:1.5px solid #E5E7EB;color:#6B7280;padding:12px;border-radius:10px;font-size:13px;cursor:pointer;transition:all .2s;}
+.em-btn2:hover{border-color:#D1D5DB;color:#374151;}
+.em-features{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px;}
+.em-feat{background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:8px 10px;font-size:11px;color:#374151;display:flex;align-items:center;gap:6px;}
+.em-feat::before{content:'✓';color:#059669;font-weight:700;flex-shrink:0;}
+</style>
+
+</head><body>
+
+<!-- ══════════════════════════════════════
+     SISTEMA DE TRIAL — CARLOS TATTOO BH
+══════════════════════════════════════ -->
+
+<!-- LOADING OVERLAY -->
+<div id="trial-loading">
+  <div class="tl-logo">✦ Central Tattoo</div>
+  <div class="tl-spin"></div>
+</div>
+
+<!-- MODAL CADASTRO TRIAL -->
+<div id="trial-modal" role="dialog" aria-modal="true" aria-labelledby="tm-title-el">
+  <div class="tm-box">
+    <div class="tm-header">
+      <div class="tm-badge" id="tm-badge-text">TESTE GRATUITO · 48 HORAS</div>
+      <div class="tm-title" id="tm-title-el">Experimente o Central Tattoo Pro</div>
+      <div class="tm-sub" id="tm-sub-text">Acesso completo por 48 horas. Sem cartão de crédito.</div>
+    </div>
+    <div class="tm-body">
+      <div class="tm-err" id="tm-err"></div>
+
+      <div class="tm-fg">
+        <label id="tm-lbl-nome">Seu nome</label>
+        <input class="tm-fi" type="text" id="tm-nome" placeholder="Carlos Henrique">
+      </div>
+      <div class="tm-fg">
+        <label id="tm-lbl-email">Email</label>
+        <input class="tm-fi" type="email" id="tm-email" placeholder="seu@email.com">
+      </div>
+      <div class="tm-fg">
+        <label id="tm-lbl-wpp">WhatsApp</label>
+        <input class="tm-fi" type="tel" id="tm-wpp" placeholder="+55 31 99999-9999">
+      </div>
+
+      <!-- Módulos liberados/bloqueados -->
+      <div style="margin:16px 0 8px;font-size:11px;font-weight:700;color:#374151;letter-spacing:.7px;text-transform:uppercase;" id="tm-modules-title">O que você vai testar:</div>
+      <div class="tm-modules">
+        <div class="tm-mod free">📊 <span id="tm-mod1">Dashboard</span></div>
+        <div class="tm-mod free">📅 <span id="tm-mod2">Agenda</span></div>
+        <div class="tm-mod free">🧮 <span id="tm-mod3">Calculadora</span></div>
+        <div class="tm-mod free">📖 <span id="tm-mod4">Tutorial</span></div>
+        <div class="tm-mod lock">🔒 <span id="tm-mod5">+12 módulos Premium</span></div>
+        <div class="tm-mod lock">💎 <span id="tm-mod6">Acesso completo na assinatura</span></div>
+      </div>
+
+      <button class="tm-btn" id="tm-submit-btn" onclick="iniciarTrial()">
+        <span id="tm-btn-text">INICIAR MEU TRIAL GRATUITO →</span>
+      </button>
+      <div class="tm-footer" id="tm-footer-text">
+        🔒 Seus dados são protegidos · Sem cobrança automática · Cancele quando quiser
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BANNER TRIAL TOPO -->
+<div id="trial-banner">
+  <div class="tb-left">
+    <span class="tb-icon">⚡</span>
+    <span class="tb-text"><strong id="tb-label">Trial Gratuito</strong> · <span id="tb-name"></span></span>
+  </div>
+  <div class="tb-timer" id="tb-timer">48:00:00</div>
+  <button class="tb-btn" id="tb-cta-btn" onclick="mostrarModalExpirado()">
+    <span id="tb-cta-text">ASSINAR AGORA</span>
+  </button>
+</div>
+
+<!-- MODAL MÓDULO BLOQUEADO -->
+<div id="lock-modal" role="dialog" aria-modal="true">
+  <div class="lm-box">
+    <div class="lm-top">
+      <div class="lm-icon" id="lm-icon">🔒</div>
+      <div class="lm-title" id="lm-title">Módulo Premium</div>
+      <div class="lm-desc" id="lm-desc">Este módulo está disponível na versão completa.</div>
+    </div>
+    <div class="lm-body">
+      <ul class="lm-features" id="lm-features"></ul>
+      <button class="lm-btn" id="lm-subscribe-btn" onclick="mostrarModalExpirado()">VER PLANOS E ASSINAR</button>
+      <button class="lm-close" onclick="document.getElementById('lock-modal').classList.remove('show')">Voltar ao sistema</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL EXPIRADO (bloqueante) -->
+<div id="expired-modal" role="dialog" aria-modal="true">
+  <div class="em-box">
+    <div class="em-top">
+      <div class="em-badge" id="em-badge">SEU TRIAL EXPIROU</div>
+      <div class="em-title" id="em-title">Suas 48 horas acabaram</div>
+      <div class="em-sub" id="em-sub">Você explorou o sistema. Agora é hora de desbloquear tudo e profissionalizar seu estúdio de verdade.</div>
+    </div>
+    <div class="em-body">
+      <div class="em-features">
+        <div class="em-feat" id="em-f1">16 módulos completos</div>
+        <div class="em-feat" id="em-f2">Agenda ilimitada</div>
+        <div class="em-feat" id="em-f3">CRM de clientes</div>
+        <div class="em-feat" id="em-f4">Controle financeiro</div>
+        <div class="em-feat" id="em-f5">Contratos digitais</div>
+        <div class="em-feat" id="em-f6">Suporte do Carlos</div>
+      </div>
+      <div class="em-price-box">
+        <div class="em-price-lbl" id="em-price-lbl">PLANO ANUAL</div>
+        <div class="em-price" id="em-price">R$499</div>
+        <div class="em-price-period" id="em-period">por ano · acesso imediato</div>
+        <div class="em-price-month" id="em-month">≈ R$41,58 por mês</div>
+      </div>
+      <button class="em-btn" id="em-cta-btn" onclick="irParaCompra()">ASSINAR AGORA — ACESSO IMEDIATO</button>
+      <button class="em-btn2" id="em-wpp-btn" onclick="falarCarlosWpp()">💬 Falar com Carlos antes de assinar</button>
+    </div>
+  </div>
+</div>
+
   <div class="hd">${lH}<div class="sn">${cf.nome||'Carlos Tattoo BH'}</div><div class="su">${cf.end||''} ${cf.cid?'· '+cf.cid:''} ${cf.tel?'· '+cf.tel:''}</div>${cf.cnpj?`<div class="su"><strong>CNPJ: ${cf.cnpj}</strong></div>`:''}</div>
   <div class="tt">R E C I B O &nbsp; D E &nbsp; S E R V I Ç O</div>
   <div class="bx"><h3>Dados do Serviço</h3><table class="dt"><tr><td>Número:</td><td>RC-${Date.now().toString().slice(-6)}</td></tr><tr><td>Data de Emissão:</td><td>${new Date().toLocaleDateString('pt-BR',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}</td></tr><tr><td>Data da Sessão:</td><td>${dtBR(s.data)}</td></tr><tr><td>Horário:</td><td>${s.hora||'—'}</td></tr><tr><td>Local:</td><td>${s.loc||cf.end||'Estúdio'}</td></tr></table></div>
@@ -1581,7 +2040,108 @@ function geraCont(tipo){
     </div>`;
   }
 
-  const html=`<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Contrato</title>${css}</head><body>${hdr}${corpo}<div class="ft">${cf.nome||'Central Tattoo'} ${cf.cnpj?'&nbsp;·&nbsp; CNPJ '+cf.cnpj:''}${cf.cid?'&nbsp;·&nbsp;'+cf.cid:''}<br>Documento gerado pelo Sistema Central Tattoo Pro &nbsp;·&nbsp; ${new Date().toLocaleDateString('pt-BR')}</div></body></html>`;
+  const html=`<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Contrato</title>${css}
+<!-- Supabase -->
+<script type="importmap">{"imports":{"@supabase/supabase-js":"https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"}}</script>
+
+<style>
+/* ══════════════════════════════════════
+   SISTEMA DE TRIAL — CARLOS TATTOO BH
+══════════════════════════════════════ */
+
+/* ── OVERLAY INICIAL (enquanto verifica) ── */
+#trial-loading{position:fixed;inset:0;z-index:9999;background:#1A0F06;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+#trial-loading .tl-logo{font-family:'Cormorant Garamond',serif;font-size:32px;color:#FBBF24;letter-spacing:2px;}
+#trial-loading .tl-spin{width:36px;height:36px;border:3px solid rgba(251,191,36,.2);border-top-color:#FBBF24;border-radius:50%;animation:tlspin .8s linear infinite;}
+@keyframes tlspin{to{transform:rotate(360deg)}}
+
+/* ── MODAL CADASTRO TRIAL ── */
+#trial-modal{display:none;position:fixed;inset:0;z-index:9990;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:16px;}
+#trial-modal.show{display:flex;}
+.tm-box{background:#fff;border-radius:20px;width:100%;max-width:480px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.35);}
+.tm-header{background:linear-gradient(135deg,#1A0F06,#3D1F08);padding:32px 36px 24px;text-align:center;position:relative;}
+.tm-header::after{content:'⚡';position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:80px;opacity:.06;}
+.tm-badge{display:inline-block;background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.3);color:#FBBF24;font-size:10px;letter-spacing:3px;padding:4px 14px;border-radius:20px;margin-bottom:12px;font-family:'Cormorant Garamond',serif;font-weight:700;}
+.tm-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.2;}
+.tm-sub{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;}
+.tm-body{padding:28px 36px 32px;}
+.tm-fg{margin-bottom:16px;}
+.tm-fg label{display:block;font-size:11px;font-weight:700;color:#374151;letter-spacing:.7px;text-transform:uppercase;margin-bottom:6px;}
+.tm-fi{width:100%;background:#fff;border:1.5px solid #D1D5DB;border-radius:8px;padding:11px 14px;font-size:14px;color:#111827;transition:border .2s;outline:none;font-family:'Inter',sans-serif;}
+.tm-fi:focus{border-color:#B45309;box-shadow:0 0 0 3px rgba(180,83,9,.08);}
+.tm-fi::placeholder{color:#9CA3AF;}
+.tm-modules{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0 20px;}
+.tm-mod{background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:10px 12px;font-size:12px;color:#374151;display:flex;align-items:center;gap:7px;}
+.tm-mod.free{border-color:#A7F3D0;background:#ECFDF5;color:#065F46;}
+.tm-mod.lock{border-color:#FDE68A;background:#FFFBEB;color:#92400E;}
+.tm-btn{width:100%;background:linear-gradient(135deg,#92400E,#FBBF24);color:#1A0F06;border:none;padding:15px;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.5px;transition:all .2s;}
+.tm-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(180,83,9,.3);}
+.tm-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.tm-err{background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:10px 14px;font-size:13px;color:#B91C1C;margin-bottom:14px;display:none;}
+.tm-footer{font-size:11px;color:#9CA3AF;text-align:center;margin-top:12px;line-height:1.6;}
+
+/* ── BANNER TRIAL TOPO ── */
+#trial-banner{background:linear-gradient(90deg,#1A0F06,#3D1F08,#1A0F06);border-bottom:1px solid rgba(251,191,36,.25);padding:10px 20px;display:none;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;position:sticky;top:56px;z-index:290;}
+#trial-banner.show{display:flex;}
+#trial-banner.urgent{background:linear-gradient(90deg,#7F1D1D,#991B1B,#7F1D1D);border-color:rgba(252,165,165,.3);}
+.tb-left{display:flex;align-items:center;gap:10px;}
+.tb-icon{font-size:18px;}
+.tb-text{font-size:12px;color:rgba(255,255,255,.8);font-family:'Inter',sans-serif;}
+.tb-text strong{color:#FBBF24;font-weight:700;}
+#trial-banner.urgent .tb-text strong{color:#FCA5A5;}
+.tb-timer{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#FBBF24;letter-spacing:1px;min-width:100px;}
+#trial-banner.urgent .tb-timer{color:#FCA5A5;}
+.tb-btn{background:linear-gradient(135deg,#92400E,#FBBF24);color:#1A0F06;border:none;padding:8px 20px;border-radius:6px;font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.5px;white-space:nowrap;transition:all .2s;}
+.tb-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(180,83,9,.4);}
+
+/* ── SIDEBAR CADEADO ── */
+.sb-i.locked{opacity:.65;position:relative;}
+.sb-i.locked::after{content:'🔒';font-size:11px;margin-left:auto;flex-shrink:0;}
+.sb-i.locked:hover{background:#FFFBEB;color:var(--gold);}
+
+/* ── MODAL MÓDULO BLOQUEADO ── */
+#lock-modal{display:none;position:fixed;inset:0;z-index:9980;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:16px;}
+#lock-modal.show{display:flex;}
+.lm-box{background:#fff;border-radius:16px;width:100%;max-width:420px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.3);}
+.lm-top{background:linear-gradient(135deg,#1A0F06,#3D1F08);padding:28px 28px 20px;text-align:center;}
+.lm-icon{font-size:40px;margin-bottom:10px;}
+.lm-title{font-family:'Cormorant Garamond',serif;font-size:22px;color:#fff;font-weight:700;margin-bottom:6px;}
+.lm-desc{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;}
+.lm-body{padding:24px 28px;}
+.lm-features{list-style:none;margin-bottom:20px;}
+.lm-features li{font-size:13px;color:#374151;padding:6px 0;border-bottom:1px solid #F3F4F6;display:flex;align-items:center;gap:8px;}
+.lm-features li:last-child{border-bottom:none;}
+.lm-features li::before{content:'✦';color:#B45309;font-size:10px;flex-shrink:0;}
+.lm-btn{width:100%;background:linear-gradient(135deg,#92400E,#FBBF24);color:#1A0F06;border:none;padding:14px;border-radius:8px;font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:10px;letter-spacing:.3px;transition:all .2s;}
+.lm-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(180,83,9,.35);}
+.lm-close{width:100%;background:transparent;border:1.5px solid #E5E7EB;color:#6B7280;padding:10px;border-radius:8px;font-size:13px;cursor:pointer;transition:all .2s;}
+.lm-close:hover{border-color:#D1D5DB;color:#374151;}
+
+/* ── MODAL EXPIRADO (bloqueante) ── */
+#expired-modal{display:none;position:fixed;inset:0;z-index:9995;background:rgba(0,0,0,.9);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:16px;}
+#expired-modal.show{display:flex;}
+.em-box{background:#fff;border-radius:20px;width:100%;max-width:500px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.5);}
+.em-top{background:linear-gradient(135deg,#1A0F06,#3D1F08);padding:36px 36px 28px;text-align:center;position:relative;overflow:hidden;}
+.em-top::before{content:'⏰';position:absolute;right:20px;top:10px;font-size:90px;opacity:.05;}
+.em-badge{display:inline-block;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:#FCA5A5;font-size:10px;letter-spacing:3px;padding:4px 14px;border-radius:20px;margin-bottom:14px;}
+.em-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:8px;}
+.em-sub{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;}
+.em-body{padding:28px 36px 32px;}
+.em-price-box{background:linear-gradient(135deg,#FFFBEB,#FEF9E7);border:1px solid #FDE68A;border-radius:12px;padding:20px;text-align:center;margin-bottom:20px;}
+.em-price-lbl{font-size:11px;font-weight:700;color:#92400E;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;}
+.em-price{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:700;color:#92400E;line-height:1;}
+.em-price-period{font-size:13px;color:#B45309;margin-top:4px;}
+.em-price-month{font-size:12px;color:#D97706;}
+.em-btn{width:100%;background:linear-gradient(135deg,#92400E,#FBBF24);color:#1A0F06;border:none;padding:16px;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:10px;letter-spacing:.5px;transition:all .2s;}
+.em-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(180,83,9,.4);}
+.em-btn2{width:100%;background:transparent;border:1.5px solid #E5E7EB;color:#6B7280;padding:12px;border-radius:10px;font-size:13px;cursor:pointer;transition:all .2s;}
+.em-btn2:hover{border-color:#D1D5DB;color:#374151;}
+.em-features{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px;}
+.em-feat{background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:8px 10px;font-size:11px;color:#374151;display:flex;align-items:center;gap:6px;}
+.em-feat::before{content:'✓';color:#059669;font-weight:700;flex-shrink:0;}
+</style>
+
+</head><body>${hdr}${corpo}<div class="ft">${cf.nome||'Central Tattoo'} ${cf.cnpj?'&nbsp;·&nbsp; CNPJ '+cf.cnpj:''}${cf.cid?'&nbsp;·&nbsp;'+cf.cid:''}<br>Documento gerado pelo Sistema Central Tattoo Pro &nbsp;·&nbsp; ${new Date().toLocaleDateString('pt-BR')}</div></body></html>`;
   const nomes={padrao:'Contrato_Sessao_Padrao',menor:'Autorizacao_Menor_Idade',coverup:'Contrato_CoverUp'};
   const blob=new Blob(['\ufeff'+html],{type:'application/msword'});
   const a=document.createElement('a');
@@ -1712,6 +2272,464 @@ function delMkt(id){if(!confirm('Excluir?'))return;sdb('ct_mkt',gdb('ct_mkt').fi
 function rPortal(){if(!USER)return;const cf=conf();document.getElementById('porNome').textContent=USER.nome||'';document.getElementById('porEstudio').textContent=cf.nome||'Carlos Tattoo BH';const cl=gdb('ct_clientes');const c=cl.find(x=>x.email&&x.email.toLowerCase()===(USER.email||'').toLowerCase());if(c){document.getElementById('pNome').value=c.nome||'';document.getElementById('pTel').value=c.tel||'';document.getElementById('pInsta').value=c.insta||'';document.getElementById('pCid').value=c.cid||'';document.getElementById('pNasc').value=c.nasc||'';document.getElementById('pEst').value=c.est||'';}else{document.getElementById('pNome').value=USER.nome||'';}const sess=gdb('ct_sessoes').filter(s=>c&&s.cli===c.nome).sort((a,b)=>b.data>a.data?1:-1);const total=sess.filter(s=>s.stat==='Concluído').reduce((a,s)=>a+R(s.val),0);const prox=sess.find(s=>s.data>=hoje()&&s.stat!=='Cancelado');document.getElementById('porStats').innerHTML=`<div class="portal-stat"><div class="portal-stat-n">${sess.length}</div><div class="portal-stat-l">Total de Sessões</div></div><div class="portal-stat"><div class="portal-stat-n">${$R(total)}</div><div class="portal-stat-l">Total Investido</div></div><div class="portal-stat"><div class="portal-stat-n">${prox?dtBR(prox.data):'—'}</div><div class="portal-stat-l">Próxima Sessão</div></div>${c&&c.est?`<div class="portal-stat"><div class="portal-stat-n" style="font-size:18px">${c.est}</div><div class="portal-stat-l">Estilo Favorito</div></div>`:''}`;document.getElementById('porSess').innerHTML=sess.length?`<div style="overflow-x:auto"><table class="tbl"><thead><tr><th>Data</th><th>Estilo</th><th>Status</th><th>Valor</th></tr></thead><tbody>${sess.map(s=>`<tr><td>${dtBR(s.data)}</td><td>${s.est||'—'}</td><td>${bdg(s.stat)}</td><td style="color:var(--grn);font-weight:600">${$R(s.val)}</td></tr>`).join('')}</tbody></table></div>`:`<p style="color:var(--tx3);text-align:center;padding:20px">Nenhuma sessão registrada.</p>`;}
 function savePerfil(){const nome=document.getElementById('pNome').value,tel=document.getElementById('pTel').value,insta=document.getElementById('pInsta').value,cid=document.getElementById('pCid').value,nasc=document.getElementById('pNasc').value,est=document.getElementById('pEst').value;const db=gdb('ct_clientes');let idx=db.findIndex(c=>c.email&&c.email.toLowerCase()===(USER.email||'').toLowerCase());if(idx>=0)db[idx]={...db[idx],nome,tel,insta,cid,nasc,est,ultContato:hoje()};else db.push({id:uid(),nome,email:USER.email,tel,insta,cid,nasc,est,stat:'🟢 Ativo',criadoEm:new Date().toISOString(),ultContato:hoje()});sdb('ct_clientes',db);const us=gdb('ct_usuarios'),ui=us.findIndex(u=>u.email&&u.email.toLowerCase()===(USER.email||'').toLowerCase());if(ui>=0){us[ui].nomeCompleto=nome;us[ui].telefone=tel;sdb('ct_usuarios',us);}if(USER){USER.nome=nome;sessionStorage.setItem('ct_sessao',JSON.stringify(USER));}document.getElementById('hdU').textContent=nome;document.getElementById('porNome').textContent=nome;showToast('✅ Perfil salvo!');rPortal();}
 function baixarExcel(){if(typeof XLSX==='undefined')return;const cl=gdb('ct_clientes');const c=cl.find(x=>x.email&&x.email.toLowerCase()===(USER.email||'').toLowerCase());const sess=gdb('ct_sessoes').filter(s=>c&&s.cli===c.nome).sort((a,b)=>b.data>a.data?1:-1);const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(c?[{'Nome':c.nome,'Telefone':c.tel,'Email':c.email,'Cidade':c.cid,'Estilo':c.est}]:[{'Nome':USER.nome||'','Email':USER.email||''}]),'Meu Perfil');XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(sess.length?sess.map(s=>({'Data':dtBR(s.data),'Estilo':s.est,'Status':s.stat,'Valor':R(s.val),'Sinal':R(s.sin),'Saldo':R(s.sal)})):[{'Aviso':'Sem sessões'}]),'Minhas Sessões');XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(CIC_DATA.map(c=>({'Fase':c.t,'Dias':c.day,'Cuidados':c.items.join(' | ')}))),'Guia Cicatrização');XLSX.writeFile(wb,'MeusDados_'+(c&&c.nome||USER.nome||'cliente').replace(/\s+/g,'_')+'_'+hoje()+'.xlsx');showToast('✅ Excel baixado!');}
+
+// ════════════════════════════════════════════════════════════
+//   SISTEMA DE TRIAL — CARLOS TATTOO BH
+//   Supabase + 48h + Notificação Email + WhatsApp
+// ════════════════════════════════════════════════════════════
+
+// ── CONFIG ──
+const SB_URL='https://ejapatxehmxondjqsgvv.supabase.co';
+const SB_KEY='sb_publishable_B6_fpfgSxN56V2HoRQJCPg_ELaiatZr';
+const CARLOS_WPP='5531983391576';
+const CARLOS_EMAIL='carlostattoobh@gmail.com';
+
+// Textos multilíngue
+const I18N={
+  pt:{
+    trial_badge:'TESTE GRATUITO · 48 HORAS',
+    trial_title:'Experimente o Central Tattoo Pro',
+    trial_sub:'Acesso completo por 48 horas. Sem cartão de crédito.',
+    lbl_nome:'Seu nome',lbl_email:'Email',lbl_wpp:'WhatsApp',
+    btn_start:'INICIAR MEU TRIAL GRATUITO →',
+    modules_title:'O que você vai testar:',
+    footer_txt:'🔒 Dados protegidos · Sem cobrança automática',
+    banner_label:'Trial Gratuito',banner_cta:'ASSINAR AGORA',
+    expired_badge:'SEU TRIAL EXPIROU',
+    expired_title:'Suas 48 horas acabaram',
+    expired_sub:'Você explorou o sistema. Agora desbloqueie tudo e profissionalize seu estúdio.',
+    price_lbl:'PLANO ANUAL',price:'R$499',period:'por ano · acesso imediato',month:'≈ R$41,58 por mês',
+    cta_btn:'ASSINAR AGORA — ACESSO IMEDIATO',wpp_btn:'💬 Falar com Carlos antes de assinar',
+    lock_btn:'VER PLANOS E ASSINAR',
+    err_required:'Preencha todos os campos.',err_email:'Email inválido.',
+    err_wpp:'WhatsApp inválido.',err_exists:'Este email já possui um trial ativo.',
+    err_generic:'Erro ao iniciar trial. Tente novamente.',
+    notif_msg:(n,e,w,p)=>`🆕 NOVO TRIAL!
+
+Nome: ${n}
+Email: ${e}
+WhatsApp: ${w}
+País: ${p}
+
+Acesse o Supabase para ver os detalhes.`,
+    features:['16 módulos completos','Agenda ilimitada','CRM de clientes','Controle financeiro','Contratos digitais','Suporte do Carlos'],
+  },
+  en:{
+    trial_badge:'FREE TRIAL · 48 HOURS',
+    trial_title:'Try Central Tattoo Pro',
+    trial_sub:'Full access for 48 hours. No credit card required.',
+    lbl_nome:'Your name',lbl_email:'Email',lbl_wpp:'WhatsApp',
+    btn_start:'START MY FREE TRIAL →',
+    modules_title:'What you will test:',
+    footer_txt:'🔒 Protected data · No automatic charge',
+    banner_label:'Free Trial',banner_cta:'SUBSCRIBE NOW',
+    expired_badge:'YOUR TRIAL HAS EXPIRED',
+    expired_title:'Your 48 hours are over',
+    expired_sub:'You explored the system. Now unlock everything and run your studio professionally.',
+    price_lbl:'ANNUAL PLAN',price:'USD$400',period:'per year · immediate access',month:'≈ USD$33.33 per month',
+    cta_btn:'SUBSCRIBE NOW — IMMEDIATE ACCESS',wpp_btn:'💬 Talk to Carlos before subscribing',
+    lock_btn:'VIEW PLANS & SUBSCRIBE',
+    err_required:'Please fill all fields.',err_email:'Invalid email.',
+    err_wpp:'Invalid WhatsApp.',err_exists:'This email already has an active trial.',
+    err_generic:'Error starting trial. Please try again.',
+    notif_msg:(n,e,w,p)=>`🆕 NEW TRIAL!
+
+Name: ${n}
+Email: ${e}
+WhatsApp: ${w}
+Country: ${p}
+
+Check Supabase for details.`,
+    features:['16 complete modules','Unlimited schedule','Client CRM','Financial control','Digital contracts','Carlos support'],
+  },
+  es:{
+    trial_badge:'PRUEBA GRATUITA · 48 HORAS',
+    trial_title:'Prueba Central Tattoo Pro',
+    trial_sub:'Acceso completo por 48 horas. Sin tarjeta de crédito.',
+    lbl_nome:'Tu nombre',lbl_email:'Email',lbl_wpp:'WhatsApp',
+    btn_start:'INICIAR MI PRUEBA GRATUITA →',
+    modules_title:'Lo que vas a probar:',
+    footer_txt:'🔒 Datos protegidos · Sin cobro automático',
+    banner_label:'Prueba Gratuita',banner_cta:'SUSCRIBIRSE AHORA',
+    expired_badge:'TU PRUEBA HA EXPIRADO',
+    expired_title:'Tus 48 horas han terminado',
+    expired_sub:'Exploraste el sistema. Ahora desbloquea todo y profesionaliza tu estudio.',
+    price_lbl:'PLAN ANUAL',price:'EUR€400',period:'por año · acceso inmediato',month:'≈ EUR€33,33 por mes',
+    cta_btn:'SUSCRIBIRSE AHORA — ACCESO INMEDIATO',wpp_btn:'💬 Hablar con Carlos antes de suscribirse',
+    lock_btn:'VER PLANES Y SUSCRIBIRSE',
+    err_required:'Complete todos los campos.',err_email:'Email inválido.',
+    err_wpp:'WhatsApp inválido.',err_exists:'Este email ya tiene una prueba activa.',
+    err_generic:'Error al iniciar prueba. Inténtalo de nuevo.',
+    notif_msg:(n,e,w,p)=>`🆕 NUEVA PRUEBA!
+
+Nombre: ${n}
+Email: ${e}
+WhatsApp: ${w}
+País: ${p}
+
+Revisa Supabase para más detalles.`,
+    features:['16 módulos completos','Agenda ilimitada','CRM de clientes','Control financiero','Contratos digitales','Soporte de Carlos'],
+  }
+};
+
+// Links de compra por país/moeda
+const BUY_LINKS={
+  pt:'https://buy.stripe.com/fZu8wR79f8oj89S4Gd3wQ03',
+  en:'https://buy.stripe.com/fZu8wR79f8oj89S4Gd3wQ03',
+  es:'https://buy.stripe.com/fZu8wR79f8oj89S4Gd3wQ03',
+};
+
+// ── ESTADO DO TRIAL ──
+window.TRIAL_MODE=false;
+window.TRIAL_DATA=null;
+window.TRIAL_LANG='pt';
+
+// ── DETECTAR IDIOMA ──
+function detectLang(){
+  const params=new URLSearchParams(location.search);
+  if(params.get('lang'))return params.get('lang');
+  const path=location.pathname;
+  if(path.includes('/en/'))return'en';
+  if(path.includes('/es/'))return'es';
+  return'pt';
+}
+
+// ── INICIALIZAR SUPABASE ──
+let sbClient=null;
+async function initSB(){
+  try{
+    const{createClient}=await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
+    sbClient=createClient(SB_URL,SB_KEY);
+    return true;
+  }catch(e){console.warn('Supabase não disponível:',e);return false;}
+}
+
+// ── BOOT DO SISTEMA DE TRIAL ──
+(async function trialBoot(){
+  // Mostrar loading
+  const loading=document.getElementById('trial-loading');
+
+  // Inicializar Supabase
+  await initSB();
+
+  const lang=detectLang();
+  window.TRIAL_LANG=lang;
+  const t=I18N[lang]||I18N.pt;
+
+  // Verificar se é acesso de assinante normal (via sessionStorage do acesso.html)
+  const sessao=sessionStorage.getItem('ct_sessao');
+  if(sessao){
+    // Assinante logado — acesso total
+    try{
+      const user=JSON.parse(sessao);
+      USER=user;
+      IS_ADM=user.email===MASTER||user.master;
+      window.TRIAL_MODE=false;
+    }catch(e){}
+    if(loading)loading.style.display='none';
+    return;
+  }
+
+  // Verificar se tem trial ativo no localStorage
+  const trialToken=localStorage.getItem('ct_trial_token');
+  const trialExpiry=localStorage.getItem('ct_trial_expiry');
+  const trialNome=localStorage.getItem('ct_trial_nome');
+  const trialEmail=localStorage.getItem('ct_trial_email');
+
+  if(trialToken&&trialExpiry){
+    const exp=new Date(trialExpiry);
+    const now=new Date();
+
+    if(now<exp){
+      // Trial ainda válido
+      window.TRIAL_MODE=true;
+      window.TRIAL_DATA={token:trialToken,expiry:exp,nome:trialNome,email:trialEmail};
+      USER={nome:trialNome,email:trialEmail};
+      IS_ADM=false;
+
+      // Atualizar último acesso no Supabase
+      if(sbClient){
+        sbClient.from('trials').update({ultimo_acesso:now.toISOString(),tentativas_acesso:sbClient.rpc?undefined:undefined}).eq('token',trialToken).then(()=>{});
+      }
+
+      if(loading)loading.style.display='none';
+      iniciarSistemaTrial(t);
+      return;
+    } else {
+      // Trial expirado
+      if(loading)loading.style.display='none';
+      mostrarModalExpiradoFinal(t);
+      return;
+    }
+  }
+
+  // Sem trial — mostrar modal de cadastro
+  if(loading)loading.style.display='none';
+  aplicarTextosTrial(t);
+  document.getElementById('trial-modal').classList.add('show');
+
+})();
+
+// ── APLICAR TEXTOS DO IDIOMA AO MODAL DE TRIAL ──
+function aplicarTextosTrial(t){
+  const els={
+    'tm-badge-text':t.trial_badge,
+    'tm-title-el':t.trial_title,
+    'tm-sub-text':t.trial_sub,
+    'tm-lbl-nome':t.lbl_nome,
+    'tm-lbl-email':t.lbl_email,
+    'tm-lbl-wpp':t.lbl_wpp,
+    'tm-btn-text':t.btn_start,
+    'tm-modules-title':t.modules_title,
+    'tm-footer-text':t.footer_txt,
+  };
+  Object.entries(els).forEach(([id,txt])=>{const el=document.getElementById(id);if(el)el.textContent=txt;});
+}
+
+// ── INICIAR TRIAL (submit do form) ──
+window.iniciarTrial=async function(){
+  const t=I18N[window.TRIAL_LANG]||I18N.pt;
+  const nome=document.getElementById('tm-nome').value.trim();
+  const email=document.getElementById('tm-email').value.trim().toLowerCase();
+  const wpp=document.getElementById('tm-wpp').value.trim();
+  const err=document.getElementById('tm-err');
+  const btn=document.getElementById('tm-submit-btn');
+
+  // Validar
+  if(!nome||!email||!wpp){err.textContent=t.err_required;err.style.display='block';return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.textContent=t.err_email;err.style.display='block';return;}
+  if(wpp.replace(/\D/g,'').length<8){err.textContent=t.err_wpp;err.style.display='block';return;}
+
+  err.style.display='none';
+  btn.disabled=true;
+  document.getElementById('tm-btn-text').textContent='...';
+
+  // Detectar país pelo IP
+  let pais='BR';
+  try{
+    const r=await fetch('https://ipapi.co/json/');
+    const d=await r.json();
+    pais=d.country_code||'BR';
+  }catch(e){}
+
+  const now=new Date();
+  const expiry=new Date(now.getTime()+48*60*60*1000);
+  const token=crypto.randomUUID();
+
+  // Salvar no Supabase
+  if(sbClient){
+    const{error}=await sbClient.from('trials').insert({
+      nome,email,whatsapp:wpp,pais,
+      data_inicio:now.toISOString(),
+      data_expiracao:expiry.toISOString(),
+      status:'ativo',token,
+      ultimo_acesso:now.toISOString(),
+    });
+
+    if(error&&error.code==='23505'){
+      // Email já existe — verificar se trial ainda está válido
+      const{data:existing}=await sbClient.from('trials').select('*').eq('email',email).single();
+      if(existing&&new Date(existing.data_expiracao)>now){
+        // Reativar trial existente
+        localStorage.setItem('ct_trial_token',existing.token);
+        localStorage.setItem('ct_trial_expiry',existing.data_expiracao);
+        localStorage.setItem('ct_trial_nome',existing.nome);
+        localStorage.setItem('ct_trial_email',existing.email);
+        window.TRIAL_MODE=true;
+        window.TRIAL_DATA={token:existing.token,expiry:new Date(existing.data_expiracao),nome:existing.nome,email:existing.email};
+        USER={nome:existing.nome,email:existing.email};
+        document.getElementById('trial-modal').classList.remove('show');
+        iniciarSistemaTrial(t);
+        return;
+      } else {
+        err.textContent=t.err_exists;err.style.display='block';
+        btn.disabled=false;document.getElementById('tm-btn-text').textContent=t.btn_start;return;
+      }
+    }
+  }
+
+  // Salvar no localStorage
+  localStorage.setItem('ct_trial_token',token);
+  localStorage.setItem('ct_trial_expiry',expiry.toISOString());
+  localStorage.setItem('ct_trial_nome',nome);
+  localStorage.setItem('ct_trial_email',email);
+
+  window.TRIAL_MODE=true;
+  window.TRIAL_DATA={token,expiry,nome,email};
+  USER={nome,email};
+
+  // Notificações
+  enviarNotificacoes(nome,email,wpp,pais,t);
+
+  // Fechar modal e iniciar sistema
+  document.getElementById('trial-modal').classList.remove('show');
+  iniciarSistemaTrial(t);
+};
+
+// ── NOTIFICAÇÕES (Email via Supabase + WhatsApp) ──
+async function enviarNotificacoes(nome,email,wpp,pais,t){
+  const msg=t.notif_msg(nome,email,wpp,pais);
+
+  // WhatsApp para o Carlos (abre em background)
+  try{
+    const wppUrl=`https://wa.me/${CARLOS_WPP}?text=${encodeURIComponent(msg)}`;
+    // Abrir em janela oculta para não interromper o usuário
+    const win=window.open(wppUrl,'_blank','width=1,height=1,left=-1000');
+    setTimeout(()=>{try{win&&win.close();}catch(e){}},3000);
+  }catch(e){}
+
+  // Notificação via Supabase (trigger/webhook pode capturar)
+  if(sbClient){
+    try{
+      await sbClient.from('rabisco_eventos').insert({
+        tipo:'novo_trial',
+        dados:JSON.stringify({nome,email,wpp,pais,msg}),
+        created_at:new Date().toISOString()
+      });
+    }catch(e){}
+  }
+}
+
+// ── INICIAR SISTEMA NO MODO TRIAL ──
+function iniciarSistemaTrial(t){
+  IS_ADM=true; // Precisa ser true para mostrar os módulos admin
+  window.TRIAL_MODE=true;
+
+  // Atualizar header
+  const hdU=document.getElementById('hdU');
+  if(hdU)hdU.textContent=window.TRIAL_DATA?.nome||'Trial';
+
+  // Mostrar banner do trial
+  const banner=document.getElementById('trial-banner');
+  if(banner){
+    banner.classList.add('show');
+    const tbName=document.getElementById('tb-name');
+    if(tbName)tbName.textContent=window.TRIAL_DATA?.nome||'';
+    const tbLabel=document.getElementById('tb-label');
+    if(tbLabel)tbLabel.textContent=t.banner_label;
+    const tbCta=document.getElementById('tb-cta-btn');
+    if(tbCta){
+      document.getElementById('tb-cta-btn').querySelector
+      const span=tbCta.querySelector('span')||tbCta;
+      span.textContent=t.banner_cta;
+    }
+  }
+
+  // Iniciar contador
+  iniciarContador(t);
+
+  // Rebuildar sidebar com cadeados
+  buildSb();
+
+  // Ir para dashboard
+  go('dashboard');
+  renderDash();
+}
+
+// ── CONTADOR REGRESSIVO ──
+function iniciarContador(t){
+  function atualizar(){
+    if(!window.TRIAL_DATA)return;
+    const now=new Date();
+    const exp=window.TRIAL_DATA.expiry;
+    const diff=exp-now;
+
+    if(diff<=0){
+      mostrarModalExpiradoFinal(t);
+      return;
+    }
+
+    const h=Math.floor(diff/3600000);
+    const m=Math.floor((diff%3600000)/60000);
+    const s=Math.floor((diff%60000)/1000);
+    const str=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+
+    const timer=document.getElementById('tb-timer');
+    if(timer)timer.textContent=str;
+
+    // Urgência quando faltar menos de 6h
+    const banner=document.getElementById('trial-banner');
+    if(banner&&diff<6*3600000){banner.classList.add('urgent');}
+  }
+
+  atualizar();
+  setInterval(atualizar,1000);
+}
+
+// ── MODAL MÓDULO BLOQUEADO ──
+window.abrirLockModal=function(modId){
+  const lang=window.TRIAL_LANG||'pt';
+  const t=I18N[lang]||I18N.pt;
+  const info=LOCK_INFO[modId];
+  if(!info)return;
+
+  document.getElementById('lm-icon').textContent=info.ic;
+  document.getElementById('lm-title').textContent=info.title;
+  document.getElementById('lm-desc').textContent=info.desc;
+  document.getElementById('lm-features').innerHTML=info.feats.map(f=>`<li>${f}</li>`).join('');
+  const lmBtn=document.getElementById('lm-subscribe-btn');
+  if(lmBtn)lmBtn.textContent=t.lock_btn;
+
+  document.getElementById('lock-modal').classList.add('show');
+};
+
+// ── MODAL EXPIRADO ──
+window.mostrarModalExpirado=function(){
+  const lang=window.TRIAL_LANG||'pt';
+  mostrarModalExpiradoFinal(I18N[lang]||I18N.pt);
+};
+
+function mostrarModalExpiradoFinal(t){
+  // Limpar trial do localStorage
+  localStorage.removeItem('ct_trial_token');
+  localStorage.removeItem('ct_trial_expiry');
+
+  // Atualizar status no Supabase
+  const token=localStorage.getItem('ct_trial_token');
+  if(sbClient&&token){
+    sbClient.from('trials').update({status:'expirado'}).eq('token',token).then(()=>{});
+  }
+
+  // Aplicar textos do idioma
+  const ids={
+    'em-badge':t.expired_badge,'em-title':t.expired_title,'em-sub':t.expired_sub,
+    'em-price-lbl':t.price_lbl,'em-price':t.price,'em-period':t.period,'em-month':t.month,
+    'em-cta-btn':t.cta_btn,'em-wpp-btn':t.wpp_btn,
+  };
+  Object.entries(ids).forEach(([id,txt])=>{const el=document.getElementById(id);if(el)el.textContent=txt;});
+
+  // Features
+  const emFeats=document.querySelectorAll('.em-feat');
+  t.features.forEach((f,i)=>{if(emFeats[i])emFeats[i].textContent=f;});
+
+  document.getElementById('expired-modal').classList.add('show');
+}
+
+// ── IR PARA COMPRA ──
+window.irParaCompra=function(){
+  const lang=window.TRIAL_LANG||'pt';
+  const link=BUY_LINKS[lang]||BUY_LINKS.pt;
+
+  // Marcar como convertido no Supabase
+  const token=localStorage.getItem('ct_trial_token');
+  if(sbClient&&token){
+    sbClient.from('trials').update({status:'convertido'}).eq('token',token).then(()=>{});
+  }
+
+  window.open(link,'_blank');
+};
+
+// ── FALAR COM CARLOS ──
+window.falarCarlosWpp=function(){
+  const lang=window.TRIAL_LANG||'pt';
+  const msgs={
+    pt:`Olá Carlos! Acabei de testar o Central Tattoo por 48 horas e tenho interesse em assinar. Meu email: ${localStorage.getItem('ct_trial_email')||''}`,
+    en:`Hi Carlos! I just tested Central Tattoo for 48 hours and I'm interested in subscribing. My email: ${localStorage.getItem('ct_trial_email')||''}`,
+    es:`Hola Carlos! Acabo de probar Central Tattoo por 48 horas y me interesa suscribirme. Mi email: ${localStorage.getItem('ct_trial_email')||''}`,
+  };
+  window.open(`https://wa.me/${CARLOS_WPP}?text=${encodeURIComponent(msgs[lang]||msgs.pt)}`,'_blank');
+};
+
 </script>
 </body>
 </html>
