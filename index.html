@@ -2203,8 +2203,8 @@ fbq('init','1151853265430926');
 .q-frase-inner p{font-family:'Cinzel Decorative',cursive;font-size:clamp(16px,2.2vw,22px);color:#fff;line-height:1.6;font-style:italic;}
 .q-frase-inner p span{color:#E8B800;}
 
-/* ── LAYOUT PRINCIPAL: ANTES/DEPOIS + DEPOIMENTOS ── */
-.q-main-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-bottom:52px;}
+/* ── LAYOUT PRINCIPAL: IMAGEM 2/3 + VÍDEO 1/3 ── */
+.q-main-grid{display:grid;grid-template-columns:2fr 1fr;gap:32px;align-items:start;margin-bottom:52px;}
 
 /* ── ANTES/DEPOIS ── */
 .q-img-wrap{position:relative;}
@@ -2218,27 +2218,27 @@ fbq('init','1151853265430926');
 .q-img-divider::before{content:'◆';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#E8B800;font-size:16px;background:#0a0500;padding:4px;border-radius:50%;}
 .q-img-caption{margin-top:14px;text-align:center;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.35);text-transform:uppercase;}
 
-/* ── COLUNA DIREITA: VÍDEO + CASO ── */
-.q-right-col{display:flex;flex-direction:column;gap:28px;}
+/* ── COLUNA DIREITA: VÍDEO 9/16 + CARD RAFAEL ── */
+.q-right-col{display:flex;flex-direction:column;gap:20px;}
 
-/* ── VÍDEO ── */
-.q-video-card{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 16px 60px rgba(0,0,0,.6);border:1px solid rgba(201,168,76,.2);cursor:pointer;}
-.q-video-card iframe{width:100%;aspect-ratio:9/16;max-height:460px;border:none;display:block;}
-.q-video-overlay{position:absolute;bottom:0;left:0;right:0;padding:24px;background:linear-gradient(0deg,rgba(0,0,0,.9) 0%,transparent 100%);pointer-events:none;}
-.q-video-overlay-tag{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:#E8B800;text-transform:uppercase;margin-bottom:4px;}
-.q-video-overlay-txt{font-family:'Cinzel Decorative',cursive;font-size:14px;color:#fff;line-height:1.3;}
+/* ── VÍDEO 9:16 NA COLUNA CERTA ── */
+.q-video-wrap{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 16px 60px rgba(0,0,0,.6);border:1px solid rgba(201,168,76,.2);}
+.q-video-wrap::before{content:'';display:block;padding-top:177.78%;}/* 16/9 × 100% */
+.q-video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
+.q-video-label{display:flex;align-items:center;gap:8px;margin-top:10px;justify-content:center;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.4);text-transform:uppercase;}
+.q-video-label::before{content:'▶';color:#E8B800;}
 
 /* ── CASO REAL ── */
-.q-caso-card{background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.03));border:1px solid rgba(201,168,76,.35);border-radius:18px;padding:24px 26px;position:relative;overflow:hidden;}
+.q-caso-card{background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.03));border:1px solid rgba(201,168,76,.35);border-radius:18px;padding:22px;position:relative;overflow:hidden;}
 .q-caso-card::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;background:radial-gradient(circle,rgba(201,168,76,.15),transparent 70%);border-radius:50%;}
-.q-caso-badge{display:inline-block;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);color:#E8B800;font-family:'Cinzel',serif;font-size:8px;letter-spacing:2.5px;padding:4px 12px;border-radius:20px;margin-bottom:14px;text-transform:uppercase;}
-.q-caso-stars{color:#E8B800;font-size:15px;letter-spacing:3px;margin-bottom:12px;}
-.q-caso-quote{font-size:15px;color:#EDE4D4;line-height:1.8;font-style:italic;margin-bottom:16px;position:relative;padding-left:18px;}
-.q-caso-quote::before{content:'"';position:absolute;left:0;top:-4px;font-size:32px;color:rgba(201,168,76,.3);font-family:'Cinzel Decorative',cursive;line-height:1;}
-.q-caso-autor{display:flex;align-items:center;gap:12px;}
-.q-caso-av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#A07830,#E8B800);display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:16px;color:#0a0500;font-weight:700;flex-shrink:0;}
-.q-caso-nome{font-family:'Cinzel',serif;font-size:13px;color:#E8B800;font-weight:700;}
-.q-caso-loc{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px;}
+.q-caso-badge{display:inline-block;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);color:#E8B800;font-family:'Cinzel',serif;font-size:8px;letter-spacing:2.5px;padding:4px 12px;border-radius:20px;margin-bottom:12px;text-transform:uppercase;}
+.q-caso-stars{color:#E8B800;font-size:14px;letter-spacing:3px;margin-bottom:10px;}
+.q-caso-quote{font-size:13px;color:#EDE4D4;line-height:1.8;font-style:italic;margin-bottom:14px;position:relative;padding-left:16px;}
+.q-caso-quote::before{content:'"';position:absolute;left:0;top:-4px;font-size:28px;color:rgba(201,168,76,.3);font-family:'Cinzel Decorative',cursive;line-height:1;}
+.q-caso-autor{display:flex;align-items:center;gap:10px;}
+.q-caso-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#A07830,#E8B800);display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:14px;color:#0a0500;font-weight:700;flex-shrink:0;}
+.q-caso-nome{font-family:'Cinzel',serif;font-size:12px;color:#E8B800;font-weight:700;}
+.q-caso-loc{font-size:10px;color:rgba(255,255,255,.4);margin-top:2px;}
 
 /* ── DEPOIMENTOS GRID ── */
 .q-deps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:52px;}
@@ -2260,10 +2260,10 @@ fbq('init','1151853265430926');
 .q-cta-sub{font-size:14px;color:rgba(255,255,255,.55);margin-bottom:32px;}
 
 /* ── RESPONSIVO ── */
-@media(max-width:860px){
+@media(max-width:900px){
   .q-main-grid{grid-template-columns:1fr;gap:32px;}
   .q-deps-grid{grid-template-columns:1fr;}
-  .q-video-card iframe{max-height:340px;}
+  .q-video-wrap::before{padding-top:100%;}/* quadrado no mobile */
 }
 </style>
 
@@ -2284,10 +2284,10 @@ fbq('init','1151853265430926');
       </div>
     </div>
 
-    <!-- GRADE PRINCIPAL -->
+    <!-- GRADE PRINCIPAL: imagem 2/3 | vídeo+card 1/3 -->
     <div class="q-main-grid rv">
 
-      <!-- ANTES/DEPOIS -->
+      <!-- COLUNA ESQUERDA: ANTES/DEPOIS -->
       <div class="q-img-wrap">
         <div class="q-img-glow"></div>
         <div class="q-img-frame">
@@ -2305,24 +2305,23 @@ fbq('init','1151853265430926');
         <p class="q-img-caption">Resultado real · Cicatriz de queimadura · Belo Horizonte · Carlos Tattoo BH</p>
       </div>
 
-      <!-- VÍDEO + CASO REAL -->
+      <!-- COLUNA DIREITA: VÍDEO 9:16 + CARD RAFAEL -->
       <div class="q-right-col">
 
-        <!-- VÍDEO -->
-        <div class="q-video-card">
-          <iframe
-            src="https://www.youtube.com/embed/Wb_65VktVcQ?autoplay=0&rel=0&modestbranding=1"
-            title="Tatuagem sobre cicatriz de queimadura — Carlos Tattoo BH"
-            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen loading="lazy">
-          </iframe>
-          <div class="q-video-overlay">
-            <div class="q-video-overlay-tag">▶ Processo completo</div>
-            <div class="q-video-overlay-txt">Veja a transformação acontecer</div>
+        <!-- VÍDEO com proporção 9:16 correta -->
+        <div>
+          <div class="q-video-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/Wb_65VktVcQ?autoplay=0&rel=0&modestbranding=1"
+              title="Tatuagem sobre cicatriz de queimadura — Carlos Tattoo BH"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen loading="lazy">
+            </iframe>
           </div>
+          <p class="q-video-label">Processo completo · Assista no YouTube</p>
         </div>
 
-        <!-- CASO REAL -->
+        <!-- CASO REAL — Rafael -->
         <div class="q-caso-card">
           <div class="q-caso-badge">✦ Caso Real · Cicatriz → Arte</div>
           <div class="q-caso-stars">★★★★★</div>
@@ -2339,7 +2338,7 @@ fbq('init','1151853265430926');
       </div>
     </div>
 
-    <!-- DEPOIMENTOS -->
+    <!-- DEPOIMENTOS 3 colunas -->
     <div class="q-deps-grid rv">
 
       <div class="q-dep-card" style="display:flex;flex-direction:column;">
