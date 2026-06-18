@@ -577,6 +577,11 @@ fbq('init','1151853265430926');
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: .5; transform: scale(.8); }
 }
+
+@keyframes roletaLuzPulso {
+  0%, 100% { opacity: .4; r: 2.2; }
+  50% { opacity: 1; r: 3.4; }
+}
 </style>
 </head>
 <!-- Gradiente SVG para anel de progresso do botão topo -->
@@ -779,12 +784,6 @@ fbq('init','1151853265430926');
         <div class="hstat"><span class="hstat-n" data-target="2400">0</span><span class="hstat-l">Tatuagens</span></div>
         <div class="hstat"><span class="hstat-n" data-target="380">0</span><span class="hstat-l">Reformas</span></div>
         <div class="hstat"><span class="hstat-n">5.0 ★</span><span class="hstat-l">Google</span></div>
-        <div class="hstat" id="visitantes-agora-wrap" style="display:none;">
-          <span class="hstat-n" id="visitantes-agora-num" style="font-size:0.6em;display:inline-flex;align-items:center;gap:5px;">
-            <span style="width:7px;height:7px;border-radius:50%;background:#3FCF6E;display:inline-block;animation:vaPulse 2s ease infinite;"></span>·
-          </span>
-          <span class="hstat-l">vendo agora</span>
-        </div>
       </div>
     </div>
     <!-- DIREITA - Foto do Carlos -->
@@ -849,12 +848,14 @@ fbq('init','1151853265430926');
   </div>
 </div>
 
-<!-- STATS BAR -->
-<div class="stats-bar">
-  <div class="si rv"><span class="si-n" data-target="7">0</span><span class="si-l">Anos de experiência</span></div>
-  <div class="si rv"><span class="si-n" data-target="2400">0</span><span class="si-l">Tatuagens realizadas</span></div>
-  <div class="si rv"><span class="si-n" data-target="380">0</span><span class="si-l">Reformas feitas</span></div>
-  <div class="si rv"><span class="si-n">5.0 ★</span><span class="si-l">Avaliação Google</span></div>
+<!-- STATS BAR — agora mostra apenas o contador real de visitantes -->
+<div class="stats-bar" style="justify-content:center;">
+  <div class="si rv" id="visitantes-agora-wrap-2" style="display:none;">
+    <span class="si-n" id="visitantes-agora-num-2" style="font-size:0.55em;display:inline-flex;align-items:center;gap:6px;">
+      <span style="width:8px;height:8px;border-radius:50%;background:#3FCF6E;display:inline-block;animation:vaPulse 2s ease infinite;"></span>·
+    </span>
+    <span class="si-l">pessoas vendo agora</span>
+  </div>
 </div>
 
 <div class="odiv"><span class="odiv-sym">✦ ✦ ✦</span></div>
@@ -3932,33 +3933,9 @@ let spIdx=0;
 function showProof(){const sp=document.getElementById('sp-popup');const p=proofs[spIdx%proofs.length];document.getElementById('sp-nm').textContent=p.n;document.getElementById('sp-ac').textContent=p.a;document.getElementById('sp-av').textContent=p.e;sp.classList.add('show');setTimeout(()=>sp.classList.remove('show'),4000);spIdx++;}
 
 (function(){
-  // Primeira leva: 3 aparições espaçadas, depois fica quieto
-  const PRIMEIRA_LEVA = 3;
-  const INTERVALO_MS = 16000; // bem mais espaçado que antes (era 7s)
-  let exibidas = 0;
-  let cicloAtivo = null;
-
-  function iniciarCiclo(qtd){
-    if(cicloAtivo) clearInterval(cicloAtivo);
-    let nesseCiclo = 0;
-    showProof(); exibidas++; nesseCiclo++;
-    cicloAtivo = setInterval(()=>{
-      if(nesseCiclo >= qtd){ clearInterval(cicloAtivo); cicloAtivo=null; return; }
-      showProof(); exibidas++; nesseCiclo++;
-    }, INTERVALO_MS);
-  }
-
-  setTimeout(()=>iniciarCiclo(PRIMEIRA_LEVA), 4000);
-
-  // Se a pessoa ficar bastante tempo no site (alto engajamento),
-  // permite mais 1 leva pequena depois — só uma vez.
-  let segundaLevaUsada = false;
-  setTimeout(()=>{
-    if(!segundaLevaUsada){
-      segundaLevaUsada = true;
-      iniciarCiclo(1);
-    }
-  }, 3 * 60000); // 3 minutos
+  // Exatamente 2 aparições isoladas na sessão: 1 minuto e 4 minutos. Depois, nunca mais.
+  setTimeout(showProof, 60000);   // 1 minuto
+  setTimeout(showProof, 240000);  // 4 minutos
 })();
 
 /* ─── EXIT POPUP (ebook) — lógica ativa está mais abaixo, junto com fecharExitPopup() ─── */
@@ -6147,7 +6124,7 @@ document.head.appendChild(styleShare);
   .promo-btn-sim { font-size:13px !important; padding:14px 16px !important; }
 }
 </style>
-<div id="promo-popup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:99999;align-items:flex-start;justify-content:center;padding:20px;backdrop-filter:blur(6px);overflow-y:auto;-webkit-overflow-scrolling:touch;">
+<div id="promo-popup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9600;align-items:flex-start;justify-content:center;padding:20px;backdrop-filter:blur(6px);overflow-y:auto;-webkit-overflow-scrolling:touch;">
 
   <!-- Estrelas de fundo -->
   <div class="promo-stars" aria-hidden="true">
@@ -6211,11 +6188,22 @@ document.head.appendChild(styleShare);
 <script>
 (function(){
   if(sessionStorage.getItem('promo_shown')) return;
-  setTimeout(()=>{
+
+  function tentarMostrarPromo(){
+    if(sessionStorage.getItem('promo_shown')) return;
+    // Dá prioridade à roleta: só mostra o presente se ela já tiver sido vista,
+    // ou tenta de novo em alguns segundos até que isso aconteça.
+    const roletaJaMostrada = !window.roletaSorteNaPeleJaMostrada || window.roletaSorteNaPeleJaMostrada();
+    if(!roletaJaMostrada){
+      setTimeout(tentarMostrarPromo, 8000);
+      return;
+    }
     const pop = document.getElementById('promo-popup');
     if(pop){ pop.style.display='flex'; startPromoTimer(); }
     sessionStorage.setItem('promo_shown','1');
-  }, 120000);
+  }
+
+  setTimeout(tentarMostrarPromo, 300000); // 5 minutos
 
   function startPromoTimer(){
     let secs = 600;
@@ -6663,6 +6651,7 @@ window.addEventListener('load', initScrollTopBtn);
 
 <script>
 // ── Contador real de visitantes ativos (últimos 5 min) ──
+// Mora na stats-bar (abaixo do carrossel "Conte sua história").
 // Discreto: só aparece se a consulta retornar um número válido.
 // Atualiza a cada 30s, sem flutuação artificial.
 (function(){
@@ -6670,10 +6659,10 @@ window.addEventListener('load', initScrollTopBtn);
     if(!window._sb || !window._sb.rpc) return;
     window._sb.rpc('visitantes_agora', { minutos: 5 }).then(function(res){
       const n = res && res.data;
-      const wrap = document.getElementById('visitantes-agora-wrap');
-      const numEl = document.getElementById('visitantes-agora-num');
+      const wrap = document.getElementById('visitantes-agora-wrap-2');
+      const numEl = document.getElementById('visitantes-agora-num-2');
       if(!wrap || !numEl || typeof n !== 'number' || n < 1) return;
-      numEl.innerHTML = '<span style="width:7px;height:7px;border-radius:50%;background:#3FCF6E;display:inline-block;animation:vaPulse 2s ease infinite;"></span> ' + n;
+      numEl.innerHTML = '<span style="width:8px;height:8px;border-radius:50%;background:#3FCF6E;display:inline-block;animation:vaPulse 2s ease infinite;"></span> ' + n;
       wrap.style.display = '';
     }).catch(function(){ /* silencioso — função pode não existir ainda */ });
   }
@@ -6707,12 +6696,24 @@ window.addEventListener('load', initScrollTopBtn);
       <div id="roleta-wheel-mount" style="position:absolute;border-radius:50%;overflow:hidden;">
         <div id="roleta-wheel" style="width:100%;height:100%;border-radius:50%;position:relative;transition:transform 4.4s cubic-bezier(0.1,0.7,0.1,1);">
           <svg width="100%" height="100%" viewBox="0 0 300 300" style="position:absolute;top:0;left:0;">
-            <g id="roleta-slices"></g>
+            <defs>
+              <filter id="roletaGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="3.5" result="blur"/>
+                <feMerge>
+                  <feMergeNode in="blur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+            <g id="roleta-slices" filter="url(#roletaGlow)"></g>
+            <g id="roleta-luzes"></g>
           </svg>
         </div>
       </div>
 
       <div id="roleta-spin-hotspot" style="position:absolute;cursor:pointer;border-radius:50%;"></div>
+
+      <div id="roleta-spin-hotspot-2" title="Girar a roleta" style="position:absolute;cursor:pointer;left:21.4%;width:59.2%;top:92.7%;height:4.1%;border-radius:8px;"></div>
 
       <canvas id="roleta-confetti" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></canvas>
     </div>
@@ -6747,15 +6748,15 @@ window.addEventListener('load', initScrollTopBtn);
 (function(){
 
   const SLICES = [
-    { short:"5%",   sub:"OFF",      full:"5% OFF na sua tatuagem",                 slug:"5off",       weight:24, bg:"#D9AF49" },
-    { short:"10%",  sub:"OFF",      full:"10% OFF na sua tatuagem",                slug:"10off",      weight:20, bg:"#0A0805" },
-    { short:"15%",  sub:"OFF",      full:"15% OFF na sua tatuagem",                slug:"15off",      weight:16, bg:"#D9AF49" },
-    { short:"VIP",  sub:"AGENDA",   full:"Prioridade na agenda — encaixe VIP",     slug:"vip_agenda", weight:13, bg:"#0A0805" },
-    { short:"+10%", sub:"AMIGO",    full:"Indique um amigo: 10% para os dois",     slug:"indique10",  weight:11, bg:"#D9AF49" },
-    { short:"+10%", sub:"ÁREA",     full:"Upgrade de tamanho — área sem custo*",   slug:"upgrade_area",weight:7, bg:"#0A0805" },
-    { short:"ARTE", sub:"GRÁTIS",   full:"Consultoria + criação da arte grátis",   slug:"arte_gratis",weight:5,  bg:"#D9AF49" },
-    { short:"25%",  sub:"OFF",      full:"25% OFF na sua tatuagem",                slug:"25off",      weight:3,  bg:"#0A0805" },
-    { short:"30%",  sub:"RARO",     full:"30% OFF — prêmio máximo!",               slug:"30off",      weight:1,  bg:"#D9AF49" }
+    { short:"5%",   sub:"OFF",      full:"5% OFF na sua tatuagem",                 slug:"5off",       weight:1, bg:"#D9AF49" },
+    { short:"10%",  sub:"OFF",      full:"10% OFF na sua tatuagem",                slug:"10off",      weight:1, bg:"#0A0805" },
+    { short:"15%",  sub:"OFF",      full:"15% OFF na sua tatuagem",                slug:"15off",      weight:1, bg:"#D9AF49" },
+    { short:"VIP",  sub:"AGENDA",   full:"Prioridade na agenda — encaixe VIP",     slug:"vip_agenda", weight:1, bg:"#0A0805" },
+    { short:"+10%", sub:"AMIGO",    full:"Indique um amigo: 10% para os dois",     slug:"indique10",  weight:1, bg:"#D9AF49" },
+    { short:"+10%", sub:"ÁREA",     full:"Upgrade de tamanho — área sem custo*",   slug:"upgrade_area",weight:1, bg:"#0A0805" },
+    { short:"ARTE", sub:"GRÁTIS",   full:"Consultoria + criação da arte grátis",   slug:"arte_gratis",weight:1, bg:"#D9AF49" },
+    { short:"25%",  sub:"OFF",      full:"25% OFF na sua tatuagem",                slug:"25off",      weight:1, bg:"#0A0805" },
+    { short:"30%",  sub:"RARO",     full:"30% OFF — prêmio máximo!",               slug:"30off",      weight:1, bg:"#D9AF49" }
   ];
 
   /* Coordenadas calibradas sobre imagens/roleta-fundo.png (1122×1402px) */
@@ -6775,40 +6776,59 @@ window.addEventListener('load', initScrollTopBtn);
 
   function desenharFatias(svgGroup){
     const svgNS = "http://www.w3.org/2000/svg";
-    const cx = 150, cy = 150, r = 148;
-    let startAngle = 0;
+    const cx = 150, cy = 150, r = 142;
+    const n = SLICES.length;
+    const angle = 360 / n; // todas as fatias têm exatamente o mesmo tamanho
     const segs = [];
 
-    SLICES.forEach((s) => {
-      const angle = (s.weight / TOTAL_WEIGHT) * 360;
-      const endAngle = startAngle + angle;
-      const a1 = (startAngle - 90) * Math.PI / 180;
-      const a2 = (endAngle - 90) * Math.PI / 180;
+    SLICES.forEach((s, i) => {
+      const start = i * angle;
+      const end = start + angle;
+      const midAngle = (start + end) / 2;
+
+      const a1 = (start - 90) * Math.PI / 180;
+      const a2 = (end - 90) * Math.PI / 180;
       const x1 = cx + r * Math.cos(a1);
       const y1 = cy + r * Math.sin(a1);
       const x2 = cx + r * Math.cos(a2);
       const y2 = cy + r * Math.sin(a2);
-      const largeArc = angle > 180 ? 1 : 0;
 
       const path = document.createElementNS(svgNS, 'path');
-      path.setAttribute('d', `M${cx},${cy} L${x1},${y1} A${r},${r} 0 ${largeArc} 1 ${x2},${y2} Z`);
+      path.setAttribute('d', `M${cx},${cy} L${x1},${y1} A${r},${r} 0 0 1 ${x2},${y2} Z`);
       path.setAttribute('fill', s.bg);
-      path.setAttribute('stroke', '#0A0702');
-      path.setAttribute('stroke-width', '1.2');
+      path.setAttribute('stroke', '#F5DFA0');
+      path.setAttribute('stroke-width', '1.5');
+      path.setAttribute('stroke-opacity', '0.4');
       svgGroup.appendChild(path);
 
-      const midAngle = (startAngle + endAngle) / 2;
       const mr = (midAngle - 90) * Math.PI / 180;
-      const textR = r * 0.62;
+      const isDark = s.bg === '#0A0805';
+      const corTexto = isDark ? '#F5DFA0' : '#1a1206';
+
+      // Estrelinha decorativa, como na referência
+      const starR = r * 0.34;
+      const stx = cx + starR * Math.cos(mr);
+      const sty = cy + starR * Math.sin(mr);
+      const star = document.createElementNS(svgNS, 'text');
+      star.setAttribute('x', stx);
+      star.setAttribute('y', sty);
+      star.setAttribute('fill', corTexto);
+      star.setAttribute('font-size', '11');
+      star.setAttribute('text-anchor', 'middle');
+      star.setAttribute('opacity', '0.7');
+      star.textContent = '★';
+      svgGroup.appendChild(star);
+
+      // Texto principal, grande e padronizado — mesmo tamanho para todas
+      const textR = r * 0.64;
       const tx = cx + textR * Math.cos(mr);
       const ty = cy + textR * Math.sin(mr);
-      const isDark = s.bg === '#0A0805';
 
       const text = document.createElementNS(svgNS, 'text');
       text.setAttribute('x', tx);
       text.setAttribute('y', ty);
-      text.setAttribute('fill', isDark ? '#F0CB6E' : '#1a1206');
-      text.setAttribute('font-size', '15');
+      text.setAttribute('fill', corTexto);
+      text.setAttribute('font-size', '20');
       text.setAttribute('font-weight', '700');
       text.setAttribute('font-family', 'Georgia,serif');
       text.setAttribute('text-anchor', 'middle');
@@ -6816,20 +6836,19 @@ window.addEventListener('load', initScrollTopBtn);
 
       const tspan1 = document.createElementNS(svgNS, 'tspan');
       tspan1.setAttribute('x', tx);
-      tspan1.setAttribute('dy', '-2');
+      tspan1.setAttribute('dy', '-4');
       tspan1.textContent = s.short;
       text.appendChild(tspan1);
 
       const tspan2 = document.createElementNS(svgNS, 'tspan');
       tspan2.setAttribute('x', tx);
-      tspan2.setAttribute('dy', '13');
-      tspan2.setAttribute('font-size', '9');
+      tspan2.setAttribute('dy', '18');
+      tspan2.setAttribute('font-size', '12');
       tspan2.textContent = s.sub;
       text.appendChild(tspan2);
 
       svgGroup.appendChild(text);
       segs.push({ mid: midAngle, slice: s });
-      startAngle = endAngle;
     });
 
     return segs;
@@ -6927,12 +6946,32 @@ window.addEventListener('load', initScrollTopBtn);
 
   let segsGlobais = [];
 
+  function desenharLuzes(svgGroup){
+    const svgNS = "http://www.w3.org/2000/svg";
+    const cx = 150, cy = 150, r = 146;
+    const qtd = 24;
+    for (let i = 0; i < qtd; i++){
+      const ang = (i / qtd) * 360 * Math.PI / 180;
+      const lx = cx + r * Math.cos(ang);
+      const ly = cy + r * Math.sin(ang);
+      const dot = document.createElementNS(svgNS, 'circle');
+      dot.setAttribute('cx', lx);
+      dot.setAttribute('cy', ly);
+      dot.setAttribute('r', '2.8');
+      dot.setAttribute('fill', '#FFE9A8');
+      dot.style.animation = `roletaLuzPulso 1.6s ease-in-out infinite`;
+      dot.style.animationDelay = (i * 0.07) + 's';
+      svgGroup.appendChild(dot);
+    }
+  }
+
   function inicializar(){
     if(jaInicializada) return;
     jaInicializada = true;
 
     const svgGroup = document.getElementById('roleta-slices');
     segsGlobais = desenharFatias(svgGroup);
+    desenharLuzes(document.getElementById('roleta-luzes'));
 
     const bgImg = document.getElementById('roleta-bg');
     if (bgImg.complete) posicionarRoda();
@@ -6945,6 +6984,8 @@ window.addEventListener('load', initScrollTopBtn);
     });
 
     document.getElementById('roleta-spin-hotspot').addEventListener('click', girarRoleta);
+    const hotspot2 = document.getElementById('roleta-spin-hotspot-2');
+    if (hotspot2) hotspot2.addEventListener('click', girarRoleta);
   }
 
   function abrirRoleta(){
@@ -6985,7 +7026,7 @@ window.addEventListener('load', initScrollTopBtn);
       document.getElementById('roleta-premio').textContent = chosenSeg.slice.full;
       document.getElementById('roleta-codigo').textContent = codigo;
       document.getElementById('roleta-result').style.display = 'block';
-      if (chosenSeg.slice.weight <= 5) dispararConfete();
+      dispararConfete();
 
       await registrarGiroNoServidor(chosenSeg.slice, codigo);
 
@@ -7012,12 +7053,18 @@ window.addEventListener('load', initScrollTopBtn);
     return !!sessionStorage.getItem(SESSION_KEY);
   };
 
-  /* ─── Gatilho de saída — prioridade máxima sobre o popup do ebook ─── */
+  /* ─── Gatilho de saída — prioridade máxima sobre qualquer outro popup ─── */
   document.addEventListener('mouseleave', function(e){
     if(e.clientY < 20 && !sessionStorage.getItem(SESSION_KEY)){
       abrirRoleta();
     }
   });
+
+  /* ─── Gatilho por tempo — 5 minutos de permanência, o que vier primeiro ───
+     Não disparado se a pessoa já viu a roleta pela saída antes desse tempo. ─── */
+  setTimeout(function(){
+    if(!sessionStorage.getItem(SESSION_KEY)) abrirRoleta();
+  }, 300000);
 
 })();
 </script>
