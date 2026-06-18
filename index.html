@@ -81,7 +81,7 @@ fbq('init','1151853265430926');
   "url":"https://carlostattoobh.com.br/",
   "telephone":"+5531983391576",
   "address":{"@type":"PostalAddress","streetAddress":"Rua Maria de Lourdes da Cruz, 378","addressLocality":"Belo Horizonte","addressRegion":"MG","addressCountry":"BR"},
-  "geo":{"@type":"GeoCoordinates","latitude":-19.8157,"longitude":-43.9542},
+  "geo":{"@type":"GeoCoordinates","latitude":-19.788771,"longitude":-43.986380},
   "openingHours":["Mo-Fr 10:00-19:00","Sa 10:00-18:00"],
   "sameAs":["https://instagram.com/carlostattoo.bh"],
   "priceRange":"$$",
@@ -199,7 +199,7 @@ fbq('init','1151853265430926');
   "telephone":"+5531983391576",
   "email":"carlostattoobh@gmail.com",
   "address":{"@type":"PostalAddress","streetAddress":"Rua Maria de Lourdes da Cruz, 378","addressLocality":"Belo Horizonte","addressRegion":"MG","postalCode":"31655-490","addressCountry":"BR"},
-  "geo":{"@type":"GeoCoordinates","latitude":-19.8157,"longitude":-43.9542},
+  "geo":{"@type":"GeoCoordinates","latitude":-19.788771,"longitude":-43.986380},
   "openingHoursSpecification":[
     {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"10:00","closes":"19:00"},
     {"@type":"OpeningHoursSpecification","dayOfWeek":["Saturday"],"opens":"10:00","closes":"18:00"}
@@ -3576,7 +3576,7 @@ const vids=[
   ["SnapInsta_to_AQOvq9Q20eSBMkAmd_k16I9BGrBojdHSAPxRLLklrdwblFJriGqsgOH-uUyPzcfvfSJjPf0hdFeMLGq9RH5ZozwElho4Mut3HibZJms.mp4","Detalhe",null]
 ];
 const vg=document.getElementById('vid-grid');
-vids.forEach(([f,l,thumb])=>{
+if(vg) vids.forEach(([f,l,thumb])=>{
   const d=document.createElement('div');d.className='vcard';
   const thumbHtml=thumb
     ? `<img loading="lazy" src="${thumb}" style="width:100%;height:100%;object-fit:cover;object-position:top;position:absolute;inset:0;transition:opacity .4s;" class="vthumb">`
@@ -3924,19 +3924,7 @@ let spIdx=0;
 function showProof(){const sp=document.getElementById('sp-popup');const p=proofs[spIdx%proofs.length];document.getElementById('sp-nm').textContent=p.n;document.getElementById('sp-ac').textContent=p.a;document.getElementById('sp-av').textContent=p.e;sp.classList.add('show');setTimeout(()=>sp.classList.remove('show'),4000);spIdx++;}
 setTimeout(showProof,3000);setInterval(showProof,7000);
 
-/* ─── EXIT POPUP ─── */
-let exitShown=false;
-document.addEventListener('mouseleave',e=>{if(e.clientY<20&&!exitShown&&!sessionStorage.getItem('exitShown')){document.getElementById('exit-popup').classList.add('open');exitShown=true;}});
-function closeExit(){document.getElementById('exit-popup').classList.remove('open');sessionStorage.setItem('exitShown','1');}
-function submitExit(){
-  const wpp=document.getElementById('exit-wpp').value.trim();
-  if(!wpp){alert('Digite seu WhatsApp');return;}
-  addLead({nome:'Lead Exit Popup',tel:wpp,origem:'exit-popup'});
-  closeExit();
-  // Lead salvo — redirecionar ao formulário
-  document.getElementById('contato').scrollIntoView({behavior:'smooth'});
-}
-document.getElementById('exit-popup').addEventListener('click',function(e){if(e.target===this)closeExit();});
+/* ─── EXIT POPUP (ebook) — lógica ativa está mais abaixo, junto com fecharExitPopup() ─── */
 
 /* ─── CARROSSEL NETFLIX ─── */
 (()=>{
@@ -4434,11 +4422,11 @@ function fecharPWA(){
 }
 
 // ════════════════════════════════════════
-// POPUP DE SAÍDA
+// POPUP DE SAÍDA (ebook) — só dispara depois da roleta já ter sido vista
 // ════════════════════════════════════════
 let exitShown = false;
 document.addEventListener('mouseleave',(e)=>{
-  if(e.clientY <= 0 && !exitShown && !sessionStorage.getItem('exit_shown')){
+  if(e.clientY <= 0 && !exitShown && !sessionStorage.getItem('exit_shown') && window.roletaSorteNaPeleJaMostrada && window.roletaSorteNaPeleJaMostrada()){
     exitShown = true;
     sessionStorage.setItem('exit_shown','1');
     const popup = document.getElementById('exit-popup');
@@ -4702,8 +4690,7 @@ function comprarUpsell(){
   fecharUpsell();
 }
 
-// Interceptar confirmarPix para mostrar upsell
-const _origConfirmarPix = confirmarPix;
+// (interceptação antiga de confirmarPix removida — lógica de upsell já está embutida na própria função confirmarPix())
 
 </script>
 
@@ -4805,7 +4792,7 @@ const _origConfirmarPix = confirmarPix;
   <path d="M50 8 C28 8 16 24 16 40 C16 54 24 64 36 70 L36 72 L64 72 L64 70 C76 64 84 54 84 40 C84 24 72 8 50 8Z" stroke="#1a1a1a" stroke-width="2.5" fill="none"/>
 </svg>
   <div class="skull-badge">IA</div>
-</button>
+</div>
 
 <!-- Bubble do Rabisco é criada dinamicamente pelo rabisco.js -->
 
@@ -6771,6 +6758,341 @@ window.addEventListener('load', initScrollTopBtn);
       }).then(()=>{}).catch(()=>{});
     }
   } catch(e){}
+})();
+</script>
+
+<!-- ════════════════════════════════════════════════════════════
+     ROLETA "SORTE NA PELE" — popup de saída com gamificação
+     Injetado diretamente no index.html (sem arquivo externo)
+     para evitar requisição HTTP extra; o overlay fica oculto
+     (display:none) até o gatilho de saída ativá-lo, então não
+     pesa visualmente nem de performance no carregamento inicial.
+     ════════════════════════════════════════════════════════════ -->
+<div id="roleta-overlay" style="position:fixed;inset:0;z-index:9700;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:16px;overflow-y:auto;">
+
+  <div id="roleta-card" style="position:relative;max-width:380px;width:100%;background:#0A0702;border-radius:18px;overflow:hidden;border:1px solid rgba(201,168,76,.3);box-shadow:0 30px 80px rgba(0,0,0,.7);">
+
+    <button id="roleta-close" type="button" aria-label="Fechar"
+      style="position:absolute;top:10px;right:10px;z-index:10;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.2);color:#fff;width:32px;height:32px;border-radius:50%;font-size:16px;cursor:pointer;line-height:1;">✕</button>
+
+    <div style="position:relative;width:100%;">
+      <img id="roleta-bg" src="imagens/roleta-fundo.jpg" alt="Sorte na Pele — Carlos Tattoo BH" style="width:100%;display:block;">
+
+      <div id="roleta-wheel-mount" style="position:absolute;border-radius:50%;overflow:hidden;">
+        <div id="roleta-wheel" style="width:100%;height:100%;border-radius:50%;position:relative;transition:transform 4.4s cubic-bezier(0.1,0.7,0.1,1);">
+          <svg width="100%" height="100%" viewBox="0 0 300 300" style="position:absolute;top:0;left:0;">
+            <g id="roleta-slices"></g>
+          </svg>
+        </div>
+      </div>
+
+      <div id="roleta-spin-hotspot" style="position:absolute;cursor:pointer;border-radius:50%;"></div>
+
+      <canvas id="roleta-confetti" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></canvas>
+    </div>
+
+    <div id="roleta-result" style="display:none;margin:0 18px 20px;background:linear-gradient(135deg,rgba(201,168,76,.16),rgba(122,90,32,.08));border:1.5px solid rgba(201,168,76,.5);border-radius:14px;padding:18px 20px;text-align:center;">
+      <div style="font-family:Georgia,serif;font-size:10px;letter-spacing:2px;color:rgba(245,223,160,.7);text-transform:uppercase;margin-bottom:6px;">Parabéns, você ganhou</div>
+      <div id="roleta-premio" style="font-family:Georgia,serif;font-size:21px;color:#F5DFA0;font-weight:700;margin-bottom:10px;"></div>
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(0,0,0,.35);border:1px dashed rgba(201,168,76,.5);border-radius:8px;padding:8px 16px;margin-bottom:14px;">
+        <span style="font-family:monospace;font-size:14px;color:#F5DFA0;letter-spacing:1px;" id="roleta-codigo"></span>
+      </div>
+      <div style="font-size:10px;color:rgba(245,223,160,.45);margin-bottom:14px;">válido 48h · preencha seus dados para garantir</div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;text-align:left;">
+        <input id="roleta-nome" type="text" placeholder="Seu nome completo" required
+          style="background:#fff;border:1px solid rgba(160,120,56,.3);border-radius:6px;padding:11px 14px;font-size:14px;color:#1a0a00;">
+        <input id="roleta-whatsapp" type="tel" placeholder="Seu WhatsApp" required
+          style="background:#fff;border:1px solid rgba(160,120,56,.3);border-radius:6px;padding:11px 14px;font-size:14px;color:#1a0a00;">
+        <button id="roleta-confirmar" type="button" style="background:linear-gradient(180deg,#F5DFA0,#C9A84C,#A07830);color:#1a0a00;border:none;padding:13px 0;border-radius:6px;font-family:Georgia,serif;font-size:13px;letter-spacing:1.5px;font-weight:700;cursor:pointer;">
+          GARANTIR MEU DESCONTO
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════════
+   ROLETA "SORTE NA PELE" — Carlos Tattoo BH
+   Lógica completa: fatias, probabilidades, animação, geração
+   de código e integração com Supabase
+   ════════════════════════════════════════════════════════════ */
+(function(){
+
+  const SLICES = [
+    { short:"5%",   sub:"OFF",      full:"5% OFF na sua tatuagem",                 slug:"5off",       weight:24, bg:"#D9AF49" },
+    { short:"10%",  sub:"OFF",      full:"10% OFF na sua tatuagem",                slug:"10off",      weight:20, bg:"#0A0805" },
+    { short:"15%",  sub:"OFF",      full:"15% OFF na sua tatuagem",                slug:"15off",      weight:16, bg:"#D9AF49" },
+    { short:"VIP",  sub:"AGENDA",   full:"Prioridade na agenda — encaixe VIP",     slug:"vip_agenda", weight:13, bg:"#0A0805" },
+    { short:"+10%", sub:"AMIGO",    full:"Indique um amigo: 10% para os dois",     slug:"indique10",  weight:11, bg:"#D9AF49" },
+    { short:"+10%", sub:"ÁREA",     full:"Upgrade de tamanho — área sem custo*",   slug:"upgrade_area",weight:7, bg:"#0A0805" },
+    { short:"ARTE", sub:"GRÁTIS",   full:"Consultoria + criação da arte grátis",   slug:"arte_gratis",weight:5,  bg:"#D9AF49" },
+    { short:"25%",  sub:"OFF",      full:"25% OFF na sua tatuagem",                slug:"25off",      weight:3,  bg:"#0A0805" },
+    { short:"30%",  sub:"RARO",     full:"30% OFF — prêmio máximo!",               slug:"30off",      weight:1,  bg:"#D9AF49" }
+  ];
+
+  /* Coordenadas calibradas sobre imagens/roleta-fundo.jpg (1122×1402px) */
+  const IMG_W = 1122, IMG_H = 1402;
+  const CENTER_X_PCT = 715 / IMG_W;
+  const CENTER_Y_PCT = 670 / IMG_H;
+  const RADIUS_PCT   = 352 / IMG_W;
+
+  const TOTAL_WEIGHT = SLICES.reduce((a,b)=>a+b.weight, 0);
+  const SESSION_KEY  = 'roletaSorteNaPeleShown';
+  const SUPABASE_GIRO_URL      = 'https://ejapatxehmxondjqsgvv.supabase.co/functions/v1/roleta-giro';
+  const SUPABASE_CONFIRMAR_URL = 'https://ejapatxehmxondjqsgvv.supabase.co/functions/v1/roleta-confirmar';
+
+  let jaInicializada = false;
+  let spinning = false;
+  let currentRotation = 0;
+
+  function desenharFatias(svgGroup){
+    const svgNS = "http://www.w3.org/2000/svg";
+    const cx = 150, cy = 150, r = 148;
+    let startAngle = 0;
+    const segs = [];
+
+    SLICES.forEach((s) => {
+      const angle = (s.weight / TOTAL_WEIGHT) * 360;
+      const endAngle = startAngle + angle;
+      const a1 = (startAngle - 90) * Math.PI / 180;
+      const a2 = (endAngle - 90) * Math.PI / 180;
+      const x1 = cx + r * Math.cos(a1);
+      const y1 = cy + r * Math.sin(a1);
+      const x2 = cx + r * Math.cos(a2);
+      const y2 = cy + r * Math.sin(a2);
+      const largeArc = angle > 180 ? 1 : 0;
+
+      const path = document.createElementNS(svgNS, 'path');
+      path.setAttribute('d', `M${cx},${cy} L${x1},${y1} A${r},${r} 0 ${largeArc} 1 ${x2},${y2} Z`);
+      path.setAttribute('fill', s.bg);
+      path.setAttribute('stroke', '#0A0702');
+      path.setAttribute('stroke-width', '1.2');
+      svgGroup.appendChild(path);
+
+      const midAngle = (startAngle + endAngle) / 2;
+      const mr = (midAngle - 90) * Math.PI / 180;
+      const textR = r * 0.62;
+      const tx = cx + textR * Math.cos(mr);
+      const ty = cy + textR * Math.sin(mr);
+      const isDark = s.bg === '#0A0805';
+
+      const text = document.createElementNS(svgNS, 'text');
+      text.setAttribute('x', tx);
+      text.setAttribute('y', ty);
+      text.setAttribute('fill', isDark ? '#F0CB6E' : '#1a1206');
+      text.setAttribute('font-size', '15');
+      text.setAttribute('font-weight', '700');
+      text.setAttribute('font-family', 'Georgia,serif');
+      text.setAttribute('text-anchor', 'middle');
+      text.setAttribute('transform', `rotate(${midAngle},${tx},${ty})`);
+
+      const tspan1 = document.createElementNS(svgNS, 'tspan');
+      tspan1.setAttribute('x', tx);
+      tspan1.setAttribute('dy', '-2');
+      tspan1.textContent = s.short;
+      text.appendChild(tspan1);
+
+      const tspan2 = document.createElementNS(svgNS, 'tspan');
+      tspan2.setAttribute('x', tx);
+      tspan2.setAttribute('dy', '13');
+      tspan2.setAttribute('font-size', '9');
+      tspan2.textContent = s.sub;
+      text.appendChild(tspan2);
+
+      svgGroup.appendChild(text);
+      segs.push({ mid: midAngle, slice: s });
+      startAngle = endAngle;
+    });
+
+    return segs;
+  }
+
+  function posicionarRoda(){
+    const bgImg = document.getElementById('roleta-bg');
+    const mount = document.getElementById('roleta-wheel-mount');
+    const hotspot = document.getElementById('roleta-spin-hotspot');
+    if(!bgImg || !bgImg.offsetWidth) return;
+
+    const w = bgImg.offsetWidth;
+    const h = bgImg.offsetHeight;
+    const cx = w * CENTER_X_PCT;
+    const cy = h * CENTER_Y_PCT;
+    const radius = w * RADIUS_PCT;
+
+    mount.style.width = (radius * 2) + 'px';
+    mount.style.height = (radius * 2) + 'px';
+    mount.style.left = (cx - radius) + 'px';
+    mount.style.top = (cy - radius) + 'px';
+
+    hotspot.style.width = (radius * 1.5) + 'px';
+    hotspot.style.height = (radius * 1.5) + 'px';
+    hotspot.style.left = (cx - radius * 0.75) + 'px';
+    hotspot.style.top = (cy - radius * 0.75) + 'px';
+  }
+
+  function dispararConfete(){
+    const canvas = document.getElementById('roleta-confetti');
+    const bgImg = document.getElementById('roleta-bg');
+    canvas.width = bgImg.offsetWidth;
+    canvas.height = bgImg.offsetHeight;
+    const ctx = canvas.getContext('2d');
+    const colors = ['#F5DFA0', '#C9A84C', '#A07830', '#FFFFFF'];
+    const particles = [];
+    for (let i = 0; i < 80; i++){
+      particles.push({
+        x: canvas.width / 2, y: canvas.height * 0.35,
+        vx: (Math.random() - 0.5) * 9, vy: Math.random() * -7 - 2,
+        size: Math.random() * 4 + 3, color: colors[Math.floor(Math.random()*colors.length)],
+        rot: Math.random() * 360, vrot: (Math.random() - 0.5) * 14, life: 100
+      });
+    }
+    let frame = 0;
+    function animar(){
+      frame++;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.x += p.vx; p.y += p.vy; p.vy += 0.28; p.rot += p.vrot; p.life -= 1.4;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot * Math.PI / 180);
+        ctx.globalAlpha = Math.max(p.life / 100, 0);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size*0.6);
+        ctx.restore();
+      });
+      if (frame < 90) requestAnimationFrame(animar);
+      else ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    animar();
+  }
+
+  function gerarCodigoLocal(){
+    return 'CT' + Math.random().toString(36).substring(2,7).toUpperCase();
+  }
+
+  async function registrarGiroNoServidor(slice, codigo){
+    try {
+      const resp = await fetch(SUPABASE_GIRO_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ codigo: codigo, premio: slice.full, premio_slug: slice.slug })
+      });
+      if (!resp.ok) throw new Error('Falha ao registrar giro');
+      return await resp.json();
+    } catch(e){
+      console.warn('Roleta: não foi possível registrar o giro no servidor', e);
+      return null;
+    }
+  }
+
+  async function confirmarLead(codigo, nome, whatsapp){
+    try {
+      await fetch(SUPABASE_CONFIRMAR_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ codigo, nome, whatsapp })
+      });
+    } catch(e){
+      console.warn('Roleta: não foi possível confirmar o lead', e);
+    }
+  }
+
+  let segsGlobais = [];
+
+  function inicializar(){
+    if(jaInicializada) return;
+    jaInicializada = true;
+
+    const svgGroup = document.getElementById('roleta-slices');
+    segsGlobais = desenharFatias(svgGroup);
+
+    const bgImg = document.getElementById('roleta-bg');
+    if (bgImg.complete) posicionarRoda();
+    bgImg.addEventListener('load', posicionarRoda);
+    window.addEventListener('resize', posicionarRoda);
+
+    document.getElementById('roleta-close').addEventListener('click', fecharRoleta);
+    document.getElementById('roleta-overlay').addEventListener('click', function(e){
+      if(e.target === this) fecharRoleta();
+    });
+
+    document.getElementById('roleta-spin-hotspot').addEventListener('click', girarRoleta);
+  }
+
+  function abrirRoleta(){
+    inicializar();
+    const overlay = document.getElementById('roleta-overlay');
+    overlay.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    setTimeout(posicionarRoda, 50);
+    sessionStorage.setItem(SESSION_KEY, '1');
+  }
+
+  function fecharRoleta(){
+    const overlay = document.getElementById('roleta-overlay');
+    overlay.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  async function girarRoleta(){
+    if (spinning) return;
+    spinning = true;
+
+    const rnd = Math.random() * TOTAL_WEIGHT;
+    let acc = 0, chosenSeg = segsGlobais[0];
+    for (let i = 0; i < segsGlobais.length; i++){
+      acc += segsGlobais[i].slice.weight;
+      if (rnd <= acc){ chosenSeg = segsGlobais[i]; break; }
+    }
+
+    const spins = 6 * 360;
+    currentRotation += spins + (360 - chosenSeg.mid);
+    const wheel = document.getElementById('roleta-wheel');
+    wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+    const codigo = gerarCodigoLocal();
+
+    setTimeout(async () => {
+      spinning = false;
+      document.getElementById('roleta-premio').textContent = chosenSeg.slice.full;
+      document.getElementById('roleta-codigo').textContent = codigo;
+      document.getElementById('roleta-result').style.display = 'block';
+      if (chosenSeg.slice.weight <= 5) dispararConfete();
+
+      await registrarGiroNoServidor(chosenSeg.slice, codigo);
+
+      document.getElementById('roleta-confirmar').addEventListener('click', async function handler(){
+        const nome = document.getElementById('roleta-nome').value.trim();
+        const whatsapp = document.getElementById('roleta-whatsapp').value.trim();
+        if (!nome || !whatsapp){
+          alert('Preencha nome e WhatsApp para garantir seu desconto.');
+          return;
+        }
+        await confirmarLead(codigo, nome, whatsapp);
+        fecharRoleta();
+        const contato = document.getElementById('contato');
+        if (contato) contato.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('roleta-confirmar').removeEventListener('click', handler);
+      });
+
+    }, 4500);
+  }
+
+  /* Expor função global para o gatilho de saída do index.html chamar */
+  window.abrirRoletaSorteNaPele = abrirRoleta;
+  window.roletaSorteNaPeleJaMostrada = function(){
+    return !!sessionStorage.getItem(SESSION_KEY);
+  };
+
+  /* ─── Gatilho de saída — prioridade máxima sobre o popup do ebook ─── */
+  document.addEventListener('mouseleave', function(e){
+    if(e.clientY < 20 && !sessionStorage.getItem(SESSION_KEY)){
+      abrirRoleta();
+    }
+  });
+
 })();
 </script>
 
