@@ -4817,7 +4817,7 @@ function comprarUpsell(){
       <h4>💀 Rabisco — Carlos Tattoo BH</h4>
       <div class="skull-online"><div class="skull-online-dot"></div>Online agora</div>
     </div>
-    <button class="skull-panel-close" onclick="toggleSkull()">✕</button>
+    <button class="skull-panel-close" aria-label="Fechar (painel legado, não utilizado)">✕</button>
   </div>
   <div class="skull-msgs" id="skullMsgs">
     <div class="skull-msg bot">
@@ -4852,155 +4852,16 @@ function toggleDrawer(){
 }
 
 // ══════════════════════════════════════
-// SKULL BOT — POSICIONAMENTO DESKTOP
+// SISTEMA ANTIGO "SKULL BOT" REMOVIDO
+// Substituído integralmente pelo rabisco.js (RabiscoUI),
+// que já cobre: bubble de boas-vindas, detecção de seção,
+// timer de inatividade, frase de saída e captura de lead.
+// O painel #skullPanel permanece no HTML oculto (legado),
+// mas nenhum script aqui mais tenta abri-lo ou popular suas
+// variáveis de estado (skullAberto, skullHistorico etc.),
+// que existiam em paralelo ao rabisco.js e disparavam bubbles
+// concorrentes para a mesma seção/horário/inatividade.
 // ══════════════════════════════════════
-function posicionarSkull(){
-  const panel = document.getElementById('skullPanel');
-  if(!panel) return;
-  const isMobile = window.innerWidth <= 768;
-  if(isMobile){
-    panel.style.bottom = '150px';
-    panel.style.right = '8px';
-    panel.style.left = '8px';
-    panel.style.width = 'auto';
-    panel.style.height = '70vh';
-    panel.style.maxHeight = '500px';
-    panel.style.top = 'auto';
-  } else {
-    panel.style.bottom = '150px';
-    panel.style.right = '20px';
-    panel.style.left = 'auto';
-    panel.style.width = '360px';
-    panel.style.height = '480px';
-    panel.style.maxHeight = '480px';
-    panel.style.top = 'auto';
-  }
-}
-window.addEventListener('resize', posicionarSkull);
-posicionarSkull();
-
-// ══════════════════════════════════════
-// SKULL BOT — TOGGLE
-// ══════════════════════════════════════
-let skullAberto = false;
-let skullHistorico = [];
-let skullLeadColetado = false;
-let skullLeadNome = '';
-let skullBubbleAtivo = false;
-let skullMsgCount = 0;
-
-function toggleSkull(){
-  skullAberto = !skullAberto;
-  const panel = document.getElementById('skullPanel');
-  const bubble = document.getElementById('skullBubble');
-  if(skullAberto){
-    posicionarSkull();
-    panel.classList.add('open');
-    if(bubble) bubble.style.display = 'none';
-    const badge = document.querySelector('.skull-badge');
-    if(badge) badge.style.display = 'none';
-    document.getElementById('skullInput').focus();
-  } else {
-    panel.classList.remove('open');
-  }
-}
-
-function fecharBubble(){
-  const b = document.getElementById('skullBubble');
-  if(b) b.style.display = 'none';
-  skullBubbleAtivo = false;
-}
-
-function mostrarBubble(texto){
-  if(skullAberto) return;
-  const bubble = document.getElementById('skullBubble');
-  const txt = document.getElementById('skullBubbleText');
-  if(!bubble || !txt) return;
-  txt.textContent = texto;
-  bubble.style.display = 'block';
-  skullBubbleAtivo = true;
-  // Auto-fechar após 8s
-  setTimeout(()=>{ if(!skullAberto) bubble.style.display = 'none'; }, 8000);
-}
-
-// ══════════════════════════════════════
-// FRASES DE PERSUASÃO CONTEXTUAIS
-// ══════════════════════════════════════
-const frases = [
-  { secao:'cursos',    delay:30000, txt:'Psst... 👀 Mais de 300 tatuadores já aplicaram essas estratégias. Quer saber qual curso faz sentido pro seu momento?' },
-  { secao:'ebooks',    delay:25000, txt:'Esse material é ouro puro. Posso te contar o que tem dentro antes de decidir?' },
-  { secao:'portfolio', delay:20000, txt:'Impressionante né? 😏 Cada um desses foi feito aqui em BH. Quer saber como agendar o seu?' },
-  { secao:'cobertura', delay:15000, txt:'Reforma é especialidade aqui. 380+ reformas feitas. Tem alguma tatuagem que quer transformar?' },
-  { secao:'areolas',   delay:10000, txt:'Esse serviço é muito especial. 🌸 Posso te conectar com o Carlos com total discrição.' },
-  { secao:'queimaduras',delay:10000,txt:'A arte pode transformar qualquer cicatriz em algo poderoso. 🔥 Quer saber como funciona?' },
-];
-const frasesMostradas = new Set();
-let fraseTimer = null;
-
-// Observar seções para frases contextuais
-if('IntersectionObserver' in window){
-  const obs = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(!e.isIntersecting || skullAberto) return;
-      const id = e.target.id;
-      const frase = frases.find(f=>f.secao===id);
-      if(frase && !frasesMostradas.has(id)){
-        frasesMostradas.add(id);
-        clearTimeout(fraseTimer);
-        fraseTimer = setTimeout(()=>{
-          if(window.mostrarBubble&&!RabiscoUI.aberto) window.mostrarBubble(frase.txt);
-        }, frase.delay);
-      }
-    });
-  },{threshold:0.3});
-  ['cursos','ebooks','portfolio','cobertura','areolas','queimaduras'].forEach(id=>{
-    const el = document.getElementById(id);
-    if(el) obs.observe(el);
-  });
-}
-
-// Frase inicial após 10s
-setTimeout(()=>{
-  if(window.mostrarBubble&&typeof RabiscoUI!=='undefined'&&!RabiscoUI.aberto){
-    mostrarBubble('Fala! Sou o Rabisco — posso te ajudar a encontrar o que procura? 👋');
-  }
-}, 10000);
-
-// Frase para quem ficou muito tempo parado
-let idleTimer;
-function resetIdle(){
-  clearTimeout(idleTimer);
-  idleTimer = setTimeout(()=>{
-    if(window.mostrarBubble&&typeof RabiscoUI!=='undefined'&&!RabiscoUI.aberto){
-      mostrarBubble('Tô vendo que você tá pesquisando... 🤔 Me fala o que tá buscando que ajudo rápido.');
-    }
-  }, 90000);
-}
-document.addEventListener('mousemove', resetIdle);
-document.addEventListener('touchstart', resetIdle);
-document.addEventListener('scroll', resetIdle);
-
-// Frase de saída
-document.addEventListener('mouseleave',(e)=>{
-  if(e.clientY<=0 && !skullAberto){
-    mostrarBubble('Ei! Antes de ir — já viu a calculadora de preços? Descobre em 30s quanto custa sua tattoo.');
-  }
-});
-
-// Frase por horário
-const hora = new Date().getHours();
-const diaSemana = new Date().getDay();
-if(hora >= 19 || hora < 7){
-  setTimeout(()=>{
-    if(window.mostrarBubble&&typeof RabiscoUI!=='undefined'&&!RabiscoUI.aberto)
-      mostrarBubble('Pesquisando tatuagem à noite? 🌙 Boa hora pra decidir! Me pergunta qualquer coisa.');
-  }, 20000);
-} else if(diaSemana === 0 || diaSemana === 6){
-  setTimeout(()=>{
-    if(window.mostrarBubble&&typeof RabiscoUI!=='undefined'&&!RabiscoUI.aberto)
-      mostrarBubble('Final de semana é bom pra pensar em tatuagem! Carlos atende Seg-Sáb. Quer garantir seu horário?');
-  }, 25000);
-}
 
 // ══════════════════════════════════════
 // SKULL BOT — substituído pelo rabisco.js
@@ -5219,19 +5080,11 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 
 // ════════════════════════════════════════
-// RABISCO — APRESENTAÇÃO AUTOMÁTICA
+// RABISCO — apresentação automática já é feita
+// pelo próprio rabisco.js via CFG.bubbleDelay.
+// Bloco duplicado removido (chamava toggleSkull()
+// e mostrarBubble() locais, que não existem mais).
 // ════════════════════════════════════════
-setTimeout(()=>{
-  if(typeof skullAberto !== 'undefined' && !skullAberto){
-    mostrarBubble('Fala! Sou o Rabisco, assistente do Carlos Tattoo BH. Posso te ajudar? 👋');
-    // Após 5s da bubble, abrir o painel automaticamente se não fechou
-    setTimeout(()=>{
-      if(typeof skullAberto !== 'undefined' && !skullAberto){
-        toggleSkull();
-      }
-    }, 6000);
-  }
-}, 5000);
 
 // Lembrar visitante recorrente
 (()=>{
@@ -6775,8 +6628,9 @@ window.addEventListener('load', initScrollTopBtn);
     <button id="roleta-close" type="button" aria-label="Fechar"
       style="position:absolute;top:10px;right:10px;z-index:10;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.2);color:#fff;width:32px;height:32px;border-radius:50%;font-size:16px;cursor:pointer;line-height:1;">✕</button>
 
-    <div style="position:relative;width:100%;">
-      <img id="roleta-bg" src="imagens/roleta-fundo.png" alt="Sorte na Pele — Carlos Tattoo BH" style="width:100%;display:block;">
+    <div style="position:relative;width:100%;aspect-ratio:1122/1402;background:linear-gradient(160deg,#1C1208,#0A0702);">
+      <img id="roleta-bg" src="imagens/roleta-fundo.png" alt="Sorte na Pele — Carlos Tattoo BH" style="width:100%;height:100%;display:block;object-fit:cover;"
+        onerror="this.parentElement.insertAdjacentHTML('beforeend','<div style=&quot;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#F5DFA0;font-family:Georgia,serif;font-size:13px;text-align:center;padding:20px;&quot;>Imagem não encontrada<br>verifique imagens/roleta-fundo.png</div>')">
 
       <div id="roleta-wheel-mount" style="position:absolute;border-radius:50%;overflow:hidden;">
         <div id="roleta-wheel" style="width:100%;height:100%;border-radius:50%;position:relative;transition:transform 4.4s cubic-bezier(0.1,0.7,0.1,1);">

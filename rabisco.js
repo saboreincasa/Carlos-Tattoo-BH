@@ -24,8 +24,7 @@
     vagasSemana:  4,
     horarioAbre:  10,
     horarioFecha: 19,
-    inactivityMs: 999999,
-    secaoMs:      999999,
+    inactivityMs: 180000,  // 3 minutos sem interação → bubble de "tem dúvida?"
     bubbleDelay:  40000,
     msgsLivresAntesCaptura: 2   // quantas mensagens livres antes de pedir dados
   };
@@ -544,10 +543,9 @@
       : 'Olá! Tem alguma dúvida? É só perguntar 😊');
   }, CFG.bubbleDelay);
 
-  var _idleTimer;
-  function resetIdle(){ clearTimeout(_idleTimer); _idleTimer=setTimeout(function(){ if(!RabiscoUI.aberto) mostrarBubble('Tem alguma dúvida? Estou aqui 😊'); },180000); }
-  ['mousemove','keydown','scroll','touchstart','click'].forEach(function(ev){ document.addEventListener(ev,resetIdle,{passive:true}); });
-  resetIdle();
+  /* Timer de inatividade unificado — ver resetInactivity() mais abaixo,
+     que já cobre esse mesmo papel usando CFG.inactivityMs. Manter dois
+     sistemas paralelos fazia a bolha de fala trocar de texto sem aviso. */
 
   /* ══════════════════════════════════════
      FUNIL PRINCIPAL
@@ -762,12 +760,6 @@
      CSS
   ══════════════════════════════════════ */
   var CSS=`
-#btt{position:fixed;bottom:22px;right:20px;z-index:7400;width:62px;height:62px;border-radius:50%;border:2px solid rgba(201,168,76,.4);background:linear-gradient(135deg,#0A0702,#1C1208);cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.45);transition:transform .2s,opacity .3s;color:#C9A84C;font-size:22px;flex-direction:column;gap:0;line-height:1;}
-#btt:hover{transform:scale(1.08);border-color:rgba(201,168,76,.8);}
-#btt.visible{display:flex;}
-#btt .btt-arrow{font-size:20px;line-height:1;color:#C9A84C;}
-#btt .btt-lbl{font-family:'Cinzel',serif;font-size:6px;letter-spacing:1.5px;color:rgba(201,168,76,.6);text-transform:uppercase;margin-top:1px;}
-@media(max-width:768px){#btt{bottom:16px;right:16px;width:54px;height:54px;}}
 #rabiscoBtn{position:fixed;bottom:100px;right:20px;z-index:7500;width:62px;height:62px;border-radius:50%;border:2px solid rgba(201,168,76,.5);background:linear-gradient(135deg,#0A0702,#1C1208);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.5);transition:transform .2s;animation:rabiscoPulse 3s ease infinite;overflow:visible;}
 #rabiscoBtn:hover{transform:scale(1.08);}
 .skull-svg{width:38px;height:38px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.4));}
@@ -1123,9 +1115,13 @@
 
   /* ══════════════════════════════════════
      GATILHO SAÍDA — só bubble, não abre painel
+     Só dispara se a roleta de desconto (popup de tela
+     cheia) já tiver sido mostrada nessa sessão, para não
+     competir visualmente com ela no mesmo mouseleave.
   ══════════════════════════════════════ */
   document.addEventListener('mouseleave',function(e){
-    if(e.clientY<=5&&!_exitFired&&!RabiscoUI.aberto){
+    var roletaJaMostrada = !window.roletaSorteNaPeleJaMostrada || window.roletaSorteNaPeleJaMostrada();
+    if(e.clientY<=5&&!_exitFired&&!RabiscoUI.aberto&&roletaJaMostrada){
       _exitFired=true;
       mostrarBubble(visitaAnterior
         ? 'Fala'+(nomeAnterior?' '+nomeAnterior.split(' ')[0]:'')+'! 👊 A agenda está quase cheia. Posso ajudar?'
@@ -1146,21 +1142,12 @@
   resetInactivity();
 
   /* ══════════════════════════════════════
-     BOTÃO VOLTAR AO TOPO
+     BOTÃO VOLTAR AO TOPO — removido daqui.
+     O index.html já tem #scroll-top-btn com
+     label e barra de progresso; manter os dois
+     causava dois botões flutuantes idênticos
+     no canto inferior direito.
   ══════════════════════════════════════ */
-  (function(){
-    var btt=document.createElement('button');
-    btt.id='btt';
-    btt.setAttribute('aria-label','Voltar ao topo da página');
-    btt.setAttribute('title','Voltar ao topo');
-    btt.innerHTML='<span class="btt-arrow">▲</span><span class="btt-lbl">topo</span>';
-    btt.addEventListener('click',function(){ window.scrollTo({top:0,behavior:'smooth'}); });
-    document.body.appendChild(btt);
-    window.addEventListener('scroll',function(){
-      if(window.scrollY>400) btt.classList.add('visible');
-      else btt.classList.remove('visible');
-    },{passive:true});
-  })();
 
   window.RabiscoUI=RabiscoUI;
   window.mostrarBubble=mostrarBubble;
