@@ -92,10 +92,7 @@ body{font-family:'Raleway',sans-serif;background:#ede7da;color:#1a0a00;min-heigh
 .intl-parc-row:last-child{border-bottom:none;font-weight:700;}
 
 /* Botão PayPal */
-.btn-paypal{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:#003087;color:#fff;padding:16px;border-radius:8px;border:none;font-family:'Cinzel',serif;font-size:11px;font-weight:700;cursor:pointer;letter-spacing:1px;text-decoration:none;transition:background .2s;margin-bottom:10px;}
-.btn-paypal:hover{background:#001f5b;color:#fff;}
-.btn-paypal-eur{background:#009cde;}
-.btn-paypal-eur:hover{background:#007daf;}
+
 .pp-benefits{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
 .pp-bene{display:flex;align-items:center;gap:8px;font-size:13px;color:#2a1e0a;}
 .pp-lock{display:flex;align-items:center;justify-content:center;gap:5px;font-size:11px;color:#8a7355;}
@@ -238,59 +235,7 @@ body{font-family:'Raleway',sans-serif;background:#ede7da;color:#1a0a00;min-heigh
     </div>
   </div>
 
-  <!-- ═══ INTERNACIONAL: PAYPAL ═══ -->
-  <div class="pg-intl" id="secaoInternacional">
-    <div class="pg-intl-inner">
-      <div class="pg-intl-head">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4a3820" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-        <span id="pg-intl-head-txt">International Payment · PayPal</span>
-      </div>
-
-      <div class="pg-intl-grid">
-        <div>
-          <div class="intl-price-block">
-            <span class="intl-price-lbl" id="intlPriceLbl">Price</span>
-            <div class="intl-price-val" id="intlPriceVal">—</div>
-            <div class="intl-price-badge" id="intlPriceBadge">
-              ✦ Fixed international price
-            </div>
-          </div>
-
-          <div class="intl-parcelas">
-            <div class="intl-parc-head">Installments (via PayPal Credit)</div>
-            <div class="intl-parc-row"><span>1× (full)</span><span id="intlParc1x">—</span></div>
-            <div class="intl-parc-row"><span>3×</span><span id="intlParc3x">—</span></div>
-            <div class="intl-parc-row"><span>6×</span><span id="intlParc6x">—</span></div>
-          </div>
-
-          <a id="btnPayPal" href="#" target="_blank" class="btn-paypal">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/></svg>
-            <span id="btnPayPalText">Pay with PayPal</span>
-          </a>
-          <div class="pp-lock">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8a7355" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            Secure · Buyer protection · All major cards
-          </div>
-        </div>
-
-        <div>
-          <div class="pp-benefits">
-            <div class="pp-bene"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b5540" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Visa, Mastercard, Amex, Discover</div>
-            <div class="pp-bene"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b5540" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> PayPal balance accepted</div>
-            <div class="pp-bene"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b5540" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> PayPal Buyer Protection</div>
-            <div class="pp-bene"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b5540" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 200+ countries &amp; territories</div>
-            <div class="pp-bene"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b5540" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Instant access after payment</div>
-          </div>
-
-          <div class="intl-info-box">
-            <span class="intl-info-title" id="intlInfoTitle">💰 Fixed International Pricing</span>
-            <span id="intlInfoBody">This product has a fixed price for international customers, independent of exchange rate fluctuations. You always pay the same fair price.</span><br><br>
-            <span style="color:#8a7355;font-size:10px;" id="intlPriceNote"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- Seção internacional removida: visitantes fora do Brasil são redirecionados para /en/ ou /es/ (Stripe) -->
 
   <!-- PÓS PAGAMENTO -->
   <div class="pg-pos" id="pg-pos-section">
@@ -315,19 +260,7 @@ body{font-family:'Raleway',sans-serif;background:#ede7da;color:#1a0a00;min-heigh
       <span id="btnWppTxt">ENVIAR COMPROVANTE NO WHATSAPP</span>
     </a>
 
-    <!-- Opção de email — visível só para internacional (via JS) -->
-    <div id="pos-email-block" style="display:none;margin-top:12px;">
-      <div style="display:flex;align-items:center;gap:8px;margin:14px 0 8px;font-family:'Cinzel',serif;font-size:10px;color:#8a7355;letter-spacing:2px;text-transform:uppercase;">
-        <div style="flex:1;height:0.5px;background:#c8b898;"></div>
-        OR SEND BY EMAIL
-        <div style="flex:1;height:0.5px;background:#c8b898;"></div>
-      </div>
-      <a id="btnEmail" href="#" class="btn-wpp" style="background:#1a3a6a;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        <span id="btnEmailTxt">SEND PROOF BY EMAIL</span>
-      </a>
-      <p style="text-align:center;font-size:11px;color:#8a7355;margin-top:8px;font-family:'Cinzel',serif;letter-spacing:.5px;" id="pos-email-hint">carlosdinheironet@gmail.com · Subject: Payment proof</p>
-    </div>
+    <!-- Bloco de email PayPal removido: internacional usa Stripe (checkout próprio, sem comprovante manual) -->
   </div>
 
   <div class="pg-garantias">
@@ -345,8 +278,7 @@ body{font-family:'Raleway',sans-serif;background:#ede7da;color:#1a0a00;min-heigh
    ⚙️  CONFIGURAÇÃO — edite apenas esta seção
    ════════════════════════════════════════════════════ */
 
-// Seu e-mail PayPal Business
-const PAYPAL_EMAIL = 'carlosdinheironet@gmail.com';
+// Configuração de preços internacionais (Stripe é usado via index_en.html / index_es.html)
 
 /*
   TABELA DE PREÇOS INTERNACIONAIS FIXOS
@@ -431,14 +363,6 @@ const FLAGS = {BR:'🇧🇷',US:'🇺🇸',GB:'🇬🇧',CA:'🇨🇦',AU:'🇦�
 const fmtBRL = v => 'R$ ' + v.toFixed(2).replace('.',',');
 const fmtUSD = v => '$ '  + v.toFixed(2);
 const fmtEUR = v => '€ '  + v.toFixed(2);
-
-function paypalLink(nome, valor, currency) {
-  return 'https://www.paypal.com/cgi-bin/webscr?' + new URLSearchParams({
-    cmd:'_xclick', business:PAYPAL_EMAIL,
-    item_name:nome, amount:valor.toFixed(2),
-    currency_code:currency, no_note:'1', charset:'UTF-8'
-  });
-}
 
 function gerarPix(chave,nome,cidade,valor,txid){
   const vf=valor.toFixed(2);
@@ -540,98 +464,11 @@ async function init() {
     document.getElementById('btnWpp').href = `https://wa.me/5531983391576?text=${wppMsg}`;
 
   } else {
-    /* ── INTERNACIONAL ── */
-    const currency  = isEurope ? 'EUR' : 'USD';
-    const valor     = isEurope ? prod.eur : prod.usd;
-    const fmt       = isEurope ? fmtEUR : fmtUSD;
-    const btnColor  = isEurope ? ' btn-paypal-eur' : '';
-
-    // Banner
-    const banner = document.getElementById('currencyBanner');
-    banner.style.display = 'flex';
-    document.getElementById('cbFlag').textContent   = flag;
-    document.getElementById('cbTag').textContent    = currency;
-    document.getElementById('cbText').textContent   = `International pricing · Fixed price`;
-    document.getElementById('cbSaving').textContent = `Fixed ${currency} price`;
-
-    // Preço principal
-    document.getElementById('prodValor').textContent     = fmt(valor);
-    document.getElementById('prodParc').textContent      = currency;
-    document.getElementById('prodSub').style.display     = 'block';
-    document.getElementById('prodSub').textContent       = `Fixed international price`;
-
-    // Bloco PayPal
-    document.getElementById('intlPriceLbl').textContent  = `Price in ${currency}`;
-    document.getElementById('intlPriceVal').textContent  = fmt(valor);
-    document.getElementById('intlPriceBadge').textContent= `✦ Fixed ${currency} price · No conversion`;
-
-    // Parcelas informativas
-    document.getElementById('intlParc1x').textContent = fmt(valor);
-    document.getElementById('intlParc3x').textContent = fmt(+(valor/3).toFixed(2)) + '/mo';
-    document.getElementById('intlParc6x').textContent = fmt(+(valor/6).toFixed(2)) + '/mo';
-
-    // Link PayPal
-    document.getElementById('btnPayPal').href        = paypalLink(prod.nome, valor, currency);
-    document.getElementById('btnPayPal').className   = 'btn-paypal' + btnColor;
-    document.getElementById('btnPayPalText').textContent = `Pay with PayPal · ${fmt(valor)} ${currency}`;
-
-    // Info box customizada por produto
-    if (slug === 'central-tattoo') {
-      document.getElementById('intlInfoTitle').textContent  = '🌍 Complete Annual Ecosystem';
-      document.getElementById('intlInfoBody').innerHTML =
-        'Includes the <strong>full Central Tattoo platform</strong> (annual plan) <strong>+ all ebooks</strong>. ' +
-        'One price, everything unlocked. ' +
-        'Built for serious tattoo artists worldwide — language-independent tools and systems.';
-    }
-    document.getElementById('intlPriceNote').textContent =
-      `This product is ${fmtBRL(prod.brl)} in Brazil. The ${currency} price is set independently for international customers.`;
-
-    // Ocultar seção BR, mostrar internacional
-    document.getElementById('secaoBrasil').style.display     = 'none';
-    document.getElementById('secaoInternacional').style.display = 'block';
-
-    // WhatsApp + Email internacional
-    const wppMsg = encodeURIComponent(
-      `Hello Carlos! 👋\n\nI just paid for *${prod.nome}* (${fmt(valor)} ${currency}).\n\nI'm sending proof of payment. Please confirm and send my access link!\n\nThank you 🙏`
-    );
-    const emailSubject = encodeURIComponent(`Payment proof — ${prod.nome} (${fmt(valor)} ${currency})`);
-    const emailBody    = encodeURIComponent(
-      `Hello Carlos,\n\nI just paid for ${prod.nome} (${fmt(valor)} ${currency}) via PayPal.\nI'm attaching the payment proof.\n\nPlease confirm and send me the access link.\n\nThank you!`
-    );
-
-    document.getElementById('btnWpp').href           = `https://wa.me/5531983391576?text=${wppMsg}`;
-    document.getElementById('btnWppTxt').textContent = '📱 SEND PROOF ON WHATSAPP';
-    document.getElementById('posTitle').textContent  = 'Access guaranteed within 1 business hour';
-    document.getElementById('pos-sub-txt').textContent = 'What happens next?';
-    document.getElementById('pos-contact-label').textContent = 'WhatsApp · Carlos (International)';
-    document.getElementById('pos-resp-time').innerHTML = '⚡ Response<br>within 1h';
-    document.getElementById('posTxt').innerHTML =
-      `After paying via PayPal, send your <strong>payment proof</strong> to us via WhatsApp or email below.<br>
-       Carlos will confirm your payment and send your access link to <strong>WhatsApp</strong> and <strong>email</strong> within 1 business hour.`;
-
-    // Mostrar bloco de email
-    const emailBlock = document.getElementById('pos-email-block');
-    if(emailBlock) emailBlock.style.display = 'block';
-    const btnEmail = document.getElementById('btnEmail');
-    if(btnEmail){
-      btnEmail.href = `mailto:carlosdinheironet@gmail.com?subject=${emailSubject}&body=${emailBody}`;
-      document.getElementById('btnEmailTxt').textContent = '📧 SEND PROOF BY EMAIL';
-    }
-    const emailHint = document.getElementById('pos-email-hint');
-    if(emailHint) emailHint.textContent = 'carlosdinheironet@gmail.com — attach your PayPal receipt';
-
-    // Traduzir garantias
-    const gars = document.querySelectorAll('.pg-gar-txt');
-    const garTxts = ['100% Secure\nPayment','Access within\n1 business hour','5.0 Google\n380+ reviews'];
-    gars.forEach((el,i)=>{ if(garTxts[i]) el.innerHTML = garTxts[i].replace('\n','<br>'); });
-
-    // Botão voltar
-    const backLink = document.querySelector('.pg-back a');
-    if(backLink) backLink.textContent = '← Back to website';
-
-    // Header segurança
-    const secureEl = document.querySelector('.pg-secure');
-    if(secureEl) secureEl.childNodes[secureEl.childNodes.length-1].textContent = ' 100% Secure Payment';
+    /* ── INTERNACIONAL: sem PayPal — redireciona para o fluxo Stripe correto (EN/ES) ── */
+    const SPANISH_SPEAKING = new Set(['ES','MX','AR','CL','CO','PE','VE','EC','GT','CU','BO','DO','HN','PY','SV','NI','CR','PA','UY','PR']);
+    const lang = SPANISH_SPEAKING.has(country) ? 'es' : 'en';
+    window.location.href = `https://carlostattoobh.com.br/${lang}/#ebooks`;
+    return;
   }
 }
 init();

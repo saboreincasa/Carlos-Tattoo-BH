@@ -12,16 +12,19 @@
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init','1151853265430926');
 // Produto e valor lido do localStorage (salvo no clique do botão comprar)
+// Moeda detectada pela URL: thank-you.html acessado via /en/ ou /es/ = Stripe (USD), raiz = Mercado Pago (BRL)
 var _prod = localStorage.getItem('ct_last_produto') || 'ebook';
-var _valores = {trafego:97, instagram:97, posicionamento:147, templates:67, central:499};
-var _val = _valores[_prod] || 97;
-fbq('track','Purchase',{currency:'BRL',value:_val,content_name:_prod});
+var _isIntl = location.pathname.indexOf('/en/') !== -1 || location.pathname.indexOf('/es/') !== -1;
+var _valoresBRL = {trafego:97, instagram:97, posicionamento:147, templates:67, contrato:39.90, central:499};
+var _valoresUSD = {trafego:47, instagram:47, posicionamento:67, templates:67, contrato:39.90, central:400};
+var _moeda = _isIntl ? 'USD' : 'BRL';
+var _val = (_isIntl ? _valoresUSD : _valoresBRL)[_prod] || (_isIntl ? 47 : 97);
+fbq('track','Purchase',{currency:_moeda,value:_val,content_name:_prod});
 </script>
 <!-- GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CWJT7F85XN"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CWJT7F85XN');var _p2 = localStorage.getItem('ct_last_produto') || 'ebook';
-var _v2 = {trafego:97,instagram:97,posicionamento:147,templates:67,central:499}[_p2] || 97;
-gtag('event','purchase',{currency:'BRL',value:_v2,items:[{item_name:_p2}]});</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CWJT7F85XN');
+gtag('event','purchase',{currency:_moeda,value:_val,items:[{item_name:_prod}]});</script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Raleway',sans-serif;background:linear-gradient(145deg,#0A0702,#1C1208);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;color:#EDE4D4;}
@@ -155,7 +158,7 @@ if(prod==='central'){
       + '<p>Você acabou de aprender a gerar clientes. Agora organize tudo: agenda, financeiro, contratos e leads em um só sistema. Oferta especial para quem acabou de comprar.</p>'
       + '<div class="upsell-price">R$399<small style="font-size:18px">/ano</small></div>'
       + '<span class="upsell-old">Preço normal: R$499/ano — você economiza R$100</span><br>'
-      + '<a href="https://buy.stripe.com/fZu8wR79f8oj89S4Gd3wQ03" target="_blank" rel="noopener" class="btn-gold" onclick="fbq('track','InitiateCheckout',{content_name:'central_upsell'})">ASSINAR CENTRAL TATTOO — R$399/ANO</a>'
+      + '<a href="https://buy.stripe.com/fZu8wR79f8oj89S4Gd3wQ03" target="_blank" rel="noopener" class="btn-gold" onclick="fbq(&quot;track&quot;,&quot;InitiateCheckout&quot;,{content_name:&quot;central_upsell&quot;})">ASSINAR CENTRAL TATTOO — R$399/ANO</a>'
       + '<br><a href="mailto:carlostattoobh@gmail.com?subject=Upsell%20Central%20Tattoo&body=Acabei%20de%20comprar%20' + encodeURIComponent(nome) + '%20e%20quero%20o%20desconto%20no%20Central%20Tattoo" class="btn-wpp" style="display:inline-block;margin-top:10px;background:var(--g4);color:#fff;font-family:Cinzel,serif;font-size:10px;letter-spacing:1px;padding:12px 24px;border-radius:4px;text-decoration:none;">✉️ QUERO O DESCONTO — ENVIAR EMAIL</a>';
   } else if(prod === 'templates' && upsell){
     upsell.innerHTML = '<span class="upsell-tag">📚 Continue evoluindo</span>'

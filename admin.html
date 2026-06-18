@@ -1817,12 +1817,33 @@ function exportarCSVCursos() {
 }
 
 // ── ESPECIAIS ──
-function renderEspeciais() {
-  const areola = JSON.parse(localStorage.getItem('ct_leads_areola') || '[]');
-  const filtro = document.getElementById('filtroEspecial')?.value || '';
-  const lista = filtro==='areola' ? areola : filtro==='queimadura' ? [] : areola;
+async function renderEspeciais() {
   const el = document.getElementById('tabelaEspeciais');
   if (!el) return;
+  el.innerHTML = '<div class="tbl-empty">Carregando…</div>';
+
+  const filtro = document.getElementById('filtroEspecial')?.value || '';
+
+  // Busca do Supabase (fonte real, desde que enviarFormAreola() passou a gravar lá)
+  let areola = [];
+  try {
+    const { data } = await supabaseClient
+      .from('leads')
+      .select('*')
+      .eq('tipo', 'areola')
+      .order('data', { ascending: false });
+    areola = data || [];
+  } catch(e) { console.warn('Erro ao buscar leads de aréola:', e); }
+
+  // Fallback: leads antigos que ficaram presos no localStorage (antes da correção)
+  try {
+    const local = JSON.parse(localStorage.getItem('ct_leads_areola') || '[]');
+    areola = areola.concat(local.map(l => ({...l, _local: true})));
+  } catch(e) {}
+
+  // Queimadura não tem coleta separada hoje (usa o formulário geral de contato)
+  const lista = filtro === 'queimadura' ? [] : areola;
+
   if (!lista.length) { el.innerHTML = '<div class="tbl-empty">Nenhum lead especial registrado ainda.</div>'; return; }
   el.innerHTML = `<table class="tbl"><thead><tr><th>Nome</th><th>WhatsApp</th><th>Email</th><th>Tipo</th><th>Data</th><th>Ação</th></tr></thead><tbody>${
     lista.map(l => `<tr>
@@ -1836,17 +1857,50 @@ function renderEspeciais() {
   }</tbody></table>`;
 }
 
-function exportarCSVEspeciais() {
-  const l = JSON.parse(localStorage.getItem('ct_leads_areola') || '[]');
+async function exportarCSVEspeciais() {
+  let l = [];
+  try {
+    const { data } = await supabaseClient.from('leads').select('*').eq('tipo','areola').order('data',{ascending:false});
+    l = data || [];
+  } catch(e) {}
+  try {
+    const local = JSON.parse(localStorage.getItem('ct_leads_areola') || '[]');
+    l = l.concat(local);
+  } catch(e) {}
   const csv = ['Nome,WhatsApp,Email,Tipo,Data', ...l.map(x => `"${x.nome||''}","${x.wpp||''}","${x.email||''}","areola","${x.data||''}"`)].join('\n');
   const a = document.createElement('a'); a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv); a.download = 'leads_especiais.csv'; a.click();
 }
 
 // ── ACESSOS ──
-function carregarAcessos() {
-  const hoje = new Date().toISOString().split('T')[0];
-  const dh = JSON.parse(localStorage.getItem('ct_acessos_'+hoje) || '{"tatuagem":0,"cursos":0,"total":0}');
-  const hist = JSON.parse(localStorage.getItem('ct_acessos_hist') || '[]');
+async function carregarAcessos() {
+  const hojeISO = new Date().toISOString().split('T')[0];
+
+  // Busca os acessos dos últimos 30 dias no Supabase (fonte real)
+  let registros = [];
+  try {
+    const desde = new Date(); desde.setDate(desde.getDate() - 30);
+    const { data } = await supabaseClient
+      .from('acessos')
+      .select('data,url')
+      .gte('data', desde.toISOString());
+    registros = data || [];
+  } catch(e) { console.warn('Erro ao buscar acessos:', e); }
+
+  // Classifica cada acesso por dia e por categoria (cursos/ebooks vs tatuagem)
+  const porDia = {}; // { 'YYYY-MM-DD': {tatuagem, cursos, total} }
+  registros.forEach(r => {
+    const dia = (r.data || '').split('T')[0];
+    if (!dia) return;
+    if (!porDia[dia]) porDia[dia] = {tatuagem:0, cursos:0, total:0};
+    const url = r.url || '';
+    const ehCurso = /#ebooks|#cursos|painel|leitor|pagamento/.test(url);
+    porDia[dia][ehCurso ? 'cursos' : 'tatuagem']++;
+    porDia[dia].total++;
+  });
+
+  const dh = porDia[hojeISO] || {tatuagem:0, cursos:0, total:0};
+  const hist = Object.keys(porDia).map(data => ({data, ...porDia[data]}));
+
   document.getElementById('ac-hoje-total').textContent = dh.total||0;
   document.getElementById('ac-hoje-tattoo').textContent = dh.tatuagem||0;
   document.getElementById('ac-hoje-cursos').textContent = dh.cursos||0;
@@ -1872,17 +1926,28 @@ function carregarAcessos() {
   }).join('');
 }
 
-function exportarAcessos() {
-  const h = JSON.parse(localStorage.getItem('ct_acessos_hist') || '[]');
+async function exportarAcessos() {
+  let registros = [];
+  try {
+    const { data } = await supabaseClient.from('acessos').select('data,url').order('data',{ascending:false});
+    registros = data || [];
+  } catch(e) {}
+  const porDia = {};
+  registros.forEach(r => {
+    const dia = (r.data || '').split('T')[0];
+    if (!dia) return;
+    if (!porDia[dia]) porDia[dia] = {tatuagem:0, cursos:0, total:0};
+    const ehCurso = /#ebooks|#cursos|painel|leitor|pagamento/.test(r.url || '');
+    porDia[dia][ehCurso ? 'cursos' : 'tatuagem']++;
+    porDia[dia].total++;
+  });
+  const h = Object.keys(porDia).map(data => ({data, ...porDia[data]}));
   const csv = ['Data,Tatuagem,Cursos,Total', ...h.map(d => `${d.data},${d.tatuagem||0},${d.cursos||0},${d.total||0}`)].join('\n');
   const a = document.createElement('a'); a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv); a.download = 'acessos.csv'; a.click();
 }
 
 function limparAcessos() {
-  if (confirm('Limpar todo o histórico de acessos?')) {
-    Object.keys(localStorage).filter(k => k.startsWith('ct_acessos')).forEach(k => localStorage.removeItem(k));
-    carregarAcessos();
-  }
+  alert('Os acessos agora são registrados no banco de dados (Supabase), não mais no navegador. Para apagar o histórico, use o painel do Supabase diretamente.');
 }
 
 // ── VENDAS ──
