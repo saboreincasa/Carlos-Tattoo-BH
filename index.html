@@ -7205,50 +7205,82 @@ window.addEventListener('load', initScrollTopBtn);
 <!-- ════ RABISCO v5 — Assistente 100% local ════ -->
 <script src="rabisco.js" defer></script>
 <!-- ═══ MODAL TRIAL CENTRAL TATTOO ═══ -->
-<div id="modalTrial" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:9000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);">
-  <div style="background:linear-gradient(145deg,#1a1008,#0a0500);border:1px solid rgba(201,168,76,.35);border-radius:20px;padding:40px 36px;max-width:460px;width:100%;position:relative;box-shadow:0 24px 80px rgba(0,0,0,.7);">
-    <button onclick="fecharModalTrial()" style="position:absolute;top:16px;right:16px;background:none;border:none;color:rgba(255,255,255,.4);font-size:22px;cursor:pointer;line-height:1;">×</button>
+<style>
+.tm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);z-index:9000;display:none;align-items:center;justify-content:center;padding:16px;}
+.tm-overlay.show{display:flex;}
+.tm-box{background:#fff;border-radius:20px;width:100%;max-width:480px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.35);}
+.tm-header{background:linear-gradient(135deg,#1A0F06,#3D1F08);padding:32px 36px 24px;text-align:center;position:relative;}
+.tm-header::after{content:'⚡';position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:80px;opacity:.06;}
+.tm-badge{display:inline-block;background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.3);color:#FBBF24;font-size:10px;letter-spacing:3px;padding:4px 14px;border-radius:20px;margin-bottom:12px;font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;}
+.tm-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.2;}
+.tm-sub{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;}
+.tm-body{padding:28px 36px 32px;}
+.tm-fg{margin-bottom:16px;}
+.tm-fg label{display:block;font-size:11px;font-weight:700;color:#374151;letter-spacing:.7px;text-transform:uppercase;margin-bottom:6px;}
+.tm-fi{width:100%;background:#fff;border:1.5px solid #D1D5DB;border-radius:8px;padding:11px 14px;font-size:14px;color:#111827;transition:border .2s;outline:none;box-sizing:border-box;}
+.tm-fi:focus{border-color:#B45309;box-shadow:0 0 0 3px rgba(180,83,9,.08);}
+.tm-fi::placeholder{color:#9CA3AF;}
+.tm-modules{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0 20px;}
+.tm-mod{background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:10px 12px;font-size:12px;color:#374151;display:flex;align-items:center;gap:7px;}
+.tm-mod.free{border-color:#A7F3D0;background:#ECFDF5;color:#065F46;}
+.tm-mod.lock{border-color:#FDE68A;background:#FFFBEB;color:#92400E;}
+.tm-btn{width:100%;background:linear-gradient(135deg,#92400E,#FBBF24);color:#1A0F06;border:none;padding:15px;border-radius:10px;font-family:'Cormorant Garamond',Georgia,serif;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.5px;transition:all .2s;}
+.tm-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(180,83,9,.3);}
+.tm-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.tm-err{background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:10px 14px;font-size:13px;color:#B91C1C;margin-bottom:14px;display:none;}
+.tm-footer{font-size:11px;color:#9CA3AF;text-align:center;margin-top:12px;line-height:1.6;}
+.tm-close{position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(255,255,255,.5);font-size:22px;cursor:pointer;line-height:1;padding:4px;}
+.tm-close:hover{color:#fff;}
+</style>
 
-    <div style="text-align:center;margin-bottom:28px;">
-      <div style="font-family:'Cinzel Decorative',cursive;font-size:13px;color:#E8B800;letter-spacing:2px;margin-bottom:12px;">⚙️ CENTRAL TATTOO</div>
-      <h3 style="font-family:'Cinzel Decorative',cursive;font-size:20px;color:#fff;line-height:1.3;margin-bottom:10px;">Teste Gratuito por 48 Horas</h3>
-      <p style="font-family:'Cinzel',serif;font-size:12px;color:rgba(255,255,255,.6);letter-spacing:1px;">4 módulos · Sem cartão · Acesso imediato</p>
+<div id="modalTrial" class="tm-overlay">
+  <div class="tm-box">
+    <div class="tm-header">
+      <button class="tm-close" onclick="fecharModalTrial()">✕</button>
+      <div class="tm-badge">TESTE GRATUITO · 48 HORAS</div>
+      <div class="tm-title">Experimente o Central Tattoo Pro</div>
+      <div class="tm-sub">Acesso completo por 48 horas. Sem cartão de crédito.</div>
     </div>
-
-    <!-- Formulário -->
-    <div id="trialFormWrap">
-      <div style="margin-bottom:16px;">
-        <label style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.6);display:block;margin-bottom:6px;text-transform:uppercase;">Nome completo</label>
-        <input id="trial-nome" type="text" placeholder="Seu nome" autocomplete="name"
-          style="width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(201,168,76,.25);border-radius:8px;padding:12px 16px;color:#fff;font-family:'Cinzel',serif;font-size:13px;outline:none;">
+    <div class="tm-body">
+      <!-- Formulário -->
+      <div id="trialFormWrap">
+        <div class="tm-fg">
+          <label>Seu Nome</label>
+          <input id="trial-nome" class="tm-fi" type="text" placeholder="Carlos Henrique" autocomplete="name">
+        </div>
+        <div class="tm-fg">
+          <label>E-mail</label>
+          <input id="trial-email" class="tm-fi" type="email" placeholder="seu@email.com" autocomplete="email">
+        </div>
+        <div class="tm-fg">
+          <label>WhatsApp</label>
+          <input id="trial-wpp" class="tm-fi" type="tel" placeholder="+55 31 99999-9999" autocomplete="tel">
+        </div>
+        <p style="font-size:11px;font-weight:700;color:#374151;letter-spacing:.7px;text-transform:uppercase;margin:16px 0 8px;">O que você vai testar:</p>
+        <div class="tm-modules">
+          <div class="tm-mod free">📊 Dashboard</div>
+          <div class="tm-mod free">📅 Agenda</div>
+          <div class="tm-mod free">🧮 Calculadora</div>
+          <div class="tm-mod free">📖 Tutorial</div>
+          <div class="tm-mod lock">🔒 +12 módulos Premium</div>
+          <div class="tm-mod lock">💎 Acesso completo na assinatura</div>
+        </div>
+        <div id="trial-erro" class="tm-err"></div>
+        <button onclick="registrarTrial()" id="btn-trial-submit" class="tm-btn">
+          INICIAR MEU TRIAL GRATUITO →
+        </button>
+        <p class="tm-footer">🔒 Dados protegidos · Sem cobrança automática</p>
       </div>
-      <div style="margin-bottom:16px;">
-        <label style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.6);display:block;margin-bottom:6px;text-transform:uppercase;">E-mail</label>
-        <input id="trial-email" type="email" placeholder="seu@email.com" autocomplete="email"
-          style="width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(201,168,76,.25);border-radius:8px;padding:12px 16px;color:#fff;font-family:'Cinzel',serif;font-size:13px;outline:none;">
+      <!-- Sucesso -->
+      <div id="trialSuccessWrap" style="display:none;text-align:center;padding:20px 0;">
+        <div style="font-size:52px;margin-bottom:16px;">✅</div>
+        <h3 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;color:#1A0F06;margin-bottom:10px;">Acesso liberado!</h3>
+        <p id="trial-success-msg" style="font-size:14px;color:#6B7280;line-height:1.8;margin-bottom:24px;">Clique abaixo para entrar no sistema agora.</p>
+        <a id="trial-link-acesso" href="central_tattoo.html" target="_blank"
+          style="display:inline-block;background:linear-gradient(135deg,#92400E,#FBBF24);color:#1A0F06;padding:14px 36px;border-radius:50px;font-family:'Cormorant Garamond',Georgia,serif;font-size:14px;font-weight:700;letter-spacing:1px;text-decoration:none;">
+          ACESSAR O SISTEMA →
+        </a>
       </div>
-      <div style="margin-bottom:24px;">
-        <label style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.6);display:block;margin-bottom:6px;text-transform:uppercase;">WhatsApp</label>
-        <input id="trial-wpp" type="tel" placeholder="(31) 99999-9999" autocomplete="tel"
-          style="width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(201,168,76,.25);border-radius:8px;padding:12px 16px;color:#fff;font-family:'Cinzel',serif;font-size:13px;outline:none;">
-      </div>
-      <div id="trial-erro" style="display:none;background:rgba(192,57,43,.15);border:1px solid rgba(192,57,43,.4);border-radius:8px;padding:10px 14px;font-family:'Cinzel',serif;font-size:12px;color:#e74c3c;margin-bottom:14px;"></div>
-      <button onclick="registrarTrial()" id="btn-trial-submit"
-        style="width:100%;background:linear-gradient(135deg,#25D366,#1aaa50);color:#fff;border:none;padding:15px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;font-weight:700;border-radius:8px;cursor:pointer;transition:all .2s;text-transform:uppercase;">
-        🟢 INICIAR MEU TESTE AGORA
-      </button>
-      <p style="font-family:'Cinzel',serif;font-size:10px;color:rgba(255,255,255,.35);text-align:center;margin-top:12px;letter-spacing:1px;">Sem cartão · Sem compromisso · Cancela quando quiser</p>
-    </div>
-
-    <!-- Sucesso -->
-    <div id="trialSuccessWrap" style="display:none;text-align:center;">
-      <div style="font-size:52px;margin-bottom:16px;">✅</div>
-      <h3 style="font-family:'Cinzel Decorative',cursive;font-size:18px;color:#E8B800;margin-bottom:10px;">Acesso liberado!</h3>
-      <p id="trial-success-msg" style="font-family:'Cinzel',serif;font-size:13px;color:rgba(255,255,255,.8);line-height:1.8;margin-bottom:24px;">Seu acesso foi criado. Verifique seu email para acessar o sistema.</p>
-      <a id="trial-link-acesso" href="central_tattoo.html" target="_blank"
-        style="display:inline-block;background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;padding:14px 36px;border-radius:50px;font-family:'Cinzel',serif;font-size:11px;font-weight:700;letter-spacing:2px;text-decoration:none;">
-        ACESSAR O SISTEMA →
-      </a>
     </div>
   </div>
 </div>
@@ -7256,11 +7288,11 @@ window.addEventListener('load', initScrollTopBtn);
 <script>
 // ── TRIAL CENTRAL TATTOO ──
 function abrirModalTrial(){
-  document.getElementById('modalTrial').style.display='flex';
+  document.getElementById('modalTrial').classList.add('show');
   document.body.style.overflow='hidden';
 }
 function fecharModalTrial(){
-  document.getElementById('modalTrial').style.display='none';
+  document.getElementById('modalTrial').classList.remove('show');
   document.body.style.overflow='';
 }
 
