@@ -2463,6 +2463,52 @@ async function initSB(){
     }
   }
 
+  // Verificar se tem token na URL (?trial=TOKEN)
+  const urlParams=new URLSearchParams(location.search);
+  const urlToken=urlParams.get('trial');
+
+  if(urlToken&&sbClient){
+    try{
+      const{data,error}=await sbClient.from('trials').select('*').eq('token',urlToken).single();
+      if(error||!data){
+        // Token não encontrado
+        if(loading)loading.style.display='none';
+        aplicarTextosTrial(t);
+        const errEl=document.getElementById('tm-err');
+        if(errEl){errEl.textContent='Link de trial inválido ou expirado.';errEl.style.display='block';}
+        document.getElementById('trial-modal').classList.add('show');
+        return;
+      }
+      const exp=new Date(data.data_expiracao);
+      const now=new Date();
+      if(now>=exp){
+        // Trial expirado
+        if(loading)loading.style.display='none';
+        mostrarModalExpiradoFinal(t);
+        return;
+      }
+      // Trial válido — salvar no localStorage e liberar acesso
+      localStorage.setItem('ct_trial_token',data.token);
+      localStorage.setItem('ct_trial_expiry',data.data_expiracao);
+      localStorage.setItem('ct_trial_nome',data.nome||'');
+      localStorage.setItem('ct_trial_email',data.email||'');
+      window.TRIAL_MODE=true;
+      window.TRIAL_DATA={token:data.token,expiry:exp,nome:data.nome,email:data.email};
+      USER={nome:data.nome,email:data.email};
+      IS_ADM=false;
+      // Atualizar último acesso
+      sbClient.from('trials').update({ultimo_acesso:now.toISOString()}).eq('token',data.token).then(()=>{});
+      // Limpar token da URL sem recarregar
+      const cleanUrl=location.pathname+(location.search.replace(/[?&]trial=[^&]*/,'').replace(/^&/,'?')||'');
+      history.replaceState(null,'',cleanUrl);
+      if(loading)loading.style.display='none';
+      iniciarSistemaTrial(t);
+      return;
+    }catch(e){
+      console.warn('Erro ao validar trial por URL:',e);
+    }
+  }
+
   // Sem trial — mostrar modal de cadastro
   if(loading)loading.style.display='none';
   aplicarTextosTrial(t);
