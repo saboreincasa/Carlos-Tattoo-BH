@@ -1149,7 +1149,7 @@ html{scroll-behavior:smooth;}
   .pfiltro{padding:8px 12px !important;font-size:9px !important;}
 }
 @media(max-width:480px){
-  .hero-photo-frame img{width:160px !important;height:240px !important;object-fit:cover !important;object-position:top center !important;max-height:65vh;}
+  .hero-photo-frame img{width:100% !important;height:auto !important;object-fit:contain !important;object-position:top center !important;max-height:65vh;}
   .ebooks-grid{grid-template-columns:1fr !important;}
   .pix-box{padding:16px 12px !important;}
 }
@@ -1585,7 +1585,7 @@ button[style*="background:#0a0500"], button[style*="background:var(--ink)"]{colo
   .pix-overlay{align-items:flex-end !important;}
   .pix-modal-inner{border-radius:20px 20px 0 0 !important;max-height:92vh !important;overflow-y:auto !important;}
   .hero-photo-frame{width:100% !important;max-width:280px !important;margin:0 auto !important;}
-  .hero-photo-frame img{width:100% !important;height:auto !important;border-radius:16px !important;object-fit:cover !important;object-position:top center !important;max-height:320px !important;}
+  .hero-photo-frame img{width:100% !important;height:auto !important;border-radius:16px !important;object-fit:contain !important;object-position:center top !important;max-height:420px !important;}
   .fp-locais-grid{grid-template-columns:repeat(3,1fr) !important;}
   ::-webkit-scrollbar{width:3px !important;}
   .faq-q{font-size:14px !important;padding:16px !important;text-align:left !important;}
@@ -2801,7 +2801,8 @@ const sp_names=['James from London','Sofia from Berlin','Maria from NYC','Robert
 const sp_actions=['just booked a tattoo session','purchased the Traffic Ebook','started the VIP Mentorship','completed their sleeve project','booked a cover up evaluation'];
 let sp_i=0;
 function showSP(){const pop=document.getElementById('sp-popup');if(!pop)return;document.getElementById('sp-nm').textContent=sp_names[Math.floor(Math.random()*sp_names.length)];document.getElementById('sp-ac').textContent=sp_actions[Math.floor(Math.random()*sp_actions.length)];pop.classList.add('show');setTimeout(()=>pop.classList.remove('show'),4000);}
-setTimeout(()=>{showSP();setInterval(showSP,12000);},5000);
+let sp_count=0;
+setTimeout(()=>{showSP();sp_count++;const spInt=setInterval(()=>{showSP();sp_count++;if(sp_count>=4)clearInterval(spInt);},90000);},10000);
 
 /* VAGAS COUNT */
 document.querySelectorAll('#vagas-count').forEach(el=>el.textContent=Math.floor(Math.random()*4)+3);
