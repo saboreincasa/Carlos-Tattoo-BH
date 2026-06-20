@@ -475,7 +475,7 @@
   var leadStep = 0; // 0=antes de abrir, 1=pediu nome, 2=pediu wpp, 3=concluido
 
   function salvarLead() {
-    sbPost('leads',{nome:leadNome,wpp:leadWpp,origem:'rabisco',tipo:'tatuagem',data:new Date().toISOString()});
+    sbPost('leads',{nome:leadNome,wpp:leadWpp,origem:'rabisco',tipo:'tatuagem',score:leadScore,categoria:leadCategoria,data:new Date().toISOString()});
     try {
       var leads=JSON.parse(localStorage.getItem('ct_leads')||'[]');
       leads.push({nome:leadNome,wpp:leadWpp,origem:'rabisco',tipo:'tatuagem',data:new Date().toISOString()});
@@ -483,6 +483,129 @@
     } catch(e){}
     rbTrack('lead_capturado',{nome:leadNome,wpp:leadWpp});
     if(typeof fbq!=='undefined') fbq('track','Lead',{content_name:'Rabisco'});
+  }
+
+  /* ══════════════════════════════════════
+     SCORE DE LEAD (intenção + premium)
+     0–49 frio · 50–79 morno · 80+ quente
+     Requer tabela `chat_logs` no Supabase (ver SQL enviado)
+  ══════════════════════════════════════ */
+  var leadScore       = 0;
+  var leadCategoria   = 'frio';
+  var enviouFoto       = false;
+  var ultimaObjecao    = '';
+  var _intencaoExtra   = 0;     // soma de gatilhos textuais de "pronto pra fechar"
+  var _modoCarlosAtivo = false;
+  var _sessionId = (function(){
+    try {
+      var sid = sessionStorage.getItem('rb_sessao');
+      if(!sid){ sid='rb_'+Date.now()+'_'+Math.random().toString(36).substring(2,9); sessionStorage.setItem('rb_sessao',sid); }
+      return sid;
+    } catch(e){ return 'rb_'+Date.now(); }
+  })();
+
+  var REGEX_INTENCAO_ALTA = /quero fechar|quero agendar|quando (tem|posso)|valor exato|essa semana|amanha|hoje mesmo|fazer o pix|pagar (agora|hoje)|vamos marcar|bora marcar/;
+  var REGEX_OBJECAO = {
+    preco:  /\b(caro|cara|sem dinheiro|fora do (meu )?orcamento|nao tenho grana|nao da pra pagar)\b/,
+    tempo:  /vou pensar|depois (eu )?vejo|mais pra frente|sem tempo agora|nao decidi ainda/,
+    duvida: /tenho duvida|nao sei se|medo de|insegur/
+  };
+
+  function detectarObjecao(norm){
+    for(var tipo in REGEX_OBJECAO){ if(REGEX_OBJECAO[tipo].test(norm)) return tipo; }
+    return null;
+  }
+
+  function calcularScore(){
+    var s=0;
+    if(qualificacao.urgencia==='urgente') s+=40;
+    else if(qualificacao.urgencia==='mes') s+=20;
+    if(qualificacao.interesse==='cobertura'||qualificacao.interesse==='queimadura') s+=30;
+    else if(qualificacao.interesse==='areola') s+=25;
+    if(enviouFoto) s+=50;
+    if(qualificacao.tamanho==='grande'||qualificacao.tamanho==='projeto') s+=20;
+    else if(qualificacao.tamanho==='media') s+=10;
+    if(/realismo|black and grey|biomec/.test(ctx.estilo||'')) s+=15;
+    if(estaAberto()) s+=10;
+    s+=_intencaoExtra;
+    leadScore = Math.min(s,150);
+    leadCategoria = leadScore>=80 ? 'quente' : (leadScore>=50 ? 'morno' : 'frio');
+    if(leadCategoria==='quente' && !_modoCarlosAtivo){
+      _modoCarlosAtivo=true;
+      setTimeout(function(){
+        RabiscoUI.addMsg('🔥 Vou priorizar seu atendimento — sou o assistente do Carlos e já vou deixar tudo pronto pra ele te chamar pessoalmente.','bot');
+      },500);
+      rbTrack('lead_quente',{score:leadScore,nome:leadNome,wpp:leadWpp});
+    }
+    return leadScore;
+  }
+
+  function registrarObjecao(tipo){
+    ultimaObjecao=tipo;
+    logChat('objecao','[objeção detectada: '+tipo+']');
+  }
+
+  function logChat(tipoEvento, mensagem, respostaTag){
+    sbPost('chat_logs',{
+      sessao: _sessionId,
+      nome: leadNome||null,
+      wpp: leadWpp||null,
+      mensagem: (mensagem||'').toString().substring(0,300),
+      resposta_tag: respostaTag||null,
+      tipo_evento: tipoEvento||'mensagem',
+      score: leadScore,
+      categoria: leadCategoria,
+      secao: secaoAtual,
+      objecao: ultimaObjecao||null,
+      criado_em: new Date().toISOString()
+    });
+  }
+
+  /* ══════════════════════════════════════
+     VARIAÇÕES DE RESPOSTA (anti-robô)
+  ══════════════════════════════════════ */
+  var CONECTORES=['Boa pergunta!','Entendi!','Show!','Faz sentido!','Ótimo!','Saquei!'];
+  var _ultimoConector='';
+  function aplicarVariacao(resp){
+    if(Math.random()>0.3) return resp; // ~30% das vezes
+    var opcoes=CONECTORES.filter(function(c){ return c!==_ultimoConector; });
+    var c=opcoes[Math.floor(Math.random()*opcoes.length)];
+    _ultimoConector=c;
+    return c+' '+resp;
+  }
+
+  /* ══════════════════════════════════════
+     UPLOAD DE FOTO (Supabase Storage)
+     Bucket esperado: rabisco-fotos (público, insert liberado pro anon)
+  ══════════════════════════════════════ */
+  function abrirSeletorFoto(callback){
+    var inp=document.createElement('input');
+    inp.type='file'; inp.accept='image/*'; inp.style.display='none';
+    document.body.appendChild(inp);
+    inp.onchange=function(){
+      var file=inp.files&&inp.files[0];
+      document.body.removeChild(inp);
+      callback(file||null);
+    };
+    inp.click();
+  }
+
+  function uploadFotoSupabase(file, callback){
+    if(!file){ callback(null); return; }
+    var ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
+    var nomeArq='lead-'+Date.now()+'-'+Math.random().toString(36).substring(2,8)+'.'+ext;
+    fetch(SB_URL+'/storage/v1/object/rabisco-fotos/'+nomeArq,{
+      method:'POST',
+      headers:{ 'apikey':SB_KEY, 'Authorization':'Bearer '+SB_KEY, 'Content-Type': file.type||'image/jpeg' },
+      body:file
+    }).then(function(r){
+      if(r.ok) callback(SB_URL+'/storage/v1/object/public/rabisco-fotos/'+nomeArq);
+      else callback(null);
+    }).catch(function(){ callback(null); });
+  }
+
+  function salvarFotoLead(url){
+    sbPost('lead_fotos',{nome:leadNome||null,wpp:leadWpp||null,foto_url:url,interesse:qualificacao.interesse||null,criado_em:new Date().toISOString()});
   }
 
   // Visita anterior
@@ -553,20 +676,25 @@
   var FUNIL_PRINCIPAL=[
     {id:'interesse', pergunta:'O que você está buscando hoje? 🎯',
      opcoes:[
-       {txt:'🎨 Fazer uma tattoo nova',  valor:'tattoo_nova'},
-       {txt:'🔄 Reformar tattoo antiga', valor:'cobertura'},
-       {txt:'💖 Reconstrução de aréola', valor:'areola'},
-       {txt:'📚 Sou tatuador',           valor:'tatuador'}
+       {txt:'🎨 Fazer uma tattoo nova',   valor:'tattoo_nova'},
+       {txt:'🔄 Reformar tattoo antiga',  valor:'cobertura'},
+       {txt:'🔥 Cobertura de queimadura', valor:'queimadura'},
+       {txt:'💖 Reconstrução de aréola',  valor:'areola'},
+       {txt:'📚 Sou tatuador',            valor:'tatuador'}
      ]
     },
     {id:'tamanho', pergunta:'Qual o tamanho aproximado? 📏',
-     condicao:function(q){return q.interesse==='tattoo_nova'||q.interesse==='cobertura';},
+     condicao:function(q){return q.interesse==='tattoo_nova'||q.interesse==='cobertura'||q.interesse==='queimadura';},
      opcoes:[
        {txt:'🔹 Pequena (até 10cm)', valor:'pequena'},
        {txt:'🔸 Média (10 a 20cm)', valor:'media'},
        {txt:'🔶 Grande (acima 20cm)',valor:'grande'},
        {txt:'🔥 Projeto completo',   valor:'projeto'}
      ]
+    },
+    {id:'foto', tipo:'foto',
+     pergunta:'Quer mandar uma foto da área agora? 📸\n\nQuanto melhor a foto, mais preciso fica o orçamento do Carlos.',
+     condicao:function(q){return q.interesse==='tattoo_nova'||q.interesse==='cobertura'||q.interesse==='queimadura';}
     },
     {id:'urgencia', pergunta:'Quando você quer fazer? ⏰',
      condicao:function(q){return q.interesse!=='tatuador';},
@@ -640,6 +768,42 @@
     while(_funilPasso<funil.length&&funil[_funilPasso].condicao&&!funil[_funilPasso].condicao(qualificacao)) _funilPasso++;
     if(_funilPasso>=funil.length){ concluirFunilPrincipal(); return; }
     var passo=funil[_funilPasso];
+
+    if(passo.tipo==='foto'){
+      setTimeout(function(){
+        RabiscoUI.addMsg(passo.pergunta,'bot');
+        var sugs=document.getElementById('rbSugs'); sugs.innerHTML='';
+        var btnEnviar=document.createElement('button'); btnEnviar.className='rb-sug rb-funil-opt'; btnEnviar.textContent='📸 Enviar foto agora';
+        btnEnviar.onclick=function(){
+          sugs.innerHTML='';
+          abrirSeletorFoto(function(file){
+            if(!file){ avancarFunil(); return; }
+            RabiscoUI.addMsg('📷 Foto selecionada — enviando...','user');
+            uploadFotoSupabase(file,function(url){
+              if(url){
+                enviouFoto=true;
+                qualificacao.fotoUrl=url;
+                salvarFotoLead(url);
+                calcularScore();
+                RabiscoUI.addMsg('Foto recebida! ✅ Isso ajuda muito o Carlos a dar um orçamento mais preciso.','bot');
+              } else {
+                RabiscoUI.addMsg('Não consegui enviar a foto agora 😕 Sem problema — você pode anexar direto no formulário também.','bot');
+              }
+              setTimeout(function(){ avancarFunil(); },500);
+            });
+          });
+        };
+        var btnPular=document.createElement('button'); btnPular.className='rb-sug rb-funil-opt'; btnPular.textContent='⏭️ Pular, enviar depois';
+        btnPular.onclick=function(){
+          RabiscoUI.addMsg('Pular foto por agora','user');
+          sugs.innerHTML='';
+          avancarFunil();
+        };
+        sugs.appendChild(btnEnviar); sugs.appendChild(btnPular);
+      },600);
+      return;
+    }
+
     setTimeout(function(){
       RabiscoUI.addMsg(passo.pergunta,'bot');
       var sugs=document.getElementById('rbSugs'); sugs.innerHTML='';
@@ -649,6 +813,7 @@
           qualificacao[passo.id]=op.valor;
           RabiscoUI.addMsg(op.txt,'user');
           sugs.innerHTML='';
+          calcularScore();
           if(op.valor==='tatuador'){ _funilAtivo=false; setTimeout(function(){ iniciarFunilTatuador(); },400); return; }
           avancarFunil();
         };
@@ -723,11 +888,14 @@
 
   function concluirFunilPrincipal(){
     _funilAtivo=false;
+    calcularScore();
     rbTrack('funil_concluido',qualificacao);
+    logChat('funil_concluido', JSON.stringify(qualificacao));
     preencherFormulario(qualificacao);
     var msgs={
       tattoo_nova:'Incrível! 🎨 Carlos vai adorar criar isso pra você.\n\nPreenche o formulário — ele te responde no WhatsApp com a proposta!',
-      cobertura:'Perfeito! 🔄 Reforma é nossa especialidade #1.\n\nPreenches com uma foto da tattoo atual — Carlos analisa gratuitamente!',
+      cobertura:'Perfeito! 🔄 Reforma é nossa especialidade #1.\n\nPreenches o formulário — Carlos analisa gratuitamente!',
+      queimadura:'Entendido 💪 Cobertura de queimadura exige sensibilidade e técnica — é uma das especialidades do Carlos.\n\nPreenches o formulário — ele avalia com todo cuidado!',
       areola:'Entendido 💖 Carlos faz esse trabalho com muito cuidado.\n\nPreenches o formulário — ele entra em contato com toda atenção.',
     };
     setTimeout(function(){
@@ -739,7 +907,7 @@
   function preencherFormulario(q){
     if(!q) return;
     try{
-      var mapaEstilo={tattoo_nova:null,cobertura:'Reforma / Cover Up',areola:null};
+      var mapaEstilo={tattoo_nova:null,cobertura:'Reforma / Cover Up',queimadura:'Reforma / Cover Up',areola:null};
       var mapaTamanho={pequena:'Pequena (até 10cm)',media:'Média (10 a 20cm)',grande:'Grande (acima 20cm)',projeto:'Projeto Completo'};
       if(q.interesse&&mapaEstilo[q.interesse]){ var fe=document.getElementById('fp-estilo'); if(fe) fe.value=mapaEstilo[q.interesse]; }
       if(q.tamanho&&mapaTamanho[q.tamanho]){ var ft=document.getElementById('fp-tamanho'); if(ft) ft.value=mapaTamanho[q.tamanho]; }
@@ -747,10 +915,12 @@
       if(fi&&!fi.value){
         var txt='';
         if(q.interesse==='cobertura') txt='Quero reformar/cobrir uma tatuagem antiga.';
+        else if(q.interesse==='queimadura') txt='Quero fazer cobertura de queimadura.';
         else if(q.interesse==='tattoo_nova') txt='Quero fazer uma tatuagem nova.';
         if(txt&&q.tamanho) txt+=' Tamanho: '+(mapaTamanho[q.tamanho]||q.tamanho)+'.';
         if(ctx.partCorpo) txt+=' Local: '+ctx.partCorpo+'.';
         if(ctx.estilo) txt+=' Estilo de interesse: '+ctx.estilo+'.';
+        if(q.fotoUrl) txt+=' Foto enviada via chat: '+q.fotoUrl+'.';
         if(txt) fi.value=txt;
       }
     }catch(e){}
@@ -920,6 +1090,7 @@
             leadWpp = nums;
             RabiscoUI.addMsg(val2,'user');
             document.getElementById('rbLeadWrap').remove();
+            calcularScore();
             salvarLead();
             salvarVisita(leadNome);
             leadStep = 3;
@@ -967,9 +1138,11 @@
         clearTimeout(_secaoTimer);
         if(!this.iniciado) this.iniciar();
         this.atualizarSecaoTag();
+        resetIdleChatTimers();
       } else {
         panel.classList.remove('open');
         resetSecaoTimer();
+        clearTimeout(_idleChatTimer40); clearTimeout(_idleChatTimer120);
       }
     },
 
@@ -1020,11 +1193,28 @@
 
       this.addMsg(msg,'user'); this.hideSugs(); this.hideCtas(); this.msgCount++;
       rbTrack('mensagem_enviada',{msg:msg.substring(0,60)});
+
+      // Score: intenção textual de compra + objeção
+      var normMsg = normalizar(corrigirTypos(msg));
+      if(REGEX_INTENCAO_ALTA.test(normMsg)) _intencaoExtra = Math.min(_intencaoExtra+50, 50);
+      var objecaoDetectada = detectarObjecao(normMsg);
+      if(objecaoDetectada) registrarObjecao(objecaoDetectada);
+      calcularScore();
+      logChat('mensagem', msg);
+
       var tempo=700+Math.min(msg.length*12,1800);
       this.setCarregando(true); var typing=this.addTyping(); var self=this;
 
       setTimeout(function(){
         typing.remove(); self.setCarregando(false);
+
+        // Objeção de "vou pensar" tem resposta de retenção dedicada (anti-perda)
+        if(objecaoDetectada==='tempo'){
+          self.addMsg('Sem problema 😊 Posso deixar seu orçamento preparado e te aviso quando quiser continuar — sem compromisso nenhum.','bot');
+          self.mostrarSugs(['📋 Deixar orçamento preparado','🎨 Continuar agora']);
+          return;
+        }
+
         var resultado=buscarResposta(msg);
 
         if(!resultado){
@@ -1036,6 +1226,7 @@
         var resposta = injetarContexto(resultado.resp);
         var empatia  = !!resultado.empatia;
         empatia = empatia || /cicatriz|queimadura|mastectomia|areola|cancer|mama|sobrevivente|gravida/i.test(msg);
+        if(!empatia) resposta = aplicarVariacao(resposta);
         self.addMsg(resposta,'bot',empatia);
 
         // CTA de formulário só quando a resposta pede
@@ -1084,7 +1275,7 @@
       ctas.appendChild(card);
     },
 
-    addMsg:function(txt,tipo,empatia,horario){
+    addMsg:function(txt,tipo,empatia,horario,semResetIdle){
       var msgs=document.getElementById('rbMsgs');
       var outer=document.createElement('div'); outer.className='rb-msg-wrap';
       if(tipo==='bot'){ var nd=document.createElement('div'); nd.className='rb-msg-name'; nd.textContent='Rabisco'; outer.appendChild(nd); }
@@ -1093,6 +1284,7 @@
       m.innerHTML=txt.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
         .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
       outer.appendChild(m); msgs.appendChild(outer); msgs.scrollTop=msgs.scrollHeight;
+      if(!semResetIdle) resetIdleChatTimers();
     },
 
     addTyping:function(){
@@ -1119,6 +1311,33 @@
      cheia) já tiver sido mostrada nessa sessão, para não
      competir visualmente com ela no mesmo mouseleave.
   ══════════════════════════════════════ */
+
+  /* ══════════════════════════════════════
+     RECUPERAÇÃO DE ABANDONO DENTRO DO CHAT
+     40s sem atividade após uma mensagem → "ainda aí?"
+     +120s sem atividade → oferece guardar a vaga
+  ══════════════════════════════════════ */
+  var _idleChatTimer40=null, _idleChatTimer120=null;
+  var _abandonoMsg40=false, _abandonoMsg120=false;
+  function resetIdleChatTimers(){
+    clearTimeout(_idleChatTimer40); clearTimeout(_idleChatTimer120);
+    if(!RabiscoUI.aberto) return;
+    _abandonoMsg40=false; _abandonoMsg120=false;
+    _idleChatTimer40=setTimeout(function(){
+      if(RabiscoUI.aberto && !_abandonoMsg40){
+        _abandonoMsg40=true;
+        RabiscoUI.addMsg('Ainda está aí? 👀','bot',false,false,true);
+      }
+    },40000);
+    _idleChatTimer120=setTimeout(function(){
+      if(RabiscoUI.aberto && !_abandonoMsg120){
+        _abandonoMsg120=true;
+        RabiscoUI.addMsg('Sem pressa! Posso guardar sua vaga por hoje — é só me chamar quando quiser continuar 😊','bot',false,false,true);
+        registrarObjecao('abandono_chat');
+      }
+    },120000);
+  }
+
   document.addEventListener('mouseleave',function(e){
     var roletaJaMostrada = !window.roletaSorteNaPeleJaMostrada || window.roletaSorteNaPeleJaMostrada();
     if(e.clientY<=5&&!_exitFired&&!RabiscoUI.aberto&&roletaJaMostrada){
