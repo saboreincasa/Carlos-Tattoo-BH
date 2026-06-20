@@ -2311,7 +2311,7 @@ footer p { color:#ffffff !important; }
   .hero-right{order:1;display:flex !important;justify-content:center;}
   .hero-photo-frame img{width:200px !important;height:200px !important;border-radius:50% !important;}
   .hero-photo-frame::before{border-radius:50% !important;}
-  .hero-photo-badge{left:50% !important;transform:translateX(-50%) !important;bottom:-16px !important;}
+  .hero-photo-badge{position:static !important;left:auto !important;bottom:auto !important;transform:none !important;display:table !important;margin:16px auto 0 !important;padding:10px 14px !important;}
   .hero-stars{display:none !important;}
   .hero-h1{font-size:clamp(26px,7.5vw,42px) !important;text-align:center;line-height:1.15 !important;}
   .hero-sub{text-align:center;font-size:14px !important;}
@@ -2492,7 +2492,7 @@ footer p { color:#ffffff !important; }
     width:100% !important;
     height:320px !important;
     border-radius:14px !important;
-    object-fit:cover !important;
+    object-fit:contain !important;
     object-position:top center !important;
   }
   .hero-photo-frame::before{border-radius:14px !important;}
@@ -2777,7 +2777,7 @@ html { scroll-behavior: smooth; }
     width: 100% !important;
     height: 260px !important;
     border-radius: 16px !important;
-    object-fit: cover !important;
+    object-fit: contain !important;
     object-position: top center !important;
   }
   
@@ -2808,7 +2808,7 @@ html { scroll-behavior: smooth; }
 
 @media(max-width:480px){
   /* HERO MENOR */
-  .hero-photo-frame img { height: 240px !important; object-fit: cover !important; object-position: top center !important; }
+  .hero-photo-frame img { height: 240px !important; object-fit: contain !important; object-position: top center !important; }
   
   /* CARDS EBOOK — 1 coluna em telas muito pequenas */
   .ebooks-grid { grid-template-columns: 1fr !important; }
@@ -3293,12 +3293,7 @@ html { scroll-behavior: smooth; }
     object-fit:contain;
   }
 
-  .hero-photo-badge{
-    bottom:12px;
-    left:12px;
-
-    padding:10px 14px;
-  }
+  .hero-photo-badge{position:static !important;left:auto !important;bottom:auto !important;transform:none !important;display:table !important;margin:16px auto 0 !important;padding:10px 14px !important;}
 
   .hero-stars{
     top:12px;
@@ -5127,7 +5122,7 @@ footer p { color:#ffffff !important; }
   .hero-right{order:1;display:flex !important;justify-content:center;}
   .hero-photo-frame img{width:200px !important;height:200px !important;border-radius:50% !important;}
   .hero-photo-frame::before{border-radius:50% !important;}
-  .hero-photo-badge{left:50% !important;transform:translateX(-50%) !important;bottom:-16px !important;}
+  .hero-photo-badge{position:static !important;left:auto !important;bottom:auto !important;transform:none !important;display:table !important;margin:16px auto 0 !important;padding:10px 14px !important;}
   .hero-stars{display:none !important;}
   .hero-h1{font-size:clamp(32px,9vw,52px) !important;text-align:center;}
   .hero-sub{text-align:center;font-size:15px !important;}
@@ -5324,7 +5319,7 @@ footer p { color:#ffffff !important; }
     width:100% !important;
     height:320px !important;
     border-radius:14px !important;
-    object-fit:cover !important;
+    object-fit:contain !important;
     object-position:top center !important;
   }
   .hero-photo-frame::before{border-radius:14px !important;}
@@ -5605,7 +5600,7 @@ html { scroll-behavior: smooth; }
     width: 100% !important;
     height: 260px !important;
     border-radius: 16px !important;
-    object-fit: cover !important;
+    object-fit: contain !important;
     object-position: top center !important;
   }
   
@@ -5636,7 +5631,7 @@ html { scroll-behavior: smooth; }
 
 @media(max-width:480px){
   /* HERO MENOR */
-  .hero-photo-frame img { height: 240px !important; object-fit: cover !important; object-position: top center !important; }
+  .hero-photo-frame img { height: 240px !important; object-fit: contain !important; object-position: top center !important; }
   
   /* CARDS EBOOK — 1 coluna em telas muito pequenas */
   .ebooks-grid { grid-template-columns: 1fr !important; }
@@ -6606,11 +6601,7 @@ body { font-size:16px; }
     justify-content:center;
   }
   .hero-photo-wrap{ max-width:320px !important; }
-  .hero-photo-badge{
-    left:-8px !important;
-    bottom:16px !important;
-    padding:10px 14px !important;
-  }
+  .hero-photo-badge{position:static !important;left:auto !important;bottom:auto !important;transform:none !important;display:table !important;margin:16px auto 0 !important;padding:10px 14px !important;}
   .hpb-num{ font-size:22px !important; }
   .hero-stars{
     right:-4px !important;
@@ -7017,7 +7008,7 @@ button[style*="background:var(--ink)"] {
 
   /* Hero foto não corta no mobile pequeno */
   .hero-photo-frame { max-width:280px !important; margin:0 auto !important; }
-  .hero-photo-frame img { width:100% !important; height:auto !important; max-height:320px !important; object-fit:cover !important; }
+  .hero-photo-frame img { width:100% !important; height:auto !important; max-height:420px !important; object-fit:contain !important; object-position:center top !important; }
 
   /* Calculadora — botões de local em 2 colunas no mobile */
   .fp-locais-grid { grid-template-columns:repeat(3,1fr) !important; }
