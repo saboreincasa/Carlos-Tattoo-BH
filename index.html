@@ -4628,9 +4628,10 @@ function fecharPWA(){
 // ════════════════════════════════════════
 let exitShown = false;
 document.addEventListener('mouseleave',(e)=>{
-  if(e.clientY <= 0 && !exitShown && !sessionStorage.getItem('exit_shown') && window.roletaSorteNaPeleJaMostrada && window.roletaSorteNaPeleJaMostrada()){
+  if(e.clientY <= 0 && !exitShown && !sessionStorage.getItem('exit_shown') && !sessionStorage.getItem('popup_interrupt_shown') && window.roletaSorteNaPeleJaMostrada && window.roletaSorteNaPeleJaMostrada()){
     exitShown = true;
     sessionStorage.setItem('exit_shown','1');
+    sessionStorage.setItem('popup_interrupt_shown','1');
     const popup = document.getElementById('exit-popup');
     if(popup){ popup.classList.add('open'); document.body.style.overflow='hidden'; }
   }
@@ -6386,6 +6387,7 @@ document.head.appendChild(styleShare);
 
   function tentarMostrarPromo(){
     if(sessionStorage.getItem('promo_shown')) return;
+    if(sessionStorage.getItem('popup_interrupt_shown')) return; // já mostrou outro popup nessa sessão
     // Dá prioridade à roleta: só mostra o presente se ela já tiver sido vista,
     // ou tenta de novo em alguns segundos até que isso aconteça.
     const roletaJaMostrada = !window.roletaSorteNaPeleJaMostrada || window.roletaSorteNaPeleJaMostrada();
@@ -6396,6 +6398,7 @@ document.head.appendChild(styleShare);
     const pop = document.getElementById('promo-popup');
     if(pop){ pop.style.display='flex'; startPromoTimer(); }
     sessionStorage.setItem('promo_shown','1');
+    sessionStorage.setItem('popup_interrupt_shown','1');
   }
 
   setTimeout(tentarMostrarPromo, 300000); // 5 minutos
@@ -7087,6 +7090,7 @@ window.addEventListener('load', initScrollTopBtn);
     document.body.style.overflow = 'hidden';
     setTimeout(posicionarRoda, 50);
     sessionStorage.setItem(SESSION_KEY, '1');
+    sessionStorage.setItem('popup_interrupt_shown', '1');
   }
 
   function fecharRoleta(){
@@ -7195,7 +7199,7 @@ window.addEventListener('load', initScrollTopBtn);
 
   /* ─── Gatilho de saída — prioridade máxima sobre qualquer outro popup ─── */
   document.addEventListener('mouseleave', function(e){
-    if(e.clientY < 20 && !sessionStorage.getItem(SESSION_KEY)){
+    if(e.clientY < 20 && !sessionStorage.getItem(SESSION_KEY) && !sessionStorage.getItem('popup_interrupt_shown')){
       abrirRoleta();
     }
   });
@@ -7203,7 +7207,7 @@ window.addEventListener('load', initScrollTopBtn);
   /* ─── Gatilho por tempo — 5 minutos de permanência, o que vier primeiro ───
      Não disparado se a pessoa já viu a roleta pela saída antes desse tempo. ─── */
   setTimeout(function(){
-    if(!sessionStorage.getItem(SESSION_KEY)) abrirRoleta();
+    if(!sessionStorage.getItem(SESSION_KEY) && !sessionStorage.getItem('popup_interrupt_shown')) abrirRoleta();
   }, 300000);
 
 })();
