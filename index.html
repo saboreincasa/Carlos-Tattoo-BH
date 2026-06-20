@@ -213,20 +213,7 @@ fbq('init','1151853265430926');
 }
 </script>
 
-<style>
-/* ── Portfólio YouTube Shorts — capa imagem ── */
-.pv-item { position:relative; overflow:hidden; cursor:pointer; border-radius:10px; background:#111; aspect-ratio:9/16; }
-.pv-cover { width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s ease; }
-.pv-item:hover .pv-cover { transform:scale(1.05); }
-.pv-item video { width:100%; height:100%; object-fit:cover; display:block; }
-.pv-play { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.25); transition:background .3s; }
-.pv-item:hover .pv-play { background:rgba(0,0,0,.45); }
-.pv-play-btn { width:52px; height:52px; background:rgba(201,168,76,.9); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; color:#0a0500; font-weight:900; transition:transform .3s,background .3s; }
-.pv-item:hover .pv-play-btn { transform:scale(1.12); background:#E8B800; }
-.pv-label { position:absolute; bottom:0; left:0; right:0; padding:10px 12px 12px; background:linear-gradient(to top,rgba(0,0,0,.85),transparent); font-family:'Cinzel',serif; font-size:10px; letter-spacing:1.5px; color:#E8B800; text-transform:uppercase; }
-/* Modal YouTube portfólio */
-#yt-modal-portfolio { display:none; position:fixed; inset:0; background:rgba(0,0,0,.95); z-index:9999; align-items:center; justify-content:center; }
-</style>
+<link rel="stylesheet" href="css/main.css">
 
 
 <!-- Schema: Sistema Central Tattoo (SoftwareApplication) -->
@@ -564,25 +551,6 @@ fbq('init','1151853265430926');
 <link rel="preload" href="style.css" as="style">
 <link rel="preload" href="rabisco.js" as="script">
 
-<style>
-/* Card Google — textos sempre escuros */
-.dep-google-card-direct,
-.dep-google-card-direct *:not(svg):not(path):not(circle) {
-  color: #1a0a00 !important;
-}
-.dep-google-card-direct span[style*="color:#C9A84C"],
-.dep-google-card-direct .g-span { color: #C9A84C !important; }
-
-@keyframes vaPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: .5; transform: scale(.8); }
-}
-
-@keyframes roletaLuzPulso {
-  0%, 100% { opacity: .4; r: 2.2; }
-  50% { opacity: 1; r: 3.4; }
-}
-</style>
 </head>
 <!-- Gradiente SVG para anel de progresso do botão topo -->
 <svg style="display:none;position:absolute;width:0;height:0;" aria-hidden="true">
@@ -2193,86 +2161,6 @@ fbq('init','1151853265430926');
 <div class="odiv"><span class="odiv-sym">✦ ✦ ✦</span></div>
 
 <!-- ═══ TATUAGEM EM QUEIMADURAS ═══ -->
-<style>
-/* ── SEÇÃO PRINCIPAL ── */
-.sec-queimadura{position:relative;overflow:hidden;background:linear-gradient(180deg,#0a0500 0%,#110800 40%,#0a0500 100%);}
-.sec-queimadura::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(201,168,76,.08) 0%,transparent 70%);pointer-events:none;}
-
-/* ── TOPO HERO ── */
-.q-hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);border-radius:50px;padding:8px 20px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:#E8B800;text-transform:uppercase;margin-bottom:20px;}
-.q-hero-h2{font-family:'Cinzel Decorative',cursive;font-size:clamp(28px,4.5vw,56px);color:#fff;line-height:1.1;margin-bottom:18px;text-align:center;}
-.q-hero-h2 span{color:#E8B800;display:block;}
-.q-hero-sub{font-size:16px;color:rgba(237,228,212,.7);line-height:1.85;max-width:640px;margin:0 auto 48px;text-align:center;}
-
-/* ── FRASE IMPACTO ── */
-.q-frase{text-align:center;padding:0 24px;margin-bottom:52px;}
-.q-frase-inner{display:inline-block;border-left:3px solid #E8B800;border-right:3px solid #E8B800;padding:24px 40px;background:rgba(201,168,76,.04);}
-.q-frase-inner p{font-family:'Cinzel Decorative',cursive;font-size:clamp(16px,2.2vw,22px);color:#fff;line-height:1.6;font-style:italic;}
-.q-frase-inner p span{color:#E8B800;}
-
-/* ── LAYOUT PRINCIPAL: IMAGEM 2/3 + VÍDEO 1/3 ── */
-.q-main-grid{display:grid;grid-template-columns:2fr 1fr;gap:32px;align-items:start;margin-bottom:52px;}
-
-/* ── ANTES/DEPOIS ── */
-.q-img-wrap{position:relative;}
-.q-img-glow{position:absolute;inset:-20px;background:radial-gradient(ellipse at 50% 50%,rgba(201,168,76,.12),transparent 70%);pointer-events:none;border-radius:24px;}
-.q-img-frame{position:relative;border-radius:20px;overflow:hidden;box-shadow:0 20px 80px rgba(0,0,0,.7),0 0 0 1px rgba(201,168,76,.2);}
-.q-img-frame img{width:100%;display:block;}
-.q-img-labels{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;}
-.q-label-antes{position:absolute;top:16px;left:16px;background:rgba(0,0,0,.75);color:#fff;font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;padding:7px 16px;border-radius:6px;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.1);text-transform:uppercase;}
-.q-label-depois{position:absolute;top:16px;right:16px;background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;padding:7px 16px;border-radius:6px;font-weight:700;text-transform:uppercase;}
-.q-img-divider{position:absolute;top:0;bottom:0;left:50%;width:3px;background:linear-gradient(180deg,transparent,#E8B800 20%,#E8B800 80%,transparent);transform:translateX(-50%);}
-.q-img-divider::before{content:'◆';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#E8B800;font-size:16px;background:#0a0500;padding:4px;border-radius:50%;}
-.q-img-caption{margin-top:14px;text-align:center;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.35);text-transform:uppercase;}
-
-/* ── COLUNA DIREITA: VÍDEO 9/16 + CARD RAFAEL ── */
-.q-right-col{display:flex;flex-direction:column;gap:20px;}
-
-/* ── VÍDEO 9:16 NA COLUNA CERTA ── */
-.q-video-wrap{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 16px 60px rgba(0,0,0,.6);border:1px solid rgba(201,168,76,.2);}
-.q-video-wrap::before{content:'';display:block;padding-top:177.78%;}/* 16/9 × 100% */
-.q-video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
-.q-video-label{display:flex;align-items:center;gap:8px;margin-top:10px;justify-content:center;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.4);text-transform:uppercase;}
-.q-video-label::before{content:'▶';color:#E8B800;}
-
-/* ── CASO REAL ── */
-.q-caso-card{background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.03));border:1px solid rgba(201,168,76,.35);border-radius:18px;padding:22px;position:relative;overflow:hidden;}
-.q-caso-card::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;background:radial-gradient(circle,rgba(201,168,76,.15),transparent 70%);border-radius:50%;}
-.q-caso-badge{display:inline-block;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);color:#E8B800;font-family:'Cinzel',serif;font-size:8px;letter-spacing:2.5px;padding:4px 12px;border-radius:20px;margin-bottom:12px;text-transform:uppercase;}
-.q-caso-stars{color:#E8B800;font-size:14px;letter-spacing:3px;margin-bottom:10px;}
-.q-caso-quote{font-size:13px;color:#EDE4D4;line-height:1.8;font-style:italic;margin-bottom:14px;position:relative;padding-left:16px;}
-.q-caso-quote::before{content:'"';position:absolute;left:0;top:-4px;font-size:28px;color:rgba(201,168,76,.3);font-family:'Cinzel Decorative',cursive;line-height:1;}
-.q-caso-autor{display:flex;align-items:center;gap:10px;}
-.q-caso-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#A07830,#E8B800);display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:14px;color:#0a0500;font-weight:700;flex-shrink:0;}
-.q-caso-nome{font-family:'Cinzel',serif;font-size:12px;color:#E8B800;font-weight:700;}
-.q-caso-loc{font-size:10px;color:rgba(255,255,255,.4);margin-top:2px;}
-
-/* ── DEPOIMENTOS GRID ── */
-.q-deps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:52px;}
-.q-dep-card{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.12);border-radius:16px;padding:24px;transition:border-color .3s,transform .3s;}
-.q-dep-card:hover{border-color:rgba(201,168,76,.35);transform:translateY(-4px);}
-.q-dep-card.em{border-color:rgba(201,168,76,.3);background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(201,168,76,.02));}
-.q-dep-stars{color:#E8B800;font-size:13px;letter-spacing:2px;margin-bottom:12px;}
-.q-dep-quote{font-size:14px;color:#EDE4D4;line-height:1.8;font-style:italic;margin-bottom:16px;flex:1;}
-.q-dep-autor{display:flex;align-items:center;gap:10px;margin-top:auto;}
-.q-dep-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#A07830,#E8B800);display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:14px;color:#0a0500;font-weight:700;flex-shrink:0;}
-.q-dep-nome{font-family:'Cinzel',serif;font-size:12px;color:#E8B800;font-weight:600;}
-.q-dep-loc{font-size:10px;color:rgba(255,255,255,.4);margin-top:1px;}
-
-/* ── CTA ── */
-.q-cta-wrap{text-align:center;padding:48px 24px;position:relative;}
-.q-cta-wrap::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.3),transparent);}
-.q-cta-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:12px;}
-.q-cta-title{font-family:'Cinzel Decorative',cursive;font-size:clamp(18px,2.8vw,28px);color:#fff;margin-bottom:8px;line-height:1.3;}
-.q-cta-sub{font-size:14px;color:rgba(255,255,255,.55);margin-bottom:32px;}
-
-/* ── RESPONSIVO ── */
-@media(max-width:900px){
-  .q-main-grid{grid-template-columns:1fr;gap:32px;}
-  .q-deps-grid{grid-template-columns:1fr;}
-  .q-video-wrap::before{padding-top:100%;}/* quadrado no mobile */
-}
-</style>
 
 <section class="sec-queimadura" id="queimaduras">
   <div class="q-inner">
@@ -2402,14 +2290,6 @@ fbq('init','1151853265430926');
 <div class="odiv"><span class="odiv-sym">✦ ✦ ✦</span></div>
 
 <!-- ═══ ARÉOLAS — RECONSTRUÇÃO DE ARÉOLA ═══ -->
-<style>
-/* Remove sombra que cortava o texto abaixo da imagem aréola */
-.areola-hero-wrap::after,
-.areola-hero-wrap::before { display:none !important; }
-.areola-hero-wrap { overflow:visible !important; box-shadow:none !important; }
-.areola-hero-wrap img { border-radius:16px; }
-.sec-areola { padding-bottom:60px; }
-</style>
 <section class="sec-areola" id="areolas" aria-label="Reconstrução de aréola por tatuagem em Belo Horizonte após mastectomia">
   <div class="areola-particles" id="areolaParticles"></div>
   <div class="ar-inner">
@@ -3396,62 +3276,6 @@ fbq('init','1151853265430926');
 
     </div><!-- fim blog-grid linha 3 -->
 
-    <style>
-    @media(max-width:768px){
-      /* Card vira coluna única */
-      .bcard-central{
-        grid-template-columns:1fr !important;
-        min-height:unset !important;
-      }
-      /* Imagem com altura fixa no mobile */
-      .bcard-central > div:first-child{
-        height:200px !important;
-        min-height:unset !important;
-      }
-      /* Padding interno reduzido */
-      .bcard-central .bbody{
-        padding:18px 16px !important;
-        gap:12px !important;
-      }
-      /* Grade de módulos: compacta no mobile */
-      .bcard-central .bbody .ct-modulos-grid{
-        grid-template-columns:repeat(4,1fr) !important;
-        gap:6px !important;
-      }
-      /* Cada módulo menor */
-      .bcard-central .bbody .ct-modulos-grid > div{
-        padding:8px 4px !important;
-      }
-      .bcard-central .bbody .ct-modulos-grid > div > div:first-child{
-        font-size:18px !important;
-        margin-bottom:4px !important;
-      }
-      .bcard-central .bbody .ct-modulos-grid > div > div:last-child{
-        font-size:8px !important;
-        letter-spacing:.3px !important;
-      }
-      /* Prova social centralizada */
-      .bcard-central .ct-prova-social{
-        justify-content:center !important;
-        gap:20px !important;
-      }
-      /* Botão + share em coluna */
-      .bcard-central .ct-rodape-actions{
-        flex-direction:column !important;
-        align-items:flex-start !important;
-        gap:10px !important;
-      }
-    }
-    @media(max-width:400px){
-      /* Telas muito pequenas: esconde label dos módulos, mantém emoji */
-      .bcard-central .bbody .ct-modulos-grid > div > div:last-child{
-        display:none !important;
-      }
-      .bcard-central .bbody .ct-modulos-grid > div{
-        padding:10px 4px !important;
-      }
-    }
-    </style>
 
     <div style="text-align:center;margin-top:36px;" class="rv">
       <a href="https://carlostattoobh.com.br/#blog" class="btn btn-gold" style="font-size:10px;padding:14px 32px;letter-spacing:2px;">📖 VER TODOS OS ARTIGOS →</a>
@@ -4415,14 +4239,6 @@ document.addEventListener('keydown', function(e){
 
 
 <!-- ═══ CARROSSEL LIGHTBOX — tamanho desktop ═══ -->
-<style>
-.carrossel-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.92); z-index:9999; flex-direction:column; align-items:center; justify-content:center; padding:20px; }
-.carrossel-overlay.open { display:flex; }
-.carrossel-main { display:flex; align-items:center; gap:16px; width:100%; max-width:900px; justify-content:center; }
-.carrossel-img-wrap { display:flex; align-items:center; justify-content:center; width:100%; max-width:640px; }
-.carrossel-img { max-height:75vh; max-width:100%; width:auto; height:auto; object-fit:contain; border-radius:8px; transition:opacity .3s; display:block; }
-@media(max-width:600px){ .carrossel-img { max-height:60vh; } .carrossel-img-wrap { max-width:100%; } }
-</style>
 <div class="carrossel-overlay" id="carrosselOverlay">
   <div class="carrossel-top">
     <div>
@@ -6308,18 +6124,6 @@ document.head.appendChild(styleShare);
 
 
 <!-- ═══ POPUP PROMOÇÃO ═══ -->
-<style>
-/* ── Promo popup mobile fix ── */
-#promo-popup { overflow-y:auto; -webkit-overflow-scrolling:touch; }
-@media (max-width:600px) {
-  #promo-popup { padding:10px 8px !important; align-items:flex-start !important; }
-  .promo-box { max-width:100% !important; width:100% !important; margin:auto !important; padding:50px 14px 22px !important; border-radius:14px !important; }
-  .promo-close { top:10px !important; right:10px !important; width:38px !important; height:38px !important; font-size:20px !important; z-index:100 !important; position:absolute !important; display:flex !important; align-items:center !important; justify-content:center !important; }
-  .promo-title { font-size:clamp(20px,6vw,28px) !important; }
-  .promo-timer-display { font-size:28px !important; }
-  .promo-btn-sim { font-size:13px !important; padding:14px 16px !important; }
-}
-</style>
 <div id="promo-popup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9600;align-items:flex-start;justify-content:center;padding:20px;backdrop-filter:blur(6px);overflow-y:auto;-webkit-overflow-scrolling:touch;">
 
   <!-- Estrelas de fundo -->
@@ -7216,33 +7020,6 @@ window.addEventListener('load', initScrollTopBtn);
 <!-- ════ RABISCO v5 — Assistente 100% local ════ -->
 <script src="rabisco.js" defer></script>
 <!-- ═══ MODAL TRIAL CENTRAL TATTOO ═══ -->
-<style>
-.tm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);z-index:9000;display:none;align-items:center;justify-content:center;padding:16px;}
-.tm-overlay.show{display:flex;}
-.tm-box{background:#fff;border-radius:20px;width:100%;max-width:480px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.35);}
-.tm-header{background:linear-gradient(135deg,#1A0F06,#3D1F08);padding:32px 36px 24px;text-align:center;position:relative;}
-.tm-header::after{content:'⚡';position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:80px;opacity:.06;}
-.tm-badge{display:inline-block;background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.3);color:#FBBF24;font-size:10px;letter-spacing:3px;padding:4px 14px;border-radius:20px;margin-bottom:12px;font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;}
-.tm-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.2;}
-.tm-sub{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;}
-.tm-body{padding:28px 36px 32px;}
-.tm-fg{margin-bottom:16px;}
-.tm-fg label{display:block;font-size:11px;font-weight:700;color:#374151;letter-spacing:.7px;text-transform:uppercase;margin-bottom:6px;}
-.tm-fi{width:100%;background:#fff;border:1.5px solid #D1D5DB;border-radius:8px;padding:11px 14px;font-size:14px;color:#111827;transition:border .2s;outline:none;box-sizing:border-box;}
-.tm-fi:focus{border-color:#B45309;box-shadow:0 0 0 3px rgba(180,83,9,.08);}
-.tm-fi::placeholder{color:#9CA3AF;}
-.tm-modules{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0 20px;}
-.tm-mod{background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:10px 12px;font-size:12px;color:#374151;display:flex;align-items:center;gap:7px;}
-.tm-mod.free{border-color:#A7F3D0;background:#ECFDF5;color:#065F46;}
-.tm-mod.lock{border-color:#FDE68A;background:#FFFBEB;color:#92400E;}
-.tm-btn{width:100%;background:linear-gradient(135deg,#92400E,#FBBF24);color:#1A0F06;border:none;padding:15px;border-radius:10px;font-family:'Cormorant Garamond',Georgia,serif;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.5px;transition:all .2s;}
-.tm-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(180,83,9,.3);}
-.tm-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
-.tm-err{background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:10px 14px;font-size:13px;color:#B91C1C;margin-bottom:14px;display:none;}
-.tm-footer{font-size:11px;color:#9CA3AF;text-align:center;margin-top:12px;line-height:1.6;}
-.tm-close{position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(255,255,255,.5);font-size:22px;cursor:pointer;line-height:1;padding:4px;}
-.tm-close:hover{color:#fff;}
-</style>
 
 <div id="modalTrial" class="tm-overlay">
   <div class="tm-box">
