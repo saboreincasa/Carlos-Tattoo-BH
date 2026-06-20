@@ -183,29 +183,40 @@ body{font-family:'Raleway',sans-serif;background:#ede7da;color:#1a0a00;min-heigh
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4a3820" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
         Pagar com PIX
       </div>
-      <div class="pix-qr-center">
-        <div class="pix-qr-frame" id="qrWrap"><span style="font-size:10px;color:#8a7355;font-family:'Cinzel',serif;">Gerando...</span></div>
-      </div>
-      <div class="pix-receb">
-        <img src="imagens/perfil.jpg" alt="Carlos" class="pix-receb-foto" onerror="this.style.display='none'">
-        <div>
-          <span class="pix-receb-lbl">Recebedor</span>
-          <span class="pix-receb-name">Carlos Henrique</span>
+      <div id="pixEmailGate">
+        <div style="margin-bottom:12px;">
+          <label style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:1.5px;color:#8a7355;text-transform:uppercase;display:block;margin-bottom:6px;">Seu e-mail (para liberar o acesso automaticamente)</label>
+          <input type="email" id="pixEmailInput" placeholder="seu@email.com" style="width:100%;padding:11px 12px;border:0.5px solid #c8b898;border-radius:8px;font-size:13px;font-family:'Raleway',sans-serif;color:#1a0a00;background:#fff;">
         </div>
+        <button class="pix-copy-btn" id="btnGerarPix" onclick="gerarPixDinamico()" style="width:100%;padding:13px;font-size:11px;">GERAR QR CODE PIX →</button>
+        <div id="pixGerarErro" style="display:none;font-size:11px;color:#b91c1c;margin-top:8px;text-align:center;"></div>
       </div>
-      <div class="pix-code-wrap">
-        <span class="pix-code-txt" id="pixCodigoDisplay"></span>
-        <button class="pix-copy-btn" id="btnCopiar" onclick="copiarPix()">COPIAR</button>
-      </div>
-      <div class="pix-chave">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8a7355" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        Chave PIX · (31) 98339-1576
-      </div>
-      <div class="pix-steps">
-        <div class="pix-step"><div class="pix-step-n">1</div>Abra o app do seu banco</div>
-        <div class="pix-step"><div class="pix-step-n">2</div>Vá em PIX → Pix Copia e Cola</div>
-        <div class="pix-step"><div class="pix-step-n">3</div>Cole o código — valor já preenchido</div>
-        <div class="pix-step"><div class="pix-step-n">4</div>Confirme e envie o comprovante</div>
+
+      <div id="pixResultado" style="display:none;">
+        <div class="pix-qr-center">
+          <div class="pix-qr-frame" id="qrWrap"></div>
+        </div>
+        <div class="pix-receb">
+          <img src="imagens/perfil.jpg" alt="Carlos" class="pix-receb-foto" onerror="this.style.display='none'">
+          <div>
+            <span class="pix-receb-lbl">Recebedor</span>
+            <span class="pix-receb-name">Carlos Henrique</span>
+          </div>
+        </div>
+        <div class="pix-code-wrap">
+          <span class="pix-code-txt" id="pixCodigoDisplay"></span>
+          <button class="pix-copy-btn" id="btnCopiar" onclick="copiarPix()">COPIAR</button>
+        </div>
+        <div class="pix-chave" id="pixStatusMsg">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2d6e3a" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <span id="pixStatusTxt">Acesso liberado automaticamente após o pagamento</span>
+        </div>
+        <div class="pix-steps">
+          <div class="pix-step"><div class="pix-step-n">1</div>Abra o app do seu banco</div>
+          <div class="pix-step"><div class="pix-step-n">2</div>Vá em PIX → Pix Copia e Cola</div>
+          <div class="pix-step"><div class="pix-step-n">3</div>Cole o código — valor já preenchido</div>
+          <div class="pix-step"><div class="pix-step-n">4</div>Pronto — a confirmação é automática</div>
+        </div>
       </div>
     </div>
     <div class="pg-col-sep"></div>
@@ -384,6 +395,80 @@ function copiarPix(){
 }
 
 /* ════════════════════════════════════════════════════
+   PIX DINÂMICO — via API do Mercado Pago
+   Confirmação automática pelo webhook quando o pagamento cai.
+   Se a API falhar por qualquer motivo, cai pro PIX local
+   (mesmo comportamento de antes, com confirmação manual via WhatsApp).
+   ════════════════════════════════════════════════════ */
+const CRIAR_PIX_URL = 'https://ejapatxehmxondjqsgvv.supabase.co/functions/v1/criar-pix';
+
+function mostrarErroPix(msg){
+  const el = document.getElementById('pixGerarErro');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function usarPixLocalFallback(){
+  const ctx = window._pixContexto;
+  const txid = ctx.nome.replace(/[^a-zA-Z0-9]/g,'').substring(0,25)||'CARLOSTATTOO';
+  const pix  = gerarPix('31983391576','Carlos Henrique','Belo Horizonte',ctx.valor,txid);
+  window._pixCodigo = pix;
+  document.getElementById('pixCodigoDisplay').textContent = pix.substring(0,34)+'…';
+  const qrUrl=`https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(pix)}&bgcolor=ffffff&color=000000&margin=8`;
+  document.getElementById('qrWrap').innerHTML=`<img src="${qrUrl}" alt="QR PIX" style="width:138px;height:138px;border-radius:6px;">`;
+  document.getElementById('pixStatusTxt').textContent = 'Envie o comprovante pelo WhatsApp abaixo para liberarmos seu acesso';
+  document.getElementById('pixEmailGate').style.display = 'none';
+  document.getElementById('pixResultado').style.display = 'block';
+}
+
+async function gerarPixDinamico(){
+  const email = document.getElementById('pixEmailInput').value.trim();
+  const erroEl = document.getElementById('pixGerarErro');
+  erroEl.style.display = 'none';
+
+  if(!email || !email.includes('@')){
+    mostrarErroPix('Informe um e-mail válido para continuar.');
+    return;
+  }
+
+  const btn = document.getElementById('btnGerarPix');
+  btn.textContent = 'GERANDO...';
+  btn.disabled = true;
+
+  const ctx = window._pixContexto;
+
+  try {
+    const res = await fetch(CRIAR_PIX_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ produto: ctx.slug, nome: '', email, valor: ctx.valor, descricao: ctx.nome }),
+      signal: AbortSignal.timeout(10000),
+    });
+
+    if(!res.ok) throw new Error('Falha na API do Mercado Pago');
+    const data = await res.json();
+    if(!data.qr_code) throw new Error('Resposta sem QR code');
+
+    window._pixCodigo = data.qr_code;
+    document.getElementById('pixCodigoDisplay').textContent = data.qr_code.substring(0,34)+'…';
+    document.getElementById('qrWrap').innerHTML = data.qr_code_base64
+      ? `<img src="data:image/png;base64,${data.qr_code_base64}" alt="QR PIX" style="width:138px;height:138px;border-radius:6px;">`
+      : `<span style="font-size:10px;color:#8a7355;">Use o código copia-e-cola abaixo</span>`;
+    document.getElementById('pixStatusTxt').textContent = 'Acesso liberado automaticamente após o pagamento';
+
+    document.getElementById('pixEmailGate').style.display = 'none';
+    document.getElementById('pixResultado').style.display = 'block';
+
+  } catch(e){
+    console.warn('PIX dinâmico falhou, usando fallback local:', e);
+    usarPixLocalFallback();
+  } finally {
+    btn.textContent = 'GERAR QR CODE PIX →';
+    btn.disabled = false;
+  }
+}
+
+/* ════════════════════════════════════════════════════
    INICIALIZAÇÃO
    ════════════════════════════════════════════════════ */
 async function init() {
@@ -447,12 +532,8 @@ async function init() {
     document.getElementById('prodValor').textContent = fmtBRL(prod.brl);
     document.getElementById('prodParc').textContent  = prod.brl <= 99 ? 'Pagamento único' : 'Parcelamento disponível';
 
-    const txid = prod.nome.replace(/[^a-zA-Z0-9]/g,'').substring(0,25)||'CARLOSTATTOO';
-    const pix  = gerarPix('31983391576','Carlos Henrique','Belo Horizonte',prod.brl,txid);
-    window._pixCodigo = pix;
-    document.getElementById('pixCodigoDisplay').textContent = pix.substring(0,34)+'…';
-    const qrUrl=`https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(pix)}&bgcolor=ffffff&color=000000&margin=8`;
-    document.getElementById('qrWrap').innerHTML=`<img src="${qrUrl}" alt="QR PIX" style="width:138px;height:138px;border-radius:6px;" onerror="this.parentElement.innerHTML='<span style=\\'font-size:10px;color:#8a7355;\\'>Use o código</span>'">`;
+    // Guarda os dados do produto pro botão "Gerar PIX" usar quando o cliente informar o email
+    window._pixContexto = { slug, nome: prod.nome, valor: prod.brl };
 
     document.getElementById('btnMP').href         = prod.mp;
     document.getElementById('parc1x').textContent = fmtBRL(prod.brl);
