@@ -1040,7 +1040,7 @@ button{font-family:'Raleway',sans-serif;cursor:pointer;}
 .ebook-price{font-family:'Cinzel Decorative',cursive;font-size:28px;color:var(--g3);margin-bottom:3px;}
 .ebook-price-note{font-size:11px;color:rgba(237,228,212,.55);margin-bottom:14px;}
 .btn-ebook{width:100%;padding:12px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.45);color:#E8C96A;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;transition:all .2s;text-transform:uppercase;font-weight:700;}
-.btn-ebook:hover{background:var(--g4);border-color:var(--g4);color:var(--p1);}
+.btn-ebook:hover{background:#95702D;border-color:#95702D;color:#fff;}
 
 /* ═══ PIX MODAL ═══ */
 .pix-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9997;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px);}
@@ -2410,7 +2410,7 @@ footer p { color:#ffffff !important; }
 .order-bump:hover{background:rgba(201,168,76,.1);}
 .order-bump.checked{background:rgba(39,174,96,.08);border-color:rgba(39,174,96,.4);}
 .ob-check{width:24px;height:24px;border-radius:6px;border:2px solid rgba(201,168,76,.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.2s;font-size:14px;color:#27ae60;}
-.ob-check.active{background:#27ae60;border-color:#27ae60;color:#fff;}
+.ob-check.active{background:#1E864A;border-color:#1E864A;color:#fff;}
 .ob-info{flex:1;}
 .ob-title{font-family:'Cinzel',serif;font-size:12px;color:#E8B800;font-weight:700;margin-bottom:3px;}
 .ob-desc{font-size:11px;color:rgba(237,228,212,.6);line-height:1.5;}
@@ -2826,8 +2826,8 @@ html { scroll-behavior: smooth; }
 @media(max-width:768px){
   /* HERO layout em coluna */
   #hero{grid-template-columns:1fr !important;min-height:auto !important;}
-  .hero-left{padding:100px 24px 32px !important;order:1;}
-  .hero-right{padding:0 24px 40px !important;order:2;}
+  .hero-left{padding:20px 24px 32px !important;order:1;}
+  .hero-right{padding:0 24px 24px !important;order:2;}
   .hero-photo-wrap{max-width:100% !important;}
   .hero-btns{flex-direction:column !important;gap:10px !important;}
   .hero-btns .btn{width:100% !important;justify-content:center !important;}
@@ -3876,7 +3876,7 @@ html { scroll-behavior: smooth; }
 .ebook-price{font-family:'Cinzel Decorative',cursive;font-size:28px;color:var(--g3);margin-bottom:3px;}
 .ebook-price-note{font-size:11px;color:rgba(237,228,212,.55);margin-bottom:14px;}
 .btn-ebook{width:100%;padding:12px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.45);color:#E8C96A;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;transition:all .2s;text-transform:uppercase;font-weight:700;}
-.btn-ebook:hover{background:var(--g4);border-color:var(--g4);color:var(--p1);}
+.btn-ebook:hover{background:#95702D;border-color:#95702D;color:#fff;}
 
 /* ═══ PIX MODAL ═══ */
 .pix-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9997;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px);}
@@ -5237,7 +5237,7 @@ footer p { color:#ffffff !important; }
 .order-bump:hover{background:rgba(201,168,76,.1);}
 .order-bump.checked{background:rgba(39,174,96,.08);border-color:rgba(39,174,96,.4);}
 .ob-check{width:24px;height:24px;border-radius:6px;border:2px solid rgba(201,168,76,.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.2s;font-size:14px;color:#27ae60;}
-.ob-check.active{background:#27ae60;border-color:#27ae60;color:#fff;}
+.ob-check.active{background:#1E864A;border-color:#1E864A;color:#fff;}
 .ob-info{flex:1;}
 .ob-title{font-family:'Cinzel',serif;font-size:12px;color:#E8B800;font-weight:700;margin-bottom:3px;}
 .ob-desc{font-size:11px;color:rgba(237,228,212,.6);line-height:1.5;}
@@ -6565,7 +6565,7 @@ body { font-size:16px; }
     padding-bottom:40px;
   }
   .hero-left{
-    padding:100px 24px 32px !important;
+    padding:20px 24px 32px !important;
     text-align:center;
   }
   .hero-badge{
@@ -6597,7 +6597,7 @@ body { font-size:16px; }
   .hstat-n{ font-size:24px !important; }
   .hstat-l{ font-size:10px !important; color:rgba(255,255,255,.8) !important; }
   .hero-right{
-    padding:0 24px 32px !important;
+    padding:0 24px 18px !important;
     justify-content:center;
   }
   .hero-photo-wrap{ max-width:320px !important; }
