@@ -8533,6 +8533,13 @@ img{
   .studio-card{
     min-height:130px !important;
   }
+  /* Fotos limpas no mobile: sem nome/legenda por cima da imagem.
+     No touch não existe hover de verdade, então a legenda
+     (.studio-lbl) ficava "grudada" visível por cima da foto. */
+  .studio-badge,
+  .studio-lbl{
+    display:none !important;
+  }
 }
 
 /* ─────────────────────────────────────────
