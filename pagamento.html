@@ -401,6 +401,7 @@ function copiarPix(){
    (mesmo comportamento de antes, com confirmação manual via WhatsApp).
    ════════════════════════════════════════════════════ */
 const CRIAR_PIX_URL = 'https://ejapatxehmxondjqsgvv.supabase.co/functions/v1/criar-pix';
+const SUPABASE_ANON_KEY = 'sb_publishable_B6_fpfgSxN56V2HoRQJCPg_ELaiatZr';
 
 function mostrarErroPix(msg){
   const el = document.getElementById('pixGerarErro');
@@ -411,7 +412,7 @@ function mostrarErroPix(msg){
 function usarPixLocalFallback(){
   const ctx = window._pixContexto;
   const txid = ctx.nome.replace(/[^a-zA-Z0-9]/g,'').substring(0,25)||'CARLOSTATTOO';
-  const pix  = gerarPix('31983391576','Carlos Henrique','Belo Horizonte',ctx.valor,txid);
+  const pix  = gerarPix('+5531983391576','Carlos Henrique','Belo Horizonte',ctx.valor,txid);
   window._pixCodigo = pix;
   document.getElementById('pixCodigoDisplay').textContent = pix.substring(0,34)+'…';
   const qrUrl=`https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(pix)}&bgcolor=ffffff&color=000000&margin=8`;
@@ -440,12 +441,21 @@ async function gerarPixDinamico(){
   try {
     const res = await fetch(CRIAR_PIX_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'apikey': SUPABASE_ANON_KEY,
+      },
       body: JSON.stringify({ produto: ctx.slug, nome: '', email, valor: ctx.valor, descricao: ctx.nome }),
       signal: AbortSignal.timeout(10000),
     });
 
-    if(!res.ok) throw new Error('Falha na API do Mercado Pago');
+    if(!res.ok){
+      let detalhe = '';
+      try{ detalhe = await res.text(); }catch(_e){}
+      console.error(`criar-pix retornou ${res.status} ${res.statusText}:`, detalhe);
+      throw new Error(`Falha na API do Mercado Pago (status ${res.status})`);
+    }
     const data = await res.json();
     if(!data.qr_code) throw new Error('Resposta sem QR code');
 
