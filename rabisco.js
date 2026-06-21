@@ -25,7 +25,6 @@
     horarioAbre:  10,
     horarioFecha: 19,
     inactivityMs: 180000,  // 3 minutos sem interação → bubble de "tem dúvida?"
-    bubbleDelay:  40000,
     msgsLivresAntesCaptura: 2   // quantas mensagens livres antes de pedir dados
   };
 
@@ -470,8 +469,9 @@
   var _capturando   = false;  // evita dupla captura
 
   // Lead
-  var leadNome = '';
-  var leadWpp  = '';
+  var leadNome  = '';
+  var leadWpp   = '';
+  var leadEmail = '';
   var leadStep = 0; // 0=antes de abrir, 1=pediu nome, 2=pediu wpp, 3=concluido
 
   function salvarLead() {
@@ -638,10 +638,6 @@
     }
     if(nova!==secaoAtual){
       secaoAtual=nova; resetSecaoTimer(); rbTrack('secao_vista',{secao:nova});
-      if(nova!=='inicio'&&!_bubbleFired[nova]){
-        var info=SECOES.find(function(s){return s.id===nova;});
-        if(info){ _bubbleFired[nova]=true; setTimeout(function(){ if(!RabiscoUI.aberto) mostrarBubble(info.bubble); },50000); }
-      }
     }
   }
 
@@ -660,11 +656,10 @@
     if(!b||!t) return; t.textContent=texto; b.style.display='block';
     setTimeout(function(){ if(!RabiscoUI.aberto) b.style.display='none'; },8000);
   }
-  setTimeout(function(){
-    if(!RabiscoUI.aberto) mostrarBubble(visitaAnterior&&nomeAnterior
-      ? 'Fala de novo, '+nomeAnterior.split(' ')[0]+'! 👊 A agenda está quase cheia 🔥'
-      : 'Olá! Tem alguma dúvida? É só perguntar 😊');
-  }, CFG.bubbleDelay);
+  // Gatilhos reduzidos a 2: inatividade (resetInactivity, mais abaixo)
+  // e intenção de saída (mouseleave, mais abaixo). Os gatilhos de
+  // 40s pós-carregamento e de seção/scroll foram removidos — eram
+  // independentes e empilhavam pop-ups na mesma visita.
 
   /* Timer de inatividade unificado — ver resetInactivity() mais abaixo,
      que já cobre esse mesmo papel usando CFG.inactivityMs. Manter dois
@@ -814,7 +809,11 @@
           RabiscoUI.addMsg(op.txt,'user');
           sugs.innerHTML='';
           calcularScore();
-          if(op.valor==='tatuador'){ _funilAtivo=false; setTimeout(function(){ iniciarFunilTatuador(); },400); return; }
+          if(op.valor==='tatuador'){
+            _funilAtivo=false;
+            setTimeout(function(){ capturarEmailTatuador(iniciarFunilTatuador); },400);
+            return;
+          }
           avancarFunil();
         };
         sugs.appendChild(btn);
@@ -900,7 +899,7 @@
     };
     setTimeout(function(){
       RabiscoUI.addMsg(msgs[qualificacao.interesse]||'Perfeito! 💎 Preenches o formulário e Carlos te responde no WhatsApp!','bot');
-      setTimeout(function(){ RabiscoUI.mostrarCardFormulario(); },700);
+      setTimeout(function(){ RabiscoUI.mostrarBotaoFormulario(true); },700);
     },600);
   }
 
@@ -1122,6 +1121,25 @@
   }
 
   /* ══════════════════════════════════════
+     CAPTURA DE EMAIL — só para tatuadores/
+     produtos digitais (ebooks, Central Tattoo,
+     Mentoria). Tatuagem comum não precisa.
+  ══════════════════════════════════════ */
+  function capturarEmailTatuador(callback){
+    if(leadEmail){ callback(); return; }
+    RabiscoUI.addMsg('Show! 📚 Pra te enviar o material certinho, me passa seu email também?','bot');
+    mostrarInputLead('email','seu@email.com','Continuar →', function(val){
+      if(!val.trim()||val.indexOf('@')===-1){ alert('Por favor, informe um email válido.'); return; }
+      leadEmail = val.trim();
+      RabiscoUI.addMsg(leadEmail,'user');
+      var w=document.getElementById('rbLeadWrap'); if(w) w.remove();
+      sbPost('leads',{nome:leadNome,wpp:leadWpp,email:leadEmail,origem:'rabisco',tipo:'tatuador',categoria:leadCategoria,data:new Date().toISOString()});
+      logChat('email_capturado','Email tatuador: '+leadEmail);
+      callback();
+    });
+  }
+
+  /* ══════════════════════════════════════
      CONTROLLER PRINCIPAL
   ══════════════════════════════════════ */
   var RabiscoUI={
@@ -1156,8 +1174,8 @@
     iniciar:function(){
       this.iniciado=true; this.atualizarStatus();
       if(!estaAberto()){
-        this.addMsg('Oi! Sou o Rabisco 💀\n\nO estúdio está fechado agora — '+msgHorario()+'.\n\nMas você pode **preencher o formulário** e o Carlos te responde assim que abrir! ⏰','bot',false,true);
-        setTimeout(function(){ RabiscoUI.mostrarCardFormulario(); },700); return;
+        this.addMsg('Oi! Sou o Rabisco 💀\n\nO estúdio está fechado agora — '+msgHorario()+'.\n\nMas pode me contar o que você precisa que o Carlos te responde assim que abrir! ⏰','bot',false,true);
+        return;
       }
       // Visitante que voltou — já temos nome, vai direto
       if(visitaAnterior && nomeAnterior && leadStep===3){
@@ -1230,7 +1248,7 @@
         self.addMsg(resposta,'bot',empatia);
 
         // CTA de formulário só quando a resposta pede
-        if(resultado.cta) self.mostrarCardFormulario();
+        if(resultado.cta) self.mostrarBotaoFormulario(false);
 
         self.mostrarSugs(getSugs(msg));
 
@@ -1252,27 +1270,20 @@
       },tempo);
     },
 
-    mostrarCardFormulario:function(){
+    mostrarBotaoFormulario:function(comUrgencia){
       var ctas=document.getElementById('rbCtas'); if(!ctas) return; ctas.innerHTML='';
-      var card=document.createElement('div'); card.className='rb-card-form';
-      var head=document.createElement('div'); head.className='rb-card-form-head';
-      head.innerHTML='<span style="font-size:16px;">📋</span><span>Formulário de Agendamento</span>';
-      var steps=document.createElement('div'); steps.className='rb-card-steps';
-      var mk=function(n,lbl,a){
-        var bg=a?'#A07830':'#E2DDD6', tc=a?'#fff':'#9A8A78', lc=a?'#1A1208':'#9A8A78';
-        return '<span class="rb-step-num" style="background:'+bg+';color:'+tc+';">'+n+'</span><span class="rb-step-lbl" style="color:'+lc+';">'+lbl+'</span>';
-      };
-      steps.innerHTML=mk(1,'Seus dados',true)+'<span class="rb-step-arrow">›</span>'+mk(2,'Sua tattoo',false)+'<span class="rb-step-arrow">›</span>'+mk(3,'Confirmar',false);
-      var vd=document.createElement('div'); vd.className='rb-card-vagas'; vd.innerHTML=badgeVagas();
+      if(comUrgencia){
+        var vd=document.createElement('div'); vd.className='rb-card-vagas'; vd.innerHTML=badgeVagas();
+        ctas.appendChild(vd);
+      }
       var btn=document.createElement('button'); btn.className='rb-card-btn';
-      btn.innerHTML='✍️ PREENCHER — CARLOS TE RESPONDE NO WHATSAPP';
+      btn.innerHTML='👉 IR PARA O FORMULÁRIO';
       btn.onclick=function(){
         var formEl=document.querySelector(CFG.form);
         if(formEl){ rbTrack('form_clicado',{secao:secaoAtual,interesse:qualificacao.interesse||''}); preencherFormulario(qualificacao); formEl.scrollIntoView({behavior:'smooth'}); setTimeout(function(){ var n=document.getElementById('fp-nome'); if(n){n.focus();n.scrollIntoView({behavior:'smooth',block:'center'});} },600); }
         RabiscoUI.toggle();
       };
-      card.appendChild(head); card.appendChild(steps); card.appendChild(vd); card.appendChild(btn);
-      ctas.appendChild(card);
+      ctas.appendChild(btn);
     },
 
     addMsg:function(txt,tipo,empatia,horario,semResetIdle){

@@ -4575,40 +4575,19 @@ if('serviceWorker' in navigator){
 
 <script>
 // ════════════════════════════════════════
-// USUÁRIO MASTER - CARLOS (DONO DO SITE)
+// USUÁRIO MASTER — REMOVIDO (auditoria de segurança)
 // ════════════════════════════════════════
-(function(){
-  const usuarios = JSON.parse(localStorage.getItem('ct_usuarios') || '[]');
-  const emailMaster = 'carlostattoobh@gmail.com';
-  
-  // Só criar se não existir
-  if(!usuarios.find(u => u.email === emailMaster)){
-    const master = {
-      nome: 'Carlos Henrique',
-      email: emailMaster,
-      senha: btoa('C@rl0sM@st3r#2026'),
-      produtos: [
-        'ebook-trafego',
-        'ebook-instagram', 
-        'ebook-posicionamento',
-        'ebook-templates',
-        'ebook-contrato',
-        'curso-instagram',
-        'curso-trafego',
-        'curso-posicionamento',
-        'curso-mentoria'
-      ],
-      criado: new Date().toISOString(),
-      firstLogin: false,
-      bloqueado: false,
-      tentativas: 0,
-      master: true
-    };
-    usuarios.push(master);
-    localStorage.setItem('ct_usuarios', JSON.stringify(usuarios));
-    /* master criado */
-  }
-})();
+// Este bloco criava um usuário "master" com senha em base64 (reversível em 1 linha)
+// e o gravava no localStorage de TODO visitante do site — ou seja, a senha real
+// de admin estava sendo enviada, em texto praticamente legível, para qualquer pessoa
+// que abrisse o código-fonte da página.
+//
+// Removido por segurança em 21/06/2026. Se o login de admin/central_tattoo.html
+// depende deste registro em localStorage para funcionar, ele vai parar de funcionar
+// a partir daqui — o que é o comportamento esperado: esse fluxo de autenticação
+// precisa ser refeito no servidor (Supabase Auth + RLS), nunca criado no cliente.
+// Carlos: troque a senha master em qualquer lugar onde ela ainda
+// seja usada de verdade — ela já esteve exposta publicamente até esta correção.
 </script>
 
 
@@ -6496,15 +6475,29 @@ window.addEventListener('load', initScrollTopBtn);
   const SPANISH_SPEAKING = new Set(['ES','MX','AR','CL','CO','PE','VE','EC','GT','CU','BO','DO','HN','PY','SV','NI','CR','PA','UY','PR']);
 
   const params = new URLSearchParams(location.search);
-  let country  = params.get('country') || null;
 
-  if(!country){
-    try{
-      const r = await fetch('https://ipapi.co/json/',{signal:AbortSignal.timeout(4000)});
-      const d = await r.json();
-      country = d.country_code || 'BR';
-    }catch(e){ country = 'BR'; }
+  // Se veio com ?lang=pt (ex.: link "Voltar para Português" nas páginas /en/ /es/),
+  // grava a preferência só para esta sessão (sessionStorage) — evita o usuário ficar
+  // "preso" no idioma errado durante a visita, mas NÃO cria um acesso permanente:
+  // a cada nova sessão/visita, a checagem por IP volta a valer normalmente.
+  // Importante: isso é de propósito — preços em BRL são bem mais baixos que USD/EUR,
+  // então estrangeiros não devem ter uma forma permanente de "escapar" do redirecionamento.
+  const langParam = params.get('lang');
+  if(langParam){
+    try{ sessionStorage.setItem('ct_lang_pref', langParam); }catch(e){}
   }
+  const savedPref = (function(){ try{ return sessionStorage.getItem('ct_lang_pref'); }catch(e){ return null; } })();
+  if(savedPref === 'pt'){ return; }
+
+  // (Removido por segurança: antes existia um parâmetro ?country= na URL que deixava
+  // qualquer pessoa forçar a versão BRL só colando isso no link. A detecção agora é
+  // sempre feita pelo IP real do visitante.)
+  let country = null;
+  try{
+    const r = await fetch('https://ipapi.co/json/',{signal:AbortSignal.timeout(4000)});
+    const d = await r.json();
+    country = d.country_code || 'BR';
+  }catch(e){ country = 'BR'; }
 
   if(LUSO_COUNTRIES.has(country)) return; // lusófonos seguem vendo o PT-BR normalmente
 
