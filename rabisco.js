@@ -129,7 +129,11 @@
   function injetarContexto(resp) {
     // Se temos contexto de parte do corpo e a resposta fala de orçamento, personaliza
     if(ctx.partCorpo && resp.indexOf('Orçamento')!==-1) {
-      resp = resp.replace('Orçamento gratuito', 'Orçamento gratuito para '+ctx.partCorpo);
+      resp = resp.replace('Orçamento gratuito', 'Orçamento gratuito para '+ctx.partCorpo+(ctx.estilo?' em '+ctx.estilo:''));
+    }
+    // Se a resposta é a tabela de preços e já sabemos o estilo de interesse, comenta antes
+    if(ctx.estilo && /Fineline pequena|Black & Grey médio|Realismo médio/.test(resp)) {
+      resp = 'Pelo que você me contou (**'+ctx.estilo+'**'+(ctx.partCorpo?', no '+ctx.partCorpo:'')+'), isso te ajuda a ter noção 👇\n\n'+resp;
     }
     return resp;
   }
@@ -146,7 +150,7 @@
 
     /* ── CONFIRMAÇÕES ── */
     { pri:10, cta:true, tags:['sim','s','yes','claro','pode ser','quero','bora','vamos','ok','certo','ta'],
-      resp:'Ótimo! 🔥 Bora dar o próximo passo!\n\nPreenche o formulário — são 3 passinhos e o Carlos te responde no WhatsApp.\n\nOrçamento 100% gratuito, sem compromisso.' },
+      resp:'Ótimo! 🔥 Bora dar o próximo passo!\n\nMe conta rapidinho o que você tem em mente que o Carlos te responde direto no WhatsApp.\n\nOrçamento 100% gratuito, sem compromisso.' },
 
     /* ── OBRIGADO ── */
     { pri:10, cta:false, tags:['obrigado','obrigada','valeu','vlw','muito obrigado','muito obrigada','brigado','brigada','thanks'],
@@ -154,7 +158,7 @@
 
     /* ── PROCESSO / AGENDAMENTO ── */
     { cta:true, tags:['como funciona','como e o processo','quero tatuar','como agendar','processo','como faco','quero marcar','por onde comeco','primeiro passo','comecar'],
-      resp:'Super simples! 🎨\n\n**1️⃣ Formulário** — preenche no site em 3 passos\n**2️⃣ Carlos te responde** no WhatsApp pessoalmente\n**3️⃣ Confirmam data** com um sinal\n**4️⃣ Sessão no estúdio** — arte na pele! 🔥\n\nOrçamento 100% gratuito. Quer começar?' },
+      resp:'Super simples! 🎨\n\n**1️⃣ Você me conta** sobre a ideia (local, estilo, referência)\n**2️⃣ Carlos te responde** no WhatsApp pessoalmente\n**3️⃣ Confirmam data** com um sinal\n**4️⃣ Sessão no estúdio** — arte na pele! 🔥\n\nOrçamento 100% gratuito. Quer começar?' },
 
     /* ── PORTFÓLIO ── */
     { cta:false, tags:['portfolio','portifolio','ver trabalhos','ver fotos','exemplos','trabalhos','ver tatuagens','antes e depois','ver arte'],
@@ -378,6 +382,27 @@
   }
 
   /* ══════════════════════════════════════
+     REAÇÃO AO LOCAL DO CORPO (fora do funil)
+  ══════════════════════════════════════ */
+  function mostrarPerguntaEstiloLivre(){
+    RabiscoUI.addMsg('Boa escolha 🔥\n\nNo **'+ctx.partCorpo+'**, alguns estilos costumam ficar especialmente bem.\n\nVocê imaginou algo mais:','bot');
+    var sugs=document.getElementById('rbSugs'); if(!sugs) return; sugs.innerHTML='';
+    var opcoes=[['🖤 Realista','realismo'],['✨ Delicado','fineline'],['🔥 Marcante','black and grey'],['🌈 Colorido','colorida']];
+    opcoes.forEach(function(o){
+      var b=document.createElement('button'); b.className='rb-sug'; b.textContent=o[0];
+      b.onclick=function(){
+        ctx.estilo=o[1]; calcularScore();
+        RabiscoUI.addMsg(o[0],'user'); sugs.innerHTML='';
+        setTimeout(function(){
+          RabiscoUI.addMsg('Show 🔥 Vou anotar isso pro Carlos.\n\nQuer já seguir pro orçamento?','bot');
+          RabiscoUI.mostrarSugs(['💰 Quero orçamento','📅 Quero agendar']);
+        },500);
+      };
+      sugs.appendChild(b);
+    });
+  }
+
+  /* ══════════════════════════════════════
      FALLBACK INTELIGENTE COM BOTÕES
   ══════════════════════════════════════ */
   function mostrarFallbackInteligente() {
@@ -412,17 +437,17 @@
     else if (/realismo|fineline|black|floral|mandala|colorida|japones|biomecanico|trash|neotradicional|dotwork/.test(m))
       candidatas = ['🖼️ Ver portfólio','💰 Ver preços','📅 Agendar consulta'];
     else if (/como funciona|processo|agendar|comecar/.test(m))
-      candidatas = ['📋 Preencher formulário','💰 Ver preços','📅 Ver disponibilidade'];
+      candidatas = ['📅 Quero agendar','💰 Ver preços','📋 Ver disponibilidade'];
     else if (/doi|dor|machuca/.test(m))
       candidatas = ['🎨 Quero tatuar mesmo assim!','📍 Regiões menos dolorosas?'];
     else if (/oi|ola|bom dia|boa tarde|boa noite/.test(m))
-      candidatas = ['🎨 Quero fazer tattoo','🔄 Reformar tattoo','💰 Ver preços','🖼️ Ver portfólio'];
+      candidatas = ['🔥 Quero fazer uma tattoo','🖤 Quero reformar minha tattoo','🤔 Ainda não sei o que quero','📸 Quero mandar uma foto'];
     else if (/higiene|seguro|limpo|biosseguranca/.test(m))
-      candidatas = ['🎨 Quero agendar','🖼️ Ver portfólio'];
+      candidatas = ['📅 Quero agendar','🖼️ Ver portfólio'];
     else if (/cicatriz|cicatrizacao|cuidado|depois/.test(m))
       candidatas = ['📋 Agendar consulta','🔄 Tenho dúvida sobre retoque'];
     else
-      candidatas = ['🎨 Quero fazer tattoo','🔄 Reformar tattoo','💰 Ver preços','🖼️ Ver portfólio'];
+      candidatas = ['🔥 Quero fazer uma tattoo','🖤 Quero reformar minha tattoo','🤔 Ainda não sei o que quero','📸 Quero mandar uma foto'];
 
     // Filtra as que já foram usadas nessa conversa
     var novas = candidatas.filter(function(s){ return _sugsUsadas.indexOf(s)===-1; });
@@ -495,6 +520,7 @@
   var enviouFoto       = false;
   var ultimaObjecao    = '';
   var _intencaoExtra   = 0;     // soma de gatilhos textuais de "pronto pra fechar"
+  var _intencaoForte   = false; // true assim que detectar 1ª intenção forte de compra
   var _modoCarlosAtivo = false;
   var _sessionId = (function(){
     try {
@@ -504,7 +530,9 @@
     } catch(e){ return 'rb_'+Date.now(); }
   })();
 
-  var REGEX_INTENCAO_ALTA = /quero fechar|quero agendar|quando (tem|posso)|valor exato|essa semana|amanha|hoje mesmo|fazer o pix|pagar (agora|hoje)|vamos marcar|bora marcar/;
+  var REGEX_INTENCAO_ALTA = /quero fechar|quero agendar|quero marcar|quando (tem|posso)|valor exato|quanto fica pra fazer|essa semana|amanha|hoje mesmo|fazer o pix|aceita pix|pagar (agora|hoje)|vamos marcar|bora marcar/;
+  var REGEX_INTENCAO_PREMIUM = /quero algo exclusivo|quero a melhor|nao quero economizar|quero algo top|projeto exclusivo|nao me importo (com|de) (o )?preco|quero o melhor|sem limite de orcamento/;
+  var REGEX_INDECISO = /nao sei o que quero|ainda nao sei|nao tenho ideia|sem ideia (ainda)?|nao decidi (o que|ainda)|me ajuda a escolher/;
   var REGEX_OBJECAO = {
     preco:  /\b(caro|cara|sem dinheiro|fora do (meu )?orcamento|nao tenho grana|nao da pra pagar)\b/,
     tempo:  /vou pensar|depois (eu )?vejo|mais pra frente|sem tempo agora|nao decidi ainda/,
@@ -534,6 +562,7 @@
       _modoCarlosAtivo=true;
       setTimeout(function(){
         RabiscoUI.addMsg('🔥 Vou priorizar seu atendimento — sou o assistente do Carlos e já vou deixar tudo pronto pra ele te chamar pessoalmente.','bot');
+        if(leadStep===3) setTimeout(function(){ RabiscoUI.mostrarBotaoFormulario(true,'🔥 QUERO RECEBER ORÇAMENTO'); },700);
       },500);
       rbTrack('lead_quente',{score:leadScore,nome:leadNome,wpp:leadWpp});
     }
@@ -590,8 +619,11 @@
     inp.click();
   }
 
+  var TAMANHO_MAX_FOTO = 8 * 1024 * 1024; // 8MB
   function uploadFotoSupabase(file, callback){
     if(!file){ callback(null); return; }
+    if(file.type && file.type.indexOf('image/')!==0){ callback('tipo_invalido'); return; }
+    if(file.size && file.size>TAMANHO_MAX_FOTO){ callback('grande_demais'); return; }
     var ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
     var nomeArq='lead-'+Date.now()+'-'+Math.random().toString(36).substring(2,8)+'.'+ext;
     fetch(SB_URL+'/storage/v1/object/rabisco-fotos/'+nomeArq,{
@@ -671,19 +703,38 @@
   var FUNIL_PRINCIPAL=[
     {id:'interesse', pergunta:'O que você está buscando hoje? 🎯',
      opcoes:[
-       {txt:'🎨 Fazer uma tattoo nova',   valor:'tattoo_nova'},
-       {txt:'🔄 Reformar tattoo antiga',  valor:'cobertura'},
-       {txt:'🔥 Cobertura de queimadura', valor:'queimadura'},
-       {txt:'💖 Reconstrução de aréola',  valor:'areola'},
-       {txt:'📚 Sou tatuador',            valor:'tatuador'}
+       {txt:'🎨 Fazer uma tattoo nova',     valor:'tattoo_nova'},
+       {txt:'🔄 Reformar tattoo antiga',    valor:'cobertura'},
+       {txt:'🔥 Cobertura de queimadura',   valor:'queimadura'},
+       {txt:'💖 Reconstrução de aréola',    valor:'areola'},
+       {txt:'🤔 Ainda não sei o que quero', valor:'indeciso'},
+       {txt:'📚 Sou tatuador',              valor:'tatuador'}
      ]
     },
-    {id:'tamanho', pergunta:'Qual o tamanho aproximado? 📏',
+    {id:'local', pergunta:'Onde no corpo você imagina? 📍',
      condicao:function(q){return q.interesse==='tattoo_nova'||q.interesse==='cobertura'||q.interesse==='queimadura';},
      opcoes:[
-       {txt:'🔹 Pequena (até 10cm)', valor:'pequena'},
-       {txt:'🔸 Média (10 a 20cm)', valor:'media'},
-       {txt:'🔶 Grande (acima 20cm)',valor:'grande'},
+       {txt:'💪 Braço',          valor:'braco'},
+       {txt:'🦵 Perna',          valor:'perna'},
+       {txt:'🔙 Costas',         valor:'costas'},
+       {txt:'🤷 Ainda não sei',  valor:'indefinido'}
+     ]
+    },
+    {id:'estilo', pergunta:'Você imagina algo mais: 🎨',
+     condicao:function(q){return !ctx.estilo && (q.interesse==='tattoo_nova'||q.interesse==='cobertura');},
+     opcoes:[
+       {txt:'🖤 Realista',    valor:'realismo'},
+       {txt:'✨ Delicado',    valor:'fineline'},
+       {txt:'🔥 Impactante',  valor:'black and grey'},
+       {txt:'🌈 Colorido',    valor:'colorida'}
+     ]
+    },
+    {id:'tamanho', pergunta:'Essa tattoo você imagina mais discreta, ou algo que chame atenção? 📏',
+     condicao:function(q){return q.interesse==='tattoo_nova'||q.interesse==='cobertura'||q.interesse==='queimadura';},
+     opcoes:[
+       {txt:'🔹 Discreta (pequena)', valor:'pequena'},
+       {txt:'🔸 Visível, sem exagero', valor:'media'},
+       {txt:'🔶 Grande, pra chamar atenção',valor:'grande'},
        {txt:'🔥 Projeto completo',   valor:'projeto'}
      ]
     },
@@ -701,6 +752,41 @@
      ]
     }
   ];
+
+  /* ══════════════════════════════════════
+     FUNIL "AINDA NÃO SEI O QUE QUERO"
+     Mini-fluxo de descoberta → sugere estilo
+     e devolve pro funil principal já com
+     contexto preenchido (sem reiniciar tudo)
+  ══════════════════════════════════════ */
+  var FUNIL_INDECISO=[
+    {id:'genero', pergunta:'Sem problema 😎 Vamos descobrir juntos!\n\nVocê imagina um traço mais:',
+     opcoes:[
+       {txt:'♀️ Delicado',          valor:'feminino'},
+       {txt:'♂️ Forte/marcante',    valor:'masculino'},
+       {txt:'⚪ Neutro, tanto faz', valor:'neutro'}
+     ]
+    },
+    {id:'tamIndeciso', pergunta:'E o tamanho? 📏',
+     opcoes:[
+       {txt:'🔹 Pequena e discreta',      valor:'pequena'},
+       {txt:'🔸 Média',                   valor:'media'},
+       {txt:'🔶 Grande, bem marcante',    valor:'grande'}
+     ]
+    },
+    {id:'significado', pergunta:'Você quer algo com um significado especial pra você, ou é mais pela estética mesmo?',
+     opcoes:[
+       {txt:'💭 Tem um significado', valor:'significado'},
+       {txt:'🎨 É mais pela estética', valor:'estetico'}
+     ]
+    }
+  ];
+
+  function sugerirEstilo(genero, significado){
+    if(genero==='feminino') return significado==='significado' ? 'fineline com lettering' : 'fineline';
+    if(genero==='masculino') return significado==='significado' ? 'realismo' : 'black and grey';
+    return significado==='significado' ? 'black and grey' : 'geométrico';
+  }
 
   /* ══════════════════════════════════════
      FUNIL TATUADOR
@@ -775,12 +861,16 @@
             if(!file){ avancarFunil(); return; }
             RabiscoUI.addMsg('📷 Foto selecionada — enviando...','user');
             uploadFotoSupabase(file,function(url){
-              if(url){
+              if(url && url!=='tipo_invalido' && url!=='grande_demais'){
                 enviouFoto=true;
                 qualificacao.fotoUrl=url;
                 salvarFotoLead(url);
                 calcularScore();
                 RabiscoUI.addMsg('Foto recebida! ✅ Isso ajuda muito o Carlos a dar um orçamento mais preciso.','bot');
+              } else if(url==='tipo_invalido'){
+                RabiscoUI.addMsg('Esse arquivo não parece ser uma imagem 😕 Tenta outra foto, ou pode anexar direto no formulário também.','bot');
+              } else if(url==='grande_demais'){
+                RabiscoUI.addMsg('Essa foto é muito grande (máx. 8MB) 😕 Tenta uma menor, ou anexa direto no formulário.','bot');
               } else {
                 RabiscoUI.addMsg('Não consegui enviar a foto agora 😕 Sem problema — você pode anexar direto no formulário também.','bot');
               }
@@ -806,12 +896,28 @@
         var btn=document.createElement('button'); btn.className='rb-sug rb-funil-opt'; btn.textContent=op.txt;
         btn.onclick=function(){
           qualificacao[passo.id]=op.valor;
+          if(passo.id==='local' && op.valor!=='indefinido') ctx.partCorpo=op.valor;
+          if(passo.id==='estilo') ctx.estilo=op.valor;
           RabiscoUI.addMsg(op.txt,'user');
           sugs.innerHTML='';
           calcularScore();
+          if(op.valor==='indeciso'){
+            _funilAtivo=false;
+            setTimeout(function(){ iniciarFunilIndeciso(); },400);
+            return;
+          }
           if(op.valor==='tatuador'){
             _funilAtivo=false;
             setTimeout(function(){ capturarEmailTatuador(iniciarFunilTatuador); },400);
+            return;
+          }
+          // Reaproveita contexto: se já sabemos o local e acabamos de saber o estilo,
+          // o bot comenta antes de seguir — parece conversa de verdade, não checklist.
+          if(passo.id==='estilo' && ctx.partCorpo){
+            setTimeout(function(){
+              RabiscoUI.addMsg('Show 🔥 No '+ctx.partCorpo+', esse estilo costuma ficar especialmente bem.','bot');
+              setTimeout(function(){ avancarFunil(); },900);
+            },400);
             return;
           }
           avancarFunil();
@@ -819,6 +925,61 @@
         sugs.appendChild(btn);
       });
     },600);
+  }
+
+  function iniciarFunilIndeciso(){ _funilPasso=-1; _funilAtivo=true; _funilTipo='indeciso'; avancarFunilIndeciso(); }
+
+  // Entrada do mini-funil "indeciso" vinda de fora do funil principal
+  // (botão da saudação ou frase livre tipo "não sei o que quero").
+  // Garante que a captura de nome/whatsapp acontece antes, na ordem certa.
+  function acionarFunilIndeciso(){
+    if(_funilAtivo) return;
+    if(leadStep===3){ iniciarFunilIndeciso(); return; }
+    if(leadStep===0){
+      _destinoPosCaptura='indeciso';
+      _msgsLivres = CFG.msgsLivresAntesCaptura;
+      setTimeout(function(){ tentarCapturarLead(); }, 1200);
+    }
+  }
+
+  function avancarFunilIndeciso(){
+    var funil=FUNIL_INDECISO;
+    _funilPasso++;
+    if(_funilPasso>=funil.length){ concluirFunilIndeciso(); return; }
+    var passo=funil[_funilPasso];
+    setTimeout(function(){
+      RabiscoUI.addMsg(passo.pergunta,'bot');
+      var sugs=document.getElementById('rbSugs'); sugs.innerHTML='';
+      passo.opcoes.forEach(function(op){
+        var btn=document.createElement('button'); btn.className='rb-sug rb-funil-opt'; btn.textContent=op.txt;
+        btn.onclick=function(){
+          qualificacao[passo.id]=op.valor;
+          RabiscoUI.addMsg(op.txt,'user');
+          sugs.innerHTML='';
+          avancarFunilIndeciso();
+        };
+        sugs.appendChild(btn);
+      });
+    },600);
+  }
+
+  function concluirFunilIndeciso(){
+    _funilAtivo=false;
+    var estiloSugerido = sugerirEstilo(qualificacao.genero, qualificacao.significado);
+    ctx.estilo = estiloSugerido;
+    qualificacao.interesse = 'tattoo_nova';
+    qualificacao.tamanho = qualificacao.tamIndeciso;
+    calcularScore();
+    setTimeout(function(){
+      RabiscoUI.addMsg('Pelo que você me contou, acho que **'+estiloSugerido+'** combina bastante com você! 🎨\n\nVamos seguir com os últimos detalhes pra Carlos já te passar o orçamento certinho.','bot');
+      setTimeout(function(){
+        _funilTipo='principal'; _funilAtivo=true;
+        var idxFoto=-1;
+        for(var i=0;i<FUNIL_PRINCIPAL.length;i++){ if(FUNIL_PRINCIPAL[i].id==='foto'){ idxFoto=i; break; } }
+        _funilPasso = idxFoto - 1;
+        avancarFunil();
+      },1200);
+    },700);
   }
 
   function avancarFunilTatuador(){
@@ -892,14 +1053,19 @@
     logChat('funil_concluido', JSON.stringify(qualificacao));
     preencherFormulario(qualificacao);
     var msgs={
-      tattoo_nova:'Incrível! 🎨 Carlos vai adorar criar isso pra você.\n\nPreenche o formulário — ele te responde no WhatsApp com a proposta!',
-      cobertura:'Perfeito! 🔄 Reforma é nossa especialidade #1.\n\nPreenches o formulário — Carlos analisa gratuitamente!',
-      queimadura:'Entendido 💪 Cobertura de queimadura exige sensibilidade e técnica — é uma das especialidades do Carlos.\n\nPreenches o formulário — ele avalia com todo cuidado!',
-      areola:'Entendido 💖 Carlos faz esse trabalho com muito cuidado.\n\nPreenches o formulário — ele entra em contato com toda atenção.',
+      tattoo_nova:'Incrível! 🎨 Carlos vai adorar criar isso pra você.\n\nÉ só clicar abaixo que o Carlos te responde no WhatsApp com a proposta!',
+      cobertura:'Perfeito! 🔄 Reforma é nossa especialidade #1.\n\nClica abaixo — Carlos analisa gratuitamente!',
+      queimadura:'Entendido 💪 Cobertura de queimadura exige sensibilidade e técnica — é uma das especialidades do Carlos.\n\nClica abaixo — ele avalia com todo cuidado!',
+      areola:'Entendido 💖 Carlos faz esse trabalho com muito cuidado.\n\nClica abaixo — ele entra em contato com toda atenção.',
     };
+    // Orçamento express: quando já mandou foto, já temos o essencial —
+    // a mensagem fica mais decisiva em vez de repetir o convite genérico.
+    var msgFinal = enviouFoto
+      ? '🔥 Perfeito, já tenho informação suficiente!\n\nAgora o Carlos já consegue avaliar e te passar:\n💰 valor aproximado\n📅 disponibilidade\n🎨 sugestões\n\nClica abaixo pra receber tudo isso 👇'
+      : (msgs[qualificacao.interesse]||'Perfeito! 💎 Clica abaixo e Carlos te responde no WhatsApp!');
     setTimeout(function(){
-      RabiscoUI.addMsg(msgs[qualificacao.interesse]||'Perfeito! 💎 Preenches o formulário e Carlos te responde no WhatsApp!','bot');
-      setTimeout(function(){ RabiscoUI.mostrarBotaoFormulario(true); },700);
+      RabiscoUI.addMsg(msgFinal,'bot');
+      setTimeout(function(){ RabiscoUI.mostrarBotaoFormulario(true, enviouFoto?'🔥 RECEBER ORÇAMENTO':null); },700);
     },600);
   }
 
@@ -1069,6 +1235,7 @@
      CAPTURA DE LEAD — APÓS 2 MENSAGENS LIVRES
      (ou imediatamente se voltou e já temos nome)
   ══════════════════════════════════════ */
+  var _destinoPosCaptura = 'principal'; // 'principal' ou 'indeciso'
   function tentarCapturarLead() {
     if(leadStep>=1 || _capturando) return; // já capturando ou concluído
     _capturando = true;
@@ -1094,6 +1261,11 @@
             salvarVisita(leadNome);
             leadStep = 3;
             _capturando = false;
+            if(_destinoPosCaptura==='indeciso'){
+              _destinoPosCaptura='principal';
+              setTimeout(function(){ iniciarFunilIndeciso(); },500);
+              return;
+            }
             setTimeout(function(){
               RabiscoUI.addMsg('Perfeito! 🔥 Pode continuar perguntando à vontade.\n\nSe quiser ir direto ao ponto, é só clicar abaixo 👇','bot');
               // Funil inicia só se cliente ficar 15s sem digitar
@@ -1182,14 +1354,14 @@
         var fn=nomeAnterior.split(' ')[0];
         setTimeout(function(){
           RabiscoUI.addMsg('Fala, **'+fn+'**! Que bom te ver de volta 😊\n\nO que posso te ajudar hoje?','bot');
-          setTimeout(function(){ iniciarFunilPrincipal(); },15000);
+          setTimeout(function(){ iniciarFunilPrincipal(); },4000);
         },1800);
         return;
       }
       // Visitante novo — primeira mensagem com delay humanizado
       setTimeout(function(){
         RabiscoUI.addMsg('Oi! 😊 Sou o **Rabisco**, assistente do Carlos Tattoo BH.\n\nPode me perguntar o que quiser — preços, estilos, agendamento, reforma...','bot');
-        RabiscoUI.mostrarSugs(['🎨 Quero fazer tattoo','🔄 Reformar tattoo','💰 Ver preços','🖼️ Ver portfólio']);
+        RabiscoUI.mostrarSugs(['🔥 Quero fazer uma tattoo','🖤 Quero reformar minha tattoo','🤔 Ainda não sei o que quero','📸 Quero mandar uma foto']);
       },1800);
     },
 
@@ -1214,7 +1386,11 @@
 
       // Score: intenção textual de compra + objeção
       var normMsg = normalizar(corrigirTypos(msg));
-      if(REGEX_INTENCAO_ALTA.test(normMsg)) _intencaoExtra = Math.min(_intencaoExtra+50, 50);
+      var partCorpoAntes = ctx.partCorpo;
+      var ehIndeciso = !_funilAtivo && REGEX_INDECISO.test(normMsg);
+      if(REGEX_INTENCAO_ALTA.test(normMsg)){ _intencaoExtra = Math.min(_intencaoExtra+50, 50); _intencaoForte = true; }
+      var ehPremium = REGEX_INTENCAO_PREMIUM.test(normMsg);
+      if(ehPremium){ _intencaoExtra = Math.min(_intencaoExtra+20, 50); _intencaoForte = true; }
       var objecaoDetectada = detectarObjecao(normMsg);
       if(objecaoDetectada) registrarObjecao(objecaoDetectada);
       calcularScore();
@@ -1225,6 +1401,23 @@
 
       setTimeout(function(){
         typing.remove(); self.setCarregando(false);
+
+        // "Não sei o que quero" entra direto no mini-funil de descoberta
+        if(ehIndeciso){
+          self.addMsg('Sem problema 😎 Vou te ajudar a descobrir!','bot');
+          self.hideCtas();
+          acionarFunilIndeciso();
+          return;
+        }
+
+        // Intenção premium tem resposta dedicada — aumenta ticket
+        if(ehPremium){
+          self.addMsg('Entendi 🔥\n\nPelo que você falou, parece um projeto premium — Carlos cria peças exclusivas e dá atenção total a esse tipo de trabalho.\n\nMe manda uma referência (ou só me conta a ideia) que já deixo tudo registrado pra ele!','bot');
+          self.mostrarSugs(['📸 Mandar referência','📅 Quero agendar']);
+          self.hideCtas();
+          if(leadStep===0){ _msgsLivres = CFG.msgsLivresAntesCaptura; setTimeout(function(){ tentarCapturarLead(); }, 1200); }
+          return;
+        }
 
         // Objeção de "vou pensar" tem resposta de retenção dedicada (anti-perda)
         if(objecaoDetectada==='tempo'){
@@ -1252,32 +1445,42 @@
 
         self.mostrarSugs(getSugs(msg));
 
+        // Reage quando o cliente cita o local do corpo fora do funil
+        // (texto livre) e ainda não sabemos o estilo — puxa assunto
+        // em vez de só arquivar o dado.
+        var localNovo = !partCorpoAntes && ctx.partCorpo && !ctx.estilo && !_funilAtivo;
+        if(localNovo){
+          setTimeout(function(){ mostrarPerguntaEstiloLivre(); }, 1100);
+        }
+
         // Conta mensagens livres e dispara captura no momento certo
+        // (intenção forte pula a espera de 2 mensagens livres)
         if(leadStep===0){
           _msgsLivres++;
-          if(_msgsLivres >= CFG.msgsLivresAntesCaptura) {
+          if(_msgsLivres >= CFG.msgsLivresAntesCaptura || _intencaoForte) {
             setTimeout(function(){ tentarCapturarLead(); }, 1200);
           }
         }
 
         // Reinicia timer do funil após resposta
+        // (intenção forte entra direto no orçamento, sem esperar 15s parado)
         if(leadStep===3 && !_funilAtivo){
           _funilIdleTimer = setTimeout(function(){
             if(!_funilAtivo && leadStep===3) iniciarFunilPrincipal();
-          }, 15000);
+          }, _intencaoForte ? 1200 : 15000);
         }
 
       },tempo);
     },
 
-    mostrarBotaoFormulario:function(comUrgencia){
+    mostrarBotaoFormulario:function(comUrgencia,texto){
       var ctas=document.getElementById('rbCtas'); if(!ctas) return; ctas.innerHTML='';
       if(comUrgencia){
         var vd=document.createElement('div'); vd.className='rb-card-vagas'; vd.innerHTML=badgeVagas();
         ctas.appendChild(vd);
       }
       var btn=document.createElement('button'); btn.className='rb-card-btn';
-      btn.innerHTML='👉 IR PARA O FORMULÁRIO';
+      btn.innerHTML=texto||'👉 IR PARA O FORMULÁRIO';
       btn.onclick=function(){
         var formEl=document.querySelector(CFG.form);
         if(formEl){ rbTrack('form_clicado',{secao:secaoAtual,interesse:qualificacao.interesse||''}); preencherFormulario(qualificacao); formEl.scrollIntoView({behavior:'smooth'}); setTimeout(function(){ var n=document.getElementById('fp-nome'); if(n){n.focus();n.scrollIntoView({behavior:'smooth',block:'center'});} },600); }
