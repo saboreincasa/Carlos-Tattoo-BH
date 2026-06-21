@@ -25,7 +25,7 @@
   "author": {"@type": "Person", "name": "Carlos Henrique", "url": "https://carlostattoobh.com.br"},
   "publisher": {"@type": "Organization", "name": "Carlos Tattoo BH"},
   "datePublished": "2026-06-09",
-  "dateModified": "2026-06-09",
+  "dateModified": "2026-06-21",
   "mainEntityOfPage": {"@type": "WebPage", "@id": "https://carlostattoobh.com.br/blog-central-tattoo.html"}
 }
 </script>
@@ -34,19 +34,23 @@
 
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
 body{font-family:'Lora',Georgia,serif;background:#f5f0e8;color:#1a1008;line-height:1.85;font-size:17px;}
-.blog-nav{background:#1a1008;padding:13px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.3);}
-.blog-nav-logo{font-family:'Cinzel Decorative',cursive;font-size:13px;color:#E8B800;letter-spacing:2px;}
-.blog-nav-back{font-family:'Cinzel',serif;font-size:10px;letter-spacing:1.5px;color:rgba(232,184,0,.7);border:1px solid rgba(232,184,0,.25);padding:7px 16px;border-radius:6px;text-decoration:none;transition:all .2s;text-transform:uppercase;}
-.blog-nav-back:hover{color:#E8B800;border-color:rgba(232,184,0,.6);}
-.article-hero{background:linear-gradient(160deg,#1a1008 0%,#2a1a06 60%,#1a1008 100%);padding:60px 24px 52px;text-align:center;}
+.blog-nav{background:#150d06;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 24px rgba(0,0,0,.4);border-bottom:1px solid rgba(232,184,0,.14);}
+.blog-nav-logo{font-family:'Cinzel Decorative',cursive;font-size:15px;color:#F3ECDC;letter-spacing:2px;}
+.blog-nav-logo .lg-a{color:#E8B800;}
+.blog-nav-back{font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:1.5px;color:#E8B800;background:rgba(232,184,0,.08);border:1px solid rgba(232,184,0,.4);padding:8px 18px;border-radius:24px;text-decoration:none;transition:all .2s;text-transform:uppercase;font-weight:600;}
+.blog-nav-back:hover{background:rgba(232,184,0,.18);border-color:#E8B800;}
+.article-hero{background:linear-gradient(160deg,#150d06 0%,#2a1a06 55%,#150d06 100%);padding:60px 24px 44px;text-align:center;}
+.article-hero-figure{width:100%;line-height:0;border-top:1px solid rgba(232,184,0,.25);border-bottom:1px solid rgba(232,184,0,.25);}
+.article-hero-figure img{width:100%;height:auto;display:block;}
+.article-hero-meta{background:#150d06;padding:18px 24px;text-align:center;}
 .article-cat{display:inline-block;background:rgba(232,184,0,.12);border:1px solid rgba(232,184,0,.3);color:#E8B800;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;padding:5px 16px;border-radius:20px;margin-bottom:20px;text-transform:uppercase;font-weight:600;}
-.article-title{font-family:'Cinzel Decorative',cursive;font-size:clamp(22px,3.8vw,40px);color:#ffffff;line-height:1.2;max-width:780px;margin:0 auto 22px;}
+.article-title{font-family:'Cinzel Decorative',cursive;font-size:clamp(22px,3.8vw,40px);color:#ffffff;line-height:1.2;max-width:780px;margin:0 auto;}
 .article-meta{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;}
 .article-author{display:flex;align-items:center;gap:10px;}
 .article-author img{width:42px;height:42px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid rgba(232,184,0,.4);}
 .article-author-name{font-family:'Cinzel',serif;font-size:12px;color:#E8B800;font-weight:600;}
-.article-date,.article-read{font-family:'Cinzel',serif;font-size:10px;color:rgba(232,184,0,.4);letter-spacing:.5px;}
-.article-read{background:rgba(255,255,255,.06);padding:4px 12px;border-radius:20px;}
+.article-date,.article-read{font-family:'Cinzel',serif;font-size:10.5px;color:#EDE4D4;letter-spacing:.5px;}
+.article-read{background:rgba(232,184,0,.12);border:1px solid rgba(232,184,0,.25);padding:4px 12px;border-radius:20px;}
 .article-body{max-width:740px;margin:0 auto;padding:52px 28px 80px;}
 .article-body>p:first-child{font-size:19px;color:#3a2810;line-height:1.9;margin-bottom:28px;font-style:italic;border-left:4px solid #C9A84C;padding-left:20px;}
 .article-body p{font-size:17px;color:#2a1a0a;line-height:1.9;margin-bottom:22px;}
@@ -82,7 +86,7 @@ body{font-family:'Lora',Georgia,serif;background:#f5f0e8;color:#1a1008;line-heig
 .blog-footer{background:#1a1008;border-top:1px solid rgba(201,168,76,.15);padding:28px 24px;text-align:center;font-family:'Cinzel',serif;font-size:11px;color:rgba(201,168,76,.35);letter-spacing:1px;line-height:1.8;}
 .blog-footer a{color:rgba(201,168,76,.5);text-decoration:none;}
 .blog-footer a:hover{color:#E8B800;}
-@media(max-width:600px){.article-hero{padding:44px 20px 40px;}.article-body{padding:36px 20px 60px;}.step-box{flex-direction:column;}.article-cta{padding:28px 20px;}}
+@media(max-width:600px){.article-hero{padding:40px 18px 32px;}.article-body{padding:36px 20px 60px;}.step-box{flex-direction:column;}.article-cta{padding:28px 20px;}}
 
 /* Classes extras necessárias para portar conteúdo do Estilo B para o Estilo A */
 .stat-row{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0 28px;}
@@ -125,6 +129,17 @@ body{font-family:'Lora',Georgia,serif;background:#f5f0e8;color:#1a1008;line-heig
 .bul{list-style:none;margin:14px 0 22px;}
 .bul li{display:flex;align-items:flex-start;gap:10px;font-size:15px;color:#2a1a0a;margin-bottom:10px;line-height:1.7;}
 .bul li::before{content:'✦';color:#C9A84C;font-size:9px;flex-shrink:0;margin-top:6px;}
+.bbox-dark .bul li{color:#EDE4D4;}
+.bbox-dark .bul li::before{color:#E8B800;}
+.bbox-dark strong{color:#F2D88A;}
+.bbox-warn{background:#fff8f6;border:0.5px solid #e8c0b0;border-left:4px solid #C0392B;border-radius:0 10px 10px 0;padding:18px 22px;margin:24px 0;display:flex;gap:12px;align-items:flex-start;}
+.bbox-warn-i{font-size:20px;flex-shrink:0;}
+.bbox-warn p{margin:0;font-size:14px;color:#5a1208;line-height:1.75;}
+.bbox-warn strong{color:#7a1808;}
+.bbox-gold{background:#fdf8ec;border:0.5px solid #e0c878;border-left:4px solid #C9A84C;border-radius:0 10px 10px 0;padding:18px 22px;margin:24px 0;box-shadow:0 2px 12px rgba(0,0,0,.05);}
+.bbox-gold p{margin:0;color:#3a2810;font-size:14px;line-height:1.75;}
+.bbox-gold strong{color:#7a4a08;}
+.bdiv{text-align:center;color:#c8b898;font-size:16px;letter-spacing:8px;margin:40px 0;}
 .brel-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px;}
 .brel-card{background:#fff;border:0.5px solid #d8cdb8;border-radius:12px;padding:18px;text-decoration:none;transition:.2s;display:block;}
 .brel-card:hover{border-color:#C9A84C;transform:translateY(-3px);}
@@ -155,7 +170,7 @@ body{font-family:'Lora',Georgia,serif;background:#f5f0e8;color:#1a1008;line-heig
 
 <!-- NAV -->
 <nav class="blog-nav">
-  <span class="blog-nav-logo">Carlos Tattoo BH</span>
+  <span class="blog-nav-logo">Carlos Tattoo <span class="lg-a">BH</span></span>
   <a href="index.html#blog" class="blog-nav-back">← Voltar ao site</a>
 </nav>
 
@@ -163,6 +178,11 @@ body{font-family:'Lora',Georgia,serif;background:#f5f0e8;color:#1a1008;line-heig
   <div class="article-hero">
     <span class="article-cat">Gestão · Sistema · Tatuadores</span>
     <h1 class="article-title">Central Tattoo: o Sistema de Gestão que Todo Tatuador Precisa em 2026</h1>
+  </div>
+  <div class="article-hero-figure">
+    <img src="imagens/thumb-central-tattoo.png" alt="Central Tattoo - Sistema de gestão para tatuadores">
+  </div>
+  <div class="article-hero-meta">
     <div class="article-meta">
       <div class="article-author">
         <img src="imagens/perfil.jpg" alt="Carlos Henrique" onerror="this.style.display='none'">
@@ -170,14 +190,18 @@ body{font-family:'Lora',Georgia,serif;background:#f5f0e8;color:#1a1008;line-heig
           <div class="article-author-name">Carlos Henrique</div>
           <div class="article-date">09 de Junho de 2026</div>
         </div>
-      </div>
-      <span class="article-read">9 min de leitura</span>
+  </div>
+      <span class="article-read">14 min de leitura</span>
     </div>
   </div>
 
   <div class="article-body">
 
-  <p>Você entrou no mundo da tatuagem por amor à arte. Mas em algum momento a rotina virou caos — agenda na memória, financeiro no feeling, leads sumindo no WhatsApp. Isso não é falta de esforço. É falta de sistema. Conheça o Central Tattoo: 16 módulos integrados, criados por um tatuador para tatuadores.</p>
+  <p>Você entrou no mundo da tatuagem por amor à arte — não para virar contador, atendente e gerente financeiro do próprio negócio ao mesmo tempo. Mas em algum momento a rotina virou caos: agenda dividida entre caderno, memória e Direct do Instagram. Financeiro resolvido "no feeling", sem saber ao certo quanto sobra no fim do mês. Leads que chegam, esfriam e desaparecem porque a resposta demorou um dia a mais.</p>
+
+  <p class="article-p">Isso não é falta de talento, nem falta de esforço. É falta de sistema. E foi exatamente esse problema que me tirou da maca de tatuagem por algumas semanas para construir a ferramenta que eu mesmo precisava — porque nenhum software genérico do mercado resolvia.</p>
+
+  <p class="article-p">Hoje o Central Tattoo é usado por mais de 500 tatuadores em todo o Brasil. 16 módulos integrados, nascidos dentro de um estúdio real, para resolver os problemas reais de quem vive de tatuar todos os dias.</p>
 
   <!-- STATS -->
   <div class="stat-row">
@@ -190,17 +214,21 @@ body{font-family:'Lora',Georgia,serif;background:#f5f0e8;color:#1a1008;line-heig
   <!-- PROBLEMA -->
   <h2 class="article-h2">A <span>dura verdade</span> que ninguém te conta</h2>
 
-  <p class="article-p">Você já parou para calcular quanto dinheiro perde todo mês por desorganização? Pense nos leads que chegaram pelo Instagram, receberam resposta atrasada e foram tatuar em outro estúdio. Nos sinais combinados que você esqueceu de registrar. Nas sessões canceladas sem reposição. No material de estoque que acabou no meio de uma sessão.</p>
+  <p class="article-p">Você já parou pra calcular quanto dinheiro perde todo mês só por desorganização? Não é exagero — é matemática. Pensa nos leads que chegaram pelo Instagram às 22h, ficaram pendurados no Direct até você lembrar de responder dois dias depois — e nessa hora já tinham fechado em outro estúdio. Nos sinais combinados de boca, sem registro nenhum, que somem da memória junto com o nome do cliente. Nas sessões canceladas de última hora que ninguém repôs porque não existia lista de espera organizada. No material que acabou no meio de uma sessão, no pior momento possível, porque ninguém estava de olho no estoque.</p>
 
-  <p class="article-p">Cada um desses momentos tem um custo. E quando você soma, o número dói mais do que qualquer agulha.</p>
+  <p class="article-p">Cada um desses momentos, isolado, parece pequeno. Um lead aqui, um esquecimento ali. Mas eles se acumulam — e quando você soma o ano inteiro, o número dói muito mais do que qualquer agulha. Eu sei porque vivi isso. Antes de existir qualquer sistema, perdi clientes que hoje seriam parte da minha base mais fiel — simplesmente porque a resposta chegou tarde demais.</p>
 
   <div class="bbox-warn">
     <span class="bbox-warn-i">⚠️</span>
     <p>Se você perde apenas <strong>2 leads por mês</strong> por falta de follow-up organizado, e seu ticket médio é R$350, isso são <strong>R$700 por mês perdidos</strong>. Em um ano: R$8.400,00 deixados na mesa. Por desorganização. Por não ter um pipeline.</p>
   </div>
 
+  <p class="article-p">E não para no lead perdido. Contrato mal feito ou inexistente é prejuízo na certa quando um cliente questiona um valor combinado verbalmente meses depois. Comissão calculada de cabeça é motivo recorrente de desconfiança entre tatuador e estúdio. Cada processo improvisado tem um preço — você só não vê o boleto porque ele nunca chega de uma vez só.</p>
+
   <!-- COMPARAÇÃO ANTES/DEPOIS -->
   <h2 class="article-h2">Seu estúdio <span>antes e depois</span> do sistema</h2>
+
+  <p class="article-p">A diferença entre operar no caos e operar com clareza não é sutil — é o que separa um tatuador que sobrevive de mês em mês de um que constrói um negócio de verdade. Veja lado a lado o que muda:</p>
 
   <div class="compare-grid">
     <div class="compare-before">
@@ -227,12 +255,16 @@ body{font-family:'Lora',Georgia,serif;background:#f5f0e8;color:#1a1008;line-heig
     </div>
   </div>
 
+  <p class="article-p">Não é só trocar caderno por tela. É parar de carregar a gestão inteira na cabeça e finalmente conseguir focar no que só você sabe fazer: tatuar.</p>
+
   <div class="bdiv">✦ ✦ ✦</div>
 
   <!-- MÓDULOS -->
   <h2 class="article-h2">Os <span>16 Módulos</span> do Central Tattoo</h2>
 
   <p class="article-p">Cada módulo foi construído a partir de uma dor real, vivida dentro de um estúdio de verdade. Não é software genérico adaptado. É gestão feita por quem conhece cada detalhe da rotina de um tatuador.</p>
+
+  <p class="article-p">E os 16 módulos não são ferramentas soltas — são uma engrenagem única. Quando você fecha uma sessão na Agenda, o valor já aparece no Financeiro. Quando confirma um sinal, ele já entra no Controle de Sinais. Quando um lead vira cliente, o histórico dele já está pronto no CRM. Você não preenche a mesma informação três vezes em três telas diferentes — preenche uma vez, e o sistema inteiro se atualiza.</p>
 
   <div class="mod-grid">
     <div class="mod-card"><span class="mod-icon">📊</span><div class="mod-name">Dashboard</div><div class="mod-desc">Visão completa do negócio: faturamento, lucro, metas e KPIs em tempo real.</div></div>
@@ -263,9 +295,11 @@ body{font-family:'Lora',Georgia,serif;background:#f5f0e8;color:#1a1008;line-heig
   <!-- POR QUE UM TATUADOR CRIOU -->
   <h2 class="article-h2">Por que um <span>tatuador criou</span> esse sistema</h2>
 
-  <p class="article-p">Você pode estar pensando: "mas existem outros sistemas de gestão no mercado." E sim, existem. Genéricos, feitos para salões, para clínicas, para qualquer negócio que não seja o seu.</p>
+  <p class="article-p">Você pode estar pensando: "mas existem outros sistemas de gestão no mercado." E sim, existem. Dezenas deles. Genéricos, feitos para salões de beleza, clínicas de estética, barbearias — qualquer negócio que não seja exatamente o seu.</p>
 
-  <p class="article-p">O Central Tattoo foi construído de dentro para fora. Carlos passou anos gerindo um estúdio real, com clientes reais, problemas reais.</p>
+  <p class="article-p">Eu testei vários. Adaptei planilhas. Tentei encaixar a rotina de um estúdio de tatuagem dentro de campos desenhados para outra realidade. Funcionava até certo ponto — e depois travava, porque tatuagem tem particularidades que nenhum sistema genérico prevê: sinal, sessão fracionada, retoque incluso, comissão por tatuador, cicatrização que precisa de acompanhamento, cliente que some por um ano e volta pra fechar outra peça.</p>
+
+  <p class="article-p">O Central Tattoo foi construído de dentro para fora. Não comecei desenhando telas — comecei anotando, sessão após sessão, exatamente onde eu perdia tempo, dinheiro ou cliente. Cada módulo do sistema é a resposta direta a um problema que eu mesmo enfrentei tatuando todos os dias, aqui em Belo Horizonte, com agenda cheia e zero tempo sobrando pra gestão.</p>
 
   <div class="bbox-dark">
     <h4>💡 A origem de cada módulo</h4>
@@ -274,17 +308,24 @@ body{font-family:'Lora',Georgia,serif;background:#f5f0e8;color:#1a1008;line-heig
       <li>O <strong>controle de sinais</strong> existe porque sinal sem registro é dinheiro recebido cujo rastro se perde.</li>
       <li>O <strong>pipeline de leads</strong> surgiu porque cada mensagem ignorada no Instagram é uma sessão que foi para o concorrente.</li>
       <li>A <strong>calculadora de preço</strong> nasceu da frustração de subestimar trabalhos e cobrar menos do que deveriam custar.</li>
+      <li>Os <strong>contratos digitais</strong> existem porque um acordo verbal não protege ninguém quando o cliente questiona um valor meses depois.</li>
+      <li>As <strong>comissões automáticas</strong> nasceram para acabar com a desconfiança entre tatuador e estúdio — quando o cálculo é manual, alguém sempre acha que está sendo prejudicado.</li>
     </ul>
   </div>
 
   <div class="bbox-gold">
-    <p><strong>Diferença que faz diferença:</strong> enquanto sistemas genéricos precisam ser "adaptados" para a realidade de um estúdio de tatuagem, o Central Tattoo já nasceu dentro dela. Cada campo, cada fluxo, cada relatório foi pensado para o contexto específico de quem tatua.</p>
+    <p><strong>Diferença que faz diferença:</strong> enquanto sistemas genéricos precisam ser "adaptados" para a realidade de um estúdio de tatuagem, o Central Tattoo já nasceu dentro dela. Cada campo, cada fluxo, cada relatório foi pensado para o contexto específico de quem tatua — não importado de outro segmento e maquiado com um nome diferente.</p>
   </div>
+
+  <h3 class="bh3">"Mas minha planilha já dá conta do recado"</h3>
+  <p class="article-p">Talvez sim — até o dia em que você esquece de atualizar uma célula, perde o arquivo quando o celular quebra, ou precisa abrir três abas diferentes só pra saber se aquele cliente já pagou o sinal. Planilha é melhor que nada. Mas ela não te avisa quando um lead esfria, não calcula comissão sozinha, não lembra de chamar o cliente pro retoque na data certa. Ela registra o que você lembra de digitar. O Central Tattoo trabalha mesmo quando você esquece.</p>
 
   <div class="bdiv">✦ ✦ ✦</div>
 
   <!-- DIA A DIA -->
   <h2 class="article-h2">Como funciona na <span>prática do dia a dia</span></h2>
+
+  <p class="article-p">Teoria é fácil. O que importa é como isso muda a sua terça-feira comum. Aqui está o sistema funcionando nos quatro momentos em que mais se sente a diferença:</p>
 
   <div class="mod-card" style="margin:12px 0;">
     <span class="mod-icon">🌅</span>
@@ -304,6 +345,12 @@ body{font-family:'Lora',Georgia,serif;background:#f5f0e8;color:#1a1008;line-heig
     <div class="mod-desc">Os Relatórios mostram quais estilos mais vendem, qual é seu ticket médio real, onde está saindo dinheiro e se você está mais perto das suas metas. <strong>Quem mede, cresce. Quem não mede, trabalha no escuro.</strong></div>
   </div>
 
+  <div class="mod-card" style="margin:12px 0;">
+    <span class="mod-icon">🤝</span>
+    <div class="mod-name">Na hora de orçar um projeto grande</div>
+    <div class="mod-desc">Cliente pede valor pra uma manga fechada ou um projeto de meses? A Calculadora monta o preço com base em horas reais, material e complexidade — e o Contrato Digital já sai pronto pra assinatura, com sessões e sinais definidos. Negociação sem gambiarra, sem "depois eu calculo".</div>
+  </div>
+
   <div class="bdiv">✦ ✦ ✦</div>
 
   <!-- DEPOIMENTOS -->
@@ -312,7 +359,7 @@ body{font-family:'Lora',Georgia,serif;background:#f5f0e8;color:#1a1008;line-heig
   <div class="dep-grid">
     <div class="dep-card">
       <div class="dep-stars">★★★★★</div>
-      <p class="dep-text">"Antes eu não sabia quanto ganhava de verdade. Com o financeiro do Central Tattoo, descobri despesas que nem monitorava. Em 2 meses o lucro real dobrou."</p>
+      <p class="dep-text">"Antes eu não sabia quanto ganhava de verdade. Material, aluguel, taxa de cartão — tudo isso comia o faturamento sem eu perceber. Com o financeiro do Central Tattoo, descobri despesas que nem monitorava. Em 2 meses o lucro real dobrou, e pela primeira vez eu sei exatamente quanto sobra no fim do mês."</p>
       <div class="dep-author">
         <div class="dep-avatar">R</div>
         <div><div class="dep-name">Rafael M.</div><div class="dep-city">📍 São Paulo, SP</div></div>
@@ -320,7 +367,7 @@ body{font-family:'Lora',Georgia,serif;background:#f5f0e8;color:#1a1008;line-heig
     </div>
     <div class="dep-card">
       <div class="dep-stars">★★★★★</div>
-      <p class="dep-text">"O módulo de leads mudou meu jogo. Antes eu respondia o WhatsApp quando lembrava. Agora tenho um pipeline organizado e minha taxa de fechamento triplicou."</p>
+      <p class="dep-text">"O módulo de leads mudou meu jogo. Antes eu respondia o WhatsApp quando lembrava — às vezes um dia depois, e o cliente já tinha fechado em outro lugar. Agora tenho um pipeline organizado, sei exatamente quem está esperando resposta, e minha taxa de fechamento triplicou em três meses."</p>
       <div class="dep-author">
         <div class="dep-avatar">J</div>
         <div><div class="dep-name">Juliana S.</div><div class="dep-city">📍 Curitiba, PR</div></div>
@@ -328,7 +375,7 @@ body{font-family:'Lora',Georgia,serif;background:#f5f0e8;color:#1a1008;line-heig
     </div>
     <div class="dep-card">
       <div class="dep-stars">★★★★★</div>
-      <p class="dep-text">"A calculadora de preços foi uma revelação. Estava cobrando R$200 em sessões que deveriam custar R$380. Sem o sistema, nunca saberia disso."</p>
+      <p class="dep-text">"A calculadora de preços foi uma revelação. Estava cobrando R$200 em sessões que deveriam custar R$380 — meses cobrando errado sem saber. Sem o sistema, eu nunca teria descoberto isso, e seguiria deixando dinheiro na mesa em todo orçamento que fechava."</p>
       <div class="dep-author">
         <div class="dep-avatar">T</div>
         <div><div class="dep-name">Thiago A.</div><div class="dep-city">📍 Belo Horizonte, MG</div></div>
@@ -347,6 +394,7 @@ body{font-family:'Lora',Georgia,serif;background:#f5f0e8;color:#1a1008;line-heig
     <li>Profissionais em crescimento que querem construir processos antes de escalar</li>
     <li>Quem quer aumentar o ticket médio usando a calculadora de precificação correta</li>
     <li>Tatuadores que querem fidelizar mais clientes com follow-up e acompanhamento de cicatrização</li>
+    <li>Tatuadores que já cansaram de descobrir, só no fim do mês, que o lucro foi bem menor do que pareciam ter trabalhado</li>
     <li>Qualquer tatuador que quer tomar decisões baseadas em dados reais, não em sensação</li>
   </ul>
 
@@ -354,10 +402,12 @@ body{font-family:'Lora',Georgia,serif;background:#f5f0e8;color:#1a1008;line-heig
 
   <p class="article-p">Essa é a pergunta que poucos tatuadores se fazem. Todo mundo pergunta quanto custa ter um sistema. Mas o custo invisível de não ter é muito maior.</p>
 
-  <price-perspective class="price-box">
+  <p class="article-p">Some o lead perdido por resposta lenta, o sinal que ninguém registrou, a sessão cancelada sem reposição e o material que faltou no pior momento. Multiplicado por 12 meses, esse é o verdadeiro custo de operar no improviso — quase sempre, muito maior que R$499 por ano.</p>
+
+  <div class="price-box">
     <span class="price-box-i">💡</span>
     <p>O plano anual do Central Tattoo custa <strong>R$499 por ano — menos de R$42 por mês</strong>. Isso equivale a aproximadamente <strong>1/8 de uma sessão média</strong>. Um único lead recuperado pelo módulo de pipeline já paga o sistema inteiro. Todo o resto é lucro puro.</p>
-  </price-perspective>
+  </div>
 
   <div class="bdiv">✦ ✦ ✦</div>
 
@@ -372,6 +422,15 @@ body{font-family:'Lora',Georgia,serif;background:#f5f0e8;color:#1a1008;line-heig
 
   <h3 class="bh3">E para estúdio com mais de um tatuador?</h3>
   <p class="article-p">O módulo de comissões foi criado exatamente para isso. Você configura a estrutura de comissionamento, registra as sessões por tatuador e o sistema calcula tudo automaticamente — sem discussão, sem erro, com transparência total.</p>
+
+  <h3 class="bh3">Funciona pelo celular ou só no computador?</h3>
+  <p class="article-p">Funciona em qualquer dispositivo com navegador — celular, tablet ou computador. Você pode checar a Agenda no intervalo entre sessões direto do celular, sem precisar instalar nada.</p>
+
+  <h3 class="bh3">Posso cancelar quando quiser?</h3>
+  <p class="article-p">Sim. O plano é anual, mas a renovação é decisão sua a cada ciclo — sem fidelidade forçada. Se em algum momento o sistema não fizer mais sentido pro seu estúdio, você simplesmente não renova.</p>
+
+  <h3 class="bh3">Meus dados e os dos meus clientes ficam seguros?</h3>
+  <p class="article-p">Sim. Toda informação fica armazenada com backup automático. Você não perde histórico de cliente, contrato ou financeiro por celular quebrado ou caderno perdido — que é exatamente o problema que o sistema resolve.</p>
 
   <h3 class="bh3">Como recebo o acesso após o pagamento?</h3>
   <p class="article-p">Após a confirmação do pagamento, o acesso é enviado em até 1 hora útil. O sistema chega pronto para usar com o guia de configuração e instruções de cada módulo.</p>
@@ -388,7 +447,7 @@ body{font-family:'Lora',Georgia,serif;background:#f5f0e8;color:#1a1008;line-heig
     <div class="cta-price">R$ 499</div>
     <p class="cta-period">POR ANO</p>
     <p class="cta-mo">≈ R$ 41,58 por mês · Renovação: apenas R$ 299/ano</p>
-    <a href="pagamento.html?prod=central-tattoo" target="_blank" rel="noopener noreferrer" class="cta-btn">ADQUIRIR O SISTEMA AGORA →</a>
+    <a href="pagamento.html?prod=central-tattoo" target="_blank" rel="noopener noreferrer" class="btn-cta">ADQUIRIR O SISTEMA AGORA →</a>
     <p class="cta-sec">🔒 Pagamento seguro · PIX ou Cartão · Acesso enviado após confirmação</p>
   </div>
 

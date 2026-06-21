@@ -15,19 +15,23 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
 body{font-family:'Lora',Georgia,serif;background:#f5f0e8;color:#1a1008;line-height:1.85;font-size:17px;}
-.blog-nav{background:#1a1008;padding:13px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.3);}
-.blog-nav-logo{font-family:'Cinzel Decorative',cursive;font-size:13px;color:#E8B800;letter-spacing:2px;}
-.blog-nav-back{font-family:'Cinzel',serif;font-size:10px;letter-spacing:1.5px;color:rgba(232,184,0,.7);border:1px solid rgba(232,184,0,.25);padding:7px 16px;border-radius:6px;text-decoration:none;transition:all .2s;text-transform:uppercase;}
-.blog-nav-back:hover{color:#E8B800;border-color:rgba(232,184,0,.6);}
-.article-hero{background:linear-gradient(160deg,#1a1008 0%,#2a1a06 60%,#1a1008 100%);padding:60px 24px 52px;text-align:center;}
+.blog-nav{background:#150d06;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 24px rgba(0,0,0,.4);border-bottom:1px solid rgba(232,184,0,.14);}
+.blog-nav-logo{font-family:'Cinzel Decorative',cursive;font-size:15px;color:#F3ECDC;letter-spacing:2px;}
+.blog-nav-logo .lg-a{color:#E8B800;}
+.blog-nav-back{font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:1.5px;color:#E8B800;background:rgba(232,184,0,.08);border:1px solid rgba(232,184,0,.4);padding:8px 18px;border-radius:24px;text-decoration:none;transition:all .2s;text-transform:uppercase;font-weight:600;}
+.blog-nav-back:hover{background:rgba(232,184,0,.18);border-color:#E8B800;}
+.article-hero{background:linear-gradient(160deg,#150d06 0%,#2a1a06 55%,#150d06 100%);padding:60px 24px 44px;text-align:center;}
+.article-hero-figure{width:100%;line-height:0;border-top:1px solid rgba(232,184,0,.25);border-bottom:1px solid rgba(232,184,0,.25);}
+.article-hero-figure img{width:100%;height:auto;display:block;}
+.article-hero-meta{background:#150d06;padding:18px 24px;text-align:center;}
 .article-cat{display:inline-block;background:rgba(232,184,0,.12);border:1px solid rgba(232,184,0,.3);color:#E8B800;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;padding:5px 16px;border-radius:20px;margin-bottom:20px;text-transform:uppercase;font-weight:600;}
-.article-title{font-family:'Cinzel Decorative',cursive;font-size:clamp(22px,3.8vw,40px);color:#ffffff;line-height:1.2;max-width:780px;margin:0 auto 22px;}
+.article-title{font-family:'Cinzel Decorative',cursive;font-size:clamp(22px,3.8vw,40px);color:#ffffff;line-height:1.2;max-width:780px;margin:0 auto;}
 .article-meta{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;}
 .article-author{display:flex;align-items:center;gap:10px;}
 .article-author img{width:42px;height:42px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid rgba(232,184,0,.4);}
 .article-author-name{font-family:'Cinzel',serif;font-size:12px;color:#E8B800;font-weight:600;}
-.article-date,.article-read{font-family:'Cinzel',serif;font-size:10px;color:rgba(232,184,0,.4);letter-spacing:.5px;}
-.article-read{background:rgba(255,255,255,.06);padding:4px 12px;border-radius:20px;}
+.article-date,.article-read{font-family:'Cinzel',serif;font-size:10.5px;color:#EDE4D4;letter-spacing:.5px;}
+.article-read{background:rgba(232,184,0,.12);border:1px solid rgba(232,184,0,.25);padding:4px 12px;border-radius:20px;}
 .article-body{max-width:740px;margin:0 auto;padding:52px 28px 80px;}
 .article-body>p:first-child{font-size:19px;color:#3a2810;line-height:1.9;margin-bottom:28px;font-style:italic;border-left:4px solid #C9A84C;padding-left:20px;}
 .article-body p{font-size:17px;color:#2a1a0a;line-height:1.9;margin-bottom:22px;}
@@ -59,13 +63,13 @@ body{font-family:'Lora',Georgia,serif;background:#f5f0e8;color:#1a1008;line-heig
 .blog-footer{background:#1a1008;border-top:1px solid rgba(201,168,76,.15);padding:28px 24px;text-align:center;font-family:'Cinzel',serif;font-size:11px;color:rgba(201,168,76,.35);letter-spacing:1px;line-height:1.8;}
 .blog-footer a{color:rgba(201,168,76,.5);text-decoration:none;}
 .blog-footer a:hover{color:#E8B800;}
-@media(max-width:600px){.article-hero{padding:44px 20px 40px;}.article-body{padding:36px 20px 60px;}.step-box{flex-direction:column;}.article-cta{padding:28px 20px;}}
+@media(max-width:600px){.article-hero{padding:40px 18px 32px;}.article-body{padding:36px 20px 60px;}.step-box{flex-direction:column;}.article-cta{padding:28px 20px;}}
 </style>
 </head>
 <body>
 
 <nav class="blog-nav">
-  <span class="blog-nav-logo">Carlos Tattoo BH</span>
+  <span class="blog-nav-logo">Carlos Tattoo <span class="lg-a">BH</span></span>
   <a href="index.html#blog" class="blog-nav-back">← Voltar ao site</a>
 </nav>
 
@@ -73,6 +77,11 @@ body{font-family:'Lora',Georgia,serif;background:#f5f0e8;color:#1a1008;line-heig
   <div class="article-hero">
     <span class="article-cat">Cobertura de Tatuagem</span>
     <h1 class="article-title">Cover Up em BH: Tudo Que Você Precisa Saber Antes de Cobrir Sua Tattoo</h1>
+  </div>
+  <div class="article-hero-figure">
+    <img src="imagens/blog-reforma.PNG" alt="Cover up de tatuagem - antes e depois">
+  </div>
+  <div class="article-hero-meta">
     <div class="article-meta">
       <div class="article-author">
         <img src="imagens/perfil.jpg" alt="Carlos Henrique" onerror="this.style.display='none'">
@@ -80,7 +89,7 @@ body{font-family:'Lora',Georgia,serif;background:#f5f0e8;color:#1a1008;line-heig
           <div class="article-author-name">Carlos Henrique</div>
           <div class="article-date">25 de Janeiro de 2026</div>
         </div>
-      </div>
+  </div>
       <span class="article-read">7 min de leitura</span>
     </div>
   </div>
