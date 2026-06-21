@@ -206,6 +206,11 @@ fbq('init','1151853265430926');
   ],
   "priceRange":"$$",
   "aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"380"},
+  "review":[
+    {"@type":"Review","author":{"@type":"Person","name":"Ana Carolina"},"reviewRating":{"@type":"Rating","ratingValue":"5","bestRating":"5"},"reviewBody":"Carreguei por 9 anos uma tatuagem que me envergonhava. Carlos transformou em obra de arte. Chorei de alívio.","datePublished":"2025-03-15"},
+    {"@type":"Review","author":{"@type":"Person","name":"Thiago Mendes"},"reviewRating":{"@type":"Rating","ratingValue":"5","bestRating":"5"},"reviewBody":"Em 45 dias com agenda fechada por 2 meses após o curso de Tráfego. Melhor investimento da minha carreira.","datePublished":"2025-04-20"},
+    {"@type":"Review","author":{"@type":"Person","name":"Roberto Lima"},"reviewRating":{"@type":"Rating","ratingValue":"5","bestRating":"5"},"reviewBody":"Retrato realista do meu pai no braço. As pessoas param na rua perguntando se é foto colada. Cada detalhe perfeito.","datePublished":"2025-05-10"}
+  ],
   "sameAs":["https://instagram.com/carlostattoo.bh","https://www.google.com/maps/search/Carlos+Tattoo+BH+Belo+Horizonte"],
   "image":"https://carlostattoobh.com.br/imagens/carlos_hero.jpg",
   "paymentAccepted":"PIX, Cartão de Crédito, Cartão de Débito",
@@ -436,37 +441,7 @@ fbq('init','1151853265430926');
 </script>
 
 <!-- Schema: Review agregado real (baseado nos depoimentos do site) -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Carlos Tattoo BH",
-  "url": "https://carlostattoobh.com.br/",
-  "review": [
-    {
-      "@type": "Review",
-      "author": {"@type":"Person","name":"Ana Carolina"},
-      "reviewRating": {"@type":"Rating","ratingValue":"5","bestRating":"5"},
-      "reviewBody": "Carreguei por 9 anos uma tatuagem que me envergonhava. Carlos transformou em obra de arte. Chorei de alívio.",
-      "datePublished": "2025-03-15"
-    },
-    {
-      "@type": "Review",
-      "author": {"@type":"Person","name":"Thiago Mendes"},
-      "reviewRating": {"@type":"Rating","ratingValue":"5","bestRating":"5"},
-      "reviewBody": "Em 45 dias com agenda fechada por 2 meses após o curso de Tráfego. Melhor investimento da minha carreira.",
-      "datePublished": "2025-04-20"
-    },
-    {
-      "@type": "Review",
-      "author": {"@type":"Person","name":"Roberto Lima"},
-      "reviewRating": {"@type":"Rating","ratingValue":"5","bestRating":"5"},
-      "reviewBody": "Retrato realista do meu pai no braço. As pessoas param na rua perguntando se é foto colada. Cada detalhe perfeito.",
-      "datePublished": "2025-05-10"
-    }
-  ]
-}
-</script>
+<!-- Reviews unificados no schema LocalBusiness principal -->
 
 <!-- Schema: Blog ItemList — 6 artigos para Google News e rich results -->
 <script type="application/ld+json">
@@ -526,7 +501,7 @@ fbq('init','1151853265430926');
       "item": {
         "@type": "Article",
         "headline": "Guia Completo de Tráfego Pago para Tatuadores 2026",
-        "url": "https://carlostattoobh.com.br/blog-trafego-pago-completo.html",
+        "url": "https://carlostattoobh.com.br/blog-trafego-pago-COMPLETO.html",
         "datePublished": "2026-01-20",
         "author": {"@type":"Person","name":"Carlos Henrique"},
         "image": "https://carlostattoobh.com.br/imagens/blog-trafego-para-tatuadores.JPG"
@@ -657,6 +632,18 @@ fbq('init','1151853265430926');
     <span class="urg-spark">✦</span>
   </span>
 </div>
+<script>
+// Barra de urgência do topo: mostrar só na primeira página vista nesta sessão
+(function(){
+  var bar = document.getElementById('urg-bar-top');
+  if(!bar) return;
+  if (sessionStorage.getItem('urg_bar_seen')) {
+    bar.style.display = 'none';
+  } else {
+    sessionStorage.setItem('urg_bar_seen', '1');
+  }
+})();
+</script>
 
 <!-- HEADER / NAV -->
 <header role="banner">
@@ -697,7 +684,7 @@ fbq('init','1151853265430926');
 <!-- Banner internacional removido: visitantes fora de países lusófonos são redirecionados para /en/ ou /es/ -->
 
 <!-- TICKER -->
-<div class="ticker-wrap" role="marquee" aria-label="Atividade recente dos clientes" aria-live="off">
+<div class="ticker-wrap" aria-label="Atividade recente dos clientes" aria-live="off">
   <div class="ticker-track">
     <span class="tick-item"><span class="tdot"></span>Marcos de BH acabou de agendar uma reforma</span>
     <span class="tick-item"><span class="tdot"></span>Ana do Contagem concluiu seu projeto de manga completa</span>
@@ -1225,6 +1212,7 @@ fbq('init','1151853265430926');
         <div class="studio-ov"></div>
         <div class="studio-lbl">Ambiente acolhedor</div>
       </div>
+    </div>
     <div style="text-align:center;margin-top:32px;" class="rv">
       <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;color:#C9A84C;text-transform:uppercase;margin-bottom:8px;">📍 ENDEREÇO</p>
       <p style="font-family:'Cinzel Decorative',cursive;font-size:18px;color:var(--g2);">Rua Maria de Lourdes da Cruz, 378</p>
@@ -3163,11 +3151,11 @@ fbq('init','1151853265430926');
           <span class="bcat">AVANÇADO</span>
           <div class="btitle">Tráfego pago para tatuadores: guia completo do zero ao avançado 2026</div>
           <p class="bexc">16 capítulos, scripts de atendimento, estrutura de campanha e passo a passo para a primeira campanha rodar em 30 minutos.</p>
-          <a href="blog-trafego-pago-completo.html" class="bmore" aria-label="Ler guia completo de tráfego pago para tatuadores">LER GUIA COMPLETO</a>
+          <a href="blog-trafego-pago-COMPLETO.html" class="bmore" aria-label="Ler guia completo de tráfego pago para tatuadores">LER GUIA COMPLETO</a>
           <div class="share-bar">
             <span class="share-label">Compartilhar</span>
-            <a class="share-btn share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://carlostattoobh.com.br/blog-trafego-pago-completo.html" target="_blank" rel="noopener noreferrer"><span class="sb-ic">📘</span><span class="sb-tx">Facebook</span></a>
-            <button aria-label="Copiar link do guia completo de tráfego pago" class="share-btn share-copy" onclick="copiarLink('blog-trafego-pago-completo.html')"><span class="sb-ic">🔗</span><span class="sb-tx">Copiar</span></button>
+            <a class="share-btn share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://carlostattoobh.com.br/blog-trafego-pago-COMPLETO.html" target="_blank" rel="noopener noreferrer"><span class="sb-ic">📘</span><span class="sb-tx">Facebook</span></a>
+            <button aria-label="Copiar link do guia completo de tráfego pago" class="share-btn share-copy" onclick="copiarLink('blog-trafego-pago-COMPLETO.html')"><span class="sb-ic">🔗</span><span class="sb-tx">Copiar</span></button>
           </div>
         </div>
       </div>
@@ -3418,16 +3406,16 @@ fbq('init','1151853265430926');
     </div>
     <div class="faq-list rv">
       <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Quanto tempo demora para cicatrizar uma tatuagem?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Em média, a cicatrização superficial leva de 2 a 3 semanas. A cicatrização completa pode levar até 3 meses. Siga todos os cuidados recomendados pelo tatuador para garantir a qualidade final.</p></div></div>
-      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">É possível reformar qualquer tatuagem antiga?<span class="faq-icon">+</span></button>É possível reformar qualquer tatuagem antiga?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Na maioria dos casos, sim! A viabilidade depende do tamanho, cor e condição da tattoo atual. Oferecemos avaliação gratuita onde analisamos sua tattoo e apresentamos as melhores opções de reforma.</p></div></div>
-      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Como funciona o processo de agendamento?<span class="faq-icon">+</span></button>Como funciona o processo de agendamento?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Preencha o formulário descrevendo sua ideia. Entraremos em contato pelo WhatsApp para discutir o projeto, alinhar expectativas e confirmar a data. Após aprovação do projeto, é solicitado um sinal para confirmação.</p></div></div>
-      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Os cursos online têm certificado?<span class="faq-icon">+</span></button>Os cursos online têm certificado?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Sim! Todos os cursos incluem certificado digital de conclusão. O certificado é emitido automaticamente após a conclusão de todas as aulas e pode ser usado para comprovar sua capacitação.</p></div></div>
-      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Como recebo o ebook após o pagamento?<span class="faq-icon">+</span></button>Como recebo o ebook após o pagamento?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Após confirmar o pagamento PIX, você recebe o acesso em até 1 hora útil no email informado. Também enviamos o link de download pelo WhatsApp para garantia total.</p></div></div>
-      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Qual o horário de atendimento do estúdio?<span class="faq-icon">+</span></button>Qual o horário de atendimento do estúdio?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Atendemos de segunda a sexta das 10h às 19h e sábado das 10h às 18h. Para sessões longas ou finais de semana, é necessário agendamento prévio. Entre em contato pelo WhatsApp para verificar disponibilidade.</p></div></div>
-      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Tatuagem dói muito? Quais regiões doem mais?<span class="faq-icon">+</span></button>Tatuagem dói muito? Quais regiões doem mais?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>A dor varia bastante de pessoa para pessoa e de região para região. Áreas com mais nervos e menos músculo — como costelas, pescoço, pés e cotovelos — costumam ser mais sensíveis. Nas sessões, Carlos adapta o ritmo para garantir seu conforto durante todo o processo.</p></div></div>
-      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Preciso pagar algum sinal para agendar?<span class="faq-icon">+</span></button>Preciso pagar algum sinal para agendar?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Sim. Após alinhar o projeto e confirmar a data, é solicitado um sinal para garantir a reserva da agenda. O valor é descontado do total da sessão. Esse sinal protege tanto o tatuador quanto o cliente, garantindo seriedade no compromisso.</p></div></div>
-      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Quantas sessões são necessárias para minha tatuagem?<span class="faq-icon">+</span></button>Quantas sessões são necessárias para minha tatuagem?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Depende do tamanho, complexidade e localização no corpo. Peças pequenas e médias geralmente ficam prontas em uma sessão. Projetos grandes como mangas, costas fechadas ou reformas complexas podem exigir 2 a 4 sessões ou mais. Carlos apresenta um planejamento claro durante a consulta.</p></div></div>
-      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Os ebooks têm garantia de satisfação?<span class="faq-icon">+</span></button>Os ebooks têm garantia de satisfação?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Sim. Todos os materiais digitais oferecem garantia de 7 dias por lei (Código de Defesa do Consumidor). Se por qualquer motivo você não ficar satisfeito, basta entrar em contato pelo WhatsApp dentro do prazo e o reembolso é feito integralmente.</p></div></div>
-      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">O que é reconstrução de aréola e quem pode fazer?<span class="faq-icon">+</span></button>O que é reconstrução de aréola e quem pode fazer?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>A reconstrução de aréola por tatuagem é um procedimento especializado para mulheres que passaram por mastectomia em decorrência do câncer de mama. Carlos é especialista nessa técnica e atende com toda a sensibilidade e profissionalismo que o momento exige. O procedimento é feito com pigmentos específicos e resulta em aparência extremamente natural.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">É possível reformar qualquer tatuagem antiga?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Na maioria dos casos, sim! A viabilidade depende do tamanho, cor e condição da tattoo atual. Oferecemos avaliação gratuita onde analisamos sua tattoo e apresentamos as melhores opções de reforma.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Como funciona o processo de agendamento?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Preencha o formulário descrevendo sua ideia. Entraremos em contato pelo WhatsApp para discutir o projeto, alinhar expectativas e confirmar a data. Após aprovação do projeto, é solicitado um sinal para confirmação.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Os cursos online têm certificado?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Sim! Todos os cursos incluem certificado digital de conclusão. O certificado é emitido automaticamente após a conclusão de todas as aulas e pode ser usado para comprovar sua capacitação.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Como recebo o ebook após o pagamento?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Após confirmar o pagamento PIX, você recebe o acesso em até 1 hora útil no email informado. Também enviamos o link de download pelo WhatsApp para garantia total.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Qual o horário de atendimento do estúdio?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Atendemos de segunda a sexta das 10h às 19h e sábado das 10h às 18h. Para sessões longas ou finais de semana, é necessário agendamento prévio. Entre em contato pelo WhatsApp para verificar disponibilidade.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Tatuagem dói muito? Quais regiões doem mais?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>A dor varia bastante de pessoa para pessoa e de região para região. Áreas com mais nervos e menos músculo — como costelas, pescoço, pés e cotovelos — costumam ser mais sensíveis. Nas sessões, Carlos adapta o ritmo para garantir seu conforto durante todo o processo.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Preciso pagar algum sinal para agendar?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Sim. Após alinhar o projeto e confirmar a data, é solicitado um sinal para garantir a reserva da agenda. O valor é descontado do total da sessão. Esse sinal protege tanto o tatuador quanto o cliente, garantindo seriedade no compromisso.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Quantas sessões são necessárias para minha tatuagem?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Depende do tamanho, complexidade e localização no corpo. Peças pequenas e médias geralmente ficam prontas em uma sessão. Projetos grandes como mangas, costas fechadas ou reformas complexas podem exigir 2 a 4 sessões ou mais. Carlos apresenta um planejamento claro durante a consulta.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Os ebooks têm garantia de satisfação?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Sim. Todos os materiais digitais oferecem garantia de 7 dias por lei (Código de Defesa do Consumidor). Se por qualquer motivo você não ficar satisfeito, basta entrar em contato pelo WhatsApp dentro do prazo e o reembolso é feito integralmente.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">O que é reconstrução de aréola e quem pode fazer?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>A reconstrução de aréola por tatuagem é um procedimento especializado para mulheres que passaram por mastectomia em decorrência do câncer de mama. Carlos é especialista nessa técnica e atende com toda a sensibilidade e profissionalismo que o momento exige. O procedimento é feito com pigmentos específicos e resulta em aparência extremamente natural.</p></div></div>
     </div>
   </div>
 </section>
@@ -3489,7 +3477,7 @@ fbq('init','1151853265430926');
       <li><a href="blog-cover-up-bh.html">Cover Up em BH</a></li>
       <li><a href="blog-cuidados-pos-tattoo.html">Cuidados pós-tatuagem</a></li>
       <li><a href="blog-trafego-pago-tatuadores.html">Tráfego pago para tatuadores</a></li>
-      <li><a href="blog-trafego-pago-completo.html">Guia completo Meta Ads</a></li>
+      <li><a href="blog-trafego-pago-COMPLETO.html">Guia completo Meta Ads</a></li>
       <li><a href="blog-central-tattoo.html">⚙️ Sistema Central Tattoo</a></li>
     </ul></div>
   </div>
@@ -3792,6 +3780,9 @@ function abrirModalAreola(){
 }
 async function enviarFormAreola(e){
   e.preventDefault();
+  // Abre a aba do WhatsApp JÁ aqui (gesto do usuário ainda "fresco"), e só preenchemos o destino depois.
+  // Isso evita que bloqueadores de pop-up (principalmente Safari) barrem a abertura após o await abaixo.
+  const wppWindow = window.open('', '_blank');
   const nome=document.getElementById('ar-nome').value;
   const wpp=document.getElementById('ar-wpp').value;
   const email=document.getElementById('ar-email').value;
@@ -3833,8 +3824,9 @@ async function enviarFormAreola(e){
   document.body.style.overflow='';
   alert('Mensagem recebida! Carlos entrará em contato em breve com total discrição. 🌸');
 
-  // Abre o WhatsApp do Carlos com os dados pré-preenchidos, para garantir que ele veja na hora
-  window.open('https://wa.me/5531983391576?text='+wppMsg, '_blank');
+  // A aba já estava aberta — só direcionamos ela agora pro WhatsApp
+  const wppUrl = 'https://wa.me/5531983391576?text='+wppMsg;
+  if (wppWindow) { wppWindow.location.href = wppUrl; } else { window.open(wppUrl, '_blank'); }
 }
 
 // Abrir vídeo portfólio (legado)
@@ -7097,6 +7089,10 @@ async function registrarTrial(){
   btn.disabled = true;
   erroEl.style.display = 'none';
 
+  // Abre a aba do WhatsApp JÁ aqui (gesto do usuário ainda "fresco"), e só preenchemos o destino depois.
+  // Isso evita que bloqueadores de pop-up (principalmente Safari) barrem a abertura após o await abaixo.
+  const wppWindow = window.open('', '_blank');
+
   try {
     const agora    = new Date();
     const expira   = new Date(agora.getTime() + 48 * 60 * 60 * 1000);
@@ -7133,7 +7129,7 @@ async function registrarTrial(){
       localStorage.setItem('ct_trial_nome', nome);
     } catch(e){}
 
-    // 3. Notificar Carlos via WhatsApp
+    // 3. Notificar Carlos via WhatsApp (aba já estava aberta — só direcionamos ela agora)
     const wppMsg = encodeURIComponent(
       '⚙️ *NOVO TRIAL — CENTRAL TATTOO*\n\n' +
       '👤 *Nome:* ' + nome + '\n' +
@@ -7142,7 +7138,8 @@ async function registrarTrial(){
       '⏱️ *Expira em:* ' + expira.toLocaleDateString('pt-BR') + ' às ' + expira.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}) + '\n' +
       '🔑 *Token:* ' + token
     );
-    window.open('https://wa.me/5531983391576?text=' + wppMsg, '_blank');
+    const wppUrl = 'https://wa.me/5531983391576?text=' + wppMsg;
+    if (wppWindow) { wppWindow.location.href = wppUrl; } else { window.open(wppUrl, '_blank'); }
 
     // 4. Mostrar sucesso
     document.getElementById('trialFormWrap').style.display = 'none';
@@ -7152,6 +7149,7 @@ async function registrarTrial(){
     document.getElementById('trial-link-acesso').href = 'central_tattoo.html?trial=' + token;
 
   } catch(err){
+    if (wppWindow) { try { wppWindow.close(); } catch(e){} }
     console.error('Trial error:', err);
     mostrarErroTrial('Ocorreu um erro. Tente novamente ou entre em contato pelo WhatsApp.');
     btn.textContent = '🟢 INICIAR MEU TESTE AGORA';
