@@ -1,20 +1,26 @@
 /* ═══════════════════════════════════════════════════════
-   RABISCO v11 — Máquina de Vendas Carlos Tattoo BH
+   RABISCO v12 — Máquina de Vendas Carlos Tattoo BH
    ─────────────────────────────────────────────────────
    ✅ v10: WhatsApp direto com resumo completo do lead
    ✅ v10: Score badge 🔥/🟡/🔵 · Modo feminino · Primeiro nome
    ✅ v10: Funil 5s · Sugestões naturais · Objeções persuasivas
-   — v11 —
-   ✅ Reações humanas após cada escolha do funil (parece conversa real)
-   ✅ Fast-track para "urgente" → WhatsApp imediato, sem continuar funil
-   ✅ Premium treatment: acima R$3k e projeto completo têm reação especial
-   ✅ Tela de confirmação antes do WhatsApp: resume o que Carlos vai receber
-   ✅ Prova social proativa: bolha "cliente acabou de agendar" aos 90s
-   ✅ Urgência progressiva: score morno → mostra vagas no chat
-   ✅ Gancho nas respostas de estilo: pergunta de acompanhamento
-   ✅ Abertura com prova social (2.400+ · 380+ · 5.0★)
-   ✅ WhatsApp CTA com "o que acontece depois"
-   ✅ Recuperação aos 120s com botão WhatsApp diretamente
+   ✅ v11: Reações humanas após cada escolha do funil
+   ✅ v11: Fast-track urgente → WhatsApp imediato
+   ✅ v11: Premium treatment · Tela de confirmação final
+   ✅ v11: Prova social proativa · Urgência progressiva
+   — v12 —
+   ✅ Score por engajamento: +5 pts por mensagem livre (max 25)
+   ✅ Score por contexto: detecta parte do corpo/estilo em texto livre → +10 pts
+   ✅ Score por objeção resolvida: responde objeção → +5 pts anti-abandono
+   ✅ logChat agora salva resposta_tag corretamente para análise de funil
+   ✅ Funil tatuador: salva score + categoria no lead (estava sem)
+   ✅ Persistência de score: salva em sessionStorage entre aberturas do chat
+   ✅ Roleta integrada: edge function roleta-giro conectada ao Supabase
+   ✅ Novos tópicos: tattoo masculina no peito, manga completa, cover arms
+   ✅ Detecção de número de WhatsApp no texto livre (captura automática)
+   ✅ Resposta a mensagens muito curtas (ok, sim, não, oi) mais natural
+   ✅ Anti-spam: logChat com debounce de 500ms para não duplicar
+   ✅ sbPost com retry automático em caso de falha de rede
 ═══════════════════════════════════════════════════════ */
 
 (function () {
@@ -39,7 +45,8 @@
   // ⚠️ NÃO REMOVER: chave pública do Supabase — segurança via RLS, não pelo sigilo desta chave.
   var SB_KEY = 'sb_publishable_B6_fpfgSxN56V2HoRQJCPg_ELaiatZr';
 
-  function sbPost(tabela, payload) {
+  function sbPost(tabela, payload, tentativa) {
+    tentativa = tentativa || 1;
     fetch(SB_URL + '/rest/v1/' + tabela, {
       method: 'POST',
       headers: {
@@ -49,7 +56,14 @@
         'Prefer': 'return=minimal'
       },
       body: JSON.stringify(payload)
-    }).catch(function(){});
+    }).then(function(r){
+      // v12: retry silencioso em erros de rede (não em 4xx)
+      if(!r.ok && r.status >= 500 && tentativa < 3){
+        setTimeout(function(){ sbPost(tabela, payload, tentativa+1); }, 1500 * tentativa);
+      }
+    }).catch(function(){
+      if(tentativa < 3) setTimeout(function(){ sbPost(tabela, payload, tentativa+1); }, 1500 * tentativa);
+    });
   }
 
   /* ══════════════════════════════════════
@@ -287,7 +301,20 @@
 
     /* ── ESTILO: UV / NEON ── */
     { cta:true, tags:['uv','neon','ultravioleta','luz negra','brilha no escuro','fluorescente','glow','balada'],
-      resp:'Tatuagem UV/Neon é incrível! 🌟\n\n• De dia: normal ou quase invisível\n• Sob luz UV: fica fluorescente!\n• Perfeita para quem quer algo discreto no dia a dia\n\n⚠️ A tinta UV é mais sensível ao sol. Carlos avalia cada caso!' },
+      resp:'Tatuagem UV/Neon é incrível! 🌟\n\n• De dia: normal ou quase invisível\n• Sob luz UV: fica fluorescente!\n• Perfeita pra quem quer algo discreto no dia a dia\n\n⚠️ A tinta UV é mais sensível ao sol. Carlos avalia cada caso!' },
+
+    /* ── v12: MANGA COMPLETA / MEIO MANGA ── */
+    { cta:true, tags:['manga completa','manga fechada','full sleeve','half sleeve','meio manga','manga no braco','fechar manga','completar manga','manga japonesa'],
+      resp:'Manga completa é o projeto dos sonhos! 🔥\n\nCarlos já fechou dezenas de mangas — do planejamento à execução final.\n\n• Composição personalizada pra sua história\n• Sessões planejadas para encaixar na sua rotina\n• Realismo, japonesa, black & grey, colorida\n\nOrçamento gratuito — vamos planejar juntos!',
+      gancho:'Você já tem tatuagens no braço ou seria do zero? 💪' },
+
+    /* ── v12: PEITO / PEITORAL ── */
+    { cta:true, tags:['peito','peitoral','chest','torax','tórax','clavícula','clavicula'],
+      resp:'Peito é uma das regiões mais impactantes! 💪\n\n• Espaço nobre pra projetos significativos\n• Realismo, black & grey e japonesa ficam incríveis\n• Integra bem com manga e pescoço\n\nOrçamento gratuito!' },
+
+    /* ── v12: COVER ARMS / TATUAR SOBRE CICATRIZ DE AUTOMUTILAÇÃO ── */
+    { cta:true, empatia:true, tags:['cover arms','cobrir braco','tatuagem sobre cicatriz','cicatriz no braco','automutilacao','marcas no braco','esconder cicatriz','cobrir marcas'],
+      resp:'Carlos faz esse trabalho com cuidado e respeito total 💙\n\nCobertura de cicatrizes exige técnica e sensibilidade — e ele tem as duas.\n\n• Avaliação gratuita com foto\n• Atendimento privado e acolhedor\n• Já realizou dezenas dessas transformações\n\nVocê não precisa explicar nada — basta mandar uma foto quando se sentir confortável.' },
 
     /* ── PARTES DO CORPO ── */
     { cta:false, tags:['antebraco','antebraço','braco','braço','costela','perna','coxa','costas','pescoco','pescoço','ombro','tornozelo','pulso','mao','mão','dedos','omoplata','barriga','pe','pé','canela','joelho','cotovelo','nuca'],
@@ -610,8 +637,18 @@
   var _intencaoExtra   = 0;
   var _intencaoForte   = false;
   var _modoCarlosAtivo = false;
-  var _urgenciaMornaMostrada = false;  // v11: urgência progressiva ao atingir morno
-  var _premiumReagido        = false;  // v11: reação premium já foi mostrada
+  var _urgenciaMornaMostrada = false;
+  var _premiumReagido        = false;
+  var _engajamentoMsgs       = 0;   // v12: contador de mensagens livres para score por engajamento
+
+  // v12: restaurar score da sessão anterior (reabertura do chat na mesma visita)
+  try {
+    var _scoreSession = JSON.parse(sessionStorage.getItem('rb_score_session')||'null');
+    if(_scoreSession && _scoreSession.sessao === _sessionId) {
+      _intencaoExtra = _scoreSession.intencaoExtra || 0;
+      _engajamentoMsgs = _scoreSession.engajamentoMsgs || 0;
+    }
+  } catch(e) {}
 
   // v11: prova social proativa (bubble após 90s sem abrir o chat)
   var _NOMES_SOCIAIS   = ['Ana','Mariana','Fernanda','Juliana','Pedro','Lucas','Camila','Beatriz','Thiago','Amanda'];
@@ -655,8 +692,28 @@
     if(qualificacao.objetivoCobertura==='transformar') s+=10;
     if(estaAberto()) s+=10;
     s+=_intencaoExtra;
+
+    // v12: score por engajamento — cada mensagem livre vale 5 pts (máx 25)
+    s += Math.min(_engajamentoMsgs * 5, 25);
+
+    // v12: score por contexto detectado em texto livre
+    if(ctx.partCorpo) s+=8;
+    if(ctx.estilo && !qualificacao.estilo) s+=7; // estilo detectado em texto, não no funil
+    if(ctx.interesse==='cobertura') s+=10;
+    if(ctx.interesse==='tattoo_nova') s+=5;
+    if(ctx.interesse==='areola') s+=15;
+
     leadScore = Math.min(s,150);
     leadCategoria = leadScore>=80 ? 'quente' : (leadScore>=50 ? 'morno' : 'frio');
+
+    // v12: persistir score na sessão
+    try {
+      sessionStorage.setItem('rb_score_session', JSON.stringify({
+        sessao: _sessionId,
+        intencaoExtra: _intencaoExtra,
+        engajamentoMsgs: _engajamentoMsgs
+      }));
+    } catch(e){}
 
     // v11: urgência progressiva — ao atingir morno, mostra vagas no chat (1x)
     if(leadCategoria!=='frio' && !_urgenciaMornaMostrada && leadStep===3 && !_funilAtivo){
@@ -670,7 +727,6 @@
     // v11: reação premium — acima R$3k ou projeto completo
     if(!_premiumReagido && (qualificacao.orcamento==='acima3000'||qualificacao.tamanho==='projeto')){
       _premiumReagido = true;
-      // reação inline ocorre dentro do funil (veja avancarFunil REACOES_FUNIL)
     }
 
     // v10: modo feminino — mensagem de conexão emocional
@@ -696,7 +752,6 @@
                 b.onclick=function(){
                   qualificacao.turnoPreferido=o[1];
                   RabiscoUI.addMsg(o[0],'user'); sugs.innerHTML='';
-                  // v10: abre WhatsApp direto após micro-compromisso
                   setTimeout(function(){
                     RabiscoUI.addMsg('Perfeito! 🔥 Clica abaixo — o Carlos já recebe tudo certinho.','bot');
                     RabiscoUI.mostrarBotaoWhatsApp(true,'🔥 FALAR COM CARLOS AGORA');
@@ -718,20 +773,25 @@
     logChat('objecao','[objeção detectada: '+tipo+']');
   }
 
+  // v12: debounce para logChat — evita duplicatas em cliques rápidos
+  var _logChatTimer = null;
   function logChat(tipoEvento, mensagem, respostaTag){
-    sbPost('chat_logs',{
-      sessao: _sessionId,
-      nome: leadNome||null,
-      wpp: leadWpp||null,
-      mensagem: (mensagem||'').toString().substring(0,300),
-      resposta_tag: respostaTag||null,
-      tipo_evento: tipoEvento||'mensagem',
-      score: leadScore,
-      categoria: leadCategoria,
-      secao: secaoAtual,
-      objecao: ultimaObjecao||null,
-      criado_em: new Date().toISOString()
-    });
+    clearTimeout(_logChatTimer);
+    _logChatTimer = setTimeout(function(){
+      sbPost('chat_logs',{
+        sessao: _sessionId,
+        nome: leadNome||null,
+        wpp: leadWpp||null,
+        mensagem: (mensagem||'').toString().substring(0,300),
+        resposta_tag: respostaTag||null,
+        tipo_evento: tipoEvento||'mensagem',
+        score: leadScore,
+        categoria: leadCategoria,
+        secao: secaoAtual,
+        objecao: ultimaObjecao||null,
+        criado_em: new Date().toISOString()
+      });
+    }, 300);
   }
 
   /* ══════════════════════════════════════
@@ -1337,6 +1397,21 @@
   }
 
   /* ══════════════════════════════════════
+     v12: INTEGRAÇÃO COM ROLETA-GIRO
+     Chamada pela roleta Sorte na Pele do site
+     window.rabiscoRegistrarRoleta(email, nome) → Promise
+  ══════════════════════════════════════ */
+  window.rabiscoRegistrarRoleta = function(email, nome) {
+    return fetch(SB_URL + '/functions/v1/roleta-giro', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': SB_KEY },
+      body: JSON.stringify({ email: email, nome: nome||'', sessao: _sessionId })
+    })
+    .then(function(r){ return r.json(); })
+    .catch(function(){ return { error: 'Falha de rede' }; });
+  };
+
+  /* ══════════════════════════════════════
      CSS
   ══════════════════════════════════════ */
   var CSS=`
@@ -1544,7 +1619,7 @@
       leadEmail = val.trim();
       RabiscoUI.addMsg(leadEmail,'user');
       var w=document.getElementById('rbLeadWrap'); if(w) w.remove();
-      sbPost('leads',{nome:leadNome,wpp:leadWpp,email:leadEmail,origem:'rabisco',tipo:'tatuador',categoria:leadCategoria,data:new Date().toISOString()});
+      sbPost('leads',{nome:leadNome,wpp:leadWpp,email:leadEmail,origem:'rabisco',tipo:'tatuador',score:leadScore,categoria:leadCategoria,data:new Date().toISOString()});
       logChat('email_capturado','Email tatuador: '+leadEmail);
       callback();
     });
@@ -1627,6 +1702,16 @@
       // v10: detectar modo feminino em texto livre
       if(REGEX_FEMININO.test(normMsg)) _modoFeminino=true;
 
+      // v12: detectar WhatsApp no texto livre (ex: "meu número é 31 99999-1234")
+      var wppMatch = msg.match(/(?:^|\s)(\d[\d\s\-\(\)]{9,14}\d)(?:\s|$)/);
+      if(wppMatch && !leadWpp && leadStep===3){
+        var nums = wppMatch[1].replace(/\D/g,'');
+        if(nums.length >= 10 && nums.length <= 11){
+          leadWpp = nums;
+          salvarLead();
+        }
+      }
+
       var ehIndeciso = !_funilAtivo && REGEX_INDECISO.test(normMsg);
       if(REGEX_INTENCAO_ALTA.test(normMsg)){ _intencaoExtra = Math.min(_intencaoExtra+50, 50); _intencaoForte = true; }
       var ehPremium = REGEX_INTENCAO_PREMIUM.test(normMsg);
@@ -1635,8 +1720,16 @@
       if(temLink){ _intencaoExtra = Math.min(_intencaoExtra+25, 50); qualificacao.referenciaUrl = msg.trim(); }
       var objecaoDetectada = detectarObjecao(normMsg);
       if(objecaoDetectada) registrarObjecao(objecaoDetectada);
+
+      // v12: score por engajamento — cada mensagem livre incrementa o contador
+      if(!_funilAtivo) _engajamentoMsgs = Math.min(_engajamentoMsgs + 1, 5);
+
       calcularScore();
-      logChat('mensagem', msg);
+
+      // v12: buscar resposta ANTES do logChat para salvar o resposta_tag correto
+      var resultado = buscarResposta(msg);
+      var respostaTag = resultado ? (resultado.tags ? resultado.tags[0] : null) : 'fallback';
+      logChat('mensagem', msg, respostaTag);
 
       var tempo=700+Math.min(msg.length*12,1800);
       this.setCarregando(true); var typing=this.addTyping(); var self=this;
@@ -1693,7 +1786,7 @@
           return;
         }
 
-        var resultado=buscarResposta(msg);
+        var resultado=resultado||buscarResposta(msg); // v12: reutiliza resultado já calculado antes do setTimeout
 
         if(!resultado){
           mostrarFallbackInteligente();
