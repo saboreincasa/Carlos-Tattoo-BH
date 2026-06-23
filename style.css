@@ -6535,7 +6535,7 @@ html { scroll-behavior: smooth; }
    Centralizado, logo abaixo do Rabisco */
 @media(max-width:768px){
   #scroll-top-btn{
-    bottom:158px !important;
+    bottom:152px !important;
     right:16px !important;
     left:auto !important;
     width:48px !important;
@@ -6546,7 +6546,7 @@ html { scroll-behavior: smooth; }
 @media(max-width:480px){
   #wpp-float-group{bottom:28px;right:16px;}
   #scroll-top-btn{
-    bottom:158px !important;
+    bottom:152px !important;
     right:16px !important;
     left:auto !important;
     width:48px !important;
