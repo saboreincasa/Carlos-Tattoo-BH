@@ -6449,16 +6449,16 @@ function initScrollTopBtn(){
     // Mobile:  skull bottom:86px h:64px → topo fica bottom:4px, right:16px
     var isMobile = window.innerWidth <= 768;
     if(isMobile){
-      // Mobile: mesmo lado direito do Rabisco, logo abaixo dele
-      // Rabisco: bottom:90px, height:62px → topo fica em bottom:158px com gap de 6px
-      btn.style.bottom = '158px';
+      // Mobile: botão topo ABAIXO do Rabisco
+      // Rabisco: bottom:131px → topo fica em bottom:75px (abaixo)
+      btn.style.bottom = '75px';
       btn.style.right  = '16px';
       btn.style.left   = 'auto';
       btn.style.width  = '48px';
       btn.style.height = '48px';
     } else {
-      // Desktop: Rabisco bottom:100px, height:62px → topo fica em bottom:168px
-      btn.style.bottom = '168px';
+      // Desktop: botão topo abaixo do Rabisco
+      btn.style.bottom = '88px';
       btn.style.right  = '20px';
       btn.style.left   = 'auto';
       btn.style.width  = '56px';
