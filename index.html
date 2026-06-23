@@ -6406,7 +6406,7 @@ function recusarCookies(){
     </svg>
   </span>
   <span class="stt-icon">
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="15" height="15">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
       <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2"
         stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
@@ -6438,12 +6438,14 @@ function initScrollTopBtn(){
   var CIRC = 119.4;
 
   function posicionarBtn(){
-    // ABAIXO do Rabisco, borda direita alinhada com ele
-    // Desktop: skull bottom:80px h:78px → topo bottom = 80-46-8 = 26px, right = 20px (mesma borda)
-    // Mobile:  skull bottom:86px h:64px → topo bottom = 86-44-8 = 34px, right = 16px (mesma borda)
+    // Mesmo tamanho do Rabisco, logo acima com 10px de gap, mesmo right
+    // Desktop: skull bottom:80px h:78px → topo bottom:168px, right:20px, size:78px
+    // Mobile:  skull bottom:86px h:64px → topo bottom:160px, right:16px, size:64px
     var isMobile = window.innerWidth <= 768;
-    btn.style.bottom = isMobile ? '34px' : '26px';
-    btn.style.right   = isMobile ? '16px' : '20px';
+    btn.style.bottom = isMobile ? '160px' : '168px';
+    btn.style.right  = isMobile ? '16px'  : '20px';
+    btn.style.width  = isMobile ? '64px'  : '78px';
+    btn.style.height = isMobile ? '64px'  : '78px';
   }
 
   function atualizar(){

@@ -6418,27 +6418,27 @@ html { scroll-behavior: smooth; }
   gap:12px;
 }
 /* ══ BOTÃO VOLTAR AO TOPO ══
-   skullBtn desktop: bottom 80px, right 20px, w/h 78px
-   scroll-top-btn:   bottom 26px, right 20px  ← borda direita alinhada, logo abaixo
-   skullBtn mobile:  bottom 86px, right 16px, w/h 64px
-   scroll-top-btn:   bottom 34px, right 16px  ← mesmo alinhamento
+   Mesmo tamanho do skullBtn (78x78px desktop / 64x64px mobile)
+   Posicionado logo ACIMA do Rabisco com 10px de gap, mesmo right
+   Desktop: skull bottom:80px h:78px → topo bottom = 80+78+10 = 168px, right:20px
+   Mobile:  skull bottom:86px h:64px → topo bottom = 86+64+10 = 160px, right:16px
 ═══════════════════════════════════ */
 #scroll-top-btn{
   position:fixed;
-  bottom:26px;
+  bottom:168px;
   right:20px;
   z-index:7900;
-  width:46px;
-  height:46px;
+  width:78px;
+  height:78px;
   border-radius:50%;
   background:linear-gradient(135deg,rgba(20,12,3,.97),rgba(10,5,1,.97));
-  border:1.5px solid rgba(201,168,76,.5);
+  border:2px solid rgba(201,168,76,.5);
   cursor:pointer;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:1px;
+  gap:3px;
   opacity:0;
   pointer-events:none;
   transform:translateY(8px) scale(.88);
@@ -6458,7 +6458,7 @@ html { scroll-behavior: smooth; }
   background:radial-gradient(ellipse at 40% 30%, rgba(201,168,76,.1) 0%, transparent 65%);
   pointer-events:none;
 }
-/* VISÍVEL após 300px de scroll — classe adicionada pelo JS */
+/* VISÍVEL após 200px de scroll — classe adicionada pelo JS */
 #scroll-top-btn.visible{
   opacity:1 !important;
   pointer-events:auto !important;
@@ -6513,41 +6513,41 @@ html { scroll-behavior: smooth; }
   color:#E8B800;
 }
 
-/* Label TOPO */
+/* Label TOPO — branco */
 .stt-label{
   position:relative;
   z-index:2;
   font-family:'Cinzel',serif;
-  font-size:6px;
-  letter-spacing:1.5px;
-  color:rgba(201,168,76,.5);
+  font-size:8px;
+  letter-spacing:2px;
+  color:#ffffff;
   font-weight:700;
   line-height:1;
   text-transform:uppercase;
   transition:color .2s;
 }
 #scroll-top-btn:hover .stt-label{
-  color:rgba(201,168,76,.9);
+  color:#ffffff;
 }
 
 /* ── MOBILE ──
-   skull bottom 86px, right 16px → topo bottom 34px, right 16px */
+   skull bottom:86px h:64px → topo bottom:160px, right:16px, size:64px */
 @media(max-width:768px){
   #scroll-top-btn{
-    bottom:34px !important;
+    bottom:160px !important;
     right:16px !important;
-    width:44px !important;
-    height:44px !important;
+    width:64px !important;
+    height:64px !important;
     z-index:7900 !important;
   }
 }
 @media(max-width:480px){
   #wpp-float-group{bottom:28px;right:16px;}
   #scroll-top-btn{
-    bottom:34px !important;
+    bottom:160px !important;
     right:16px !important;
-    width:42px !important;
-    height:42px !important;
+    width:64px !important;
+    height:64px !important;
     z-index:7900 !important;
   }
 }
