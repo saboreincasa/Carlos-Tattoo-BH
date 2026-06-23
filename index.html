@@ -6447,19 +6447,20 @@ function initScrollTopBtn(){
     // Mobile:  skull bottom:86px h:64px → topo fica bottom:4px, right:16px
     var isMobile = window.innerWidth <= 768;
     if(isMobile){
-      // Mobile: lado esquerdo para não competir com Rabisco (direita)
-      btn.style.bottom = '20px';
-      btn.style.left   = '16px';
-      btn.style.right  = 'auto';
+      // Mobile: mesmo lado direito do Rabisco, logo abaixo dele
+      // Rabisco: bottom:90px, height:62px → topo fica em bottom:158px com gap de 6px
+      btn.style.bottom = '158px';
+      btn.style.right  = '16px';
+      btn.style.left   = 'auto';
       btn.style.width  = '48px';
       btn.style.height = '48px';
     } else {
-      // Desktop: abaixo do Rabisco, lado direito
-      btn.style.bottom = '2px';
+      // Desktop: Rabisco bottom:100px, height:62px → topo fica em bottom:168px
+      btn.style.bottom = '168px';
       btn.style.right  = '20px';
       btn.style.left   = 'auto';
-      btn.style.width  = '64px';
-      btn.style.height = '64px';
+      btn.style.width  = '56px';
+      btn.style.height = '56px';
     }
     btn.style.transform = '';
   }
