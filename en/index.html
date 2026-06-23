@@ -171,6 +171,7 @@ button{font-family:"Raleway",sans-serif;cursor:pointer;}
 @keyframes ugAnim{0%,100%{background-position:0%}50%{background-position:100%}}
 .urg-bar b{color:#FFD700;font-weight:900;text-shadow:0 0 12px rgba(255,215,0,.5);}
 #nav{position:sticky;top:0;z-index:900;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;gap:10px;background:rgba(5,3,1,.98);border-bottom:1px solid rgba(201,168,76,.2);backdrop-filter:blur(20px);overflow:visible;}
+.mob-hamburger{display:none;}
 .nav-logo{flex-shrink:0;display:flex;align-items:center;}
 .nav-logo img{height:58px;width:auto;object-fit:contain;filter:drop-shadow(0 0 16px rgba(201,168,76,.6));transition:filter .3s,transform .3s;}
 .nav-logo:hover img{filter:drop-shadow(0 0 32px rgba(201,168,76,.9));transform:scale(1.05);}
@@ -574,13 +575,21 @@ footer{background:var(--ink);border-top:1px solid rgba(201,168,76,.13);padding:6
 .exit-sub{font-size:15px;color:rgba(237,228,212,.6);margin-bottom:26px;line-height:1.6;font-family:"IM Fell English",serif;font-style:italic;}
 .exit-input{width:100%;padding:13px 16px;background:#fff;border:2px solid rgba(160,120,56,.28);color:#1a0a00;font-size:15px;font-family:"Raleway",sans-serif;font-weight:500;outline:none;margin-bottom:10px;}
 .exit-skip{font-size:12px;color:rgba(200,184,152,.3);text-decoration:underline;margin-top:10px;display:block;}
-.mob-menu{position:fixed;top:0;right:-100%;width:275px;height:100vh;background:var(--ink);border-left:1px solid rgba(201,168,76,.18);z-index:9998;transition:right .3s ease;padding:76px 28px 28px;}
+.mob-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9997;display:none;backdrop-filter:blur(4px);}
+.mob-overlay.open{display:block;}
+.mob-menu{position:fixed;top:0;right:-100%;width:280px;height:100vh;background:var(--ink);border-left:1px solid rgba(201,168,76,.18);z-index:9998;transition:right .35s cubic-bezier(.4,0,.2,1);padding:0;overflow-y:auto;}
 .mob-menu.open{right:0;}
-.mob-menu ul{list-style:none;}
-.mob-menu ul li{border-bottom:1px solid rgba(201,168,76,.08);}
-.mob-menu ul li a{display:block;padding:15px 0;font-family:"Cinzel",serif;font-size:12px;letter-spacing:2px;color:var(--w3);text-transform:uppercase;transition:color .2s;}
-.mob-menu ul li a:hover{color:var(--g2);}
-.mob-close{position:absolute;top:18px;right:18px;background:none;border:none;color:var(--g3);font-size:22px;}
+.mob-menu-header{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid rgba(201,168,76,.15);}
+.mob-menu-logo{font-family:"Cinzel Decorative",cursive;font-size:13px;color:#E8B800;letter-spacing:1px;}
+.mob-menu ul{list-style:none;padding:8px 0;}
+.mob-menu ul li{border-bottom:1px solid rgba(201,168,76,.06);}
+.mob-menu ul li a{display:flex;align-items:center;gap:10px;padding:16px 24px;font-family:"Cinzel",serif;font-size:11px;letter-spacing:2px;color:var(--w3);text-transform:uppercase;transition:all .2s;}
+.mob-menu ul li a:hover{color:var(--g2);background:rgba(201,168,76,.06);padding-left:30px;}
+.mob-menu-footer{padding:20px 24px;border-top:1px solid rgba(201,168,76,.1);margin-top:8px;}
+.mob-menu-lang{display:flex;gap:10px;margin-bottom:16px;}
+.mob-menu-lang a{font-family:"Cinzel",serif;font-size:10px;letter-spacing:1px;color:rgba(201,168,76,.6);padding:6px 12px;border:1px solid rgba(201,168,76,.2);border-radius:20px;transition:.2s;}
+.mob-menu-lang a.active{color:#E8B800;border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.08);}
+.mob-book-btn{display:block;text-align:center;background:linear-gradient(135deg,#A07830,#E8B800);color:#0a0500;padding:13px;border-radius:8px;font-family:"Cinzel",serif;font-size:11px;letter-spacing:2px;font-weight:700;text-decoration:none;transition:.2s;}
 .vid-destaque-wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center;}
 .vid-destaque-player{position:relative;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5);}
 .vdp-thumb{position:relative;aspect-ratio:9/16;cursor:pointer;}
@@ -1047,7 +1056,7 @@ footer p{color:#ffffff !important;}
 .mob-nav-btn .mni{font-size:15px;filter:none;}
 .mob-agendar-strip{display:none;background:linear-gradient(135deg,#A07830,#E8B800);padding:15px 20px;text-align:center;font-family:"Cinzel",serif;font-size:12px;letter-spacing:3px;color:#0a0500;font-weight:700;cursor:pointer;border:none;width:100%;box-shadow:0 -2px 16px rgba(201,168,76,.3);}
 @media(max-width:768px){
-  .mob-hamburger{display:none !important;}
+  .mob-hamburger{display:flex !important;}
   .mobile-nav-grid{display:grid !important;}
   .mob-agendar-strip{display:block !important;}
   .hero-photo-frame::before{border-radius:14px !important;}
@@ -2061,7 +2070,7 @@ img{max-width:100% !important;display:block;height:auto;}
     <img loading="lazy" decoding="async" src="../imagens/IPJP8350.JPG" alt="Carlos Tattoo BH" width="36" height="36" style="height:36px;object-fit:contain;filter:drop-shadow(0 0 10px rgba(201,168,76,.5));" onerror="this.style.display='none'">
     <span style="font-family:'Cinzel Decorative',cursive;font-size:12px;color:#ffffff;letter-spacing:1.5px;text-shadow:0 1px 8px rgba(0,0,0,.8);white-space:nowrap;">Carlos Tattoo BH</span>
   </a>
-  <button class="mob-hamburger" id="mobHamburger" onclick="toggleMenu()" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobMenu" style="display:none;background:none;border:1px solid rgba(201,168,76,.3);color:#E8B800;width:40px;height:40px;border-radius:8px;font-size:20px;cursor:pointer;align-items:center;justify-content:center;flex-shrink:0;">☰</button>
+  <button class="mob-hamburger" id="mobHamburger" onclick="toggleMenu()" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobMenu" style="display:flex;background:none;border:1px solid rgba(201,168,76,.3);color:#E8B800;width:40px;height:40px;border-radius:8px;font-size:20px;cursor:pointer;align-items:center;justify-content:center;flex-shrink:0;">☰</button>
   <ul class="nav-links">
     <li><a href="#home">🏠 Home</a></li>
     <li><a href="#about">About Carlos</a></li>
@@ -2752,18 +2761,30 @@ img{max-width:100% !important;display:block;height:auto;}
 </div>
 
 <!-- MOBILE MENU -->
-<div class="mob-menu" id="mobMenu">
-  <button class="mob-close" type="button" aria-label="Close menu" onclick="toggleMenu()">✕</button>
+<div class="mob-overlay" id="mobOverlay" onclick="toggleMenu()"></div>
+<div class="mob-menu" id="mobMenu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div class="mob-menu-header">
+    <span class="mob-menu-logo">Carlos Tattoo BH</span>
+    <button class="mob-close" type="button" aria-label="Close menu" onclick="toggleMenu()">✕</button>
+  </div>
   <ul>
     <li><a href="#home" onclick="toggleMenu()">🏠 Home</a></li>
-    <li><a href="#about" onclick="toggleMenu()">About Carlos</a></li>
-    <li><a href="#portfolio" onclick="toggleMenu()">Portfolio</a></li>
-    <li><a href="#coverup" onclick="toggleMenu()">Cover Up</a></li>
-    <li><a href="#ebooks" onclick="toggleMenu()">Ebooks & Courses</a></li>
-    <li><a href="#central-tattoo" onclick="toggleMenu()">Central Tattoo</a></li>
-    <li><a href="#blog" onclick="toggleMenu()">Blog</a></li>
-    <li><a href="#contact" onclick="toggleMenu()">Book Now</a></li>
+    <li><a href="#about" onclick="toggleMenu()">🎨 About Carlos</a></li>
+    <li><a href="#portfolio" onclick="toggleMenu()">📸 Portfolio</a></li>
+    <li><a href="#coverup" onclick="toggleMenu()">✨ Cover Up</a></li>
+    <li><a href="#ebooks" onclick="toggleMenu()">📚 Ebooks & Courses</a></li>
+    <li><a href="#central-tattoo" onclick="toggleMenu()">⚙️ Central Tattoo</a></li>
+    <li><a href="#blog" onclick="toggleMenu()">📝 Blog</a></li>
+    <li><a href="#faq" onclick="toggleMenu()">❓ FAQ</a></li>
   </ul>
+  <div class="mob-menu-footer">
+    <div class="mob-menu-lang">
+      <a href="." class="active">🇺🇸 EN</a>
+      <a href="../es/">🇪🇸 ES</a>
+      <a href="../">🇧🇷 PT</a>
+    </div>
+    <a href="#contact" class="mob-book-btn" onclick="toggleMenu()">📅 BOOK NOW</a>
+  </div>
 </div>
 
 <script>
@@ -2788,7 +2809,15 @@ const cntObs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){con
 document.querySelectorAll('[data-target]').forEach(el=>cntObs.observe(el));
 
 /* MOBILE MENU */
-function toggleMenu(){document.getElementById('mobMenu').classList.toggle('open');}
+function toggleMenu(){
+  const m=document.getElementById('mobMenu');
+  const o=document.getElementById('mobOverlay');
+  const btn=document.getElementById('mobHamburger');
+  const isOpen=m.classList.toggle('open');
+  if(o)o.classList.toggle('open',isOpen);
+  if(btn){btn.textContent=isOpen?'✕':'☰';btn.setAttribute('aria-expanded',isOpen);}
+  document.body.style.overflow=isOpen?'hidden':'';
+}
 
 /* FAQ */
 function toggleFaq(btn){const a=btn.nextElementSibling;const icon=btn.querySelector('.faq-icon');const open=btn.getAttribute('aria-expanded')==='true';btn.setAttribute('aria-expanded',!open);a.style.maxHeight=open?'0':a.scrollHeight+'px';icon.textContent=open?'+':'−';}
