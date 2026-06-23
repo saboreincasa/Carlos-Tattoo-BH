@@ -6421,23 +6421,22 @@ html { scroll-behavior: smooth; }
    HIERARQUIA Z-INDEX:
    modais/drawer : 9500–9999
    mobile-bottom-nav : 8500
-   scroll-top-btn    : 8600  ← acima do nav mobile
    skullBtn          : 8000
+   scroll-top-btn    : 7900  ← ABAIXO do skullBtn (Rabisco)
 
    POSICIONAMENTO DESKTOP:
-   skullBtn: bottom 80px, altura 78px → ocupa 80–158px
-   scroll-top-btn: bottom 168px → fica ACIMA do skull com 10px de gap
+   skullBtn: bottom 80px, right 20px
+   scroll-top-btn: bottom 16px, right 20px → fica ABAIXO do skull, alinhado
 
    POSICIONAMENTO MOBILE (≤768px):
-   mobile-bottom-nav: altura ~68px → ocupa 0–68px da base
-   skullBtn mobile: bottom 86px, altura 64px → ocupa 86–150px
-   scroll-top-btn mobile: bottom 162px → acima do skull
+   skullBtn mobile: bottom 86–90px, right 16px
+   scroll-top-btn: bottom 24px, right 16px → abaixo do skull, alinhado
 ═══════════════════════════════════ */
 #scroll-top-btn{
   position:fixed;
-  bottom:170px; /* abaixo do rabisco (80px) + altura(78px) + gap(12px) */
-  right:14px;
-  z-index:9995;
+  bottom:16px; /* ABAIXO do Rabisco — alinhado com skullBtn (right:20px) */
+  right:20px;
+  z-index:7900;
   width:46px;
   height:46px;
   border-radius:50%;
@@ -6541,25 +6540,25 @@ html { scroll-behavior: smooth; }
 }
 
 /* ── MOBILE ──
-   skullBtn mobile: bottom 86px, altura 64px → ocupa 86–150px
-   scroll-top-btn: bottom 162px → 12px acima do skull */
+   skullBtn mobile: bottom 86–90px, right 16px
+   scroll-top-btn: bottom 24px, right 16px → abaixo do skull, alinhado */
 @media(max-width:768px){
   #scroll-top-btn{
-    bottom:170px !important;
-    right:14px !important;
+    bottom:24px !important;
+    right:16px !important;
     width:44px !important;
     height:44px !important;
-    z-index:9995 !important;
+    z-index:7900 !important;
   }
 }
 @media(max-width:480px){
   #wpp-float-group{bottom:28px;right:16px;}
   #scroll-top-btn{
-    bottom:170px !important;
-    right:12px !important;
+    bottom:24px !important;
+    right:16px !important;
     width:42px !important;
     height:42px !important;
-    z-index:9995 !important;
+    z-index:7900 !important;
   }
 }
 
