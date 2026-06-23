@@ -480,6 +480,7 @@
       await sbPost({
         nome:_nome,email:_email,wpp:_wpp,
         produto:prod.nomeAdmin,origem:'checkout',tipo:'produto',
+        score:null,categoria:null,
         data:new Date().toISOString(),
       });
 
@@ -515,7 +516,7 @@
       card.setAttribute('aria-checked','true');
       if(chk)chk.textContent='✓';
       const p=CATALOGO[id];
-      sbPost({nome:_nome,email:_email,wpp:_wpp,produto:p.nomeAdmin,origem:'upsell',tipo:'interesse',data:new Date().toISOString()}).catch(()=>{});
+      sbPost({nome:_nome,email:_email,wpp:_wpp,produto:p.nomeAdmin,origem:'upsell',tipo:'interesse',score:null,categoria:null,data:new Date().toISOString()}).catch(()=>{});
     }
     atualizarBtnPagar();
   };
@@ -540,7 +541,7 @@
   window.ckFinalizarPagamento=async function(){
     for(const id of _extras){
       const p=CATALOGO[id];
-      await sbPost({nome:_nome,email:_email,wpp:_wpp,produto:p.nomeAdmin,origem:'upsell-confirmado',tipo:'produto',data:new Date().toISOString()}).catch(()=>{});
+      await sbPost({nome:_nome,email:_email,wpp:_wpp,produto:p.nomeAdmin,origem:'upsell-confirmado',tipo:'produto',score:null,categoria:null,data:new Date().toISOString()}).catch(()=>{});
     }
     await ckRedirecionar(_slug);
   };
