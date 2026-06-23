@@ -1396,8 +1396,8 @@ button:hover[onclick="abrirModalAreola()"]{transform:translateY(-4px) scale(1.02
 .stt-bar{stroke:rgba(201,168,76,.7);fill:none;stroke-linecap:round;transition:stroke-dashoffset .15s linear;filter:drop-shadow(0 0 3px rgba(201,168,76,.45));}
 .stt-icon{position:relative;z-index:2;color:rgba(201,168,76,.8);display:flex;align-items:center;justify-content:center;transition:transform .25s ease, color .25s ease;}
 #scroll-top-btn:hover .stt-icon{transform:translateY(-2px);color:#E8B800;}
-.stt-label{position:relative;z-index:2;font-family:"Cinzel",serif;font-size:6px;letter-spacing:1.5px;color:rgba(201,168,76,.5);font-weight:700;line-height:1;text-transform:uppercase;transition:color .2s;}
-#scroll-top-btn:hover .stt-label{color:rgba(201,168,76,.9);}
+.stt-label{position:relative;z-index:2;font-family:"Cinzel",serif;font-size:6px;letter-spacing:1.5px;color:rgba(255,255,255,.85);font-weight:700;line-height:1;text-transform:uppercase;transition:color .2s;}
+#scroll-top-btn:hover .stt-label{color:rgba(255,255,255,1);}
 @media(max-width:768px){
   #scroll-top-btn{bottom:170px !important;right:14px !important;width:44px !important;height:44px !important;z-index:9995 !important;}
 }
@@ -2715,7 +2715,13 @@ img{max-width:100% !important;display:block;height:auto;}
 </div>
 
 <!-- BOTÃO VOLTAR AO TOPO -->
-<button id="btn-topo" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">▲</button>
+<button id="scroll-top-btn" aria-label="Back to top">
+  <div class="stt-progress-ring">
+    <svg viewBox="0 0 46 46"><circle class="stt-track" cx="23" cy="23" r="20" stroke-width="2"/><circle class="stt-bar" id="stt-bar-en" cx="23" cy="23" r="20" stroke-width="2" stroke-dasharray="125.66" stroke-dashoffset="125.66"/></svg>
+  </div>
+  <span class="stt-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></span>
+  <span class="stt-label">TOP</span>
+</button>
 </main>
 
 <!-- FOOTER -->
@@ -2781,7 +2787,6 @@ img{max-width:100% !important;display:block;height:auto;}
     <div class="mob-menu-lang">
       <a href="." class="active">🇺🇸 EN</a>
       <a href="../es/">🇪🇸 ES</a>
-      <a href="../">🇧🇷 PT</a>
     </div>
     <a href="#contact" class="mob-book-btn" onclick="toggleMenu()">📅 BOOK NOW</a>
   </div>
@@ -2912,7 +2917,21 @@ document.getElementById('carrosselOverlay').addEventListener('touchstart',e=>{tS
 document.getElementById('carrosselOverlay').addEventListener('touchend',e=>{const d=tSX2-e.changedTouches[0].clientX;if(Math.abs(d)>50)navegarCarrossel(d>0?1:-1);});
 document.getElementById('carrosselOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('carrosselOverlay'))fecharCarrossel();});
 /* BOTÃO TOPO */
-window.addEventListener('scroll',()=>{const b=document.getElementById('btn-topo');if(b){if(window.scrollY>400)b.classList.add('show');else b.classList.remove('show');}});
+(function(){
+  var btn=document.getElementById('scroll-top-btn');
+  var bar=document.getElementById('stt-bar-en');
+  var circ=125.66;
+  function upd(){
+    var scrolled=window.scrollY;
+    var total=document.documentElement.scrollHeight-window.innerHeight;
+    var pct=total>0?scrolled/total:0;
+    if(bar)bar.style.strokeDashoffset=circ*(1-pct);
+    if(scrolled>400)btn.classList.add('visible');
+    else btn.classList.remove('visible');
+  }
+  window.addEventListener('scroll',upd,{passive:true});
+  btn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+})();
 </script>
 <!-- TRIAL MODAL EN -->
 <div id="modalTrial" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:9000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);">
