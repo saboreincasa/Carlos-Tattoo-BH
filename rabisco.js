@@ -1481,8 +1481,8 @@
 .rb-lead-btn{width:100%;padding:11px;background:linear-gradient(135deg,#A07830,#C9A84C);color:#fff;font-family:'Cinzel',serif;font-size:11px;font-weight:700;letter-spacing:.5px;border:none;border-radius:9px;cursor:pointer;margin-top:8px;transition:all .2s;}
 .rb-lead-btn:hover{background:linear-gradient(135deg,#8B6820,#A07830);}
 @media(max-width:768px){
-  #rabiscoBtn{bottom:90px;right:16px;}
-  #rabiscoPanel{bottom:160px;right:8px;left:8px;width:auto;max-height:68vh;}
+  #rabiscoBtn{bottom:131px;right:16px;}
+  #rabiscoPanel{bottom:201px;right:8px;left:8px;width:auto;max-height:68vh;}
   #rbBubble{right:8px;left:8px;max-width:none;}
 }
 `;
@@ -1963,3 +1963,4 @@
   window.mostrarBubble=mostrarBubble;
   window.abrirWhatsApp=abrirWhatsApp;
 })();
+
