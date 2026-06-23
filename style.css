@@ -6421,12 +6421,12 @@ html { scroll-behavior: smooth; }
    HIERARQUIA Z-INDEX:
    modais/drawer : 9500–9999
    mobile-bottom-nav : 8500
-   skullBtn          : 8000
-   scroll-top-btn    : 7900  ← ABAIXO do skullBtn (Rabisco)
+   skullBtn (Rabisco) : 8000
+   scroll-top-btn     : 7900  ← ABAIXO do skullBtn
 
    POSICIONAMENTO DESKTOP:
    skullBtn: bottom 80px, right 20px
-   scroll-top-btn: bottom 16px, right 20px → fica ABAIXO do skull, alinhado
+   scroll-top-btn: bottom 16px, right 20px → ABAIXO do skull, alinhado
 
    POSICIONAMENTO MOBILE (≤768px):
    skullBtn mobile: bottom 86–90px, right 16px
@@ -6434,7 +6434,7 @@ html { scroll-behavior: smooth; }
 ═══════════════════════════════════ */
 #scroll-top-btn{
   position:fixed;
-  bottom:16px; /* ABAIXO do Rabisco — alinhado com skullBtn (right:20px) */
+  bottom:16px;
   right:20px;
   z-index:7900;
   width:46px;
