@@ -6438,12 +6438,12 @@ function initScrollTopBtn(){
   var CIRC = 119.4;
 
   function posicionarBtn(){
-    // Centralizado horizontalmente sob o skullBtn
-    // Desktop: skull right:20px w:78px, topo w:46px → right = 20+(78-46)/2 = 36px | bottom = 80-46-8 = 26px
-    // Mobile:  skull right:16px w:64px, topo w:44px → right = 16+(64-44)/2 = 26px | bottom = 86-44-8 = 34px
+    // ABAIXO do Rabisco, borda direita alinhada com ele
+    // Desktop: skull bottom:80px h:78px → topo bottom = 80-46-8 = 26px, right = 20px (mesma borda)
+    // Mobile:  skull bottom:86px h:64px → topo bottom = 86-44-8 = 34px, right = 16px (mesma borda)
     var isMobile = window.innerWidth <= 768;
     btn.style.bottom = isMobile ? '34px' : '26px';
-    btn.style.right   = isMobile ? '26px' : '36px';
+    btn.style.right   = isMobile ? '16px' : '20px';
   }
 
   function atualizar(){
