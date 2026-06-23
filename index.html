@@ -1007,10 +1007,10 @@ fbq('init','1151853265430926');
       <div class="vid-destaque-player">
         <div class="vdp-thumb" id="vd1-thumb" onclick="abrirYouTube('3ZJigkTVRIM','vd1-thumb')" style="cursor:pointer;">
           <img loading="lazy" decoding="async"
-            src="https://img.youtube.com/vi/3ZJigkTVRIM/maxresdefault.jpg"
+            src="imagens/tatuagem-barata.png"
             alt="Tatuagem Barata Não Existe — Carlos Tattoo BH"
             class="vdp-thumb-img"
-            onerror="this.src='https://img.youtube.com/vi/3ZJigkTVRIM/hqdefault.jpg';this.onerror=function(){this.src='imagens/perfil.jpg';};">
+            onerror="this.src='https://img.youtube.com/vi/3ZJigkTVRIM/maxresdefault.jpg';this.onerror=function(){this.src='imagens/perfil.jpg';};">
           <div class="vdp-thumb-ov">
             <div class="vdp-play-btn">
               <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -2121,10 +2121,10 @@ fbq('init','1151853265430926');
       <div class="emocional-vid">
         <div class="evid-thumb" id="ev2-thumb" onclick="abrirYouTube('EZFPFHniywA','ev2-thumb')" style="cursor:pointer;">
           <img loading="lazy" decoding="async" 
-            src="https://img.youtube.com/vi/EZFPFHniywA/maxresdefault.jpg"
+            src="imagens/eternizar.png"
             alt="Cicatrizes Transformadas em Arte — Carlos Tattoo BH" 
             class="evid-thumb-img"
-            onerror="this.src='https://img.youtube.com/vi/EZFPFHniywA/hqdefault.jpg';this.onerror=function(){this.src='imagens/perfil.jpg';};">
+            onerror="this.src='https://img.youtube.com/vi/EZFPFHniywA/maxresdefault.jpg';this.onerror=function(){this.src='imagens/perfil.jpg';};">
           <div class="evid-thumb-ov">
             <button class="evid-play">
               <svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="white"/></svg>
@@ -6438,14 +6438,16 @@ function initScrollTopBtn(){
   var CIRC = 119.4;
 
   function posicionarBtn(){
-    // Mesmo tamanho do Rabisco, logo acima com 10px de gap, mesmo right
-    // Desktop: skull bottom:80px h:78px → topo bottom:168px, right:20px, size:78px
-    // Mobile:  skull bottom:86px h:64px → topo bottom:160px, right:16px, size:64px
+    // Alinhado abaixo do Rabisco (#skullBtn) — mesmo right, logo abaixo
+    // Desktop: skull bottom:80px h:78px → topo fica bottom:2px, right:20px
+    // Mobile:  skull bottom:86px h:64px → topo fica bottom:4px, right:16px
     var isMobile = window.innerWidth <= 768;
-    btn.style.bottom = isMobile ? '160px' : '168px';
-    btn.style.right  = isMobile ? '16px'  : '20px';
-    btn.style.width  = isMobile ? '64px'  : '78px';
-    btn.style.height = isMobile ? '64px'  : '78px';
+    btn.style.bottom = isMobile ? '4px' : '2px';
+    btn.style.right  = isMobile ? '16px' : '20px';
+    btn.style.left   = 'auto';
+    btn.style.transform = '';
+    btn.style.width  = isMobile ? '54px' : '64px';
+    btn.style.height = isMobile ? '54px' : '64px';
   }
 
   function atualizar(){
