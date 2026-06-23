@@ -6446,12 +6446,22 @@ function initScrollTopBtn(){
     // Desktop: skull bottom:80px h:78px → topo fica bottom:2px, right:20px
     // Mobile:  skull bottom:86px h:64px → topo fica bottom:4px, right:16px
     var isMobile = window.innerWidth <= 768;
-    btn.style.bottom = isMobile ? '4px' : '2px';
-    btn.style.right  = isMobile ? '16px' : '20px';
-    btn.style.left   = 'auto';
+    if(isMobile){
+      // Mobile: lado esquerdo para não competir com Rabisco (direita)
+      btn.style.bottom = '20px';
+      btn.style.left   = '16px';
+      btn.style.right  = 'auto';
+      btn.style.width  = '48px';
+      btn.style.height = '48px';
+    } else {
+      // Desktop: abaixo do Rabisco, lado direito
+      btn.style.bottom = '2px';
+      btn.style.right  = '20px';
+      btn.style.left   = 'auto';
+      btn.style.width  = '64px';
+      btn.style.height = '64px';
+    }
     btn.style.transform = '';
-    btn.style.width  = isMobile ? '54px' : '64px';
-    btn.style.height = isMobile ? '54px' : '64px';
   }
 
   function atualizar(){
