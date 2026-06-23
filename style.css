@@ -6424,18 +6424,20 @@ html { scroll-behavior: smooth; }
    skullBtn (Rabisco) : 8000
    scroll-top-btn     : 7900  ← ABAIXO do skullBtn
 
-   POSICIONAMENTO DESKTOP:
-   skullBtn: bottom 80px, right 20px
-   scroll-top-btn: bottom 16px, right 20px → ABAIXO do skull, alinhado
+   POSICIONAMENTO DESKTOP — centralizado sob o Rabisco:
+   skullBtn: bottom 80px, right 20px, width 78px
+   scroll-top-btn width 46px → right = 20 + (78-46)/2 = 36px (centro alinhado)
+   bottom = 80 - 46 - 8px gap = 26px
 
    POSICIONAMENTO MOBILE (≤768px):
-   skullBtn mobile: bottom 86–90px, right 16px
-   scroll-top-btn: bottom 24px, right 16px → abaixo do skull, alinhado
+   skullBtn: bottom 86px, right 16px, width 64px
+   scroll-top-btn width 44px → right = 16 + (64-44)/2 = 26px
+   bottom = 86 - 44 - 8px gap = 34px
 ═══════════════════════════════════ */
 #scroll-top-btn{
   position:fixed;
-  bottom:16px;
-  right:20px;
+  bottom:26px;
+  right:36px;
   z-index:7900;
   width:46px;
   height:46px;
@@ -6540,12 +6542,12 @@ html { scroll-behavior: smooth; }
 }
 
 /* ── MOBILE ──
-   skullBtn mobile: bottom 86–90px, right 16px
-   scroll-top-btn: bottom 24px, right 16px → abaixo do skull, alinhado */
+   skullBtn: bottom 86px, right 16px, width 64px
+   scroll-top-btn 44px → right 26px, bottom 34px */
 @media(max-width:768px){
   #scroll-top-btn{
-    bottom:24px !important;
-    right:16px !important;
+    bottom:34px !important;
+    right:26px !important;
     width:44px !important;
     height:44px !important;
     z-index:7900 !important;
@@ -6554,8 +6556,8 @@ html { scroll-behavior: smooth; }
 @media(max-width:480px){
   #wpp-float-group{bottom:28px;right:16px;}
   #scroll-top-btn{
-    bottom:24px !important;
-    right:16px !important;
+    bottom:34px !important;
+    right:26px !important;
     width:42px !important;
     height:42px !important;
     z-index:7900 !important;

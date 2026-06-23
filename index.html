@@ -6393,9 +6393,9 @@ function recusarCookies(){
 <div id="wpp-float-group" aria-label="Botões de contato flutuantes" role="group"></div>
 
 <!-- ═══ BOTÃO VOLTAR AO TOPO
-     Posição: fixed bottom:16px right:20px (desktop) / bottom:24px right:16px (mobile)
-     Fica ABAIXO do #skullBtn (Rabisco), alinhado e simétrico com ele.
-     Aparece somente após 200px de scroll.
+     Posição: fixed bottom:16px right:26px
+     Fica abaixo do #skullBtn (Rabisco) sem se sobrepor.
+     Aparece somente após 300px de scroll.
 ═══════════════════════════════════════════════════ -->
 <button id="scroll-top-btn" aria-label="Voltar ao topo" onclick="scrollToTopSmooth()">
   <span class="stt-progress-ring">
@@ -6438,12 +6438,12 @@ function initScrollTopBtn(){
   var CIRC = 119.4;
 
   function posicionarBtn(){
-    // Posição ABAIXO do skullBtn (Rabisco), alinhado e simétrico com ele
-    // Desktop: skullBtn right:20px  → mesmo right:20px, fica embaixo (bottom:16px)
-    // Mobile:  skullBtn right:16px  → mesmo right:16px, bottom:24px
+    // Centralizado horizontalmente sob o skullBtn
+    // Desktop: skull right:20px w:78px, topo w:46px → right = 20+(78-46)/2 = 36px | bottom = 80-46-8 = 26px
+    // Mobile:  skull right:16px w:64px, topo w:44px → right = 16+(64-44)/2 = 26px | bottom = 86-44-8 = 34px
     var isMobile = window.innerWidth <= 768;
-    btn.style.bottom = isMobile ? '24px' : '16px';
-    btn.style.right   = isMobile ? '16px' : '20px';
+    btn.style.bottom = isMobile ? '34px' : '26px';
+    btn.style.right   = isMobile ? '26px' : '36px';
   }
 
   function atualizar(){
