@@ -3792,13 +3792,15 @@ async function enviarFormAreola(e){
   try {
     if (window._sb) {
       await window._sb.from('leads').insert({
-        nome: nome,
-        email: email || null,
-        wpp: wpp || null,
-        produto: 'Reconstrução de Aréola',
-        origem: 'modal_areola',
-        tipo: 'areola',
-        data: new Date().toISOString()
+        nome:      nome,
+        email:     email || null,
+        wpp:       wpp || null,
+        produto:   'Reconstrução de Aréola',
+        origem:    'modal_areola',
+        tipo:      'areola',
+        score:     80,
+        categoria: 'quente',
+        data:      new Date().toISOString()
       });
     }
   } catch(err){ console.warn('Supabase insert leads (areola):', err); }
@@ -5812,13 +5814,15 @@ async function fpEnviar(){
   try {
     if (window._sb) {
       await window._sb.from('leads').insert({
-        nome:    fpDados.nome,
-        email:   fpDados.email  || null,
-        wpp:     fpDados.tel    || null,
-        produto: temCupomRoleta ? `Solicitação de Tatuagem (Roleta: ${fpDados.premio_roleta})` : 'Solicitação de Tatuagem',
-        origem:  origemFinal,
-        tipo:    'tatuagem',
-        data:    new Date().toISOString()
+        nome:      fpDados.nome,
+        email:     fpDados.email  || null,
+        wpp:       fpDados.tel    || null,
+        produto:   temCupomRoleta ? `Solicitação de Tatuagem (Roleta: ${fpDados.premio_roleta})` : 'Solicitação de Tatuagem',
+        origem:    origemFinal,
+        tipo:      'tatuagem',
+        score:     (typeof leadScore !== 'undefined' ? leadScore : null),
+        categoria: (typeof leadCategoria !== 'undefined' ? leadCategoria : null),
+        data:      new Date().toISOString()
       });
     }
   } catch(e){ console.warn('Supabase insert leads:', e); }
@@ -6522,10 +6526,11 @@ window.addEventListener('load', initScrollTopBtn);
           sid = 'sid_' + Date.now().toString(36) + Math.random().toString(36).substring(2,8);
           sessionStorage.setItem('ct_session_id', sid);
         }
+        var secaoAtual = window.location.pathname.replace(/\/$/,'').split('/').pop() || 'home';
         window._sb.from('acessos').insert({
-          data: new Date().toISOString(),
-          url: window.location.pathname + window.location.hash,
-          referrer: document.referrer || null,
+          data: new Date().toISOString().split('T')[0],
+          secao: secaoAtual,
+          total: 1,
           session_id: sid
         }).then(()=>{}).catch(()=>{});
       }
