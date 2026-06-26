@@ -1,111 +1,204 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
-  <!-- HOME PT-BR (principal) -->
+  <!-- ═══ PÁGINA PRINCIPAL ═══ -->
   <url>
     <loc>https://carlostattoobh.com.br/</loc>
-    <lastmod>2026-06-11</lastmod>
+    <lastmod>2026-06-26</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="pt-BR"     href="https://carlostattoobh.com.br/"/>
-    <xhtml:link rel="alternate" hreflang="en"         href="https://carlostattoobh.com.br/en/"/>
-    <xhtml:link rel="alternate" hreflang="es"         href="https://carlostattoobh.com.br/es/"/>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://carlostattoobh.com.br/"/>
+    <priority>1.00</priority>
   </url>
 
-  <!-- HOME EN -->
+  <!-- ═══ PÁGINAS DE SERVIÇO ═══ -->
   <url>
-    <loc>https://carlostattoobh.com.br/en/</loc>
-    <lastmod>2026-06-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="pt-BR"     href="https://carlostattoobh.com.br/"/>
-    <xhtml:link rel="alternate" hreflang="en"         href="https://carlostattoobh.com.br/en/"/>
-    <xhtml:link rel="alternate" hreflang="es"         href="https://carlostattoobh.com.br/es/"/>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://carlostattoobh.com.br/"/>
+    <loc>https://carlostattoobh.com.br/tatuagem-realismo-bh.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
   </url>
-
-  <!-- HOME ES -->
   <url>
-    <loc>https://carlostattoobh.com.br/es/</loc>
-    <lastmod>2026-06-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="pt-BR"     href="https://carlostattoobh.com.br/"/>
-    <xhtml:link rel="alternate" hreflang="en"         href="https://carlostattoobh.com.br/en/"/>
-    <xhtml:link rel="alternate" hreflang="es"         href="https://carlostattoobh.com.br/es/"/>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://carlostattoobh.com.br/"/>
+    <loc>https://carlostattoobh.com.br/tatuagem-fineline-bh.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.93</priority>
+  </url>
+  <url>
+    <loc>https://carlostattoobh.com.br/reforma-tatuagem-belo-horizonte.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.92</priority>
+  </url>
+  <url>
+    <loc>https://carlostattoobh.com.br/reconstrucao-areola-belo-horizonte.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.92</priority>
   </url>
 
-  <!-- BLOG: Quanto Custa Tatuagem em BH — keyword alta intenção -->
+  <!-- ═══ PÁGINAS DE LOCALIZAÇÃO — BH ═══ -->
+  <url>
+    <loc>https://carlostattoobh.com.br/tatuagem-mantiqueira-bh.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://carlostattoobh.com.br/tatuagem-venda-nova-bh.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://carlostattoobh.com.br/tatuagem-pampulha-bh.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.87</priority>
+  </url>
+
+  <!-- ═══ PÁGINAS DE LOCALIZAÇÃO — RMBH ═══ -->
+  <url>
+    <loc>https://carlostattoobh.com.br/tatuagem-contagem-mg.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://carlostattoobh.com.br/tatuagem-vespasiano-mg.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://carlostattoobh.com.br/tatuagem-betim-mg.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://carlostattoobh.com.br/tatuagem-santa-luzia-mg.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://carlostattoobh.com.br/tatuagem-lagoa-santa-mg.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.84</priority>
+  </url>
+  <url>
+    <loc>https://carlostattoobh.com.br/tatuagem-ribeirao-das-neves-mg.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.84</priority>
+  </url>
+
+  <!-- ═══ BLOG ═══ -->
   <url>
     <loc>https://carlostattoobh.com.br/blog-quanto-custa-tatuagem-bh.html</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-06-26</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.82</priority>
   </url>
-
-  <!-- BLOG: Cover Up em BH -->
   <url>
     <loc>https://carlostattoobh.com.br/blog-cover-up-bh.html</loc>
-    <lastmod>2026-01-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <!-- BLOG: Tráfego Pago para Tatuadores -->
-  <url>
-    <loc>https://carlostattoobh.com.br/blog-trafego-pago-tatuadores.html</loc>
-    <lastmod>2026-01-20</lastmod>
+    <lastmod>2026-06-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
-
-  <!-- BLOG: Cuidados Pós-Tattoo -->
   <url>
     <loc>https://carlostattoobh.com.br/blog-cuidados-pos-tattoo.html</loc>
-    <lastmod>2026-02-01</lastmod>
+    <lastmod>2026-06-26</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <priority>0.78</priority>
   </url>
-
-  <!-- BLOG: Central Tattoo — Software Gestão Estúdio -->
   <url>
     <loc>https://carlostattoobh.com.br/blog-central-tattoo.html</loc>
-    <lastmod>2026-02-10</lastmod>
+    <lastmod>2026-06-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
-
-  <!-- BLOG: Tráfego Pago Completo -->
+  <url>
+    <loc>https://carlostattoobh.com.br/blog-trafego-pago-tatuadores.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
   <url>
     <loc>https://carlostattoobh.com.br/blog-trafego-pago-COMPLETO.html</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-06-26</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <priority>0.74</priority>
   </url>
 
-  <!-- CENTRAL TATTOO -->
+  <!-- ═══ PRODUTOS DIGITAIS ═══ -->
   <url>
     <loc>https://carlostattoobh.com.br/central_tattoo.html</loc>
-    <lastmod>2026-06-11</lastmod>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://carlostattoobh.com.br/ebook-trafego-iniciante.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://carlostattoobh.com.br/ebook-instagram-tattoo.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://carlostattoobh.com.br/ebook-posicionamento-avancado.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://carlostattoobh.com.br/ebook-pack-templates.html</loc>
+    <lastmod>2026-06-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
+  <url>
+    <loc>https://carlostattoobh.com.br/ebook-contrato-digital.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.68</priority>
+  </url>
 
-  <!-- POLÍTICA DE PRIVACIDADE -->
+  <!-- ═══ PÁGINAS INTERNACIONAIS ═══ -->
+  <url>
+    <loc>https://carlostattoobh.com.br/en/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://carlostattoobh.com.br/en/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://carlostattoobh.com.br/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://carlostattoobh.com.br/es/"/>
+  </url>
+  <url>
+    <loc>https://carlostattoobh.com.br/es/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://carlostattoobh.com.br/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://carlostattoobh.com.br/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://carlostattoobh.com.br/en/"/>
+  </url>
+
+  <!-- ═══ INSTITUCIONAL ═══ -->
   <url>
     <loc>https://carlostattoobh.com.br/privacidade.html</loc>
-    <lastmod>2026-06-11</lastmod>
+    <lastmod>2026-06-26</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.30</priority>
   </url>
-
-  <!--
-    NÃO INDEXADOS (noindex ou internos):
-    /admin.html, /acesso.html, /painel.html, /leitor.html,
-    /checkout.html, /pagamento.html, /thank-you.html
-  -->
 
 </urlset>

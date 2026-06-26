@@ -1354,6 +1354,28 @@
     btn.innerHTML=btnTxt;
     btn.onclick=function(){ abrirWhatsApp(qualificacao.prometeuFoto?'📸 Cliente vai enviar foto pelo WhatsApp.':null); };
     ctas.appendChild(btn);
+
+    // ── v13: botão alternativo — preenche o formulário com dados do chat ──
+    var btnForm = document.createElement('button');
+    btnForm.style.cssText='width:100%;padding:11px;margin-top:8px;background:transparent;border:1.5px solid rgba(160,120,56,.45);color:#A07830;border-radius:10px;font-family:"Cinzel",serif;font-size:10px;letter-spacing:1.5px;cursor:pointer;font-weight:700;text-transform:uppercase;transition:background .2s,border-color .2s;';
+    btnForm.innerHTML='📋 PREFIRO PREENCHER O FORMULÁRIO';
+    btnForm.onmouseover=function(){ this.style.background='rgba(160,120,56,.08)'; this.style.borderColor='rgba(160,120,56,.75)'; };
+    btnForm.onmouseout=function(){ this.style.background='transparent'; this.style.borderColor='rgba(160,120,56,.45)'; };
+    btnForm.onclick=function(){
+      rbSalvarPrefillFormulario();
+      // Fecha o chat
+      var panel=document.getElementById('rabiscoPanel');
+      if(panel) panel.classList.remove('open');
+      RabiscoUI.aberto=false;
+      // Scroll suave até o formulário
+      setTimeout(function(){
+        var secao=document.getElementById('contato');
+        if(secao) secao.scrollIntoView({behavior:'smooth',block:'start'});
+      },250);
+      rbTrack('form_btn_clicado',{score:leadScore,categoria:leadCategoria});
+    };
+    ctas.appendChild(btnForm);
+    // ─────────────────────────────────────────────────────────────────────
   }
 
   function concluirFunilPrincipal(){
@@ -1481,8 +1503,8 @@
 .rb-lead-btn{width:100%;padding:11px;background:linear-gradient(135deg,#A07830,#C9A84C);color:#fff;font-family:'Cinzel',serif;font-size:11px;font-weight:700;letter-spacing:.5px;border:none;border-radius:9px;cursor:pointer;margin-top:8px;transition:all .2s;}
 .rb-lead-btn:hover{background:linear-gradient(135deg,#8B6820,#A07830);}
 @media(max-width:768px){
-  #rabiscoBtn{bottom:131px;right:16px;}
-  #rabiscoPanel{bottom:201px;right:8px;left:8px;width:auto;max-height:68vh;}
+  #rabiscoBtn{bottom:90px;right:16px;}
+  #rabiscoPanel{bottom:160px;right:8px;left:8px;width:auto;max-height:68vh;}
   #rbBubble{right:8px;left:8px;max-width:none;}
 }
 `;
@@ -1962,5 +1984,106 @@
   window.RabiscoUI=RabiscoUI;
   window.mostrarBubble=mostrarBubble;
   window.abrirWhatsApp=abrirWhatsApp;
-})();
 
+  /* ══════════════════════════════════════
+     v13: BRIDGE RABISCO → FORMULÁRIO
+     Salva contexto do chat no sessionStorage
+     para pré-preenchimento automático do #contato
+  ══════════════════════════════════════ */
+  function rbSalvarPrefillFormulario() {
+    try {
+      // Mapeamento de partes do corpo Rabisco → labels do formulário
+      var mapaLocal = {
+        braco:'Braço', antebraco:'Antebraço', perna:'Perna', costas:'Costas',
+        costela:'Outro', pescoco:'Pescoço', ombro:'Outro', tornozelo:'Outro',
+        pulso:'Outro', mao:'Outro', dedos:'Outro', omoplata:'Costas',
+        barriga:'Outro', pe:'Outro', canela:'Panturrilha', joelho:'Outro',
+        cotovelo:'Outro', nuca:'Pescoço', coxa:'Perna', peito:'Peito'
+      };
+
+      // Mapeamento de estilos Rabisco → labels do formulário
+      var mapaEstilo = {
+        'realismo':'Realismo', 'black and grey':'Black & Grey',
+        'blackgrey':'Black & Grey', 'fineline':'Fineline',
+        'colorida':'Colorida', 'aquarela':'Colorida',
+        'geometrico':'Personalizada', 'mandala':'Personalizada',
+        'floral':'Fineline', 'oldschool':'Personalizada',
+        'newschool':'Personalizada', 'japonesa':'Personalizada',
+        'neotradicional':'Personalizada', 'trash polka':'Personalizada',
+        'dotwork':'Personalizada', 'biomecânico':'Personalizada',
+        'biomechanico':'Personalizada'
+      };
+
+      // Mapeamento de tamanho Rabisco → labels do formulário
+      var mapaTamanho = {
+        'pequena':'Pequena até 5cm', 'media':'Média 5-15cm',
+        'grande':'Grande 15-30cm', 'projeto':'Manga/Sleeve'
+      };
+
+      // Cover/queimadura → estilo "Reforma / Cover Up"
+      var interesseParaEstilo = { 'cobertura':'Reforma / Cover Up', 'queimadura':'Reforma / Cover Up' };
+
+      // Resolver estilo final
+      var estiloFinal = '';
+      if(qualificacao.interesse && interesseParaEstilo[qualificacao.interesse]){
+        estiloFinal = interesseParaEstilo[qualificacao.interesse];
+      } else if(ctx.estilo){
+        estiloFinal = mapaEstilo[(ctx.estilo||'').toLowerCase().trim()] || '';
+      } else if(qualificacao.estilo){
+        estiloFinal = mapaEstilo[(qualificacao.estilo||'').toLowerCase().trim()] || '';
+      }
+
+      // Resolver local final
+      var localFinal = '';
+      var localRaw = ctx.partCorpo || qualificacao.local || '';
+      if(localRaw && localRaw !== 'indefinido'){
+        localFinal = mapaLocal[(localRaw||'').toLowerCase()] || 'Outro';
+      }
+
+      // Resolver tamanho final
+      var tamanhoFinal = '';
+      if(qualificacao.tamanho) tamanhoFinal = mapaTamanho[qualificacao.tamanho] || '';
+
+      // Montar texto base para a textarea "ideia"
+      var ideiaPartes = [];
+      if(qualificacao.interesse === 'cobertura')  ideiaPartes.push('Quero reformar/cobrir uma tatuagem antiga.');
+      if(qualificacao.interesse === 'queimadura') ideiaPartes.push('Quero cobrir uma cicatriz/queimadura.');
+      if(qualificacao.interesse === 'areola')     ideiaPartes.push('Interesse em reconstrução de aréola.');
+      if(estiloFinal && estiloFinal !== 'Reforma / Cover Up') ideiaPartes.push('Estilo: ' + estiloFinal + '.');
+      if(localFinal)   ideiaPartes.push('Local: ' + localFinal + '.');
+      if(tamanhoFinal) ideiaPartes.push('Tamanho: ' + tamanhoFinal + '.');
+      if(qualificacao.referenciaUrl) ideiaPartes.push('Referência: ' + qualificacao.referenciaUrl);
+
+      // Mapeamento de orçamento
+      var mapaOrcamento = {
+        'ate600':'Até R$300', '600a1500':'R$600-1000',
+        '1500a3000':'R$1000+', 'acima3000':'R$1000+'
+      };
+
+      var payload = {
+        ts:        Date.now(),
+        sessao:    _sessionId,
+        nome:      leadNome  || '',
+        tel:       leadWpp   ? (leadWpp.length===11
+                                 ? '('+leadWpp.substring(0,2)+') '+leadWpp.substring(2,7)+'-'+leadWpp.substring(7)
+                                 : '('+leadWpp.substring(0,2)+') '+leadWpp.substring(2,6)+'-'+leadWpp.substring(6))
+                             : '',
+        email:     leadEmail || '',
+        estilo:    estiloFinal,
+        local:     localFinal,
+        tamanho:   tamanhoFinal,
+        ideia:     ideiaPartes.join(' '),
+        orcamento: mapaOrcamento[qualificacao.orcamento] || '',
+        score:     leadScore,
+        categoria: leadCategoria,
+        interesse: qualificacao.interesse || '',
+        origem:    'rabisco'
+      };
+
+      sessionStorage.setItem('rb_form_prefill', JSON.stringify(payload));
+      rbTrack('form_prefill_salvo', {score:leadScore, categoria:leadCategoria, interesse:qualificacao.interesse||''});
+
+    } catch(e) { /* silencioso — não quebra o fluxo */ }
+  }
+
+})();

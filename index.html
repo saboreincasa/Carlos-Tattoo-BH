@@ -77,24 +77,29 @@ fbq('init','1151853265430926');
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
-  "@type":"TattooShop",
+  "@type":["LocalBusiness","TattooParlor"],
+  "@id":"https://carlostattoobh.com.br/#business",
   "name":"Carlos Tattoo BH",
   "description":"Estúdio premium de tatuagem em Belo Horizonte. Especialista em realismo fotográfico, black & grey, fineline, cover up, reforma de tatuagem e reconstrução de aréola pós-mastectomia. 7 anos de experiência, 2.400+ tatuagens realizadas.",
   "url":"https://carlostattoobh.com.br/",
   "telephone":"+5531983391576",
   "email":"carlostattoobh@gmail.com",
-  "address":{"@type":"PostalAddress","streetAddress":"Rua Maria de Lourdes da Cruz, 378","addressLocality":"Belo Horizonte","addressRegion":"MG","postalCode":"31655-490","addressCountry":"BR"},
+  "address":{"@type":"PostalAddress","streetAddress":"Rua Maria de Lourdes da Cruz, 378","addressLocality":"Belo Horizonte","addressRegion":"MG","postalCode":"31655-490","addressCountry":"BR","description":"Bairro Mantiqueira"},
   "geo":{"@type":"GeoCoordinates","latitude":-19.788771,"longitude":-43.986380},
-  "openingHours":["Mo-Fr 10:00-19:00","Sa 10:00-18:00"],
-  "sameAs":["https://instagram.com/carlostattoo.bh","https://maps.app.goo.gl/nhDC6raFoEirBBWL8"],
-  "priceRange":"$$",
-  "image":"https://carlostattoobh.com.br/imagens/carlos_hero.jpg",
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"10:00","closes":"19:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"10:00","closes":"18:00"}
+  ],
+  "sameAs":["https://www.instagram.com/carlostattoo.bh","https://maps.app.goo.gl/nhDC6raFoEirBBWL8"],
+  "priceRange":"R$180 – R$2000+",
+  "image":["https://carlostattoobh.com.br/imagens/carlos_hero.jpg","https://carlostattoobh.com.br/imagens/fachada-estudio-carlos-tattoo-mantiqueira-belo-horizonte-bh.webp","https://carlostattoobh.com.br/imagens/estudio-tatuagem-premium-belo-horizonte-carlos-tattoo-bh.webp"],
   "hasMap":"https://maps.app.goo.gl/nhDC6raFoEirBBWL8",
   "paymentAccepted":"PIX, Cartão de Crédito, Cartão de Débito",
   "currenciesAccepted":"BRL",
-  "aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","bestRating":"5","worstRating":"1","ratingCount":"127"},
-  "servesCuisine":null,
-  "keywords":"tatuagem Belo Horizonte, tatuagem BH, realismo BH, cover up BH, fineline BH, reconstrução aréola BH, tatuagem Contagem MG, tatuagem Venda Nova BH, tatuagem Ribeirão das Neves, tatuagem Vespasiano MG, tatuagem Lagoa Santa MG, tatuagem Betim MG, tatuagem Santa Luzia MG, tatuagem grande BH, tatuador RMBH"
+  "areaServed":[{"@type":"City","name":"Belo Horizonte"},{"@type":"City","name":"Contagem"},{"@type":"City","name":"Betim"},{"@type":"City","name":"Santa Luzia"}],
+  "aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","bestRating":"5","worstRating":"1","ratingCount":"380"},
+  "founder":{"@type":"Person","name":"Carlos Henrique","jobTitle":"Tatuador especialista em realismo e cover up","sameAs":["https://www.instagram.com/carlostattoo.bh"]},
+  "keywords":"tatuagem Belo Horizonte, tatuagem BH, realismo BH, cover up BH, fineline BH, reconstrução aréola BH, tatuagem Contagem MG, tatuagem Venda Nova BH, tatuagem Betim MG, tatuagem Santa Luzia MG, tatuador RMBH"
 }
 </script>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=IM+Fell+English:ital@0;1&family=Raleway:wght@300;400;500;600;700;800;900&display=swap">
@@ -527,24 +532,78 @@ fbq('init','1151853265430926');
     {
       "@type": "ListItem",
       "position": 7,
+      "url": "https://carlostattoobh.com.br/tatuagem-realismo-bh.html",
+      "name": "Tatuagem Realismo em BH — retratos fotorealistas e black & grey"
+    },
+    {
+      "@type": "ListItem",
+      "position": 8,
+      "url": "https://carlostattoobh.com.br/tatuagem-fineline-bh.html",
+      "name": "Tatuagem Fineline em BH — traços finos, florais e minimalismo"
+    },
+    {
+      "@type": "ListItem",
+      "position": 9,
+      "url": "https://carlostattoobh.com.br/tatuagem-mantiqueira-bh.html",
+      "name": "Tatuagem no Bairro Mantiqueira BH — Carlos Tattoo BH, estúdio premium"
+    },
+    {
+      "@type": "ListItem",
+      "position": 10,
       "url": "https://carlostattoobh.com.br/tatuagem-contagem-mg.html",
       "name": "Tatuagem em Contagem MG: realismo, cover up e fineline perto de você"
     },
     {
       "@type": "ListItem",
-      "position": 8,
+      "position": 11,
       "url": "https://carlostattoobh.com.br/tatuagem-venda-nova-bh.html",
       "name": "Tatuagem em Venda Nova BH: o estúdio premium mais próximo do seu bairro"
     },
     {
       "@type": "ListItem",
-      "position": 9,
+      "position": 12,
+      "url": "https://carlostattoobh.com.br/tatuagem-pampulha-bh.html",
+      "name": "Tatuagem em Pampulha BH — Carlos Tattoo BH atende toda a região"
+    },
+    {
+      "@type": "ListItem",
+      "position": 13,
+      "url": "https://carlostattoobh.com.br/tatuagem-vespasiano-mg.html",
+      "name": "Tatuagem em Vespasiano MG — estúdio premium a 20 min"
+    },
+    {
+      "@type": "ListItem",
+      "position": 14,
+      "url": "https://carlostattoobh.com.br/tatuagem-betim-mg.html",
+      "name": "Tatuagem em Betim MG — Carlos Tattoo BH pelo Anel Rodoviário"
+    },
+    {
+      "@type": "ListItem",
+      "position": 15,
+      "url": "https://carlostattoobh.com.br/tatuagem-santa-luzia-mg.html",
+      "name": "Tatuagem em Santa Luzia MG — 20 min pela Av. Cristiano Machado"
+    },
+    {
+      "@type": "ListItem",
+      "position": 16,
+      "url": "https://carlostattoobh.com.br/tatuagem-lagoa-santa-mg.html",
+      "name": "Tatuagem em Lagoa Santa MG — estúdio premium na Grande BH"
+    },
+    {
+      "@type": "ListItem",
+      "position": 17,
+      "url": "https://carlostattoobh.com.br/tatuagem-ribeirao-das-neves-mg.html",
+      "name": "Tatuagem em Ribeirão das Neves MG — Carlos Tattoo BH"
+    },
+    {
+      "@type": "ListItem",
+      "position": 18,
       "url": "https://carlostattoobh.com.br/reconstrucao-areola-belo-horizonte.html",
       "name": "Reconstrução de aréola por tatuagem 3D em BH — pós-mastectomia e cirurgia mamária"
     },
     {
       "@type": "ListItem",
-      "position": 10,
+      "position": 19,
       "url": "https://carlostattoobh.com.br/reforma-tatuagem-belo-horizonte.html",
       "name": "Reforma e cover up de tatuagem em BH: 380+ coberturas, avaliação gratuita"
     }
@@ -671,9 +730,9 @@ fbq('init','1151853265430926');
 <div class="urg-bar" id="urg-bar-top">
   <span class="urg-bar-inner">
     <span class="urg-spark">✦</span>
-    <span class="urg-bar-msg">🎁 <b>OFERTA ESPECIAL:</b> Apenas <b id="vagas-count">7</b> vagas abertas este mês</span>
+    <span class="urg-bar-msg">📅 <b>Agenda limitada:</b> avaliação gratuita por foto — resposta em até 24h</span>
     <span class="urg-bar-sep">·</span>
-    <span class="urg-bar-cta"><a href="#contato" style="color:#FFD700;text-decoration:underline;font-weight:700;">Garantir minha vaga →</a></span>
+    <span class="urg-bar-cta"><a href="#contato" style="color:#FFD700;text-decoration:underline;font-weight:700;">Solicitar agora →</a></span>
     <span class="urg-spark">✦</span>
   </span>
 </div>
@@ -730,20 +789,20 @@ fbq('init','1151853265430926');
 <!-- Banner internacional removido: visitantes fora de países lusófonos são redirecionados para /en/ ou /es/ -->
 
 <!-- TICKER -->
-<div class="ticker-wrap" aria-label="Atividade recente dos clientes" aria-live="off">
+<div class="ticker-wrap" aria-label="Atividade recente" aria-live="off">
   <div class="ticker-track">
-    <span class="tick-item"><span class="tdot"></span>Marcos de BH acabou de agendar uma reforma</span>
-    <span class="tick-item"><span class="tdot"></span>Ana do Contagem concluiu seu projeto de manga completa</span>
-    <span class="tick-item"><span class="tdot"></span>Pedro de Venda Nova comprou o Ebook Avançado</span>
-    <span class="tick-item"><span class="tdot"></span>Julia de Santa Luzia agendou seu primeiro realismo</span>
-    <span class="tick-item"><span class="tdot"></span>Roberto de Betim iniciou a Mentoria VIP</span>
-    <span class="tick-item"><span class="tdot"></span>Camila da Pampulha transformou sua tattoo antiga</span>
-    <span class="tick-item"><span class="tdot"></span>Marcos de BH acabou de agendar uma reforma</span>
-    <span class="tick-item"><span class="tdot"></span>Ana do Contagem concluiu seu projeto de manga completa</span>
-    <span class="tick-item"><span class="tdot"></span>Pedro de Venda Nova comprou o Ebook Avançado</span>
-    <span class="tick-item"><span class="tdot"></span>Julia de Santa Luzia agendou seu primeiro realismo</span>
-    <span class="tick-item"><span class="tdot"></span>Roberto de Betim iniciou a Mentoria VIP</span>
-    <span class="tick-item"><span class="tdot"></span>Camila da Pampulha transformou sua tattoo antiga</span>
+    <span class="tick-item"><span class="tdot"></span>M. — BH · agendou avaliação de cover up</span>
+    <span class="tick-item"><span class="tdot"></span>A. — Contagem · enviou referências para projeto de realismo</span>
+    <span class="tick-item"><span class="tdot"></span>P. — Venda Nova · solicitou orçamento de fineline</span>
+    <span class="tick-item"><span class="tdot"></span>J. — Santa Luzia · agendou consulta de reconstrução de aréola</span>
+    <span class="tick-item"><span class="tdot"></span>R. — Betim · enviou fotos para avaliação de reforma</span>
+    <span class="tick-item"><span class="tdot"></span>C. — Pampulha · pediu orçamento de tatuagem realismo</span>
+    <span class="tick-item"><span class="tdot"></span>M. — BH · agendou avaliação de cover up</span>
+    <span class="tick-item"><span class="tdot"></span>A. — Contagem · enviou referências para projeto de realismo</span>
+    <span class="tick-item"><span class="tdot"></span>P. — Venda Nova · solicitou orçamento de fineline</span>
+    <span class="tick-item"><span class="tdot"></span>J. — Santa Luzia · agendou consulta de reconstrução de aréola</span>
+    <span class="tick-item"><span class="tdot"></span>R. — Betim · enviou fotos para avaliação de reforma</span>
+    <span class="tick-item"><span class="tdot"></span>C. — Pampulha · pediu orçamento de tatuagem realismo</span>
   </div>
 </div>
 
@@ -756,9 +815,7 @@ fbq('init','1151853265430926');
     <div class="hero-bg">
       <div class="hero-bg-grad"></div>
       <div id="hero-vid-bg" style="position:absolute;inset:0;z-index:0;overflow:hidden;">
-        <video id="hero-vid" autoplay muted loop playsinline aria-hidden="true" style="width:100%;height:100%;object-fit:cover;opacity:.22;transition:opacity .5s;">
-          <source src="video_01.mp4" type="video/mp4">
-        </video>
+        <img src="imagens/portfolio/tatuagem-familia-leoes-filhotes-realismo-belo-horizonte-bh.webp" alt="" aria-hidden="true" loading="eager" style="width:100%;height:100%;object-fit:cover;opacity:.18;">
       </div>
     </div>
     <div class="deye l"></div><div class="deye r"></div>
@@ -810,9 +867,7 @@ fbq('init','1151853265430926');
 <div id="twopaths">
   <div class="path new" style="overflow:hidden;">
     <div class="path-vid">
-      <video autoplay muted loop playsinline>
-        <source src="SnapInsta_to_AQN3W6XdctzJ5Ogr-lNBJeoB6YIWY_-Dz5InLmWl3aS0ZXYnIO5uQPUYLB7P33cMFO4YCcuhq-2NLaPyNE8RTcqnQLWbaMNUIhOP6ZE.mp4" type="video/mp4">
-      </video>
+      <img src="imagens/portfolio/tatuagem-samurai-feminino-carpa-realismo-belo-horizonte-bh.webp" alt="Tatuagem nova em BH — Carlos Tattoo BH" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
     </div>
     <div class="path-ov"></div>
     <div class="path-content-wrap">
@@ -827,9 +882,7 @@ fbq('init','1151853265430926');
   <div class="path-div">OU</div>
   <div class="path cover" style="overflow:hidden;">
     <div class="path-vid">
-      <video autoplay muted loop playsinline>
-        <source src="SnapInsta_to_AQNSvrQWkiB-q0677vXoCdwBYrQWMhukzwEsszI1bLzaxG2TYV1H6wyW8qfvRAKqyMmTekQkatGgKPFKZ_g55tnv.mp4" type="video/mp4">
-      </video>
+      <img src="imagens/portfolio/tatuagem-coverup-tigre-realismo-antes-depois-belo-horizonte-bh.webp" alt="Reforma de tatuagem em BH — Carlos Tattoo BH" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
     </div>
     <div class="path-ov"></div>
     <div class="path-content-wrap">
@@ -1098,84 +1151,84 @@ fbq('init','1151853265430926');
 
       <!-- Vídeo 1 — Floral -->
       <div class="pv-item" onclick="abrirYouTubeModal('XaYnyY5x_yo')">
-        <img loading="lazy" src="imagens/floral.jpg" alt="Tatuagem floral delicada fineline no braço — Carlos Tattoo BH, Belo Horizonte" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/XaYnyY5x_yo/hqdefault.jpg'">
+        <img loading="lazy" src="imagens/portfolio/tatuagem-flores-borboletas-panturrilha-belo-horizonte-bh.webp" alt="Tatuagem floral delicada fineline na perna — Carlos Tattoo BH, Belo Horizonte" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/XaYnyY5x_yo/hqdefault.jpg'">
         <div class="pv-play"><div class="pv-play-btn">▶</div></div>
         <div class="pv-label">Floral Delicada — Fineline</div>
       </div>
 
       <!-- Vídeo 2 — Biomecânico -->
       <div class="pv-item" onclick="abrirYouTubeModal('8BBCaOdTf3Y')">
-        <img loading="lazy" src="imagens/biomecanico.jpg" alt="Tatuagem biomecânica realista nas costas — Carlos Tattoo BH, BH" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/8BBCaOdTf3Y/hqdefault.jpg'">
+        <img loading="lazy" src="imagens/portfolio/tatuagem-biomecanica-realismo-belo-horizonte-bh.webp" alt="Tatuagem biomecânica realista no braço — Carlos Tattoo BH, BH" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/8BBCaOdTf3Y/hqdefault.jpg'">
         <div class="pv-play"><div class="pv-play-btn">▶</div></div>
         <div class="pv-label">Máquina e Arte — Biomecânico</div>
       </div>
 
       <!-- Vídeo 3 — Leopardo -->
       <div class="pv-item" onclick="abrirYouTubeModal('zRAYUayHfIg')">
-        <img loading="lazy" src="imagens/leopardo.jpg" alt="Tatuagem leopardo realista black and grey — Carlos Tattoo BH, Belo Horizonte" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/zRAYUayHfIg/hqdefault.jpg'">
+        <img loading="lazy" src="imagens/portfolio/tatuagem-onca-pintada-folhas-costas-belo-horizonte-bh.webp" alt="Tatuagem onça pintada realista nas costas — Carlos Tattoo BH, Belo Horizonte" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/zRAYUayHfIg/hqdefault.jpg'">
         <div class="pv-play"><div class="pv-play-btn">▶</div></div>
-        <div class="pv-label">Força Selvagem — Leopardo Realista</div>
+        <div class="pv-label">Força Selvagem — Onça Realista</div>
       </div>
 
       <!-- Vídeo 4 — Leão -->
       <div class="pv-item" onclick="abrirYouTubeModal('7NB1m0oUWH8')">
-        <img loading="lazy" src="imagens/leao.jpg" alt="Tatuagem leão realista no braço — Carlos Tattoo BH, Belo Horizonte" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/7NB1m0oUWH8/hqdefault.jpg'">
+        <img loading="lazy" src="imagens/portfolio/tatuagem-leao-mandala-geometrico-panturrilha-belo-horizonte-bh.webp" alt="Tatuagem leão mandala geométrico na panturrilha — Carlos Tattoo BH, Belo Horizonte" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/7NB1m0oUWH8/hqdefault.jpg'">
         <div class="pv-play"><div class="pv-play-btn">▶</div></div>
         <div class="pv-label">O Rei em Sua Pele — Leão</div>
       </div>
 
       <!-- Vídeo 5 — India -->
       <div class="pv-item" onclick="abrirYouTubeModal('5fWpPEvzs_c')">
-        <img loading="lazy" src="imagens/india.jpg" alt="Tatuagem indiana mulher mística realismo — Carlos Tattoo BH, BH" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/5fWpPEvzs_c/hqdefault.jpg'">
+        <img loading="lazy" src="imagens/portfolio/tatuagem-nativa-tigre-realismo-belo-horizonte-bh.webp" alt="Tatuagem nativa com tigre realismo — Carlos Tattoo BH, BH" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/5fWpPEvzs_c/hqdefault.jpg'">
         <div class="pv-play"><div class="pv-play-btn">▶</div></div>
-        <div class="pv-label">Mística do Oriente — India</div>
+        <div class="pv-label">Mística do Oriente — Nativa</div>
       </div>
 
       <!-- Vídeo 6 — Gueixa -->
       <div class="pv-item" onclick="abrirYouTubeModal('n9CWY9wg620')">
-        <img loading="lazy" src="imagens/gueixa.jpg" alt="Tatuagem gueixa japonesa realista — Carlos Tattoo BH, Belo Horizonte" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/n9CWY9wg620/hqdefault.jpg'">
+        <img loading="lazy" src="imagens/portfolio/tatuagem-geisha-realismo-belo-horizonte-bh.webp" alt="Tatuagem gueixa japonesa realista — Carlos Tattoo BH, Belo Horizonte" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/n9CWY9wg620/hqdefault.jpg'">
         <div class="pv-play"><div class="pv-play-btn">▶</div></div>
         <div class="pv-label">Beleza e Silêncio — Gueixa</div>
       </div>
 
       <!-- Vídeo 7 — Leão com rosto de mulher -->
       <div class="pv-item" onclick="abrirYouTubeModal('lvkoxJh4jxs')">
-        <img loading="lazy" src="imagens/leao_mulher.jpg" alt="Tatuagem leão com rosto de mulher realista — Carlos Tattoo BH" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/lvkoxJh4jxs/hqdefault.jpg'">
+        <img loading="lazy" src="imagens/portfolio/tatuagem-leoa-retrato-feminino-realismo-belo-horizonte-bh.webp" alt="Tatuagem leoa retrato feminino realismo — Carlos Tattoo BH" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/lvkoxJh4jxs/hqdefault.jpg'">
         <div class="pv-play"><div class="pv-play-btn">▶</div></div>
-        <div class="pv-label">Poder Feminino — Leão & Mulher</div>
+        <div class="pv-label">Poder Feminino — Leoa & Mulher</div>
       </div>
 
-      <!-- Vídeo 8 — Mulher segurando arma -->
+      <!-- Vídeo 8 — Família de leões -->
       <div class="pv-item" onclick="abrirYouTubeModal('c7uytkRgAsk')">
-        <img loading="lazy" src="imagens/mulher_arma.jpg" alt="Tatuagem leoa majestosa realista black and grey — Carlos Tattoo BH" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/c7uytkRgAsk/hqdefault.jpg'">
+        <img loading="lazy" src="imagens/portfolio/tatuagem-familia-leoes-filhotes-realismo-belo-horizonte-bh.webp" alt="Tatuagem família de leões filhotes realismo — Carlos Tattoo BH" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/c7uytkRgAsk/hqdefault.jpg'">
         <div class="pv-play"><div class="pv-play-btn">▶</div></div>
-        <div class="pv-label">Majestade Selvagem — Leoa</div>
+        <div class="pv-label">Majestade Selvagem — Família</div>
       </div>
 
-      <!-- Vídeo 9 — Leão com floral -->
+      <!-- Vídeo 9 — Samurai -->
       <div class="pv-item" onclick="abrirYouTubeModal('xNXX5MlJteY')">
-        <img loading="lazy" src="imagens/leao_floral.jpg" alt="Tatuagem leão com flores colorido realista — Carlos Tattoo BH" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/xNXX5MlJteY/hqdefault.jpg'">
+        <img loading="lazy" src="imagens/portfolio/tatuagem-samurai-feminino-carpa-realismo-belo-horizonte-bh.webp" alt="Tatuagem samurai feminino com carpa realismo — Carlos Tattoo BH" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/xNXX5MlJteY/hqdefault.jpg'">
         <div class="pv-play"><div class="pv-play-btn">▶</div></div>
-        <div class="pv-label">Bruto e Delicado — Leão Floral</div>
+        <div class="pv-label">Guerreira Oriental — Samurai</div>
       </div>
 
-      <!-- Vídeo 10 — Floral traços finos -->
+      <!-- Vídeo 10 — Retrato feminino -->
       <div class="pv-item" onclick="abrirYouTubeModal('aenLpViENB4')">
-        <img loading="lazy" src="imagens/floral_fino.jpg" alt="Tatuagem floral fineline traços finos delicada — Carlos Tattoo BH" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/aenLpViENB4/hqdefault.jpg'">
+        <img loading="lazy" src="imagens/portfolio/tatuagem-tres-fases-retrato-feminino-realismo-belo-horizonte-bh.webp" alt="Tatuagem três fases retrato feminino realismo — Carlos Tattoo BH" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/aenLpViENB4/hqdefault.jpg'">
         <div class="pv-play"><div class="pv-play-btn">▶</div></div>
-        <div class="pv-label">Delicadeza em Traço — Fineline Floral</div>
+        <div class="pv-label">Três Fases — Retrato Feminino</div>
       </div>
 
-      <!-- Vídeo 11 — Rosas delicadas -->
+      <!-- Vídeo 11 — Rosas -->
       <div class="pv-item" onclick="abrirYouTubeModal('nNfK-Q34tvI')">
-        <img loading="lazy" src="imagens/rosas.jpg" alt="Tatuagem rosas delicadas realistas na perna — Carlos Tattoo BH" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/nNfK-Q34tvI/hqdefault.jpg'">
+        <img loading="lazy" src="imagens/portfolio/tatuagem-rosas-realismo-quadril-belo-horizonte-bh.webp" alt="Tatuagem rosas realismo no quadril — Carlos Tattoo BH" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/nNfK-Q34tvI/hqdefault.jpg'">
         <div class="pv-play"><div class="pv-play-btn">▶</div></div>
         <div class="pv-label">Amor que Não Murcha — Rosas</div>
       </div>
 
       <!-- Vídeo 12 — Reforma de tatuagem -->
       <div class="pv-item" onclick="abrirYouTubeModal('-NEDD2B3-tA')">
-        <img loading="lazy" src="imagens/reforma.jpg" alt="Reforma e cobertura de tatuagem antiga — Carlos Tattoo BH, Belo Horizonte" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/-NEDD2B3-tA/hqdefault.jpg'">
+        <img loading="lazy" src="imagens/portfolio/tatuagem-coverup-floral-antes-depois-belo-horizonte-bh.webp" alt="Reforma e cobertura de tatuagem — Carlos Tattoo BH, Belo Horizonte" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/-NEDD2B3-tA/hqdefault.jpg'">
         <div class="pv-play"><div class="pv-play-btn">▶</div></div>
         <div class="pv-label">Renasceu na Pele — Reforma</div>
       </div>
@@ -1411,12 +1464,7 @@ fbq('init','1151853265430926');
             <div class="cstyle-card-thumb" style="position:relative;overflow:hidden;">
               <img loading="lazy" src="imagens/capa-fineline.jpg" alt="Fineline"
                 style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;"
-                onerror="this.src='imagens/portfolio/fineline-01.webp';this.onerror=null;">
-              <video muted loop playsinline preload="none"
-                style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s;"
-                onmouseenter="this.style.opacity='1';this.play();" onmouseleave="this.style.opacity='0';this.pause();">
-                <source src="SnapInsta_to_AQN6HU_KICKY-BwgEdpSUbiRwHk4r6F27E989J_shBwkbVPDqwix7WzmbWHBRKgwmSHLBbk626avuTkwKkXeTDBd__EIri31CKbb-oI.mp4" type="video/mp4">
-              </video>
+                onerror="this.src='imagens/portfolio/tatuagem-geometrica-mandala-antebraco-belo-horizonte-bh.webp';this.onerror=null;">
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 55%);pointer-events:none;"></div>
             </div>
             <div class="cstyle-card-info"><span class="cstyle-card-name">Fineline</span></div>
@@ -1428,12 +1476,7 @@ fbq('init','1151853265430926');
             <div class="cstyle-card-thumb" style="position:relative;overflow:hidden;">
               <img loading="lazy" src="imagens/capa-blackgrey.jpg" alt="Black & Grey"
                 style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;"
-                onerror="this.src='imagens/portfolio/blackgrey-01.webp';this.onerror=null;">
-              <video muted loop playsinline preload="none"
-                style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s;"
-                onmouseenter="this.style.opacity='1';this.play();" onmouseleave="this.style.opacity='0';this.pause();">
-                <source src="SnapInsta_to_AQMN-huDB9I0FBzw4QVUKoHzwGndNbtrB63cMx58TrJWCzbnQ8PMh16l-SJjz_nXqNxpJ_cIDc2JCmAWGE2WvX9G35HtE4Vn38l0qTg.mp4" type="video/mp4">
-              </video>
+                onerror="this.src='imagens/portfolio/tatuagem-caveira-grim-reaper-realismo-belo-horizonte-bh.webp';this.onerror=null;">
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 55%);pointer-events:none;"></div>
             </div>
             <div class="cstyle-card-info"><span class="cstyle-card-name">Black & Grey</span></div>
@@ -1445,12 +1488,7 @@ fbq('init','1151853265430926');
             <div class="cstyle-card-thumb" style="position:relative;overflow:hidden;">
               <img loading="lazy" src="imagens/capa-realismo.jpg" alt="Realismo"
                 style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;"
-                onerror="this.src='imagens/portfolio/realismo-01.webp';this.onerror=null;">
-              <video muted loop playsinline preload="none"
-                style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s;"
-                onmouseenter="this.style.opacity='1';this.play();" onmouseleave="this.style.opacity='0';this.pause();">
-                <source src="SnapInsta_to_AQMH8jt_1A__1im3icYNJt1AWJDZmiPjHC16ydM6DY7dgQf0Po6-JJvxLtawOVrnR5KoxYx--yifrurnH70rsQFrRKHd9hTheC0FG3s.mp4" type="video/mp4">
-              </video>
+                onerror="this.src='imagens/portfolio/tatuagem-nativa-tigre-realismo-belo-horizonte-bh.webp';this.onerror=null;">
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 55%);pointer-events:none;"></div>
             </div>
             <div class="cstyle-card-info"><span class="cstyle-card-name">Realismo</span></div>
@@ -1462,12 +1500,7 @@ fbq('init','1151853265430926');
             <div class="cstyle-card-thumb" style="position:relative;overflow:hidden;">
               <img loading="lazy" src="imagens/capa-coverup.jpg" alt="Cover Up"
                 style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;"
-                onerror="this.src='imagens/portfolio/tatuagem-coverup-floral-antes-depois-belo-horizonte-bh.webp';this.onerror=null;">
-              <video muted loop playsinline preload="none"
-                style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s;"
-                onmouseenter="this.style.opacity='1';this.play();" onmouseleave="this.style.opacity='0';this.pause();">
-                <source src="SnapInsta_to_AQNSvrQWkiB-q0677vXoCdwBYrQWMhukzwEsszI1bLzaxG2TYV1H6wyW8qfvRAKqyMmTekQkatGgKPFKZ_g55tnv.mp4" type="video/mp4">
-              </video>
+                onerror="this.src='imagens/portfolio/tatuagem-coverup-tigre-realismo-antes-depois-belo-horizonte-bh.webp';this.onerror=null;">
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 55%);pointer-events:none;"></div>
             </div>
             <div class="cstyle-card-info"><span class="cstyle-card-name">Reforma</span></div>
@@ -1479,12 +1512,7 @@ fbq('init','1151853265430926');
             <div class="cstyle-card-thumb" style="position:relative;overflow:hidden;">
               <img loading="lazy" src="imagens/capa-colorida.jpg" alt="Colorida"
                 style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;"
-                onerror="this.src='imagens/portfolio/colorida-01.webp';this.onerror=null;">
-              <video muted loop playsinline preload="none"
-                style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s;"
-                onmouseenter="this.style.opacity='1';this.play();" onmouseleave="this.style.opacity='0';this.pause();">
-                <source src="SnapInsta_to_AQOg2MicQRLa8Y_yM75g2IsgbdptXw_xLMPfcpKQFT1f6vJO7RbLm0yIA_Qo31dhNOlMDl_X6xEiGS3wLDTUo5-O-vf-tU3-AicM7AE.mp4" type="video/mp4">
-              </video>
+                onerror="this.src='imagens/portfolio/tatuagem-rosa-aquarela-colorida-belo-horizonte-bh.webp';this.onerror=null;">
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 55%);pointer-events:none;"></div>
             </div>
             <div class="cstyle-card-info"><span class="cstyle-card-name">Colorida</span></div>
@@ -2510,7 +2538,7 @@ fbq('init','1151853265430926');
         <div class="cvid-apresentacao" id="cv3-thumb" style="border-radius:12px;overflow:hidden;">
           <img loading="lazy" decoding="async" src="imagens/perfil.jpg" alt="Carlos apresenta a mentoria" class="cvid-ap-img">
           <div class="cvid-ap-ov">
-            <button class="cvid-ap-play" onclick="playDestaque('cv3-vid','cv3-thumb')">
+            <button class="cvid-ap-play" onclick="abrirYouTube('3ZJigkTVRIM','cv3-thumb')">
               <svg viewBox="0 0 24 24" width="32" height="32"><path d="M8 5v14l11-7z" fill="white"/></svg>
             </button>
             <div class="cvid-ap-label">
@@ -2519,7 +2547,6 @@ fbq('init','1151853265430926');
             </div>
           </div>
         </div>
-        <video id="cv3-vid" src="video_mentoria.mp4" controls playsinline style="display:none;width:100%;border-radius:12px;"></video>
       </div>
 
       <!-- ── COLUNA DIREITA — textos + cards + como funciona ── -->
@@ -3542,24 +3569,23 @@ fbq('init','1151853265430926');
     <div class="faq-list rv">
       <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Quanto tempo demora para cicatrizar uma tatuagem?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Em média, a cicatrização superficial leva de 2 a 3 semanas. A cicatrização completa pode levar até 3 meses. Siga todos os cuidados recomendados pelo tatuador para garantir a qualidade final.</p></div></div>
       <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">É possível reformar qualquer tatuagem antiga?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Na maioria dos casos, sim! A viabilidade depende do tamanho, cor e condição da tattoo atual. Oferecemos avaliação gratuita onde analisamos sua tattoo e apresentamos as melhores opções de reforma.</p></div></div>
-      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Como funciona o processo de agendamento?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Preencha o formulário descrevendo sua ideia. Entraremos em contato pelo WhatsApp para discutir o projeto, alinhar expectativas e confirmar a data. Após aprovação do projeto, é solicitado um sinal para confirmação.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Como funciona o processo de agendamento?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Preencha o formulário descrevendo sua ideia. Carlos analisa pessoalmente e entra em contato em até 24h para discutir o projeto, alinhar expectativas e confirmar a data. Após aprovação do projeto, é solicitado um sinal para confirmação.</p></div></div>
       <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Os cursos online têm certificado?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Sim! Todos os cursos incluem certificado digital de conclusão. O certificado é emitido automaticamente após a conclusão de todas as aulas e pode ser usado para comprovar sua capacitação.</p></div></div>
       <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Como recebo o ebook após o pagamento?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Após confirmar o pagamento PIX, você recebe o acesso em até 1 hora útil no email informado. Também enviamos o link de download pelo WhatsApp para garantia total.</p></div></div>
-      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Qual o horário de atendimento do estúdio?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Atendemos de segunda a sexta das 10h às 19h e sábado das 10h às 18h. Para sessões longas ou finais de semana, é necessário agendamento prévio. Entre em contato pelo WhatsApp para verificar disponibilidade.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Qual o horário de atendimento do estúdio?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Atendemos de segunda a sexta das 10h às 19h e sábado das 10h às 18h. Para sessões longas ou finais de semana, é necessário agendamento prévio. Preencha o formulário no site para verificar disponibilidade.</p></div></div>
       <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Tatuagem dói muito? Quais regiões doem mais?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>A dor varia bastante de pessoa para pessoa e de região para região. Áreas com mais nervos e menos músculo — como costelas, pescoço, pés e cotovelos — costumam ser mais sensíveis. Nas sessões, Carlos adapta o ritmo para garantir seu conforto durante todo o processo.</p></div></div>
       <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Preciso pagar algum sinal para agendar?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Sim. Após alinhar o projeto e confirmar a data, é solicitado um sinal para garantir a reserva da agenda. O valor é descontado do total da sessão. Esse sinal protege tanto o tatuador quanto o cliente, garantindo seriedade no compromisso.</p></div></div>
       <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Quantas sessões são necessárias para minha tatuagem?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Depende do tamanho, complexidade e localização no corpo. Peças pequenas e médias geralmente ficam prontas em uma sessão. Projetos grandes como mangas, costas fechadas ou reformas complexas podem exigir 2 a 4 sessões ou mais. Carlos apresenta um planejamento claro durante a consulta.</p></div></div>
-      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Os ebooks têm garantia de satisfação?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Sim. Todos os materiais digitais oferecem garantia de 7 dias por lei (Código de Defesa do Consumidor). Se por qualquer motivo você não ficar satisfeito, basta entrar em contato pelo WhatsApp dentro do prazo e o reembolso é feito integralmente.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Os ebooks têm garantia de satisfação?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>Sim. Todos os materiais digitais oferecem garantia de 7 dias por lei (Código de Defesa do Consumidor). Se por qualquer motivo você não ficar satisfeito, envie um email para carlostattoobh@gmail.com dentro do prazo e o reembolso é feito integralmente.</p></div></div>
       <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">O que é reconstrução de aréola e quem pode fazer?<span class="faq-icon">+</span></button><div class="faq-a" style="color:#EDE4D4;"><p>A reconstrução de aréola por tatuagem é um procedimento especializado para mulheres que passaram por mastectomia em decorrência do câncer de mama. Carlos é especialista nessa técnica e atende com toda a sensibilidade e profissionalismo que o momento exige. O procedimento é feito com pigmentos específicos e resulta em aparência extremamente natural.</p></div></div>
     </div>
   </div>
 </section>
 
-<!-- URGÊNCIA BAND -->
+<!-- AGENDA BAND -->
 <div class="urg-band rv">
-  <div class="urg-txt">⚡ <strong>ÚLTIMAS VAGAS:</strong> Agenda fechando para este mês</div>
-  <div class="urg-counter" id="urg-timer">23:47:12</div>
-  <a href="#contato" class="btn btn-gold" style="font-size:10px;padding:12px 26px;">GARANTIR MINHA VAGA</a>
+  <div class="urg-txt">📅 <strong>AGENDA LIMITADA:</strong> Avaliação gratuita por foto — resposta em 24h</div>
+  <a href="#contato" class="btn btn-gold" style="font-size:10px;padding:12px 26px;">SOLICITAR AVALIAÇÃO</a>
 </div>
 
 <!-- CTA FINAL -->
@@ -3592,17 +3618,24 @@ fbq('init','1151853265430926');
         <a aria-label="Ver perfil no Instagram" class="fsoc" href="https://instagram.com/carlostattoo.bh" target="_blank" rel="noopener noreferrer" title="Instagram">📷</a>
       </div>
     </div>
-    <div class="footer-col"><h4>Navegação</h4><ul>
-      <li><a href="https://carlostattoobh.com.br/#portfolio">Portfólio de Tatuagens</a></li>
-      <li><a href="https://carlostattoobh.com.br/#cobertura">Reforma de Tatuagem</a></li>
-      <li><a href="https://carlostattoobh.com.br/reforma-tatuagem-belo-horizonte.html">↳ Reforma de Tattoo em BH</a></li>
-      <li><a href="https://carlostattoobh.com.br/#areolas">Reconstrução de Aréola</a></li>
-      <li><a href="https://carlostattoobh.com.br/reconstrucao-areola-belo-horizonte.html">↳ Aréola em BH</a></li>
-
-      <li><a href="https://carlostattoobh.com.br/tatuagem-venda-nova-bh.html">📍 Tatuagem Venda Nova BH</a></li>
-      <li><a href="https://carlostattoobh.com.br/tatuagem-contagem-mg.html">📍 Tatuagem Contagem MG</a></li>
-      <li><a href="https://carlostattoobh.com.br/#calculadora">💰 Calcule o Preço</a></li>
-      <li><a href="https://carlostattoobh.com.br/#contato">📅 Agendar Tatuagem</a></li>
+    <div class="footer-col"><h4>Serviços</h4><ul>
+      <li><a href="https://carlostattoobh.com.br/tatuagem-realismo-bh.html">Tatuagem Realismo BH</a></li>
+      <li><a href="https://carlostattoobh.com.br/tatuagem-fineline-bh.html">Tatuagem Fineline BH</a></li>
+      <li><a href="https://carlostattoobh.com.br/reforma-tatuagem-belo-horizonte.html">Reforma e Cover Up BH</a></li>
+      <li><a href="https://carlostattoobh.com.br/reconstrucao-areola-belo-horizonte.html">Reconstrução de Aréola</a></li>
+      <li><a href="https://carlostattoobh.com.br/#calculadora">Calcule o Preço</a></li>
+      <li><a href="https://carlostattoobh.com.br/#contato">Agendar Tatuagem</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Regiões Atendidas</h4><ul>
+      <li><a href="https://carlostattoobh.com.br/tatuagem-mantiqueira-bh.html">Mantiqueira BH</a></li>
+      <li><a href="https://carlostattoobh.com.br/tatuagem-venda-nova-bh.html">Venda Nova BH</a></li>
+      <li><a href="https://carlostattoobh.com.br/tatuagem-pampulha-bh.html">Pampulha BH</a></li>
+      <li><a href="https://carlostattoobh.com.br/tatuagem-contagem-mg.html">Contagem MG</a></li>
+      <li><a href="https://carlostattoobh.com.br/tatuagem-vespasiano-mg.html">Vespasiano MG</a></li>
+      <li><a href="https://carlostattoobh.com.br/tatuagem-betim-mg.html">Betim MG</a></li>
+      <li><a href="https://carlostattoobh.com.br/tatuagem-santa-luzia-mg.html">Santa Luzia MG</a></li>
+      <li><a href="https://carlostattoobh.com.br/tatuagem-lagoa-santa-mg.html">Lagoa Santa MG</a></li>
+      <li><a href="https://carlostattoobh.com.br/tatuagem-ribeirao-das-neves-mg.html">Ribeirão das Neves MG</a></li>
     </ul></div>
     <div class="footer-col"><h4>Cursos & Sistema</h4><ul>
       <li><a href="https://carlostattoobh.com.br/#ebooks">Ebook Tráfego Pago</a></li>
@@ -3691,16 +3724,14 @@ function toggleMenu(){document.getElementById('mobMenu').classList.toggle('open'
 
 /* ─── VIDEOS PORTFOLIO ─── */
 const vids=[
-  ["video_01.mp4","Tatuagem Barata Não Existe","carlos.png"],
-  ["video_02.mp4","A Arte que Fica Para Sempre","carlos.png"],
-  ["SnapInsta_to_AQMH8jt_1A__1im3icYNJt1AWJDZmiPjHC16ydM6DY7dgQf0Po6-JJvxLtawOVrnR5KoxYx--yifrurnH70rsQFrRKHd9hTheC0FG3s.mp4","Realismo",null],
-  ["SnapInsta_to_AQMN-huDB9I0FBzw4QVUKoHzwGndNbtrB63cMx58TrJWCzbnQ8PMh16l-SJjz_nXqNxpJ_cIDc2JCmAWGE2WvX9G35HtE4Vn38l0qTg.mp4","Black & Grey",null],
-  ["SnapInsta_to_AQN6HU_KICKY-BwgEdpSUbiRwHk4r6F27E989J_shBwkbVPDqwix7WzmbWHBRKgwmSHLBbk626avuTkwKkXeTDBd__EIri31CKbb-oI.mp4","Fineline",null],
-  ["SnapInsta_to_AQNTFd9kYu48OS_g_Q0oCfumNdAlThdqgRhnKydh8bbGoclBvT5VKLUx8w33f1ZUYUuVE3INngH8f3bWa6s4MB2shn4OQkRFGU17LVQ.mp4","Processo",null],
-  ["SnapInsta_to_AQOA29rQFXmMZoQS2RnN_fjNK1P47YsqIDvm8rbElyjvTgAYi00ctnIhFUjjtVBWdn2NXQGUlafadbVBZnkDzSFCX9FVNTr0nWHyox0.mp4","Reforma",null],
-  ["SnapInsta_to_AQOELowHWUUhqEL0tQF7kOKry2lrQm03K_HCTVboPx6aT9AxNHCrQeeOJj3CACLvq9LEm-9ZEgSynZwWCOKaw9UX.mp4","Reforma",null],
-  ["SnapInsta_to_AQOg2MicQRLa8Y_yM75g2IsgbdptXw_xLMPfcpKQFT1f6vJO7RbLm0yIA_Qo31dhNOlMDl_X6xEiGS3wLDTUo5-O-vf-tU3-AicM7AE.mp4","Arte",null],
-  ["SnapInsta_to_AQOvq9Q20eSBMkAmd_k16I9BGrBojdHSAPxRLLklrdwblFJriGqsgOH-uUyPzcfvfSJjPf0hdFeMLGq9RH5ZozwElho4Mut3HibZJms.mp4","Detalhe",null]
+  ["https://www.youtube.com/embed/3ZJigkTVRIM","Tatuagem Barata Não Existe","imagens/IPJP8350.JPG"],
+  ["https://www.youtube.com/embed/XaYnyY5x_yo","Floral Fineline",null],
+  ["https://www.youtube.com/embed/8BBCaOdTf3Y","Biomecânico Realismo",null],
+  ["https://www.youtube.com/embed/zRAYUayHfIg","Onça Realista",null],
+  ["https://www.youtube.com/embed/7NB1m0oUWH8","Leão Mandala",null],
+  ["https://www.youtube.com/embed/n9CWY9wg620","Gueixa Realismo",null],
+  ["https://www.youtube.com/embed/-NEDD2B3-tA","Reforma Cover Up",null],
+  ["https://www.youtube.com/embed/311pEjMVbtg","Cicatriz Dragão",null]
 ];
 const vg=document.getElementById('vid-grid');
 if(vg) vids.forEach(([f,l,thumb])=>{
@@ -3919,15 +3950,12 @@ function abrirModalAreola(){
 }
 async function enviarFormAreola(e){
   e.preventDefault();
-  // Abre a aba do WhatsApp JÁ aqui (gesto do usuário ainda "fresco"), e só preenchemos o destino depois.
-  // Isso evita que bloqueadores de pop-up (principalmente Safari) barrem a abertura após o await abaixo.
-  const wppWindow = window.open('', '_blank');
   const nome=document.getElementById('ar-nome').value;
   const wpp=document.getElementById('ar-wpp').value;
   const email=document.getElementById('ar-email').value;
   const msg=document.getElementById('ar-msg').value;
 
-  // ── 1. Salvar no Supabase (tabela leads) — assim aparece de fato no admin ──
+  // ── 1. Salvar no Supabase (tabela leads) ──
   try {
     if (window._sb) {
       await window._sb.from('leads').insert({
@@ -3935,7 +3963,7 @@ async function enviarFormAreola(e){
         email:     email || null,
         wpp:       wpp || null,
         produto:   'Reconstrução de Aréola',
-        origem:    'modal_areola',
+        origem:    '🌸 Página Aréola',
         tipo:      'areola',
         score:     80,
         categoria: 'quente',
@@ -3944,30 +3972,41 @@ async function enviarFormAreola(e){
     }
   } catch(err){ console.warn('Supabase insert leads (areola):', err); }
 
-  // ── 2. Fallback localStorage (compatibilidade) ──
+  // ── 2. Fallback localStorage ──
   try {
     const leads = JSON.parse(localStorage.getItem('ct_leads_areola')||'[]');
     leads.push({nome,wpp,email,msg,data:new Date().toISOString(),tipo:'areola'});
     localStorage.setItem('ct_leads_areola',JSON.stringify(leads));
   } catch(err){}
 
-  // ── 3. Notificar Carlos imediatamente via WhatsApp ──
-  const wppMsg = encodeURIComponent(
-    '🌸 *NOVA SOLICITAÇÃO — RECONSTRUÇÃO DE ARÉOLA*\n\n' +
-    '👤 *Nome:* ' + nome + '\n' +
-    '📱 *WhatsApp:* ' + wpp + '\n' +
-    (email ? '✉️ *Email:* ' + email + '\n' : '') +
-    '\n💭 *Mensagem:*\n' + (msg || '(não informado)') +
-    '\n\n_Enviado pelo formulário de aréola do site_'
-  );
-
+  // ── 3. Fechar modal e levar para o formulário principal com origem marcada ──
   document.getElementById('modalAreola').style.display='none';
   document.body.style.overflow='';
-  alert('Mensagem recebida! Carlos entrará em contato em breve com total discrição. 🌸');
 
-  // A aba já estava aberta — só direcionamos ela agora pro WhatsApp
-  const wppUrl = 'https://wa.me/5531983391576?text='+wppMsg;
-  if (wppWindow) { wppWindow.location.href = wppUrl; } else { window.open(wppUrl, '_blank'); }
+  // Pré-preencher fpDados com os dados já informados no modal
+  if(window.fpDados){
+    window.fpDados.nome = nome;
+    window.fpDados.tel  = wpp;
+    window.fpDados.email = email;
+    window.fpDados.ideia = msg || 'Reconstrução de aréola pós-mastectomia';
+    window.fpDados.origem_lead = '🌸 Página Aréola';
+    sessionStorage.setItem('ct_origem_lead', '🌸 Página Aréola');
+    // Preencher campo nome visível no formulário se já renderizou
+    const campoNome = document.getElementById('fp-nome');
+    if(campoNome){ campoNome.value = nome; }
+    const campoTel = document.getElementById('fp-tel');
+    if(campoTel){ campoTel.value = wpp; }
+  }
+
+  // Rolar para o formulário principal
+  const formContato = document.getElementById('contato');
+  if(formContato){
+    formContato.scrollIntoView({behavior:'smooth'});
+    setTimeout(()=>{
+      const prox = document.getElementById('fp-nome');
+      if(prox) prox.focus();
+    }, 600);
+  }
 }
 
 // Abrir vídeo portfólio (legado)
@@ -4051,34 +4090,25 @@ document.getElementById('pix-modal').addEventListener('click',function(e){if(e.t
 /* ─── FAQ ─── */
 function toggleFaq(btn){const item=btn.parentElement;const wasOpen=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));if(!wasOpen)item.classList.add('open');}
 
-/* ─── URGENCY TIMER ─── */
-(()=>{
-  let t=23*3600+47*60+12;
-  const el=document.getElementById('urg-timer');
-  if(!el)return;
-  setInterval(()=>{
-    if(t>0)t--;
-    const h=Math.floor(t/3600),m=Math.floor((t%3600)/60),s=t%60;
-    el.textContent=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-  },1000);
-})();
+/* ─── URGENCY TIMER — desativado ─── */
+// Timer de contagem regressiva removido — agenda gerenciada organicamente.
 
 /* ─── SOCIAL PROOF — discreto: aparece poucas vezes e para ─── */
 const proofs=[
-  {n:'Marcos de BH',a:'acabou de agendar uma tatuagem',e:'🧑'},
-  {n:'Ana do Contagem',a:'comprou o Ebook Avançado',e:'👩'},
-  {n:'Pedro de Venda Nova',a:'iniciou a Mentoria VIP',e:'👨'},
-  {n:'Julia de Santa Luzia',a:'agendou sua reforma',e:'👩‍🦱'},
-  {n:'Carlos de Betim',a:'comprou o curso de Tráfego',e:'🧔'},
-  {n:'Camila da Pampulha',a:'fez sua primeira tattoo',e:'👱‍♀️'},
+  {n:'M. — BH',a:'acabou de solicitar orçamento',e:'🧑'},
+  {n:'A. — Contagem',a:'enviou referências para projeto',e:'👩'},
+  {n:'P. — Venda Nova',a:'agendou avaliação de cover up',e:'👨'},
+  {n:'J. — Santa Luzia',a:'pediu orçamento de fineline',e:'👩‍🦱'},
+  {n:'C. — Betim',a:'enviou fotos para avaliação',e:'🧔'},
+  {n:'K. — Pampulha',a:'agendou consulta de aréola',e:'👱‍♀️'},
 ];
 let spIdx=0;
-function showProof(){const sp=document.getElementById('sp-popup');const p=proofs[spIdx%proofs.length];document.getElementById('sp-nm').textContent=p.n;document.getElementById('sp-ac').textContent=p.a;document.getElementById('sp-av').textContent=p.e;sp.classList.add('show');setTimeout(()=>sp.classList.remove('show'),4000);spIdx++;}
+function showProof(){const sp=document.getElementById('sp-popup');const p=proofs[spIdx%proofs.length];document.getElementById('sp-nm').textContent=p.n;document.getElementById('sp-ac').textContent=p.a;document.getElementById('sp-av').textContent=p.e;sp.classList.add('show');setTimeout(()=>sp.classList.remove('show'),5000);spIdx++;}
 
 (function(){
-  // Exatamente 2 aparições isoladas na sessão: 1 minuto e 4 minutos. Depois, nunca mais.
-  setTimeout(showProof, 60000);   // 1 minuto
-  setTimeout(showProof, 240000);  // 4 minutos
+  // 2 aparições por sessão: 2 minutos e 8 minutos. Discreto e crível.
+  setTimeout(showProof, 120000);   // 2 minutos
+  setTimeout(showProof, 480000);  // 8 minutos
 })();
 
 /* ─── EXIT POPUP (ebook) — lógica ativa está mais abaixo, junto com fecharExitPopup() ─── */
@@ -5761,8 +5791,39 @@ const frasesRabisco = [
 // ════════════════════════════════════════
 // FORMULÁRIO PREMIUM — 3 PASSOS
 // ════════════════════════════════════════
-const fpDados = { nome:'', tel:'', email:'', cidade:'', estilo:'', local:'', tamanho:'', ideia:'', orcamento:'', cupom_roleta:'', premio_roleta:'' };
+const fpDados = { nome:'', tel:'', email:'', cidade:'', estilo:'', local:'', tamanho:'', ideia:'', orcamento:'', cupom_roleta:'', premio_roleta:'', origem_lead:'' };
 window.fpDados = fpDados; // exposto globalmente para a roleta poder pré-preencher o formulário
+
+// ── Capturar origem automática via URL param ou referrer ──
+(()=>{
+  const p = new URLSearchParams(location.search);
+  const origemURL = p.get('origem') || p.get('source') || '';
+  const origemMap = {
+    'areola':           '🌸 Página Aréola',
+    'cicatriz':         '🔥 Página Cicatriz',
+    'contagem':         '📍 Página Contagem MG',
+    'venda-nova':       '📍 Página Venda Nova BH',
+    'pampulha':         '📍 Página Pampulha BH',
+    'mantiqueira':      '📍 Página Mantiqueira BH',
+    'vespasiano':       '📍 Página Vespasiano MG',
+    'betim':            '📍 Página Betim MG',
+    'santa-luzia':      '📍 Página Santa Luzia MG',
+    'lagoa-santa':      '📍 Página Lagoa Santa MG',
+    'ribeirao-neves':   '📍 Página Ribeirão das Neves MG',
+    'realismo':         '🎨 Página Realismo BH',
+    'fineline':         '🖊️ Página Fineline BH',
+    'reforma':          '🔄 Página Reforma/Cover Up',
+    'roleta':           '🎡 Roleta Sorte na Pele',
+    'quiz':             '❓ Quiz de Estilo',
+    'blog':             '📝 Blog',
+    'instagram':        '📸 Instagram',
+    'google':           '🔍 Google Ads',
+    'meta':             '📘 Meta Ads',
+  };
+  fpDados.origem_lead = origemMap[origemURL] || (origemURL ? origemURL : (document.referrer ? '🔗 ' + new URL(document.referrer).hostname : 'Site direto'));
+  if(origemURL) sessionStorage.setItem('ct_origem_lead', fpDados.origem_lead);
+  else if(sessionStorage.getItem('ct_origem_lead')) fpDados.origem_lead = sessionStorage.getItem('ct_origem_lead');
+})();
 
 // Tabela de estimativas por estilo + tamanho
 const fpEstimativas = {
@@ -5918,7 +5979,7 @@ async function fpEnviar(){
   btn.disabled = true;
 
   const temCupomRoleta = !!fpDados.cupom_roleta;
-  const origemFinal = temCupomRoleta ? 'formulario_premium_roleta' : 'formulario_premium';
+  const origemFinal = temCupomRoleta ? 'formulario_premium_roleta' : (fpDados.origem_lead || 'formulario_premium');
   const ideiaComCupom = temCupomRoleta
     ? `[Prêmio roleta: ${fpDados.premio_roleta} · código ${fpDados.cupom_roleta}] ${fpDados.ideia || ''}`.trim()
     : fpDados.ideia;
@@ -6005,6 +6066,7 @@ async function fpEnviar(){
     '📱 *WhatsApp:* ' + fpDados.tel,
     '📍 *Cidade:* ' + (fpDados.cidade || 'não informado'),
     (fpDados.email ? '✉️ *Email:* ' + fpDados.email : ''),
+    (fpDados.origem_lead ? '🔗 *Origem:* ' + fpDados.origem_lead : ''),
     '',
     '🎨 *Estilo:* ' + (fpDados.estilo || 'não informado'),
     '💪 *Local:* ' + (fpDados.local || 'não informado'),
@@ -6317,7 +6379,7 @@ document.head.appendChild(styleShare);
     sessionStorage.setItem('popup_interrupt_shown','1');
   }
 
-  setTimeout(tentarMostrarPromo, 300000); // 5 minutos
+  setTimeout(tentarMostrarPromo, 480000); // 8 minutos
 
   function startPromoTimer(){
     let secs = 600;
@@ -7157,7 +7219,7 @@ window.addEventListener('load', initScrollTopBtn);
      Não disparado se a pessoa já viu a roleta pela saída antes desse tempo. ─── */
   setTimeout(function(){
     if(!sessionStorage.getItem(SESSION_KEY) && !sessionStorage.getItem('popup_interrupt_shown')) abrirRoleta();
-  }, 300000);
+  }, 480000);
 
 })();
 </script>
@@ -7324,6 +7386,184 @@ function mostrarErroTrial(msg){
 document.getElementById('modalTrial').addEventListener('click', function(e){
   if(e.target === this) fecharModalTrial();
 });
+</script>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   RABISCO → FORMULÁRIO: PRÉ-PREENCHIMENTO AUTOMÁTICO v1
+   Detecta dados salvos pelo Rabisco e preenche o formulário
+   automaticamente — sem o cliente redigitar nada.
+══════════════════════════════════════════════════════════ */
+(function rbFormBridge(){
+  'use strict';
+
+  // Só executa se existem dados válidos do Rabisco (max 30min)
+  var raw = sessionStorage.getItem('rb_form_prefill');
+  if(!raw) return;
+  var dados;
+  try{ dados = JSON.parse(raw); }catch(e){ return; }
+  if(!dados || dados.origem !== 'rabisco') return;
+  if(Date.now() - dados.ts > 30 * 60 * 1000){
+    sessionStorage.removeItem('rb_form_prefill');
+    return;
+  }
+
+  function iniciarPrefill(){
+
+    /* ── 1. BANNER "Continuando do chat" no topo do formulário ── */
+    var funiBox = document.querySelector('.funil-box');
+    if(funiBox && !document.getElementById('rb-bridge-banner')){
+      var fn = dados.nome ? dados.nome.split(' ')[0] : '';
+      var emoji = dados.categoria==='quente' ? '🔥' : (dados.categoria==='morno' ? '⚡' : '✅');
+      var banner = document.createElement('div');
+      banner.id = 'rb-bridge-banner';
+      banner.style.cssText = 'background:linear-gradient(135deg,#1C1208,#2A1A08);border:1.5px solid rgba(201,168,76,.4);border-radius:12px;padding:14px 16px;margin-bottom:20px;display:flex;align-items:flex-start;gap:12px;';
+      banner.innerHTML =
+        '<div style="font-size:26px;flex-shrink:0;line-height:1;">'+emoji+'</div>'+
+        '<div style="flex:1;">'+
+          '<div style="font-family:\'Cinzel\',serif;font-size:10px;letter-spacing:2px;color:#C9A84C;text-transform:uppercase;margin-bottom:5px;font-weight:700;">Continuando do chat com o Rabisco</div>'+
+          '<div style="font-family:\'Raleway\',sans-serif;font-size:13px;color:rgba(237,228,212,.9);line-height:1.5;">'+
+            (fn ? '<strong style="color:#E8C96A;">'+fn+'</strong>, p' : 'P')+
+            'reenchemos o formulário com o que você já nos contou. Revise e complete o que falta 👇'+
+          '</div>'+
+        '</div>';
+      funiBox.insertBefore(banner, funiBox.firstChild);
+    }
+
+    /* ── 2. PASSO 1: Dados pessoais ── */
+    if(dados.nome){
+      var el = document.getElementById('fp-nome');
+      if(el && !el.value){ el.value = dados.nome; rbGlow(el); }
+    }
+    if(dados.tel){
+      var el = document.getElementById('fp-tel');
+      if(el && !el.value){ el.value = dados.tel; rbGlow(el); }
+    }
+    if(dados.email){
+      var el = document.getElementById('fp-email');
+      if(el && !el.value){ el.value = dados.email; rbGlow(el); }
+    }
+
+    /* ── 3. PASSO 2: Estilo ── */
+    if(dados.estilo){
+      var hiddenEstilo = document.getElementById('fp-estilo');
+      if(hiddenEstilo) hiddenEstilo.value = dados.estilo;
+      if(typeof fpDados !== 'undefined') fpDados.estilo = dados.estilo;
+
+      document.querySelectorAll('.fp-estilo-card').forEach(function(card){
+        var label = card.querySelector('span:last-child');
+        if(label && label.textContent.trim() === dados.estilo){
+          card.classList.add('selected');
+          // Badge "✓ Chat" sobre o card
+          var imgWrap = card.querySelector('.fp-estilo-img');
+          if(imgWrap && !imgWrap.querySelector('.rb-chat-badge')){
+            var badge = document.createElement('div');
+            badge.className = 'rb-chat-badge';
+            badge.style.cssText = 'position:absolute;top:4px;right:4px;background:rgba(201,168,76,.92);color:#0A0500;font-size:8px;font-weight:700;padding:2px 6px;border-radius:4px;font-family:\'Cinzel\',serif;letter-spacing:.5px;z-index:2;';
+            badge.textContent = '✓ Chat';
+            imgWrap.style.position = 'relative';
+            imgWrap.appendChild(badge);
+          }
+        }
+      });
+      if(typeof fpAtualizarEstimativa === 'function') fpAtualizarEstimativa();
+    }
+
+    /* ── 4. PASSO 2: Local no corpo ── */
+    if(dados.local){
+      var hiddenLocal = document.getElementById('fp-local');
+      if(hiddenLocal) hiddenLocal.value = dados.local;
+      if(typeof fpDados !== 'undefined') fpDados.local = dados.local;
+
+      document.querySelectorAll('.fp-local-btn').forEach(function(btn){
+        // Compara ignorando emoji no início
+        var txt = btn.textContent.replace(/\s/g,'');
+        var alvo = dados.local.replace(/\s/g,'');
+        if(btn.textContent.indexOf(dados.local) !== -1 || txt.indexOf(alvo) !== -1){
+          btn.classList.add('selected');
+        }
+      });
+    }
+
+    /* ── 5. PASSO 2: Tamanho ── */
+    if(dados.tamanho){
+      var hiddenTam = document.getElementById('fp-tamanho');
+      if(hiddenTam) hiddenTam.value = dados.tamanho;
+      if(typeof fpDados !== 'undefined') fpDados.tamanho = dados.tamanho;
+
+      document.querySelectorAll('.fp-tam-btn').forEach(function(btn){
+        if(btn.textContent.indexOf(dados.tamanho.charAt(0)) !== -1 ||
+           btn.innerHTML.indexOf(dados.tamanho.split(' ')[0]) !== -1){
+          btn.classList.add('selected');
+        }
+      });
+      if(typeof fpAtualizarEstimativa === 'function') fpAtualizarEstimativa();
+    }
+
+    /* ── 6. PASSO 2: Ideia ── */
+    if(dados.ideia){
+      var el = document.getElementById('fp-ideia');
+      if(el && !el.value){ el.value = dados.ideia; rbGlow(el); }
+    }
+
+    /* ── 7. PASSO 3: Orçamento ── */
+    if(dados.orcamento){
+      var hiddenOrc = document.getElementById('fp-orcamento');
+      if(hiddenOrc) hiddenOrc.value = dados.orcamento;
+      if(typeof fpDados !== 'undefined') fpDados.orcamento = dados.orcamento;
+      document.querySelectorAll('.fp-orc-btn').forEach(function(btn){
+        if(btn.textContent.trim() === dados.orcamento) btn.classList.add('selected');
+      });
+    }
+
+    /* ── 8. PULAR PARA PASSO 2 se já tem nome + tel + estilo ── */
+    if(dados.nome && dados.tel && (dados.estilo || dados.local)){
+      if(typeof fpDados !== 'undefined'){
+        fpDados.nome   = dados.nome;
+        fpDados.tel    = dados.tel;
+        fpDados.email  = dados.email || '';
+        fpDados.cidade = '';
+      }
+      setTimeout(function(){
+        document.querySelectorAll('.fp-step').forEach(function(s){ s.style.display='none'; });
+        var s2 = document.getElementById('fp-step2');
+        if(s2) s2.style.display = 'block';
+        if(typeof fpAtualizarNav === 'function') fpAtualizarNav(2);
+        var secao = document.getElementById('contato');
+        if(secao) window.scrollTo({top: secao.offsetTop - 80, behavior:'smooth'});
+      }, 350);
+    }
+
+    /* ── 9. RASTREAMENTO ── */
+    try{
+      if(typeof gtag !== 'undefined') gtag('event','form_prefill_rabisco',{event_category:'rabisco_bridge',event_label:dados.categoria,value:dados.score||0});
+      if(typeof fbq  !== 'undefined') fbq('trackCustom','FormPrefillRabisco',{categoria:dados.categoria,score:dados.score||0});
+    }catch(e){}
+
+    /* ── 10. LIMPAR sessionStorage após 5s ── */
+    setTimeout(function(){ sessionStorage.removeItem('rb_form_prefill'); }, 5000);
+  }
+
+  // Efeito dourado nos campos preenchidos automaticamente
+  function rbGlow(el){
+    if(!el) return;
+    el.style.transition = 'border-color .4s,background .4s';
+    el.style.borderColor = 'rgba(201,168,76,.8)';
+    el.style.background  = 'rgba(201,168,76,.07)';
+    setTimeout(function(){
+      el.style.borderColor = '';
+      el.style.background  = '#fff';
+    }, 2200);
+  }
+
+  // Aguarda DOM + scripts do formulário
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(iniciarPrefill, 350); });
+  } else {
+    setTimeout(iniciarPrefill, 350);
+  }
+
+})();
 </script>
 
 </body>
