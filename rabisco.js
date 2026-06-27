@@ -558,62 +558,97 @@
      v10: substitui o formulário como CTA principal
   ══════════════════════════════════════ */
   function montarResumoWpp(obsExtra) {
-    var emoji = leadCategoria==='quente' ? '🔥' : (leadCategoria==='morno' ? '🟡' : '🔵');
-    var tipoLabel = leadCategoria==='quente' ? 'LEAD QUENTE' : (leadCategoria==='morno' ? 'LEAD MORNO' : 'LEAD FRIO');
+    var tempLabel   = leadCategoria==='quente' ? 'CLIENTE QUENTE' : (leadCategoria==='morno' ? 'CLIENTE MORNO' : 'CLIENTE FRIO');
+    var tempDesc    = leadCategoria==='quente' ? 'Interesse alto — propenso a fechar'
+                    : (leadCategoria==='morno'  ? 'Interesse medio — precisa de um empurrao'
+                    :                             'Interesse baixo — ainda pesquisando');
 
     var linhas = [
-      emoji + ' *' + tipoLabel + ' — RABISCO*',
+      '================================',
+      '*' + tempLabel + '*',
+      '*CARLOS TATTOO BH — RABISCO*',
+      '================================',
       ''
     ];
-    if(leadNome)  linhas.push('*Nome:* ' + leadNome);
-    if(leadWpp)   linhas.push('*WhatsApp:* +55' + leadWpp);
 
+    // BLOCO CLIENTE
+    linhas.push('*[ CLIENTE ]*');
+    if(leadNome)      linhas.push('Nome:      ' + leadNome);
+    if(leadWpp)       linhas.push('WhatsApp:  +55' + leadWpp);
+    if(leadEmail)     linhas.push('Email:     ' + leadEmail);
+    if(_modoFeminino) linhas.push('Perfil:    Feminino');
+    linhas.push('');
+
+    // BLOCO PROJETO
     var interesseMap = {
       tattoo_nova:'Tatuagem nova', cobertura:'Reforma / Cover Up',
-      queimadura:'Cobertura de queimadura', areola:'Reconstrução de aréola', indeciso:'Explorando opções'
+      queimadura:'Cobertura de queimadura', areola:'Reconstrucao de areola',
+      indeciso:'Explorando opcoes'
     };
-    if(qualificacao.interesse) linhas.push('*Tipo:* ' + (interesseMap[qualificacao.interesse] || qualificacao.interesse));
+    var localMap = {
+      braco:'Braco', antebraco:'Antebraco', perna:'Perna', costas:'Costas',
+      pescoco:'Pescoco', ombro:'Ombro', tornozelo:'Tornozelo', pulso:'Pulso',
+      coxa:'Coxa', omoplata:'Omoplata', peito:'Peito', canela:'Panturrilha',
+      indefinido:'A definir'
+    };
+    var tamanhoMap = {
+      pequena:'Pequena (ate 10cm)', media:'Media (10-20cm)',
+      grande:'Grande (20cm+)', projeto:'Projeto completo / manga'
+    };
+    var orcMap = {
+      ate600:'Ate R$600', '600a1500':'R$600 a R$1.500',
+      '1500a3000':'R$1.500 a R$3.000', acima3000:'Acima de R$3.000'
+    };
+    var urgenciaMap = {
+      urgente:'O mais rapido possivel', mes:'Esse mes',
+      trimestre:'Proximos 2-3 meses', pesquisando:'Ainda pesquisando'
+    };
 
-    var localMap = { braco:'Braço', perna:'Perna', costas:'Costas', indefinido:'A definir' };
-    var local = ctx.partCorpo || (qualificacao.local ? (localMap[qualificacao.local]||qualificacao.local) : '');
-    if(local) linhas.push('*Local:* ' + local);
+    var local = ctx.partCorpo ? (localMap[ctx.partCorpo]||ctx.partCorpo)
+              : (qualificacao.local && qualificacao.local!=='indefinido' ? (localMap[qualificacao.local]||qualificacao.local) : '');
+    var estilo = ctx.estilo || qualificacao.estilo || '';
 
-    if(ctx.estilo) linhas.push('*Estilo:* ' + ctx.estilo);
+    linhas.push('*[ PROJETO ]*');
+    if(qualificacao.interesse) linhas.push('Tipo:         ' + (interesseMap[qualificacao.interesse]||qualificacao.interesse));
+    if(estilo)                  linhas.push('Estilo:       ' + estilo);
+    if(local)                   linhas.push('Local:        ' + local);
+    if(qualificacao.tamanho)    linhas.push('Tamanho:      ' + (tamanhoMap[qualificacao.tamanho]||qualificacao.tamanho));
+    if(qualificacao.orcamento && qualificacao.orcamento!=='naosei') linhas.push('Investimento: ' + (orcMap[qualificacao.orcamento]||qualificacao.orcamento));
+    if(qualificacao.urgencia)   linhas.push('Urgencia:     ' + (urgenciaMap[qualificacao.urgencia]||qualificacao.urgencia));
 
-    var tamanhoMap = { pequena:'Pequena (discreta)', media:'Média', grande:'Grande', projeto:'Projeto completo' };
-    if(qualificacao.tamanho) linhas.push('*Tamanho:* ' + (tamanhoMap[qualificacao.tamanho]||qualificacao.tamanho));
-
-    var orcMap = { ate600:'Até R$600', '600a1500':'R$600–R$1.500', '1500a3000':'R$1.500–R$3.000', acima3000:'Acima de R$3.000', naosei:'A definir' };
-    if(qualificacao.orcamento && qualificacao.orcamento!=='naosei') linhas.push('*Investimento:* ' + (orcMap[qualificacao.orcamento]||qualificacao.orcamento));
-
-    var urgenciaMap = { urgente:'O mais rápido possível ⚡', mes:'Esse mês 📅', trimestre:'Próximos 2-3 meses 🗓️', pesquisando:'Ainda pesquisando' };
-    if(qualificacao.urgencia) linhas.push('*Urgência:* ' + (urgenciaMap[qualificacao.urgencia]||qualificacao.urgencia));
-
-    if(qualificacao.objetivoCobertura) {
+    if(qualificacao.objetivoCobertura){
       var objMap = { esconder:'Esconder totalmente', transformar:'Transformar / aproveitar' };
-      linhas.push('*Objetivo reforma:* ' + (objMap[qualificacao.objetivoCobertura]||qualificacao.objetivoCobertura));
+      linhas.push('Objetivo:     ' + (objMap[qualificacao.objetivoCobertura]||qualificacao.objetivoCobertura));
     }
-
-    if(qualificacao.corAtual) {
+    if(qualificacao.corAtual){
       var corMap = { preta:'Preta/cinza', colorida_atual:'Colorida' };
-      linhas.push('*Tattoo atual:* ' + (corMap[qualificacao.corAtual]||qualificacao.corAtual));
+      linhas.push('Tattoo atual: ' + (corMap[qualificacao.corAtual]||qualificacao.corAtual));
     }
-
-    if(qualificacao.idadeTattoo) {
+    if(qualificacao.idadeTattoo){
       var idadeMap = { recente:'Menos de 1 ano', media:'1 a 5 anos', antiga:'Mais de 5 anos' };
-      linhas.push('*Idade da tattoo:* ' + (idadeMap[qualificacao.idadeTattoo]||qualificacao.idadeTattoo));
+      linhas.push('Idade:        ' + (idadeMap[qualificacao.idadeTattoo]||qualificacao.idadeTattoo));
     }
-
-    linhas.push('*Score:* ' + leadScore + ' pts');
-
-    if(ultimaObjecao && ultimaObjecao!=='abandono_chat') linhas.push('*Objeção:* ' + ultimaObjecao);
-
-    if(_modoFeminino) linhas.push('*Perfil:* Feminino — tom personalizado');
-
-    if(obsExtra) { linhas.push(''); linhas.push('*Obs:* ' + obsExtra); }
-
+    if(qualificacao.referenciaUrl) linhas.push('Referencia:   ' + qualificacao.referenciaUrl);
+    if(qualificacao.prometeuFoto)  linhas.push('Foto:         Cliente vai enviar pelo WhatsApp');
     linhas.push('');
-    linhas.push('_Lead via Rabisco — carlostattoobh.com.br_');
+
+    // BLOCO LEAD
+    linhas.push('*[ LEAD ]*');
+    linhas.push(tempLabel);
+    linhas.push(tempDesc);
+    if(qualificacao.turnoPreferido){
+      var turnoMap = { manha:'Manha', tarde:'Tarde', tantofaz:'Qualquer horario' };
+      linhas.push('Contato:   ' + (turnoMap[qualificacao.turnoPreferido]||qualificacao.turnoPreferido));
+    }
+    if(ultimaObjecao && ultimaObjecao!=='abandono_chat'){
+      var objecaoMap = { preco:'Falou em preco', tempo:'Precisa de tempo', duvida:'Tem duvidas' };
+      linhas.push('Obs:       ' + (objecaoMap[ultimaObjecao]||ultimaObjecao));
+    }
+    if(obsExtra){ linhas.push(''); linhas.push('Detalhe: ' + obsExtra); }
+    linhas.push('');
+
+    linhas.push('================================');
+    linhas.push('_carlostattoobh.com.br_');
 
     return linhas.join('\n');
   }
@@ -1354,28 +1389,6 @@
     btn.innerHTML=btnTxt;
     btn.onclick=function(){ abrirWhatsApp(qualificacao.prometeuFoto?'📸 Cliente vai enviar foto pelo WhatsApp.':null); };
     ctas.appendChild(btn);
-
-    // ── v13: botão alternativo — preenche o formulário com dados do chat ──
-    var btnForm = document.createElement('button');
-    btnForm.style.cssText='width:100%;padding:11px;margin-top:8px;background:transparent;border:1.5px solid rgba(160,120,56,.45);color:#A07830;border-radius:10px;font-family:"Cinzel",serif;font-size:10px;letter-spacing:1.5px;cursor:pointer;font-weight:700;text-transform:uppercase;transition:background .2s,border-color .2s;';
-    btnForm.innerHTML='📋 PREFIRO PREENCHER O FORMULÁRIO';
-    btnForm.onmouseover=function(){ this.style.background='rgba(160,120,56,.08)'; this.style.borderColor='rgba(160,120,56,.75)'; };
-    btnForm.onmouseout=function(){ this.style.background='transparent'; this.style.borderColor='rgba(160,120,56,.45)'; };
-    btnForm.onclick=function(){
-      rbSalvarPrefillFormulario();
-      // Fecha o chat
-      var panel=document.getElementById('rabiscoPanel');
-      if(panel) panel.classList.remove('open');
-      RabiscoUI.aberto=false;
-      // Scroll suave até o formulário
-      setTimeout(function(){
-        var secao=document.getElementById('contato');
-        if(secao) secao.scrollIntoView({behavior:'smooth',block:'start'});
-      },250);
-      rbTrack('form_btn_clicado',{score:leadScore,categoria:leadCategoria});
-    };
-    ctas.appendChild(btnForm);
-    // ─────────────────────────────────────────────────────────────────────
   }
 
   function concluirFunilPrincipal(){
@@ -1984,106 +1997,4 @@
   window.RabiscoUI=RabiscoUI;
   window.mostrarBubble=mostrarBubble;
   window.abrirWhatsApp=abrirWhatsApp;
-
-  /* ══════════════════════════════════════
-     v13: BRIDGE RABISCO → FORMULÁRIO
-     Salva contexto do chat no sessionStorage
-     para pré-preenchimento automático do #contato
-  ══════════════════════════════════════ */
-  function rbSalvarPrefillFormulario() {
-    try {
-      // Mapeamento de partes do corpo Rabisco → labels do formulário
-      var mapaLocal = {
-        braco:'Braço', antebraco:'Antebraço', perna:'Perna', costas:'Costas',
-        costela:'Outro', pescoco:'Pescoço', ombro:'Outro', tornozelo:'Outro',
-        pulso:'Outro', mao:'Outro', dedos:'Outro', omoplata:'Costas',
-        barriga:'Outro', pe:'Outro', canela:'Panturrilha', joelho:'Outro',
-        cotovelo:'Outro', nuca:'Pescoço', coxa:'Perna', peito:'Peito'
-      };
-
-      // Mapeamento de estilos Rabisco → labels do formulário
-      var mapaEstilo = {
-        'realismo':'Realismo', 'black and grey':'Black & Grey',
-        'blackgrey':'Black & Grey', 'fineline':'Fineline',
-        'colorida':'Colorida', 'aquarela':'Colorida',
-        'geometrico':'Personalizada', 'mandala':'Personalizada',
-        'floral':'Fineline', 'oldschool':'Personalizada',
-        'newschool':'Personalizada', 'japonesa':'Personalizada',
-        'neotradicional':'Personalizada', 'trash polka':'Personalizada',
-        'dotwork':'Personalizada', 'biomecânico':'Personalizada',
-        'biomechanico':'Personalizada'
-      };
-
-      // Mapeamento de tamanho Rabisco → labels do formulário
-      var mapaTamanho = {
-        'pequena':'Pequena até 5cm', 'media':'Média 5-15cm',
-        'grande':'Grande 15-30cm', 'projeto':'Manga/Sleeve'
-      };
-
-      // Cover/queimadura → estilo "Reforma / Cover Up"
-      var interesseParaEstilo = { 'cobertura':'Reforma / Cover Up', 'queimadura':'Reforma / Cover Up' };
-
-      // Resolver estilo final
-      var estiloFinal = '';
-      if(qualificacao.interesse && interesseParaEstilo[qualificacao.interesse]){
-        estiloFinal = interesseParaEstilo[qualificacao.interesse];
-      } else if(ctx.estilo){
-        estiloFinal = mapaEstilo[(ctx.estilo||'').toLowerCase().trim()] || '';
-      } else if(qualificacao.estilo){
-        estiloFinal = mapaEstilo[(qualificacao.estilo||'').toLowerCase().trim()] || '';
-      }
-
-      // Resolver local final
-      var localFinal = '';
-      var localRaw = ctx.partCorpo || qualificacao.local || '';
-      if(localRaw && localRaw !== 'indefinido'){
-        localFinal = mapaLocal[(localRaw||'').toLowerCase()] || 'Outro';
-      }
-
-      // Resolver tamanho final
-      var tamanhoFinal = '';
-      if(qualificacao.tamanho) tamanhoFinal = mapaTamanho[qualificacao.tamanho] || '';
-
-      // Montar texto base para a textarea "ideia"
-      var ideiaPartes = [];
-      if(qualificacao.interesse === 'cobertura')  ideiaPartes.push('Quero reformar/cobrir uma tatuagem antiga.');
-      if(qualificacao.interesse === 'queimadura') ideiaPartes.push('Quero cobrir uma cicatriz/queimadura.');
-      if(qualificacao.interesse === 'areola')     ideiaPartes.push('Interesse em reconstrução de aréola.');
-      if(estiloFinal && estiloFinal !== 'Reforma / Cover Up') ideiaPartes.push('Estilo: ' + estiloFinal + '.');
-      if(localFinal)   ideiaPartes.push('Local: ' + localFinal + '.');
-      if(tamanhoFinal) ideiaPartes.push('Tamanho: ' + tamanhoFinal + '.');
-      if(qualificacao.referenciaUrl) ideiaPartes.push('Referência: ' + qualificacao.referenciaUrl);
-
-      // Mapeamento de orçamento
-      var mapaOrcamento = {
-        'ate600':'Até R$300', '600a1500':'R$600-1000',
-        '1500a3000':'R$1000+', 'acima3000':'R$1000+'
-      };
-
-      var payload = {
-        ts:        Date.now(),
-        sessao:    _sessionId,
-        nome:      leadNome  || '',
-        tel:       leadWpp   ? (leadWpp.length===11
-                                 ? '('+leadWpp.substring(0,2)+') '+leadWpp.substring(2,7)+'-'+leadWpp.substring(7)
-                                 : '('+leadWpp.substring(0,2)+') '+leadWpp.substring(2,6)+'-'+leadWpp.substring(6))
-                             : '',
-        email:     leadEmail || '',
-        estilo:    estiloFinal,
-        local:     localFinal,
-        tamanho:   tamanhoFinal,
-        ideia:     ideiaPartes.join(' '),
-        orcamento: mapaOrcamento[qualificacao.orcamento] || '',
-        score:     leadScore,
-        categoria: leadCategoria,
-        interesse: qualificacao.interesse || '',
-        origem:    'rabisco'
-      };
-
-      sessionStorage.setItem('rb_form_prefill', JSON.stringify(payload));
-      rbTrack('form_prefill_salvo', {score:leadScore, categoria:leadCategoria, interesse:qualificacao.interesse||''});
-
-    } catch(e) { /* silencioso — não quebra o fluxo */ }
-  }
-
 })();
