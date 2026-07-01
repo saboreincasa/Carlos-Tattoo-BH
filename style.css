@@ -2299,8 +2299,35 @@ footer p { color:#ffffff !important; }
 /* ══════════════════════════════════════
    RESPONSIVE — BREAKPOINTS
    ══════════════════════════════════════ */
+/* ── TABLET (769px – 1024px) ── */
 @media(max-width:1024px){
   #nav{padding:0 16px;gap:6px;}
+  /* Hero: mantém 2 colunas mas respira */
+  #hero{grid-template-columns:1fr 1fr;min-height:auto;padding:60px 0;}
+  .hero-left{padding:40px 24px 40px 32px !important;}
+  .hero-right{padding:40px 32px 40px 16px !important;}
+  .hero-h1{font-size:clamp(32px,4.5vw,52px) !important;}
+  /* Cap de 340px removido — travava a foto no tablet sem necessidade
+     (no mobile ≤768px a foto já usa outra regra própria, width fixo
+     circular tipo avatar, então essa remoção não muda nada lá).
+     Agora a foto usa o tamanho de .hero-photo-wrap (max-width:520px,
+     definido no @media(max-width:1100px) mais abaixo) — bem mais
+     proporcional à altura de 90vh do hero no tablet. */
+  /* Ebooks: lista premium em 1 coluna */
+  .ebook-novo{grid-template-columns:1fr !important;gap:12px !important;}
+  .ebook-novo-card{grid-template-columns:160px 1fr !important;}
+  .ebook-novo-img{min-height:140px !important;height:auto !important;}
+  .ebook-novo-img img{object-fit:cover !important;position:absolute !important;inset:0 !important;width:100% !important;height:100% !important;}
+  /* Grids gerais: 3 colunas em vez de 5 */
+  .ebooks-grid{grid-template-columns:repeat(3,1fr) !important;}
+  .ebook-cover{height:160px !important;}
+  .services-grid{grid-template-columns:repeat(3,1fr) !important;}
+  .spec-grid{grid-template-columns:repeat(3,1fr) !important;}
+  .blog-grid{grid-template-columns:repeat(2,1fr) !important;}
+  .portfolio-grid-full{grid-template-columns:repeat(3,1fr) !important;}
+  .evid-wrap{grid-template-columns:repeat(4,1fr) !important;}
+  /* Botão topo: posição/tamanho agora só no bloco único
+     "BOTÃO TOPO + RABISCO — FONTE ÚNICA" no final do arquivo. */
 }
 
 @media(max-width:768px){
@@ -2311,9 +2338,9 @@ footer p { color:#ffffff !important; }
   .mob-hamburger{display:flex !important;}
   .mobile-bottom-nav{display:block;}
   body{padding-bottom:70px;}
-  #skullBtn{bottom:86px !important;right:16px;width:64px !important;height:64px !important;}
-  #skullPanel{bottom:150px !important;right:8px !important;left:8px !important;width:auto !important;height:70vh !important;max-height:500px;}
-  #btnTopo{bottom:86px !important;right:72px !important;}
+  #skullBtn{bottom:106px !important;right:12px !important;width:60px !important;height:60px !important;}
+  #skullPanel{bottom:178px !important;right:8px !important;left:8px !important;width:auto !important;height:70vh !important;max-height:500px;}
+  #btnTopo{bottom:58px !important;right:16px !important;}
   .hero-inner{flex-direction:column !important;padding:32px 20px !important;gap:28px !important;}
   .hero-left{order:2;text-align:center;}
   .hero-right{order:1;display:flex !important;justify-content:center;}
@@ -2342,7 +2369,7 @@ footer p { color:#ffffff !important; }
   .portfolio-grid-full{grid-template-columns:repeat(2,1fr) !important;gap:6px !important;}
   .ebook-novo{grid-template-columns:1fr !important;}
   .ebook-novo-card{grid-template-columns:120px 1fr !important;}
-  .ebook-novo-img{min-height:150px !important;}
+  .ebook-novo-img{min-height:120px !important;height:auto !important;}
   .ebook-novo-name{font-size:13px !important;}
   .ebook-novo-price{font-size:22px !important;}
   .blog-grid{grid-template-columns:1fr !important;}
@@ -2392,8 +2419,8 @@ footer p { color:#ffffff !important; }
   .hero-btns .btn{font-size:10px !important;padding:11px 14px !important;}
   .calc-local-opts{grid-template-columns:repeat(3,1fr) !important;}
   .copt{padding:7px 3px !important;font-size:9px !important;letter-spacing:.3px !important;}
-  .ebook-novo-card{grid-template-columns:100px 1fr !important;}
-  .ebook-novo-img{min-height:120px !important;}
+  .ebook-novo-card{grid-template-columns:90px 1fr !important;}
+  .ebook-novo-img{min-height:110px !important;}
   .como-grid{grid-template-columns:1fr !important;}
   .funil-box{padding:16px 12px !important;}
   .h2{font-size:clamp(18px,6.5vw,26px) !important;}
@@ -2505,7 +2532,7 @@ footer p { color:#ffffff !important; }
   }
   .hero-photo-frame::before{border-radius:14px !important;}
   /* Skull acima do bottom nav */
-  #skullBtn{bottom:86px !important;right:16px !important;}
+  #skullBtn{bottom:106px !important;right:12px !important;}
 }
 
 
@@ -2763,9 +2790,9 @@ html { scroll-behavior: smooth; }
   .mobile-bottom-nav { z-index: 8400 !important; }
   
   /* RABISCO — não conflita com bottom nav */
-  #skullBtn { bottom: 90px !important; right: 16px !important; }
+  #skullBtn { bottom: 106px !important; right: 12px !important; }
   #skullPanel {
-    bottom: 160px !important;
+    bottom: 178px !important;
     left: 8px !important;
     right: 8px !important;
     width: auto !important;
@@ -2856,8 +2883,8 @@ html { scroll-behavior: smooth; }
 
   /* Ebook cards */
   .ebook-novo{grid-template-columns:1fr !important;}
-  .ebook-novo-card{grid-template-columns:1fr !important;}
-  .ebook-novo-img{min-height:180px !important;position:relative;}
+  .ebook-novo-card{grid-template-columns:120px 1fr !important;}
+  .ebook-novo-img{min-height:120px !important;height:auto !important;position:relative;}
 
   /* Calculadora */
   .calc-style-cards{grid-template-columns:repeat(2,1fr) !important;gap:8px !important;}
@@ -5131,11 +5158,11 @@ footer p { color:#ffffff !important; }
   body{padding-bottom:70px;}
 
   /* Skull bot acima do bottom nav */
-  #skullBtn{bottom:86px !important;right:16px;width:64px !important;height:64px !important;}
+  #skullBtn{bottom:106px !important;right:12px !important;width:60px !important;height:60px !important;}
 
   /* Skull panel tela quase cheia no mobile */
   #skullPanel{
-    bottom:150px !important;right:8px !important;left:8px !important;
+    bottom:178px !important;right:8px !important;left:8px !important;
     width:auto !important;height:70vh !important;max-height:500px;
   }
 
@@ -5350,7 +5377,7 @@ footer p { color:#ffffff !important; }
   }
   .hero-photo-frame::before{border-radius:14px !important;}
   /* Skull acima do bottom nav */
-  #skullBtn{bottom:86px !important;right:16px !important;}
+  #skullBtn{bottom:106px !important;right:12px !important;}
 }
 
 
@@ -5604,7 +5631,7 @@ html { scroll-behavior: smooth; }
   .mobile-bottom-nav { z-index: 8400 !important; }
   
   /* RABISCO — não conflita com bottom nav */
-  #skullBtn { bottom: 90px !important; right: 16px !important; }
+  #skullBtn { bottom: 106px !important; right: 12px !important; }
   #skullPanel {
     bottom: 160px !important;
     left: 8px !important;
@@ -5894,7 +5921,14 @@ html { scroll-behavior: smooth; }
 /* ═══ RESPONSIVE ═══ */
 @media(max-width:1100px){
   #hero{grid-template-columns:1fr;}
-  .hero-right{display:none;}
+  /* display:none removido — essa era uma regra órfã de uma versão
+     antiga do layout (o arquivo tem uma seção inteira duplicada mais
+     adiante) que escondia TODA a coluna da foto em qualquer tablet
+     769-1024px. Nada mais no arquivo reativava o display pra essa
+     faixa, então a foto ficava 100% invisível no tablet — confirmado
+     rodando no Chromium real. O layout de 2 colunas do tablet é
+     controlado pelo bloco #hero{grid-template-columns:1fr 1fr!important}
+     mais abaixo no arquivo. */
   .hero-left{padding:120px 40px 80px;text-align:center;}
   .hero-stats{justify-content:center;}
   .hero-btns{justify-content:center;}
@@ -5959,27 +5993,27 @@ html { scroll-behavior: smooth; }
       
 
 
-      .ebook-novo{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-      .ebook-novo-card{display:grid;grid-template-columns:260px 1fr;background:linear-gradient(135deg,#1C1208,#0A0702);border:1px solid rgba(201,168,76,.18);border-radius:12px;overflow:hidden;transition:all .35s;box-shadow:0 4px 20px rgba(0,0,0,.35);}
-      .ebook-novo-card:hover{transform:translateY(-5px);border-color:rgba(201,168,76,.45);box-shadow:0 16px 48px rgba(0,0,0,.5),0 0 0 1px rgba(201,168,76,.15);}
-      .ebook-novo-img{position:relative;overflow:hidden;height:300px;min-height:300px;order:1;}
-      .ebook-novo-img img{width:100%;height:100%;object-fit:contain;object-position:center center;display:block;transition:transform .4s;position:absolute;inset:0;background:#0A0702;}
+      .ebook-novo{display:grid;grid-template-columns:1fr;gap:14px;}
+      .ebook-novo-card{display:grid;grid-template-columns:160px 1fr;background:linear-gradient(135deg,#1C1208,#0A0702);border:1px solid rgba(201,168,76,.18);border-radius:12px;overflow:hidden;transition:all .35s;box-shadow:0 4px 20px rgba(0,0,0,.35);}
+      .ebook-novo-card:hover{transform:translateY(-4px);border-color:rgba(201,168,76,.45);box-shadow:0 16px 48px rgba(0,0,0,.5),0 0 0 1px rgba(201,168,76,.15);}
+      .ebook-novo-img{position:relative;overflow:hidden;height:100%;min-height:160px;order:1;}
+      .ebook-novo-img img{width:100%;height:100%;object-fit:cover;object-position:center center;display:block;transition:transform .4s;position:absolute;inset:0;}
       .ebook-novo-card:hover .ebook-novo-img img{transform:scale(1.05);}
-      .ebook-novo-ph{width:100%;height:100%;min-height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px;text-align:center;background:linear-gradient(135deg,#2A1A08,#0A0702);}
+      .ebook-novo-ph{width:100%;height:100%;min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px;text-align:center;background:linear-gradient(135deg,#2A1A08,#0A0702);}
       .ebook-novo-ph span{font-family:'Cinzel Decorative',cursive;font-size:11px;color:var(--g3);letter-spacing:2px;line-height:1.5;}
-      .ebook-novo-ph em{font-size:32px;}
-      .ebook-novo-body{padding:22px 24px;display:flex;flex-direction:column;justify-content:space-between;order:2;}
-      .ebook-novo-name{font-family:'Cinzel',serif;font-size:15px;color:#ffffff;font-weight:700;margin-bottom:7px;}
-      .ebook-novo-desc{font-size:14px;color:#EDE4D4;line-height:1.7;margin-bottom:12px;}
-      .ebook-novo-feats{list-style:none;margin-bottom:14px;display:flex;flex-direction:column;gap:5px;}
-      .ebook-novo-feats li{display:flex;align-items:center;gap:7px;font-size:13px;color:#EDE4D4;}
+      .ebook-novo-ph em{font-size:28px;}
+      .ebook-novo-body{padding:18px 22px;display:flex;flex-direction:column;justify-content:space-between;order:2;}
+      .ebook-novo-name{font-family:'Cinzel',serif;font-size:15px;color:#ffffff;font-weight:700;margin-bottom:6px;}
+      .ebook-novo-desc{font-size:13px;color:#EDE4D4;line-height:1.7;margin-bottom:10px;}
+      .ebook-novo-feats{list-style:none;margin-bottom:12px;display:flex;flex-direction:column;gap:4px;}
+      .ebook-novo-feats li{display:flex;align-items:center;gap:7px;font-size:12px;color:#EDE4D4;}
       .ebook-novo-feats li::before{content:'✓';color:var(--g3);font-weight:700;flex-shrink:0;}
       .ebook-novo-price-old{font-size:12px;color:rgba(255,255,255,.5);text-decoration:line-through;margin-bottom:2px;}
-      .ebook-novo-price{font-family:'Cinzel Decorative',cursive;font-size:30px;color:var(--g3);margin-bottom:2px;line-height:1.1;}
-      .ebook-novo-note{font-size:11px;color:rgba(255,255,255,.7);letter-spacing:1px;margin-bottom:14px;font-family:'Cinzel',serif;}
+      .ebook-novo-price{font-family:'Cinzel Decorative',cursive;font-size:26px;color:var(--g3);margin-bottom:2px;line-height:1.1;}
+      .ebook-novo-note{font-size:11px;color:rgba(255,255,255,.7);letter-spacing:1px;margin-bottom:12px;font-family:'Cinzel',serif;}
       .btn-ebook-novo{width:100%;padding:12px;background:linear-gradient(180deg,var(--g2) 0%,var(--g3) 50%,var(--g4) 100%);color:var(--ink);font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;font-weight:700;border:none;cursor:pointer;transition:all .2s;text-transform:uppercase;box-shadow:0 4px 0 var(--g6);clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);}
       .btn-ebook-novo:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--g6),0 8px 20px rgba(201,168,76,.3);}
-      @media(max-width:1024px){.ebook-novo{grid-template-columns:1fr;}}
+      @media(max-width:1024px){.ebook-novo{grid-template-columns:1fr;}.ebook-novo-card{grid-template-columns:140px 1fr;}}
       @media(max-width:600px){.ebook-novo-card{grid-template-columns:1fr !important;}.ebook-novo-img{order:1 !important;min-height:160px;height:160px;position:relative;}.ebook-novo-body{order:2 !important;}}
     
 
@@ -6418,20 +6452,13 @@ html { scroll-behavior: smooth; }
   gap:12px;
 }
 /* ══ BOTÃO VOLTAR AO TOPO ══
-   Mesmo tamanho do skullBtn (78x78px desktop / 64x64px mobile)
-   Posicionado logo ACIMA do Rabisco com 10px de gap, mesmo right
-   Desktop: skull bottom:80px h:78px → topo bottom = 80+78+10 = 168px, right:20px
-   Mobile:  skull bottom:86px h:64px → topo bottom = 86+64+10 = 160px, right:16px
+   Posicionado ABAIXO do Rabisco — bottom:16px em todos os dispositivos
+   Desktop: right:20px / Tablet: right:20px / Mobile: right:16px
 ═══════════════════════════════════ */
+/* Posição/tamanho/visibilidade ficam SÓ no bloco único no final do arquivo
+   ("BOTÃO TOPO + RABISCO — FONTE ÚNICA"), pra não ter mais patches
+   conflitantes. Aqui fica só o visual (cor, borda, sombra, etc). */
 #scroll-top-btn{
-  position:fixed;
-  bottom:2px;
-  right:20px;
-  left:auto;
-  transform:translateY(8px) scale(.88);
-  z-index:7900;
-  width:64px;
-  height:64px;
   border-radius:50%;
   background:linear-gradient(135deg,rgba(20,12,3,.97),rgba(10,5,1,.97));
   border:2px solid rgba(201,168,76,.5);
@@ -6441,9 +6468,7 @@ html { scroll-behavior: smooth; }
   align-items:center;
   justify-content:center;
   gap:3px;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .4s ease, transform .4s ease, box-shadow .3s ease, border-color .3s ease;
+  transition:transform .25s ease, box-shadow .3s ease, border-color .3s ease;
   box-shadow:0 4px 20px rgba(0,0,0,.7), 0 0 0 1px rgba(201,168,76,.2), 0 0 14px rgba(201,168,76,.15);
   padding:0;
   backdrop-filter:blur(12px);
@@ -6459,20 +6484,14 @@ html { scroll-behavior: smooth; }
   background:radial-gradient(ellipse at 40% 30%, rgba(201,168,76,.1) 0%, transparent 65%);
   pointer-events:none;
 }
-/* VISÍVEL após 200px de scroll — classe adicionada pelo JS */
-#scroll-top-btn.visible{
-  opacity:1 !important;
-  pointer-events:auto !important;
-  transform:translateY(0) scale(1) !important;
-}
 #scroll-top-btn:hover{
   border-color:rgba(201,168,76,.6);
   box-shadow:0 6px 24px rgba(201,168,76,.25), 0 0 0 1px rgba(201,168,76,.4);
-  transform:translateY(-2px) scale(1.05) !important;
+  transform:scale(1.05) !important;
   background:rgba(20,12,3,.95);
 }
 #scroll-top-btn:active{
-  transform:translateY(1px) scale(.97) !important;
+  transform:scale(.97) !important;
   box-shadow:0 2px 8px rgba(0,0,0,.5);
 }
 
@@ -6531,28 +6550,8 @@ html { scroll-behavior: smooth; }
   color:#ffffff;
 }
 
-/* ── MOBILE ──
-   Centralizado, logo abaixo do Rabisco */
-@media(max-width:768px){
-  #scroll-top-btn{
-    bottom:4px !important;
-    right:16px !important;
-    left:auto !important;
-    width:54px !important;
-    height:54px !important;
-    z-index:7900 !important;
-  }
-}
 @media(max-width:480px){
   #wpp-float-group{bottom:28px;right:16px;}
-  #scroll-top-btn{
-    bottom:4px !important;
-    right:16px !important;
-    left:auto !important;
-    width:54px !important;
-    height:54px !important;
-    z-index:7900 !important;
-  }
 }
 
 
@@ -6716,35 +6715,34 @@ body { font-size:16px; }
 @media(max-width:768px){
   .ebook-novo{
     grid-template-columns:1fr !important;
-    gap:16px !important;
+    gap:10px !important;
   }
   .ebook-novo-card{
-    grid-template-columns:1fr !important;
+    grid-template-columns:120px 1fr !important;
   }
   .ebook-novo-img{
-    min-height:200px !important;
-    height:200px !important;
+    min-height:120px !important;
+    height:auto !important;
     order:1 !important;
+  }
+  .ebook-novo-img img{
+    object-fit:cover !important;
+    position:absolute !important;
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
   }
   .ebook-novo-body{
     order:2 !important;
-    padding:18px 20px !important;
+    padding:14px 16px !important;
   }
-  .ebook-novo-name{ font-size:15px !important; color:#ffffff !important; }
-  .ebook-novo-desc{ font-size:14px !important; color:#EDE4D4 !important; }
-  .ebook-novo-price{ font-size:26px !important; }
+  .ebook-novo-name{ font-size:13px !important; color:#ffffff !important; }
+  .ebook-novo-desc{ font-size:12px !important; color:#EDE4D4 !important; }
+  .ebook-novo-price{ font-size:22px !important; }
 }
 
-/* ─── CONTRATO CARD MOBILE ─── */
-@media(max-width:600px){
-  .contrato-card-grid{
-    grid-template-columns:1fr !important;
-  }
-  .contrato-img-col{
-    min-height:160px !important;
-    order:-1 !important;
-  }
-}
+/* ─── CONTRATO CARD: regra própria removida — agora usa o mesmo
+   sistema responsivo unificado de todos os cards de ebook (PATCH ll10) ─── */
 
 /* ─── CENTRAL TATTOO MOBILE ─── */
 @media(max-width:768px){
@@ -6893,7 +6891,7 @@ body { font-size:16px; }
 /* Ensure no pure black emoji containers */
 @media(max-width:768px){
   .skull-svg{ width:44px !important; height:44px !important; }
-  #skullBtn{ width:64px !important; height:64px !important; bottom:80px !important; right:16px !important; }
+  #skullBtn{ width:64px !important; height:64px !important; bottom:106px !important; right:12px !important; }
 }
 
 /* ─── GLOBAL DARK-ON-DARK FIXES ─── */
@@ -7729,17 +7727,20 @@ body > .skiptranslate,
   }
 }
 
-/* ── Ebook cards: imagem não corta no mobile ── */
+/* ── Ebook cards: lista horizontal em todos os tamanhos ── */
 @media(max-width:600px){
-  .ebook-novo-card{ grid-template-columns:1fr !important; }
+  .ebook-novo-card{ grid-template-columns:100px 1fr !important; }
   .ebook-novo-img{
-    height:200px !important;
-    min-height:200px !important;
+    height:auto !important;
+    min-height:130px !important;
     width:100% !important;
   }
   .ebook-novo-img img{
-    object-fit:contain !important;
-    background:#0A0702 !important;
+    object-fit:cover !important;
+    position:absolute !important;
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
   }
 }
 
@@ -8591,5 +8592,953 @@ img{
   }
   .ct-modulos-grid[style*="grid-template-columns"]{
     grid-template-columns:repeat(4,1fr) !important;
+  }
+  /* Ebook lista: nunca forçar 1fr aqui — tem regra própria */
+  .ebook-novo-card[style*="grid-template-columns"]{
+    grid-template-columns:120px 1fr !important;
+  }
+}
+/* ═══════════════════════════════════════════════════════════════════
+   CARLOS TATTOO BH — PATCH v1
+   Adicionar no FINAL do style.css
+   Correções: imagens proporcionais + botão TOPO abaixo do Rabisco
+   ═══════════════════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────────────────
+   1. BOTÕES FLUTUANTES — posição/tamanho movidos para o bloco único
+   "BOTÃO TOPO + RABISCO — FONTE ÚNICA" no final do arquivo.
+───────────────────────────────────────────────────────────────── */
+
+
+
+
+/* ─────────────────────────────────────────────────────────────────
+   2. HERO PHOTO — proporcional e sem corte em qualquer tela
+───────────────────────────────────────────────────────────────── */
+
+/* Desktop */
+.hero-photo-frame img {
+  width: 100%          !important;
+  height: auto         !important;
+  max-height: 680px    !important;
+  object-fit: contain  !important;
+  object-position: center top !important;
+}
+
+/* Tablet — igual ao desktop, sem regra própria adicional
+   (assim como no style.css antigo de referência, o tablet herda
+   o comportamento padrão: width:100%, max-height:640px, contain) */
+
+/* Mobile — configuração do style.css antigo de referência */
+@media (max-width: 768px) {
+  .hero-photo-frame {
+    max-width: 280px !important;
+    margin: 0 auto    !important;
+  }
+  .hero-photo-frame img {
+    width: 100%          !important;
+    height: auto          !important;
+    max-height: 420px     !important;
+    object-fit: contain   !important;
+    object-position: center top !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   3. SCARD-FOTO (cards de serviço) — sem altura fixa pequena
+   Desktop: 280px | Tablet: 220px | Mobile: 180px
+───────────────────────────────────────────────────────────────── */
+
+.scard-foto,
+.scard-foto-placeholder {
+  height: 280px      !important;
+  object-fit: cover  !important;
+  object-position: center top !important;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .scard-foto,
+  .scard-foto-placeholder {
+    height: 220px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .scard-foto,
+  .scard-foto-placeholder {
+    height: 180px !important;
+  }
+  /* Mostrar a descrição no mobile também */
+  .sdesc {
+    display: block !important;
+    font-size: 11px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .scard-foto,
+  .scard-foto-placeholder {
+    height: 160px !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   4. CSTYLE-CARD-THUMB (seletor de estilo no form) — mais alto
+   Desktop: 200px | Tablet: 160px | Mobile: 130px
+───────────────────────────────────────────────────────────────── */
+
+.cstyle-card-thumb {
+  height: 200px !important;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .cstyle-card-thumb {
+    height: 160px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .cstyle-card-thumb {
+    height: 130px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .cstyle-card-thumb {
+    height: 110px !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   5. PV-ITEM (portfólio de vídeos 9:16) — mais colunas no tablet
+   Desktop: 4 col | Tablet: 3 col | Mobile: 2 col
+   O aspect-ratio 9/16 já garante proporcionalidade
+───────────────────────────────────────────────────────────────── */
+
+.portfolio-grid-full {
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 14px !important;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .portfolio-grid-full {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 10px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .portfolio-grid-full {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   6. VDP-THUMB (reel vertical único — ex: tatuagem barata)
+   Mantém 9:16 mas com largura máxima controlada por device
+───────────────────────────────────────────────────────────────── */
+
+.vdp-thumb {
+  aspect-ratio: 9 / 16 !important;
+  max-width: 340px      !important;
+  margin: 0 auto        !important;
+}
+
+@media (max-width: 768px) {
+  .vdp-thumb {
+    max-width: 280px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .vdp-thumb {
+    max-width: 100% !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   7. EVID-THUMB (depoimentos em vídeo — 4:5)
+   Desktop: 4 col | Tablet: 3 col | Mobile: 2 col
+───────────────────────────────────────────────────────────────── */
+
+.evid-wrap {
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 16px !important;
+}
+
+.evid-thumb-img {
+  aspect-ratio: 4 / 5   !important;
+  object-fit: cover      !important;
+  object-position: top   !important;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .evid-wrap {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .evid-wrap {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .evid-thumb-img {
+    aspect-ratio: 3 / 4 !important; /* ligeiramente menos alto no mobile */
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   8. BLOG THUMBNAILS — maiores e mais elegantes
+   Desktop big: 340px | Desktop normal: 220px
+   Tablet: 200px | Mobile: 220px (único por linha)
+───────────────────────────────────────────────────────────────── */
+
+.bthumb {
+  height: 220px !important;
+}
+
+.bcard.big .bthumb {
+  height: 340px !important;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .bthumb {
+    height: 200px !important;
+  }
+  .bcard.big .bthumb {
+    height: 280px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .bthumb {
+    height: 220px !important; /* 1 por linha, merece mais altura */
+  }
+  .bcard.big .bthumb {
+    height: 240px !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   9. STUDIO GRID (fotos do estúdio)
+   Desktop: 3 col | Tablet: 2 col + big full | Mobile: 2 col
+───────────────────────────────────────────────────────────────── */
+
+.studio-card:not(.big) {
+  aspect-ratio: 4 / 3   !important;
+  min-height: 0         !important; /* deixa o aspect-ratio controlar */
+}
+
+.studio-card.big {
+  aspect-ratio: 16 / 7  !important;
+  min-height: 0         !important;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .studio-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .studio-card.big {
+    grid-column: 1 / -1 !important;
+    aspect-ratio: 16 / 6 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .studio-card:not(.big) {
+    aspect-ratio: 1 / 1 !important; /* quadrado no mobile */
+    min-height: 160px   !important;
+  }
+  .studio-card.big {
+    aspect-ratio: 16 / 7 !important;
+    min-height: 200px    !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   10. ABOUT PHOTO — maior e proporcional
+───────────────────────────────────────────────────────────────── */
+
+.aphoto-wrap {
+  width: 420px     !important;
+  flex-shrink: 0   !important;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .aphoto-wrap {
+    width: 340px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .aphoto-wrap {
+    width: 100%      !important;
+    max-width: 320px !important;
+    margin: 0 auto   !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   11. EBOOK-NOVO — imagem lateral maior
+   Desktop: 200px | Tablet: 170px | Mobile: 130px
+───────────────────────────────────────────────────────────────── */
+
+.ebook-novo-card {
+  grid-template-columns: 200px 1fr !important;
+}
+
+.ebook-novo-img {
+  min-height: 180px !important;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .ebook-novo-card {
+    grid-template-columns: 170px 1fr !important;
+  }
+  .ebook-novo-img {
+    min-height: 160px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .ebook-novo-card {
+    grid-template-columns: 130px 1fr !important;
+  }
+  .ebook-novo-img {
+    min-height: 130px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .ebook-novo-card {
+    grid-template-columns: 110px 1fr !important;
+  }
+  .ebook-novo-img {
+    min-height: 115px !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   12. CVID-AP-IMG (vídeo de apresentação)
+   Max-width controlado — ocupa bem o espaço no desktop
+───────────────────────────────────────────────────────────────── */
+
+.cvid-apresentacao {
+  max-width: 520px !important;
+}
+
+.cvid-ap-img {
+  aspect-ratio: 9 / 16 !important;
+  object-fit: cover     !important;
+  object-position: top  !important;
+}
+
+@media (max-width: 768px) {
+  .cvid-apresentacao {
+    max-width: 100% !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   13. PATH BANNER IMGS (nova tattoo / reforma)
+   Garante que não cortam o sujeito
+───────────────────────────────────────────────────────────────── */
+
+.path-banner-img {
+  object-fit: contain   !important;
+  object-position: center !important;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   FIM DO PATCH
+   Adicionar no final do style.css — nenhuma regra anterior foi
+   removida, este bloco apenas sobrescreve com !important
+═══════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────────
+   PATCH COMPLEMENTAR — ebook-cover e fp-estilo-img
+───────────────────────────────────────────────────────────────── */
+
+/* Capa dos ebooks (grid antigo) */
+.ebook-cover {
+  height: 260px !important;
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .ebook-cover {
+    height: 200px !important;
+  }
+}
+@media (max-width: 768px) {
+  .ebook-cover {
+    height: 180px !important;
+  }
+}
+@media (max-width: 480px) {
+  .ebook-cover {
+    height: 160px !important;
+  }
+}
+
+/* Miniaturas de estilo no formulário de orçamento */
+.fp-estilo-img {
+  height: 130px !important;
+}
+.fp-estilo-img img {
+  width: 100%    !important;
+  height: 100%   !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .fp-estilo-img {
+    height: 110px !important;
+  }
+}
+@media (max-width: 768px) {
+  .fp-estilo-img {
+    height: 90px !important;
+  }
+}
+/* ═══════════════════════════════════════════════════════════════════════
+   CARLOS TATTOO BH — PATCH ll9 FINAL
+   Botão Topo: Opção A (Empilhado Alinhado)
+   Ebook Cards: Opção B (Card Vertical 2 colunas)
+   Blog Cards:  Opção C (Foto Dominante)
+   Cole no FINAL do style.css, após o PATCH v1 existente.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────────────────
+   1. BOTÃO TOPO — posição/tamanho movidos para o bloco único
+   "BOTÃO TOPO + RABISCO — FONTE ÚNICA" no final do arquivo.
+   ───────────────────────────────────────────────────────────────── */
+
+
+
+
+/* ─────────────────────────────────────────────────────────────────
+   2. EBOOK CARDS — OPÇÃO B: CARD VERTICAL (imagem no topo)
+   Grid muda para 2 colunas. Imagem ocupa 100% da largura em cima
+   com 240px de altura. Layout tipo loja.
+   ───────────────────────────────────────────────────────────────── */
+
+.ebook-novo {
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 20px !important;
+}
+.ebook-novo-card {
+  grid-template-columns: 1fr !important;
+  grid-template-rows: 240px auto !important;
+}
+.ebook-novo-img {
+  height: 240px !important;
+  min-height: 240px !important;
+  order: -1 !important;
+}
+.ebook-novo-img img {
+  border-radius: 0 !important;
+}
+.ebook-novo-body {
+  order: 2 !important;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .ebook-novo {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .ebook-novo-card {
+    grid-template-rows: 200px auto !important;
+  }
+  .ebook-novo-img {
+    height: 200px !important;
+    min-height: 200px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .ebook-novo {
+    grid-template-columns: 1fr !important;
+  }
+  .ebook-novo-card {
+    grid-template-rows: 220px auto !important;
+  }
+  .ebook-novo-img {
+    height: 220px !important;
+    min-height: 220px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .ebook-novo-card {
+    grid-template-rows: 180px auto !important;
+  }
+  .ebook-novo-img {
+    height: 180px !important;
+    min-height: 180px !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   3. BLOG CARDS — OPÇÃO C: FOTO DOMINANTE
+   Card flex-column. Thumbnail ~60% da altura total do card.
+   Desktop: 260px | Desktop big: 380px | Tablet: 220px | Mobile: 240px
+   ───────────────────────────────────────────────────────────────── */
+
+.bcard {
+  display: flex          !important;
+  flex-direction: column !important;
+}
+.bthumb {
+  flex: 0 0 auto  !important;
+  height: 260px   !important;
+  aspect-ratio: unset !important;
+}
+.bcard.big .bthumb {
+  height: 380px   !important;
+}
+.bbody {
+  flex: 1 !important;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .bthumb {
+    height: 220px !important;
+  }
+  .bcard.big .bthumb {
+    height: 320px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .bthumb {
+    height: 240px !important;
+  }
+  .bcard.big .bthumb {
+    height: 260px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .bthumb {
+    height: 200px !important;
+  }
+  .bcard.big .bthumb {
+    height: 220px !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   FIM DO PATCH ll9 FINAL
+   ═══════════════════════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────────────────
+   PATCH ll9 — FIX: ebook-novo-img position:relative + overflow
+   Corrige imagem cortando para fora do card no layout vertical (Opção B)
+   ───────────────────────────────────────────────────────────────── */
+
+.ebook-novo-img {
+  position: relative  !important;
+  overflow: hidden    !important;
+  background: linear-gradient(135deg,#1C1208,#0A0702) !important;
+}
+
+.ebook-novo-img img {
+  position: absolute  !important;
+  inset: 0            !important;
+  width: 100%         !important;
+  height: 100%        !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  display: block      !important;
+}
+
+/* Card Contrato agora usa o mesmo dimensionamento de imagem unificado
+   de todos os cards de ebook (PATCH ll10) — sem regra própria. */
+
+/* ==========================================
+   AJUSTE RESPONSIVO — BOTÃO TOPO ABAIXO DO
+   RABISCO (#rabiscoBtn, real, criado pelo
+   rabisco.js) + EBOOKS SEM CORTES
+   (.ebook-novo-* — estrutura real do HTML)
+   ========================================== */
+
+/* ── DESKTOP / PADRÃO — botão topo: ver bloco único no final do arquivo ── */
+
+/* ── TABLET 769–1024px ─────────────────────
+   rabisco.js não tem media query própria
+   pra essa faixa, então #rabiscoBtn continua
+   em bottom:100px/right:20px (igual desktop). */
+@media (min-width:769px) and (max-width:1024px){
+  .ebook-novo{
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:24px !important;
+  }
+  .ebook-novo-img{
+    height:220px !important;
+    min-height:220px !important;
+  }
+}
+
+/* ── MOBILE ≤768px ─────────────────────────
+   Aqui o rabisco.js TEM media query própria
+   e muda #rabiscoBtn pra bottom:90px/right:16px.
+   Botão topo fica mais embaixo ainda, sem
+   encostar (folga de ~66px entre o topo do
+   botão-topo e a base do rabiscoBtn). */
+@media (max-width:768px){
+  .ebook-novo{
+    grid-template-columns:1fr !important;
+    gap:22px !important;
+  }
+  .ebook-novo-img{
+    height:240px !important;
+    min-height:240px !important;
+  }
+}
+
+/* telas grandes */
+@media (min-width:1400px){
+  .ebook-novo{
+    grid-template-columns:repeat(4,1fr) !important;
+    gap:26px !important;
+  }
+  .ebook-novo-img{
+    height:260px !important;
+    min-height:260px !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   PATCH ll10 — EBOOK CARDS HORIZONTAIS (imagem maior à esquerda,
+   texto à direita). Substitui o layout vertical (Opção B) em telas
+   maiores que mobile. No mobile mantém empilhado (imagem em cima)
+   pra não espremer demais.
+   ───────────────────────────────────────────────────────────────── */
+@media (min-width:769px){
+  .ebook-novo{
+    grid-template-columns:1fr !important;
+    gap:24px !important;
+  }
+  .ebook-novo-card{
+    grid-template-columns:340px 1fr !important;
+    grid-template-rows:auto !important;
+  }
+  .ebook-novo-img{
+    height:auto !important;
+    min-height:380px !important;
+    order:-1 !important;
+  }
+  .ebook-novo-body{
+    order:2 !important;
+  }
+}
+
+@media (min-width:1025px) and (max-width:1399px){
+  .ebook-novo-card{
+    grid-template-columns:300px 1fr !important;
+  }
+  .ebook-novo-img{
+    min-height:340px !important;
+  }
+}
+
+@media (min-width:1400px){
+  .ebook-novo{
+    grid-template-columns:repeat(2,1fr) !important;
+  }
+  .ebook-novo-card{
+    grid-template-columns:320px 1fr !important;
+  }
+  .ebook-novo-img{
+    min-height:360px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   BOTÃO TOPO + RABISCO — FONTE ÚNICA DE POSICIONAMENTO
+   (antigo "PATCH ll12" — agora é a ÚNICA regra de posição/tamanho/
+   visibilidade para #scroll-top-btn e #rabiscoBtn no site. Todos os
+   patches anteriores (v1, ll9, ll10/11, "AJUSTE RESPONSIVO") foram
+   removidos porque duplicavam e brigavam entre si com !important —
+   essa duplicação era a causa da fragilidade em telas de tablet.
+
+   Correção crítica: o id certo do botão Rabisco de verdade (criado
+   dinamicamente pelo rabisco.js) é #rabiscoBtn — #skullBtn é só uma
+   div escondida (display:none) que existe como placeholder no HTML
+   e nunca aparece na tela.
+
+   Lógica:
+   - #rabiscoBtn (real) e #scroll-top-btn (Topo) têm o MESMO tamanho e
+     o MESMO right em cada breakpoint — ficam perfeitamente alinhados.
+   - Topo fica embaixo, Rabisco em cima, com folga maior (18px desktop,
+     16px tablet/mobile) entre os dois — nunca se tocam, nunca se
+     sobrepõem, e o Rabisco não cobre mais o texto "MAIS" do menu.
+   - Topo nunca fica atrás do menu inferior do site: no mobile/tablet a
+     posição dele já soma a altura real do menu (50px) + uma folga de
+     8px, então sobra espaço livre visível acima do menu.
+   - z-index do #scroll-top-btn (8550) é maior que o do menu inferior
+     (8400), então o TOPO nunca fica atrás do menu.
+   - z-index do #rabiscoBtn é 7400 — de propósito MENOR que o do painel
+     do chat #rabiscoPanel (7500, definido no próprio rabisco.js). Antes
+     era 8600 (maior que o painel), e isso fazia o botão redondo ficar
+     por CIMA da seta de enviar mensagem do chat quando o painel abria
+     (bug reportado: "seta de confirmação fica embaixo do rabisco").
+     Com z-index menor, quando o painel abre ele cobre o botão
+     normalmente — e como o painel já tem seu próprio X de fechar no
+     cabeçalho, isso não tira nenhuma função, só corrige a sobreposição.
+   - opacity/visibility/pointer-events são repetidos em CADA breakpoint
+     de propósito (mesmo sem mudar de valor) pra essa regra nunca mais
+     depender de herança entre blocos — é isso que garante que o botão
+     apareça igual em desktop, tablet e mobile, sem exceção.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+#rabiscoBtn{
+  bottom:138px !important;
+  right:20px   !important;
+  width:78px   !important;
+  height:78px  !important;
+  z-index:7400 !important;
+}
+#scroll-top-btn{
+  position:fixed !important;
+  display:flex   !important;
+  bottom:20px  !important;
+  right:20px   !important;
+  left:auto    !important;
+  width:78px   !important;
+  height:78px  !important;
+  z-index:8550 !important;
+  transform:none !important;
+  opacity:1    !important;
+  visibility:visible !important;
+  pointer-events:auto !important;
+}
+
+/* Tablet 769–1024px — menu inferior existe (~50px) + safe-area */
+@media (min-width:769px) and (max-width:1024px){
+  #rabiscoBtn{
+    bottom:188px !important;
+    right:14px   !important;
+    width:66px   !important;
+    height:66px  !important;
+  }
+  #scroll-top-btn{
+    position:fixed !important;
+    display:flex   !important;
+    bottom:calc(82px + env(safe-area-inset-bottom)) !important;
+    right:14px  !important;
+    left:auto   !important;
+    width:66px  !important;
+    height:66px !important;
+    z-index:8550 !important;
+    transform:none !important;
+    opacity:1    !important;
+    visibility:visible !important;
+    pointer-events:auto !important;
+  }
+}
+
+/* Mobile ≤768px — menu inferior existe (~50px) + safe-area do iPhone */
+@media (max-width:768px){
+  #rabiscoBtn{
+    bottom:182px !important;
+    right:14px   !important;
+    width:60px   !important;
+    height:60px  !important;
+  }
+  #scroll-top-btn{
+    position:fixed !important;
+    display:flex   !important;
+    bottom:calc(82px + env(safe-area-inset-bottom)) !important;
+    right:14px  !important;
+    left:auto   !important;
+    width:60px  !important;
+    height:60px !important;
+    z-index:8550 !important;
+    transform:none !important;
+    opacity:1    !important;
+    visibility:visible !important;
+    pointer-events:auto !important;
+  }
+  #skullPanel{
+    bottom:232px !important;
+    right:8px    !important;
+    left:8px     !important;
+    width:auto   !important;
+  }
+}
+
+/* Mobile ≤480px — telas pequenas */
+@media (max-width:480px){
+  #rabiscoBtn{
+    bottom:174px !important;
+    right:14px   !important;
+    width:56px   !important;
+    height:56px  !important;
+  }
+  #scroll-top-btn{
+    position:fixed !important;
+    display:flex   !important;
+    bottom:calc(78px + env(safe-area-inset-bottom)) !important;
+    right:14px  !important;
+    left:auto   !important;
+    width:56px  !important;
+    height:56px !important;
+    z-index:8550 !important;
+    transform:none !important;
+    opacity:1    !important;
+    visibility:visible !important;
+    pointer-events:auto !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   PATCH ll13 — CARDS DE SERVIÇO MOBILE (.scard / .scard-foto / .sname /
+   .sdesc / .scta) + FILTROS DO PORTFÓLIO (#portfolio-filtros / .pfiltro)
+   Configuração trazida do style.css antigo de referência, igual ao print
+   aprovado. Substitui todas as regras anteriores (conflitantes) dessas
+   classes para mobile e mobile pequeno.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@media(max-width:768px){
+  .scard-foto,
+  .scard-foto-placeholder{
+    height:auto !important;
+    aspect-ratio:4/5 !important;
+    width:100% !important;
+    object-fit:cover !important;
+    object-position:center top !important;
+  }
+  .snum{
+    display:none !important;
+  }
+  .scard-body{
+    padding:14px 14px 18px !important;
+  }
+  .sname{
+    font-size:13px !important;
+    margin-bottom:6px !important;
+  }
+  .sdesc{
+    display:-webkit-box !important;
+    -webkit-line-clamp:2 !important;
+    -webkit-box-orient:vertical !important;
+    overflow:hidden !important;
+    font-size:11px !important;
+    line-height:1.5 !important;
+    margin-bottom:10px !important;
+    color:rgba(237,228,212,.75) !important;
+  }
+  .scta{
+    font-size:9px !important;
+    padding:8px 12px !important;
+    letter-spacing:1px !important;
+  }
+  #portfolio-filtros {
+    gap: 6px !important;
+    padding: 0 16px !important;
+  }
+  .pfiltro {
+    padding: 8px 12px !important;
+    font-size: 9px !important;
+  }
+}
+
+@media(max-width:480px){
+  .scard-foto,
+  .scard-foto-placeholder{
+    aspect-ratio:4/5 !important;
+  }
+  .sdesc{
+    -webkit-line-clamp:3 !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   PATCH ll14 — BALÃO DO RABISCO (#rbBubble) SEM SOBREPOR O BOTÃO
+   O rabisco.js define bottom:172px fixo pra esse balão, em todas as
+   telas — mas o botão do Rabisco (#rabiscoBtn) mudou de posição em cada
+   breakpoint nos patches anteriores. Aqui a posição do balão acompanha
+   a posição real do botão em cada tela, sempre acima dele com folga.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+#rbBubble{
+  bottom:226px !important;
+  right:20px   !important;
+}
+
+@media (min-width:769px) and (max-width:1024px){
+  #rbBubble{
+    bottom:264px !important;
+    right:14px   !important;
+  }
+}
+
+@media (max-width:768px){
+  #rbBubble{
+    bottom:252px !important;
+    right:8px    !important;
+    left:8px     !important;
+  }
+}
+
+@media (max-width:480px){
+  #rbBubble{
+    bottom:240px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   PATCH ll15 — PAINEL DO CHAT (#rabiscoPanel) ACIMA DO BOTÃO, SEM SOBREPOR
+   O rabisco.js define bottom:172px fixo pro painel em todas as telas
+   (só muda right/left/width no mobile) — mas isso ficava sobrepondo o
+   #rabiscoBtn, que hoje está em posições diferentes por breakpoint.
+   Aqui o painel sobe pra ficar exatamente na mesma altura do balão
+   (#rbBubble) — ou seja, sempre acima do botão com a mesma folga de
+   10px, em qualquer tela, sem tapar nada.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+#rabiscoPanel{
+  bottom:226px !important;
+  right:20px   !important;
+}
+
+@media (min-width:769px) and (max-width:1024px){
+  #rabiscoPanel{
+    bottom:264px !important;
+    right:14px   !important;
+  }
+}
+
+@media (max-width:768px){
+  #rabiscoPanel{
+    bottom:252px !important;
+    right:8px    !important;
+    left:8px     !important;
+  }
+}
+
+@media (max-width:480px){
+  #rabiscoPanel{
+    bottom:240px !important;
   }
 }

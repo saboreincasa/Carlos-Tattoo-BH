@@ -657,66 +657,9 @@ fbq('init','1151853265430926');
 
 
 
-<!-- ═══ PWA INSTALL BANNER ═══ -->
-<div id="pwa-banner" style="display:none;">
-  <div class="pwa-icon">📱</div>
-  <div class="pwa-txt">
-    <p>Instale nosso app!</p>
-    <span>Acesse mais rápido pelo celular</span>
-  </div>
-  <div class="pwa-btns">
-    <button class="btn-pwa-ok" type="button" aria-label="Instalar aplicativo" onclick="instalarPWA()">INSTALAR</button>
-    <button class="btn-pwa-no" type="button" aria-label="Fechar banner de instalação" onclick="fecharPWA()">✕</button>
-  </div>
-</div>
+<!-- PWA install banner removido a pedido do Carlos (28/06/2026) -->
 
-<!-- ═══ POPUP DE SAÍDA ═══ -->
-<div id="exit-popup" role="dialog" aria-modal="true" aria-labelledby="exit-title" aria-hidden="true">
-  <div class="exit-box">
-
-    <!-- Partículas SVG decorativas -->
-    <svg class="exit-particles" viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle cx="30"  cy="40"  r="3" fill="#E8B800" opacity=".6"><animate attributeName="cy" values="40;20;40" dur="3s" repeatCount="indefinite"/></circle>
-      <circle cx="80"  cy="20"  r="2" fill="#C9A84C" opacity=".5"><animate attributeName="cy" values="20;40;20" dur="2.5s" repeatCount="indefinite"/></circle>
-      <circle cx="150" cy="50"  r="4" fill="#FFD700" opacity=".4"><animate attributeName="cy" values="50;25;50" dur="4s" repeatCount="indefinite"/></circle>
-      <circle cx="240" cy="15"  r="2" fill="#E8B800" opacity=".7"><animate attributeName="cy" values="15;40;15" dur="2s" repeatCount="indefinite"/></circle>
-      <circle cx="320" cy="35"  r="3" fill="#C9A84C" opacity=".5"><animate attributeName="cy" values="35;10;35" dur="3.5s" repeatCount="indefinite"/></circle>
-      <circle cx="400" cy="25"  r="2" fill="#FFD700" opacity=".6"><animate attributeName="cy" values="25;50;25" dur="2.8s" repeatCount="indefinite"/></circle>
-      <circle cx="460" cy="45"  r="4" fill="#E8B800" opacity=".4"><animate attributeName="cy" values="45;15;45" dur="3.2s" repeatCount="indefinite"/></circle>
-      <path d="M60 80 L65 70 L70 80 L60 80Z"  fill="#E8B800" opacity=".4"><animate attributeName="opacity" values=".4;.8;.4" dur="2s" repeatCount="indefinite"/></path>
-      <path d="M280 60 L285 50 L290 60 L280 60Z" fill="#FFD700" opacity=".5"><animate attributeName="opacity" values=".5;.9;.5" dur="2.5s" repeatCount="indefinite"/></path>
-      <path d="M430 70 L435 58 L440 70 L430 70Z" fill="#C9A84C" opacity=".4"><animate attributeName="opacity" values=".4;.8;.4" dur="3s" repeatCount="indefinite"/></path>
-    </svg>
-
-    <button class="exit-close" onclick="fecharExitPopup()" aria-label="Fechar oferta especial" type="button">✕</button>
-
-    <!-- Ícone presente animado -->
-    <div class="exit-gift-wrap">
-      <div class="exit-gift">🎁</div>
-      <div class="exit-gift-ring"></div>
-    </div>
-
-    <div class="exit-tag">✦ &nbsp;PRESENTE ESPECIAL PARA VOCÊ&nbsp; ✦</div>
-    <h2 class="exit-h2" id="exit-title">Espera! Antes de ir…<br><span>temos algo para você</span></h2>
-    <p class="exit-p">Você estava explorando nossos materiais. Preparamos uma condição exclusiva que não aparece em nenhum outro lugar.</p>
-
-    <div class="exit-offer">
-      <div class="exit-offer-ribbon">OFERTA EXCLUSIVA</div>
-      <div class="exit-offer-name">Ebook Tráfego Tattoo</div>
-      <div class="exit-offer-row">
-        <div class="exit-offer-old">De R$ 97</div>
-        <div class="exit-offer-arrow">→</div>
-        <div class="exit-offer-new">R$ 47</div>
-      </div>
-      <div class="exit-offer-economy">Você economiza R$ 50,00 agora</div>
-    </div>
-
-    <button class="btn-exit-sim" type="button" aria-label="Aproveitar oferta especial do ebook" onclick="window.open('https://mpago.la/2iBpEJk','_blank');fecharExitPopup();">
-      🎁 QUERO MEU PRESENTE AGORA →
-    </button>
-    <button class="btn-exit-nao" type="button" aria-label="Recusar oferta e fechar" onclick="fecharExitPopup()">Não, obrigado — vou pagar mais depois</button>
-  </div>
-</div>
+<!-- Popup de saída do ebook removido — só a roleta "Sorte na Pele" dispara no exit-intent (28/06/2026) -->
 
 <!-- ═══ CHAT IA FLUTUANTE ═══ -->
 
@@ -730,9 +673,9 @@ fbq('init','1151853265430926');
 <div class="urg-bar" id="urg-bar-top">
   <span class="urg-bar-inner">
     <span class="urg-spark">✦</span>
-    <span class="urg-bar-msg">📅 <b>Agenda limitada:</b> avaliação gratuita por foto — resposta em até 24h</span>
+    <span class="urg-bar-msg">CADA PROJETO É ÚNICO — ENVIE SUA IDEIA E RECEBA UMA AVALIAÇÃO PERSONALIZADA</span>
     <span class="urg-bar-sep">·</span>
-    <span class="urg-bar-cta"><a href="#contato" style="color:#FFD700;text-decoration:underline;font-weight:700;">Solicitar agora →</a></span>
+    <span class="urg-bar-cta"><a href="#contato" style="color:#FFD700;text-decoration:underline;font-weight:700;">SOLICITAR AVALIAÇÃO →</a></span>
     <span class="urg-spark">✦</span>
   </span>
 </div>
@@ -814,8 +757,7 @@ fbq('init','1151853265430926');
     <!-- Slider de vídeos no fundo -->
     <div class="hero-bg">
       <div class="hero-bg-grad"></div>
-      <div id="hero-vid-bg" style="position:absolute;inset:0;z-index:0;overflow:hidden;">
-      </div>
+      <div id="hero-vid-bg" style="position:absolute;inset:0;z-index:0;overflow:hidden;"></div>
     </div>
     <div class="deye l"></div><div class="deye r"></div>
     <div class="ptc" id="ptcEl"></div>
@@ -1197,13 +1139,6 @@ fbq('init','1151853265430926');
         <div class="pv-label">Poder Feminino — Leoa & Mulher</div>
       </div>
 
-      <!-- Vídeo 8 — Família de leões -->
-      <div class="pv-item" onclick="abrirYouTubeModal('c7uytkRgAsk')">
-        <img loading="lazy" src="imagens/portfolio/tatuagem-familia-leoes-filhotes-realismo-belo-horizonte-bh.webp" alt="Tatuagem família de leões filhotes realismo — Carlos Tattoo BH" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/c7uytkRgAsk/hqdefault.jpg'">
-        <div class="pv-play"><div class="pv-play-btn">▶</div></div>
-        <div class="pv-label">Majestade Selvagem — Família</div>
-      </div>
-
       <!-- Vídeo 9 — Samurai -->
       <div class="pv-item" onclick="abrirYouTubeModal('xNXX5MlJteY')">
         <img loading="lazy" src="imagens/portfolio/tatuagem-samurai-feminino-carpa-realismo-belo-horizonte-bh.webp" alt="Tatuagem samurai feminino com carpa realismo — Carlos Tattoo BH" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/xNXX5MlJteY/hqdefault.jpg'">
@@ -1237,6 +1172,20 @@ fbq('init','1151853265430926');
         <img loading="lazy" src="https://img.youtube.com/vi/311pEjMVbtg/maxresdefault.jpg" alt="Cobertura de cicatriz com dragão oriental — Carlos Tattoo BH, Belo Horizonte" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/311pEjMVbtg/hqdefault.jpg'">
         <div class="pv-play"><div class="pv-play-btn">▶</div></div>
         <div class="pv-label">Da Cicatriz à Arte — Dragão Oriental</div>
+      </div>
+
+      <!-- Vídeo 14 — Fechamento de perna retrato e borboletas -->
+      <div class="pv-item" onclick="abrirYouTubeModal('QvocCuMTl3w')">
+        <img loading="lazy" src="imagens/portfolio/tatuagem-fechamento-perna-retrato-borboletas-belo-horizonte-bh-01.webp" alt="Tatuagem fechamento de perna com retrato e borboletas — Carlos Tattoo BH, Belo Horizonte" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/QvocCuMTl3w/hqdefault.jpg'">
+        <div class="pv-play"><div class="pv-play-btn">▶</div></div>
+        <div class="pv-label">Fechamento de Perna — Retrato & Borboletas</div>
+      </div>
+
+      <!-- Vídeo 15 — Família de leões -->
+      <div class="pv-item" onclick="abrirYouTubeModal('CtYnC7VLL8I')">
+        <img loading="lazy" src="imagens/portfolio/tatuagem-leoa-filhotes-coroa-realismo-braco-belo-horizonte-bh.webp" alt="Tatuagem leoa e filhotes com coroa realismo no braço — Carlos Tattoo BH, Belo Horizonte" class="pv-cover" onerror="this.src='https://img.youtube.com/vi/CtYnC7VLL8I/hqdefault.jpg'">
+        <div class="pv-play"><div class="pv-play-btn">▶</div></div>
+        <div class="pv-label">Leoa & Filhotes com Coroa — Realismo</div>
       </div>
 
     </div>
@@ -2752,7 +2701,7 @@ fbq('init','1151853265430926');
             <div class="ebook-novo-price-old" id="price-old-trafego">De R$ 197</div>
             <div class="ebook-novo-price" id="price-trafego">R$ 97</div>
             
-            <button class="btn-ebook-novo" id="btn-trafego" onclick="openPix('Ebook Tráfego Tattoo','R$ 97,00',97)">ADQUIRIR — R$ 97</button>
+            <button class="btn-ebook-novo" id="btn-trafego" onclick="openPix('Ebook Tráfego Tattoo','R$ 97,00',97)" style="width:auto;padding:10px 28px;font-size:9px;">ADQUIRIR — R$ 97</button>
           </div>
         </div>
       </div>
@@ -2778,7 +2727,7 @@ fbq('init','1151853265430926');
             <div class="ebook-novo-price-old" id="price-old-instagram">De R$ 197</div>
             <div class="ebook-novo-price" id="price-instagram">R$ 97</div>
             
-            <button class="btn-ebook-novo" id="btn-instagram" onclick="openPix('Ebook Instagram que Vende','R$ 97,00',97)">ADQUIRIR — R$ 97</button>
+            <button class="btn-ebook-novo" id="btn-instagram" onclick="openPix('Ebook Instagram que Vende','R$ 97,00',97)" style="width:auto;padding:10px 28px;font-size:9px;">ADQUIRIR — R$ 97</button>
           </div>
         </div>
       </div>
@@ -2805,7 +2754,7 @@ fbq('init','1151853265430926');
             <div class="ebook-novo-price-old" id="price-old-posicionamento">De R$ 297</div>
             <div class="ebook-novo-price" id="price-posicionamento">R$ 147</div>
             
-            <button class="btn-ebook-novo" id="btn-posicionamento" onclick="openPix('Ebook Avançado Posicionamento','R$ 147,00',147)">ADQUIRIR — R$ 147</button>
+            <button class="btn-ebook-novo" id="btn-posicionamento" onclick="openPix('Ebook Avançado Posicionamento','R$ 147,00',147)" style="width:auto;padding:10px 28px;font-size:9px;">ADQUIRIR — R$ 147</button>
           </div>
         </div>
       </div>
@@ -2820,18 +2769,18 @@ fbq('init','1151853265430926');
         <div class="ebook-novo-body">
           <div>
             <div class="ebook-novo-name">Pack Templates — Tatuadores</div>
-            <div class="ebook-novo-desc">30+ artes prontas para Stories, Feed e Anúncios. Prontas para usar imediatamente.</div>
+            <div class="ebook-novo-desc">60+ textos prontos com gatilho mental para Stories, Feed e Anúncios. Só copiar, personalizar e publicar.</div>
             <ul class="ebook-novo-feats">
-              <li>Stories e Feed prontos</li>
-              <li>Criativos para anúncios</li>
-              <li>Formatos para Stories, Feed e Anúncios</li>
+              <li>Scripts prontos de Stories e Feed</li>
+              <li>Copy pronta para Anúncios (Meta Ads)</li>
+              <li>Scripts de Direct, WhatsApp e Hashtags</li>
             </ul>
           </div>
           <div>
             <div class="ebook-novo-price-old" id="price-old-templates">De R$ 147</div>
             <div class="ebook-novo-price" id="price-templates">R$ 67</div>
             
-            <button class="btn-ebook-novo" id="btn-templates" onclick="openPix('Pack Templates Tatuadores','R$ 67,00',67)">ADQUIRIR — R$ 67</button>
+            <button class="btn-ebook-novo" id="btn-templates" onclick="openPix('Pack Templates Tatuadores','R$ 67,00',67)" style="width:auto;padding:10px 28px;font-size:9px;">ADQUIRIR — R$ 67</button>
           </div>
         </div>
       </div>
@@ -2840,9 +2789,9 @@ fbq('init','1151853265430926');
 
     <!-- CONTRATO DIGITAL — card extra largura total -->
     <div class="rv" style="margin-top:16px;">
-      <div class="ebook-novo-card contrato-card-grid" style="grid-template-columns:200px 1fr;transition:all .35s;" onmouseenter="this.style.borderColor='rgba(201,168,76,.5)';this.style.transform='translateY(-5px)';this.style.boxShadow='0 20px 56px rgba(0,0,0,.55)'" onmouseleave="this.style.borderColor='rgba(201,168,76,.18)';this.style.transform='';this.style.boxShadow='0 4px 20px rgba(0,0,0,.35)'">
+      <div class="ebook-novo-card contrato-card-grid" style="transition:all .35s;" onmouseenter="this.style.borderColor='rgba(201,168,76,.5)';this.style.transform='translateY(-5px)';this.style.boxShadow='0 20px 56px rgba(0,0,0,.55)'" onmouseleave="this.style.borderColor='rgba(201,168,76,.18)';this.style.transform='';this.style.boxShadow='0 4px 20px rgba(0,0,0,.35)'">
         <!-- Imagem -->
-        <div class="ebook-novo-img contrato-img-col" style="order:1;">
+        <div class="ebook-novo-img contrato-img-col">
           <img loading="lazy" src="imagens/thumb-ebook-contrato.jpg" alt="Contrato Digital"
             style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center center;background:#0A0702;display:block;"
             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
@@ -3670,11 +3619,7 @@ fbq('init','1151853265430926');
 
 <!-- WhatsApp disponível apenas após formulário -->
 
-<!-- SOCIAL PROOF POPUP -->
-<div id="sp-popup" role="status" aria-live="polite" aria-label="Atividade recente">
-  <div class="sp-av" id="sp-av">🧑</div>
-  <div><div class="sp-nm" id="sp-nm">Marcos de BH</div><div class="sp-ac" id="sp-ac">acabou de agendar uma tatuagem</div><div class="sp-tm">há poucos minutos · <span style="color:#25D366">●</span></div></div>
-</div>
+<!-- Toast de prova social ("Marcos de BH...") removido a pedido do Carlos (28/06/2026) -->
 
 
 <!-- MOBILE MENU -->
@@ -3730,7 +3675,9 @@ const vids=[
   ["https://www.youtube.com/embed/7NB1m0oUWH8","Leão Mandala",null],
   ["https://www.youtube.com/embed/n9CWY9wg620","Gueixa Realismo",null],
   ["https://www.youtube.com/embed/-NEDD2B3-tA","Reforma Cover Up",null],
-  ["https://www.youtube.com/embed/311pEjMVbtg","Cicatriz Dragão",null]
+  ["https://www.youtube.com/embed/311pEjMVbtg","Cicatriz Dragão",null],
+  ["https://www.youtube.com/embed/QvocCuMTl3w","Fechamento de Perna Realismo",null],
+  ["https://www.youtube.com/embed/CtYnC7VLL8I","Família de Leões Realismo",null]
 ];
 const vg=document.getElementById('vid-grid');
 if(vg) vids.forEach(([f,l,thumb])=>{
@@ -4092,25 +4039,9 @@ function toggleFaq(btn){const item=btn.parentElement;const wasOpen=item.classLis
 /* ─── URGENCY TIMER — desativado ─── */
 // Timer de contagem regressiva removido — agenda gerenciada organicamente.
 
-/* ─── SOCIAL PROOF — discreto: aparece poucas vezes e para ─── */
-const proofs=[
-  {n:'M. — BH',a:'acabou de solicitar orçamento',e:'🧑'},
-  {n:'A. — Contagem',a:'enviou referências para projeto',e:'👩'},
-  {n:'P. — Venda Nova',a:'agendou avaliação de cover up',e:'👨'},
-  {n:'J. — Santa Luzia',a:'pediu orçamento de fineline',e:'👩‍🦱'},
-  {n:'C. — Betim',a:'enviou fotos para avaliação',e:'🧔'},
-  {n:'K. — Pampulha',a:'agendou consulta de aréola',e:'👱‍♀️'},
-];
-let spIdx=0;
-function showProof(){const sp=document.getElementById('sp-popup');const p=proofs[spIdx%proofs.length];document.getElementById('sp-nm').textContent=p.n;document.getElementById('sp-ac').textContent=p.a;document.getElementById('sp-av').textContent=p.e;sp.classList.add('show');setTimeout(()=>sp.classList.remove('show'),5000);spIdx++;}
+/* ─── SOCIAL PROOF — removido a pedido do Carlos (28/06/2026) ─── */
 
-(function(){
-  // 2 aparições por sessão: 2 minutos e 8 minutos. Discreto e crível.
-  setTimeout(showProof, 120000);   // 2 minutos
-  setTimeout(showProof, 480000);  // 8 minutos
-})();
-
-/* ─── EXIT POPUP (ebook) — lógica ativa está mais abaixo, junto com fecharExitPopup() ─── */
+/* ─── Exit popup do ebook removido (28/06/2026) ─── */
 
 /* ─── CARROSSEL NETFLIX ─── */
 (()=>{
@@ -4578,47 +4509,9 @@ function registrarAcesso(tipo){
   }
 })();
 
-// ════════════════════════════════════════
-// PWA - INSTALL
-// ════════════════════════════════════════
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', (e)=>{
-  e.preventDefault();
-  deferredPrompt = e;
-  setTimeout(()=>{
-    const banner = document.getElementById('pwa-banner');
-    if(banner && !localStorage.getItem('pwa_dismissed')) banner.style.display='flex';
-  }, 15000);
-});
-function instalarPWA(){
-  if(deferredPrompt){ deferredPrompt.prompt(); deferredPrompt.userChoice.then(()=>{ deferredPrompt=null; fecharPWA(); }); }
-}
-function fecharPWA(){
-  const b = document.getElementById('pwa-banner');
-  if(b) b.style.display='none';
-  localStorage.setItem('pwa_dismissed','1');
-}
+// PWA install banner removido a pedido do Carlos (28/06/2026)
 
-// ════════════════════════════════════════
-// POPUP DE SAÍDA (ebook) — só dispara depois da roleta já ter sido vista
-// ════════════════════════════════════════
-let exitShown = false;
-document.addEventListener('mouseleave',(e)=>{
-  if(e.clientY <= 0 && !exitShown && !sessionStorage.getItem('exit_shown') && !sessionStorage.getItem('popup_interrupt_shown') && window.roletaSorteNaPeleJaMostrada && window.roletaSorteNaPeleJaMostrada()){
-    exitShown = true;
-    sessionStorage.setItem('exit_shown','1');
-    sessionStorage.setItem('popup_interrupt_shown','1');
-    const popup = document.getElementById('exit-popup');
-    if(popup){ popup.classList.add('open'); document.body.style.overflow='hidden'; }
-  }
-});
-function fecharExitPopup(){
-  const popup = document.getElementById('exit-popup');
-  if(popup){ popup.classList.remove('open'); document.body.style.overflow=''; }
-}
-document.getElementById('exit-popup').addEventListener('click',function(e){
-  if(e.target===this) fecharExitPopup();
-});
+// Popup de saída do ebook removido — roleta é o único gatilho de exit-intent (28/06/2026)
 
 // ════════════════════════════════════════
 // CHAT IA — substituído pelo rabisco.js
@@ -4765,89 +4658,11 @@ if('serviceWorker' in navigator){
 <!-- btnTopo substituído pelo scroll-top-btn premium abaixo -->
 
 
-<!-- ═══ MODAL UPSELL ═══ -->
-<div id="upsellModal">
-  <div class="upsell-box">
-    <button class="upsell-close" onclick="fecharUpsell()">✕</button>
-    <div style="font-size:44px;margin-bottom:12px;">🎯</div>
-    <div class="upsell-badge">Oferta especial — só agora</div>
-    <h2 class="upsell-h2" id="upsellTitulo">Que tal ir além?</h2>
-    <p class="upsell-p" id="upsellDesc">Você acabou de dar o primeiro passo. Agora acelere seus resultados com o curso completo.</p>
-    <div class="upsell-preco">
-      <span class="upsell-de" id="upsellDe">De R$ 297</span>
-      <span class="upsell-por" id="upsellPor">R$ 197</span>
-      <span class="upsell-parcela" id="upsellParcela">ou 4x de R$ 52,00</span>
-    </div>
-    <button class="btn-upsell-sim" id="upsellBtn" onclick="comprarUpsell()">
-      QUERO O CURSO COMPLETO →
-    </button>
-    <button class="btn-upsell-nao" onclick="fecharUpsell()">Não, prefiro só o ebook por enquanto</button>
-  </div>
-</div>
+<!-- Modal de upsell pós-compra removido a pedido do Carlos (28/06/2026) -->
 
 
 <script>
-// ═══ UPSELL AUTOMÁTICO ═══
-const UPSELL_MAP = {
-  'Ebook Iniciante — Tráfego Tattoo': {
-    titulo:'Que tal o curso completo?', 
-    desc:'Você comprou o ebook de introdução. O curso Tráfego Pago para Tatuadores vai muito além — do zero à agenda cheia com Meta Ads.',
-    de:'De R$ 297', por:'R$ 197', parcela:'ou 4x de R$ 52,00',
-    link:'https://mpago.la/2czB489'
-  },
-  'Ebook Instagram — Tattoo que Vende': {
-    titulo:'Leve o Instagram ao próximo nível!',
-    desc:'O ebook te deu a base. O curso Instagram para Tatuadores tem 10 aulas aprofundadas com estratégias avançadas.',
-    de:'De R$ 297', por:'R$ 147', parcela:'ou 3x de R$ 52,00',
-    link:'https://mpago.la/2XDsPBJ'
-  },
-  'Ebook Avançado — Posicionamento': {
-    titulo:'E se você tivesse mentoria individual?',
-    desc:'Você está avançando rápido! A Mentoria VIP 1:1 vai acelerar seus resultados com um plano personalizado para o SEU estúdio.',
-    de:'De R$ 997', por:'R$ 797', parcela:'ou 8x de R$ 110,00',
-    link:'https://mpago.la/1CMwysU'
-  },
-  'Pack Templates — Tatuadores': {
-    titulo:'Maximize seus templates!',
-    desc:'Você tem os templates. Agora aprenda a usá-los para lotar sua agenda com o curso de Instagram para Tatuadores.',
-    de:'De R$ 147', por:'R$ 97', parcela:'ou 2x de R$ 52,00',
-    link:'https://mpago.la/2XDsPBJ'
-  },
-  'Contrato Digital — Tatuadores': {
-    titulo:'Proteja-se e ainda atraia mais clientes!',
-    desc:'Você protegeu seu negócio juridicamente. Agora aprenda a posicionar seu estúdio como premium com Branding & Posicionamento.',
-    de:'De R$ 197', por:'R$ 147', parcela:'ou 3x de R$ 52,00',
-    link:'https://mpago.la/2C6t2HS'
-  }
-};
-
-let _upsellLink = '';
-
-function mostrarUpsell(produto){
-  const u = UPSELL_MAP[produto];
-  if(!u || sessionStorage.getItem('upsell_shown')) return;
-  sessionStorage.setItem('upsell_shown','1');
-  document.getElementById('upsellTitulo').textContent = u.titulo;
-  document.getElementById('upsellDesc').textContent = u.desc;
-  document.getElementById('upsellDe').textContent = u.de;
-  document.getElementById('upsellPor').textContent = u.por;
-  document.getElementById('upsellParcela').textContent = u.parcela;
-  _upsellLink = u.link;
-  document.getElementById('upsellModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function fecharUpsell(){
-  document.getElementById('upsellModal').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function comprarUpsell(){
-  if(typeof fbq !== 'undefined') fbq('track','InitiateCheckout',{content_name:'Upsell'});
-  window.open(_upsellLink,'_blank');
-  fecharUpsell();
-}
-
+// ═══ UPSELL AUTOMÁTICO — removido a pedido do Carlos (28/06/2026) ═══
 // (interceptação antiga de confirmarPix removida — lógica de upsell já está embutida na própria função confirmarPix())
 
 </script>
@@ -5107,67 +4922,10 @@ function toggleOrderBump(){
 }
 
 // ════════════════════════════════════════
-// UPSELL EM CASCATA
+// UPSELL EM CASCATA — removido a pedido do Carlos (28/06/2026)
 // ════════════════════════════════════════
-const UPSELL_CASCATA = {
-  'Ebook Iniciante — Tráfego Tattoo': [
-    { titulo:'🚀 Acelere seus resultados!', desc:'Você pegou o ebook de introdução. O Curso Tráfego Pago completo vai muito mais fundo — do zero à agenda cheia.', de:'R$ 297', por:'R$ 197', link:'https://mpago.la/2czB489', label:'QUERO O CURSO COMPLETO →' },
-    { titulo:'💡 Última oferta especial', desc:'Que tal o Pack de Templates prontos para usar nas suas campanhas?', de:'R$ 97', por:'R$ 47', link:'https://mpago.la/1FZUxea', label:'ADICIONAR PACK DE TEMPLATES →' }
-  ],
-  'Ebook Instagram — Tattoo que Vende': [
-    { titulo:'📱 Leve o Instagram ao próximo nível!', desc:'O curso completo tem 10 aulas avançadas que vão muito além do ebook.', de:'R$ 297', por:'R$ 147', link:'https://mpago.la/2XDsPBJ', label:'QUERO O CURSO COMPLETO →' },
-    { titulo:'🎨 Templates prontos!', desc:'Use templates profissionais nas suas publicações hoje mesmo.', de:'R$ 97', por:'R$ 47', link:'https://mpago.la/1FZUxea', label:'ADICIONAR PACK DE TEMPLATES →' }
-  ],
-  'Pack Templates — Tatuadores': [
-    { titulo:'📚 Aprenda a usar os templates!', desc:'O curso Instagram vai te ensinar a usar cada template para máximo resultado.', de:'R$ 297', por:'R$ 147', link:'https://mpago.la/2XDsPBJ', label:'QUERO O CURSO →' }
-  ],
-};
-
-let upsellCascataIndex = 0;
-let upsellCascataProduto = '';
-
-function iniciarUpsellCascata(produto){
-  const fila = UPSELL_CASCATA[produto];
-  if(!fila || !fila.length || sessionStorage.getItem('upsell_done')) return;
-  upsellCascataProduto = produto;
-  upsellCascataIndex = 0;
-  setTimeout(()=>mostrarProximoUpsell(), 3000);
-}
-
-function mostrarProximoUpsell(){
-  const fila = UPSELL_CASCATA[upsellCascataProduto];
-  if(!fila || upsellCascataIndex >= fila.length) return;
-  const u = fila[upsellCascataIndex];
-  const modal = document.getElementById('upsellModal');
-  if(!modal) return;
-  document.getElementById('upsellTitulo').textContent = u.titulo;
-  document.getElementById('upsellDesc').textContent = u.desc;
-  document.getElementById('upsellDe').textContent = 'De '+u.de;
-  document.getElementById('upsellPor').textContent = u.por;
-  document.getElementById('upsellBtn').textContent = u.label;
-  document.getElementById('upsellBtn').onclick = () => {
-    window.open(u.link,'_blank');
-    fecharUpsell();
-    sessionStorage.setItem('upsell_done','1');
-  };
-  modal.classList.add('open');
-  document.body.style.overflow='hidden';
-}
-
-function fecharUpsell(){
-  const modal = document.getElementById('upsellModal');
-  if(modal) modal.classList.remove('open');
-  document.body.style.overflow='';
-  upsellCascataIndex++;
-  // Mostrar próximo após 2s se houver
-  const fila = UPSELL_CASCATA[upsellCascataProduto];
-  if(fila && upsellCascataIndex < fila.length){
-    setTimeout(()=>mostrarProximoUpsell(), 2000);
-  }
-}
-
 // ════════════════════════════════════════
-// CONFIRMAR PIX + ORDER BUMP + UPSELL
+// CONFIRMAR PIX + ORDER BUMP
 // ════════════════════════════════════════
 function confirmarPix(){
   // Se order bump ativo — abrir link dele também
@@ -5175,8 +4933,6 @@ function confirmarPix(){
     window.open(orderBumpLink,'_blank');
   }
   closePix();
-  // Iniciar upsell cascata após 3s
-  iniciarUpsellCascata(pixProduto);
   // Registrar venda no localStorage e Supabase
   try {
     if(window._sb){
@@ -5469,7 +5225,6 @@ const catalogoGaleria = {
       {src:'imagens/portfolio/tatuagem-mandala-joelho-ornamental-belo-horizonte-bh.webp',           leg:'Mandala Ornamental no Joelho', tag:'Black & Grey', desc:'Equilíbrio e precisão'},
       {src:'imagens/portfolio/tatuagem-ampulheta-borboleta-frase-fineline-belo-horizonte-bh.webp',  leg:'Ampulheta & Borboleta',        tag:'Fineline',     desc:'Filosofia na pele'},
       {src:'imagens/portfolio/tatuagem-new-traditional-adaga-rosa-colorida-belo-horizonte-bh.webp', leg:'New Traditional — Adaga & Rosa', tag:'Colorida',   desc:'Clássico americano vibrante'},
-      {src:'imagens/portfolio/tatuagem-familia-leoes-filhotes-realismo-belo-horizonte-bh.webp',     leg:'Família de Leões',             tag:'Realismo',     desc:'Arte que emociona'},
       {src:'imagens/portfolio/tatuagem-coverup-floral-antes-depois-belo-horizonte-bh.webp',         leg:'Cover Up Floral',              tag:'Cover Up',     desc:'Transformação completa'},
       {src:'imagens/portfolio/tatuagem-tres-fases-retrato-feminino-realismo-belo-horizonte-bh.webp', leg:'Três Fases Femininas',        tag:'Realismo',     desc:'Narrativa na pele'},
     ]
@@ -5481,8 +5236,9 @@ const catalogoGaleria = {
       {src:'imagens/portfolio/tatuagem-zeus-mitologia-grega-realismo-belo-horizonte-bh.webp',           leg:'Zeus — Mitologia Grega',        desc:'Poder dos deuses'},
       {src:'imagens/portfolio/tatuagem-viking-ragnar-realismo-belo-horizonte-bh.webp',                  leg:'Viking Ragnar',                 desc:'Épico e detalhado'},
       {src:'imagens/portfolio/tatuagem-tres-fases-retrato-feminino-realismo-belo-horizonte-bh.webp',    leg:'Três Fases Femininas',          desc:'Narrativa na pele'},
-      {src:'imagens/portfolio/tatuagem-familia-leoes-filhotes-realismo-belo-horizonte-bh.webp',         leg:'Família de Leões',              desc:'Arte que emociona'},
-      {src:'imagens/portfolio/tatuagem-retrato-feminino-borboletas-coxa-belo-horizonte-bh.webp',        leg:'Retrato Feminino & Borboletas', desc:'Delicadeza em alta escala'},
+      {src:'imagens/portfolio/tatuagem-leoa-filhotes-coroa-realismo-braco-belo-horizonte-bh.webp',      leg:'Leoa & Filhotes com Coroa',     desc:'Realismo em alto contraste'},
+      {src:'imagens/portfolio/tatuagem-fechamento-perna-retrato-borboletas-belo-horizonte-bh-01.webp',  leg:'Fechamento de Perna — Retrato & Borboletas', desc:'Realismo em alta escala'},
+      {src:'imagens/portfolio/tatuagem-fechamento-perna-retrato-borboletas-belo-horizonte-bh-02.webp',  leg:'Fechamento de Perna — Vista Completa', desc:'Tribal e realismo combinados'},
       {src:'imagens/portfolio/tatuagem-geisha-realismo-belo-horizonte-bh.webp',                         leg:'Geisha',                        desc:'Oriental fotorrealista'},
       {src:'imagens/portfolio/tatuagem-caveira-grim-reaper-realismo-belo-horizonte-bh.webp',            leg:'Caveira Grim Reaper',           desc:'Contraste e sombra'},
       {src:'imagens/portfolio/tatuagem-espartano-gladiador-realismo-belo-horizonte-bh.webp',            leg:'Espartano Gladiador',           desc:'Força e detalhe'},
@@ -5537,7 +5293,6 @@ const catalogoGaleria = {
       {src:'imagens/portfolio/tatuagem-samurai-feminino-carpa-realismo-belo-horizonte-bh.webp',      leg:'Samurai Feminino & Carpa',     desc:'Composição exclusiva'},
       {src:'imagens/portfolio/tatuagem-tres-fases-retrato-feminino-realismo-belo-horizonte-bh.webp', leg:'Três Fases Femininas',          desc:'Conceito original único'},
       {src:'imagens/portfolio/tatuagem-leoa-retrato-feminino-realismo-belo-horizonte-bh.webp',       leg:'Leoa & Retrato Feminino',       desc:'Fusão exclusiva'},
-      {src:'imagens/portfolio/tatuagem-familia-leoes-filhotes-realismo-belo-horizonte-bh.webp',      leg:'Família de Leões',              desc:'Projeto personalizado'},
       {src:'imagens/portfolio/tatuagem-leao-geometrico-mandala-perna-belo-horizonte-bh.webp',        leg:'Leão & Mandala Full Leg',       desc:'Arte full leg exclusiva'},
       {src:'imagens/portfolio/tatuagem-coverup-tigre-realismo-antes-depois-belo-horizonte-bh.webp',  leg:'Cover Up Tigre — Antes & Depois', desc:'Reforma total em realismo'},
     ]
@@ -6205,12 +5960,12 @@ function mostrarObrigado(){
     entries.forEach(e=>{
       if(e.isIntersecting && !formularioAberto){
         formularioAberto = true;
-        // Após 35s parado no formulário
+        // Após 60s parado no formulário
         setTimeout(()=>{
           if(typeof mostrarBubble === 'function'){
             mostrarBubble('📋 Travou em algum campo? Me pergunta que eu ajudo a preencher!');
           }
-        }, 35000);
+        }, 60000);
       }
     });
   },{threshold:0.4});
@@ -6642,26 +6397,41 @@ function initScrollTopBtn(){
   var CIRC = 119.4;
 
   function posicionarBtn(){
-    var isMobile = window.innerWidth <= 768;
-    var skull = document.getElementById('skullBtn');
-    var gap = 8;
+    var w = window.innerWidth;
+    var isMobile = w <= 768;
+    var isTablet = w > 768 && w <= 1024;
 
-    if(skull){
-      // Mede o skullBtn no DOM — funciona após rabisco.js posicionar
-      var skullBottom = parseFloat(skull.style.bottom) || (isMobile ? 160 : 80);
-      var skullH      = skull.offsetHeight || (isMobile ? 56 : 64);
-      var topoH       = isMobile ? 48 : 56;
-      var topoBottom  = skullBottom - topoH - gap;
-      if(topoBottom < 12) topoBottom = 12;
-      btn.style.bottom = topoBottom + 'px';
-    } else {
-      btn.style.bottom = isMobile ? '96px' : '16px';
-    }
-    btn.style.right  = isMobile ? '16px' : '20px';
-    btn.style.left   = 'auto';
-    btn.style.width  = isMobile ? '48px' : '56px';
-    btn.style.height = isMobile ? '48px' : '56px';
+    // Bottom nav existe apenas em mobile/tablet (~50px de altura)
+    var navH = (isMobile || isTablet) ? 50 : 0;
+    var GAP  = 8; // gap entre: nav→topo e topo→skull
+
+    // Tamanhos por device
+    var topoSize  = isMobile ? (w <= 480 ? 38 : 40) : (isTablet ? 46 : 56);
+    var skullSize = isMobile ? (w <= 480 ? 56 : 60) : (isTablet ? 66 : 78);
+    var topoRight = isMobile ? 16 : (isTablet ? 18 : 24);
+    var skullRight = isMobile ? 12 : (isTablet ? 14 : 20);
+
+    // TOPO: fica logo acima do bottom nav
+    var topoBottom  = navH + GAP;
+    // SKULL: fica acima do TOPO
+    var skullBottom = topoBottom + topoSize + GAP;
+
+    // Posiciona o botão TOPO
+    btn.style.bottom    = topoBottom  + 'px';
+    btn.style.right     = topoRight   + 'px';
+    btn.style.left      = 'auto';
+    btn.style.width     = topoSize    + 'px';
+    btn.style.height    = topoSize    + 'px';
     btn.style.transform = '';
+
+    // Posiciona o Skull via JS também (elimina conflito com CSS)
+    var skull = document.getElementById('skullBtn');
+    if(skull){
+      skull.style.bottom = skullBottom + 'px';
+      skull.style.right  = skullRight  + 'px';
+      skull.style.width  = skullSize   + 'px';
+      skull.style.height = skullSize   + 'px';
+    }
   }
 
   function atualizar(){
@@ -7214,11 +6984,7 @@ window.addEventListener('load', initScrollTopBtn);
     }
   });
 
-  /* ─── Gatilho por tempo — 5 minutos de permanência, o que vier primeiro ───
-     Não disparado se a pessoa já viu a roleta pela saída antes desse tempo. ─── */
-  setTimeout(function(){
-    if(!sessionStorage.getItem(SESSION_KEY) && !sessionStorage.getItem('popup_interrupt_shown')) abrirRoleta();
-  }, 480000);
+  /* ─── Gatilho por tempo removido: roleta aparece APENAS no exit intent ─── */
 
 })();
 </script>
