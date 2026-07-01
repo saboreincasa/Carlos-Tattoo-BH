@@ -304,7 +304,13 @@ body{
   </button>
 </div>
 
-<script>
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+const SUPABASE_URL = 'https://ejapatxehmxondjqsgvv.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_B6_fpfgSxN56V2HoRQJCPg_ELaiatZr';
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
 // ── PROTEÇÕES ──
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('keydown', e => {
@@ -323,13 +329,21 @@ function mostrarAviso() {
   setTimeout(() => el.classList.remove('show'), 3000);
 }
 
-// ── SESSÃO ──
-const sessaoRaw = sessionStorage.getItem('ct_sessao');
-if (!sessaoRaw) { window.location.href = 'acesso.html'; }
-const sessao = JSON.parse(sessaoRaw || '{}');
-const usuarios = JSON.parse(localStorage.getItem('ct_usuarios') || '[]');
-const user = usuarios.find(u => u.email.toLowerCase() === sessao.email.toLowerCase());
-if (!user) { sessionStorage.clear(); window.location.href = 'acesso.html'; }
+// ── SESSÃO — validada direto no Supabase (RLS garante que só dá pra ler a própria linha) ──
+const { data: { session } } = await supabase.auth.getSession();
+if (!session) { window.location.href = 'acesso.html'; }
+
+const { data: userData, error: userErr } = await supabase
+  .from('usuarios')
+  .select('nome, email, produtos, bloqueado')
+  .eq('id', session.user.id)
+  .single();
+
+if (userErr || !userData || userData.bloqueado) {
+  await supabase.auth.signOut();
+  window.location.href = 'acesso.html';
+}
+const user = { nome: userData.nome, email: userData.email || session.user.email, produtos: userData.produtos || [] };
 document.getElementById('wmReader').textContent = `${user.nome || user.email} · Carlos Tattoo BH · Uso exclusivo`;
 
 // ── EBOOK ──
@@ -561,6 +575,10 @@ function navCapitulo(dir) {
 function toggleSidebar() {
   document.getElementById('readerSidebar').classList.toggle('open');
 }
+
+window.navCapitulo = navCapitulo;
+window.toggleSidebar = toggleSidebar;
+window.frameCarregado = frameCarregado;
 
 document.getElementById('readerContent').addEventListener('click', () => {
   if (window.innerWidth <= 768)
