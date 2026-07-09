@@ -1,21 +1,34 @@
 /* ============================================================
-   ct_cloud.js — Central Tattoo Pro · Sincronização em Nuvem v1.0
+   ct_cloud.js — Central Tattoo Pro · Sincronização em Nuvem v1.1
    ------------------------------------------------------------
-   Como funciona:
-   - Intercepta gravações do localStorage nas chaves ct_* e
-     replica na tabela ct_dados do Supabase (com debounce).
-   - No carregamento, baixa os dados da nuvem e hidrata o
-     localStorage. Se algo mudou, recarrega a página UMA vez
-     para o app iniciar já com os dados da nuvem.
-   - Primeira migração: se a nuvem está vazia e existe dado
-     local, sobe tudo automaticamente (nada se perde).
-   - Membros autenticados (Supabase Auth): sync ativo.
-   - Usuários TRIAL (acesso por token): permanecem 100% locais.
-   - O localStorage continua funcionando como cache/fallback:
-     sem internet, o app segue operando normalmente.
+   NOVIDADE v1.1: selo visual de status no canto da tela.
+   O usuário vê se a nuvem está ativa sem precisar abrir console.
    ============================================================ */
 (function () {
   'use strict';
+
+  /* ---------- Selo visual de status ---------- */
+  var badge = null;
+  function showBadge(text, bg, detail) {
+    try {
+      if (!badge) {
+        badge = document.createElement('div');
+        badge.id = 'ct-cloud-badge';
+        badge.style.cssText = 'position:fixed;bottom:14px;right:14px;z-index:99999;' +
+          'font:600 12px/1 system-ui,Arial,sans-serif;color:#fff;padding:8px 14px;' +
+          'border-radius:999px;box-shadow:0 2px 10px rgba(0,0,0,.25);cursor:pointer;' +
+          'transition:opacity .3s;opacity:.95;';
+        badge.onclick = function () { alert(badge.getAttribute('data-detail') || badge.textContent); };
+        var attach = function () { document.body.appendChild(badge); };
+        if (document.body) attach();
+        else document.addEventListener('DOMContentLoaded', attach);
+      }
+      badge.textContent = text;
+      badge.style.background = bg;
+      badge.setAttribute('data-detail', detail || text);
+    } catch (e) { /* nunca quebrar o app por causa do selo */ }
+  }
+  showBadge('☁️ Nuvem: conectando...', '#8a8a8a', 'Aguardando inicialização do Supabase.');
 
   /* Chaves que NUNCA sincronizam (sessão e trial são locais) */
   var EXCLUDE = /^ct_(sessao|trial_)/;
@@ -118,6 +131,13 @@
     client.auth.getSession().then(function (res) {
       var session = res && res.data ? res.data.session : null;
       if (!session || !session.user) {
+        if (window.TRIAL_DATA) {
+          showBadge('📁 Modo trial — dados locais', '#8a6d3b',
+            'Você está no período de teste. Seus dados ficam salvos neste navegador. Assinantes têm sincronização em nuvem: acesse de qualquer dispositivo sem perder nada.');
+        } else {
+          showBadge('⚠️ Nuvem inativa — entre pela área de membros', '#c0392b',
+            'Seus dados estão sendo salvos APENAS neste navegador. Para ativar a nuvem: saia, acesse carlostattoobh.com.br/acesso.html, faça login com seu e-mail e senha de membro e abra a Central novamente.');
+        }
         console.info('[ct_cloud] sem sessão autenticada — modo local (trial). Assine para ter seus dados na nuvem.');
         return;
       }
@@ -132,6 +152,9 @@
           Object.keys(state.pending).forEach(pushKey);
           state.pending = {};
 
+          showBadge('☁️ Nuvem ativa', '#1e7e34',
+            'Sincronização em nuvem ATIVA para ' + (session.user.email || 'sua conta') +
+            '. Tudo que você registrar é salvo automaticamente na nuvem e fica disponível em qualquer dispositivo.');
           console.info('[ct_cloud] sincronização em nuvem ATIVA para', session.user.email || state.uid);
 
           /* Se a nuvem trouxe dados diferentes do local, recarrega
@@ -154,6 +177,8 @@
       start(window.sbClient);
     } else if (tries > 100) { /* ~30s */
       clearInterval(poll);
+      showBadge('⚠️ Nuvem: erro ao iniciar', '#c0392b',
+        'O componente de nuvem não conseguiu iniciar nesta sessão. Seus dados continuam salvos localmente. Recarregue a página (Ctrl+Shift+R). Se persistir, contate o suporte.');
       console.warn('[ct_cloud] sbClient não encontrado — sync desativado nesta sessão.');
     }
   }, 300);
