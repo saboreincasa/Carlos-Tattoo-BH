@@ -566,12 +566,6 @@ footer{background:var(--ink);border-top:1px solid rgba(201,168,76,.13);padding:6
 @keyframes wppFl{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .float-wpp::before{content:"";position:absolute;width:100%;height:100%;border-radius:50%;background:rgba(37,211,102,.28);animation:wppRip 2s ease-out infinite;}
 @keyframes wppRip{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.8);opacity:0}}
-#sp-popup{position:fixed;bottom:96px;left:18px;background:var(--d1);border:1px solid rgba(201,168,76,.28);border-radius:10px;padding:13px 16px;display:flex;align-items:center;gap:10px;z-index:996;max-width:295px;box-shadow:0 10px 38px rgba(0,0,0,.55);transform:translateX(-350px);transition:transform .5s cubic-bezier(.34,1.56,.64,1);}
-#sp-popup.show{transform:translateX(0);}
-.sp-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--g5),var(--g3));display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
-.sp-nm{font-weight:700;color:var(--g2);font-size:13px;}
-.sp-ac{color:rgba(237,228,212,.65);font-size:12px;}
-.sp-tm{font-size:11px;color:rgba(200,184,152,.35);margin-top:2px;}
 .exit-title{font-family:"Cinzel Decorative",cursive;font-size:25px;color:var(--w2);margin-bottom:10px;}
 .exit-sub{font-size:15px;color:rgba(237,228,212,.6);margin-bottom:26px;line-height:1.6;font-family:"IM Fell English",serif;font-style:italic;}
 .exit-input{width:100%;padding:13px 16px;background:#fff;border:2px solid rgba(160,120,56,.28);color:#1a0a00;font-size:15px;font-family:"Raleway",sans-serif;font-weight:500;outline:none;margin-bottom:10px;}
@@ -1043,11 +1037,6 @@ footer p{color:#ffffff !important;}
 .ob-desc{font-size:11px;color:rgba(237,228,212,.6);line-height:1.5;}
 .ob-preco{font-family:"Cinzel Decorative",cursive;font-size:16px;color:#ffffff;flex-shrink:0;}
 .ob-de{font-size:10px;color:rgba(237,228,212,.35);text-decoration:line-through;text-align:right;}
-.vagas-counter{background:rgba(139,26,26,.1);border:1px solid rgba(139,26,26,.3);border-radius:10px;padding:12px 16px;margin:12px 0;display:flex;align-items:center;gap:10px;}
-.vagas-dot{width:8px;height:8px;border-radius:50%;background:#e74c3c;animation:blink 1s ease infinite;flex-shrink:0;}
-.vagas-txt{font-family:"Cinzel",serif;font-size:11px;color:#fca5a5;letter-spacing:1px;}
-.vagas-barra{flex:1;height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;}
-.vagas-fill{height:100%;background:linear-gradient(90deg,#e74c3c,#c0392b);border-radius:3px;}
 .live-views{display:inline-flex;align-items:center;gap:6px;background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2);border-radius:20px;padding:5px 12px;font-family:"Cinzel",serif;font-size:10px;color:#86efac;letter-spacing:1px;}
 .live-dot{width:7px;height:7px;border-radius:50%;background:#27ae60;animation:blink 1.5s ease infinite;}
 #read-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#A07830,#E8B800);z-index:99999;transition:width .1s;width:0%;}
@@ -2533,7 +2522,7 @@ img{max-width:100% !important;display:block;height:auto;}
               <li style="display:flex;align-items:center;gap:7px;font-size:12px;color:#EDE4D4;"><span style="color:#E8B800;font-size:11px;">✓</span> 🎯 Leads Pipeline</li>
               <li style="display:flex;align-items:center;gap:7px;font-size:12px;color:#EDE4D4;"><span style="color:#E8B800;font-size:11px;">✓</span> 📈 Goals & KPIs</li>
               <li style="display:flex;align-items:center;gap:7px;font-size:12px;color:#EDE4D4;"><span style="color:#E8B800;font-size:11px;">✓</span> 🔔 Auto Follow-Up</li>
-              <li style="display:flex;align-items:center;gap:7px;font-size:12px;color:#EDE4D4;"><span style="color:#E8B800;font-size:11px;">✓</span> 💎 Signal Tracking</li>
+              <li style="display:flex;align-items:center;gap:7px;font-size:12px;color:#EDE4D4;"><span style="color:#E8B800;font-size:11px;">✓</span> 💎 Deposit Tracking</li>
               <li style="display:flex;align-items:center;gap:7px;font-size:12px;color:#EDE4D4;"><span style="color:#E8B800;font-size:11px;">✓</span> 🌿 Healing Tracking</li>
               <li style="display:flex;align-items:center;gap:7px;font-size:12px;color:#EDE4D4;"><span style="color:#E8B800;font-size:11px;">✓</span> 💼 Commissions</li>
               <li style="display:flex;align-items:center;gap:7px;font-size:12px;color:#EDE4D4;"><span style="color:#E8B800;font-size:11px;">✓</span> 📋 Digital Contracts</li>
@@ -2762,11 +2751,6 @@ img{max-width:100% !important;display:block;height:auto;}
   </div>
 </footer>
 
-<!-- SOCIAL PROOF POPUP -->
-<div id="sp-popup" role="status" aria-live="polite" aria-label="Recent activity">
-  <div class="sp-av" id="sp-av">🧑</div>
-  <div><div class="sp-nm" id="sp-nm">James from London</div><div class="sp-ac" id="sp-ac">just booked a tattoo session</div><div class="sp-tm">a few minutes ago · <span style="color:#25D366">●</span></div></div>
-</div>
 
 <!-- MOBILE MENU -->
 <div class="mob-overlay" id="mobOverlay" onclick="toggleMenu()"></div>
@@ -2832,16 +2816,7 @@ function toggleFaq(btn){const a=btn.nextElementSibling;const icon=btn.querySelec
 /* URGENCY COUNTER */
 (()=>{let t=86400-Math.floor(Date.now()/1000)%86400;const el=document.getElementById('urg-timer');if(!el)return;setInterval(()=>{t=Math.max(0,t-1);const h=Math.floor(t/3600).toString().padStart(2,'0');const m=Math.floor((t%3600)/60).toString().padStart(2,'0');const s=(t%60).toString().padStart(2,'0');el.textContent=`${h}:${m}:${s}`;},1000);})();
 
-/* SOCIAL PROOF */
-const sp_names=['J. · London','S. · Berlin','M. · New York','R. · Miami','E. · Paris','D. · Toronto','L. · Sydney','A. · Melbourne'];
-const sp_actions=['purchased the Traffic Ebook','started the Central Tattoo trial','purchased Premium Positioning Ebook','activated the annual plan','purchased the Instagram Ebook'];
-let sp_i=0;
-function showSP(){const pop=document.getElementById('sp-popup');if(!pop)return;document.getElementById('sp-nm').textContent=sp_names[Math.floor(Math.random()*sp_names.length)];document.getElementById('sp-ac').textContent=sp_actions[Math.floor(Math.random()*sp_actions.length)];pop.classList.add('show');setTimeout(()=>pop.classList.remove('show'),4000);}
-let sp_count=0;
-setTimeout(()=>{showSP();},120000);setTimeout(()=>{showSP();},480000);
 
-/* VAGAS COUNT */
-document.querySelectorAll('#vagas-count').forEach(el=>el.textContent=Math.floor(Math.random()*4)+3);
 
 /* YOUTUBE MODAL */
 function abrirYouTubeModal(id){const m=document.getElementById('yt-modal-portfolio');const f=document.getElementById('yt-modal-frame');f.innerHTML=`<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" style="width:100%;height:100%;border:none;" allow="autoplay;encrypted-media" allowfullscreen></iframe>`;m.style.display='flex';document.body.style.overflow='hidden';}
