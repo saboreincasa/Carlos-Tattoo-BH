@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<script src="ct_cloud.js?v=11"></script>
+<script src="ct_cloud.js?v=14"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>⚡ Central Tattoo Pro — Sistema 2026</title>
@@ -606,7 +606,7 @@ textarea.fi{resize:vertical;min-height:76px;}
     <select class="fi" style="max-width:200px;padding:8px 14px;" id="fCl" onchange="rCl()"><option value="">Todos os status</option><option>🟢 Ativo</option><option>🟡 Retorno Pendente</option><option>🔴 Inativo</option></select>
   </div>
   <div class="card"><div class="card-h"><h3>Clientes</h3><span class="badge-count" id="clCt">—</span></div>
-  <div class="tw"><table class="tbl"><thead><tr><th>Nome</th><th>Telefone</th><th>Email</th><th>Cidade</th><th>Sessões</th><th>Status</th><th>Total Gasto</th><th>Ticket Médio</th><th>NPS</th><th>Estilo</th><th>Origem</th><th>Prx. Retorno</th><th></th></tr></thead><tbody id="clTb"></tbody></table></div></div>
+  <div class="tw"><table class="tbl"><thead><tr><th>Nome</th><th>Telefone</th><th>Email</th><th>Cidade</th><th>Sessões</th><th>Status</th><th>Total Gasto</th><th>Ticket Médio</th><th>NPS</th><th>Estilo</th><th>Origem</th><th>Prx. Retorno</th><th>Últ. Tattoo</th><th>Projeto</th><th>Saldo</th><th></th></tr></thead><tbody id="clTb"></tbody></table></div></div>
 </div>
 
 <!-- ═══ FOLLOW-UP ═══ -->
@@ -888,6 +888,9 @@ textarea.fi{resize:vertical;min-height:76px;}
     <div class="fg2"><div class="fg"><label>Estilo Preferido</label><select class="fi" id="clEst"><option value="">—</option><option>Blackwork</option><option>Realismo</option><option>Old School</option><option>New School</option><option>Geométrico</option><option>Aquarela</option><option>Minimalista</option><option>Oriental</option></select></div><div class="fg"><label>Status</label><select class="fi" id="clSt"><option>🟢 Ativo</option><option>🟡 Retorno Pendente</option><option>🔴 Inativo</option></select></div></div>
     <div class="fg2"><div class="fg"><label>Indicado por</label><input class="fi" id="clInd"></div><div class="fg"><label>Origem</label><select class="fi" id="clOri"><option>Instagram</option><option>Indicação</option><option>Google</option><option>TikTok</option><option>Passante</option><option>Outro</option></select></div></div>
     <div class="fg2"><div class="fg"><label>NPS (0-10)</label><input class="fi" type="number" id="clNps" min="0" max="10"></div><div class="fg"><label>Próx. Retorno</label><input class="fi" type="date" id="clRet"></div></div>
+    <div style="margin:16px 0 8px;padding-top:12px;border-top:1px dashed rgba(128,128,128,.35)"><strong>🎨 Projeto de Tatuagem</strong> <span style="font-size:12px;opacity:.65">(preencha ao fechar o orçamento)</span></div>
+    <div class="fg2"><div class="fg"><label>Local do Corpo</label><input class="fi" id="clLocal" placeholder="Ex: antebraço direito"></div><div class="fg"><label>Status do Projeto</label><select class="fi" id="clProjSt"><option value="">—</option><option>📝 Orçamento</option><option>💰 Sinal Pago</option><option>📅 Agendado</option><option>🎨 Em Andamento</option><option>✅ Finalizado</option></select></div></div>
+    <div class="fg2"><div class="fg"><label>Valor da Tatuagem (R$)</label><input class="fi" type="number" id="clValor" min="0" step="50" placeholder="0"></div><div class="fg"><label>Sinal Pago (R$)</label><input class="fi" type="number" id="clSinal" min="0" step="50" placeholder="0"></div></div>
     <div class="fg"><label>Observações</label><textarea class="fi" id="clObs" rows="2"></textarea></div>
   </div>
   <div class="modal-foot"><button class="btn btn-ghost btn-sm" onclick="closeM('mCl')">Cancelar</button><button class="btn btn-primary btn-sm" onclick="saveCl()">Salvar Cliente</button></div>
@@ -1234,7 +1237,20 @@ function rTutorial(id){
 // ── DASHBOARD ──
 function loadTG(){const t=gobj('ct_tg',{fat:'R$ 8.000',sess:'20',cli:'5',tick:'R$ 400'});document.getElementById('tFat').value=t.fat;document.getElementById('tSess').value=t.sess;document.getElementById('tCli').value=t.cli;document.getElementById('tTick').value=t.tick;}
 function saveTG(){sobj('ct_tg',{fat:document.getElementById('tFat').value,sess:document.getElementById('tSess').value,cli:document.getElementById('tCli').value,tick:document.getElementById('tTick').value});}
+function conciliarSessoes(){try{
+const sess=gdb('ct_sessoes'),cls=gdb('ct_clientes'),fin=gdb('ct_financeiro');let chgS=false,chgC=false,chgF=false;
+sess.forEach(s=>{if(s.stat==='Concluído'&&!s.finOk){
+  const c=cls.find(x=>(x.nome||'').trim().toLowerCase()===(s.cli||'').trim().toLowerCase());
+  let cred=c?(c.sinalCred!==undefined?R(c.sinalCred):R(c.sinalReg)):0;
+  const v=R(s.val),use=Math.min(cred,v),lanc=v-use;
+  if(c&&use>0){c.sinalCred=cred-use;chgC=true;}
+  if(lanc>0){fin.push({id:uid(),tipo:'receita',data:s.data||hoje(),desc:'Sessão — '+(s.cli||'cliente')+(s.est?' ('+s.est+')':''),cat:'Sessão de Tatuagem',forma:'',val:String(lanc),ref:s.id,obs:'Conciliação automática de sessão concluída'+(use>0?' (abatido sinal de R$'+use.toFixed(2).replace('.',',')+')':''),cliId:c?c.id:'',auto:'sessao'});chgF=true;}
+  s.finOk=1;chgS=true;
+}});
+if(chgS)sdb('ct_sessoes',sess);if(chgC)sdb('ct_clientes',cls);if(chgF)sdb('ct_financeiro',fin);
+}catch(e){console.warn('[conciliação]',e);}}
 function renderDash(){
+  conciliarSessoes();
   const sess=gdb('ct_sessoes'),cl=gdb('ct_clientes'),fin=gdb('ct_financeiro'),est=gdb('ct_estoque');
   const m=ma(),sm=sess.filter(s=>s.data&&s.data.slice(0,7)===m);
   const rec=fin.filter(f=>f.data&&f.data.slice(0,7)===m&&f.tipo==='receita').reduce((a,f)=>a+R(f.val),0);
@@ -1855,14 +1871,20 @@ function rCl(){
   document.getElementById('clCt').textContent=db.length+' clientes';
   document.getElementById('clTb').innerHTML=db.length?db.map(c=>{
     const ss=gdb('ct_sessoes').filter(s=>s.cli===c.nome&&s.stat==='Concluído');const tg=ss.reduce((a,s)=>a+R(s.val),0);const tk=ss.length?tg/ss.length:0;
+    const ult=ss.length?ss.map(s=>s.data||'').sort().slice(-1)[0]:'';
+    const pagoA=gdb('ct_financeiro').filter(f=>f.auto==='sessao'&&f.cliId===c.id).reduce((a,f)=>a+R(f.val),0);
+    const sd=R(c.valor)-R(c.sinal)-pagoA;
     const cf=conf();const waTxt=encodeURIComponent(`Olá ${c.nome}! Tudo bem? Aqui é do ${cf.nome||'estúdio'}. Já faz um tempo desde sua última visita — que tal marcarmos sua próxima tattoo? 🖤`);
-    return`<tr><td><strong>${c.nome||'—'}</strong></td><td><a href="https://wa.me/55${(c.tel||'').replace(/\D/g,'')}" target="_blank" style="color:var(--grn)">${c.tel||'—'}</a></td><td>${c.email||'—'}</td><td>${c.cid||'—'}</td><td>${ss.length}</td><td>${bdg(c.stat)}</td><td style="color:var(--grn);font-weight:600">${$R(tg)}</td><td>${$R(tk)}</td><td>${c.nps?c.nps+'/10':'—'}</td><td>${c.est||'—'}</td><td>${c.ori||'—'}</td><td>${c.ret?dtBR(c.ret):'—'}</td>
+    return`<tr><td><strong>${c.nome||'—'}</strong></td><td><a href="https://wa.me/55${(c.tel||'').replace(/\D/g,'')}" target="_blank" style="color:var(--grn)">${c.tel||'—'}</a></td><td>${c.email||'—'}</td><td>${c.cid||'—'}</td><td>${ss.length}</td><td>${bdg(c.stat)}</td><td style="color:var(--grn);font-weight:600">${$R(tg)}</td><td>${$R(tk)}</td><td>${c.nps?c.nps+'/10':'—'}</td><td>${c.est||'—'}</td><td>${c.ori||'—'}</td><td>${c.ret?dtBR(c.ret):'—'}</td><td>${ult?dtBR(ult):'—'}</td><td style="font-size:12px">${c.projSt?c.projSt+(c.local?'<br><span style="opacity:.65">'+c.local+'</span>':''):'—'}</td><td>${R(c.valor)>0?(sd>0?'<span style="color:var(--red,#c0392b);font-weight:600">'+$R(sd)+'</span>':'<span style="color:var(--grn);font-weight:600">Quitado ✓</span>'):'—'}</td>
     <td style="white-space:nowrap;display:flex;gap:3px"><button class="btn btn-ghost btn-xs" onclick="editCl('${c.id}')">✏️</button><a class="btn btn-success btn-xs" href="https://wa.me/55${(c.tel||'').replace(/\D/g,'')}?text=${waTxt}" target="_blank">📲</a><button class="btn btn-danger btn-xs" onclick="delCl('${c.id}')">🗑</button></td></tr>`;
-  }).join(''):`<tr><td colspan="13" class="empty-row"><p>Nenhum cliente cadastrado</p></td></tr>`;
+  }).join(''):`<tr><td colspan="16" class="empty-row"><p>Nenhum cliente cadastrado</p></td></tr>`;
   updDl();
 }
-function saveCl(){const id=document.getElementById('clId').value||uid();const c={id,nome:document.getElementById('clNome').value,tel:document.getElementById('clTel').value,email:document.getElementById('clEmail').value,insta:document.getElementById('clInsta').value,nasc:document.getElementById('clNasc').value,cid:document.getElementById('clCid').value,est:document.getElementById('clEst').value,stat:document.getElementById('clSt').value,ind:document.getElementById('clInd').value,ori:document.getElementById('clOri').value,nps:document.getElementById('clNps').value,ret:document.getElementById('clRet').value,obs:document.getElementById('clObs').value,ultContato:hoje()};const db=gdb('ct_clientes'),i=db.findIndex(x=>x.id===id);if(i>=0)db[i]={...db[i],...c};else db.push({...c,criadoEm:new Date().toISOString()});sdb('ct_clientes',db);closeM('mCl');rCl();showToast('✅ Cliente salvo!');}
-function editCl(id){const c=gdb('ct_clientes').find(x=>x.id===id);if(!c)return;document.getElementById('clId').value=c.id;document.getElementById('clNome').value=c.nome||'';document.getElementById('clTel').value=c.tel||'';document.getElementById('clEmail').value=c.email||'';document.getElementById('clInsta').value=c.insta||'';document.getElementById('clNasc').value=c.nasc||'';document.getElementById('clCid').value=c.cid||'';document.getElementById('clEst').value=c.est||'';document.getElementById('clSt').value=c.stat||'🟢 Ativo';document.getElementById('clInd').value=c.ind||'';document.getElementById('clOri').value=c.ori||'Instagram';document.getElementById('clNps').value=c.nps||'';document.getElementById('clRet').value=c.ret||'';document.getElementById('clObs').value=c.obs||'';document.getElementById('mClT').textContent='Editar Cliente';openM('mCl');}
+function saveCl(){const id=document.getElementById('clId').value||uid();const c={id,nome:document.getElementById('clNome').value,tel:document.getElementById('clTel').value,email:document.getElementById('clEmail').value,insta:document.getElementById('clInsta').value,nasc:document.getElementById('clNasc').value,cid:document.getElementById('clCid').value,est:document.getElementById('clEst').value,stat:document.getElementById('clSt').value,ind:document.getElementById('clInd').value,ori:document.getElementById('clOri').value,nps:document.getElementById('clNps').value,ret:document.getElementById('clRet').value,obs:document.getElementById('clObs').value,local:document.getElementById('clLocal').value,valor:document.getElementById('clValor').value,sinal:document.getElementById('clSinal').value,projSt:document.getElementById('clProjSt').value,ultContato:hoje()};const db=gdb('ct_clientes'),i=db.findIndex(x=>x.id===id);const prev=i>=0?db[i]:null;c.sinalReg=prev?R(prev.sinalReg):0;
+/* Amarração automática: sinal novo (ou aumentado) vira receita no Financeiro */
+const sNow=R(c.sinal);if(sNow>c.sinalReg){const delta=sNow-c.sinalReg;const fdb=gdb('ct_financeiro');fdb.push({id:uid(),tipo:'receita',data:hoje(),desc:'Sinal — '+(c.nome||'cliente')+(c.local?' ('+c.local+')':''),cat:'Sessão de Tatuagem',forma:'',val:String(delta),ref:'',obs:'Lançado automaticamente pela Ficha de Projeto',cliId:id,auto:'sinal'});sdb('ct_financeiro',fdb);c.sinalCred=(prev&&prev.sinalCred!==undefined?R(prev.sinalCred):(prev?R(prev.sinalReg):0))+delta;c.sinalReg=sNow;if(!c.projSt||c.projSt==='📝 Orçamento')c.projSt='💰 Sinal Pago';showToast('💰 Sinal de R$'+delta.toFixed(2).replace('.',',')+' lançado no Financeiro!');}
+if(i>=0)db[i]={...db[i],...c};else db.push({...c,criadoEm:new Date().toISOString()});sdb('ct_clientes',db);closeM('mCl');rCl();if(typeof rFin==='function')try{rFin()}catch(e){}if(typeof renderDash==='function')try{renderDash()}catch(e){}showToast('✅ Cliente salvo!');}
+function editCl(id){const c=gdb('ct_clientes').find(x=>x.id===id);if(!c)return;document.getElementById('clId').value=c.id;document.getElementById('clNome').value=c.nome||'';document.getElementById('clTel').value=c.tel||'';document.getElementById('clEmail').value=c.email||'';document.getElementById('clInsta').value=c.insta||'';document.getElementById('clNasc').value=c.nasc||'';document.getElementById('clCid').value=c.cid||'';document.getElementById('clEst').value=c.est||'';document.getElementById('clSt').value=c.stat||'🟢 Ativo';document.getElementById('clInd').value=c.ind||'';document.getElementById('clOri').value=c.ori||'Instagram';document.getElementById('clNps').value=c.nps||'';document.getElementById('clRet').value=c.ret||'';document.getElementById('clObs').value=c.obs||'';document.getElementById('clLocal').value=c.local||'';document.getElementById('clValor').value=c.valor||'';document.getElementById('clSinal').value=c.sinal||'';document.getElementById('clProjSt').value=c.projSt||'';document.getElementById('mClT').textContent='Editar Cliente';openM('mCl');}
 function delCl(id){if(!confirm('Excluir cliente?'))return;sdb('ct_clientes',gdb('ct_clientes').filter(c=>c.id!==id));rCl();}
 
 // ── FOLLOW-UP ──
@@ -1870,11 +1892,13 @@ function rFU(){
   const db=gdb('ct_followup'),cl=gdb('ct_clientes'),sess=gdb('ct_sessoes');
   const comFU=new Set(db.map(f=>f.cli));
   const auto=cl.filter(c=>!comFU.has(c.nome)).map(c=>{const ss=sess.filter(s=>s.cli===c.nome&&s.stat==='Concluído').sort((a,b)=>b.data>a.data?1:-1);const dias=ss[0]?Math.floor((Date.now()-new Date(ss[0].data).getTime())/86400000):999;return{id:'a_'+c.id,cli:c.nome,tel:c.tel,ult:ss[0]?.data||'',dias,prio:dias>90?'🔴 Alta':dias>60?'🟡 Média':'🟢 Normal',stat:'Pendente',_a:true};}).filter(f=>f.dias>30);
-  const lista=[...db,...auto];
+  const fin=gdb('ct_financeiro');
+  const devs=cl.map(c=>{const pagoA=fin.filter(f=>f.auto==='sessao'&&f.cliId===c.id).reduce((a,f)=>a+R(f.val),0);const sd=R(c.valor)-R(c.sinal)-pagoA;const ss=sess.filter(s=>s.cli===c.nome&&s.stat==='Concluído').sort((a,b)=>b.data>a.data?1:-1);return{c,sd,ult:ss[0]?.data||''};}).filter(x=>x.sd>0).map(x=>({id:'d_'+x.c.id,cli:x.c.nome,tel:x.c.tel,ult:x.ult,dias:x.ult?Math.floor((Date.now()-new Date(x.ult).getTime())/86400000):0,prio:'💰 Cobrança',stat:'Pendente',acao:'Saldo devedor: '+$R(x.sd)+(x.c.local?' — '+x.c.local:''),_a:true,_wa:'Olá '+x.c.nome+'! Tudo bem? 😊 Sobre seu projeto'+(x.c.local?' ('+x.c.local+')':'')+': ainda temos um saldo de '+$R(x.sd)+' pra finalizarmos. Que tal já agendarmos sua próxima sessão? 🖤'}));
+  const lista=[...db,...devs,...auto];
   document.getElementById('fuCt').textContent=lista.length+' clientes';
   document.getElementById('fuTb').innerHTML=lista.length?lista.map(f=>{
     const d=f.dias||(f.ult?Math.floor((Date.now()-new Date(f.ult).getTime())/86400000):999);
-    const cf=conf();const waTxt=encodeURIComponent(`Olá ${f.cli}! 😊 Aqui é do ${cf.nome||'estúdio'}. Já faz um tempo desde sua última tatuagem — que tal planejarmos a próxima? Temos novidades! 🖤`);
+    const cf=conf();const waTxt=encodeURIComponent(f._wa||`Olá ${f.cli}! 😊 Aqui é do ${cf.nome||'estúdio'}. Já faz um tempo desde sua última tatuagem — que tal planejarmos a próxima? Temos novidades! 🖤`);
     return`<tr><td><strong>${f.cli||'—'}</strong></td><td><a href="https://wa.me/55${(f.tel||'').replace(/\D/g,'')}" target="_blank" style="color:var(--grn)">${f.tel||'—'}</a></td><td>${dtBR(f.ult)}</td><td><span class="bdg ${d>90?'b-red':d>60?'b-yellow':'b-green'}">${d>365?'+1 ano':d+'d'}</span></td><td>${bdg(f.prio||'🟡 Média')}</td><td style="max-width:120px;font-size:12px">${f.acao||'—'}</td><td>${dtBR(f.dataA)}</td><td style="max-width:120px;font-size:12px">${f.res||'—'}</td><td>${dtBR(f.prox)}</td><td>${bdg(f.stat||'Pendente')}</td><td style="font-size:12px">${f.obs||'—'}</td>
     <td style="white-space:nowrap">${!f._a?`<button class="btn btn-ghost btn-xs" onclick="editFU('${f.id}')">✏️</button>`:''}<a class="btn btn-success btn-xs" href="https://wa.me/55${(f.tel||'').replace(/\D/g,'')}?text=${waTxt}" target="_blank">📲</a></td></tr>`;
   }).join(''):`<tr><td colspan="12" class="empty-row"><p>Todos os clientes em dia! 🎉</p></td></tr>`;
