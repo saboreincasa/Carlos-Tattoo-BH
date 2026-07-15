@@ -96,7 +96,7 @@ fbq('init','1151853265430926');
   "paymentAccepted":"PIX, Cartão de Crédito, Cartão de Débito",
   "currenciesAccepted":"BRL",
   "areaServed":[{"@type":"City","name":"Belo Horizonte"},{"@type":"City","name":"Contagem"},{"@type":"City","name":"Betim"},{"@type":"City","name":"Santa Luzia"}],
-  "aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","bestRating":"5","worstRating":"1","ratingCount":"380"},
+  "aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","bestRating":"5","worstRating":"1","ratingCount":"35"},
   "founder":{"@type":"Person","name":"Carlos Henrique","jobTitle":"Tatuador especialista em realismo e cover up","sameAs":["https://www.instagram.com/carlostattoo.bh"]},
   "keywords":"tatuagem Belo Horizonte, tatuagem BH, realismo BH, cover up BH, fineline BH, reconstrução aréola BH, tatuagem Contagem MG, tatuagem Venda Nova BH, tatuagem Betim MG, tatuagem Santa Luzia MG, tatuador RMBH"
 }
@@ -116,13 +116,7 @@ fbq('init','1151853265430926');
 
 
 
-<script type="application/ld+json">
-[
-  {"@context":"https://schema.org","@type":"Course","name":"Instagram para Tatuadores","description":"Do zero ao perfil profissional que gera clientes todos os dias. Estratégia de conteúdo, Reels, Stories e SEO do Instagram.","provider":{"@type":"Person","name":"Carlos Henrique","jobTitle":"Tatuador e Mentor Digital"},"offers":{"@type":"Offer","price":"147","priceCurrency":"BRL","url":"https://mpago.la/2XDsPBJ"}},
-  {"@context":"https://schema.org","@type":"Course","name":"Tráfego Pago para Tatuadores","description":"Meta Ads completo: do primeiro anúncio à agenda cheia todo mês. Estratégia de campanhas e públicos avançados.","provider":{"@type":"Person","name":"Carlos Henrique"},"offers":{"@type":"Offer","price":"297","priceCurrency":"BRL","url":"https://mpago.la/2czB489"}},
-  {"@context":"https://schema.org","@type":"Course","name":"Branding & Posicionamento para Tatuadores","description":"Como cobrar mais caro e ter clientes que valorizam seu trabalho. Identidade visual e precificação estratégica.","provider":{"@type":"Person","name":"Carlos Henrique"},"offers":{"@type":"Offer","price":"197","priceCurrency":"BRL","url":"https://mpago.la/2C6t2HS"}}
-]
-</script>
+<!-- Schema Course removido 15/07/2026: preços (147/297/197) e links Mercado Pago antigos contradiziam a página e o schema Product — dado conflitante gera aviso no Google -->
 
 
 <script type="application/ld+json">
@@ -191,12 +185,83 @@ fbq('init','1151853265430926');
 <link rel="stylesheet" href="style.css">
 
 <script type="application/ld+json">
-[
-  {"@context":"https://schema.org","@type":"Product","name":"Ebook Tráfego do Zero para Tatuadores","description":"Guia completo para encher a agenda com Meta Ads.","brand":{"@type":"Brand","name":"Carlos Tattoo BH"},"offers":{"@type":"Offer","priceCurrency":"BRL","price":"47","availability":"https://schema.org/InStock","url":"https://carlostattoobh.com.br/checkout.html?id=ebook-trafego"}},
-  {"@context":"https://schema.org","@type":"Product","name":"Ebook Instagram que Atrai e Vende","description":"Crescimento orgânico e monetização real no Instagram para tatuadores.","brand":{"@type":"Brand","name":"Carlos Tattoo BH"},"offers":{"@type":"Offer","priceCurrency":"BRL","price":"47","availability":"https://schema.org/InStock","url":"https://carlostattoobh.com.br/checkout.html?id=ebook-instagram"}},
-  {"@context":"https://schema.org","@type":"Product","name":"Ebook Posicionamento de Alto Valor","description":"Como cobrar mais e se destacar no mercado de tatuagem.","brand":{"@type":"Brand","name":"Carlos Tattoo BH"},"offers":{"@type":"Offer","priceCurrency":"BRL","price":"97","availability":"https://schema.org/InStock","url":"https://carlostattoobh.com.br/checkout.html?id=ebook-posicionamento"}},
-  {"@context":"https://schema.org","@type":"Product","name":"Central Tattoo Pro — Sistema de Gestão","description":"Agenda, financeiro, CRM e leads em um só sistema para tatuadores.","brand":{"@type":"Brand","name":"Carlos Tattoo BH"},"offers":{"@type":"Offer","priceCurrency":"BRL","price":"499","availability":"https://schema.org/InStock","url":"https://mpago.la/1U2ccmF"}}
-]
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      "@id": "https://carlostattoobh.com.br/#ebook-trafego",
+      "name": "Ebook Tráfego Tattoo — Estratégia Digital para Tatuadores",
+      "description": "Guia completo de Meta Ads para tatuadores: do primeiro acesso ao primeiro cliente pago. Públicos, segmentação e criativos que convertem.",
+      "image": "https://carlostattoobh.com.br/imagens/thumb-ebook-trafego.jpg",
+      "brand": { "@type": "Brand", "name": "Carlos Tattoo BH" },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://carlostattoobh.com.br/#ebooks",
+        "price": "97.00",
+        "priceCurrency": "BRL",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "BR",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays": 7,
+          "returnMethod": "https://schema.org/ReturnByMail",
+          "returnFees": "https://schema.org/FreeReturn"
+        }
+      }
+    },
+    {
+      "@type": "Product",
+      "@id": "https://carlostattoobh.com.br/#ebook-instagram",
+      "name": "Ebook Instagram que Vende — Instagram Tattoo Atrai e Vende",
+      "description": "Transforme seu perfil em máquina de atrair clientes todo dia sem depender de indicação. Perfil otimizado, Reels e Stories estratégicos.",
+      "image": "https://carlostattoobh.com.br/imagens/thumb-ebook-instagram.jpg",
+      "brand": { "@type": "Brand", "name": "Carlos Tattoo BH" },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://carlostattoobh.com.br/#ebooks",
+        "price": "97.00",
+        "priceCurrency": "BRL",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "BR",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays": 7,
+          "returnMethod": "https://schema.org/ReturnByMail",
+          "returnFees": "https://schema.org/FreeReturn"
+        }
+      }
+    },
+    {
+      "@type": "Product",
+      "@id": "https://carlostattoobh.com.br/#ebook-posicionamento",
+      "name": "Ebook Posicionamento — Cobre Mais e Atenda Melhor",
+      "description": "Branding premium para tatuadores: scripts de venda VIP, precificação estratégica e como cobrar mais caro fechando mais orçamentos.",
+      "image": "https://carlostattoobh.com.br/imagens/thumb-ebook-posicionamento.jpg",
+      "brand": { "@type": "Brand", "name": "Carlos Tattoo BH" },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://carlostattoobh.com.br/#ebooks",
+        "price": "147.00",
+        "priceCurrency": "BRL",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "BR",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays": 7,
+          "returnMethod": "https://schema.org/ReturnByMail",
+          "returnFees": "https://schema.org/FreeReturn"
+        }
+      }
+    }
+  ]
+}
 </script>
 
 <script type="application/ld+json">
@@ -283,7 +348,7 @@ fbq('init','1151853265430926');
     "addressCountry": "BR"
   },
   "knowsAbout": ["Tatuagem Realista", "Black and Grey", "Fineline", "Cover Up", "Tatuagem em Cicatrizes", "Reconstrução de Aréola", "Gestão de Estúdio de Tatuagem", "Marketing Digital para Tatuadores"],
-  "award": "5.0 estrelas no Google — mais de 380 avaliações"
+  "award": "5.0 estrelas no Google"
 }
 </script>
 
@@ -729,23 +794,7 @@ fbq('init','1151853265430926');
 
 <!-- Banner internacional removido: visitantes fora de países lusófonos são redirecionados para /en/ ou /es/ -->
 
-<!-- TICKER -->
-<div class="ticker-wrap" aria-label="Atividade recente" aria-live="off">
-  <div class="ticker-track">
-    <span class="tick-item"><span class="tdot"></span>M. — BH · agendou avaliação de cover up</span>
-    <span class="tick-item"><span class="tdot"></span>A. — Contagem · enviou referências para projeto de realismo</span>
-    <span class="tick-item"><span class="tdot"></span>P. — Venda Nova · solicitou orçamento de fineline</span>
-    <span class="tick-item"><span class="tdot"></span>J. — Santa Luzia · agendou consulta de reconstrução de aréola</span>
-    <span class="tick-item"><span class="tdot"></span>R. — Betim · enviou fotos para avaliação de reforma</span>
-    <span class="tick-item"><span class="tdot"></span>C. — Pampulha · pediu orçamento de tatuagem realismo</span>
-    <span class="tick-item"><span class="tdot"></span>M. — BH · agendou avaliação de cover up</span>
-    <span class="tick-item"><span class="tdot"></span>A. — Contagem · enviou referências para projeto de realismo</span>
-    <span class="tick-item"><span class="tdot"></span>P. — Venda Nova · solicitou orçamento de fineline</span>
-    <span class="tick-item"><span class="tdot"></span>J. — Santa Luzia · agendou consulta de reconstrução de aréola</span>
-    <span class="tick-item"><span class="tdot"></span>R. — Betim · enviou fotos para avaliação de reforma</span>
-    <span class="tick-item"><span class="tdot"></span>C. — Pampulha · pediu orçamento de tatuagem realismo</span>
-  </div>
-</div>
+<!-- Ticker de atividade removido 15/07/2026: nomes/ações não verificáveis = prova social fabricada -->
 
 <main id="main-content">
 
@@ -771,9 +820,9 @@ fbq('init','1151853265430926');
         <a href="#cursos" class="btn btn-gold" style="color:#ffffff;">💎 MENTORIA</a>
       </div>
       <div class="hero-stats">
-        <div class="hstat"><span class="hstat-n" data-target="7">0</span><span class="hstat-l">Anos de exp.</span></div>
-        <div class="hstat"><span class="hstat-n" data-target="2400">0</span><span class="hstat-l">Tatuagens</span></div>
-        <div class="hstat"><span class="hstat-n" data-target="380">0</span><span class="hstat-l">Reformas</span></div>
+        <div class="hstat"><span class="hstat-n" data-target="7">7</span><span class="hstat-l">Anos de exp.</span></div>
+        <div class="hstat"><span class="hstat-n" data-target="2400">2.400+</span><span class="hstat-l">Tatuagens</span></div>
+        <div class="hstat"><span class="hstat-n" data-target="380">380+</span><span class="hstat-l">Reformas</span></div>
         <div class="hstat"><span class="hstat-n">5.0 ★</span><span class="hstat-l">Google</span></div>
       </div>
     </div>
@@ -3391,7 +3440,7 @@ fbq('init','1151853265430926');
       <div class="vcard-q">
         <div class="vcard-icon">💰</div>
         <h4>Qual o valor mínimo para tatuar?</h4>
-        <p>Trabalhos pequenos de fineline a partir de R$ 180. Mas lembre: tatuagem barata sai caro. Prefira qualidade — fica para sempre na sua pele.</p>
+        <p>Trabalhos pequenos de fineline a partir de R$ 300. Mas lembre: tatuagem barata sai caro. Prefira qualidade — fica para sempre na sua pele.</p>
       </div>
       <div class="vcard-q">
         <div class="vcard-icon">🏋️</div>
@@ -3490,7 +3539,7 @@ fbq('init','1151853265430926');
           <div class="ec-item"><div class="ec-icon">📍</div><div><strong>Endereço</strong><br>Rua Maria de Lourdes da Cruz, 378<br>Bairro Mantiqueira — BH, MG</div></div>
           <div class="ec-item"><div class="ec-icon">🕐</div><div><strong>Horários</strong><br>Segunda a Sábado<br>10h às 19h</div></div>
           <div class="ec-item"><div class="ec-icon">📱</div><div><strong>Instagram</strong><br>@carlostattoo.bh</div></div>
-          <div class="ec-item"><div class="ec-icon">⭐</div><div><strong>Avaliação</strong><br>5.0 estrelas no Google<br>380+ avaliações positivas</div></div>
+          <div class="ec-item"><div class="ec-icon">⭐</div><div><strong>Avaliação</strong><br>5.0 estrelas no Google<br>Avaliações de clientes reais</div></div>
         </div>
         <a href="https://maps.app.goo.gl/nhDC6raFoEirBBWL8" target="_blank" rel="noopener noreferrer" class="btn btn-parch" style="margin-top:20px;font-size:11px;padding:14px 28px;">📍 ABRIR NO GOOGLE MAPS</a>
       </div>
@@ -3606,7 +3655,7 @@ fbq('init','1151853265430926');
       · <a href="https://carlostattoobh.com.br/sitemap.xml" style="color:rgba(255,255,255,.35);text-decoration:none;font-size:10px;" aria-label="Ver mapa do site">Sitemap</a>
     </span>
     <span class="footer-dev">Desenvolvido por <strong style="color:#ffffff;">Carlos Henrique</strong> · Arte Digital que Transforma Vidas</span>
-    <a href="admin.html" style="font-size:11px;color:rgba(201,168,76,.75);letter-spacing:2px;font-family:'Cinzel',serif;text-transform:uppercase;text-decoration:none;border:1px solid rgba(201,168,76,.45);padding:7px 16px;border-radius:6px;transition:all .2s;background:rgba(201,168,76,.08);" onmouseover="this.style.color='#E8B800';this.style.borderColor='rgba(201,168,76,.9)';this.style.background='rgba(201,168,76,.15)'" onmouseout="this.style.color='rgba(201,168,76,.75)';this.style.borderColor='rgba(201,168,76,.45)';this.style.background='rgba(201,168,76,.08)'" aria-label="Painel administrativo">⚙ Área Admin</a>
+    
   </div>
 </footer>
 
@@ -4123,7 +4172,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click'
     <button class="galeria-close" onclick="fecharGaleria()">✕</button>
   </div>
   <div class="galeria-grid" id="galeriaGrid"></div>
-  <div class="galeria-info">Clique em uma foto para ampliar · Coloque suas fotos na pasta <strong style="color:#E8B800;">galeria/</strong></div>
+  <div class="galeria-info">Clique em uma foto para ampliar</div>
 </div>
 
 <!-- FOTO AMPLIADA -->
@@ -4157,7 +4206,7 @@ function abrirGaleria(slug, nome){
     item.className = 'galeria-item';
     item.innerHTML = `
       <img loading="lazy" src="${src}" alt="${data.nome} ${num}"
-        onerror="this.parentElement.innerHTML='<div class=galeria-placeholder><span>🖼️</span><p>${data.nome}<br>${num}</p><p style=font-size:8px;margin-top:4px;>Adicione a foto:<br>${src}</p></div>'"
+        onerror="this.parentElement.style.display='none'"
         onclick="ampliarFoto('${src}','${data.nome} ${num}')"
         style="cursor:pointer;">`;
     grid.appendChild(item);
@@ -4208,7 +4257,7 @@ document.addEventListener('keydown', function(e){
     <div class="carrossel-img-wrap" id="carrosselImgWrap">
       <img loading="lazy" class="carrossel-img" id="carrosselImg" src="" alt="Portfólio de tatuagem — Carlos Tattoo BH">
       <div id="carrosselPlaceholder" class="carrossel-placeholder" style="display:none;">
-        <p id="carrosselPlaceholderText">Foto não encontrada</p>
+        <p id="carrosselPlaceholderText">Novas fotos em breve · veja mais no Instagram <strong style="color:#E8B800;">@carlostattoo.bh</strong></p>
       </div>
     </div>
     <button class="carrossel-btn" id="btnProximo" onclick="navegarCarrossel(1)">›</button>
@@ -4270,7 +4319,7 @@ function renderCarrossel(){
       img.style.display='none';
       ph.style.display='flex';
       document.getElementById('carrosselPlaceholderText').innerHTML =
-        `Adicione a foto:<br><strong style="color:#E8B800;">${src}</strong><br><span style="font-size:10px;opacity:.6;">Tamanho ideal: 800×800px</span>`;
+        `Novas fotos em breve · veja mais no Instagram <strong style="color:#E8B800;">@carlostattoo.bh</strong>`;
     };
     counter.textContent = `${carAtual.indice} / ${carAtual.total}`;
     caption.textContent = `${cfg.nome} · Trabalho ${num} · Carlos Tattoo BH`;
@@ -5752,66 +5801,7 @@ function mostrarObrigado(){
 // ════════════════════════════════════════
 // PROVA SOCIAL DINÂMICA
 // ════════════════════════════════════════
-(()=>{
-  const provas = [
-    'Ana de BH acabou de solicitar consulta',
-    'Marcos do Mantiqueira agendou reforma de tattoo',
-    'Juliana de Contagem enviou solicitação',
-    'Pedro de Nova Lima agendou realismo',
-    'Camila de BH pediu orçamento de fineline',
-    'Rafael do Centro agendou black & grey',
-    'Larissa de Betim enviou referência',
-    'Bruno de BH agendou manga completa',
-  ];
-  let provaIdx = 0;
-
-  function mostrarProva(){
-    const ticker = document.querySelector('.ticker-inner');
-    if(!ticker) return;
-    // Criar notificação flutuante
-    const notif = document.createElement('div');
-    notif.style.cssText = `
-      position:fixed;bottom:${window.innerWidth<=768?'160px':'100px'};
-      left:20px;z-index:7500;
-      background:linear-gradient(135deg,#1C1208,#2A1A08);
-      border:1px solid rgba(201,168,76,.25);border-radius:10px;
-      padding:12px 16px;max-width:280px;
-      font-family:'Cinzel',serif;font-size:10px;
-      color:#EDE4D4;letter-spacing:.5px;
-      box-shadow:0 8px 24px rgba(0,0,0,.4);
-      animation:slideInLeft .4s ease;
-      display:flex;align-items:center;gap:10px;
-    `;
-    notif.innerHTML = `
-      <div style="width:8px;height:8px;border-radius:50%;background:#27ae60;flex-shrink:0;animation:blink 1s ease infinite;"></div>
-      <span>${provas[provaIdx % provas.length]} · <span style="color:rgba(201,168,76,.5)">agora</span></span>
-    `;
-    document.body.appendChild(notif);
-    
-    setTimeout(()=>{
-      notif.style.opacity='0';
-      notif.style.transition='opacity .4s';
-      setTimeout(()=>notif.remove(), 400);
-    }, 4000);
-    
-    provaIdx++;
-  }
-
-  const styleProva = document.createElement('style');
-  styleProva.textContent = `
-    @keyframes slideInLeft {
-      from { transform:translateX(-120%); opacity:0; }
-      to { transform:translateX(0); opacity:1; }
-    }
-  `;
-  document.head.appendChild(styleProva);
-
-  // Primeira após 30s, depois a cada 45s
-  setTimeout(()=>{
-    mostrarProva();
-    setInterval(mostrarProva, 45000);
-  }, 30000);
-})();
+/* Notificações de "prova social" removidas 15/07/2026: leads fictícios */
 
 // ════════════════════════════════════════
 // RABISCO AJUDA NO FORMULÁRIO
@@ -5917,106 +5907,7 @@ document.head.appendChild(styleShare);
 
 
 <!-- ═══ POPUP PROMOÇÃO ═══ -->
-<div id="promo-popup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9600;align-items:flex-start;justify-content:center;padding:20px;backdrop-filter:blur(6px);overflow-y:auto;-webkit-overflow-scrolling:touch;">
-
-  <!-- Estrelas de fundo -->
-  <div class="promo-stars" aria-hidden="true">
-    <span class="ps" style="top:12%;left:8%;animation-delay:0s">✦</span>
-    <span class="ps" style="top:20%;right:10%;animation-delay:.6s">✦</span>
-    <span class="ps" style="top:70%;left:5%;animation-delay:1.2s">✦</span>
-    <span class="ps" style="top:75%;right:8%;animation-delay:.3s">✦</span>
-    <span class="ps" style="top:40%;left:3%;animation-delay:.9s">✦</span>
-    <span class="ps" style="top:55%;right:4%;animation-delay:1.5s">✦</span>
-  </div>
-
-  <div class="promo-box">
-    <!-- Gradiente topo -->
-    <div class="promo-top-bar"></div>
-
-    <button onclick="fecharPromo()" class="promo-close">✕</button>
-
-    <!-- Badge superior -->
-    <div class="promo-badge-wrap">
-      <span class="promo-badge">🎁 PRESENTE PARA VISITANTES</span>
-    </div>
-
-    <!-- Gift icon com brilho -->
-    <div class="promo-gift-icon">🎁</div>
-
-    <h2 class="promo-title">Você ganhou<br><span class="promo-title-gold">acesso especial</span></h2>
-    <p class="promo-sub">Só quem explora o site com atenção recebe essa condição. Não aparece em nenhum outro lugar.</p>
-
-    <!-- Oferta principal -->
-    <div class="promo-deal">
-      <div class="promo-deal-label">DESCONTO EXCLUSIVO · HOJE APENAS</div>
-      <div class="promo-deal-product">Tatuagem com Carlos Tattoo BH</div>
-      <div class="promo-deal-price-row">
-        <del class="promo-price-old">Preço normal</del>
-        <span class="promo-price-new">Condição especial</span>
-      </div>
-      <div class="promo-deal-desc">Agende sua consulta gratuita agora e garanta sua condição exclusiva. Carlos confirma pessoalmente.</div>
-    </div>
-
-    <!-- Contador + vagas -->
-    <div class="promo-urgency">
-      <div class="promo-timer-wrap">
-        <div class="promo-timer-label">⏱ Oferta expira em</div>
-        <div class="promo-timer-display" id="promo-timer">10:00</div>
-      </div>
-      <div class="promo-vagas-wrap">
-        <div class="promo-timer-label">🔥 Vagas restantes</div>
-        <div class="promo-vagas-num">3</div>
-      </div>
-    </div>
-
-    <a href="#contato" onclick="fecharPromo()" class="promo-btn-sim">
-      🎁 QUERO GARANTIR MINHA CONDIÇÃO →
-    </a>
-    <button onclick="fecharPromo()" class="promo-btn-nao">
-      Não, prefiro pagar o valor normal
-    </button>
-  </div>
-</div>
-
-<script>
-(function(){
-  if(sessionStorage.getItem('promo_shown')) return;
-
-  function tentarMostrarPromo(){
-    if(sessionStorage.getItem('promo_shown')) return;
-    if(sessionStorage.getItem('popup_interrupt_shown')) return; // já mostrou outro popup nessa sessão
-    // Dá prioridade à roleta: só mostra o presente se ela já tiver sido vista,
-    // ou tenta de novo em alguns segundos até que isso aconteça.
-    const roletaJaMostrada = !window.roletaSorteNaPeleJaMostrada || window.roletaSorteNaPeleJaMostrada();
-    if(!roletaJaMostrada){
-      setTimeout(tentarMostrarPromo, 8000);
-      return;
-    }
-    const pop = document.getElementById('promo-popup');
-    if(pop){ pop.style.display='flex'; startPromoTimer(); }
-    sessionStorage.setItem('promo_shown','1');
-    sessionStorage.setItem('popup_interrupt_shown','1');
-  }
-
-  setTimeout(tentarMostrarPromo, 480000); // 8 minutos
-
-  function startPromoTimer(){
-    let secs = 600;
-    const el = document.getElementById('promo-timer');
-    const iv = setInterval(()=>{
-      secs--;
-      if(secs<=0){ clearInterval(iv); fecharPromo(); return; }
-      const m=Math.floor(secs/60), s=secs%60;
-      if(el) el.textContent = m+':'+(s<10?'0':'')+s;
-    },1000);
-  }
-})();
-
-function fecharPromo(){
-  const pop = document.getElementById('promo-popup');
-  if(pop){ pop.style.opacity='0'; pop.style.transition='opacity .3s'; setTimeout(()=>pop.style.display='none',300); }
-}
-</script>
+<!-- Popup "presente para visitantes" removido 15/07/2026: timer de 10min e "3 vagas restantes" eram escassez fabricada -->
 
 
 <script>
@@ -6431,7 +6322,7 @@ window.addEventListener('load', initScrollTopBtn);
 
     <div style="position:relative;width:100%;aspect-ratio:1122/1402;background:linear-gradient(160deg,#1C1208,#0A0702);">
       <img id="roleta-bg" src="imagens/roleta-fundo.png" alt="Sorte na Pele — Carlos Tattoo BH" style="width:100%;height:100%;display:block;object-fit:cover;"
-        onerror="this.parentElement.insertAdjacentHTML('beforeend','<div style=&quot;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#F5DFA0;font-family:Georgia,serif;font-size:13px;text-align:center;padding:20px;&quot;>Imagem não encontrada<br>verifique imagens/roleta-fundo.png</div>')">
+        onerror="this.style.display='none'">
 
       <div id="roleta-wheel-mount" style="position:absolute;border-radius:50%;overflow:hidden;">
         <div id="roleta-wheel" style="width:100%;height:100%;border-radius:50%;position:relative;transition:transform 4.4s cubic-bezier(0.1,0.7,0.1,1);">
