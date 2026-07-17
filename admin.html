@@ -351,14 +351,6 @@ table.tbl tr:hover td{background:#FDFCFA;}
   color:var(--tx3);font-size:13px;
 }
 
-/* DEPOIMENTOS */
-.dep-card{
-  background:var(--sur);border:1px solid var(--brd);
-  border-radius:10px;padding:18px;margin-bottom:10px;
-}
-.dep-card.pend{border-color:rgba(217,119,6,.3);background:var(--ambb);}
-.dep-card.aprov{border-color:rgba(22,163,74,.2);background:var(--grnb);}
-
 /* ══════════════════════════════════
    ACESSOS CHARTS
 ══════════════════════════════════ */
@@ -576,7 +568,6 @@ table.tbl tr:hover td{background:#FDFCFA;}
       <button class="tab-btn" onclick="mudaTab('vendas')" id="tab-vendas">💰 Vendas</button>
       <button class="tab-btn" onclick="mudaTab('acessos')" id="tab-acessos">📊 Acessos</button>
       <button class="tab-btn" onclick="mudaTab('especiais')" id="tab-especiais">💗 Especiais</button>
-      <button class="tab-btn" onclick="mudaTab('depoimentos')" id="tab-depoimentos">💬 Depoimentos</button>
       <button class="tab-btn" onclick="mudaTab('aniversarios')" id="tab-aniversarios">🎂 Aniversários</button>
       <button class="tab-btn" onclick="mudaTab('rabisco')" id="tab-rabisco">🤖 Rabisco IA</button>
     </div>
@@ -721,14 +712,6 @@ table.tbl tr:hover td{background:#FDFCFA;}
           <button class="btn btn-export" onclick="exportarVendas()">📥 Exportar CSV</button>
         </div>
         <div class="tbl-wrap"><div id="listaVendas"><div class="tbl-empty">Nenhuma venda registrada.</div></div></div>
-      </div>
-    </div>
-
-    <!-- ── ABA: DEPOIMENTOS ── -->
-    <div id="aba-depoimentos" style="display:none;">
-      <div class="card">
-        <div class="card-title"><span>💬</span> Depoimentos</div>
-        <div id="depPendentes"><div class="tbl-empty">Nenhum depoimento ainda.</div></div>
       </div>
     </div>
 
@@ -1210,14 +1193,19 @@ async function renderAniversariantes() {
   }).join('');
 }
 
+// ── ORIGEM DO LEAD (rótulo amigável) ──
+function origemLeadLbl(o){o=(o||'').trim();if(!o||o==='supabase')return '—';
+  const m={'rabisco':'🤖 Rabisco IA','formulario_premium':'📝 Formulário do Site','quiz_site':'🎯 Quiz do Site','exit_popup':'🎡 Popup Roleta','whatsapp':'📱 WhatsApp'};
+  return m[o.toLowerCase()]||o;}
+
 // ── TABELA LEADS ──
 async function renderTabela() {
   const lista = await getClientesSB();
   const busca = (document.getElementById('searchInp')?.value || '').toLowerCase();
-  const fil = lista.filter(c => (c.nome||'').toLowerCase().includes(busca)||(c.tel||'').includes(busca)||(c.cidade||'').toLowerCase().includes(busca)||(c.email||'').toLowerCase().includes(busca));
+  const fil = lista.filter(c => (c.nome||'').toLowerCase().includes(busca)||(c.tel||'').includes(busca)||(c.cidade||'').toLowerCase().includes(busca)||(c.email||'').toLowerCase().includes(busca)||(c.origem||'').toLowerCase().includes(busca));
   const el = document.getElementById('tabelaClientes');
   if (!fil.length) { el.innerHTML = `<div class="tbl-empty">${lista.length===0?'Nenhum lead ainda. Eles aparecerão aqui quando alguém preencher o formulário no site.':'Nenhum resultado para esta busca.'}</div>`; return; }
-  el.innerHTML = `<table class="tbl"><thead><tr><th>Nome</th><th>WhatsApp</th><th>Cidade</th><th>Aniversário</th><th>Cadastrado em</th><th>Ação</th></tr></thead><tbody>${
+  el.innerHTML = `<table class="tbl"><thead><tr><th>Nome</th><th>WhatsApp</th><th>Cidade</th><th>Origem</th><th>Aniversário</th><th>Cadastrado em</th><th>Ação</th></tr></thead><tbody>${
     fil.map(c => {
       const d = diasAniversario(c.aniversario);
       const tel = c.tel || c.whatsapp || '';
@@ -1226,6 +1214,7 @@ async function renderTabela() {
         <td><strong>${c.nome||'—'}</strong>${c.email?`<br><span style="font-size:11px;color:var(--tx3);">${c.email}</span>`:''}</td>
         <td>${tel||'<span style="color:var(--tx3)">—</span>'}</td>
         <td>${c.cidade||'—'}</td>
+        <td style="font-size:12px;">${origemLeadLbl(c.origem)}</td>
         <td style="color:${d!==null&&d<=2?'var(--amb)':'inherit'};font-weight:${d!==null&&d<=2?'700':'400'}">${c.aniversario?fmtD(c.aniversario)+(d===0?' 🎂':d!==null&&d<=2?` (${d}d)`:''): '—'}</td>
         <td style="color:var(--tx3);font-size:12px;">${fmtD(c.dataCadastro)}</td>
         <td>${tel?`<button class="btn btn-wpp btn-sm" onclick="window.open('https://wa.me/55${tel.replace(/\D/g,'')}?text=${msg}')">📲 Msg</button>`:'—'}</td>
@@ -1237,8 +1226,8 @@ async function renderTabela() {
 async function exportarCSV() {
   const lista = await getClientesSB();
   if (!lista.length) { alert('Nenhum lead para exportar!'); return; }
-  const csv = ['Nome,WhatsApp,Email,Cidade,Aniversário,Estilo,Orçamento,Cadastro',
-    ...lista.map(c => `"${(c.nome||'').replace(/"/g,'""')}","${c.tel||c.whatsapp||''}","${c.email||''}","${c.cidade||''}","${c.aniversario||''}","${c.estilo||''}","${c.orcamento||''}","${c.dataCadastro||''}"`)
+  const csv = ['Nome,WhatsApp,Email,Cidade,Origem,Aniversário,Estilo,Orçamento,Cadastro',
+    ...lista.map(c => `"${(c.nome||'').replace(/"/g,'""')}","${c.tel||c.whatsapp||''}","${c.email||''}","${c.cidade||''}","${(c.origem||'').replace(/"/g,'""')}","${c.aniversario||''}","${c.estilo||''}","${c.orcamento||''}","${c.dataCadastro||''}"`)
   ].join('\n');
   const a = document.createElement('a'); a.href = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csv);
   a.download = `leads_tattoo_${new Date().toLocaleDateString('pt-BR').replace(/\//g,'-')}.csv`; a.click();
@@ -1250,50 +1239,12 @@ function confirmarLimpar() {
   }
 }
 
-// ── DEPOIMENTOS ──
-function renderDepoimentos() {
-  const el = document.getElementById('depPendentes');
-  if (!el) return;
-  const todos = JSON.parse(localStorage.getItem('ctbh_deps_pendentes') || '[]');
-  if (!todos.length) { el.innerHTML = '<div class="tbl-empty">Nenhum depoimento submetido ainda.</div>'; return; }
-  const pend = todos.filter(d => !d.aprovado);
-  const aprov = todos.filter(d => d.aprovado);
-  let html = '';
-  if (pend.length) {
-    html += `<p style="font-size:12px;font-weight:600;color:var(--amb);margin-bottom:10px;display:flex;align-items:center;gap:6px;">⏳ AGUARDANDO APROVAÇÃO (${pend.length})</p>`;
-    html += pend.map(d => `<div class="dep-card pend">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
-        <div><strong>${d.nome}</strong> — <span style="color:var(--tx3);font-size:12px;">${d.cidade}</span> <span style="color:var(--amb);">${'★'.repeat(d.estrelas)}</span></div>
-        <div style="display:flex;gap:8px;">
-          <button class="btn btn-grn btn-sm" onclick="aprovarDep(${d.id})">✓ Aprovar</button>
-          <button class="btn btn-danger btn-sm" onclick="rejeitarDep(${d.id})">✕ Rejeitar</button>
-        </div>
-      </div>
-      <p style="font-size:13px;color:var(--tx2);font-style:italic;line-height:1.6;">"${d.texto}"</p>
-      <span style="font-size:11px;color:var(--tx3);margin-top:6px;display:block;">${new Date(d.data).toLocaleDateString('pt-BR')}</span>
-    </div>`).join('');
-  }
-  if (aprov.length) {
-    html += `<p style="font-size:12px;font-weight:600;color:var(--grn);margin:16px 0 10px;display:flex;align-items:center;gap:6px;">✓ APROVADOS E PUBLICADOS (${aprov.length})</p>`;
-    html += aprov.map(d => `<div class="dep-card aprov" style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
-      <div><strong>${d.nome}</strong> <span style="color:#F59E0B;">${'★'.repeat(d.estrelas)}</span>
-        <p style="font-size:12px;color:var(--tx2);margin-top:3px;font-style:italic;">"${(d.texto||'').substring(0,70)}..."</p>
-      </div>
-      <button class="btn btn-danger btn-sm" onclick="rejeitarDep(${d.id})" style="flex-shrink:0;">Remover</button>
-    </div>`).join('');
-  }
-  el.innerHTML = html;
-}
-
-function aprovarDep(id) { const t=JSON.parse(localStorage.getItem('ctbh_deps_pendentes')||'[]'); const i=t.findIndex(d=>d.id===id); if(i>=0)t[i].aprovado=true; localStorage.setItem('ctbh_deps_pendentes',JSON.stringify(t)); renderAll(); }
-function rejeitarDep(id) { if(!confirm('Remover este depoimento?'))return; const t=JSON.parse(localStorage.getItem('ctbh_deps_pendentes')||'[]'); localStorage.setItem('ctbh_deps_pendentes',JSON.stringify(t.filter(d=>d.id!==id))); renderAll(); }
-
-async function renderAll() { renderKPIs(); renderAniversariantes(); renderTabela(); renderDepoimentos(); renderLeadsCursos().catch(console.error); }
+async function renderAll() { renderKPIs(); renderAniversariantes(); renderTabela(); renderLeadsCursos().catch(console.error); }
 setInterval(async () => { const { data: { session } } = await supabaseClient.auth.getSession(); if (session) renderAll(); }, 30000);
 
 // ── ABAS ──
 function mudaTab(tab) {
-  ['leads','cursos','usuarios','especiais','depoimentos','aniversarios','acessos','vendas'].forEach(t => {
+  ['leads','cursos','usuarios','especiais','aniversarios','acessos','vendas','rabisco'].forEach(t => {
     const el = document.getElementById('aba-'+t);
     const btn = document.getElementById('tab-'+t);
     if (el) el.style.display = t===tab ? 'block' : 'none';
@@ -1951,6 +1902,7 @@ function limparAcessos() {
 }
 
 // ── VENDAS ──
+let _vendasCache = [];
 async function carregarVendas() {
   let vendas = JSON.parse(localStorage.getItem('ct_vendas') || '[]');
   // Busca do Supabase
@@ -1965,6 +1917,7 @@ async function carregarVendas() {
       }
     }
   } catch(e){ console.warn('vendas supabase:', e); }
+  _vendasCache = vendas;
   const agora = new Date();
   const mAtual = vendas.filter(v => new Date(v.data).getMonth() === agora.getMonth());
   const total = mAtual.reduce((s,v) => s+(parseFloat(v.valor)||0), 0);
@@ -1985,17 +1938,30 @@ async function carregarVendas() {
     </tr>`).join('')}</tbody></table>`;
 }
 
-function registrarVenda() {
+async function registrarVenda() {
   const sel = document.getElementById('vendaProduto').value.split('|');
   const produto = sel[0], valor = parseInt(sel[1]);
-  const v = JSON.parse(localStorage.getItem('ct_vendas') || '[]');
-  v.push({produto, valor, data: new Date().toISOString()});
-  localStorage.setItem('ct_vendas', JSON.stringify(v));
+  const btn = document.getElementById('btnRegistrarVenda');
+  if (btn) { btn.disabled = true; btn.textContent = 'Registrando...'; }
+  try {
+    const { error } = await supabaseClient.from('vendas').insert({
+      produto, valor, data: new Date().toISOString(), origem: 'manual', status: 'pago'
+    });
+    if (error) throw error;
+  } catch (e) {
+    console.warn('Venda: erro ao gravar no Supabase, salvando localmente como fallback:', e);
+    const v = JSON.parse(localStorage.getItem('ct_vendas') || '[]');
+    v.push({ produto, valor, data: new Date().toISOString() });
+    localStorage.setItem('ct_vendas', JSON.stringify(v));
+    alert('Não foi possível gravar no Supabase agora — a venda foi salva localmente neste navegador. Ela será mesclada na tela, mas verifique sua conexão.');
+  }
+  if (btn) { btn.disabled = false; btn.textContent = 'Registrar Venda'; }
   carregarVendas();
 }
 
 function exportarVendas() {
-  const v = JSON.parse(localStorage.getItem('ct_vendas') || '[]');
+  const v = _vendasCache.length ? _vendasCache : JSON.parse(localStorage.getItem('ct_vendas') || '[]');
+  if (!v.length) { alert('Nenhuma venda para exportar!'); return; }
   const csv = ['Produto,Valor,Data', ...v.map(x => `"${x.produto}",${x.valor},"${x.data}"`)].join('\n');
   const a = document.createElement('a'); a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv); a.download = 'vendas.csv'; a.click();
 }
