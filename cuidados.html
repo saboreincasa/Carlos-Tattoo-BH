@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia de Cuidados · Pós-Tatuagem</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Como cuidar da sua tatuagem nova, dia a dia, até a cicatrização completa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16130F;
+    --ink-2:#221C15;
+    --bone:#F6F2EA;
+    --bone-2:#EFE8DA;
+    --paper-line:rgba(20,16,12,.09);
+    --brass:#C39B4E;
+    --brass-deep:#93712C;
+    --ash:#6C6156;
+    --char:#2A2119;
+    --alert:#B24230;
+    --alert-bg:#F7E7E2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:"Newsreader",Georgia,serif;
+    background:var(--bone);
+    color:var(--char);
+    line-height:1.55;
+    font-size:17px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:600px;margin:0 auto}
+  .eyebrow{
+    font-family:"Cinzel",serif;
+    letter-spacing:.32em;
+    text-transform:uppercase;
+    font-size:11px;
+    font-weight:600;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:var(--ink);
+    color:var(--bone);
+    position:relative;
+    overflow:hidden;
+    padding:56px 26px 60px;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;inset:0;
+    background:radial-gradient(120% 80% at 78% -10%, rgba(195,155,78,.22), transparent 55%);
+    pointer-events:none;
+  }
+  .hero .wrap{position:relative}
+  .hero .eyebrow{color:var(--brass);opacity:.9}
+  .studio{
+    font-family:"Cinzel",serif;
+    font-weight:700;
+    font-size:clamp(22px,6vw,30px);
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:#fff;
+    margin:16px 0 30px;
+    line-height:1.15;
+  }
+  .greet{
+    font-size:clamp(30px,9vw,42px);
+    font-weight:500;
+    line-height:1.05;
+    letter-spacing:-.01em;
+  }
+  .greet b{color:var(--brass);font-weight:600}
+  .meta{
+    display:flex;flex-wrap:wrap;gap:8px;
+    margin-top:22px;
+  }
+  .chip{
+    font-family:"Cinzel",serif;
+    font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;
+    border:1px solid rgba(246,242,234,.24);
+    color:rgba(246,242,234,.85);
+    padding:7px 12px;border-radius:2px;
+  }
+
+  /* ---------- INTRO NOTE ---------- */
+  .note{
+    padding:34px 26px 8px;
+  }
+  .note p{
+    font-style:italic;
+    font-size:19px;
+    color:var(--ash);
+    line-height:1.6;
+  }
+
+  /* ---------- TIMELINE ---------- */
+  .stages{padding:26px 26px 6px}
+  .stages-head{margin-bottom:8px}
+  .stages-head .eyebrow{color:var(--brass-deep)}
+  .stages-head h2{
+    font-weight:500;font-size:26px;margin-top:8px;letter-spacing:-.01em;
+  }
+  .rail{position:relative;padding-left:34px;margin-top:26px}
+  .rail::before{
+    content:"";position:absolute;left:9px;top:6px;bottom:26px;width:2px;
+    background:linear-gradient(var(--brass),rgba(195,155,78,.25));
+  }
+  .stage{
+    position:relative;
+    padding:0 0 30px;
+    opacity:1;
+  }
+  .stage .dot{
+    position:absolute;left:-34px;top:3px;
+    width:20px;height:20px;border-radius:50%;
+    background:var(--bone);
+    border:2px solid var(--brass);
+    display:grid;place-items:center;
+  }
+  .stage .dot span{width:7px;height:7px;border-radius:50%;background:var(--brass)}
+  .days{
+    font-family:"Cinzel",serif;font-weight:600;
+    font-size:13px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--brass-deep);
+  }
+  .stage h3{
+    font-weight:600;font-size:20px;margin:2px 0 12px;color:var(--char);
+  }
+  .stage ul{list-style:none}
+  .stage li{
+    position:relative;padding:5px 0 5px 26px;
+    color:var(--char);font-size:16.5px;line-height:1.45;
+  }
+  .stage li svg{position:absolute;left:0;top:9px;width:15px;height:15px}
+  .stage li b{font-weight:600}
+
+  /* reveal (progressive enhancement) */
+  .reveal .stage{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  .reveal .stage.in{opacity:1;transform:none}
+
+  /* ---------- ALERT ---------- */
+  .alert{
+    margin:12px 26px 8px;
+    background:var(--alert-bg);
+    border:1px solid rgba(178,66,48,.22);
+    border-radius:4px;
+    padding:22px 22px 20px;
+  }
+  .alert .eyebrow{color:var(--alert)}
+  .alert h3{color:var(--alert);font-weight:600;font-size:19px;margin:8px 0 12px}
+  .alert ul{list-style:none}
+  .alert li{position:relative;padding:4px 0 4px 22px;font-size:16px;color:#6a2f24}
+  .alert li::before{content:"";position:absolute;left:2px;top:12px;width:6px;height:6px;border-radius:50%;background:var(--alert)}
+  .alert .close{margin-top:14px;font-size:15.5px;color:#6a2f24;font-style:italic}
+
+  /* ---------- CTA ---------- */
+  .cta{padding:30px 26px 20px}
+  .cta-eye{text-align:center;margin-bottom:18px}
+  .cta-eye .eyebrow{color:var(--brass-deep)}
+  .btn{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    width:100%;padding:16px;border-radius:4px;
+    font-family:"Cinzel",serif;font-weight:600;font-size:13.5px;
+    letter-spacing:.12em;text-transform:uppercase;text-decoration:none;
+    margin-bottom:12px;border:1.5px solid transparent;cursor:pointer;
+    transition:transform .15s ease,background .2s ease;
+  }
+  .btn:active{transform:scale(.985)}
+  .btn-gold{background:var(--brass);color:var(--ink)}
+  .btn-gold:hover{background:#d0a95d}
+  .btn-line{background:transparent;border-color:var(--char);color:var(--char)}
+  .btn-line:hover{background:rgba(42,33,25,.05)}
+  .btn svg{width:18px;height:18px}
+  .hide{display:none !important}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--ink);color:rgba(246,242,234,.7);
+    padding:34px 26px 40px;margin-top:24px;text-align:center;
+  }
+  footer .fstudio{font-family:"Cinzel",serif;color:#fff;font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:15px}
+  footer .flinks{margin-top:12px;display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+  footer a{color:var(--brass);text-decoration:none;font-size:15px}
+  footer .credit{margin-top:26px;font-size:12px;opacity:.55;letter-spacing:.04em}
+  footer .credit a{color:rgba(246,242,234,.75)}
+
+  @media (max-width:420px){
+    .hero{padding:44px 20px 48px}
+    .note,.stages,.cta{padding-left:20px;padding-right:20px}
+    .alert{margin-left:20px;margin-right:20px}
+    body{font-size:16px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .reveal .stage{opacity:1;transform:none;transition:none}
+    .btn{transition:none}
+  }
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Guia de Cuidados</div>
+      <div class="studio" id="studioName">Seu Estúdio</div>
+      <h1 class="greet" id="greet">Sua tatuagem está pronta.</h1>
+      <div class="meta" id="meta"></div>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <section class="note">
+      <p id="note">Os próximos 30 dias definem como sua arte vai envelhecer. Siga o passo a passo abaixo — qualquer dúvida, estou a uma mensagem de distância.</p>
+    </section>
+
+    <section class="stages">
+      <div class="stages-head">
+        <div class="eyebrow">A jornada da cicatrização</div>
+        <h2>Dia a dia, até curar</h2>
+      </div>
+      <div class="rail reveal" id="rail"></div>
+    </section>
+
+    <section class="alert">
+      <div class="eyebrow">⚠ Sinais de alerta</div>
+      <h3>Quando falar comigo na hora</h3>
+      <ul>
+        <li>Vermelhidão que <b>aumenta</b> depois do 4º/5º dia</li>
+        <li>Inchaço, calor ou dor que só piora</li>
+        <li>Pus ou secreção amarelada</li>
+        <li>Febre ou mal-estar</li>
+      </ul>
+      <p class="close">Cicatrização normal melhora a cada dia. Se algo piorar, me chame no WhatsApp ou procure um médico.</p>
+    </section>
+
+    <section class="cta">
+      <div class="cta-eye"><div class="eyebrow">Antes de você ir</div></div>
+
+      <a id="btnGoogle" class="btn btn-gold hide" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.6 6.8L12 17.3 5.8 20.9l1.6-6.8L2.2 8.9l6.9-.6L12 2z" fill="currentColor"/></svg>
+        Deixar avaliação no Google
+      </a>
+
+      <a id="btnPhoto" class="btn btn-line hide" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.4"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+        Enviar foto da cicatrização
+      </a>
+
+      <a id="btnWhats" class="btn btn-line hide" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 5-1.3A10 10 0 1012 2zm5.5 14.2c-.2.6-1.2 1.2-1.7 1.2-.5.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.5-2.6-1.1-4.3-3.8-4.4-4-.1-.2-1-1.4-1-2.6s.6-1.8.9-2.1c.2-.2.5-.3.6-.3h.5c.2 0 .4 0 .5.4l.7 1.7c.1.1.1.3 0 .5l-.3.4-.3.3c-.1.1-.2.3-.1.5.1.2.6 1 1.3 1.6.9.8 1.6 1 1.8 1.1.2.1.4.1.5-.1l.6-.7c.2-.2.3-.2.5-.1l1.6.8c.2.1.4.2.4.3.1.1.1.6-.1 1.1z"/></svg>
+        Falar comigo no WhatsApp
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="fstudio" id="fStudio">Seu Estúdio</div>
+    <div class="flinks" id="fLinks"></div>
+    <div class="credit">Guia gerado com <a href="https://carlostattoobh.com.br" target="_blank" rel="noopener">Central Tattoo</a></div>
+  </footer>
+
+<script>
+(function(){
+  var qs = new URLSearchParams(location.search);
+  function g(k){ var v = qs.get(k); return v ? v.trim() : ""; }
+  function esc(s){ return (s||"").replace(/[<>&"]/g, function(c){return{'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];}); }
+
+  // ---- Studio + client data from the link ----
+  var estudio = g("est") || "Seu Estúdio";
+  var cliente = g("cli");
+  var estilo  = g("estilo");
+  var regiao  = g("reg");
+  var data    = g("dt");
+  var whats   = g("wa").replace(/\D/g,"");    // studio whatsapp, digits only
+  var google  = g("g");                        // google review link
+  var insta   = g("ig");
+  var site    = g("site");
+  var nota    = g("nota");                      // optional personal note
+
+  document.getElementById("studioName").textContent = estudio;
+  document.getElementById("fStudio").textContent = estudio;
+  document.title = "Cuidados · " + estudio;
+
+  document.getElementById("greet").innerHTML = cliente
+    ? "Olá, <b>" + esc(cliente.split(" ")[0]) + "</b>."
+    : "Sua tatuagem está <b>pronta</b>.";
+
+  if(nota){ document.getElementById("note").textContent = nota; }
+
+  // meta chips
+  var chips = [];
+  if(estilo) chips.push(estilo);
+  if(regiao) chips.push(regiao);
+  if(data)   chips.push(data);
+  if(chips.length){
+    document.getElementById("meta").innerHTML =
+      chips.map(function(c){return '<span class="chip">'+esc(c)+'</span>';}).join("");
+  }
+
+  // ---- Healing timeline data ----
+  var stages = [
+    { days:"Dias 1–3", title:"Primeiros dias", items:[
+      "Mantenha o curativo por <b>2–4 horas</b>",
+      "Lave suavemente com sabonete neutro",
+      "Aplique pomada cicatrizante em <b>camada fina</b>",
+      "Nada de sol, piscina ou mar",
+      "Não coçar nem esfregar — <b>jamais</b>"
+    ]},
+    { days:"Dias 4–7", title:"Descamação inicial", items:[
+      "A pele começa a descamar — é <b>normal</b>",
+      "Hidrate 2 a 3× por dia",
+      "Continue evitando sol direto",
+      "Não arranque a pele solta",
+      "Use roupas leves sobre a região"
+    ]},
+    { days:"Dias 8–14", title:"Cicatrização ativa", items:[
+      "Descamação intensa — <b>não force</b>",
+      "Hidratação diária é essencial",
+      "Protetor solar ao se expor ao sol",
+      "Pele acinzentada — normal",
+      "Evite exercícios com suor intenso"
+    ]},
+    { days:"Dias 15–30", title:"Finalização", items:[
+      "Tatuagem visualmente curada",
+      "Continue a hidratação diária",
+      "Protetor solar FPS 50+",
+      "Evite sauna e banho muito quente",
+      "Combine o retoque comigo, se necessário"
+    ]},
+    { days:"Dias 30+", title:"Cuidados permanentes", items:[
+      "Protetor solar sempre que expor a arte",
+      "Pele hidratada = cores vivas por mais tempo",
+      "Sol em excesso é o maior inimigo da tattoo"
+    ]}
+  ];
+
+  var check = '<svg viewBox="0 0 24 24" fill="none" stroke="#C39B4E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>';
+  var rail = document.getElementById("rail");
+  rail.innerHTML = stages.map(function(s){
+    return '<article class="stage">'
+      + '<div class="dot"><span></span></div>'
+      + '<div class="days">'+s.days+'</div>'
+      + '<h3>'+s.title+'</h3><ul>'
+      + s.items.map(function(i){return '<li>'+check+i+'</li>';}).join("")
+      + '</ul></article>';
+  }).join("");
+
+  // ---- CTAs ----
+  function waLink(num, text){
+    var n = num; if(n && n.length && n[0] !== "5") n = "55" + n; // assume BR
+    return "https://wa.me/" + n + (text ? "?text=" + encodeURIComponent(text) : "");
+  }
+  if(google){
+    var bg = document.getElementById("btnGoogle");
+    bg.href = google; bg.classList.remove("hide");
+  }
+  if(whats){
+    var first = cliente ? cliente.split(" ")[0] : "";
+    var bp = document.getElementById("btnPhoto");
+    bp.href = waLink(whats, "Oi! " + (first? "Aqui é "+first+". ":"") + "Segue a foto da minha cicatrização:");
+    bp.classList.remove("hide");
+
+    var bw = document.getElementById("btnWhats");
+    bw.href = waLink(whats, "Oi! Tenho uma dúvida sobre os cuidados da tattoo.");
+    bw.classList.remove("hide");
+  }
+
+  // footer links
+  var fl = [];
+  if(insta) fl.push('<a href="https://instagram.com/'+esc(insta.replace(/^@/,""))+'" target="_blank" rel="noopener">@'+esc(insta.replace(/^@/,""))+'</a>');
+  if(site)  fl.push('<a href="'+esc(site)+'" target="_blank" rel="noopener">Site</a>');
+  if(fl.length) document.getElementById("fLinks").innerHTML = fl.join("");
+
+  // ---- Scroll reveal ----
+  if(!window.matchMedia || !matchMedia("(prefers-reduced-motion: reduce)").matches){
+    if("IntersectionObserver" in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} });
+      }, {threshold:.15});
+      document.querySelectorAll(".stage").forEach(function(el){ io.observe(el); });
+    } else {
+      document.querySelectorAll(".stage").forEach(function(el){ el.classList.add("in"); });
+    }
+  } else {
+    document.querySelectorAll(".stage").forEach(function(el){ el.classList.add("in"); });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pós-Sessão · Enviar cuidados ao cliente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16130F;--ink-2:#221C15;--bone:#F6F2EA;--bone-2:#EFE8DA;
+    --brass:#C39B4E;--brass-deep:#93712C;--ash:#6C6156;--char:#2A2119;
+    --line:rgba(20,16,12,.14);--wa:#25a15a;--wa-bubble:#dcf7e3;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Newsreader",Georgia,serif;background:var(--bone);color:var(--char);line-height:1.5;-webkit-font-smoothing:antialiased}
+  .eyebrow{font-family:"Cinzel",serif;letter-spacing:.28em;text-transform:uppercase;font-size:11px;font-weight:600}
+
+  header{background:var(--ink);color:var(--bone);padding:30px 26px}
+  header .in{max-width:1040px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  header .mark{font-family:"Cinzel",serif;font-weight:700;color:var(--brass);letter-spacing:.14em;font-size:20px}
+  header .eyebrow{color:rgba(246,242,234,.6)}
+  header h1{font-family:"Newsreader",serif;font-weight:500;font-size:20px;margin-top:2px;color:#fff}
+
+  main{max-width:1040px;margin:0 auto;padding:30px 26px 70px;display:grid;grid-template-columns:1fr;gap:30px}
+  @media(min-width:900px){main{grid-template-columns:1fr 1fr;gap:44px;align-items:start}}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:24px}
+  .card + .card{margin-top:22px}
+  .card > .eyebrow{color:var(--brass-deep);display:block;margin-bottom:4px}
+  .card h2{font-weight:600;font-size:19px;margin-bottom:16px}
+  .saved{float:right;font-size:12px;color:var(--wa);font-family:"Cinzel",serif;letter-spacing:.1em;opacity:0;transition:opacity .3s}
+  .saved.on{opacity:1}
+
+  label{display:block;font-size:13px;color:var(--ash);margin:14px 0 5px;font-style:italic}
+  label:first-of-type{margin-top:0}
+  input,textarea{
+    width:100%;font-family:"Newsreader",serif;font-size:16px;color:var(--char);
+    background:var(--bone);border:1px solid var(--line);border-radius:5px;padding:11px 13px;
+  }
+  input:focus,textarea:focus{outline:2px solid var(--brass);outline-offset:1px;border-color:transparent;background:#fff}
+  input::placeholder,textarea::placeholder{color:#a99f92}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:480px){.row{grid-template-columns:1fr}}
+  textarea{resize:vertical;min-height:120px;line-height:1.5}
+
+  /* output side */
+  .sticky{position:sticky;top:24px}
+  .link-box{display:flex;gap:8px;margin-top:4px}
+  .link-box input{background:#fff;font-size:13px;color:var(--brass-deep)}
+  .mini{
+    font-family:"Cinzel",serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;
+    border:1px solid var(--char);background:transparent;color:var(--char);border-radius:5px;padding:0 14px;cursor:pointer;white-space:nowrap;
+  }
+  .mini:hover{background:rgba(42,33,25,.06)}
+
+  .preview{background:#e9e2d4;border-radius:10px;padding:18px;margin-top:6px}
+  .bubble{
+    background:var(--wa-bubble);border-radius:4px 12px 12px 12px;padding:12px 14px;
+    font-size:15.5px;line-height:1.5;color:#1d2a22;max-width:88%;
+    box-shadow:0 1px 1px rgba(0,0,0,.06);white-space:pre-wrap;word-break:break-word;
+  }
+  .bubble .lk{display:block;margin-top:8px;color:#1266b5;text-decoration:underline;font-size:14px;word-break:break-all}
+  .btn-wa{
+    display:flex;align-items:center;justify-content:center;gap:11px;width:100%;margin-top:18px;
+    background:var(--wa);color:#fff;border:none;border-radius:6px;padding:16px;cursor:pointer;text-decoration:none;
+    font-family:"Cinzel",serif;font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;
+    transition:filter .15s;
+  }
+  .btn-wa:hover{filter:brightness(1.06)}
+  .btn-wa[aria-disabled="true"]{opacity:.4;pointer-events:none}
+  .btn-wa svg{width:20px;height:20px}
+  .hint{font-size:13px;color:var(--ash);font-style:italic;margin-top:12px;text-align:center}
+
+  .toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--ink);color:var(--bone);padding:12px 22px;border-radius:6px;font-size:14px;
+    opacity:0;transition:all .25s;pointer-events:none;font-family:"Cinzel",serif;letter-spacing:.08em;
+  }
+  .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="in">
+      <span class="mark">CT</span>
+      <div>
+        <div class="eyebrow">Central Tattoo</div>
+        <h1>Pós-Sessão — enviar cuidados ao cliente</h1>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- LEFT: inputs -->
+    <div>
+      <div class="card">
+        <span class="saved" id="saved">✓ Salvo</span>
+        <span class="eyebrow">Seu estúdio</span>
+        <h2>Preencha uma vez — fica salvo</h2>
+        <label for="est">Nome do estúdio</label>
+        <input id="est" placeholder="Carlos Tattoo BH">
+        <div class="row">
+          <div>
+            <label for="ewa">WhatsApp do estúdio</label>
+            <input id="ewa" inputmode="tel" placeholder="(31) 9 9999-9999">
+          </div>
+          <div>
+            <label for="ig">Instagram (opcional)</label>
+            <input id="ig" placeholder="@carlostattoobh">
+          </div>
+        </div>
+        <label for="g">Link de avaliação no Google</label>
+        <input id="g" placeholder="https://g.page/r/...">
+        <div class="row">
+          <div>
+            <label for="site">Site (opcional)</label>
+            <input id="site" placeholder="www.seusite.com.br">
+          </div>
+          <div>
+            <label for="base">Endereço da página de cuidados</label>
+            <input id="base" placeholder="https://.../cuidados.html">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="eyebrow">Esta sessão</span>
+        <h2>Dados do cliente</h2>
+        <div class="row">
+          <div>
+            <label for="cli">Nome do cliente</label>
+            <input id="cli" placeholder="Maria Silva">
+          </div>
+          <div>
+            <label for="cwa">WhatsApp do cliente</label>
+            <input id="cwa" inputmode="tel" placeholder="(31) 9 8888-8888">
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="estilo">Estilo</label>
+            <input id="estilo" placeholder="Realismo">
+          </div>
+          <div>
+            <label for="reg">Região do corpo</label>
+            <input id="reg" placeholder="Antebraço">
+          </div>
+        </div>
+        <label for="dt">Data da sessão</label>
+        <input id="dt" placeholder="18/07/2026">
+        <label for="nota">Recado pessoal na página (opcional)</label>
+        <input id="nota" placeholder="Ficou incrível, Maria! Qualquer dúvida me chama.">
+      </div>
+    </div>
+
+    <!-- RIGHT: output -->
+    <div>
+      <div class="card sticky">
+        <span class="eyebrow">Pronto para enviar</span>
+        <h2>Prévia da mensagem</h2>
+
+        <label>Link da página de cuidados deste cliente</label>
+        <div class="link-box">
+          <input id="outLink" readonly>
+          <button class="mini" id="copyLink" type="button">Copiar</button>
+          <button class="mini" id="openLink" type="button">Ver</button>
+        </div>
+
+        <label style="margin-top:18px">Mensagem (edite se quiser)</label>
+        <textarea id="msg"></textarea>
+
+        <div class="preview"><div class="bubble" id="bubble"></div></div>
+
+        <a class="btn-wa" id="send" aria-disabled="true" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 5-1.3A10 10 0 1012 2zm5.5 14.2c-.2.6-1.2 1.2-1.7 1.2-.5.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.5-2.6-1.1-4.3-3.8-4.4-4-.1-.2-1-1.4-1-2.6s.6-1.8.9-2.1c.2-.2.5-.3.6-.3h.5c.2 0 .4 0 .5.4l.7 1.7c.1.1.1.3 0 .5l-.3.4-.3.3c-.1.1-.2.3-.1.5.1.2.6 1 1.3 1.6.9.8 1.6 1 1.8 1.1.2.1.4.1.5-.1l.6-.7c.2-.2.3-.2.5-.1l1.6.8c.2.1.4.2.4.3.1.1.1.6-.1 1.1z"/></svg>
+          Enviar no WhatsApp
+        </a>
+        <p class="hint" id="hint">Informe o WhatsApp do cliente para liberar o envio.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer style="border-top:1px solid var(--line);background:var(--ink);color:rgba(246,242,234,.72);padding:26px 26px 34px;text-align:center">
+    <div style="max-width:1040px;margin:0 auto">
+      <div style="font-family:'Cinzel',serif;color:#fff;letter-spacing:.1em;text-transform:uppercase;font-size:14px">Isto é só uma amostra</div>
+      <p style="font-size:15px;margin:8px auto 16px;max-width:520px;line-height:1.5">O <strong style="color:var(--brass)">Central Tattoo</strong> faz isso automático a partir da sua agenda — e ainda cuida de clientes, financeiro, contratos, comissões e follow-up. Tudo num lugar só.</p>
+      <a href="https://carlostattoobh.com.br/central_tattoo.html" target="_blank" rel="noopener" style="display:inline-block;background:var(--brass);color:var(--ink);text-decoration:none;font-family:'Cinzel',serif;font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:13px 26px;border-radius:5px">Conhecer o sistema completo →</a>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var studioFields = ["est","ewa","ig","g","site","base"];
+  var clientFields = ["cli","cwa","estilo","reg","dt","nota"];
+  var KEY = "ct_pos_sessao_estudio";
+
+  // default care-page base (Carlos's SaaS host). Studio can override.
+  var DEFAULT_BASE = "https://carlostattoobh.com.br/cuidados.html";
+
+  // ---- load saved studio data ----
+  try{
+    var saved = JSON.parse(localStorage.getItem(KEY) || "{}");
+    studioFields.forEach(function(f){ if(saved[f]) $(f).value = saved[f]; });
+  }catch(e){}
+  if(!$("base").value) $("base").value = DEFAULT_BASE;
+
+  function digits(s){ return (s||"").replace(/\D/g,""); }
+  function br(num){ var n = digits(num); if(n && n.length <= 11) n = "55" + n; return n; }
+
+  function buildLink(){
+    var base = ($("base").value || DEFAULT_BASE).trim();
+    var p = new URLSearchParams();
+    var map = {est:"est", cli:"cli", estilo:"estilo", reg:"reg", dt:"dt", g:"g", ig:"ig", site:"site", nota:"nota"};
+    Object.keys(map).forEach(function(f){
+      var v = $(f).value.trim();
+      if(v) p.set(map[f], v);
+    });
+    var ewa = digits($("ewa").value);
+    if(ewa) p.set("wa", ewa);
+    var q = p.toString();
+    return base + (q ? "?" + q : "");
+  }
+
+  function defaultMsg(link){
+    var estudio = $("est").value.trim() || "nosso estúdio";
+    var first = ($("cli").value.trim().split(" ")[0]) || "";
+    var ola = first ? ("Oi " + first + "! ") : "Oi! ";
+    return ola + "Aqui é do " + estudio + " 🖤\n\n" +
+      "Sua tatuagem ficou incrível! 🎉 Preparei um guia completo com os cuidados dos próximos 30 dias pra ela cicatrizar perfeita:\n\n" +
+      "👉 " + link + "\n\n" +
+      "Qualquer dúvida na cicatrização, é só me chamar por aqui. 💬";
+  }
+
+  var msgEdited = false;
+  $("msg").addEventListener("input", function(){ msgEdited = true; render(); });
+
+  function render(){
+    var link = buildLink();
+    $("outLink").value = link;
+
+    if(!msgEdited){ $("msg").value = defaultMsg(link); }
+    else {
+      // keep the user's text but refresh the embedded link if the old one is present
+      var cur = $("msg").value;
+      // (no-op: user owns the text once edited)
+    }
+
+    // bubble preview (linkify the URL)
+    var txt = $("msg").value;
+    var safe = txt.replace(/[<>&]/g, function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;'}[c];});
+    safe = safe.replace(/(https?:\/\/[^\s]+)/g, '<span class="lk">$1</span>');
+    $("bubble").innerHTML = safe;
+
+    // send button
+    var cwa = br($("cwa").value);
+    var send = $("send");
+    if(cwa){
+      send.href = "https://wa.me/" + cwa + "?text=" + encodeURIComponent($("msg").value);
+      send.setAttribute("aria-disabled","false");
+      $("hint").textContent = "Abre o WhatsApp já com a mensagem escrita para " + ($("cli").value.trim() || "o cliente") + ". Você só confere e aperta enviar.";
+    } else {
+      send.setAttribute("aria-disabled","true");
+      send.removeAttribute("href");
+      $("hint").textContent = "Informe o WhatsApp do cliente para liberar o envio.";
+    }
+  }
+
+  // ---- persist studio data ----
+  var savedTag = $("saved"), savedTimer;
+  function persist(){
+    try{
+      var obj = {}; studioFields.forEach(function(f){ obj[f] = $(f).value; });
+      localStorage.setItem(KEY, JSON.stringify(obj));
+      savedTag.classList.add("on");
+      clearTimeout(savedTimer);
+      savedTimer = setTimeout(function(){ savedTag.classList.remove("on"); }, 1400);
+    }catch(e){}
+  }
+
+  studioFields.forEach(function(f){ $(f).addEventListener("input", function(){ persist(); render(); }); });
+  clientFields.forEach(function(f){ $(f).addEventListener("input", function(){ if(f!=="nota" && f!=="cli") msgEdited=false; render(); }); });
+  // reset auto-msg when name changes so greeting updates
+  $("cli").addEventListener("input", function(){ msgEdited=false; render(); });
+
+  // ---- utilities ----
+  function toast(m){ var t=$("toast"); t.textContent=m; t.classList.add("on"); setTimeout(function(){t.classList.remove("on");},1600); }
+  function copy(text){
+    if(navigator.clipboard){ navigator.clipboard.writeText(text).then(function(){toast("Copiado!");}); }
+    else { var i=document.createElement("textarea"); i.value=text; document.body.appendChild(i); i.select(); document.execCommand("copy"); i.remove(); toast("Copiado!"); }
+  }
+  $("copyLink").addEventListener("click", function(){ copy($("outLink").value); });
+  $("openLink").addEventListener("click", function(){ window.open($("outLink").value, "_blank"); });
+
+  render();
+})();
+</script>
+</body>
+</html>
