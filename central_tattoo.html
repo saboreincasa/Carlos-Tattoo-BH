@@ -2,15 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<script>
-// ── SINCRONIZAÇÃO COM SUPABASE (CT_CLOUD) ──
-// Versão integrada — sem dependência de arquivo externo
-const CT_CLOUD_VERSION='16';
-let sbSync={queue:[],syncing:false,lastSync:Date.now()};
-
-// Auto-sync a cada 30s se há mudanças pendentes
-setInterval(()=>{if(sbSync.queue.length>0)sbSync.syncing=true;},30000);
-</script>
+<script src="ct_cloud.js?v=16"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>⚡ Central Tattoo Pro — Sistema 2026</title>
@@ -2302,42 +2294,6 @@ function usarFundoMkt(){const v=prompt('Valor usado (R$):');if(!v||!R(v))return;
 
 // ── CONTRATOS AUTOMÁTICOS ──
 
- if(menor&&!(c.respNome||'').trim()){showToast('⚠️ Preencha o responsável legal no cadastro');editCl(cid);return;}
- const p=c.pjId?gdb('ct_projetos').find(x=>x.id===c.pjId):null;
- const esc=t=>(t||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
- const idade=c.nasc?Math.floor((Date.now()-new Date(c.nasc).getTime())/31557600000):null;
- const CL=[];let titulo='CONTRATO DE PRESTAÇÃO DE SERVIÇOS DE TATUAGEM';
- CL.push(['OBJETO','O presente contrato tem por objeto a prestação de serviço de tatuagem'+(p?' referente ao projeto "'+esc(p.nome)+'"'+(p.local?' ('+esc(p.local)+')':''):(c.local?' na região: '+esc(c.local):''))+', executado pelo(a) profissional do estúdio CONTRATADO, conforme desenho e condições aprovados previamente pelo(a) CONTRATANTE.']);
- const val=p?(R(p.valor)||R(c.valor)):R(c.valor);const sin=p?R(p.sinal):R(c.sinal);
- CL.push(['VALOR E PAGAMENTO','O valor total ajustado é de '+$R(val)+(sin>0?', com sinal de '+$R(sin)+' pago na aprovação':'')+(p&&R(p.sessPrev)>1?', dividido em até '+R(p.sessPrev)+' sessões':'')+'. O sinal é destinado à reserva de agenda e preparação da arte, não sendo reembolsável em caso de desistência ou falta sem aviso prévio de 24 horas.']);
- CL.push(['REAGENDAMENTO E FALTAS','Remarcações devem ser solicitadas com no mínimo 24 horas de antecedência. Falta sem comunicação prévia implica perda do sinal, podendo nova data ser negociada mediante novo sinal.']);
- CL.push(['SAÚDE','O(A) CONTRATANTE declara que as informações de saúde prestadas são verdadeiras — Alergias: '+esc(c.alerg||'não informadas')+'; Medicamentos: '+esc(c.med||'não informados')+'; Condições: '+esc(c.saude||'não informadas')+' — e que comunicou qualquer condição relevante antes do procedimento. Contato de emergência: '+esc(c.emerg||'não informado')+'.']);
- CL.push(['CUIDADOS PÓS-PROCEDIMENTO','O(A) CONTRATANTE recebeu as orientações de cuidados pós-tattoo (disponíveis também no Portal do Cliente) e compromete-se a segui-las. O estúdio não se responsabiliza por complicações decorrentes do descumprimento dos cuidados.']);
- CL.push(['RETOQUE','Retoque de assentamento é gratuito quando solicitado em até 30 dias após a cicatrização, condicionado ao cumprimento dos cuidados pós-procedimento.']);
- if(tipo.indexOf('Aréola')===0){titulo='TERMO DE CONSENTIMENTO — PIGMENTAÇÃO/RECONSTRUÇÃO DE ARÉOLA';
-  CL.push(['CONSENTIMENTO INFORMADO','O(A) CONTRATANTE declara estar ciente de que o procedimento de pigmentação de aréola é técnica de tatuagem paramédica, cujo resultado (tonalidade, fixação e uniformidade) varia conforme o tipo de pele, cicatrizes e histórico clínico, podendo ser necessárias sessões de retoque para o resultado ideal.']);
-  CL.push(['ACOMPANHAMENTO MÉDICO','Este procedimento é estético/paramédico e não substitui acompanhamento médico. Recomenda-se realizar o procedimento somente após liberação da equipe médica responsável, quando aplicável.']);
-  CL.push(['PRIVACIDADE E SIGILO','O procedimento é realizado em ambiente reservado. O estúdio compromete-se com sigilo absoluto sobre o procedimento e o histórico clínico do(a) CONTRATANTE.']);}
- if(tipo.indexOf('Cover')===0){titulo='CONTRATO DE COBERTURA DE TATUAGEM (COVER-UP)';
-  CL.push(['LIMITAÇÕES DO COVER-UP','O(A) CONTRATANTE declara estar ciente de que a cobertura é condicionada pela tatuagem existente: cores, densidade e desenho serão adaptados tecnicamente para garantir a cobertura, podendo o resultado exigir tons mais escuros e sessões adicionais, e diferir da arte de referência.']);}
- if(menor){titulo='CONTRATO DE TATUAGEM PARA MENOR DE IDADE — COM AUTORIZAÇÃO DO RESPONSÁVEL';
-  CL.push(['AUTORIZAÇÃO DO RESPONSÁVEL','O procedimento é autorizado expressamente por '+esc(c.respNome)+', CPF '+esc(c.respCpf||'___________')+', responsável legal, que declara ciência integral deste contrato, apresentou documento oficial e acompanhará presencialmente o procedimento, assinando este termo.']);}
- CL.push(['USO DE IMAGEM',c.img==='❌ Não autoriza'?'O(A) CONTRATANTE NÃO autoriza a divulgação de imagens do procedimento ou do resultado. O estúdio compromete-se a não publicar qualquer registro.':'O(A) CONTRATANTE autoriza o registro fotográfico e a divulgação do resultado em portfólio e redes sociais do estúdio, sem identificação pessoal, salvo consentimento adicional.']);
- CL.push(['FORO','Fica eleito o foro da comarca de '+esc((cf.cid||'Belo Horizonte, MG').split(',')[0])+' para dirimir eventuais controvérsias.']);
- const html=`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>${titulo}</title><style>body{font-family:Georgia,serif;max-width:800px;margin:24px auto;padding:0 28px;color:#1a1a1a;line-height:1.55;font-size:13.5px}h1{font-size:17px;text-align:center;letter-spacing:.5px;margin-bottom:4px}h2{font-size:13px;margin:16px 0 4px;letter-spacing:.4px}.hd{text-align:center;border-bottom:2px solid #1a1a1a;padding-bottom:10px;margin-bottom:16px;font-size:12.5px}.pt{background:#f7f5f0;border:1px solid #ddd;border-radius:8px;padding:10px 14px;margin-bottom:6px;font-size:12.5px}.ass{display:flex;gap:40px;margin-top:56px;text-align:center}.ass div{flex:1;border-top:1.5px solid #1a1a1a;padding-top:6px;font-size:12px}.dt{margin-top:36px;text-align:right;font-size:12.5px}@media print{.np{display:none}}</style></head><body>
- <div class="hd"><strong style="font-size:15px">${esc(cf.nome||'Estúdio')}</strong><br>${esc(cf.end||'')} ${cf.cnpj?'· CNPJ/CPF: '+esc(cf.cnpj):''}<br>${esc(cf.tel||'')} ${cf.insta?'· '+esc(cf.insta):''}</div>
- <h1>${titulo}</h1>
- <div class="pt"><strong>CONTRATADO:</strong> ${esc(cf.nome||'Estúdio')}${cf.cnpj?', CNPJ/CPF '+esc(cf.cnpj):''}, com endereço em ${esc(cf.end||cf.cid||'')}.</div>
- <div class="pt"><strong>CONTRATANTE:</strong> ${esc(c.nome)}${c.cpf?', CPF '+esc(c.cpf):''}${c.nasc?', nascido(a) em '+dtBR(c.nasc)+(idade!==null?' ('+idade+' anos)':''):''}${c.endr?', residente em '+esc(c.endr):''}${c.cid?', '+esc(c.cid):''}${c.tel?', tel. '+esc(c.tel):''}.</div>
- ${menor?`<div class="pt"><strong>RESPONSÁVEL LEGAL:</strong> ${esc(c.respNome)}${c.respCpf?', CPF '+esc(c.respCpf):''}.</div>`:''}
- ${CL.map((cl,i)=>`<h2>CLÁUSULA ${i+1}ª — ${cl[0]}</h2><p>${cl[1]}</p>`).join('')}
- <div class="dt">${esc((cf.cid||'Belo Horizonte, MG').split(',')[0])}, ${new Date().toLocaleDateString('pt-BR')}.</div>
- <div class="ass"><div>${esc(cf.nome||'CONTRATADO')}<br>CONTRATADO</div><div>${esc(c.nome)}<br>CONTRATANTE</div>${menor?`<div>${esc(c.respNome)}<br>RESPONSÁVEL LEGAL</div>`:''}</div>
- <div class="np" style="text-align:center;margin-top:32px"><button onclick="window.print()" style="padding:10px 24px;font-size:14px;cursor:pointer">🖨️ Imprimir / Salvar PDF</button></div>
- </body></html>`;
- const w=window.open('','_blank');if(!w){showToast('⚠️ Libere popups para gerar o contrato');return;}w.document.write(html);w.document.close();
- const db=gdb('ct_contratos');db.push({id:uid(),data:hoje(),cli:c.nome,tipo,st:'Pendente',obs:'Gerado automaticamente com dados do cadastro'});sdb('ct_contratos',db);showToast('📄 Contrato gerado e registrado no módulo Contratos!');
-
 function geraContrato(cid,tipo,lang){const c=gdb('ct_clientes').find(x=>x.id===cid);if(!c)return;
  tipo=tipo||c.contrato||'Padrão de Tatuagem';lang=lang||c.lang||'pt';const i=CT_I18N[lang]||CT_I18N.pt;const cf=conf();
  const menor=tipo.indexOf('Menor')===0;const areola=tipo.indexOf('Aréola')===0;const cover=tipo.indexOf('Cover')===0;
@@ -2412,10 +2368,10 @@ en:{tPad:'TATTOO SERVICES AGREEMENT',tMenor:'TATTOO AGREEMENT FOR A MINOR — WI
  retoque:['TOUCH-UP',()=>'A settling touch-up is free of charge when requested within 30 days after healing, provided aftercare instructions were followed.'],
  areola1:['INFORMED CONSENT',()=>'The CLIENT acknowledges that areola pigmentation is a paramedical tattooing technique whose result (tone, retention and uniformity) varies with skin type, scarring and clinical history, and touch-up sessions may be required.'],
  areola2:['MEDICAL FOLLOW-UP',()=>'This is an aesthetic/paramedical procedure and does not replace medical care. It should only be performed after clearance by the responsible medical team, when applicable.'],
- areola3:['PRIVACY AND CONFIDENTIALITY',()=>'The procedure is performed in a private room. The studio commits to full confidentiality regarding the procedure and the CLIENT\\'s clinical history.'],
+ areola3:['PRIVACY AND CONFIDENTIALITY',()=>'The procedure is performed in a private room. The studio commits to full confidentiality regarding the procedure and the CLIENT\'s clinical history.'],
  cover:['COVER-UP LIMITATIONS',()=>'The CLIENT acknowledges that the cover-up is constrained by the existing tattoo: colors, density and design will be technically adapted, darker tones and additional sessions may be required, and the result may differ from the reference art.'],
  menor:['GUARDIAN AUTHORIZATION',(rn,rc)=>'The procedure is expressly authorized by '+rn+', ID '+rc+', legal guardian, who declares full awareness of this agreement, presented official identification and will be present during the procedure.'],
- imgSim:['IMAGE RELEASE',()=>'The CLIENT authorizes photographic records and publication of the result in the studio\\'s portfolio and social media, without personal identification, unless further consent is given.'],
+ imgSim:['IMAGE RELEASE',()=>'The CLIENT authorizes photographic records and publication of the result in the studio\'s portfolio and social media, without personal identification, unless further consent is given.'],
  imgNao:['IMAGE RELEASE',()=>'The CLIENT does NOT authorize publication of any images of the procedure or result. The studio commits not to publish any record.'],
  foro:['GOVERNING LAW AND VENUE',cid=>'The parties elect the courts of '+cid+' as the competent venue for any disputes, under the laws applicable in that jurisdiction.']},ni:'not informed'},
 es:{tPad:'CONTRATO DE PRESTACIÓN DE SERVICIOS DE TATUAJE',tMenor:'CONTRATO DE TATUAJE PARA MENOR DE EDAD — CON AUTORIZACIÓN DEL RESPONSABLE',tAreola:'CONSENTIMIENTO INFORMADO — PIGMENTACIÓN/RECONSTRUCCIÓN DE AREOLA',tCover:'CONTRATO DE COBERTURA DE TATUAJE (COVER-UP)',contratado:'ESTUDIO / ARTISTA',contratante:'CLIENTE',resp:'RESPONSABLE LEGAL',clausula:'CLÁUSULA',nasc:'nacido(a) el',anos:'años',resid:'con domicilio en',tel:'tel.',imprimir:'🖨️ Imprimir / Guardar PDF',
