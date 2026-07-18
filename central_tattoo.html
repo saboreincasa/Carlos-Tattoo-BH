@@ -751,28 +751,46 @@ textarea.fi{resize:vertical;min-height:76px;}
   <div class="g3" id="sinGrid"></div>
 </div>
 
-<!-- ═══ CICATRIZAÇÃO ═══ -->
+<!-- ═══ PÓS-VENDA ═══ -->
 <div class="panel" id="p-cicatrizacao">
-  <div class="pg"><div class="pg-t"><h2>🌿 Cicatrização</h2><p>Acompanhamento pós-tattoo e controle de retoques</p></div><button class="btn btn-primary" onclick="openM('mCic')">+ Novo Registro</button></div>
+  <div class="pg"><div class="pg-t"><h2>💬 Pós-Venda</h2><p>Todo relacionamento após a tatuagem em um único lugar</p></div><button class="btn btn-primary" onclick="openM('mCic')">+ Novo Registro</button></div>
+
   <div class="card" style="border-left:3px solid var(--gold,#b8860b)">
-    <div class="card-h"><h3>💬 Pós-Venda — Suporte ao Cliente</h3></div>
+    <div class="card-h"><h3>1️⃣ Enviar Guia de Cuidados</h3></div>
     <div class="card-b">
-      <p style="color:var(--tx3);font-size:13.5px;margin:0 0 14px">Terminou a sessão? Dê o suporte completo em 1 toque. Escolha o cliente e envie o que precisar.</p>
+      <p style="color:var(--tx3);font-size:13.5px;margin:0 0 14px">Escolha o procedimento e o cliente — o guia certo já sai pronto no WhatsApp.</p>
       <div class="fg2">
+        <div class="fg"><label>Procedimento</label><select class="fi" id="pvTipo" onchange="ctPVTipoChange()"><option value="Tatuagem">🖋️ Tatuagem</option><option value="Piercing">💎 Piercing</option><option value="Aréola">🎗️ Micropigmentação de Aréola</option></select></div>
         <div class="fg"><label>Cliente</label><input class="fi" list="dlPV" id="pvCli" placeholder="Digite ou escolha" onchange="ctPVFill()"></div>
+      </div>
+      <div class="fg2">
         <div class="fg"><label>WhatsApp</label><input class="fi" id="pvTel" placeholder="(31) 9 9999-9999"></div>
       </div>
       <datalist id="dlPV"></datalist>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
-        <button class="btn btn-success" onclick="ctPVCuidados()">🌿 Enviar guia de cuidados</button>
+        <button class="btn btn-success" onclick="ctPVCuidados()">📖 Enviar Guia</button>
         <button class="btn btn-primary" onclick="ctPVAvaliacao()">⭐ Pedir avaliação no Google</button>
       </div>
-      <p style="color:var(--tx4,#999);font-size:12px;margin:12px 0 0;font-style:italic">Dica: mande o <strong>guia de cuidados</strong> logo após a sessão, e o <strong>pedido de avaliação</strong> alguns dias depois, quando a tattoo já cicatrizou e o cliente está feliz. Separados, convertem muito mais.</p>
+      <p style="color:var(--tx4,#999);font-size:12px;margin:12px 0 0;font-style:italic">Dica: mande o <strong>guia de cuidados</strong> logo após a sessão, e o <strong>pedido de avaliação</strong> alguns dias depois, quando já cicatrizou e o cliente está feliz. Separados, convertem muito mais. O pedido de avaliação usa automaticamente o link cadastrado em <strong>Configurações</strong>.</p>
     </div>
   </div>
-  <div class="card"><div class="card-h"><h3>Registros de Cicatrização</h3><span class="badge-count" id="cicCt">—</span></div>
-  <div class="tw"><table class="tbl"><thead><tr><th>Cliente</th><th>Telefone</th><th>Data Sessão</th><th>Estilo</th><th>Região</th><th>Retorno 30d</th><th>Cicatrização</th><th>Retoque?</th><th>Avaliação</th><th></th></tr></thead><tbody id="cicTb"></tbody></table></div></div>
-  <div class="card"><div class="card-h"><h3>📋 Guia de Cuidados Pós-Tattoo</h3></div><div class="card-b"><div class="cic-guide" id="cicG"></div></div></div>
+
+  <div class="card"><div class="card-h"><h3>3️⃣ Controle de Pós-Venda</h3><span class="badge-count" id="cicCt">—</span></div>
+  <div class="tw"><table class="tbl"><thead><tr><th>Cliente</th><th>Telefone</th><th>Procedimento</th><th>Data Sessão</th><th>Guia</th><th>Avaliação</th><th>Retorno 30d</th><th>Cicatrização</th><th>Retoque?</th><th>Nota</th><th></th></tr></thead><tbody id="cicTb"></tbody></table></div></div>
+
+  <div class="card">
+    <div class="card-h"><h3>2️⃣ Guias de Cuidados — armazenados aqui, sem cartões avulsos</h3></div>
+    <div class="card-b">
+      <div class="tab-bar" style="margin-bottom:14px" id="cicGTabs">
+        <div class="tab-btn on" data-tipo="Tatuagem" onclick="cicGuiaTab('Tatuagem',this)">🖋️ Tatuagem</div>
+        <div class="tab-btn" data-tipo="Piercing" onclick="cicGuiaTab('Piercing',this)">💎 Piercing</div>
+        <div class="tab-btn" data-tipo="Aréola" onclick="cicGuiaTab('Aréola',this)">🎗️ Aréola</div>
+      </div>
+      <div class="cic-guide" id="cicG"></div>
+    </div>
+  </div>
+
+  <p style="color:var(--tx4,#999);font-size:11.5px;margin:4px 0 20px">4️⃣ <strong>Automático:</strong> ao marcar uma sessão como <strong>Concluído</strong> na Agenda, o Pós-Venda deste cliente aparece sozinho aqui — sem precisar cadastrar nada.</p>
 </div>
 
 <!-- ═══ COMISSÕES ═══ -->
@@ -1068,12 +1086,13 @@ textarea.fi{resize:vertical;min-height:76px;}
 </div></div>
 
 <div class="modal-wrap" id="mCic"><div class="modal">
-  <div class="modal-head"><h3 id="mCicT">Registro de Cicatrização</h3><button class="modal-close" onclick="closeM('mCic')">✕</button></div>
+  <div class="modal-head"><h3 id="mCicT">Registro de Pós-Venda</h3><button class="modal-close" onclick="closeM('mCic')">✕</button></div>
   <div class="modal-body"><input type="hidden" id="ccId">
     <div class="fg2"><div class="fg"><label>Cliente</label><input class="fi" id="ccCli" list="dl3"></div><div class="fg"><label>Telefone</label><input class="fi" id="ccTel"></div></div>
     <datalist id="dl3"></datalist>
-    <div class="fg2"><div class="fg"><label>Data da Sessão</label><input class="fi" type="date" id="ccData"></div><div class="fg"><label>Retorno em 30 dias</label><input class="fi" type="date" id="ccRet"></div></div>
-    <div class="fg2"><div class="fg"><label>Estilo</label><input class="fi" id="ccEst"></div><div class="fg"><label>Região do Corpo</label><input class="fi" id="ccReg" placeholder="Ex: Antebraço, costas"></div></div>
+    <div class="fg2"><div class="fg"><label>Procedimento</label><select class="fi" id="ccTipo"><option value="Tatuagem">🖋️ Tatuagem</option><option value="Piercing">💎 Piercing</option><option value="Aréola">🎗️ Micropigmentação de Aréola</option></select></div><div class="fg"><label>Data da Sessão</label><input class="fi" type="date" id="ccData"></div></div>
+    <div class="fg2"><div class="fg"><label>Retorno em 30 dias</label><input class="fi" type="date" id="ccRet"></div><div class="fg"><label>Estilo</label><input class="fi" id="ccEst"></div></div>
+    <div class="fg"><label>Região do Corpo</label><input class="fi" id="ccReg" placeholder="Ex: Antebraço, costas"></div>
     <div class="fg2"><div class="fg"><label>Status Cicatrização</label><select class="fi" id="ccSt"><option>🔄 Em Andamento</option><option>✅ Perfeita</option><option>⚠️ Problemas</option></select></div><div class="fg"><label>Retoque Grátis?</label><select class="fi" id="ccRetq"><option>✅ Sim</option><option>❌ Não</option><option>✔️ Já Realizado</option></select></div></div>
     <div class="fg2"><div class="fg"><label>Data do Retoque</label><input class="fi" type="date" id="ccDR"></div><div class="fg"><label>Avaliação (1-5 ⭐)</label><select class="fi" id="ccAval"><option value="">—</option><option>⭐⭐⭐⭐⭐ (5)</option><option>⭐⭐⭐⭐ (4)</option><option>⭐⭐⭐ (3)</option><option>⭐⭐ (2)</option><option>⭐ (1)</option></select></div></div>
     <div class="fg"><label>Observações</label><textarea class="fi" id="ccObs" rows="2"></textarea></div>
@@ -1160,7 +1179,7 @@ const ADM_M=[
   {s:'GESTÃO'},{id:'dashboard',ic:'📊',lb:'Dashboard'},{id:'agenda',ic:'📅',lb:'Agenda'},{id:'clientes',ic:'👥',lb:'Clientes CRM',trial_lock:true},{id:'projetos',ic:'🎨',lb:'Projetos',trial_lock:true},{id:'followup',ic:'🔔',lb:'Follow-Up',trial_lock:true},
   {s:'FINANCEIRO'},{id:'financeiro',ic:'💰',lb:'Financeiro',trial_lock:true},{id:'calculadora',ic:'🧮',lb:'Calculadora'},{id:'comissoes',ic:'💼',lb:'Comissões',trial_lock:true},
   {s:'OPERACIONAL'},{id:'estoque',ic:'📦',lb:'Estoque',trial_lock:true},{id:'leads',ic:'🎯',lb:'Leads',trial_lock:true},{id:'metas',ic:'📈',lb:'Metas',trial_lock:true},{id:'sinais',ic:'💎',lb:'Sinais',trial_lock:true},
-  {s:'MÓDULOS'},{id:'cicatrizacao',ic:'🌿',lb:'Cicatrização',trial_lock:true},{id:'contratos',ic:'📋',lb:'Contratos',trial_lock:true},{id:'relatorio',ic:'📊',lb:'Relatório',trial_lock:true},{id:'precos',ic:'🏷️',lb:'Preços',trial_lock:true},{id:'marketing',ic:'📱',lb:'Marketing',trial_lock:true},
+  {s:'MÓDULOS'},{id:'cicatrizacao',ic:'💬',lb:'Pós-Venda',trial_lock:true},{id:'contratos',ic:'📋',lb:'Contratos',trial_lock:true},{id:'relatorio',ic:'📊',lb:'Relatório',trial_lock:true},{id:'precos',ic:'🏷️',lb:'Preços',trial_lock:true},{id:'marketing',ic:'📱',lb:'Marketing',trial_lock:true},
   {s:'SISTEMA'},{id:'tutorial',ic:'📖',lb:'Tutorial'},
 ];
 // Módulos liberados no trial
@@ -1175,7 +1194,7 @@ const LOCK_INFO={
   leads:{ic:'🎯',title:'Pipeline de Leads',desc:'Funil de vendas completo para nunca perder um orçamento.',feats:['Kanban visual 6 etapas','Temperatura do lead','Valor do pipeline','Integração com WhatsApp']},
   metas:{ic:'📈',title:'Metas e KPIs',desc:'Acompanhe seu progresso mês a mês com dados reais.',feats:['Grade 2026 editável','9 indicadores-chave','Meta vs Realizado','Exportação Excel']},
   sinais:{ic:'💎',title:'Sinais e Alertas',desc:'Saúde do negócio em tempo real com alertas inteligentes.',feats:['9 sinais automáticos','Alertas de perigo','Margem de lucro','Taxa de cancelamento']},
-  cicatrizacao:{ic:'🌿',title:'Cicatrização',desc:'Acompanhamento pós-tattoo e controle de retoques.',feats:['Guia pós-tattoo completo','Controle de retoque grátis','Avaliação do cliente','Alertas de retorno']},
+  cicatrizacao:{ic:'💬',title:'Pós-Venda',desc:'Guias de cuidados, avaliação Google e acompanhamento pós-tattoo em um só lugar.',feats:['Guias de Tatuagem, Piercing e Aréola','Pedido de avaliação Google automático','Controle de retoque grátis','Pós-Venda criado sozinho ao concluir sessão']},
   contratos:{ic:'📋',title:'Contratos Digitais',desc:'3 modelos com respaldo jurídico completo.',feats:['Contrato padrão de sessão','Autorização menor de idade','Contrato de cover-up','Geração em Word automática']},
   relatorio:{ic:'📊',title:'Relatórios Gerenciais',desc:'Dados consolidados de todo o negócio.',feats:['Top 10 clientes','Receita por estilo','Resumo mensal 2026','Exportação Excel completa']},
   precos:{ic:'🏷️',title:'Tabela de Preços',desc:'Referência de preços por estilo e tamanho.',feats:['Cadastro por estilo','Faixa de preço min/max','Comparativo de mercado BH','Acesso rápido']},
@@ -1191,6 +1210,23 @@ const CIC_DATA=[
   {day:'30+',ic:'💎',t:'Cuidados Permanentes',items:['Protetor solar ao expor ao sol','Hidratação regular mantém cores','Evite bronzeamento excessivo','Retoque gratuito até 30 dias','Qualquer dúvida: entre em contato!']},
   {day:'⚠️',ic:'🚨',t:'Sinais de Alerta',items:['Vermelhidão excessiva após 3 dias','Inchaço que piora','Pus ou secreção amarelada/verde','Febre acima de 38°C','Em caso de dúvida: NOS AVISE!']},
 ];
+const PIERCING_DATA=[
+  {day:'1–3',ic:'🩹',t:'Primeiros Dias',items:['Não retire a joia nos primeiros dias','Limpe 2× ao dia com soro fisiológico','Não gire nem manuseie a joia à toa','Evite maquiagem/produtos na região','Mãos limpas antes de qualquer contato']},
+  {day:'4–14',ic:'🌊',t:'Cicatrização Inicial',items:['Inchaço e sensibilidade são normais','Continue limpeza 2× ao dia','Evite piscina, mar e banheira','Travesseiro limpo (piercings de orelha/rosto)','Não durma pressionando a região']},
+  {day:'15–30',ic:'✨',t:'Cicatrização Avançada',items:['Menos sensibilidade, siga limpando','Evite trocar a joia ainda','Cabelo preso longe da região (orelha)','Roupas soltas na região (corpo)','Continue evitando piscina e mar']},
+  {day:'30–60',ic:'🌿',t:'Reta Final',items:['Cicatrização visual, mas ainda não total','Aguarde liberação do profissional p/ trocar joia','Mantenha higiene diária','Evite esportes de contato na região','Retoque/ajuste gratuito se necessário']},
+  {day:'60+',ic:'💎',t:'Cuidados Permanentes',items:['Limpeza de rotina com sabonete neutro','Joia de qualidade (titânio/ouro) sempre','Evite trocas frequentes de joia','Qualquer irritação: procure o estúdio']},
+  {day:'⚠️',ic:'🚨',t:'Sinais de Alerta',items:['Vermelhidão que se espalha','Inchaço com dor crescente','Secreção amarelada/esverdeada com odor','Febre','Em caso de dúvida: NOS AVISE!']},
+];
+const AREOLA_DATA=[
+  {day:'1–3',ic:'🩹',t:'Primeiros Dias',items:['Mantenha o curativo conforme orientado','Evite molhar diretamente nas primeiras 24h','Não coçar ou esfregar a região','Sutiã macio, sem bojo apertado','Evite sol e calor direto na área']},
+  {day:'4–7',ic:'🌊',t:'Descamação Inicial',items:['Pequena descamação é normal','Hidrate com pomada indicada','Evite piscina, mar, sauna e banho quente','Roupas leves e confortáveis','Não arranque cascas ou peles soltas']},
+  {day:'8–15',ic:'✨',t:'Fixação da Cor',items:['Cor pode parecer mais clara — normal','Continue hidratação diária leve','Protetor solar ao expor a região','Evite exercícios de impacto na região','Retorno de avaliação conforme combinado']},
+  {day:'15–30',ic:'🌿',t:'Finalização',items:['Resultado final começa a aparecer','Mantenha hidratação e proteção solar','Evite bronzeamento artificial','Agende avaliação para eventual retoque','Fotos de acompanhamento ajudam o profissional']},
+  {day:'30+',ic:'💎',t:'Cuidados Permanentes',items:['Protetor solar preserva a cor','Hidratação regular','Retoque de fixação avaliado caso a caso','Qualquer dúvida: entre em contato!']},
+  {day:'⚠️',ic:'🚨',t:'Sinais de Alerta',items:['Vermelhidão excessiva ou crescente','Inchaço que piora','Secreção com odor','Febre','Em caso de dúvida: NOS AVISE!']},
+];
+const CIC_TIPOS={'Tatuagem':{ic:'🖋️',data:CIC_DATA},'Piercing':{ic:'💎',data:PIERCING_DATA},'Aréola':{ic:'🎗️',data:AREOLA_DATA}};
 
 const TUT_EXTRA={
  agenda:`<div class="tut-card"><h3>🚫 Faltas e Reagendamento</h3><div class="sub">O que fazer quando o cliente não aparece</div>
@@ -1456,6 +1492,18 @@ if(chgE){sdb('ct_estoque',est);sdb('ct_mov_estoque',mov);}}catch(e){console.warn
 try{const pjs=gdb('ct_projetos');let chgP=false;
 sess.forEach(s=>{if(s.stat==='Concluído'&&s.projId){const p=pjs.find(x=>x.id===s.projId);if(p&&(!p.st||['📝 Orçamento','💰 Sinal Pago','📅 Agendado'].includes(p.st))){p.st='🎨 Em Andamento';chgP=true;}}});
 if(chgP)sdb('ct_projetos',pjs);}catch(e){console.warn('[projeto status]',e);}
+/* Pós-Venda automático: sessão concluída cria o registro sozinho (Área 4 — Automações) */
+try{const cic=gdb('ct_cicatri');let chgPV=false;
+sess.forEach(s=>{if(s.stat==='Concluído'&&!s.pvOk){
+  const nmL=(s.cli||'').trim().toLowerCase();
+  if(nmL&&!cic.some(x=>(x.cli||'').trim().toLowerCase()===nmL&&x.data===s.data)){
+    const ret=s.data?new Date(new Date(s.data+'T00:00:00').getTime()+30*86400000).toISOString().slice(0,10):'';
+    cic.push({id:uid(),cli:s.cli,tel:s.tel||'',tipo:'Tatuagem',data:s.data||hoje(),ret,est:s.est||'',reg:'',stat:'🔄 Em Andamento',retq:'✅ Sim',guiaOk:0,avalOk:0,obs:'Criado automaticamente ao concluir a sessão'});
+    chgPV=true;
+  }
+  s.pvOk=1;chgS=true;
+}});
+if(chgPV)sdb('ct_cicatri',cic);}catch(e){console.warn('[pós-venda automático]',e);}
 if(chgS)sdb('ct_sessoes',sess);if(chgC)sdb('ct_clientes',cls);if(chgF)sdb('ct_financeiro',fin);if(chgCom)sdb('ct_comissoes',com);if(chgR)sdb('ct_reserva',res);if(chgMk)sdb('ct_mkt_fundo',mkf);
 }catch(e){console.warn('[conciliação]',e);}}
 function renderDash(){
@@ -2518,10 +2566,12 @@ function expMetas(){if(typeof XLSX==='undefined')return;const wb=XLSX.utils.book
 function rSin(){const sess=gdb('ct_sessoes'),cl=gdb('ct_clientes'),fin=gdb('ct_financeiro'),est=gdb('ct_estoque');const m=ma(),sm=sess.filter(s=>s.data&&s.data.slice(0,7)===m);const rec=fin.filter(f=>f.data&&f.data.slice(0,7)===m&&f.tipo==='receita').reduce((a,f)=>a+R(f.val),0);const desp=fin.filter(f=>f.data&&f.data.slice(0,7)===m&&f.tipo==='despesa').reduce((a,f)=>a+R(f.val),0);const fat=rec||sm.filter(s=>s.stat==='Concluído').reduce((a,s)=>a+R(s.val),0);const marg=fat>0?((fat-desp)/fat*100):0;const cancel=sm.filter(s=>s.stat==='Cancelado').length,cr=sm.length>0?(cancel/sm.length*100):0;const baixo=est.filter(e=>R(e.qtd)<=R(e.eMin)&&R(e.eMin)>0);const semC=cl.filter(c=>!c.ultContato||(Date.now()-new Date(c.ultContato).getTime())>(90*86400000));const npsMed=cl.filter(c=>c.nps).reduce((a,c)=>a+R(c.nps),0)/(cl.filter(c=>c.nps).length||1);const sinais=[{ic:'💰',t:'Faturamento do Mês',d:`${$R(fat)} registrado. Meta: ${document.getElementById('tFat')?.value||'R$ 8.000'}.`,cls:fat>0?'ok':'warn'},{ic:'📊',t:'Margem de Lucro',d:`${marg.toFixed(1)}% de margem. ${marg>=40?'✅ Acima da meta de 40%!':'⚠️ Abaixo de 40% — revise suas despesas.'}`,cls:marg>=40?'ok':marg>=25?'warn':'danger'},{ic:'❌',t:'Taxa de Cancelamento',d:`${cr.toFixed(0)}% cancelado. ${cr<=10?'✅ Dentro do aceitável.':'⚠️ Acima de 10% — identifique as causas.'}`,cls:cr<=10?'ok':cr<=20?'warn':'danger'},{ic:'📦',t:'Estoque Crítico',d:`${baixo.length===0?'✅ Nenhum item crítico.':baixo.length+' item(ns) precisam de reposição: '+baixo.map(e=>e.prod).slice(0,3).join(', ')+'.'}`,cls:baixo.length===0?'ok':baixo.length<=2?'warn':'danger'},{ic:'🔔',t:'Follow-Up Pendente',d:`${semC.length===0?'✅ Todos em dia.':semC.length+' cliente(s) sem contato há mais de 90 dias.'}`,cls:semC.length===0?'ok':semC.length<=3?'warn':'danger'},{ic:'⭐',t:'NPS Médio',d:`${cl.filter(c=>c.nps).length?'NPS médio: '+npsMed.toFixed(1)+'/10. '+(npsMed>=8?'✅ Excelente!':npsMed>=6?'Bom.':'⚠️ Satisfação baixa.'):'Sem avaliações NPS ainda.'}`,cls:!cl.filter(c=>c.nps).length?'warn':npsMed>=8?'ok':npsMed>=6?'warn':'danger'},{ic:'🎯',t:'Pipeline de Leads',d:`${gdb('ct_leads').filter(l=>l.et!=='fechado'&&l.et!=='perdido').length} leads ativos no funil.`,cls:'ok'},{ic:'📅',t:'Agenda Futura',d:`${sess.filter(s=>s.data>=hoje()&&s.stat!=='Cancelado').length} sessão(ões) agendadas.`,cls:'ok'},{ic:'💎',t:'Lucro do Mês',d:`Lucro: ${$R(fat-desp)}. ${fat-desp>=0?'✅ Resultado positivo!':'⚠️ Resultado negativo — revise despesas.'}`,cls:(fat-desp)>=0?'ok':'danger'}];
 document.getElementById('sinGrid').innerHTML=sinais.map(s=>`<div class="sinal-card ${s.cls}"><div class="sinal-icon">${s.ic}</div><div class="sinal-title">${s.t}</div><div class="sinal-desc">${s.d}</div></div>`).join('');}
 // ── CICATRIZAÇÃO ──
-function buildCicG(id){const el=document.getElementById(id);if(!el)return;el.innerHTML=CIC_DATA.map(c=>`<div class="cic-card"><div class="cic-day">${c.ic}</div><div class="cic-period">Dias ${c.day}</div><h4>${c.t}</h4><ul class="cic-list">${c.items.map(i=>`<li>${i}</li>`).join('')}</ul></div>`).join('');}
-function rCic(){const db=gdb('ct_cicatri');updDl();document.getElementById('cicCt').textContent=db.length+' registros';document.getElementById('cicTb').innerHTML=db.length?db.map(c=>`<tr><td><strong>${c.cli||'—'}</strong></td><td>${c.tel||'—'}</td><td>${dtBR(c.data)}</td><td>${c.est||'—'}</td><td>${c.reg||'—'}</td><td>${dtBR(c.ret)}</td><td>${bdg(c.stat)}</td><td>${c.retq||'—'}</td><td>${c.aval||'—'}</td><td style="white-space:nowrap"><button class="btn btn-ghost btn-xs" onclick="ctEnviarCicRow('${c.id}')" title="Enviar guia de cuidados">🌿</button> <button class="btn btn-ghost btn-xs" onclick="ctPedirAvalCicRow('${c.id}')" title="Pedir avaliação no Google">⭐</button> <button class="btn btn-ghost btn-xs" onclick="editCic('${c.id}')">✏️</button> <button class="btn btn-danger btn-xs" onclick="delCic('${c.id}')">🗑</button></td></tr>`).join(''):`<tr><td colspan="10" class="empty-row"><p>Nenhum registro</p></td></tr>`;}
-function saveCic(){const id=document.getElementById('ccId').value||uid();const c={id,cli:document.getElementById('ccCli').value,tel:document.getElementById('ccTel').value,data:document.getElementById('ccData').value,ret:document.getElementById('ccRet').value,est:document.getElementById('ccEst').value,reg:document.getElementById('ccReg').value,stat:document.getElementById('ccSt').value,retq:document.getElementById('ccRetq').value,dr:document.getElementById('ccDR').value,aval:document.getElementById('ccAval').value,obs:document.getElementById('ccObs').value};const db=gdb('ct_cicatri'),i=db.findIndex(x=>x.id===id);if(i>=0)db[i]=c;else db.push(c);sdb('ct_cicatri',db);closeM('mCic');rCic();showToast('✅ Registro salvo!');}
-function editCic(id){const c=gdb('ct_cicatri').find(x=>x.id===id);if(!c)return;document.getElementById('ccId').value=c.id;document.getElementById('ccCli').value=c.cli||'';document.getElementById('ccTel').value=c.tel||'';document.getElementById('ccData').value=c.data||'';document.getElementById('ccRet').value=c.ret||'';document.getElementById('ccEst').value=c.est||'';document.getElementById('ccReg').value=c.reg||'';document.getElementById('ccSt').value=c.stat||'🔄 Em Andamento';document.getElementById('ccRetq').value=c.retq||'✅ Sim';document.getElementById('ccDR').value=c.dr||'';document.getElementById('ccAval').value=c.aval||'';document.getElementById('ccObs').value=c.obs||'';document.getElementById('mCicT').textContent='Editar';openM('mCic');}
+function buildCicG(id,data){const el=document.getElementById(id);if(!el)return;const arr=data||CIC_DATA;el.innerHTML=arr.map(c=>`<div class="cic-card"><div class="cic-day">${c.ic}</div><div class="cic-period">Dias ${c.day}</div><h4>${c.t}</h4><ul class="cic-list">${c.items.map(i=>`<li>${i}</li>`).join('')}</ul></div>`).join('');}
+function cicGuiaTab(tipo,el){const tabs=document.querySelectorAll('#cicGTabs .tab-btn');tabs.forEach(b=>b.classList.toggle('on',el?b===el:b.getAttribute('data-tipo')===tipo));buildCicG('cicG',(CIC_TIPOS[tipo]||CIC_TIPOS['Tatuagem']).data);}
+function okBdg(v){return v?'<span class="bdg b-green">✔</span>':'<span class="bdg b-gray">❌</span>';}
+function rCic(){const db=gdb('ct_cicatri');updDl();document.getElementById('cicCt').textContent=db.length+' registros';document.getElementById('cicTb').innerHTML=db.length?db.map(c=>`<tr><td><strong>${c.cli||'—'}</strong></td><td>${c.tel||'—'}</td><td>${(CIC_TIPOS[c.tipo]||CIC_TIPOS['Tatuagem']).ic} ${c.tipo||'Tatuagem'}</td><td>${dtBR(c.data)}</td><td>${okBdg(c.guiaOk)}</td><td>${okBdg(c.avalOk)}</td><td>${dtBR(c.ret)}</td><td>${bdg(c.stat)}</td><td>${c.retq||'—'}</td><td>${c.aval||'—'}</td><td style="white-space:nowrap"><button class="btn btn-ghost btn-xs" onclick="ctEnviarCicRow('${c.id}')" title="Enviar guia de cuidados">📖</button> <button class="btn btn-ghost btn-xs" onclick="ctPedirAvalCicRow('${c.id}')" title="Pedir avaliação no Google">⭐</button> <button class="btn btn-ghost btn-xs" onclick="editCic('${c.id}')">✏️</button> <button class="btn btn-danger btn-xs" onclick="delCic('${c.id}')">🗑</button></td></tr>`).join(''):`<tr><td colspan="11" class="empty-row"><p>Nenhum registro</p></td></tr>`;}
+function saveCic(){const id=document.getElementById('ccId').value||uid();const old=gdb('ct_cicatri').find(x=>x.id===id)||{};const c={...old,id,cli:document.getElementById('ccCli').value,tel:document.getElementById('ccTel').value,tipo:document.getElementById('ccTipo').value,data:document.getElementById('ccData').value,ret:document.getElementById('ccRet').value,est:document.getElementById('ccEst').value,reg:document.getElementById('ccReg').value,stat:document.getElementById('ccSt').value,retq:document.getElementById('ccRetq').value,dr:document.getElementById('ccDR').value,aval:document.getElementById('ccAval').value,obs:document.getElementById('ccObs').value};const db=gdb('ct_cicatri'),i=db.findIndex(x=>x.id===id);if(i>=0)db[i]=c;else db.push(c);sdb('ct_cicatri',db);closeM('mCic');rCic();showToast('✅ Registro salvo!');}
+function editCic(id){const c=gdb('ct_cicatri').find(x=>x.id===id);if(!c)return;document.getElementById('ccId').value=c.id;document.getElementById('ccCli').value=c.cli||'';document.getElementById('ccTel').value=c.tel||'';document.getElementById('ccTipo').value=c.tipo||'Tatuagem';document.getElementById('ccData').value=c.data||'';document.getElementById('ccRet').value=c.ret||'';document.getElementById('ccEst').value=c.est||'';document.getElementById('ccReg').value=c.reg||'';document.getElementById('ccSt').value=c.stat||'🔄 Em Andamento';document.getElementById('ccRetq').value=c.retq||'✅ Sim';document.getElementById('ccDR').value=c.dr||'';document.getElementById('ccAval').value=c.aval||'';document.getElementById('ccObs').value=c.obs||'';document.getElementById('mCicT').textContent='Editar';openM('mCic');}
 function delCic(id){if(!confirm('Excluir?'))return;sdb('ct_cicatri',gdb('ct_cicatri').filter(c=>c.id!==id));rCic();}
 // ══════════════════════════════════════════════════════════════
 //   PÓS-SESSÃO — Guia de cuidados via WhatsApp (universal)
@@ -2542,14 +2592,26 @@ function ctLinkCuidados(o){o=o||{};const cf=conf();const p=new URLSearchParams()
   if(cf.insta)p.set('ig',(cf.insta||'').replace(/^@/,''));
   if(cf.site)p.set('site',cf.site);
   const q=p.toString();return ctBaseCuidados()+(q?'?'+q:'');}
-function ctMsgCuidados(o,link){const cf=conf();const est=cf.nome||'nosso estúdio';const first=((o&&o.cli||'').trim().split(' ')[0])||'';const ola=first?('Oi '+first+'! '):'Oi! ';
-  return ola+'Aqui é do '+est+' 🖤\n\nSua tatuagem ficou incrível! 🎉 Preparei um guia completo com os cuidados dos próximos 30 dias pra ela cicatrizar perfeita:\n\n👉 '+link+'\n\nQualquer dúvida na cicatrização, é só me chamar por aqui. 💬';}
+function ctMsgCuidados(o,link){const cf=conf();const est=cf.nome||'nosso estúdio';const first=((o&&o.cli||'').trim().split(' ')[0])||'';const ola=first?('Oi '+first+'! '):'Oi! ';const tipo=(o&&o.tipo)||'Tatuagem';
+  const intros={
+    'Tatuagem':'Sua tatuagem ficou incrível! 🎉 Preparei um guia completo com os cuidados dos próximos 30 dias pra ela cicatrizar perfeita:',
+    'Piercing':'Seu piercing ficou lindo! 💎 Preparei um guia completo com os cuidados até a cicatrização total:',
+    'Aréola':'Foi um prazer te atender! 🎗️ Preparei um guia completo com os cuidados da micropigmentação de aréola:',
+  };
+  return ola+'Aqui é do '+est+' 🖤\n\n'+(intros[tipo]||intros['Tatuagem'])+'\n\n👉 '+link+'\n\nQualquer dúvida, é só me chamar por aqui. 💬';}
 function ctResolveTel(o){if(o&&o.tel&&o.tel.replace(/\D/g,''))return o.tel;const c=gdb('ct_clientes').find(x=>(x.nome||'').trim().toLowerCase()===((o&&o.cli)||'').trim().toLowerCase());return c?c.tel:'';}
+// ── FONTE ÚNICA DO PÓS-VENDA (evita registro duplicado por cliente) ──
+function ctUpsertPV(o,patch){o=o||{};const nm=(o.cli||'').trim();if(!nm)return;const db=gdb('ct_cicatri');const nmL=nm.toLowerCase();
+  let i=db.findIndex(x=>(x.cli||'').trim().toLowerCase()===nmL&&(!o.data||!x.data||x.data===o.data));
+  if(i<0)i=db.findIndex(x=>(x.cli||'').trim().toLowerCase()===nmL);
+  if(i>=0){db[i]={...db[i],tel:db[i].tel||o.tel||'',tipo:db[i].tipo||o.tipo||'Tatuagem',est:db[i].est||o.est||'',reg:db[i].reg||o.reg||'',data:db[i].data||o.data||'',...patch};}
+  else{db.push({id:uid(),cli:nm,tel:o.tel||'',tipo:o.tipo||'Tatuagem',data:o.data||'',est:o.est||'',reg:o.reg||'',stat:'🔄 Em Andamento',retq:'✅ Sim',...patch});}
+  sdb('ct_cicatri',db);}
 function ctEnviarCuidados(o){o=o||{};const link=ctLinkCuidados(o);const tel=ctWaNum(ctResolveTel(o));const msg=ctMsgCuidados(o,link);
   if(!tel){try{navigator.clipboard&&navigator.clipboard.writeText(link);}catch(e){}showToast('⚠️ Sem WhatsApp do cliente. Link copiado — cole manualmente.');return;}
-  window.open('https://wa.me/'+tel+'?text='+encodeURIComponent(msg),'_blank');showToast('📲 WhatsApp aberto com o guia de cuidados!');}
-function ctEnviarCicRow(id){const c=gdb('ct_cicatri').find(x=>x.id===id);if(!c)return;ctEnviarCuidados({cli:c.cli,tel:c.tel,est:c.est,reg:c.reg,data:c.data});}
-function ctEnviarSessao(id){const s=gdb('ct_sessoes').find(x=>x.id===id);if(!s)return;ctEnviarCuidados({cli:s.cli,est:s.est,data:s.data});}
+  window.open('https://wa.me/'+tel+'?text='+encodeURIComponent(msg),'_blank');ctUpsertPV(o,{guiaOk:1});if(document.getElementById('p-cicatrizacao')&&document.getElementById('p-cicatrizacao').classList.contains('on'))rCic();showToast('📲 WhatsApp aberto com o guia de cuidados!');}
+function ctEnviarCicRow(id){const c=gdb('ct_cicatri').find(x=>x.id===id);if(!c)return;ctEnviarCuidados({cli:c.cli,tel:c.tel,tipo:c.tipo,est:c.est,reg:c.reg,data:c.data});}
+function ctEnviarSessao(id){const s=gdb('ct_sessoes').find(x=>x.id===id);if(!s)return;ctEnviarCuidados({cli:s.cli,tel:s.tel,tipo:'Tatuagem',est:s.est,data:s.data});}
 // ── FONTE ÚNICA DE CLIENTE (cadastro uma vez, puxa nas outras abas) ──
 function ctCliOf(rec){if(!rec)return null;const cl=gdb('ct_clientes');if(rec.cliId){const c=cl.find(x=>x.id===rec.cliId);if(c)return c;}const nm=((rec.cli||rec.nome)||'').trim().toLowerCase();return nm?cl.find(x=>(x.nome||'').trim().toLowerCase()===nm)||null:null;}
 function ctLiveTel(rec){const c=ctCliOf(rec);return (c&&c.tel)||(rec&&rec.tel)||'';}
@@ -2559,10 +2621,11 @@ function ctWireAutofill(){const wire=(nameId,map)=>{const el=document.getElement
 // ── PÓS-VENDA: pedido de avaliação (mensagem separada dos cuidados) ──
 function ctMsgAvaliacao(o,rev){const cf=conf();const est=cf.nome||'nosso estúdio';const first=((o&&o.cli||'').trim().split(' ')[0])||'';const ola=first?('Oi '+first+'! '):'Oi! ';
   return ola+'🖤\n\nQue bom te ver com a tattoo já cicatrizada! Se você curtiu o resultado e o atendimento, deixar uma avaliação no Google ajuda demais o '+est+' — leva só 30 segundinhos:\n\n⭐ '+rev+'\n\nMuito obrigado de verdade! 🙏';}
-function ctPedirAvaliacao(o){o=o||{};const rev=(conf().googleRev||'').trim();if(!rev){showToast('⚠️ Configure o "Link de avaliação Google" em Comece por Aqui.');return;}const tel=ctWaNum(ctResolveTel(o));if(!tel){showToast('⚠️ Sem WhatsApp do cliente.');return;}window.open('https://wa.me/'+tel+'?text='+encodeURIComponent(ctMsgAvaliacao(o,rev)),'_blank');showToast('⭐ WhatsApp aberto com o pedido de avaliação!');}
+function ctPedirAvaliacao(o){o=o||{};const rev=(conf().googleRev||'').trim();if(!rev){showToast('⚠️ Configure o "Link de avaliação Google" em Comece por Aqui.');return;}const tel=ctWaNum(ctResolveTel(o));if(!tel){showToast('⚠️ Sem WhatsApp do cliente.');return;}window.open('https://wa.me/'+tel+'?text='+encodeURIComponent(ctMsgAvaliacao(o,rev)),'_blank');ctUpsertPV(o,{avalOk:1});if(document.getElementById('p-cicatrizacao')&&document.getElementById('p-cicatrizacao').classList.contains('on'))rCic();showToast('⭐ WhatsApp aberto com o pedido de avaliação!');}
 function ctPedirAvalCicRow(id){const c=gdb('ct_cicatri').find(x=>x.id===id);if(!c)return;ctPedirAvaliacao({cli:c.cli,tel:c.tel});}
 function ctPVFill(){ctFillFromCli('pvCli',{pvTel:'tel'});}
-function ctPVCuidados(){const cli=(document.getElementById('pvCli')||{}).value||'';const tel=(document.getElementById('pvTel')||{}).value||'';if(!cli&&!tel){showToast('⚠️ Escolha o cliente primeiro.');return;}ctEnviarCuidados({cli,tel});}
+function ctPVTipoChange(){const t=(document.getElementById('pvTipo')||{}).value||'Tatuagem';cicGuiaTab(t);}
+function ctPVCuidados(){const cli=(document.getElementById('pvCli')||{}).value||'';const tel=(document.getElementById('pvTel')||{}).value||'';const tipo=(document.getElementById('pvTipo')||{}).value||'Tatuagem';if(!cli&&!tel){showToast('⚠️ Escolha o cliente primeiro.');return;}ctEnviarCuidados({cli,tel,tipo});}
 function ctPVAvaliacao(){const cli=(document.getElementById('pvCli')||{}).value||'';const tel=(document.getElementById('pvTel')||{}).value||'';if(!cli&&!tel){showToast('⚠️ Escolha o cliente primeiro.');return;}ctPedirAvaliacao({cli,tel});}
 // ── COMISSÕES ──
 function rCom(){rEq();const pcts=gdb('ct_com_pct');document.getElementById('comPctTb').innerHTML=pcts.map((p,i)=>`<tr><td><strong>${p.f}</strong></td><td><input type="number" value="${p.p}" style="width:70px;padding:5px 10px;border:1.5px solid var(--brd2);border-radius:7px;font-family:inherit;font-size:13px" onchange="updCP(${i},this.value)">%</td><td style="color:var(--grn);font-weight:600">${$R(500*p.p/100)}</td><td style="color:var(--grn);font-weight:600">${$R(1000*p.p/100)}</td></tr>`).join('');const db=gdb('ct_comissoes').sort((a,b)=>b.data>a.data?1:-1);document.getElementById('comCt').textContent=`${db.length} · Pendente: ${$R(db.filter(c=>c.st==='Pendente').reduce((a,c)=>a+R(c.vp),0))}`;document.getElementById('comTb').innerHTML=db.length?db.map(c=>`<tr><td>${dtBR(c.data)}</td><td><strong>${c.prof||'—'}</strong></td><td>${c.ref||'—'}</td><td style="color:var(--grn)">${$R(c.vs)}</td><td>${c.pct||0}%</td><td style="color:var(--gold2);font-weight:700">${$R(c.vp)}</td><td>${bdg(c.st)}</td><td>${dtBR(c.dpg)}</td><td><button class="btn btn-danger btn-xs" onclick="delCom('${c.id}')">🗑</button></td></tr>`).join(''):`<tr><td colspan="9" class="empty-row"><p>Nenhuma comissão</p></td></tr>`;}
