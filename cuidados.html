@@ -3,154 +3,60 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guia de Cuidados · Pós-Tatuagem</title>
+<title>Guia de Cuidados</title>
 <meta name="robots" content="noindex">
-<meta name="description" content="Como cuidar da sua tatuagem nova, dia a dia, até a cicatrização completa.">
+<meta name="description" content="Como cuidar do seu procedimento, dia a dia, até a cicatrização completa.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#16130F;
-    --ink-2:#221C15;
-    --bone:#F6F2EA;
-    --bone-2:#EFE8DA;
-    --paper-line:rgba(20,16,12,.09);
-    --brass:#C39B4E;
-    --brass-deep:#93712C;
-    --ash:#6C6156;
-    --char:#2A2119;
-    --alert:#B24230;
-    --alert-bg:#F7E7E2;
+    --ink:#16130F;--ink-2:#221C15;--bone:#F6F2EA;--bone-2:#EFE8DA;
+    --paper-line:rgba(20,16,12,.09);--brass:#C39B4E;--brass-deep:#93712C;
+    --ash:#6C6156;--char:#2A2119;--alert:#B24230;--alert-bg:#F7E7E2;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-text-size-adjust:100%}
-  body{
-    font-family:"Newsreader",Georgia,serif;
-    background:var(--bone);
-    color:var(--char);
-    line-height:1.55;
-    font-size:17px;
-    -webkit-font-smoothing:antialiased;
-  }
+  body{font-family:"Newsreader",Georgia,serif;background:var(--bone);color:var(--char);line-height:1.55;font-size:17px;-webkit-font-smoothing:antialiased;}
   .wrap{max-width:600px;margin:0 auto}
-  .eyebrow{
-    font-family:"Cinzel",serif;
-    letter-spacing:.32em;
-    text-transform:uppercase;
-    font-size:11px;
-    font-weight:600;
-  }
+  .eyebrow{font-family:"Cinzel",serif;letter-spacing:.32em;text-transform:uppercase;font-size:11px;font-weight:600;}
 
-  /* ---------- HERO ---------- */
-  .hero{
-    background:var(--ink);
-    color:var(--bone);
-    position:relative;
-    overflow:hidden;
-    padding:56px 26px 60px;
-  }
-  .hero::before{
-    content:"";
-    position:absolute;inset:0;
-    background:radial-gradient(120% 80% at 78% -10%, rgba(195,155,78,.22), transparent 55%);
-    pointer-events:none;
-  }
+  /* HERO */
+  .hero{background:var(--ink);color:var(--bone);position:relative;overflow:hidden;padding:56px 26px 60px;}
+  .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 78% -10%, rgba(195,155,78,.22), transparent 55%);pointer-events:none;}
   .hero .wrap{position:relative}
   .hero .eyebrow{color:var(--brass);opacity:.9}
-  .studio{
-    font-family:"Cinzel",serif;
-    font-weight:700;
-    font-size:clamp(22px,6vw,30px);
-    letter-spacing:.06em;
-    text-transform:uppercase;
-    color:#fff;
-    margin:16px 0 30px;
-    line-height:1.15;
-  }
-  .greet{
-    font-size:clamp(30px,9vw,42px);
-    font-weight:500;
-    line-height:1.05;
-    letter-spacing:-.01em;
-  }
+  .studio{font-family:"Cinzel",serif;font-weight:700;font-size:clamp(22px,6vw,30px);letter-spacing:.06em;text-transform:uppercase;color:#fff;margin:16px 0 30px;line-height:1.15;}
+  .greet{font-size:clamp(30px,9vw,42px);font-weight:500;line-height:1.05;letter-spacing:-.01em;}
   .greet b{color:var(--brass);font-weight:600}
-  .meta{
-    display:flex;flex-wrap:wrap;gap:8px;
-    margin-top:22px;
-  }
-  .chip{
-    font-family:"Cinzel",serif;
-    font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;
-    border:1px solid rgba(246,242,234,.24);
-    color:rgba(246,242,234,.85);
-    padding:7px 12px;border-radius:2px;
-  }
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;}
+  .chip{font-family:"Cinzel",serif;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;border:1px solid rgba(246,242,234,.24);color:rgba(246,242,234,.85);padding:7px 12px;border-radius:2px;}
 
-  /* ---------- INTRO NOTE ---------- */
-  .note{
-    padding:34px 26px 8px;
-  }
-  .note p{
-    font-style:italic;
-    font-size:19px;
-    color:var(--ash);
-    line-height:1.6;
-  }
+  /* INTRO */
+  .note{padding:34px 26px 8px;}
+  .note p{font-style:italic;font-size:19px;color:var(--ash);line-height:1.6;}
 
-  /* ---------- TIMELINE ---------- */
+  /* TIMELINE */
   .stages{padding:26px 26px 6px}
   .stages-head{margin-bottom:8px}
   .stages-head .eyebrow{color:var(--brass-deep)}
-  .stages-head h2{
-    font-weight:500;font-size:26px;margin-top:8px;letter-spacing:-.01em;
-  }
+  .stages-head h2{font-weight:500;font-size:26px;margin-top:8px;letter-spacing:-.01em;}
   .rail{position:relative;padding-left:34px;margin-top:26px}
-  .rail::before{
-    content:"";position:absolute;left:9px;top:6px;bottom:26px;width:2px;
-    background:linear-gradient(var(--brass),rgba(195,155,78,.25));
-  }
-  .stage{
-    position:relative;
-    padding:0 0 30px;
-    opacity:1;
-  }
-  .stage .dot{
-    position:absolute;left:-34px;top:3px;
-    width:20px;height:20px;border-radius:50%;
-    background:var(--bone);
-    border:2px solid var(--brass);
-    display:grid;place-items:center;
-  }
+  .rail::before{content:"";position:absolute;left:9px;top:6px;bottom:26px;width:2px;background:linear-gradient(var(--brass),rgba(195,155,78,.25));}
+  .stage{position:relative;padding:0 0 30px;opacity:1;}
+  .stage .dot{position:absolute;left:-34px;top:3px;width:20px;height:20px;border-radius:50%;background:var(--bone);border:2px solid var(--brass);display:grid;place-items:center;}
   .stage .dot span{width:7px;height:7px;border-radius:50%;background:var(--brass)}
-  .days{
-    font-family:"Cinzel",serif;font-weight:600;
-    font-size:13px;letter-spacing:.16em;text-transform:uppercase;
-    color:var(--brass-deep);
-  }
-  .stage h3{
-    font-weight:600;font-size:20px;margin:2px 0 12px;color:var(--char);
-  }
+  .days{font-family:"Cinzel",serif;font-weight:600;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass-deep);}
+  .stage h3{font-weight:600;font-size:20px;margin:2px 0 12px;color:var(--char);}
   .stage ul{list-style:none}
-  .stage li{
-    position:relative;padding:5px 0 5px 26px;
-    color:var(--char);font-size:16.5px;line-height:1.45;
-  }
+  .stage li{position:relative;padding:5px 0 5px 26px;color:var(--char);font-size:16.5px;line-height:1.45;}
   .stage li svg{position:absolute;left:0;top:9px;width:15px;height:15px}
   .stage li b{font-weight:600}
-
-  /* reveal (progressive enhancement) */
   .reveal .stage{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
   .reveal .stage.in{opacity:1;transform:none}
 
-  /* ---------- ALERT ---------- */
-  .alert{
-    margin:12px 26px 8px;
-    background:var(--alert-bg);
-    border:1px solid rgba(178,66,48,.22);
-    border-radius:4px;
-    padding:22px 22px 20px;
-  }
+  /* ALERT */
+  .alert{margin:12px 26px 8px;background:var(--alert-bg);border:1px solid rgba(178,66,48,.22);border-radius:4px;padding:22px 22px 20px;}
   .alert .eyebrow{color:var(--alert)}
   .alert h3{color:var(--alert);font-weight:600;font-size:19px;margin:8px 0 12px}
   .alert ul{list-style:none}
@@ -158,31 +64,22 @@
   .alert li::before{content:"";position:absolute;left:2px;top:12px;width:6px;height:6px;border-radius:50%;background:var(--alert)}
   .alert .close{margin-top:14px;font-size:15.5px;color:#6a2f24;font-style:italic}
 
-  /* ---------- CTA ---------- */
+  /* CTA */
   .cta{padding:30px 26px 20px}
   .cta-eye{text-align:center;margin-bottom:18px}
   .cta-eye .eyebrow{color:var(--brass-deep)}
-  .btn{
-    display:flex;align-items:center;justify-content:center;gap:10px;
-    width:100%;padding:16px;border-radius:4px;
-    font-family:"Cinzel",serif;font-weight:600;font-size:13.5px;
-    letter-spacing:.12em;text-transform:uppercase;text-decoration:none;
-    margin-bottom:12px;border:1.5px solid transparent;cursor:pointer;
-    transition:transform .15s ease,background .2s ease;
-  }
+  .btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px;border-radius:4px;font-family:"Cinzel",serif;font-weight:600;font-size:13.5px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;margin-bottom:12px;border:1.5px solid transparent;cursor:pointer;transition:transform .15s ease,background .2s ease;}
   .btn:active{transform:scale(.985)}
   .btn-gold{background:var(--brass);color:var(--ink)}
   .btn-gold:hover{background:#d0a95d}
   .btn-line{background:transparent;border-color:var(--char);color:var(--char)}
   .btn-line:hover{background:rgba(42,33,25,.05)}
   .btn svg{width:18px;height:18px}
+  .review-nudge{text-align:center;font-style:italic;color:var(--ash);font-size:15px;line-height:1.55;margin:2px 4px 16px;}
   .hide{display:none !important}
 
-  /* ---------- FOOTER ---------- */
-  footer{
-    background:var(--ink);color:rgba(246,242,234,.7);
-    padding:34px 26px 40px;margin-top:24px;text-align:center;
-  }
+  /* FOOTER */
+  footer{background:var(--ink);color:rgba(246,242,234,.7);padding:34px 26px 40px;margin-top:24px;text-align:center;}
   footer .fstudio{font-family:"Cinzel",serif;color:#fff;font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:15px}
   footer .flinks{margin-top:12px;display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
   footer a{color:var(--brass);text-decoration:none;font-size:15px}
@@ -205,7 +102,7 @@
 
   <header class="hero">
     <div class="wrap">
-      <div class="eyebrow">Guia de Cuidados</div>
+      <div class="eyebrow" id="eyebrow">Guia de Cuidados</div>
       <div class="studio" id="studioName">Seu Estúdio</div>
       <h1 class="greet" id="greet">Sua tatuagem está pronta.</h1>
       <div class="meta" id="meta"></div>
@@ -213,47 +110,40 @@
   </header>
 
   <main class="wrap">
-
-    <section class="note">
-      <p id="note">Os próximos 30 dias definem como sua arte vai envelhecer. Siga o passo a passo abaixo — qualquer dúvida, estou a uma mensagem de distância.</p>
-    </section>
+    <section class="note"><p id="note"></p></section>
 
     <section class="stages">
       <div class="stages-head">
-        <div class="eyebrow">A jornada da cicatrização</div>
-        <h2>Dia a dia, até curar</h2>
+        <div class="eyebrow" id="journeyEye">A jornada da cicatrização</div>
+        <h2 id="journeyH">Dia a dia, até curar</h2>
       </div>
       <div class="rail reveal" id="rail"></div>
     </section>
 
     <section class="alert">
-      <div class="eyebrow">⚠ Sinais de alerta</div>
-      <h3>Quando falar comigo na hora</h3>
-      <ul>
-        <li>Vermelhidão que <b>aumenta</b> depois do 4º/5º dia</li>
-        <li>Inchaço, calor ou dor que só piora</li>
-        <li>Pus ou secreção amarelada</li>
-        <li>Febre ou mal-estar</li>
-      </ul>
-      <p class="close">Cicatrização normal melhora a cada dia. Se algo piorar, me chame no WhatsApp ou procure um médico.</p>
+      <div class="eyebrow" id="alertEye">⚠ Sinais de alerta</div>
+      <h3 id="alertH"></h3>
+      <ul id="alertList"></ul>
+      <p class="close" id="alertClose"></p>
     </section>
 
     <section class="cta">
-      <div class="cta-eye"><div class="eyebrow">Antes de você ir</div></div>
+      <div class="cta-eye"><div class="eyebrow" id="ctaEye">Antes de você ir</div></div>
+      <p class="review-nudge hide" id="reviewNudge"></p>
 
       <a id="btnGoogle" class="btn btn-gold hide" href="#" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.6 6.8L12 17.3 5.8 20.9l1.6-6.8L2.2 8.9l6.9-.6L12 2z" fill="currentColor"/></svg>
-        Deixar avaliação no Google
+        <span id="btnGoogleTxt">Deixar avaliação no Google</span>
       </a>
 
       <a id="btnPhoto" class="btn btn-line hide" href="#" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.4"/><path d="M8 6l1.5-2h5L16 6"/></svg>
-        Enviar foto da cicatrização
+        <span id="btnPhotoTxt">Enviar foto da cicatrização</span>
       </a>
 
       <a id="btnWhats" class="btn btn-line hide" href="#" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 5-1.3A10 10 0 1012 2zm5.5 14.2c-.2.6-1.2 1.2-1.7 1.2-.5.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.5-2.6-1.1-4.3-3.8-4.4-4-.1-.2-1-1.4-1-2.6s.6-1.8.9-2.1c.2-.2.5-.3.6-.3h.5c.2 0 .4 0 .5.4l.7 1.7c.1.1.1.3 0 .5l-.3.4-.3.3c-.1.1-.2.3-.1.5.1.2.6 1 1.3 1.6.9.8 1.6 1 1.8 1.1.2.1.4.1.5-.1l.6-.7c.2-.2.3-.2.5-.1l1.6.8c.2.1.4.2.4.3.1.1.1.6-.1 1.1z"/></svg>
-        Falar comigo no WhatsApp
+        <span id="btnWhatsTxt">Falar comigo no WhatsApp</span>
       </a>
     </section>
   </main>
@@ -261,96 +151,253 @@
   <footer>
     <div class="fstudio" id="fStudio">Seu Estúdio</div>
     <div class="flinks" id="fLinks"></div>
-    <div class="credit">Guia gerado com <a href="https://carlostattoobh.com.br" target="_blank" rel="noopener">Central Tattoo</a></div>
+    <div class="credit"><span id="creditTxt">Guia gerado com</span> <a href="https://carlostattoobh.com.br" target="_blank" rel="noopener">Central Tattoo</a></div>
   </footer>
 
 <script>
 (function(){
+  "use strict";
   var qs = new URLSearchParams(location.search);
   function g(k){ var v = qs.get(k); return v ? v.trim() : ""; }
   function esc(s){ return (s||"").replace(/[<>&"]/g, function(c){return{'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];}); }
 
-  // ---- Studio + client data from the link ----
-  var estudio = g("est") || "Seu Estúdio";
-  var cliente = g("cli");
-  var estilo  = g("estilo");
-  var regiao  = g("reg");
-  var data    = g("dt");
-  var whats   = g("wa").replace(/\D/g,"");    // studio whatsapp, digits only
-  var google  = g("g");                        // google review link
-  var insta   = g("ig");
-  var site    = g("site");
-  var nota    = g("nota");                      // optional personal note
+  /* ─────────────────────────────────────────────
+     CHROME (rótulos fixos por idioma)
+  ───────────────────────────────────────────── */
+  var UI = {
+    pt:{ eyebrow:"Guia de Cuidados", journeyEye:"A jornada da cicatrização", journeyH:"Dia a dia, até curar",
+         alertEye:"⚠ Sinais de alerta", ctaEye:"Antes de você ir",
+         btnGoogle:"Deixar avaliação no Google", btnPhoto:"Enviar foto da cicatrização", btnWhats:"Falar comigo no WhatsApp",
+         credit:"Guia gerado com", footerSite:"Site",
+         reviewNudge:"Se você curtiu o resultado e o atendimento, uma avaliação no Google me ajuda demais — leva só 30 segundinhos. 🙏",
+         done:{ Tatuagem:"Sua tatuagem está <b>pronta</b>.", Piercing:"Seu piercing está <b>pronto</b>.", "Aréola":"Seu procedimento está <b>concluído</b>." },
+         hi:"Olá, <b>{name}</b>.",
+         proc:{ Tatuagem:"Tatuagem", Piercing:"Piercing", "Aréola":"Micropigmentação de Aréola" },
+         waPhoto:"Oi! {who}Segue a foto da minha cicatrização:", waDoubt:"Oi! Tenho uma dúvida sobre os cuidados." },
+    en:{ eyebrow:"Aftercare Guide", journeyEye:"The healing journey", journeyH:"Day by day, until healed",
+         alertEye:"⚠ Warning signs", ctaEye:"Before you go",
+         btnGoogle:"Leave a Google review", btnPhoto:"Send a healing photo", btnWhats:"Message me on WhatsApp",
+         credit:"Guide powered by", footerSite:"Website",
+         reviewNudge:"If you loved the result and the care, a Google review helps me a lot — it takes just 30 seconds. 🙏",
+         done:{ Tatuagem:"Your tattoo is <b>done</b>.", Piercing:"Your piercing is <b>done</b>.", "Aréola":"Your procedure is <b>complete</b>." },
+         hi:"Hello, <b>{name}</b>.",
+         proc:{ Tatuagem:"Tattoo", Piercing:"Piercing", "Aréola":"Areola Micropigmentation" },
+         waPhoto:"Hi! {who}Here's a photo of my healing:", waDoubt:"Hi! I have a question about the aftercare." },
+    es:{ eyebrow:"Guía de Cuidados", journeyEye:"El proceso de cicatrización", journeyH:"Día a día, hasta sanar",
+         alertEye:"⚠ Señales de alerta", ctaEye:"Antes de irte",
+         btnGoogle:"Dejar reseña en Google", btnPhoto:"Enviar foto de la cicatrización", btnWhats:"Hablar conmigo por WhatsApp",
+         credit:"Guía creada con", footerSite:"Sitio web",
+         reviewNudge:"Si te gustó el resultado y la atención, una reseña en Google me ayuda muchísimo — solo toma 30 segundos. 🙏",
+         done:{ Tatuagem:"Tu tatuaje está <b>listo</b>.", Piercing:"Tu piercing está <b>listo</b>.", "Aréola":"Tu procedimiento está <b>completo</b>." },
+         hi:"Hola, <b>{name}</b>.",
+         proc:{ Tatuagem:"Tatuaje", Piercing:"Piercing", "Aréola":"Micropigmentación de Areola" },
+         waPhoto:"¡Hola! {who}Aquí va una foto de mi cicatrización:", waDoubt:"¡Hola! Tengo una duda sobre los cuidados." }
+  };
 
-  document.getElementById("studioName").textContent = estudio;
-  document.getElementById("fStudio").textContent = estudio;
-  document.title = "Cuidados · " + estudio;
+  /* ─────────────────────────────────────────────
+     CONTEÚDO EDITÁVEL — 3 procedimentos × 3 idiomas
+     (note = introdução · stages = linha do tempo · alert = bloco vermelho)
+  ───────────────────────────────────────────── */
+  var GUIAS = {
+    Tatuagem:{
+      pt:{ note:"Os próximos 30 dias definem como sua arte vai envelhecer. Siga o passo a passo abaixo — qualquer dúvida, estou a uma mensagem de distância.",
+        stages:[
+          {days:"Dias 1–3",title:"Primeiros dias",items:["Mantenha o curativo por <b>2–4 horas</b>","Lave suavemente com sabonete neutro","Aplique pomada cicatrizante em <b>camada fina</b>","Nada de sol, piscina ou mar","Não coçar nem esfregar — <b>jamais</b>"]},
+          {days:"Dias 4–7",title:"Descamação inicial",items:["A pele começa a descamar — é <b>normal</b>","Hidrate 2 a 3× por dia","Continue evitando sol direto","Não arranque a pele solta","Use roupas leves sobre a região"]},
+          {days:"Dias 8–14",title:"Cicatrização ativa",items:["Descamação intensa — <b>não force</b>","Hidratação diária é essencial","Protetor solar ao se expor ao sol","Pele acinzentada — normal","Evite exercícios com suor intenso"]},
+          {days:"Dias 15–30",title:"Finalização",items:["Tatuagem visualmente curada","Continue a hidratação diária","Protetor solar FPS 50+","Evite sauna e banho muito quente","Combine o retoque comigo, se necessário"]},
+          {days:"Dias 30+",title:"Cuidados permanentes",items:["Protetor solar sempre que expor a arte","Pele hidratada = cores vivas por mais tempo","Sol em excesso é o maior inimigo da tattoo"]}
+        ],
+        alert:{title:"Quando falar comigo na hora",items:["Vermelhidão que <b>aumenta</b> depois do 4º/5º dia","Inchaço, calor ou dor que só piora","Pus ou secreção amarelada","Febre ou mal-estar"],close:"Cicatrização normal melhora a cada dia. Se algo piorar, me chame no WhatsApp ou procure um médico."} },
+      en:{ note:"The next 30 days decide how your art will age. Follow the steps below — any question, I'm one message away.",
+        stages:[
+          {days:"Days 1–3",title:"First days",items:["Keep the bandage on for <b>2–4 hours</b>","Wash gently with mild soap","Apply a <b>thin layer</b> of healing ointment","No sun, pool or sea","Never scratch or rub it"]},
+          {days:"Days 4–7",title:"Initial peeling",items:["The skin starts to peel — this is <b>normal</b>","Moisturize 2 to 3× a day","Keep avoiding direct sun","Don't pick loose skin","Wear light clothing over the area"]},
+          {days:"Days 8–14",title:"Active healing",items:["Heavy peeling — <b>don't force it</b>","Daily moisturizing is essential","Sunscreen whenever exposed to sun","Grayish skin — normal","Avoid heavy-sweat workouts"]},
+          {days:"Days 15–30",title:"Finishing up",items:["Tattoo looks healed","Keep moisturizing daily","Sunscreen SPF 50+","Avoid sauna and very hot showers","Arrange a touch-up with me if needed"]},
+          {days:"Days 30+",title:"Lifelong care",items:["Sunscreen whenever the art is exposed","Hydrated skin = vivid colors for longer","Too much sun is a tattoo's worst enemy"]}
+        ],
+        alert:{title:"When to message me right away",items:["Redness that <b>grows</b> after day 4–5","Swelling, heat or pain that keeps worsening","Pus or yellowish discharge","Fever or feeling unwell"],close:"Normal healing improves every day. If anything gets worse, message me on WhatsApp or see a doctor."} },
+      es:{ note:"Los próximos 30 días definen cómo envejecerá tu arte. Sigue el paso a paso — cualquier duda, estoy a un mensaje de distancia.",
+        stages:[
+          {days:"Días 1–3",title:"Primeros días",items:["Mantén el vendaje por <b>2–4 horas</b>","Lava suavemente con jabón neutro","Aplica pomada cicatrizante en <b>capa fina</b>","Nada de sol, piscina ni mar","Nunca rascar ni frotar"]},
+          {days:"Días 4–7",title:"Descamación inicial",items:["La piel empieza a descamarse — es <b>normal</b>","Hidrata 2 a 3× al día","Sigue evitando el sol directo","No arranques la piel suelta","Usa ropa ligera sobre la zona"]},
+          {days:"Días 8–14",title:"Cicatrización activa",items:["Descamación intensa — <b>no fuerces</b>","La hidratación diaria es esencial","Protector solar al exponerte al sol","Piel grisácea — normal","Evita ejercicio con mucho sudor"]},
+          {days:"Días 15–30",title:"Finalización",items:["El tatuaje se ve cicatrizado","Sigue hidratando a diario","Protector solar FPS 50+","Evita sauna y baños muy calientes","Coordina el retoque conmigo, si hace falta"]},
+          {days:"Días 30+",title:"Cuidados permanentes",items:["Protector solar siempre que expongas el arte","Piel hidratada = colores vivos por más tiempo","El exceso de sol es el peor enemigo del tatuaje"]}
+        ],
+        alert:{title:"Cuándo escribirme de inmediato",items:["Enrojecimiento que <b>aumenta</b> tras el día 4–5","Hinchazón, calor o dolor que empeora","Pus o secreción amarillenta","Fiebre o malestar"],close:"Una cicatrización normal mejora cada día. Si algo empeora, escríbeme por WhatsApp o consulta a un médico."} }
+    },
 
-  document.getElementById("greet").innerHTML = cliente
-    ? "Olá, <b>" + esc(cliente.split(" ")[0]) + "</b>."
-    : "Sua tatuagem está <b>pronta</b>.";
+    Piercing:{
+      pt:{ note:"O piercing leva semanas pra cicatrizar por dentro, mesmo parecendo curado por fora. Siga o passo a passo abaixo — qualquer dúvida, é só me chamar.",
+        stages:[
+          {days:"Dias 1–3",title:"Primeiros dias",items:["<b>Não retire</b> a joia nos primeiros dias","Limpe 2× ao dia com soro fisiológico","Não gire nem fique mexendo na joia","Evite maquiagem e produtos na região","Sempre com as mãos limpas antes de tocar"]},
+          {days:"Dias 4–14",title:"Cicatrização inicial",items:["Inchaço e sensibilidade são <b>normais</b>","Continue a limpeza 2× ao dia","Evite piscina, mar e banheira","Fronha limpa (piercing de orelha/rosto)","Não durma pressionando a região"]},
+          {days:"Dias 15–30",title:"Cicatrização avançada",items:["Menos sensibilidade — siga limpando","Ainda <b>não troque</b> a joia","Cabelo preso longe da região","Roupas soltas sobre o local","Continue evitando piscina e mar"]},
+          {days:"Dias 30–60",title:"Reta final",items:["Cicatrizou por fora, ainda não por dentro","Só troque a joia com a minha liberação","Mantenha a higiene diária","Evite esporte de contato na região"]},
+          {days:"Dias 60+",title:"Cuidados permanentes",items:["Limpeza de rotina com sabonete neutro","Joia de qualidade sempre (titânio/ouro)","Evite trocar de joia toda hora","Qualquer irritação, me procure"]}
+        ],
+        alert:{title:"Quando falar comigo na hora",items:["Vermelhidão que se <b>espalha</b>","Inchaço com dor crescente","Secreção amarelada/esverdeada com odor","Febre ou mal-estar"],close:"Cicatrização normal melhora a cada dia. Se algo piorar, me chame no WhatsApp ou procure um médico."} },
+      en:{ note:"A piercing takes weeks to heal on the inside, even when it looks healed outside. Follow the steps below — any question, just message me.",
+        stages:[
+          {days:"Days 1–3",title:"First days",items:["<b>Don't remove</b> the jewelry in the first days","Clean 2× a day with saline solution","Don't twist or fiddle with the jewelry","Avoid makeup and products on the area","Always clean hands before touching"]},
+          {days:"Days 4–14",title:"Initial healing",items:["Swelling and tenderness are <b>normal</b>","Keep cleaning 2× a day","Avoid pool, sea and bathtub","Clean pillowcase (ear/face piercings)","Don't sleep pressing on the area"]},
+          {days:"Days 15–30",title:"Advanced healing",items:["Less tenderness — keep cleaning","Do <b>not change</b> the jewelry yet","Hair tied away from the area","Loose clothing over the spot","Keep avoiding pool and sea"]},
+          {days:"Days 30–60",title:"Home stretch",items:["Healed outside, not yet inside","Only change the jewelry once I clear you","Keep up daily hygiene","Avoid contact sports on the area"]},
+          {days:"Days 60+",title:"Lifelong care",items:["Routine cleaning with mild soap","Always quality jewelry (titanium/gold)","Avoid changing jewelry too often","Any irritation, come see me"]}
+        ],
+        alert:{title:"When to message me right away",items:["Redness that <b>spreads</b>","Swelling with growing pain","Yellowish/greenish discharge with odor","Fever or feeling unwell"],close:"Normal healing improves every day. If anything gets worse, message me on WhatsApp or see a doctor."} },
+      es:{ note:"El piercing tarda semanas en cicatrizar por dentro, aunque parezca curado por fuera. Sigue el paso a paso — cualquier duda, escríbeme.",
+        stages:[
+          {days:"Días 1–3",title:"Primeros días",items:["<b>No retires</b> la joya los primeros días","Limpia 2× al día con suero fisiológico","No gires ni manipules la joya","Evita maquillaje y productos en la zona","Siempre manos limpias antes de tocar"]},
+          {days:"Días 4–14",title:"Cicatrización inicial",items:["Hinchazón y sensibilidad son <b>normales</b>","Continúa la limpieza 2× al día","Evita piscina, mar y bañera","Funda limpia (piercings de oreja/cara)","No duermas presionando la zona"]},
+          {days:"Días 15–30",title:"Cicatrización avanzada",items:["Menos sensibilidad — sigue limpiando","Aún <b>no cambies</b> la joya","Cabello recogido lejos de la zona","Ropa holgada sobre el lugar","Sigue evitando piscina y mar"]},
+          {days:"Días 30–60",title:"Recta final",items:["Cicatrizó por fuera, aún no por dentro","Cambia la joya solo con mi autorización","Mantén la higiene diaria","Evita deportes de contacto en la zona"]},
+          {days:"Días 60+",title:"Cuidados permanentes",items:["Limpieza de rutina con jabón neutro","Joya de calidad siempre (titanio/oro)","Evita cambiar de joya con frecuencia","Cualquier irritación, búscame"]}
+        ],
+        alert:{title:"Cuándo escribirme de inmediato",items:["Enrojecimiento que se <b>extiende</b>","Hinchazón con dolor creciente","Secreción amarillenta/verdosa con olor","Fiebre o malestar"],close:"Una cicatrización normal mejora cada día. Si algo empeora, escríbeme por WhatsApp o consulta a un médico."} }
+    },
 
-  if(nota){ document.getElementById("note").textContent = nota; }
+    "Aréola":{
+      pt:{ note:"A micropigmentação de aréola exige cuidado delicado nas primeiras semanas para a cor fixar bem. Siga o passo a passo abaixo — estou aqui pra qualquer dúvida.",
+        stages:[
+          {days:"Dias 1–3",title:"Primeiros dias",items:["Mantenha o curativo <b>conforme orientei</b>","Evite molhar direto nas primeiras 24h","Não coçar nem esfregar a região","Sutiã macio, sem bojo apertado","Evite sol e calor direto na área"]},
+          {days:"Dias 4–7",title:"Descamação inicial",items:["Uma leve descamação é <b>normal</b>","Hidrate com a pomada indicada","Evite piscina, mar, sauna e banho quente","Roupas leves e confortáveis","Não arranque casquinhas ou peles soltas"]},
+          {days:"Dias 8–15",title:"Fixação da cor",items:["A cor pode parecer mais clara — <b>normal</b>","Siga com hidratação diária leve","Protetor solar ao expor a região","Evite exercício de impacto na área","Retorno de avaliação como combinamos"]},
+          {days:"Dias 15–30",title:"Finalização",items:["O resultado final começa a aparecer","Mantenha hidratação e proteção solar","Evite bronzeamento artificial","Vamos agendar a avaliação de retoque","Fotos de acompanhamento me ajudam muito"]},
+          {days:"Dias 30+",title:"Cuidados permanentes",items:["Protetor solar preserva a cor","Hidratação regular","Retoque de fixação avaliado caso a caso","Qualquer dúvida, é só me chamar"]}
+        ],
+        alert:{title:"Quando falar comigo na hora",items:["Vermelhidão excessiva ou <b>crescente</b>","Inchaço que piora","Secreção com odor","Febre ou mal-estar"],close:"Cicatrização normal melhora a cada dia. Se algo piorar, me chame no WhatsApp ou procure um médico."} },
+      en:{ note:"Areola micropigmentation needs gentle care in the first weeks for the color to set well. Follow the steps below — I'm here for any question.",
+        stages:[
+          {days:"Days 1–3",title:"First days",items:["Keep the dressing <b>as instructed</b>","Avoid wetting it directly for the first 24h","Don't scratch or rub the area","Soft bra, no tight padding","Avoid sun and direct heat on the area"]},
+          {days:"Days 4–7",title:"Initial peeling",items:["Light peeling is <b>normal</b>","Moisturize with the recommended ointment","Avoid pool, sea, sauna and hot baths","Light, comfortable clothing","Don't pick scabs or loose skin"]},
+          {days:"Days 8–15",title:"Color setting",items:["Color may look lighter — <b>normal</b>","Continue light daily moisturizing","Sunscreen when the area is exposed","Avoid high-impact exercise on the area","Follow-up review as we agreed"]},
+          {days:"Days 15–30",title:"Finishing up",items:["The final result starts to show","Keep up hydration and sun protection","Avoid artificial tanning","Let's schedule the touch-up review","Progress photos help me a lot"]},
+          {days:"Days 30+",title:"Lifelong care",items:["Sunscreen preserves the color","Regular moisturizing","Touch-up assessed case by case","Any question, just message me"]}
+        ],
+        alert:{title:"When to message me right away",items:["Excessive or <b>growing</b> redness","Swelling that worsens","Discharge with odor","Fever or feeling unwell"],close:"Normal healing improves every day. If anything gets worse, message me on WhatsApp or see a doctor."} },
+      es:{ note:"La micropigmentación de areola requiere cuidado delicado en las primeras semanas para que el color fije bien. Sigue el paso a paso — estoy aquí para cualquier duda.",
+        stages:[
+          {days:"Días 1–3",title:"Primeros días",items:["Mantén el apósito <b>como te indiqué</b>","Evita mojarla directamente las primeras 24h","No rascar ni frotar la zona","Sujetador suave, sin relleno apretado","Evita sol y calor directo en la zona"]},
+          {days:"Días 4–7",title:"Descamación inicial",items:["Una leve descamación es <b>normal</b>","Hidrata con la pomada indicada","Evita piscina, mar, sauna y baño caliente","Ropa ligera y cómoda","No arranques costras ni piel suelta"]},
+          {days:"Días 8–15",title:"Fijación del color",items:["El color puede verse más claro — <b>normal</b>","Sigue con hidratación diaria ligera","Protector solar al exponer la zona","Evita ejercicio de impacto en la zona","Cita de control como acordamos"]},
+          {days:"Días 15–30",title:"Finalización",items:["El resultado final empieza a aparecer","Mantén hidratación y protección solar","Evita el bronceado artificial","Agendemos la cita de retoque","Las fotos de seguimiento me ayudan mucho"]},
+          {days:"Días 30+",title:"Cuidados permanentes",items:["El protector solar preserva el color","Hidratación regular","Retoque evaluado caso por caso","Cualquier duda, escríbeme"]}
+        ],
+        alert:{title:"Cuándo escribirme de inmediato",items:["Enrojecimiento excesivo o <b>creciente</b>","Hinchazón que empeora","Secreción con olor","Fiebre o malestar"],close:"Una cicatrización normal mejora cada día. Si algo empeora, escríbeme por WhatsApp o consulta a un médico."} }
+    }
+  };
 
-  // meta chips
-  var chips = [];
-  if(estilo) chips.push(estilo);
-  if(regiao) chips.push(regiao);
-  if(data)   chips.push(data);
-  if(chips.length){
-    document.getElementById("meta").innerHTML =
-      chips.map(function(c){return '<span class="chip">'+esc(c)+'</span>';}).join("");
+  /* ─────────────────────────────────────────────
+     RESOLUÇÃO: procedimento + idioma
+  ───────────────────────────────────────────── */
+  function normTipo(t){
+    var s=(t||"").toLowerCase();
+    if(s.indexOf("pierc")>-1) return "Piercing";
+    if(s.indexOf("are")>-1 || s.indexOf("aré")>-1 || s.indexOf("areo")>-1) return "Aréola";
+    return "Tatuagem";
+  }
+  function normLang(l){
+    var s=(l||"").slice(0,2).toLowerCase();
+    return (s==="pt"||s==="en"||s==="es") ? s : "";
+  }
+  var tipo = normTipo(g("tipo"));
+  // idioma: 1) parâmetro do link  2) idioma do navegador (cliente estrangeiro)  3) pt
+  var lang = normLang(g("lang")) || normLang(navigator.language) || "pt";
+  var U = UI[lang] || UI.pt;
+
+  // base do conteúdo (padrão) + merge do texto editado pelo tatuador (?d=)
+  function deepGuide(t,l){ var b=(GUIAS[t]&&GUIAS[t][l])||(GUIAS[t]&&GUIAS[t].pt)||GUIAS.Tatuagem.pt; return JSON.parse(JSON.stringify(b)); }
+  var guia = deepGuide(tipo,lang);
+
+  function b64uDecode(s){
+    try{ s=s.replace(/-/g,"+").replace(/_/g,"/"); while(s.length%4)s+="="; return decodeURIComponent(escape(atob(s))); }
+    catch(e){ return ""; }
+  }
+  var dRaw = g("d");
+  if(dRaw){
+    try{
+      var ov = JSON.parse(b64uDecode(dRaw));
+      if(ov && typeof ov==="object"){
+        if(typeof ov.note==="string") guia.note = ov.note;
+        if(Array.isArray(ov.stages) && ov.stages.length) guia.stages = ov.stages;
+        if(ov.alert && typeof ov.alert==="object"){
+          if(typeof ov.alert.title==="string") guia.alert.title = ov.alert.title;
+          if(Array.isArray(ov.alert.items) && ov.alert.items.length) guia.alert.items = ov.alert.items;
+          if(typeof ov.alert.close==="string") guia.alert.close = ov.alert.close;
+        }
+      }
+    }catch(e){ /* usa padrão */ }
   }
 
-  // ---- Healing timeline data ----
-  var stages = [
-    { days:"Dias 1–3", title:"Primeiros dias", items:[
-      "Mantenha o curativo por <b>2–4 horas</b>",
-      "Lave suavemente com sabonete neutro",
-      "Aplique pomada cicatrizante em <b>camada fina</b>",
-      "Nada de sol, piscina ou mar",
-      "Não coçar nem esfregar — <b>jamais</b>"
-    ]},
-    { days:"Dias 4–7", title:"Descamação inicial", items:[
-      "A pele começa a descamar — é <b>normal</b>",
-      "Hidrate 2 a 3× por dia",
-      "Continue evitando sol direto",
-      "Não arranque a pele solta",
-      "Use roupas leves sobre a região"
-    ]},
-    { days:"Dias 8–14", title:"Cicatrização ativa", items:[
-      "Descamação intensa — <b>não force</b>",
-      "Hidratação diária é essencial",
-      "Protetor solar ao se expor ao sol",
-      "Pele acinzentada — normal",
-      "Evite exercícios com suor intenso"
-    ]},
-    { days:"Dias 15–30", title:"Finalização", items:[
-      "Tatuagem visualmente curada",
-      "Continue a hidratação diária",
-      "Protetor solar FPS 50+",
-      "Evite sauna e banho muito quente",
-      "Combine o retoque comigo, se necessário"
-    ]},
-    { days:"Dias 30+", title:"Cuidados permanentes", items:[
-      "Protetor solar sempre que expor a arte",
-      "Pele hidratada = cores vivas por mais tempo",
-      "Sol em excesso é o maior inimigo da tattoo"
-    ]}
-  ];
+  /* ─────────────────────────────────────────────
+     DADOS DO ESTÚDIO / CLIENTE (via link)
+  ───────────────────────────────────────────── */
+  var estudio = g("est") || "Seu Estúdio";
+  var cliente = g("cli");
+  var regiao  = g("reg");
+  var data    = g("dt");
+  var whats   = g("wa").replace(/\D/g,"");
+  var google  = g("g");
+  var insta   = g("ig");
+  var site    = g("site");
+  var nota    = g("nota"); // nota pessoal opcional sobrescreve a introdução
 
+  document.documentElement.lang = (lang==="pt"?"pt-BR":lang);
+  document.getElementById("studioName").textContent = estudio;
+  document.getElementById("fStudio").textContent = estudio;
+  document.title = U.eyebrow + " · " + estudio;
+
+  // chrome i18n
+  document.getElementById("eyebrow").textContent = U.eyebrow;
+  document.getElementById("journeyEye").textContent = U.journeyEye;
+  document.getElementById("journeyH").textContent = U.journeyH;
+  document.getElementById("alertEye").textContent = U.alertEye;
+  document.getElementById("ctaEye").textContent = U.ctaEye;
+  document.getElementById("btnGoogleTxt").textContent = U.btnGoogle;
+  document.getElementById("btnPhotoTxt").textContent = U.btnPhoto;
+  document.getElementById("btnWhatsTxt").textContent = U.btnWhats;
+  document.getElementById("creditTxt").textContent = U.credit;
+
+  // saudação
+  document.getElementById("greet").innerHTML = cliente
+    ? U.hi.replace("{name}", esc(cliente.split(" ")[0]))
+    : (U.done[tipo] || U.done.Tatuagem);
+
+  // introdução (nota personalizada tem prioridade sobre o guia)
+  document.getElementById("note").textContent = nota || guia.note;
+
+  // chips: procedimento + região + data
+  var chips = [];
+  chips.push(U.proc[tipo] || tipo);
+  if(regiao) chips.push(regiao);
+  if(data)   chips.push(data);
+  document.getElementById("meta").innerHTML =
+    chips.map(function(c){return '<span class="chip">'+esc(c)+'</span>';}).join("");
+
+  /* ─────────────────────────────────────────────
+     LINHA DO TEMPO
+  ───────────────────────────────────────────── */
   var check = '<svg viewBox="0 0 24 24" fill="none" stroke="#C39B4E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>';
-  var rail = document.getElementById("rail");
-  rail.innerHTML = stages.map(function(s){
+  document.getElementById("rail").innerHTML = guia.stages.map(function(s){
     return '<article class="stage">'
       + '<div class="dot"><span></span></div>'
-      + '<div class="days">'+s.days+'</div>'
-      + '<h3>'+s.title+'</h3><ul>'
-      + s.items.map(function(i){return '<li>'+check+i+'</li>';}).join("")
+      + '<div class="days">'+esc(s.days)+'</div>'
+      + '<h3>'+esc(s.title)+'</h3><ul>'
+      + (s.items||[]).map(function(i){return '<li>'+check+i+'</li>';}).join("")
       + '</ul></article>';
   }).join("");
 
-  // ---- CTAs ----
+  // alerta
+  document.getElementById("alertH").textContent = guia.alert.title;
+  document.getElementById("alertList").innerHTML = (guia.alert.items||[]).map(function(i){return '<li>'+i+'</li>';}).join("");
+  document.getElementById("alertClose").textContent = guia.alert.close;
+
+  /* ─────────────────────────────────────────────
+     CTAs
+  ───────────────────────────────────────────── */
   function waLink(num, text){
     var n = num; if(n && n.length && n[0] !== "5") n = "55" + n; // assume BR
     return "https://wa.me/" + n + (text ? "?text=" + encodeURIComponent(text) : "");
@@ -358,25 +405,27 @@
   if(google){
     var bg = document.getElementById("btnGoogle");
     bg.href = google; bg.classList.remove("hide");
+    var nudge = document.getElementById("reviewNudge");
+    nudge.textContent = U.reviewNudge; nudge.classList.remove("hide");
   }
   if(whats){
     var first = cliente ? cliente.split(" ")[0] : "";
+    var who = first ? (first + " — ") : "";
     var bp = document.getElementById("btnPhoto");
-    bp.href = waLink(whats, "Oi! " + (first? "Aqui é "+first+". ":"") + "Segue a foto da minha cicatrização:");
+    bp.href = waLink(whats, U.waPhoto.replace("{who}", who));
     bp.classList.remove("hide");
-
     var bw = document.getElementById("btnWhats");
-    bw.href = waLink(whats, "Oi! Tenho uma dúvida sobre os cuidados da tattoo.");
+    bw.href = waLink(whats, U.waDoubt);
     bw.classList.remove("hide");
   }
 
   // footer links
   var fl = [];
   if(insta) fl.push('<a href="https://instagram.com/'+esc(insta.replace(/^@/,""))+'" target="_blank" rel="noopener">@'+esc(insta.replace(/^@/,""))+'</a>');
-  if(site)  fl.push('<a href="'+esc(site)+'" target="_blank" rel="noopener">Site</a>');
+  if(site)  fl.push('<a href="'+esc(site)+'" target="_blank" rel="noopener">'+U.footerSite+'</a>');
   if(fl.length) document.getElementById("fLinks").innerHTML = fl.join("");
 
-  // ---- Scroll reveal ----
+  /* Scroll reveal */
   if(!window.matchMedia || !matchMedia("(prefers-reduced-motion: reduce)").matches){
     if("IntersectionObserver" in window){
       var io = new IntersectionObserver(function(entries){

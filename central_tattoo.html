@@ -364,7 +364,6 @@ textarea.fi{resize:vertical;min-height:76px;}
 </style>
 
 <!-- Supabase -->
-<script type="importmap">{"imports":{"@supabase/supabase-js":"https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"}}</script>
 
 <style>
 /* ══════════════════════════════════════
@@ -779,8 +778,9 @@ textarea.fi{resize:vertical;min-height:76px;}
   <div class="tw"><table class="tbl"><thead><tr><th>Cliente</th><th>Telefone</th><th>Procedimento</th><th>Data Sessão</th><th>Guia</th><th>Avaliação</th><th>Retorno 30d</th><th>Cicatrização</th><th>Retoque?</th><th>Nota</th><th></th></tr></thead><tbody id="cicTb"></tbody></table></div></div>
 
   <div class="card">
-    <div class="card-h"><h3>2️⃣ Guias de Cuidados — armazenados aqui, sem cartões avulsos</h3></div>
+    <div class="card-h"><h3>2️⃣ Guias de Cuidados — armazenados aqui, sem cartões avulsos</h3><button class="btn btn-primary btn-sm" onclick="ctGuiaOpen()">✏️ Ler / Editar textos</button></div>
     <div class="card-b">
+      <p style="color:var(--tx3);font-size:12.5px;margin:0 0 12px">Estes são os textos que o cliente recebe. Clique em <strong>✏️ Ler / Editar textos</strong> para personalizar qualquer guia — em Português, Inglês ou Espanhol.</p>
       <div class="tab-bar" style="margin-bottom:14px" id="cicGTabs">
         <div class="tab-btn on" data-tipo="Tatuagem" onclick="cicGuiaTab('Tatuagem',this)">🖋️ Tatuagem</div>
         <div class="tab-btn" data-tipo="Piercing" onclick="cicGuiaTab('Piercing',this)">💎 Piercing</div>
@@ -842,6 +842,7 @@ textarea.fi{resize:vertical;min-height:76px;}
 <!-- ═══ MARKETING ═══ -->
 <div class="panel" id="p-marketing">
   <div class="pg"><div class="pg-t"><h2>📱 Marketing</h2><p>Calendário de conteúdo e campanhas</p></div><button class="btn btn-primary" onclick="openM('mMkt')">+ Planejar Post</button></div>
+  <div class="card"><div class="card-h"><h3>📅 Resumo do Mês</h3><span class="badge-count" id="mktResMes">—</span></div><div class="card-b" id="mktResumo"></div></div>
   <div class="card"><div class="card-h"><h3>📣 Fundo de Marketing</h3><button class="btn btn-ghost btn-xs" onclick="usarFundoMkt()">− Registrar uso da verba</button></div><div class="card-b" id="mktFundo"></div></div>
   <div class="kpi-grid" id="mktKpi"></div>
   <div class="card"><div class="card-h"><h3>Calendário de Conteúdo</h3><span class="badge-count" id="mktCt">—</span></div>
@@ -902,7 +903,7 @@ textarea.fi{resize:vertical;min-height:76px;}
 
   <div class="conf-section">
     <h3>💾 Backup e Restauração de Dados</h3>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">
       <div style="padding:20px;background:#F9FAFB;border-radius:10px;border:1px solid var(--brd)">
         <div style="font-size:22px;margin-bottom:8px">💾</div>
         <h4 style="margin-bottom:6px">Exportar Todos os Dados</h4>
@@ -914,6 +915,12 @@ textarea.fi{resize:vertical;min-height:76px;}
         <h4 style="margin-bottom:6px">Restaurar Dados</h4>
         <p style="font-size:12.5px;color:var(--tx3);margin-bottom:14px;line-height:1.6">Importa um arquivo de backup JSON gerado pelo sistema. <strong style="color:var(--red)">Atenção:</strong> isso substituirá todos os dados atuais.</p>
         <button class="btn btn-ghost btn-sm" onclick="document.getElementById('restoreFile').click()">📤 Carregar Backup</button>
+      </div>
+      <div style="padding:20px;background:var(--goldb,#FFFBEB);border-radius:10px;border:1px solid var(--goldbrd,#FDE68A)">
+        <div style="font-size:22px;margin-bottom:8px">☁️</div>
+        <h4 style="margin-bottom:6px">Sincronizar com a Nuvem</h4>
+        <p style="font-size:12.5px;color:var(--tx3);margin-bottom:14px;line-height:1.6">A partir de agora, o que você salva já vai sozinho pra nuvem. Use o botão abaixo pra enviar de uma vez tudo que já existia neste computador (recomendado 1x).</p>
+        <button class="btn btn-primary btn-sm" onclick="ctForcarSync()">☁️ Enviar Tudo Agora</button>
       </div>
     </div>
   </div>
@@ -1098,6 +1105,31 @@ textarea.fi{resize:vertical;min-height:76px;}
     <div class="fg"><label>Observações</label><textarea class="fi" id="ccObs" rows="2"></textarea></div>
   </div>
   <div class="modal-foot"><button class="btn btn-ghost btn-sm" onclick="closeM('mCic')">Cancelar</button><button class="btn btn-primary btn-sm" onclick="saveCic()">Salvar</button></div>
+</div></div>
+
+<!-- ═══ EDITOR DE GUIAS DE CUIDADOS ═══ -->
+<div class="modal-wrap" id="mGuia"><div class="modal" style="max-width:640px">
+  <div class="modal-head"><h3>✏️ Editar Guia de Cuidados <span id="gzEditedBadge" style="display:none;font-size:11px;font-weight:700;color:var(--gold2);border:1px solid var(--gold2);border-radius:20px;padding:2px 10px;margin-left:8px;vertical-align:middle">✓ personalizado</span></h3><button class="modal-close" onclick="closeM('mGuia')">✕</button></div>
+  <div class="modal-body">
+    <div class="tut" style="margin-bottom:14px">💡 O que você salvar aqui é <strong>exatamente</strong> o que o cliente vê na página. Cada combinação de <strong>procedimento + idioma</strong> tem seu próprio texto. O cliente de outro país recebe automaticamente o guia no idioma cadastrado na ficha dele.</div>
+    <div class="fg2">
+      <div class="fg"><label>Procedimento</label><select class="fi" id="gzTipo" onchange="ctGuiaLoadForm()"><option value="Tatuagem">🖋️ Tatuagem</option><option value="Piercing">💎 Piercing</option><option value="Aréola">🎗️ Micropigmentação de Aréola</option></select></div>
+      <div class="fg"><label>🌎 Idioma</label><select class="fi" id="gzLang" onchange="ctGuiaLoadForm()"><option value="pt">🇧🇷 Português</option><option value="en">🇺🇸 English</option><option value="es">🇪🇸 Español</option></select></div>
+    </div>
+    <div class="fg"><label>Introdução (parágrafo de abertura)</label><textarea class="fi" id="gzNote" rows="3"></textarea></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin:16px 0 8px"><label style="font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--tx2)">Linha do tempo (fases)</label><button class="btn btn-ghost btn-sm" onclick="ctGuiaAddStage()">+ Adicionar fase</button></div>
+    <div id="gzStages"></div>
+    <div style="margin-top:16px;border-top:1px solid var(--brd2);padding-top:14px">
+      <label style="font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--red,#b24230)">⚠️ Sinais de alerta</label>
+      <div class="fg" style="margin-top:8px"><label>Título do bloco</label><input class="fi" id="gzAlertT"></div>
+      <div class="fg"><label>Sinais — um por linha</label><textarea class="fi" id="gzAlertI" rows="4"></textarea></div>
+      <div class="fg"><label>Frase de fechamento</label><textarea class="fi" id="gzAlertC" rows="2"></textarea></div>
+    </div>
+  </div>
+  <div class="modal-foot" style="justify-content:space-between">
+    <div style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="ctGuiaReset()">↩️ Restaurar padrão</button><button class="btn btn-ghost btn-sm" onclick="ctGuiaPreview()">👁 Pré-visualizar</button></div>
+    <div style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="closeM('mGuia')">Fechar</button><button class="btn btn-primary btn-sm" onclick="ctGuiaSave()">💾 Salvar guia</button></div>
+  </div>
 </div></div>
 
 <div class="modal-wrap" id="mRes"><div class="modal">
@@ -1288,11 +1320,35 @@ function $R(v){return 'R$\u00a0'+(R(v)).toLocaleString('pt-BR',{minimumFractionD
 function dtBR(d){if(!d)return'—';const p=d.split('-');return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:d;}
 function hoje(){return new Date().toISOString().slice(0,10);}
 function ma(){return new Date().toISOString().slice(0,7);}
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.opacity='1';t.style.transform='translateY(0)';setTimeout(()=>{t.style.opacity='0';t.style.transform='translateY(10px)';},2800);}
+let TOAST_Q=[];
+function showToast(msg){TOAST_Q.push(msg);if(TOAST_Q.length===1)nextToast();}
+function nextToast(){if(!TOAST_Q.length)return;const t=document.getElementById('toast');t.textContent=TOAST_Q[0];t.style.opacity='1';t.style.transform='translateY(0)';
+  setTimeout(()=>{t.style.opacity='0';t.style.transform='translateY(10px)';setTimeout(()=>{TOAST_Q.shift();nextToast();},250);},2200);}
 function bdg(s){const m={'Concluído':'b-green','Agendado':'b-blue','Confirmado':'b-gold','Cancelado':'b-red','Faltou':'b-yellow','Pago':'b-green','Pendente':'b-yellow','Em Andamento':'b-yellow','🟢 Ativo':'b-green','🟡 Retorno Pendente':'b-yellow','🔴 Inativo':'b-red','✅ Perfeita':'b-green','⚠️ Problemas':'b-red','🔄 Em Andamento':'b-yellow'};return`<span class="bdg ${m[s]||'b-gray'}">${s||'—'}</span>`;}
 function pb(pct,cls){const c=cls||(pct>=100?'pg-green':pct>=70?'pg-gold':'pg-red');return`<div class="prog"><div class="prog-f ${c}" style="width:${Math.min(pct,100)}%"></div></div>`;}
 function updDl(){const cl=gdb('ct_clientes');['dl1','dl2','dl3','dl4','dlPV'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=cl.map(c=>`<option value="${c.nome}">`).join('');});}
 function conf(){return gobj('ct_conf',{nome:'Carlos Tattoo BH',cnpj:'',tel:'',insta:'',end:'',cid:'Belo Horizonte, MG',email:'',site:'',espec:'',horario:'',reserva:10,mkt:7,anivTipo:'pct',anivVal:20});}
+// ── Módulos que viram "gavetas" de dados (usados no backup E na sincronização com o Supabase) ──
+const CT_SYNC_KEYS=['ct_sessoes','ct_clientes','ct_projetos','ct_mov_estoque','ct_mkt_fundo','ct_reserva','ct_equipe','ct_followup','ct_financeiro','ct_fg_rec','ct_fg_dep','ct_estoque','ct_leads','ct_mg','ct_cicatri','ct_comissoes','ct_com_pct','ct_contratos','ct_precos','ct_mkt','ct_tg','ct_usuarios','ct_guias'];
+
+// ── SINCRONIZAÇÃO COM A NUVEM ──
+// A sincronização real é feita pelo ct_cloud.js (Supabase Auth → tabela ct_dados),
+// que espelha automaticamente cada gravação do localStorage. O antigo bloco inline
+// (tabela dados_estudio / estudio_secret) foi REMOVIDO por apontar para uma tabela
+// inexistente e falhar de forma silenciosa.
+// O botão "Enviar Tudo Agora" apenas re-grava as chaves ct_* no localStorage, o que
+// dispara de novo o espelhamento do ct_cloud.js (empurrão manual, opcional).
+function ctForcarSync(){
+  if(!confirm('Reenviar todos os dados deste dispositivo para a nuvem agora?'))return;
+  try{
+    // Mesma regra do ct_cloud.js: sincroniza ct_* exceto sessão e trial (locais)
+    const excluir=/^ct_(sessao|trial_)/;
+    const keys=[];
+    for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.indexOf('ct_')===0&&!excluir.test(k))keys.push(k);}
+    keys.forEach(k=>{const v=localStorage.getItem(k);if(v!=null)localStorage.setItem(k,v);});
+    showToast('☁️ '+keys.length+' itens reenviados pra nuvem.');
+  }catch(e){console.warn('[forcar sync]',e);showToast('⚠️ Não foi possível reenviar agora.');}
+}
 
 // ── CALCULADORA (constantes) ──
 const MT={1:1.0,2:1.3,3:1.6,4:2.2},MC={1:1.0,2:1.25,3:1.5};
@@ -1383,7 +1439,7 @@ function rConf(){
 }
 function delUser(email){if(!confirm(`Remover acesso de ${email}?`))return;sdb('ct_usuarios',gdb('ct_usuarios').filter(u=>u.email!==email));rConf();showToast('Usuário removido.');}
 function backupData(){
-  const keys=['ct_sessoes','ct_clientes','ct_projetos','ct_mov_estoque','ct_mkt_fundo','ct_followup','ct_financeiro','ct_fg_rec','ct_fg_dep','ct_estoque','ct_leads','ct_mg','ct_cicatri','ct_comissoes','ct_com_pct','ct_contratos','ct_precos','ct_mkt','ct_tg','ct_usuarios','ct_conf'];
+  const keys=[...CT_SYNC_KEYS,'ct_conf'];
   const bk={v:'1.0',date:new Date().toISOString(),data:{}};
   keys.forEach(k=>{const v=localStorage.getItem(k);if(v)bk.data[k]=v;});
   const blob=new Blob([JSON.stringify(bk,null,2)],{type:'application/json'});
@@ -1477,7 +1533,8 @@ sess.forEach(s=>{if(s.stat==='Concluído'&&!s.finOk){
   const studioShare=v-vp;const rv=Math.round(studioShare*pctRes)/100;
   if(rv>0){res.push({id:uid(),data:s.data||hoje(),tipo:'entrada',val:String(rv),desc:'Reserva '+pctRes+'% — sessão '+(s.cli||''),ref:s.id});chgR=true;}
   const pctMkt=R(cf.mkt!==undefined&&cf.mkt!==''?cf.mkt:7);const mvv=Math.round(studioShare*pctMkt)/100;
-  if(mvv>0){mkf.push({id:uid(),data:s.data||hoje(),tipo:'entrada',val:String(mvv),desc:'Fundo Mkt '+pctMkt+'% — sessão '+(s.cli||''),ref:s.id});chgMk=true;}
+  if(mvv>0){mkf.push({id:uid(),data:s.data||hoje(),tipo:'entrada',val:String(mvv),desc:'Fundo Mkt '+pctMkt+'% — sessão '+(s.cli||''),ref:s.id});chgMk=true;
+    showToast('📣 '+$R(mvv)+' ('+pctMkt+'% de '+$R(v)+') reservados p/ marketing — '+(s.cli||'sessão'));}
   s.finOk=1;chgS=true;
 }});
 /* Baixa automática de estoque (materiais da sessão concluída) */
@@ -1498,7 +1555,8 @@ sess.forEach(s=>{if(s.stat==='Concluído'&&!s.pvOk){
   const nmL=(s.cli||'').trim().toLowerCase();
   if(nmL&&!cic.some(x=>(x.cli||'').trim().toLowerCase()===nmL&&x.data===s.data)){
     const ret=s.data?new Date(new Date(s.data+'T00:00:00').getTime()+30*86400000).toISOString().slice(0,10):'';
-    cic.push({id:uid(),cli:s.cli,tel:s.tel||'',tipo:'Tatuagem',data:s.data||hoje(),ret,est:s.est||'',reg:'',stat:'🔄 Em Andamento',retq:'✅ Sim',guiaOk:0,avalOk:0,obs:'Criado automaticamente ao concluir a sessão'});
+    const _tp=/ar[eé]ola/i.test(s.est||'')?'Aréola':'Tatuagem';
+    cic.push({id:uid(),cli:s.cli,tel:s.tel||'',tipo:_tp,data:s.data||hoje(),ret,est:s.est||'',reg:'',stat:'🔄 Em Andamento',retq:'✅ Sim',guiaOk:0,avalOk:0,obs:'Criado automaticamente ao concluir a sessão'});
     chgPV=true;
   }
   s.pvOk=1;chgS=true;
@@ -2578,12 +2636,14 @@ function delCic(id){if(!confirm('Excluir?'))return;sdb('ct_cicatri',gdb('ct_cica
 //   Monta o link da página pública com os dados de conf() de
 //   CADA estúdio, resolve o telefone do cliente e abre o WhatsApp.
 // ══════════════════════════════════════════════════════════════
-const CT_CUIDADOS_URL='https://carlostattoobh.com.br/cuidados.html';
+const CT_CUIDADOS_URL='cuidados.html';
 function ctWaNum(t){let n=(t||'').replace(/\D/g,'');if(!n)return'';if(n.length<=11)n='55'+n;return n;}
 function ctBaseCuidados(){const g=(conf().guia||'').trim();return g&&/^https?:\/\//i.test(g)?g:CT_CUIDADOS_URL;}
 function ctLinkCuidados(o){o=o||{};const cf=conf();const p=new URLSearchParams();
   if(cf.nome)p.set('est',cf.nome);
+  if(cf.email)p.set('estid',cf.email);
   if(o.cli)p.set('cli',o.cli);
+  p.set('tipo',o.tipo||'Tatuagem');
   if(o.est)p.set('estilo',o.est);
   if(o.reg)p.set('reg',o.reg);
   if(o.data)p.set('dt',dtBR(o.data));
@@ -2591,6 +2651,12 @@ function ctLinkCuidados(o){o=o||{};const cf=conf();const p=new URLSearchParams()
   if(cf.googleRev)p.set('g',cf.googleRev);
   if(cf.insta)p.set('ig',(cf.insta||'').replace(/^@/,''));
   if(cf.site)p.set('site',cf.site);
+  // idioma do cliente — cliente de outro país recebe o guia na língua dele
+  var _cli=gdb('ct_clientes').find(x=>(x.nome||'').trim().toLowerCase()===((o&&o.cli)||'').trim().toLowerCase());
+  var lang=(o&&o.lang)||(_cli&&_cli.lang)||'pt';if(['pt','en','es'].indexOf(lang)<0)lang='pt';
+  p.set('lang',lang);
+  // texto editado pelo tatuador (mesclado na página via ?d=)
+  try{var _tp=(o&&o.tipo)||'Tatuagem';if(typeof ctGuiaIsEdited==='function'&&ctGuiaIsEdited(_tp,lang)){var _enc=ctB64u(JSON.stringify(ctGuiaGet(_tp,lang)));if(_enc)p.set('d',_enc);}}catch(e){}
   const q=p.toString();return ctBaseCuidados()+(q?'?'+q:'');}
 function ctMsgCuidados(o,link){const cf=conf();const est=cf.nome||'nosso estúdio';const first=((o&&o.cli||'').trim().split(' ')[0])||'';const ola=first?('Oi '+first+'! '):'Oi! ';const tipo=(o&&o.tipo)||'Tatuagem';
   const intros={
@@ -2627,6 +2693,166 @@ function ctPVFill(){ctFillFromCli('pvCli',{pvTel:'tel'});}
 function ctPVTipoChange(){const t=(document.getElementById('pvTipo')||{}).value||'Tatuagem';cicGuiaTab(t);}
 function ctPVCuidados(){const cli=(document.getElementById('pvCli')||{}).value||'';const tel=(document.getElementById('pvTel')||{}).value||'';const tipo=(document.getElementById('pvTipo')||{}).value||'Tatuagem';if(!cli&&!tel){showToast('⚠️ Escolha o cliente primeiro.');return;}ctEnviarCuidados({cli,tel,tipo});}
 function ctPVAvaliacao(){const cli=(document.getElementById('pvCli')||{}).value||'';const tel=(document.getElementById('pvTel')||{}).value||'';if(!cli&&!tel){showToast('⚠️ Escolha o cliente primeiro.');return;}ctPedirAvaliacao({cli,tel});}
+/* ══════════════════════════════════════════════════════════════
+   EDITOR DE GUIAS DE CUIDADOS (Pós-Venda)
+   O tatuador lê e edita os textos aqui; o cliente recebe exatamente
+   o que estiver salvo. Mesma estrutura da página pública cuidados.html.
+   ══════════════════════════════════════════════════════════════ */
+const CT_GUIA_DEF = {
+    Tatuagem:{
+      pt:{ note:"Os próximos 30 dias definem como sua arte vai envelhecer. Siga o passo a passo abaixo — qualquer dúvida, estou a uma mensagem de distância.",
+        stages:[
+          {days:"Dias 1–3",title:"Primeiros dias",items:["Mantenha o curativo por <b>2–4 horas</b>","Lave suavemente com sabonete neutro","Aplique pomada cicatrizante em <b>camada fina</b>","Nada de sol, piscina ou mar","Não coçar nem esfregar — <b>jamais</b>"]},
+          {days:"Dias 4–7",title:"Descamação inicial",items:["A pele começa a descamar — é <b>normal</b>","Hidrate 2 a 3× por dia","Continue evitando sol direto","Não arranque a pele solta","Use roupas leves sobre a região"]},
+          {days:"Dias 8–14",title:"Cicatrização ativa",items:["Descamação intensa — <b>não force</b>","Hidratação diária é essencial","Protetor solar ao se expor ao sol","Pele acinzentada — normal","Evite exercícios com suor intenso"]},
+          {days:"Dias 15–30",title:"Finalização",items:["Tatuagem visualmente curada","Continue a hidratação diária","Protetor solar FPS 50+","Evite sauna e banho muito quente","Combine o retoque comigo, se necessário"]},
+          {days:"Dias 30+",title:"Cuidados permanentes",items:["Protetor solar sempre que expor a arte","Pele hidratada = cores vivas por mais tempo","Sol em excesso é o maior inimigo da tattoo"]}
+        ],
+        alert:{title:"Quando falar comigo na hora",items:["Vermelhidão que <b>aumenta</b> depois do 4º/5º dia","Inchaço, calor ou dor que só piora","Pus ou secreção amarelada","Febre ou mal-estar"],close:"Cicatrização normal melhora a cada dia. Se algo piorar, me chame no WhatsApp ou procure um médico."} },
+      en:{ note:"The next 30 days decide how your art will age. Follow the steps below — any question, I'm one message away.",
+        stages:[
+          {days:"Days 1–3",title:"First days",items:["Keep the bandage on for <b>2–4 hours</b>","Wash gently with mild soap","Apply a <b>thin layer</b> of healing ointment","No sun, pool or sea","Never scratch or rub it"]},
+          {days:"Days 4–7",title:"Initial peeling",items:["The skin starts to peel — this is <b>normal</b>","Moisturize 2 to 3× a day","Keep avoiding direct sun","Don't pick loose skin","Wear light clothing over the area"]},
+          {days:"Days 8–14",title:"Active healing",items:["Heavy peeling — <b>don't force it</b>","Daily moisturizing is essential","Sunscreen whenever exposed to sun","Grayish skin — normal","Avoid heavy-sweat workouts"]},
+          {days:"Days 15–30",title:"Finishing up",items:["Tattoo looks healed","Keep moisturizing daily","Sunscreen SPF 50+","Avoid sauna and very hot showers","Arrange a touch-up with me if needed"]},
+          {days:"Days 30+",title:"Lifelong care",items:["Sunscreen whenever the art is exposed","Hydrated skin = vivid colors for longer","Too much sun is a tattoo's worst enemy"]}
+        ],
+        alert:{title:"When to message me right away",items:["Redness that <b>grows</b> after day 4–5","Swelling, heat or pain that keeps worsening","Pus or yellowish discharge","Fever or feeling unwell"],close:"Normal healing improves every day. If anything gets worse, message me on WhatsApp or see a doctor."} },
+      es:{ note:"Los próximos 30 días definen cómo envejecerá tu arte. Sigue el paso a paso — cualquier duda, estoy a un mensaje de distancia.",
+        stages:[
+          {days:"Días 1–3",title:"Primeros días",items:["Mantén el vendaje por <b>2–4 horas</b>","Lava suavemente con jabón neutro","Aplica pomada cicatrizante en <b>capa fina</b>","Nada de sol, piscina ni mar","Nunca rascar ni frotar"]},
+          {days:"Días 4–7",title:"Descamación inicial",items:["La piel empieza a descamarse — es <b>normal</b>","Hidrata 2 a 3× al día","Sigue evitando el sol directo","No arranques la piel suelta","Usa ropa ligera sobre la zona"]},
+          {days:"Días 8–14",title:"Cicatrización activa",items:["Descamación intensa — <b>no fuerces</b>","La hidratación diaria es esencial","Protector solar al exponerte al sol","Piel grisácea — normal","Evita ejercicio con mucho sudor"]},
+          {days:"Días 15–30",title:"Finalización",items:["El tatuaje se ve cicatrizado","Sigue hidratando a diario","Protector solar FPS 50+","Evita sauna y baños muy calientes","Coordina el retoque conmigo, si hace falta"]},
+          {days:"Días 30+",title:"Cuidados permanentes",items:["Protector solar siempre que expongas el arte","Piel hidratada = colores vivos por más tiempo","El exceso de sol es el peor enemigo del tatuaje"]}
+        ],
+        alert:{title:"Cuándo escribirme de inmediato",items:["Enrojecimiento que <b>aumenta</b> tras el día 4–5","Hinchazón, calor o dolor que empeora","Pus o secreción amarillenta","Fiebre o malestar"],close:"Una cicatrización normal mejora cada día. Si algo empeora, escríbeme por WhatsApp o consulta a un médico."} }
+    },
+
+    Piercing:{
+      pt:{ note:"O piercing leva semanas pra cicatrizar por dentro, mesmo parecendo curado por fora. Siga o passo a passo abaixo — qualquer dúvida, é só me chamar.",
+        stages:[
+          {days:"Dias 1–3",title:"Primeiros dias",items:["<b>Não retire</b> a joia nos primeiros dias","Limpe 2× ao dia com soro fisiológico","Não gire nem fique mexendo na joia","Evite maquiagem e produtos na região","Sempre com as mãos limpas antes de tocar"]},
+          {days:"Dias 4–14",title:"Cicatrização inicial",items:["Inchaço e sensibilidade são <b>normais</b>","Continue a limpeza 2× ao dia","Evite piscina, mar e banheira","Fronha limpa (piercing de orelha/rosto)","Não durma pressionando a região"]},
+          {days:"Dias 15–30",title:"Cicatrização avançada",items:["Menos sensibilidade — siga limpando","Ainda <b>não troque</b> a joia","Cabelo preso longe da região","Roupas soltas sobre o local","Continue evitando piscina e mar"]},
+          {days:"Dias 30–60",title:"Reta final",items:["Cicatrizou por fora, ainda não por dentro","Só troque a joia com a minha liberação","Mantenha a higiene diária","Evite esporte de contato na região"]},
+          {days:"Dias 60+",title:"Cuidados permanentes",items:["Limpeza de rotina com sabonete neutro","Joia de qualidade sempre (titânio/ouro)","Evite trocar de joia toda hora","Qualquer irritação, me procure"]}
+        ],
+        alert:{title:"Quando falar comigo na hora",items:["Vermelhidão que se <b>espalha</b>","Inchaço com dor crescente","Secreção amarelada/esverdeada com odor","Febre ou mal-estar"],close:"Cicatrização normal melhora a cada dia. Se algo piorar, me chame no WhatsApp ou procure um médico."} },
+      en:{ note:"A piercing takes weeks to heal on the inside, even when it looks healed outside. Follow the steps below — any question, just message me.",
+        stages:[
+          {days:"Days 1–3",title:"First days",items:["<b>Don't remove</b> the jewelry in the first days","Clean 2× a day with saline solution","Don't twist or fiddle with the jewelry","Avoid makeup and products on the area","Always clean hands before touching"]},
+          {days:"Days 4–14",title:"Initial healing",items:["Swelling and tenderness are <b>normal</b>","Keep cleaning 2× a day","Avoid pool, sea and bathtub","Clean pillowcase (ear/face piercings)","Don't sleep pressing on the area"]},
+          {days:"Days 15–30",title:"Advanced healing",items:["Less tenderness — keep cleaning","Do <b>not change</b> the jewelry yet","Hair tied away from the area","Loose clothing over the spot","Keep avoiding pool and sea"]},
+          {days:"Days 30–60",title:"Home stretch",items:["Healed outside, not yet inside","Only change the jewelry once I clear you","Keep up daily hygiene","Avoid contact sports on the area"]},
+          {days:"Days 60+",title:"Lifelong care",items:["Routine cleaning with mild soap","Always quality jewelry (titanium/gold)","Avoid changing jewelry too often","Any irritation, come see me"]}
+        ],
+        alert:{title:"When to message me right away",items:["Redness that <b>spreads</b>","Swelling with growing pain","Yellowish/greenish discharge with odor","Fever or feeling unwell"],close:"Normal healing improves every day. If anything gets worse, message me on WhatsApp or see a doctor."} },
+      es:{ note:"El piercing tarda semanas en cicatrizar por dentro, aunque parezca curado por fuera. Sigue el paso a paso — cualquier duda, escríbeme.",
+        stages:[
+          {days:"Días 1–3",title:"Primeros días",items:["<b>No retires</b> la joya los primeros días","Limpia 2× al día con suero fisiológico","No gires ni manipules la joya","Evita maquillaje y productos en la zona","Siempre manos limpias antes de tocar"]},
+          {days:"Días 4–14",title:"Cicatrización inicial",items:["Hinchazón y sensibilidad son <b>normales</b>","Continúa la limpieza 2× al día","Evita piscina, mar y bañera","Funda limpia (piercings de oreja/cara)","No duermas presionando la zona"]},
+          {days:"Días 15–30",title:"Cicatrización avanzada",items:["Menos sensibilidad — sigue limpiando","Aún <b>no cambies</b> la joya","Cabello recogido lejos de la zona","Ropa holgada sobre el lugar","Sigue evitando piscina y mar"]},
+          {days:"Días 30–60",title:"Recta final",items:["Cicatrizó por fuera, aún no por dentro","Cambia la joya solo con mi autorización","Mantén la higiene diaria","Evita deportes de contacto en la zona"]},
+          {days:"Días 60+",title:"Cuidados permanentes",items:["Limpieza de rutina con jabón neutro","Joya de calidad siempre (titanio/oro)","Evita cambiar de joya con frecuencia","Cualquier irritación, búscame"]}
+        ],
+        alert:{title:"Cuándo escribirme de inmediato",items:["Enrojecimiento que se <b>extiende</b>","Hinchazón con dolor creciente","Secreción amarillenta/verdosa con olor","Fiebre o malestar"],close:"Una cicatrización normal mejora cada día. Si algo empeora, escríbeme por WhatsApp o consulta a un médico."} }
+    },
+
+    "Aréola":{
+      pt:{ note:"A micropigmentação de aréola exige cuidado delicado nas primeiras semanas para a cor fixar bem. Siga o passo a passo abaixo — estou aqui pra qualquer dúvida.",
+        stages:[
+          {days:"Dias 1–3",title:"Primeiros dias",items:["Mantenha o curativo <b>conforme orientei</b>","Evite molhar direto nas primeiras 24h","Não coçar nem esfregar a região","Sutiã macio, sem bojo apertado","Evite sol e calor direto na área"]},
+          {days:"Dias 4–7",title:"Descamação inicial",items:["Uma leve descamação é <b>normal</b>","Hidrate com a pomada indicada","Evite piscina, mar, sauna e banho quente","Roupas leves e confortáveis","Não arranque casquinhas ou peles soltas"]},
+          {days:"Dias 8–15",title:"Fixação da cor",items:["A cor pode parecer mais clara — <b>normal</b>","Siga com hidratação diária leve","Protetor solar ao expor a região","Evite exercício de impacto na área","Retorno de avaliação como combinamos"]},
+          {days:"Dias 15–30",title:"Finalização",items:["O resultado final começa a aparecer","Mantenha hidratação e proteção solar","Evite bronzeamento artificial","Vamos agendar a avaliação de retoque","Fotos de acompanhamento me ajudam muito"]},
+          {days:"Dias 30+",title:"Cuidados permanentes",items:["Protetor solar preserva a cor","Hidratação regular","Retoque de fixação avaliado caso a caso","Qualquer dúvida, é só me chamar"]}
+        ],
+        alert:{title:"Quando falar comigo na hora",items:["Vermelhidão excessiva ou <b>crescente</b>","Inchaço que piora","Secreção com odor","Febre ou mal-estar"],close:"Cicatrização normal melhora a cada dia. Se algo piorar, me chame no WhatsApp ou procure um médico."} },
+      en:{ note:"Areola micropigmentation needs gentle care in the first weeks for the color to set well. Follow the steps below — I'm here for any question.",
+        stages:[
+          {days:"Days 1–3",title:"First days",items:["Keep the dressing <b>as instructed</b>","Avoid wetting it directly for the first 24h","Don't scratch or rub the area","Soft bra, no tight padding","Avoid sun and direct heat on the area"]},
+          {days:"Days 4–7",title:"Initial peeling",items:["Light peeling is <b>normal</b>","Moisturize with the recommended ointment","Avoid pool, sea, sauna and hot baths","Light, comfortable clothing","Don't pick scabs or loose skin"]},
+          {days:"Days 8–15",title:"Color setting",items:["Color may look lighter — <b>normal</b>","Continue light daily moisturizing","Sunscreen when the area is exposed","Avoid high-impact exercise on the area","Follow-up review as we agreed"]},
+          {days:"Days 15–30",title:"Finishing up",items:["The final result starts to show","Keep up hydration and sun protection","Avoid artificial tanning","Let's schedule the touch-up review","Progress photos help me a lot"]},
+          {days:"Days 30+",title:"Lifelong care",items:["Sunscreen preserves the color","Regular moisturizing","Touch-up assessed case by case","Any question, just message me"]}
+        ],
+        alert:{title:"When to message me right away",items:["Excessive or <b>growing</b> redness","Swelling that worsens","Discharge with odor","Fever or feeling unwell"],close:"Normal healing improves every day. If anything gets worse, message me on WhatsApp or see a doctor."} },
+      es:{ note:"La micropigmentación de areola requiere cuidado delicado en las primeras semanas para que el color fije bien. Sigue el paso a paso — estoy aquí para cualquier duda.",
+        stages:[
+          {days:"Días 1–3",title:"Primeros días",items:["Mantén el apósito <b>como te indiqué</b>","Evita mojarla directamente las primeras 24h","No rascar ni frotar la zona","Sujetador suave, sin relleno apretado","Evita sol y calor directo en la zona"]},
+          {days:"Días 4–7",title:"Descamación inicial",items:["Una leve descamación es <b>normal</b>","Hidrata con la pomada indicada","Evita piscina, mar, sauna y baño caliente","Ropa ligera y cómoda","No arranques costras ni piel suelta"]},
+          {days:"Días 8–15",title:"Fijación del color",items:["El color puede verse más claro — <b>normal</b>","Sigue con hidratación diaria ligera","Protector solar al exponer la zona","Evita ejercicio de impacto en la zona","Cita de control como acordamos"]},
+          {days:"Días 15–30",title:"Finalización",items:["El resultado final empieza a aparecer","Mantén hidratación y protección solar","Evita el bronceado artificial","Agendemos la cita de retoque","Las fotos de seguimiento me ayudan mucho"]},
+          {days:"Días 30+",title:"Cuidados permanentes",items:["El protector solar preserva el color","Hidratación regular","Retoque evaluado caso por caso","Cualquier duda, escríbeme"]}
+        ],
+        alert:{title:"Cuándo escribirme de inmediato",items:["Enrojecimiento excesivo o <b>creciente</b>","Hinchazón que empeora","Secreción con olor","Fiebre o malestar"],close:"Una cicatrización normal mejora cada día. Si algo empeora, escríbeme por WhatsApp o consulta a un médico."} }
+    }
+  };
+function ctB64u(str){try{return btoa(unescape(encodeURIComponent(str))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}catch(e){return '';}}
+function ctGuiaKey(tipo,lang){return (tipo||'Tatuagem')+'|'+(lang||'pt');}
+function ctGuiaDef(tipo,lang){var b=(CT_GUIA_DEF[tipo]&&CT_GUIA_DEF[tipo][lang])||(CT_GUIA_DEF[tipo]&&CT_GUIA_DEF[tipo].pt)||CT_GUIA_DEF.Tatuagem.pt;return JSON.parse(JSON.stringify(b));}
+function ctGuiaIsEdited(tipo,lang){var all=gobj('ct_guias',{});return !!all[ctGuiaKey(tipo,lang)];}
+function ctGuiaGet(tipo,lang){var all=gobj('ct_guias',{});var ov=all[ctGuiaKey(tipo,lang)];var base=ctGuiaDef(tipo,lang);
+  if(ov&&typeof ov==='object'){
+    if(typeof ov.note==='string')base.note=ov.note;
+    if(Array.isArray(ov.stages)&&ov.stages.length)base.stages=ov.stages;
+    if(ov.alert&&typeof ov.alert==='object'){if(ov.alert.title!=null)base.alert.title=ov.alert.title;if(Array.isArray(ov.alert.items)&&ov.alert.items.length)base.alert.items=ov.alert.items;if(ov.alert.close!=null)base.alert.close=ov.alert.close;}
+  }
+  return base;}
+function gzEA(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;');}
+function gzEH(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function ctGuiaStageHTML(s,ix){return '<div class="gz-stage" data-ix="'+ix+'" style="border:1.5px solid var(--brd2);border-radius:9px;padding:12px;margin-bottom:10px;background:var(--bg2,#fafafa)">'
+  +'<div class="fg2"><div class="fg"><label>Fase (dias)</label><input class="fi gz-days" value="'+gzEA(s.days)+'"></div><div class="fg"><label>Título</label><input class="fi gz-title" value="'+gzEA(s.title)+'"></div></div>'
+  +'<div class="fg"><label>Itens — um por linha (pode usar &lt;b&gt;negrito&lt;/b&gt;)</label><textarea class="fi gz-items" rows="5">'+gzEH((s.items||[]).join('\n'))+'</textarea></div>'
+  +'<div style="text-align:right"><button class="btn btn-danger btn-xs" onclick="ctGuiaDelStage('+ix+')">🗑 Remover fase</button></div></div>';}
+function ctGuiaReadForm(){
+  var stages=[].slice.call(document.querySelectorAll('#gzStages .gz-stage')).map(function(el){
+    return {days:el.querySelector('.gz-days').value.trim(),title:el.querySelector('.gz-title').value.trim(),
+      items:el.querySelector('.gz-items').value.split('\n').map(function(x){return x.trim();}).filter(Boolean)};
+  }).filter(function(s){return s.days||s.title||s.items.length;});
+  return {note:document.getElementById('gzNote').value.trim(),stages:stages,
+    alert:{title:document.getElementById('gzAlertT').value.trim(),
+      items:document.getElementById('gzAlertI').value.split('\n').map(function(x){return x.trim();}).filter(Boolean),
+      close:document.getElementById('gzAlertC').value.trim()}};
+}
+function ctGuiaRenderStages(stages){document.getElementById('gzStages').innerHTML=(stages||[]).map(ctGuiaStageHTML).join('');}
+function ctGuiaLoadForm(){
+  var tipo=document.getElementById('gzTipo').value,lang=document.getElementById('gzLang').value;
+  var gd=ctGuiaGet(tipo,lang);
+  document.getElementById('gzNote').value=gd.note||'';
+  ctGuiaRenderStages(gd.stages);
+  document.getElementById('gzAlertT').value=gd.alert.title||'';
+  document.getElementById('gzAlertI').value=(gd.alert.items||[]).join('\n');
+  document.getElementById('gzAlertC').value=gd.alert.close||'';
+  document.getElementById('gzEditedBadge').style.display=ctGuiaIsEdited(tipo,lang)?'inline-flex':'none';
+}
+function ctGuiaOpen(){var t=(document.getElementById('pvTipo')||{}).value||'Tatuagem';document.getElementById('gzTipo').value=t;document.getElementById('gzLang').value='pt';ctGuiaLoadForm();openM('mGuia');}
+function ctGuiaAddStage(){var cur=ctGuiaReadForm().stages;cur.push({days:'',title:'',items:[]});ctGuiaRenderStages(cur);}
+function ctGuiaDelStage(ix){var cur=ctGuiaReadForm().stages;cur.splice(ix,1);ctGuiaRenderStages(cur);}
+function ctGuiaSave(){
+  var tipo=document.getElementById('gzTipo').value,lang=document.getElementById('gzLang').value;
+  var all=gobj('ct_guias',{});all[ctGuiaKey(tipo,lang)]=ctGuiaReadForm();sobj('ct_guias',all);
+  document.getElementById('gzEditedBadge').style.display='inline-flex';
+  try{if(typeof pushCloud==='function')pushCloud('ct_guias');}catch(e){}
+  showToast('✅ Guia de '+tipo+' ('+lang.toUpperCase()+') salvo! O cliente já recebe esse texto.');
+}
+function ctGuiaReset(){
+  var tipo=document.getElementById('gzTipo').value,lang=document.getElementById('gzLang').value;
+  if(!confirm('Restaurar o texto PADRÃO deste guia ('+tipo+' · '+lang.toUpperCase()+')?\nSua personalização será apagada.'))return;
+  var all=gobj('ct_guias',{});delete all[ctGuiaKey(tipo,lang)];sobj('ct_guias',all);
+  try{if(typeof pushCloud==='function')pushCloud('ct_guias');}catch(e){}
+  ctGuiaLoadForm();showToast('↩️ Texto padrão restaurado.');
+}
+function ctGuiaPreview(){
+  var tipo=document.getElementById('gzTipo').value,lang=document.getElementById('gzLang').value;
+  var cf=conf();var p=new URLSearchParams();
+  if(cf.nome)p.set('est',cf.nome);p.set('cli','Ana');p.set('tipo',tipo);p.set('lang',lang);
+  var wa=ctWaNum(cf.tel);if(wa)p.set('wa',wa);if(cf.googleRev)p.set('g',cf.googleRev);
+  if(cf.insta)p.set('ig',(cf.insta||'').replace(/^@/,''));if(cf.site)p.set('site',cf.site);
+  var enc=ctB64u(JSON.stringify(ctGuiaReadForm()));if(enc)p.set('d',enc);
+  window.open(ctBaseCuidados()+'?'+p.toString(),'_blank');
+}
 // ── COMISSÕES ──
 function rCom(){rEq();const pcts=gdb('ct_com_pct');document.getElementById('comPctTb').innerHTML=pcts.map((p,i)=>`<tr><td><strong>${p.f}</strong></td><td><input type="number" value="${p.p}" style="width:70px;padding:5px 10px;border:1.5px solid var(--brd2);border-radius:7px;font-family:inherit;font-size:13px" onchange="updCP(${i},this.value)">%</td><td style="color:var(--grn);font-weight:600">${$R(500*p.p/100)}</td><td style="color:var(--grn);font-weight:600">${$R(1000*p.p/100)}</td></tr>`).join('');const db=gdb('ct_comissoes').sort((a,b)=>b.data>a.data?1:-1);document.getElementById('comCt').textContent=`${db.length} · Pendente: ${$R(db.filter(c=>c.st==='Pendente').reduce((a,c)=>a+R(c.vp),0))}`;document.getElementById('comTb').innerHTML=db.length?db.map(c=>`<tr><td>${dtBR(c.data)}</td><td><strong>${c.prof||'—'}</strong></td><td>${c.ref||'—'}</td><td style="color:var(--grn)">${$R(c.vs)}</td><td>${c.pct||0}%</td><td style="color:var(--gold2);font-weight:700">${$R(c.vp)}</td><td>${bdg(c.st)}</td><td>${dtBR(c.dpg)}</td><td><button class="btn btn-danger btn-xs" onclick="delCom('${c.id}')">🗑</button></td></tr>`).join(''):`<tr><td colspan="9" class="empty-row"><p>Nenhuma comissão</p></td></tr>`;}
 function updCP(i,v){const p=gdb('ct_com_pct');p[i].p=R(v);sdb('ct_com_pct',p);rCom();}
@@ -2653,7 +2879,25 @@ function rPr(){const db=gdb('ct_precos');document.getElementById('prTb').innerHT
 function savePr(){const p={id:uid(),est:document.getElementById('prEst').value,tam:document.getElementById('prTam').value,min:document.getElementById('prMin').value,max:document.getElementById('prMax').value,obs:document.getElementById('prObs').value};const db=gdb('ct_precos');db.push(p);sdb('ct_precos',db);closeM('mPr');rPr();showToast('✅ Preço salvo!');}
 function delPr(id){if(!confirm('Excluir?'))return;sdb('ct_precos',gdb('ct_precos').filter(p=>p.id!==id));rPr();}
 // ── MARKETING ──
-function rMkt(){rMktFundo();const db=gdb('ct_mkt').sort((a,b)=>a.data>b.data?1:-1);document.getElementById('mktCt').textContent=db.length+' posts';document.getElementById('mktKpi').innerHTML=`<div class="kpi-card kpi-gray"><div class="kpi-num">${db.filter(m=>m.st==='Planejado').length}</div><div class="kpi-label">Planejados</div></div><div class="kpi-card kpi-gold"><div class="kpi-num c-gold">${db.filter(m=>m.st==='Produzindo').length}</div><div class="kpi-label">Produzindo</div></div><div class="kpi-card kpi-green"><div class="kpi-num c-green">${db.filter(m=>m.st==='Publicado').length}</div><div class="kpi-label">Publicados</div></div><div class="kpi-card kpi-gray"><div class="kpi-num">${db.length}</div><div class="kpi-label">Total</div></div>`;document.getElementById('mktTb').innerHTML=db.length?db.map(m=>`<tr><td>${dtBR(m.data)}</td><td>${m.plat}</td><td>${m.tipo}</td><td>${m.tema||'—'}</td><td>${bdg(m.st)}</td><td><button class="btn btn-danger btn-xs" onclick="delMkt('${m.id}')">🗑</button></td></tr>`).join(''):`<tr><td colspan="6" class="empty-row"><p>Nenhum post</p></td></tr>`;}
+function rMktResumo(){const el=document.getElementById('mktResumo');if(!el)return;const m=ma();
+  const sess=gdb('ct_sessoes').filter(s=>s.stat==='Concluído'&&(s.data||'').slice(0,7)===m);
+  const fin=gdb('ct_financeiro');
+  const rec=fin.filter(f=>f.data&&f.data.slice(0,7)===m&&f.tipo==='receita').reduce((a,f)=>a+R(f.val),0);
+  const desp=fin.filter(f=>f.data&&f.data.slice(0,7)===m&&f.tipo==='despesa').reduce((a,f)=>a+R(f.val),0);
+  const fat=rec||sess.reduce((a,s)=>a+R(s.val),0);
+  const lucro=fat-desp;
+  const mktMes=gdb('ct_mkt_fundo').filter(r=>r.tipo==='entrada'&&(r.data||'').slice(0,7)===m).reduce((a,r)=>a+R(r.val),0);
+  const pctReal=fat>0?(mktMes/fat*100):0;
+  const [ano,mm]=m.split('-');document.getElementById('mktResMes').textContent=MSS[parseInt(mm)-1]+' '+ano;
+  el.innerHTML=`<div class="kpi-grid">
+    <div class="kpi-card kpi-gray"><div class="kpi-num">${sess.length}</div><div class="kpi-label">Tatuagens Concluídas</div></div>
+    <div class="kpi-card kpi-gold"><div class="kpi-num c-gold">${$R(fat)}</div><div class="kpi-label">Faturamento</div></div>
+    <div class="kpi-card kpi-red"><div class="kpi-num c-red">${$R(desp)}</div><div class="kpi-label">Despesas</div></div>
+    <div class="kpi-card kpi-green"><div class="kpi-num c-green">${$R(lucro)}</div><div class="kpi-label">Lucro Líquido</div></div>
+    <div class="kpi-card kpi-gold"><div class="kpi-num c-gold">${$R(mktMes)}</div><div class="kpi-label">Investido em Marketing</div></div>
+    <div class="kpi-card kpi-gray"><div class="kpi-num">${pctReal.toFixed(1)}%</div><div class="kpi-label">% do Faturamento</div></div>
+  </div>`;}
+function rMkt(){rMktResumo();rMktFundo();const db=gdb('ct_mkt').sort((a,b)=>a.data>b.data?1:-1);document.getElementById('mktCt').textContent=db.length+' posts';document.getElementById('mktKpi').innerHTML=`<div class="kpi-card kpi-gray"><div class="kpi-num">${db.filter(m=>m.st==='Planejado').length}</div><div class="kpi-label">Planejados</div></div><div class="kpi-card kpi-gold"><div class="kpi-num c-gold">${db.filter(m=>m.st==='Produzindo').length}</div><div class="kpi-label">Produzindo</div></div><div class="kpi-card kpi-green"><div class="kpi-num c-green">${db.filter(m=>m.st==='Publicado').length}</div><div class="kpi-label">Publicados</div></div><div class="kpi-card kpi-gray"><div class="kpi-num">${db.length}</div><div class="kpi-label">Total</div></div>`;document.getElementById('mktTb').innerHTML=db.length?db.map(m=>`<tr><td>${dtBR(m.data)}</td><td>${m.plat}</td><td>${m.tipo}</td><td>${m.tema||'—'}</td><td>${bdg(m.st)}</td><td><button class="btn btn-danger btn-xs" onclick="delMkt('${m.id}')">🗑</button></td></tr>`).join(''):`<tr><td colspan="6" class="empty-row"><p>Nenhum post</p></td></tr>`;}
 function saveMkt(){const m={id:uid(),data:document.getElementById('mkData').value,plat:document.getElementById('mkPlat').value,tipo:document.getElementById('mkTipo').value,st:document.getElementById('mkSt').value,tema:document.getElementById('mkTema').value};const db=gdb('ct_mkt');db.push(m);sdb('ct_mkt',db);closeM('mMkt');rMkt();showToast('✅ Post planejado!');}
 function delMkt(id){if(!confirm('Excluir?'))return;sdb('ct_mkt',gdb('ct_mkt').filter(m=>m.id!==id));rMkt();}
 // ── PORTAL CLIENTE ──
@@ -2835,9 +3079,9 @@ async function initSB(){
       USER={nome:trialNome,email:trialEmail};
       IS_ADM=false;
 
-      // Atualizar último acesso no Supabase
+      // Atualizar último acesso no Supabase (via RPC — anon não tem UPDATE direto)
       if(sbClient){
-        sbClient.from('trials').update({ultimo_acesso:now.toISOString(),tentativas_acesso:sbClient.rpc?undefined:undefined}).eq('token',trialToken).then(()=>{});
+        sbClient.rpc('registrar_acesso_trial',{p_token:trialToken}).then(()=>{});
       }
 
       if(loading){loading.style.opacity='0';loading.style.pointerEvents='none';}
@@ -2857,7 +3101,8 @@ async function initSB(){
 
   if(urlToken&&sbClient){
     try{
-      const{data,error}=await sbClient.from('trials').select('*').eq('token',urlToken).single();
+      const{data:rows,error}=await sbClient.rpc('validar_trial',{p_token:urlToken});
+      const data=rows&&rows[0];
       if(error||!data){
         // Token não encontrado
         if(loading){loading.style.opacity='0';loading.style.pointerEvents='none';}
@@ -2884,8 +3129,8 @@ async function initSB(){
       window.TRIAL_DATA={token:data.token,expiry:exp,nome:data.nome,email:data.email};
       USER={nome:data.nome,email:data.email};
       IS_ADM=false;
-      // Atualizar último acesso
-      sbClient.from('trials').update({ultimo_acesso:now.toISOString()}).eq('token',data.token).then(()=>{});
+      // Atualizar último acesso (via RPC)
+      sbClient.rpc('registrar_acesso_trial',{p_token:data.token}).then(()=>{});
       // Limpar token da URL sem recarregar
       const cleanUrl=location.pathname+(location.search.replace(/[?&]trial=[^&]*/,'').replace(/^&/,'?')||'');
       history.replaceState(null,'',cleanUrl);
@@ -2962,7 +3207,8 @@ window.iniciarTrial=async function(){
 
     if(error&&error.code==='23505'){
       // Email já existe — verificar se trial ainda está válido
-      const{data:existing}=await sbClient.from('trials').select('*').eq('email',email).single();
+      const{data:exRows}=await sbClient.rpc('trial_por_email',{p_email:email});
+      const existing=exRows&&exRows[0];
       if(existing&&new Date(existing.data_expiracao)>now){
         // Reativar trial existente
         localStorage.setItem('ct_trial_token',existing.token);
@@ -3004,21 +3250,14 @@ window.iniciarTrial=async function(){
 async function enviarNotificacoes(nome,email,wpp,pais,t){
   const msg=t.notif_msg(nome,email,wpp,pais);
 
-  // WhatsApp para o Carlos (abre em background)
-  try{
-    const wppUrl=`https://wa.me/${CARLOS_WPP}?text=${encodeURIComponent(msg)}`;
-    // Abrir em janela oculta para não interromper o usuário
-    const win=window.open(wppUrl,'_blank','width=1,height=1,left=-1000');
-    setTimeout(()=>{try{win&&win.close();}catch(e){}},3000);
-  }catch(e){}
-
-  // Notificação via Supabase (trigger/webhook pode capturar)
+  // Registro do novo trial no Supabase (visível no admin; um webhook/Edge Function
+  // pode capturar este evento e disparar aviso real por email/WhatsApp server-side).
   if(sbClient){
     try{
       await sbClient.from('rabisco_eventos').insert({
-        tipo:'novo_trial',
+        evento:'novo_trial',
         dados:JSON.stringify({nome,email,wpp,pais,msg}),
-        created_at:new Date().toISOString()
+        secao:'central_tattoo'
       });
     }catch(e){}
   }
@@ -3114,15 +3353,17 @@ window.mostrarModalExpirado=function(){
 };
 
 function mostrarModalExpiradoFinal(t){
+  // Ler o token ANTES de limpar (bug antigo: lia depois de remover, sempre null)
+  const token=localStorage.getItem('ct_trial_token');
+
+  // Atualizar status no Supabase (via RPC — anon não tem UPDATE direto)
+  if(sbClient&&token){
+    sbClient.rpc('marcar_status_trial',{p_token:token,p_status:'expirado'}).then(()=>{});
+  }
+
   // Limpar trial do localStorage
   localStorage.removeItem('ct_trial_token');
   localStorage.removeItem('ct_trial_expiry');
-
-  // Atualizar status no Supabase
-  const token=localStorage.getItem('ct_trial_token');
-  if(sbClient&&token){
-    sbClient.from('trials').update({status:'expirado'}).eq('token',token).then(()=>{});
-  }
 
   // Aplicar textos do idioma
   const ids={
@@ -3144,10 +3385,10 @@ window.irParaCompra=function(){
   const lang=window.TRIAL_LANG||'pt';
   const link=BUY_LINKS[lang]||BUY_LINKS.pt;
 
-  // Marcar como convertido no Supabase
+  // Marcar como convertido no Supabase (via RPC)
   const token=localStorage.getItem('ct_trial_token');
   if(sbClient&&token){
-    sbClient.from('trials').update({status:'convertido'}).eq('token',token).then(()=>{});
+    sbClient.rpc('marcar_status_trial',{p_token:token,p_status:'convertido'}).then(()=>{});
   }
 
   window.open(link,'_blank');
