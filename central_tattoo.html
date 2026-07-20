@@ -40,7 +40,7 @@ a{text-decoration:none;color:inherit;}
 .hdr-l{display:flex;align-items:center;gap:14px;}
 .hdr-logo{font-family:'Cinzel',serif;font-size:22px;font-weight:700;color:var(--gold3);letter-spacing:.5px;}
 .hdr-div{width:1px;height:20px;background:rgba(255,255,255,.12);}
-.hdr-name{font-size:12px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:1.5px;text-transform:uppercase;}
+.hdr-name{font-size:12px;font-weight:600;color:rgba(255,255,255,.9);letter-spacing:1.5px;text-transform:uppercase;}
 .hdr-r{display:flex;align-items:center;gap:12px;}
 .hdr-user{font-size:13px;color:rgba(255,255,255,.45);}
 .hdr-user span{color:rgba(255,255,255,.75);font-weight:500;}
@@ -220,7 +220,10 @@ textarea.fi{resize:vertical;min-height:76px;}
 
 /* ── KANBAN ── */
 .kanban{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;}
-.kb-col{background:#F9FAFB;border:1px solid var(--brd);border-radius:12px;padding:14px;}
+.kb-col{background:#F9FAFB;border:1px solid var(--brd);border-radius:12px;padding:14px;flex:0 0 250px;min-width:250px;}
+#ldKpi{grid-template-columns:repeat(6,minmax(0,1fr));}
+@media(max-width:1100px){#ldKpi{grid-template-columns:repeat(3,minmax(0,1fr));}}
+@media(max-width:560px){#ldKpi{grid-template-columns:repeat(2,minmax(0,1fr));}}
 .kb-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
 .kb-title{font-size:11.5px;font-weight:700;color:var(--tx2);letter-spacing:.5px;text-transform:uppercase;}
 .kb-ct{background:var(--white);border:1px solid var(--brd);border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;color:var(--tx3);}
@@ -851,7 +854,7 @@ textarea.fi{resize:vertical;min-height:76px;}
 <!-- ═══ RELATÓRIO ═══ -->
 <div class="panel" id="p-relatorio">
   <div class="pg"><div class="pg-t"><h2>📊 Relatórios</h2><p>Dados consolidados do negócio</p></div><button class="btn btn-success" onclick="expRel()">⬇ Excel Completo</button></div>
-  <div class="kpi-grid" id="relKpi"></div>
+  <div class="kpi-grid" id="relatKpi"></div>
   <div class="g2">
     <div class="card"><div class="card-h"><h3>Resumo Mensal 2026</h3></div><div class="tw"><table class="tbl" id="relMen"></table></div></div>
     <div class="card"><div class="card-h"><h3>Top 10 Clientes</h3></div><div class="tw"><table class="tbl"><thead><tr><th>#</th><th>Cliente</th><th>Sessões</th><th>Total Gasto</th></tr></thead><tbody id="relTop"></tbody></table></div></div>
@@ -1291,6 +1294,57 @@ const AREOLA_DATA=[
 const CIC_TIPOS={'Tatuagem':{ic:'🖋️',data:CIC_DATA},'Piercing':{ic:'💎',data:PIERCING_DATA},'Aréola':{ic:'🎗️',data:AREOLA_DATA}};
 
 const TUT_EXTRA={
+ hoje:`<div class="tut-card"><h3>☀️ Central de Hoje — seu ponto de partida todo dia</h3><div class="sub">Abra aqui de manhã: o sistema já separou o que precisa da sua atenção</div>
+  <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>O que é</strong><p>É o resumo inteligente do seu dia. Em vez de caçar informação módulo por módulo, a Central de Hoje reúne numa tela só tudo o que precisa de ação: aniversariantes, retornos, cobranças, sessões a confirmar, leads parados e acompanhamentos pós-tattoo.</p></div></div>
+  <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Cada bloco tem um botão de ação</strong><p>Ao lado de cada item aparece o botão certo: <strong>📲 Enviar</strong> abre o WhatsApp com a mensagem já pronta; <strong>Confirmar</strong> monta a confirmação da sessão; <strong>👤 Ficha</strong> abre o cliente. Você só revisa e envia.</p></div></div>
+  <div class="tut-step"><div class="tut-n">3</div><div class="tut-step-body"><strong>O contador no topo</strong><p>O número grande mostra quantas ações existem para hoje. Quando zera, aparece "Tudo em dia!" — sinal de que nada importante ficou para trás.</p></div></div>
+  <div class="tut-tip">💡 Os itens não são inventados: cada um vem de uma regra do <strong>Motor de Automações</strong> (data real da última sessão, aniversário cadastrado, saldo em aberto...). Ligue mais regras em Automações para a Central de Hoje trabalhar ainda mais por você.</div></div>`,
+ leads:`<div class="tut-card"><h3>🎯 Pipeline de Leads — nenhuma oportunidade escapa</h3><div class="sub">Do primeiro contato ao fechamento, organizado como um funil</div>
+  <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>As 6 etapas</strong><p><strong>Contato</strong> (chegou mensagem) → <strong>Orçamento</strong> (mandou preço) → <strong>Negociação</strong> (conversando valores/datas) → <strong>Agendado</strong> (marcou) → <strong>Fechado</strong> ✅ ou <strong>Perdido</strong> ❌. Mova o lead editando o card e trocando a etapa.</p></div></div>
+  <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Temperatura</strong><p>🔥 Quente (quer fechar), ⚡ Morno (interessado, sem pressa), ❄️ Frio (só perguntou). Priorize os quentes — eles convertem hoje.</p></div></div>
+  <div class="tut-step"><div class="tut-n">3</div><div class="tut-step-body"><strong>Os painéis no topo</strong><p>Mostram na hora: leads ativos, valor total em jogo (pipeline), ticket médio, quantos <strong>precisam de resposta</strong> e quantos <strong>orçamentos estão parados</strong>. É o seu radar para não deixar dinheiro esfriar.</p></div></div>
+  <div class="tut-step"><div class="tut-n">4</div><div class="tut-step-body"><strong>Fechou? Converta em cliente</strong><p>Clique em <strong>👤➕</strong> no card e o lead vira cliente do CRM com os dados já preenchidos. Nada de digitar de novo.</p></div></div>
+  <div class="tut-tip">💡 Leads sem resposta há dias aparecem sozinhos na <strong>Central de Hoje</strong>. Você nunca esquece de dar retorno.</div></div>`,
+ relacionamento:`<div class="tut-card"><h3>💛 Central de Relacionamento — fidelização no automático</h3><div class="sub">Quem já é seu cliente é o mais barato de fazer voltar</div>
+  <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>A fila de relacionamento</strong><p>O sistema calcula, pela data real da última sessão de cada cliente, quem está no ponto de um contato: retorno, aniversário, acompanhamento pós-tattoo, cobrança de saldo. Tudo organizado por prioridade, sem você planilhar nada.</p></div></div>
+  <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Mensagem certa, na hora certa</strong><p>Clique em <strong>Enviar</strong> e o WhatsApp abre com a mensagem apropriada já escrita para aquele momento. Você ajusta se quiser e manda. O toque humano continua seu — o sistema só garante o timing.</p></div></div>
+  <div class="tut-step"><div class="tut-n">3</div><div class="tut-step-body"><strong>Banco de Mensagens</strong><p>Todos os textos são editáveis. Clique em <strong>💬 Banco de Mensagens</strong> e ajuste o tom para a sua voz — aniversário, retorno, acompanhamento, cobrança, cada um do seu jeito.</p></div></div>
+  <div class="tut-step"><div class="tut-n">4</div><div class="tut-step-body"><strong>Campanhas em 1 clique</strong><p>Quer reativar clientes parados ou avisar de uma novidade? Os botões de campanha selecionam o público certo e preparam o disparo — você revisa e envia.</p></div></div>
+  <div class="tut-tip">💡 Cliente Ouro e Diamante: o sistema marca selo automático por valor gasto acumulado (ajustável em Automações). Reconhecer esses clientes é o que transforma cliente em fã.</div></div>`,
+ automacoes:`<div class="tut-card"><h3>⚙️ Automações — o sistema trabalhando sozinho</h3><div class="sub">Você liga as regras; ele detecta o que precisa de ação</div>
+  <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>O que é o Motor de Regras</strong><p>É a inteligência de negócio da Central. Cada regra observa seus dados e, quando algo merece atenção, deixa pronto na <strong>Central de Hoje</strong>. Não é IA adivinhando — é processo padronizado que nunca esquece.</p></div></div>
+  <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Ligue só o que faz sentido</strong><p>Cada regra tem um interruptor: acompanhamento pós-tattoo, fila de retorno, cliente Ouro/Diamante, cobrança de saldo, aniversários, confirmação de sessão, recuperação de falta, benefício por indicação e leads parados. Algumas têm ajustes (a partir de quantos dias, qual valor).</p></div></div>
+  <div class="tut-step"><div class="tut-n">3</div><div class="tut-step-body"><strong>Rodar agora</strong><p>Clique em <strong>▶️ Rodar motor agora</strong> a qualquer momento para reprocessar tudo. Normalmente ele já roda sozinho quando você abre o sistema.</p></div></div>
+  <div class="tut-step"><div class="tut-n">4</div><div class="tut-step-body"><strong>Piloto Automático 24h</strong><p>Deixa a Central trabalhando por você mesmo com o sistema fechado: prepara o resumo do dia e mantém aniversários e acompanhamentos em dia. Clique no card para ver tudo que ele faz por você.</p></div></div></div>`,
+ comissoes:`<div class="tut-card"><h3>💼 Comissões — acerto de contas sem discussão</h3><div class="sub">Para quem trabalha com outros tatuadores ou parceiros</div>
+  <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>Lance a comissão</strong><p>Clique em <strong>+ Lançar</strong>: profissional, trabalho de referência, base de cálculo e percentual (ou valor fixo). O sistema calcula quanto é devido.</p></div></div>
+  <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Controle o que já foi pago</strong><p>Marque como pago quando quitar. Assim você e o profissional têm o mesmo número na frente — transparência que evita ruído.</p></div></div>
+  <div class="tut-tip">💡 Comissões entram no <strong>DRE</strong> como custo, então seu lucro líquido já sai descontado. Você enxerga o resultado real, não só o faturamento bruto.</div></div>`,
+ precos:`<div class="tut-card"><h3>🏷️ Tabela de Preços — sua referência pronta</h3><div class="sub">Responda orçamento com agilidade e consistência</div>
+  <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>Monte sua tabela</strong><p>Clique em <strong>+ Adicionar</strong> e cadastre faixas por estilo e tamanho (ex: fineline pequena, blackwork média, fechamento por hora). Guarde os valores que você já pratica.</p></div></div>
+  <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Use no atendimento</strong><p>Chegou um lead pedindo preço? Consulte a tabela e responda em segundos, sempre com o mesmo critério. Nada de dar valores diferentes para trabalhos parecidos.</p></div></div>
+  <div class="tut-tip">💡 A tabela é referência interna, não promessa fixa: sempre confirme com foto do local, tamanho e referência antes de fechar. O preço final vem depois de ver o projeto.</div></div>`,
+ sinais:`<div class="tut-card"><h3>💎 Sinais — a entrada que protege sua agenda</h3><div class="sub">Controle os sinais pagos e reduza faltas</div>
+  <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>Por que cobrar sinal</strong><p>O sinal é o compromisso do cliente. Quem paga entrada falta muito menos — e, se faltar sem avisar, você não fica com o horário vazio e sem nada.</p></div></div>
+  <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Como aparece no sistema</strong><p>O sinal informado na sessão (ou no projeto) já entra no cálculo do <strong>saldo a receber</strong> e é acompanhado aqui. Você vê rapidamente quem pagou entrada e quanto ainda falta.</p></div></div>
+  <div class="tut-tip">💡 A política de sinal e cancelamento está no contrato gerado pelo sistema. Combinar na hora de marcar evita mal-entendido depois.</div></div>`,
+ estoque:`<div class="tut-card"><h3>📦 Estoque — nunca falte material na hora da sessão</h3><div class="sub">Controle o que entra, o que sai e o custo real</div>
+  <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>Cadastre os itens</strong><p>Clique em <strong>+ Adicionar Item</strong>: produto, quantidade atual, unidade (un, ml, cx), custo unitário e um estoque mínimo. Cadastre agulhas, tintas, luvas, filme, descartáveis.</p></div></div>
+  <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Baixa automática pela sessão</strong><p>Quando você adiciona materiais numa sessão e a marca como <strong>Concluída</strong>, o sistema desconta do estoque sozinho e registra a movimentação. Você vê o histórico em "Movimentações Automáticas".</p></div></div>
+  <div class="tut-step"><div class="tut-n">3</div><div class="tut-step-body"><strong>Alerta de reposição</strong><p>Quando um item chega ao mínimo, ele se destaca. Assim você repõe antes de faltar — nada de descobrir que acabou a tinta no meio de um fechamento.</p></div></div>
+  <div class="tut-tip">💡 O custo dos materiais entra no cálculo do <strong>lucro real da sessão</strong> (valor − custo). É assim que você sabe quanto cada trabalho realmente rendeu.</div></div>`,
+ calculadora:`<div class="tut-card"><h3>🧮 Calculadora de Preço — pare de chutar orçamento</h3><div class="sub">Um preço justo, baseado em custo e no seu tempo</div>
+  <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>Informe os dados</strong><p>Tamanho/tempo estimado, complexidade/estilo e o custo de material. A calculadora combina isso com o valor da sua hora de trabalho.</p></div></div>
+  <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Veja o preço sugerido</strong><p>O resultado já considera seus custos e uma margem saudável. Use como PISO — não cobre abaixo disso, ou você trabalha no prejuízo sem perceber.</p></div></div>
+  <div class="tut-tip">💡 Preço premium não é preço alto no chute: é preço que cobre custo, remunera seu tempo e sustenta a qualidade. A calculadora te dá segurança para defender seu valor.</div></div>`,
+ metas:`<div class="tut-card"><h3>🏁 Metas — para onde o mês está indo</h3><div class="sub">Defina o alvo e acompanhe o progresso em tempo real</div>
+  <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>Defina suas metas</strong><p>No Dashboard, clique nos campos de meta e edite: faturamento alvo, número de sessões, novos clientes e ticket médio desejado para o mês. Salve.</p></div></div>
+  <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Acompanhe as barras</strong><p>Conforme você conclui sessões e lança no Financeiro, as barras de progresso enchem sozinhas. Verde = no caminho, vermelho = atrás do ritmo. Sem planilha, sem contar na mão.</p></div></div>
+  <div class="tut-tip">💡 Meta sem acompanhamento é só desejo. Olhe o progresso toda semana e ajuste a rota — mais um post, mais um retorno, uma campanha na Central de Relacionamento.</div></div>`,
+ marketing:`<div class="tut-card"><h3>📱 Marketing — conteúdo e verba no mesmo lugar</h3><div class="sub">Planeje posts e invista com estratégia</div>
+  <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>Calendário de conteúdo</strong><p>Clique em <strong>+ Planejar Post</strong> e organize o que vai publicar: antes/depois, vídeo de execução, história de cliente, cover-up, fechamento. Planejar evita a semana passar sem postar.</p></div></div>
+  <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Resumo do mês</strong><p>O painel mostra o desempenho e quanto de verba de marketing você acumulou, ligando o esforço de divulgação ao resultado real do estúdio.</p></div></div>
+  <div class="tut-step"><div class="tut-n">3</div><div class="tut-step-body"><strong>Fundo de Marketing</strong><p>A cada sessão concluída, um percentual é separado automaticamente como verba de divulgação, e o sistema até sugere como distribuir. (Veja a aba <strong>Fundo de Marketing</strong> deste manual.)</p></div></div></div>`,
  agenda:`<div class="tut-card"><h3>🚫 Faltas e Reagendamento</h3><div class="sub">O que fazer quando o cliente não aparece</div>
   <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>Marque como "Faltou"</strong><p>Edite a sessão e mude o status para <strong>Faltou</strong>. Um campo de <strong>motivo</strong> aparece — anote o que o cliente disse ("imprevisto no trabalho", "sumiu sem avisar"). Isso fica registrado na linha do tempo do cliente para você identificar quem falta com frequência.</p></div></div>
   <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Reagende com um clique</strong><p>Sessão marcada como Faltou ganha o botão <strong>🔁</strong> na agenda. Ele abre uma nova sessão com TODOS os dados copiados (cliente, valor, projeto, materiais) — você só escolhe a nova data. A sessão original fica no histórico como falta.</p></div></div>
@@ -1329,14 +1383,25 @@ const TUT_EXTRA={
 };
 const TUT_DATA=[
   {id:'inicio',ic:'🚀',lb:'Início Rápido'},
+  {id:'hoje',ic:'☀️',lb:'Central de Hoje'},
   {id:'agenda',ic:'📅',lb:'Agenda'},
   {id:'crm',ic:'👥',lb:'Clientes CRM'},
-  {id:'financeiro',ic:'💰',lb:'Financeiro'},
-  {id:'contratos',ic:'📋',lb:'Contratos'},
   {id:'projetos',ic:'🎨',lb:'Projetos'},
-  {id:'busca',ic:'🔍',lb:'Busca Ctrl+K'},
+  {id:'leads',ic:'🎯',lb:'Leads'},
+  {id:'relacionamento',ic:'💛',lb:'Relacionamento'},
+  {id:'automacoes',ic:'⚙️',lb:'Automações'},
   {id:'postattoo',ic:'🌿',lb:'Pós-Tattoo'},
+  {id:'financeiro',ic:'💰',lb:'Financeiro'},
+  {id:'comissoes',ic:'💼',lb:'Comissões'},
+  {id:'precos',ic:'🏷️',lb:'Preços'},
+  {id:'sinais',ic:'💎',lb:'Sinais'},
+  {id:'estoque',ic:'📦',lb:'Estoque'},
+  {id:'calculadora',ic:'🧮',lb:'Calculadora'},
+  {id:'metas',ic:'🏁',lb:'Metas'},
+  {id:'marketing',ic:'📱',lb:'Marketing'},
   {id:'mktfundo',ic:'📣',lb:'Fundo de Marketing'},
+  {id:'contratos',ic:'📋',lb:'Contratos'},
+  {id:'busca',ic:'🔍',lb:'Busca Ctrl+K'},
   {id:'backup',ic:'💾',lb:'Backup'},
 ];
 // ── UTILITÁRIOS ──
@@ -1494,7 +1559,7 @@ function rTutorial(id){
       <div class="tut-step"><div class="tut-n">3</div><div class="tut-step-body"><strong>Registre suas Sessões</strong><p>Vá em <strong>📅 Agenda</strong> → "+ Nova Sessão". Escolha data, hora, cliente, estilo e valor. O status "Concluído" é fundamental — ele alimenta o Dashboard, Relatórios e Metas automaticamente.</p></div></div>
       <div class="tut-step"><div class="tut-n">4</div><div class="tut-step-body"><strong>Lance no Financeiro</strong><p>Vá em <strong>💰 Financeiro</strong> → "+ Lançamento". Registre cada receita e despesa com categoria e forma de pagamento. O DRE e o Fluxo de Caixa são calculados em tempo real.</p></div></div>
       <div class="tut-step"><div class="tut-n">5</div><div class="tut-step-body"><strong>Faça Backup Semanal</strong><p>Vá em <strong>⚙️ Configurações</strong> → "⬇ Baixar Backup Completo". Salve o arquivo JSON no Google Drive ou pendrive. Isso protege todos os seus dados contra perda acidental.</p></div></div>
-      <div class="tut-tip">💡 <strong>Importante:</strong> O sistema funciona <strong>100% offline</strong>. Abra o arquivo HTML no navegador e todos os dados são salvos automaticamente no seu computador. Nenhuma informação vai para a internet.</div>
+      <div class="tut-tip">💡 <strong>Importante:</strong> Seus dados são salvos <strong>automaticamente</strong> a cada ação — direto no seu dispositivo e, com a <strong>nuvem ativa</strong>, também sincronizados com segurança na sua conta. Assim você não perde nada e pode acessar de outro computador ou celular fazendo login. Ainda assim, mantenha o hábito do backup semanal (passo 5).</div>
       <div style="background:var(--blub);border:1px solid var(--blubrd);border-radius:10px;padding:14px 18px;margin-top:14px;font-size:12.5px;line-height:1.7"><strong style="color:var(--blu)">📱 Dica para celular:</strong> Para usar no smartphone, toque no ícone ☰ no canto superior esquerdo para abrir o menu. Todos os módulos funcionam no celular.</div>
     </div>`,
     agenda:`<div class="tut-card"><h3>📅 Como Usar a Agenda</h3><div class="sub">Controle todos os agendamentos, valores, status e gere recibos profissionais</div>
@@ -1532,7 +1597,7 @@ function rTutorial(id){
       <div class="tut-warn">⚠️ <strong>Importante:</strong> O contrato só tem validade legal com <strong>assinatura de ambas as partes</strong>. Guarde sempre o original físico ou digitalizado.</div>
     </div>`,
     backup:`<div class="tut-card"><h3>💾 Backup e Segurança dos Dados</h3><div class="sub">Nunca perca seus dados — faça backup toda semana</div>
-      <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>Como funciona o armazenamento</strong><p>Todos os dados ficam salvos no <strong>localStorage do seu navegador</strong> — é automático e local. Se limpar o histórico do Chrome marcando "dados de sites", os dados podem ser perdidos. O backup protege contra isso.</p></div></div>
+      <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>Como funciona o armazenamento</strong><p>Seus dados ficam salvos no <strong>próprio dispositivo</strong> (automático e instantâneo) e, com a <strong>nuvem ativa</strong>, também são sincronizados com segurança na sua conta — dá pra acessar de outro aparelho fazendo login. Mesmo assim, o backup em arquivo é a sua garantia extra: se você limpar os dados do navegador ou trocar de máquina, o backup restaura tudo na hora.</p></div></div>
       <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Fazer Backup</strong><p>Vá em <span class="tut-tag">⚙️ Configurações</span> → clique em <span class="tut-tag">⬇ Baixar Backup Completo</span>. Um arquivo JSON é baixado com <strong>todos os seus dados</strong>. Salve no Google Drive, Dropbox ou pendrive.</p></div></div>
       <div class="tut-step"><div class="tut-n">3</div><div class="tut-step-body"><strong>Restaurar Backup</strong><p>Se precisar recuperar dados (novo computador, formatou o PC), vá em <span class="tut-tag">⚙️ Configurações</span> → clique em <span class="tut-tag">📥 Restaurar</span> e selecione o arquivo JSON. Todos os dados voltam imediatamente.</p></div></div>
       <div class="tut-step"><div class="tut-n">4</div><div class="tut-step-body"><strong>Transferir para outro computador</strong><p>Copie o arquivo <strong>central_tattoo.html</strong> para o novo computador, abra no Chrome, faça o restore do backup mais recente. Tudo funciona normalmente.</p></div></div>
@@ -2435,7 +2500,7 @@ function rMktFundo(){const el=document.getElementById('mktFundo');if(!el)return;
  const faixa=fat3<5000?{p:'5-7%',dica:'Fase de tração: priorize conteúdo orgânico + R$10-15/dia em tráfego local.'}:fat3<15000?{p:'7%',dica:'Fase de crescimento: tráfego consistente + parcerias locais.'}:{p:'10%',dica:'Fase de escala: aumente o investimento para dominar o nicho na sua região.'};
  el.innerHTML=`<div style="display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start">
   <div><div style="font-size:26px;font-weight:700;color:var(--gold,#b8860b)">${$R(saldo)}</div><div style="font-size:12px;color:var(--tx3)">acumulado para investir em divulgação</div>
-   <div style="margin-top:8px;font-size:12.5px;display:flex;align-items:center;gap:6px">Percentual por sessão: <input type="number" id="mkPctIn" value="${pct}" min="0" max="100" style="width:64px;padding:4px 6px;border:1px solid var(--brd2,#ccc);border-radius:6px"> % <button class="btn btn-ghost btn-xs" onclick="salvarPctMkt()">Salvar</button></div></div>
+   <div style="margin-top:8px;font-size:12.5px;display:flex;align-items:center;gap:6px">Percentual por sessão: <input type="number" id="mkPctInLegacy" value="${pct}" min="0" max="100" style="width:64px;padding:4px 6px;border:1px solid var(--brd2,#ccc);border-radius:6px"> % <button class="btn btn-ghost btn-xs" onclick="salvarPctMkt()">Salvar</button></div></div>
   <div style="flex:1;min-width:250px">
    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--tx3);margin-bottom:6px">📊 Plano de distribuição sugerido</div>
    <div style="font-size:12.5px;line-height:1.7">🎯 <strong>65% Tráfego local</strong> (impulsionar Instagram + Google na sua cidade): <strong>${$R(saldo*0.65)}</strong><br>🎬 <strong>20% Turbinar seu conteúdo</strong> (impulsionar seus melhores Reels/posts — você mesmo grava): <strong>${$R(saldo*0.20)}</strong><br>🧪 <strong>15% Testes e parcerias</strong> (novos criativos, colabs, brindes): <strong>${$R(saldo*0.15)}</strong></div>
@@ -2920,7 +2985,7 @@ function novoCont(){['ctData','ctObs'].forEach(i=>{const el=document.getElementB
 function saveCont(){const id=uid();const c={id,data:document.getElementById('ctData').value,cli:document.getElementById('ctCli').value,tipo:document.getElementById('ctTipo').value,st:document.getElementById('ctSt').value,obs:document.getElementById('ctObs').value};const db=gdb('ct_contratos');db.push(c);sdb('ct_contratos',db);closeM('mCont');rCont();showToast('✅ Contrato registrado!');}
 function delCont(id){if(!confirm('Excluir?'))return;sdb('ct_contratos',gdb('ct_contratos').filter(c=>c.id!==id));rCont();}
 // ── RELATÓRIO ──
-function rRel(){const sess=gdb('ct_sessoes'),cl=gdb('ct_clientes'),fin=gdb('ct_financeiro');const totR=fin.filter(f=>f.tipo==='receita').reduce((a,f)=>a+R(f.val),0),totD=fin.filter(f=>f.tipo==='despesa').reduce((a,f)=>a+R(f.val),0);const conc=sess.filter(s=>s.stat==='Concluído'),tick=conc.length?conc.reduce((a,s)=>a+R(s.val),0)/conc.length:0;document.getElementById('relKpi').innerHTML=`<div class="kpi-card kpi-gold"><div class="kpi-num c-gold">${$R(totR)}</div><div class="kpi-label">Total Receitas</div></div><div class="kpi-card kpi-red"><div class="kpi-num c-red">${$R(totD)}</div><div class="kpi-label">Total Despesas</div></div><div class="kpi-card kpi-green"><div class="kpi-num c-green">${$R(totR-totD)}</div><div class="kpi-label">Lucro Total</div></div><div class="kpi-card kpi-gray"><div class="kpi-num">${sess.length}</div><div class="kpi-label">Total Sessões</div></div><div class="kpi-card kpi-gray"><div class="kpi-num">${cl.length}</div><div class="kpi-label">Total Clientes</div></div><div class="kpi-card kpi-gold"><div class="kpi-num c-gold">${$R(tick)}</div><div class="kpi-label">Ticket Médio</div></div><div class="kpi-card kpi-red"><div class="kpi-num c-red">${$R(gdb('ct_projetos').filter(p=>p.st!=='📁 Arquivado'&&p.st!=='✅ Finalizado').reduce((a,p)=>a+pjCalc(p).saldo,0))}</div><div class="kpi-label">💰 Receita em Aberto (projetos)</div></div><div class="kpi-card kpi-green"><div class="kpi-num c-green">${$R(totR+gdb('ct_projetos').filter(p=>p.st!=='📁 Arquivado'&&p.st!=='✅ Finalizado').reduce((a,p)=>a+pjCalc(p).saldo,0))}</div><div class="kpi-label">📈 Receita Prevista</div></div>`;
+function rRel(){const sess=gdb('ct_sessoes'),cl=gdb('ct_clientes'),fin=gdb('ct_financeiro');const totR=fin.filter(f=>f.tipo==='receita').reduce((a,f)=>a+R(f.val),0),totD=fin.filter(f=>f.tipo==='despesa').reduce((a,f)=>a+R(f.val),0);const conc=sess.filter(s=>s.stat==='Concluído'),tick=conc.length?conc.reduce((a,s)=>a+R(s.val),0)/conc.length:0;document.getElementById('relatKpi').innerHTML=`<div class="kpi-card kpi-gold"><div class="kpi-num c-gold">${$R(totR)}</div><div class="kpi-label">Total Receitas</div></div><div class="kpi-card kpi-red"><div class="kpi-num c-red">${$R(totD)}</div><div class="kpi-label">Total Despesas</div></div><div class="kpi-card kpi-green"><div class="kpi-num c-green">${$R(totR-totD)}</div><div class="kpi-label">Lucro Total</div></div><div class="kpi-card kpi-gray"><div class="kpi-num">${sess.length}</div><div class="kpi-label">Total Sessões</div></div><div class="kpi-card kpi-gray"><div class="kpi-num">${cl.length}</div><div class="kpi-label">Total Clientes</div></div><div class="kpi-card kpi-gold"><div class="kpi-num c-gold">${$R(tick)}</div><div class="kpi-label">Ticket Médio</div></div><div class="kpi-card kpi-red"><div class="kpi-num c-red">${$R(gdb('ct_projetos').filter(p=>p.st!=='📁 Arquivado'&&p.st!=='✅ Finalizado').reduce((a,p)=>a+pjCalc(p).saldo,0))}</div><div class="kpi-label">💰 Receita em Aberto (projetos)</div></div><div class="kpi-card kpi-green"><div class="kpi-num c-green">${$R(totR+gdb('ct_projetos').filter(p=>p.st!=='📁 Arquivado'&&p.st!=='✅ Finalizado').reduce((a,p)=>a+pjCalc(p).saldo,0))}</div><div class="kpi-label">📈 Receita Prevista</div></div>`;
 const meses={};sess.forEach(s=>{if(s.data){const mm=s.data.slice(0,7);if(!meses[mm])meses[mm]={s:0,v:0};if(s.stat==='Concluído'){meses[mm].s++;meses[mm].v+=R(s.val);}}});fin.forEach(f=>{if(f.data){const mm=f.data.slice(0,7);if(!meses[mm])meses[mm]={s:0,v:0};}});document.getElementById('relMen').innerHTML=`<thead><tr><th>Mês</th><th>Sessões</th><th>Fat.</th><th>Receitas</th><th>Despesas</th><th>Lucro</th><th>Ticket Médio</th></tr></thead><tbody>${Object.keys(meses).sort().reverse().slice(0,12).map(k=>{const[a,mm]=k.split('-');const r=fin.filter(f=>f.data&&f.data.slice(0,7)===k&&f.tipo==='receita').reduce((a,f)=>a+R(f.val),0);const d=fin.filter(f=>f.data&&f.data.slice(0,7)===k&&f.tipo==='despesa').reduce((a,f)=>a+R(f.val),0);return`<tr><td><strong>${MSS[parseInt(mm)-1]} ${a}</strong></td><td>${meses[k].s}</td><td style="color:var(--grn)">${$R(meses[k].v)}</td><td style="color:var(--grn)">${$R(r)}</td><td style="color:var(--red)">${$R(d)}</td><td style="font-weight:700;color:${r-d>=0?'var(--grn)':'var(--red)'}">${$R(r-d)}</td><td>${$R(meses[k].s?meses[k].v/meses[k].s:0)}</td></tr>`;}).join('')||`<tr><td colspan="7" class="empty-row"><p>Sem dados</p></td></tr>`}</tbody>`;
 const top=cl.map(c=>{const ss=conc.filter(s=>s.cli===c.nome);return{...c,total:ss.reduce((a,s)=>a+R(s.val),0),ns:ss.length};}).sort((a,b)=>b.total-a.total).slice(0,10);document.getElementById('relTop').innerHTML=top.length?top.map((c,i)=>`<tr><td style="font-weight:700;color:var(--tx3)">${i+1}</td><td><strong>${c.nome}</strong></td><td>${c.ns}</td><td style="color:var(--grn);font-weight:700">${$R(c.total)}</td></tr>`).join(''):`<tr><td colspan="4" class="empty-row"><p>Sem dados</p></td></tr>`;
 const estilos={};conc.forEach(s=>{const e=s.est||'Outros';if(!estilos[e])estilos[e]={n:0,v:0};estilos[e].n++;estilos[e].v+=R(s.val);});const totE=Object.values(estilos).reduce((a,e)=>a+e.v,0);document.getElementById('relEst').innerHTML=Object.entries(estilos).sort((a,b)=>b[1].v-a[1].v).map(([e,d])=>`<tr><td><strong>${e}</strong></td><td>${d.n}</td><td style="color:var(--grn);font-weight:600">${$R(d.v)}</td><td>${$R(d.n?d.v/d.n:0)}</td><td>${totE>0?(d.v/totE*100).toFixed(1):0}%</td></tr>`).join('')||`<tr><td colspan="5" class="empty-row"><p>Sem sessões</p></td></tr>`;}
@@ -3910,7 +3975,7 @@ window.rLd=function(){
           (l.passo?'<span>➡️ '+relEsc(l.passo).slice(0,40)+'</span>':'')+
         '</div>'+
         '<p class="kb-meta" style="display:flex;gap:5px;align-items:center;margin-top:6px">'+
-          '<a class="btn btn-success btn-xs" href="https://wa.me/55'+tel.replace(/\D/g,'')+'" target="_blank" onclick="event.stopPropagation()">📲</a>'+
+          (tel.replace(/\D/g,'')?'<a class="btn btn-success btn-xs" href="https://wa.me/55'+tel.replace(/\D/g,'')+'" target="_blank" onclick="event.stopPropagation()">📲</a>':'')+
           '<button class="btn btn-ghost btn-xs" onclick="event.stopPropagation();converterLeadCliente(\''+l.id+'\')" title="Converter em cliente do CRM" style="margin-left:auto">👤➕</button>'+
           '<button class="btn btn-danger btn-xs" onclick="event.stopPropagation();delLd(\''+l.id+'\')">🗑</button>'+
         '</p>'+
@@ -4079,10 +4144,10 @@ setInterval(relBootResumo,120000);
 /* ---- Central de Hoje ---- */
 .hoje-hero{display:flex;justify-content:space-between;align-items:center;gap:16px;background:linear-gradient(135deg,var(--nav),var(--nav2,var(--nav)));border:1px solid var(--goldbrd);border-radius:14px;padding:20px 22px;margin-bottom:18px;box-shadow:var(--sh2)}
 .hoje-ola{font-family:'Cinzel',serif;font-size:22px;font-weight:700;color:var(--gold3)}
-.hoje-data{font-size:13px;color:var(--gold);opacity:.85;text-transform:capitalize;margin-top:3px}
+.hoje-data{font-size:13px;color:#EFE0BC;opacity:1;text-transform:capitalize;margin-top:3px}
 .hoje-contador{text-align:center;flex-shrink:0}
 .hoje-num{font-size:38px;font-weight:800;color:var(--gold3);line-height:1}
-.hoje-num-lb{font-size:11px;color:var(--gold);opacity:.85;text-transform:uppercase;letter-spacing:.5px}
+.hoje-num-lb{font-size:11px;color:#EFE0BC;opacity:1;text-transform:uppercase;letter-spacing:.5px}
 .hoje-zero{text-align:center;font-size:15px;color:var(--tx2);line-height:1.7;background:var(--grnb);border:1px solid var(--grn);border-radius:12px;padding:28px 20px}
 .hoje-bloco{margin-bottom:16px}
 .hoje-bt{font-size:14px;color:var(--txt);padding:6px 0 10px 12px;border-left:3px solid var(--gold);display:flex;align-items:center;gap:8px}
@@ -4244,7 +4309,7 @@ function rHoje(){
   // cabeçalho
   var head='<div class="hoje-hero"><div><div class="hoje-ola">'+motorSaudacao()+', '+relEsc(cf.nome||'Carlos')+'! 👋</div>'+
     '<div class="hoje-data">'+dataBR+'</div></div>'+
-    '<div class="hoje-contador"><div class="hoje-num">'+p.total+'</div><div class="hoje-num-lb">ação'+(p.total!==1?'ões':'')+' pra hoje</div></div></div>';
+    '<div class="hoje-contador"><div class="hoje-num">'+p.total+'</div><div class="hoje-num-lb">'+(p.total!==1?'ações':'ação')+' pra hoje</div></div></div>';
   if(p.total===0 && !p.ouro.length){
     el.innerHTML=head+'<div class="hoje-zero">✨ <strong>Tudo em dia!</strong><br>Nenhuma pendência pra hoje. O sistema segue de olho por você — volte amanhã.</div>';
     return;
@@ -4325,9 +4390,9 @@ function rAuto(){
     '</div>';
   }).join('')+'</div>';
   // Fase 2
-  html+='<div class="card auto-fase2"><div class="card-h"><h3>🤖 Piloto Automático 24h</h3><span class="rel-tag" style="background:var(--goldb);color:var(--gold)">grátis via Supabase</span></div>'+
-    '<p style="font-size:13px;color:var(--tx2);line-height:1.6;padding:2px 2px 10px">Hoje o motor roda quando você abre o app. Com o Piloto Automático, um "vigia" roda sozinho todo dia de manhã no Supabase (de graça) e te manda um e-mail com o resumo do dia — além de disparar automaticamente os e-mails de aniversário e acompanhamento. O WhatsApp continua sendo você, no toque pessoal. Deixei tudo pronto pra colar.</p>'+
-    '<button class="btn btn-ghost btn-sm" onclick="motorFase2Kit()" style="border:1.5px solid var(--brd2)">📦 Ver kit de ativação (SQL + função)</button></div>';
+  html+='<div class="card auto-fase2"><div class="card-h"><h3>🤖 Piloto Automático 24h</h3><span class="rel-tag" style="background:var(--goldb);color:var(--gold)">trabalha sozinho</span></div>'+
+    '<p style="font-size:13px;color:var(--tx2);line-height:1.6;padding:2px 2px 10px">Com o Piloto Automático, a Central passa a trabalhar por você 24 horas — mesmo com o sistema fechado. Todo dia de manhã ela prepara o resumo do seu dia, avisa dos aniversariantes e mantém os acompanhamentos pós-tattoo em dia. O contato no WhatsApp continua no seu toque pessoal — o sistema só garante que nada seja esquecido.</p>'+
+    '<button class="btn btn-ghost btn-sm" onclick="motorFase2Kit()" style="border:1.5px solid var(--brd2)">▶️ O que o Piloto Automático faz por você</button></div>';
   // Log
   var log=relG('ct_regras_log').slice(0,25);
   html+='<div class="card"><div class="card-h"><h3>📜 Histórico do Motor</h3><span class="badge-count">'+relG('ct_regras_log').length+'</span></div>'+
@@ -4338,58 +4403,18 @@ function motorRodarUI(){ var r=motorRodar(false); relBootResumo(); rAuto(); if(d
 
 /* ---------- KIT FASE 2 (modal com SQL + Edge Function prontos) ---------- */
 function motorFase2Kit(){
-  var proj='ejapatxehmxondjqsgvv';
-  var sql="-- 1) Habilite as extensões (Supabase > Database > Extensions): pg_cron e pg_net\n"+
-    "-- 2) Rode este SQL no SQL Editor (agende para 08h de Brasília = 11h UTC):\n"+
-    "select cron.schedule(\n"+
-    "  'central-tattoo-diario',\n"+
-    "  '0 11 * * *',\n"+
-    "  $$ select net.http_post(\n"+
-    "       url:='https://"+proj+".functions.supabase.co/motor-diario',\n"+
-    "       headers:='{\"Content-Type\":\"application/json\"}'::jsonb\n"+
-    "     ); $$\n"+
-    ");";
-  var fn="// supabase/functions/motor-diario/index.ts\n"+
-    "// Deploy: supabase functions deploy motor-diario --no-verify-jwt\n"+
-    "import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';\n\n"+
-    "const sb = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SERVICE_ROLE_KEY')!);\n"+
-    "const RESEND = Deno.env.get('RESEND_API_KEY')!;\n"+
-    "const ADMIN = 'carlostattoobh@gmail.com';\n\n"+
-    "function dias(iso:string){ const d=new Date(iso.slice(0,10)+'T00:00:00'); return Math.floor((Date.now()-d.getTime())/86400000); }\n"+
-    "async function email(to:string, subject:string, html:string){\n"+
-    "  await fetch('https://api.resend.com/emails',{method:'POST',headers:{'Authorization':`Bearer ${RESEND}`,'Content-Type':'application/json'},\n"+
-    "    body:JSON.stringify({from:'Central Tattoo <no-reply@carlostattoobh.com.br>',to,subject,html})});\n"+
-    "}\n\n"+
-    "Deno.serve(async () => {\n"+
-    "  // lê o blob de dados do estúdio (mesma tabela do app)\n"+
-    "  const { data } = await sb.from('ct_dados').select('valor').eq('chave','ct_clientes').single();\n"+
-    "  const clientes = data ? JSON.parse(data.valor) : [];\n"+
-    "  const hoje = new Date(); const md = (hoje.getMonth()+1)+'-'+hoje.getDate();\n"+
-    "  const aniversariantes = clientes.filter((c:any)=>{ if(!c.nasc)return false; const d=new Date(c.nasc.slice(0,10)+'T00:00:00'); return (d.getMonth()+1)+'-'+d.getDate()===md; });\n"+
-    "  // 1) resumo pro admin\n"+
-    "  const lista = aniversariantes.map((c:any)=>'<li>'+c.nome+' - '+(c.tel||'')+'</li>').join('');\n"+
-    "  await email(ADMIN, 'Central Tattoo - seu dia', '<h2>Bom dia!</h2><p>Aniversariantes hoje: <b>'+aniversariantes.length+'</b></p><ul>'+lista+'</ul><p>Abra a Central de Hoje para ver retornos, cobrancas e acompanhamentos.</p>');\n"+
-    "  // 2) parabens automatico pros aniversariantes (so quem tem e-mail)\n"+
-    "  for (const c of aniversariantes) {\n"+
-    "    if (c.email) await email(c.email, 'Feliz aniversario!', '<p>Oi '+(c.nome||'').split(' ')[0]+', e a Carlos Tattoo BH desejando um feliz aniversario! Preparamos um mimo especial pra sua proxima tattoo.</p>');\n"+
-    "  }\n"+
-    "  return new Response(JSON.stringify({ok:true, aniversariantes:aniversariantes.length}), {headers:{'Content-Type':'application/json'}});\n"+
-    "});";
   var m=document.getElementById('mFase2');
   if(!m){ m=document.createElement('div'); m.className='modal-wrap'; m.id='mFase2'; document.body.appendChild(m); }
-  m.innerHTML='<div class="modal" style="max-width:820px">'+
-    '<div class="modal-head"><h3>📦 Piloto Automático 24h — Kit de Ativação</h3><button class="modal-close" onclick="closeM(\'mFase2\')">✕</button></div>'+
+  m.innerHTML='<div class="modal" style="max-width:640px">'+
+    '<div class="modal-head"><h3>🤖 Piloto Automático 24h</h3><button class="modal-close" onclick="closeM(\'mFase2\')">✕</button></div>'+
     '<div class="modal-body">'+
-      '<div class="tut" style="margin-bottom:14px">✅ Tudo aqui é <strong>grátis</strong> (plano free do Supabase + Resend que você já usa). Você cola, faz o deploy uma vez, e o sistema passa a trabalhar 24h — mesmo com o app fechado.</div>'+
-      '<div class="rel-bsec"><h4>Passo 1 — Edge Function (motor-diario)</h4><p style="font-size:12.5px;color:var(--tx3);margin-bottom:6px">Crie a função no Supabase e cole o código. Ela usa o <code>RESEND_API_KEY</code> e o <code>SERVICE_ROLE_KEY</code> que você já tem nos secrets.</p>'+
-        '<textarea class="fi" id="kitFn" rows="10" style="font-family:monospace;font-size:11px" readonly>'+relEsc(fn)+'</textarea>'+
-        '<button class="btn btn-primary btn-xs" style="margin-top:6px" onclick="motorKitCopy(\'kitFn\')">📋 Copiar função</button></div>'+
-      '<div class="rel-bsec"><h4>Passo 2 — Agendamento diário (SQL)</h4><p style="font-size:12.5px;color:var(--tx3);margin-bottom:6px">Habilite <code>pg_cron</code> e <code>pg_net</code> em Extensions, depois rode este SQL no SQL Editor:</p>'+
-        '<textarea class="fi" id="kitSql" rows="8" style="font-family:monospace;font-size:11px" readonly>'+relEsc(sql)+'</textarea>'+
-        '<button class="btn btn-primary btn-xs" style="margin-top:6px" onclick="motorKitCopy(\'kitSql\')">📋 Copiar SQL</button></div>'+
-      '<div style="font-size:12.5px;color:var(--tx2);background:var(--goldb);border:1px solid var(--goldbrd);border-radius:9px;padding:11px">💡 Pronto. Todo dia às 8h o vigia roda sozinho: te manda o resumo por e-mail e dispara os parabéns de aniversário. Quando quiser, dá pra expandir pra WhatsApp API sem mexer no resto.</div>'+
+      '<div class="tut" style="margin-bottom:14px">💡 O Piloto Automático é a Central trabalhando por você — <strong>24 horas por dia, mesmo com o sistema fechado</strong>. Você cuida da arte; ele cuida de não deixar nada passar.</div>'+
+      '<div class="rel-bsec"><h4>☀️ Todo dia de manhã</h4><p style="font-size:12.5px;color:var(--tx2);line-height:1.6">Você recebe um resumo do seu dia: quem faz aniversário, quem está no ponto de retorno, quais saldos alinhar e quais sessões confirmar. Tudo pronto pra você agir.</p></div>'+
+      '<div class="rel-bsec"><h4>🎂 Aniversários no automático</h4><p style="font-size:12.5px;color:var(--tx2);line-height:1.6">Os clientes com data de aniversário cadastrada recebem um carinho da sua marca no dia certo — sem você precisar lembrar de cada um.</p></div>'+
+      '<div class="rel-bsec"><h4>🔔 Acompanhamento que não esquece</h4><p style="font-size:12.5px;color:var(--tx2);line-height:1.6">Depois de cada tatuagem, o sistema mantém no radar os retornos de 7, 30, 90 e 180 dias — o cuidado que faz o cliente voltar e indicar.</p></div>'+
+      '<div style="font-size:12.5px;color:var(--tx2);background:var(--goldb);border:1px solid var(--goldbrd);border-radius:9px;padding:11px;line-height:1.6">🖤 <strong>O toque pessoal continua sendo seu.</strong> O Piloto Automático organiza e lembra; a conversa no WhatsApp com o cliente continua na sua mão, do seu jeito.</div>'+
     '</div>'+
-    '<div class="modal-foot"><button class="btn btn-ghost btn-sm" onclick="closeM(\'mFase2\')">Fechar</button></div>'+
+    '<div class="modal-foot"><button class="btn btn-primary btn-sm" onclick="closeM(\'mFase2\')">Entendi</button></div>'+
   '</div>';
   if(typeof openM==='function')openM('mFase2'); else m.classList.add('on');
 }
