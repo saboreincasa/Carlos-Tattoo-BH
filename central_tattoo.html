@@ -653,17 +653,44 @@ textarea.fi{resize:vertical;min-height:76px;}
 
 <!-- ═══ FOLLOW-UP ═══ -->
 <div class="panel" id="p-followup">
-  <div class="pg"><div class="pg-t"><h2>🔔 Follow-Up de Clientes</h2><p>Nunca perca um cliente por falta de contato</p></div><button class="btn btn-primary" onclick="openM('mFU')">+ Registrar Follow-Up</button></div>
+  <div class="pg"><div class="pg-t"><h2>🔔 Follow-Up de Clientes</h2><p>Nunca perca um cliente por falta de contato</p></div><button class="btn btn-primary" onclick="novoFU()">+ Registrar Follow-Up</button></div>
   <div class="tut">💡 <strong>PRIORIDADE:</strong> 🔴 Alta (+90 dias) | 🟡 Média (60-90 dias) | 🟢 Normal (30-60 dias). Preencha <strong>AÇÃO PLANEJADA → DATA → RESULTADO → PRÓX. FOLLOW</strong> após cada contato.</div>
   <div class="card"><div class="card-h"><h3>Clientes para Contato</h3><span class="badge-count" id="fuCt">—</span></div>
   <div class="tw"><table class="tbl"><thead><tr><th>Cliente</th><th>Telefone</th><th>Últ. Sessão</th><th>Dias S/ Visita</th><th>Prioridade</th><th>Ação Planejada</th><th>Data Ação</th><th>Resultado</th><th>Próx. Follow</th><th>Status</th><th>Obs</th><th></th></tr></thead><tbody id="fuTb"></tbody></table></div></div>
 </div>
 
 <!-- ═══ FINANCEIRO ═══ -->
+<!-- ═══ CENTRAL DE HOJE ═══ -->
+<div class="panel" id="p-hoje">
+  <div id="hojeBody"></div>
+</div>
+
+<!-- ═══ AUTOMAÇÕES ═══ -->
+<div class="panel" id="p-automacoes">
+  <div class="pg"><div class="pg-t"><h2>⚙️ Automações</h2><p>O motor de regras que faz a Central Tattoo trabalhar sozinha</p></div></div>
+  <div id="autoBody"></div>
+</div>
+
+<!-- ═══ RELACIONAMENTO ═══ -->
+<div class="panel" id="p-relacionamento">
+  <div class="pg"><div class="pg-t"><h2>💛 Central de Relacionamento</h2><p>O sistema organiza sua rotina de fidelização automaticamente</p></div><button class="btn btn-primary" onclick="relBancoOpen()">💬 Banco de Mensagens</button></div>
+  <div class="tut">💡 Tudo aqui é <strong>automático</strong>, calculado pela data real da última sessão de cada cliente. Clique em <strong>Enviar</strong> e a mensagem certa já abre pronta no WhatsApp.</div>
+  <div class="kpi-grid" id="relKpi"></div>
+  <div class="card"><div class="card-h"><h3>🎯 Fila de Relacionamento</h3><span class="badge-count" id="relCt">—</span></div>
+    <div id="relTabs" style="display:flex;gap:6px;flex-wrap:wrap;padding:4px 2px 12px"></div>
+    <div id="relLista"></div>
+  </div>
+  <div class="card"><div class="card-h"><h3>📣 Campanhas Internas — 1 Clique</h3></div>
+    <div id="relCampBtns" style="display:flex;gap:8px;flex-wrap:wrap;padding:4px 2px 10px"></div>
+    <div id="relCampRes"></div>
+  </div>
+</div>
+
 <div class="panel" id="p-financeiro">
   <div class="pg"><div class="pg-t"><h2>💰 Financeiro</h2><p>Receitas, despesas, DRE e fluxo de caixa</p></div>
   <div class="pg-actions"><button class="btn btn-primary btn-sm" onclick="openM('mLan')">+ Lançamento</button><button class="btn btn-success btn-sm" onclick="expFin()">⬇ Excel</button></div></div>
-  <div class="card" style="margin-bottom:16px"><div class="card-h"><h3>🏦 Fundo de Reserva</h3><button class="btn btn-sm" onclick="openM('mRes')">− Registrar Retirada</button></div><div class="card-b" id="resBox"></div></div>
+  <div class="card" style="margin-bottom:16px"><div class="card-h"><h3>🧰 Fundo de Materiais / Reposição</h3><button class="btn btn-sm" onclick="openM('mRes')">− Registrar Retirada</button></div><div class="card-b" id="resBox"></div></div>
+  <div class="card" style="margin-bottom:16px"><div class="card-h"><h3>🏦 Fundo de Capital de Giro</h3><button class="btn btn-sm" onclick="usarGiro()">− Registrar Retirada</button></div><div class="card-b" id="gioBox"></div></div>
   <div class="tut">💡 <strong>GRADE MENSAL</strong> — clique nas células e edite diretamente. <strong>LANÇAMENTOS</strong> = registro do dia a dia. <strong>DRE</strong> = resultado financeiro consolidado.</div>
   <div class="tab-bar"><div class="tab-btn on" onclick="finTab('gr',this)">📊 Grade Mensal</div><div class="tab-btn" onclick="finTab('lan',this)">📋 Lançamentos</div><div class="tab-btn" onclick="finTab('dre',this)">📉 DRE</div><div class="tab-btn" onclick="finTab('flu',this)">💳 Fluxo de Caixa</div></div>
   <div id="fGr">
@@ -729,7 +756,7 @@ textarea.fi{resize:vertical;min-height:76px;}
 
 <!-- ═══ LEADS ═══ -->
 <div class="panel" id="p-leads">
-  <div class="pg"><div class="pg-t"><h2>🎯 Pipeline de Leads</h2><p>Nenhuma oportunidade pode escapar</p></div><button class="btn btn-primary" onclick="openM('mLd')">+ Novo Lead</button></div>
+  <div class="pg"><div class="pg-t"><h2>🎯 Pipeline de Leads</h2><p>Nenhuma oportunidade pode escapar</p></div><button class="btn btn-primary" onclick="novoLd()">+ Novo Lead</button></div>
   <div class="tut">💡 <strong>ETAPA:</strong> 1.Contato | 2.Orçamento | 3.Negociação | 4.Agendado | 5.Fechado ✅ | 6.Perdido ❌. <strong>TEMPERATURA:</strong> 🔥 Quente | ⚡ Morno | ❄️ Frio.</div>
   <div class="kpi-grid" id="ldKpi"></div>
   <div class="kanban" id="ldKanban"></div>
@@ -760,7 +787,7 @@ textarea.fi{resize:vertical;min-height:76px;}
       <p style="color:var(--tx3);font-size:13.5px;margin:0 0 14px">Escolha o procedimento e o cliente — o guia certo já sai pronto no WhatsApp.</p>
       <div class="fg2">
         <div class="fg"><label>Procedimento</label><select class="fi" id="pvTipo" onchange="ctPVTipoChange()"><option value="Tatuagem">🖋️ Tatuagem</option><option value="Piercing">💎 Piercing</option><option value="Aréola">🎗️ Micropigmentação de Aréola</option></select></div>
-        <div class="fg"><label>Cliente</label><input class="fi" list="dlPV" id="pvCli" placeholder="Digite ou escolha" onchange="ctPVFill()"></div>
+        <div class="fg"><label>Cliente <span style="font-weight:400;color:var(--tx3);font-size:12px">— puxado do Clientes CRM</span></label><select class="fi" id="pvCli" onchange="ctPVFill()"><option value="">— escolha um cliente —</option></select></div>
       </div>
       <div class="fg2">
         <div class="fg"><label>WhatsApp</label><input class="fi" id="pvTel" placeholder="(31) 9 9999-9999"></div>
@@ -808,7 +835,7 @@ textarea.fi{resize:vertical;min-height:76px;}
 
 <!-- ═══ CONTRATOS ═══ -->
 <div class="panel" id="p-contratos">
-  <div class="pg"><div class="pg-t"><h2>📋 Contratos</h2><p>Modelos profissionais com respaldo jurídico</p></div><button class="btn btn-primary" onclick="openM('mCont')">+ Registrar</button></div>
+  <div class="pg"><div class="pg-t"><h2>📋 Contratos</h2><p>Modelos profissionais com respaldo jurídico</p></div><button class="btn btn-primary" onclick="novoCont()">+ Registrar</button></div>
   <div class="tut">💡 Clique em <strong>⬇ Gerar Word</strong> para baixar o contrato formatado e editável. Os dados do estúdio são preenchidos automaticamente a partir das <strong>Configurações</strong>.</div>
   <div class="g2" style="margin-bottom:20px">
     <div>
@@ -896,7 +923,7 @@ textarea.fi{resize:vertical;min-height:76px;}
         <div class="fg"><label>Horário de Atendimento</label><input class="fi" id="cfHorario" placeholder="Seg-Sex 10h–19h | Sáb 10h–16h"></div>
       </div>
     </div>
-    <div class="fg2" style="margin-top:10px"><div class="fg"><label>🏦 Fundo de Reserva (% de cada sessão)</label><input class="fi" type="number" id="cfReserva" min="0" max="100" step="1" placeholder="10"></div><div class="fg"><label>📣 Fundo de Marketing (% de cada sessão)</label><input class="fi" type="number" id="cfMkt" min="0" max="100" step="1" placeholder="7"></div></div>
+    <div class="fg3" style="margin-top:10px"><div class="fg"><label>🧰 Materiais/Reposição (% por sessão)</label><input class="fi" type="number" id="cfReserva" min="0" max="100" step="1" placeholder="10"></div><div class="fg"><label>🏦 Capital de Giro (% por sessão)</label><input class="fi" type="number" id="cfGiro" min="0" max="100" step="1" placeholder="5"></div><div class="fg"><label>📣 Marketing (% por sessão)</label><input class="fi" type="number" id="cfMkt" min="0" max="100" step="1" placeholder="7"></div></div>
     <div class="fg2"><div class="fg"><label>⭐ Link de avaliação Google</label><input class="fi" id="cfGoogleRev" placeholder="https://g.page/r/... (Perfil da Empresa → Pedir avaliações)"></div><div class="fg"><label>🌿 Link do guia de cuidados no seu site (opcional)</label><input class="fi" id="cfGuia" placeholder="https://seusite.com/cuidados-pos-tattoo"></div></div><div class="fg2"><div class="fg"><label>🎂 Oferta de Aniversário</label><div style="display:flex;gap:8px"><select class="fi" id="cfAnivTipo" style="max-width:150px"><option value="pct">% de desconto</option><option value="vale">Vale (R$)</option></select><input class="fi" type="number" id="cfAnivVal" min="0" placeholder="20"></div></div></div>
     <div style="margin-top:4px"><button class="btn btn-primary" onclick="saveConf()">💾 Salvar Configurações</button></div>
   </div>
@@ -1019,7 +1046,7 @@ textarea.fi{resize:vertical;min-height:76px;}
 <div class="modal-wrap" id="mPj"><div class="modal">
   <div class="modal-head"><h3 id="mPjT">Novo Projeto</h3><button class="modal-close" onclick="closeM('mPj')">✕</button></div>
   <div class="modal-body"><input type="hidden" id="pjId">
-    <div class="fg2"><div class="fg"><label>Cliente</label><input class="fi" id="pjCli" list="dl1" placeholder="Nome do cliente"></div><div class="fg"><label>Nome do Projeto</label><input class="fi" id="pjNome" placeholder="Ex: Fechamento Costas"></div></div>
+    <div class="fg2"><div class="fg"><label>Cliente <span style="font-weight:400;color:var(--tx3);font-size:12px">— do CRM</span></label><select class="fi" id="pjCli"><option value="">— escolha um cliente —</option></select></div><div class="fg"><label>Nome do Projeto</label><input class="fi" id="pjNome" placeholder="Ex: Fechamento Costas"></div></div>
     <div class="fg2"><div class="fg"><label>Local do Corpo</label><input class="fi" id="pjLocal" placeholder="Ex: costas completas"></div><div class="fg"><label>Estilo</label><select class="fi" id="pjEst"><option>Blackwork</option><option>Realismo</option><option>Old School</option><option>New School</option><option>Geométrico</option><option>Aquarela</option><option>Minimalista</option><option>Oriental</option><option>Fineline</option><option>Aréola</option><option>Cicatriz</option><option>Tribal</option><option>Cover Up</option><option>Outro</option></select></div></div>
     <div class="fg3"><div class="fg"><label>Valor Total (R$)</label><input class="fi" type="number" id="pjValor" min="0" step="50" placeholder="0"></div><div class="fg"><label>Sinal Inicial (R$)</label><input class="fi" type="number" id="pjSinal" min="0" step="50" placeholder="0"></div><div class="fg"><label>Sessões Previstas</label><input class="fi" type="number" id="pjSess" min="1" placeholder="Ex: 5"></div></div>
     <div class="fg"><label>Status</label><select class="fi" id="pjSt"><option>📝 Orçamento</option><option>💰 Sinal Pago</option><option>📅 Agendado</option><option>🎨 Em Andamento</option><option>✅ Finalizado</option><option>📁 Arquivado</option></select></div>
@@ -1045,7 +1072,7 @@ textarea.fi{resize:vertical;min-height:76px;}
 <div class="modal-wrap" id="mFU"><div class="modal">
   <div class="modal-head"><h3>Follow-Up</h3><button class="modal-close" onclick="closeM('mFU')">✕</button></div>
   <div class="modal-body"><input type="hidden" id="fuId">
-    <div class="fg2"><div class="fg"><label>Cliente</label><input class="fi" id="fuCli" list="dl2"></div><div class="fg"><label>Telefone</label><input class="fi" id="fuTel"></div></div>
+    <div class="fg2"><div class="fg"><label>Cliente <span style="font-weight:400;color:var(--tx3);font-size:12px">— do CRM</span></label><select class="fi" id="fuCli" onchange="ctFillFromCli('fuCli',{fuTel:'tel'})"><option value="">— escolha um cliente —</option></select></div><div class="fg"><label>Telefone</label><input class="fi" id="fuTel"></div></div>
     <datalist id="dl2"></datalist>
     <div class="fg2"><div class="fg"><label>Últ. Sessão</label><input class="fi" type="date" id="fuUlt"></div><div class="fg"><label>Prioridade</label><select class="fi" id="fuPrio"><option>🔴 Alta</option><option>🟡 Média</option><option>🟢 Normal</option></select></div></div>
     <div class="fg"><label>Ação Planejada</label><input class="fi" id="fuAcao" placeholder="Ex: Ligar e oferecer promoção de retoque"></div>
@@ -1082,6 +1109,7 @@ textarea.fi{resize:vertical;min-height:76px;}
 <div class="modal-wrap" id="mLd"><div class="modal">
   <div class="modal-head"><h3 id="mLdT">Novo Lead</h3><button class="modal-close" onclick="closeM('mLd')">✕</button></div>
   <div class="modal-body"><input type="hidden" id="ldId">
+    <div class="fg" style="background:var(--bg2,#faf7f2);border:1px dashed var(--brd2,#e2d9c8);border-radius:8px;padding:10px 12px;margin-bottom:12px"><label>👤 Puxar de um cliente do CRM <span style="font-weight:400;color:var(--tx3);font-size:12px">— cliente que voltou querendo trabalho novo (opcional)</span></label><select class="fi" id="ldCliCrm" onchange="ldPreencherDeCliente()"><option value="">— começar do zero / novo lead —</option></select></div>
     <div class="fg2"><div class="fg"><label>Nome</label><input class="fi" id="ldNome"></div><div class="fg"><label>Telefone</label><input class="fi" id="ldTel"></div></div>
     <div class="fg2"><div class="fg"><label>Estilo de Interesse</label><select class="fi" id="ldEst"><option value="">—</option><option>Blackwork</option><option>Realismo</option><option>Old School</option><option>New School</option><option>Geométrico</option><option>Aquarela</option><option>Fineline</option><option>Aréola</option><option>Cicatriz</option></select></div><div class="fg"><label>Tamanho</label><select class="fi" id="ldTam"><option value="">—</option><option>Pequeno</option><option>Médio</option><option>Grande</option><option>Manga</option></select></div></div>
     <div class="fg2"><div class="fg"><label>Orçamento Estimado (R$)</label><input class="fi" type="number" id="ldVal"></div><div class="fg"><label>Temperatura</label><select class="fi" id="ldTemp"><option value="quente">🔥 Quente</option><option value="morno">⚡ Morno</option><option value="frio">❄️ Frio</option></select></div></div>
@@ -1157,7 +1185,7 @@ textarea.fi{resize:vertical;min-height:76px;}
 <div class="modal-wrap" id="mCont"><div class="modal">
   <div class="modal-head"><h3>Registrar Contrato</h3><button class="modal-close" onclick="closeM('mCont')">✕</button></div>
   <div class="modal-body"><input type="hidden" id="ctId">
-    <div class="fg2"><div class="fg"><label>Data</label><input class="fi" type="date" id="ctData"></div><div class="fg"><label>Cliente</label><input class="fi" id="ctCli" list="dl4"></div></div>
+    <div class="fg2"><div class="fg"><label>Data</label><input class="fi" type="date" id="ctData"></div><div class="fg"><label>Cliente <span style="font-weight:400;color:var(--tx3);font-size:12px">— do CRM</span></label><select class="fi" id="ctCli"><option value="">— escolha um cliente —</option></select></div></div>
     <datalist id="dl4"></datalist>
     <div class="fg2"><div class="fg"><label>Tipo</label><select class="fi" id="ctTipo"><option>Padrão de Tatuagem</option><option>Menor de Idade (com responsável)</option><option>Aréola / Reconstrução</option><option>Cover-up (Cobertura)</option></select></div><div class="fg"><label>Status</label><select class="fi" id="ctSt"><option>Assinado</option><option>Pendente</option><option>Cancelado</option></select></div></div>
     <div class="fg"><label>🌎 Idioma</label><select class="fi" id="ctLang"><option value="pt">🇧🇷 Português</option><option value="en">🇺🇸 English</option><option value="es">🇪🇸 Español</option></select></div>
@@ -1207,8 +1235,8 @@ const META_I=[
 ];
 const COM_DEF=[{f:'Tatuador Principal',p:60},{f:'Tatuador',p:55},{f:'Atendimento',p:30},{f:'Piercing',p:50}];
 const ADM_M=[
-  {s:'INÍCIO'},{id:'configuracoes',ic:'🚀',lb:'Comece por Aqui'},
-  {s:'GESTÃO'},{id:'dashboard',ic:'📊',lb:'Dashboard'},{id:'agenda',ic:'📅',lb:'Agenda'},{id:'clientes',ic:'👥',lb:'Clientes CRM',trial_lock:true},{id:'projetos',ic:'🎨',lb:'Projetos',trial_lock:true},{id:'followup',ic:'🔔',lb:'Follow-Up',trial_lock:true},
+  {s:'INÍCIO'},{id:'hoje',ic:'🌅',lb:'Central de Hoje'},{id:'configuracoes',ic:'🚀',lb:'Comece por Aqui'},
+  {s:'GESTÃO'},{id:'dashboard',ic:'📊',lb:'Dashboard'},{id:'agenda',ic:'📅',lb:'Agenda'},{id:'clientes',ic:'👥',lb:'Clientes CRM',trial_lock:true},{id:'projetos',ic:'🎨',lb:'Projetos',trial_lock:true},{id:'followup',ic:'🔔',lb:'Follow-Up',trial_lock:true},{id:'relacionamento',ic:'💛',lb:'Relacionamento',trial_lock:true},{id:'automacoes',ic:'⚙️',lb:'Automações',trial_lock:true},
   {s:'FINANCEIRO'},{id:'financeiro',ic:'💰',lb:'Financeiro',trial_lock:true},{id:'calculadora',ic:'🧮',lb:'Calculadora'},{id:'comissoes',ic:'💼',lb:'Comissões',trial_lock:true},
   {s:'OPERACIONAL'},{id:'estoque',ic:'📦',lb:'Estoque',trial_lock:true},{id:'leads',ic:'🎯',lb:'Leads',trial_lock:true},{id:'metas',ic:'📈',lb:'Metas',trial_lock:true},{id:'sinais',ic:'💎',lb:'Sinais',trial_lock:true},
   {s:'MÓDULOS'},{id:'cicatrizacao',ic:'💬',lb:'Pós-Venda',trial_lock:true},{id:'contratos',ic:'📋',lb:'Contratos',trial_lock:true},{id:'relatorio',ic:'📊',lb:'Relatório',trial_lock:true},{id:'precos',ic:'🏷️',lb:'Preços',trial_lock:true},{id:'marketing',ic:'📱',lb:'Marketing',trial_lock:true},
@@ -1220,6 +1248,8 @@ const TRIAL_FREE=['dashboard','agenda','calculadora','tutorial'];
 const LOCK_INFO={
   clientes:{ic:'👥',title:'CRM de Clientes',desc:'Cadastro completo, fidelização e histórico de cada cliente.',feats:['Cadastro com foto e histórico','Ticket médio automático','NPS de satisfação','Controle de retornos']},
   followup:{ic:'🔔',title:'Follow-Up Automático',desc:'Nunca perca um cliente por falta de contato.',feats:['Clientes sem visita há 30/60/90 dias','Mensagem WhatsApp pré-pronta','Prioridade automática','Histórico de contatos']},
+  automacoes:{ic:'⚙️',title:'Motor de Automação',desc:'Regras de negócio que fazem a Central Tattoo trabalhar sozinha por você.',feats:['Acompanhamento automático 7/30/90/180 dias','Cliente Ouro por valor gasto','Cobrança e retorno automáticos','Central de Hoje: o que fazer hoje']},
+  relacionamento:{ic:'💛',title:'Central de Relacionamento',desc:'Transforme cada cliente em cliente fiel — o sistema trabalha por você.',feats:['Follow-up automático por data real','Score de relacionamento ⭐','Banco de mensagens com gatilhos mentais','Campanhas internas em 1 clique']},
   financeiro:{ic:'💰',title:'Financeiro Completo',desc:'Receitas, despesas, DRE e fluxo de caixa.',feats:['Grade mensal editável','DRE automático','Fluxo de caixa anual','Exportação Excel']},
   comissoes:{ic:'💼',title:'Gestão de Comissões',desc:'Controle de comissões da equipe com cálculo automático.',feats:['% por função','Cálculo automático','Histórico de pagamentos','Relatório da equipe']},
   estoque:{ic:'📦',title:'Controle de Estoque',desc:'Monitore materiais e nunca fique sem insumos.',feats:['17 itens pré-cadastrados','Alerta de reposição','Valor total do estoque','Controle por categoria']},
@@ -1293,7 +1323,7 @@ const TUT_EXTRA={
   <div class="tut-step"><div class="tut-n">3</div><div class="tut-step-body"><strong>Registre no módulo Cicatrização</strong><p>Acompanhe cada tattoo: em andamento, perfeita ou com problemas. Isso alimenta a linha do tempo do cliente e te dá histórico se houver questionamento.</p></div></div></div>`,
  mktfundo:`<div class="tut-card"><h3>📣 Fundo de Marketing — sua verba de crescimento</h3><div class="sub">Separado automaticamente, investido com estratégia</div>
   <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>Como funciona</strong><p>A cada sessão <strong>Concluída</strong>, o sistema separa automaticamente um percentual (padrão 7%, editável em Configurações ou no próprio módulo Marketing). O saldo acumula no card 📣 do Marketing.</p></div></div>
-  <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Plano de distribuição</strong><p>O sistema sugere: <strong>60% tráfego local</strong> (Instagram + Google na sua região), <strong>25% conteúdo</strong> (fotos profissionais, reels), <strong>15% testes</strong> (novos criativos, parcerias) — com os valores já calculados sobre o seu saldo.</p></div></div>
+  <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Plano de distribuição</strong><p>O sistema sugere: <strong>65% tráfego local</strong> (Instagram + Google na sua região), <strong>20% turbinar seu conteúdo</strong> (impulsionar seus próprios Reels/posts), <strong>15% testes</strong> (novos criativos, parcerias) — com os valores já calculados sobre o seu saldo.</p></div></div>
   <div class="tut-step"><div class="tut-n">3</div><div class="tut-step-body"><strong>Plano de crescimento</strong><p>Até R$5k/mês de faturamento: invista 5-7% priorizando orgânico + R$10-15/dia de tráfego. De R$5k a R$15k: 7% com constância. Acima de R$15k: 10% para dominar o nicho na região. O módulo mostra sua faixa atual sozinho.</p></div></div>
   <div class="tut-step"><div class="tut-n">4</div><div class="tut-step-body"><strong>Registre os usos</strong><p>Gastou com impulsionamento? Clique em <strong>− Registrar uso</strong>. O saldo e o histórico ficam sempre corretos.</p></div></div></div>`
 };
@@ -1329,7 +1359,7 @@ function pb(pct,cls){const c=cls||(pct>=100?'pg-green':pct>=70?'pg-gold':'pg-red
 function updDl(){const cl=gdb('ct_clientes');['dl1','dl2','dl3','dl4','dlPV'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=cl.map(c=>`<option value="${c.nome}">`).join('');});}
 function conf(){return gobj('ct_conf',{nome:'Carlos Tattoo BH',cnpj:'',tel:'',insta:'',end:'',cid:'Belo Horizonte, MG',email:'',site:'',espec:'',horario:'',reserva:10,mkt:7,anivTipo:'pct',anivVal:20});}
 // ── Módulos que viram "gavetas" de dados (usados no backup E na sincronização com o Supabase) ──
-const CT_SYNC_KEYS=['ct_sessoes','ct_clientes','ct_projetos','ct_mov_estoque','ct_mkt_fundo','ct_reserva','ct_equipe','ct_followup','ct_financeiro','ct_fg_rec','ct_fg_dep','ct_estoque','ct_leads','ct_mg','ct_cicatri','ct_comissoes','ct_com_pct','ct_contratos','ct_precos','ct_mkt','ct_tg','ct_usuarios','ct_guias'];
+const CT_SYNC_KEYS=['ct_sessoes','ct_clientes','ct_projetos','ct_mov_estoque','ct_mkt_fundo','ct_reserva','ct_equipe','ct_followup','ct_financeiro','ct_fg_rec','ct_fg_dep','ct_estoque','ct_leads','ct_mg','ct_cicatri','ct_comissoes','ct_com_pct','ct_contratos','ct_precos','ct_mkt','ct_tg','ct_usuarios','ct_guias','ct_giro'];
 
 // ── SINCRONIZAÇÃO COM A NUVEM ──
 // A sincronização real é feita pelo ct_cloud.js (Supabase Auth → tabela ct_dados),
@@ -1378,7 +1408,7 @@ const MT={1:1.0,2:1.3,3:1.6,4:2.2},MC={1:1.0,2:1.25,3:1.5};
   
   // ── SINCRONIZAR SUPABASE EM BACKGROUND (não bloqueia UI) ──
   setTimeout(()=>{
-    loadTG();buildFG();buildMG();initEst();migrarProjetosLegado();
+    loadTG();buildFG();buildMG();initEst();migrarProjetosLegado();ctBackfillCliId();
     renderDash();calc();
   },100);
 })();
@@ -1410,7 +1440,7 @@ function go(id){
   if(p)p.classList.add('on');if(s)s.classList.add('on');
   const ov=document.getElementById('sbOverlay'),sb=document.getElementById('sb');
   if(ov&&sb){ov.classList.remove('on');sb.classList.remove('open');}
-  const r={dashboard:renderDash,agenda:rAg,clientes:rCl,projetos:rPj,followup:rFU,financeiro:rFin,estoque:rEst,leads:rLd,metas:rMet,sinais:rSin,cicatrizacao:rCic,comissoes:rCom,relatorio:rRel,precos:rPr,marketing:rMkt,contratos:rCont,portal:rPortal,tutorial:rTutorial,configuracoes:rConf};
+  const r={hoje:rHoje,automacoes:rAuto,dashboard:renderDash,agenda:rAg,clientes:rCl,projetos:rPj,followup:rFU,relacionamento:rRelac,financeiro:rFin,estoque:rEst,leads:rLd,metas:rMet,sinais:rSin,cicatrizacao:rCic,comissoes:rCom,relatorio:rRel,precos:rPr,marketing:rMkt,contratos:rCont,portal:rPortal,tutorial:rTutorial,configuracoes:rConf};
   if(r[id])r[id]();
 }
 function openM(id){document.getElementById(id).classList.add('on');}
@@ -1425,13 +1455,13 @@ function loadLogo(inp){
 }
 function removeLogo(){if(!confirm('Remover logo?'))return;localStorage.removeItem('ct_logo');document.getElementById('logoPreview').innerHTML='<span style="font-size:12px;color:var(--tx4);text-align:center;padding:10px">Clique para<br>carregar logo</span>';showToast('Logo removida.');}
 function saveConf(){
-  const cf={nome:document.getElementById('cfNome').value,cnpj:document.getElementById('cfCnpj').value,tel:document.getElementById('cfTel').value,insta:document.getElementById('cfInsta').value,end:document.getElementById('cfEnd').value,cid:document.getElementById('cfCid').value,email:document.getElementById('cfEmail').value,site:document.getElementById('cfSite').value,espec:document.getElementById('cfEspec').value,horario:document.getElementById('cfHorario').value,reserva:document.getElementById('cfReserva').value,mkt:document.getElementById('cfMkt').value,googleRev:document.getElementById('cfGoogleRev').value,guia:document.getElementById('cfGuia').value,anivTipo:document.getElementById('cfAnivTipo').value,anivVal:document.getElementById('cfAnivVal').value};
+  const cf={nome:document.getElementById('cfNome').value,cnpj:document.getElementById('cfCnpj').value,tel:document.getElementById('cfTel').value,insta:document.getElementById('cfInsta').value,end:document.getElementById('cfEnd').value,cid:document.getElementById('cfCid').value,email:document.getElementById('cfEmail').value,site:document.getElementById('cfSite').value,espec:document.getElementById('cfEspec').value,horario:document.getElementById('cfHorario').value,reserva:document.getElementById('cfReserva').value,giro:document.getElementById('cfGiro').value,mkt:document.getElementById('cfMkt').value,googleRev:document.getElementById('cfGoogleRev').value,guia:document.getElementById('cfGuia').value,anivTipo:document.getElementById('cfAnivTipo').value,anivVal:document.getElementById('cfAnivVal').value};
   sobj('ct_conf',cf);
   document.getElementById('hdrNome').textContent=(cf.nome||'Central Tattoo')+' · Sistema 2026';
   showToast('✅ Configurações salvas!');
 }
 function rConf(){
-  const cf=conf();try{document.getElementById('cfReserva').value=cf.reserva??10;document.getElementById('cfMkt').value=cf.mkt??7;document.getElementById('cfGoogleRev').value=cf.googleRev||'';document.getElementById('cfGuia').value=cf.guia||'';document.getElementById('cfAnivTipo').value=cf.anivTipo||'pct';document.getElementById('cfAnivVal').value=cf.anivVal??20;}catch(e){}
+  const cf=conf();try{document.getElementById('cfReserva').value=cf.reserva??10;document.getElementById('cfGiro').value=cf.giro??5;document.getElementById('cfMkt').value=cf.mkt??7;document.getElementById('cfGoogleRev').value=cf.googleRev||'';document.getElementById('cfGuia').value=cf.guia||'';document.getElementById('cfAnivTipo').value=cf.anivTipo||'pct';document.getElementById('cfAnivVal').value=cf.anivVal??20;}catch(e){}
   ['cfNome','cfCnpj','cfTel','cfInsta','cfEnd','cfCid','cfEmail','cfSite','cfEspec','cfHorario'].forEach(id=>{const k=id.replace('cf','').toLowerCase();const map={cfNome:'nome',cfCnpj:'cnpj',cfTel:'tel',cfInsta:'insta',cfEnd:'end',cfCid:'cid',cfEmail:'email',cfSite:'site',cfEspec:'espec',cfHorario:'horario'};const el=document.getElementById(id);if(el)el.value=cf[map[id]]||'';});
   const lg=localStorage.getItem('ct_logo');if(lg){const lp=document.getElementById('logoPreview');if(lp)lp.innerHTML=`<img src="${lg}" style="max-width:100%;max-height:80px;object-fit:contain">`;}
   const us=gdb('ct_usuarios');
@@ -1516,7 +1546,7 @@ function loadTG(){const t=gobj('ct_tg',{fat:'R$ 8.000',sess:'20',cli:'5',tick:'R
 function saveTG(){sobj('ct_tg',{fat:document.getElementById('tFat').value,sess:document.getElementById('tSess').value,cli:document.getElementById('tCli').value,tick:document.getElementById('tTick').value});}
 function conciliarSessoes(){try{
 const sess=gdb('ct_sessoes'),cls=gdb('ct_clientes'),fin=gdb('ct_financeiro'),eqp=gdb('ct_equipe'),com=gdb('ct_comissoes'),res=gdb('ct_reserva');
-const cf=conf();const pctRes=R(cf.reserva!==undefined&&cf.reserva!==''?cf.reserva:10);const mkf=gdb('ct_mkt_fundo');let chgMk=false;
+const cf=conf();const pctRes=R(cf.reserva!==undefined&&cf.reserva!==''?cf.reserva:10);const mkf=gdb('ct_mkt_fundo');let chgMk=false;const gio=gdb('ct_giro');let chgGio=false;
 let chgS=false,chgC=false,chgF=false,chgCom=false,chgR=false;
 sess.forEach(s=>{if(s.stat==='Concluído'&&!s.finOk){
   const c=cls.find(x=>(x.nome||'').trim().toLowerCase()===(s.cli||'').trim().toLowerCase());
@@ -1531,10 +1561,12 @@ sess.forEach(s=>{if(s.stat==='Concluído'&&!s.finOk){
     fin.push({id:uid(),tipo:'despesa',data:s.data||hoje(),desc:'Comissão — '+memb.nome+' ('+(s.cli||'sessão')+')',cat:'Comissões',forma:'',val:String(vp),ref:s.id,obs:'Comissão automática de sessão concluída',auto:'comissao'});chgF=true;}}
   /* Fundo de Reserva sobre a parte do estúdio */
   const studioShare=v-vp;const rv=Math.round(studioShare*pctRes)/100;
-  if(rv>0){res.push({id:uid(),data:s.data||hoje(),tipo:'entrada',val:String(rv),desc:'Reserva '+pctRes+'% — sessão '+(s.cli||''),ref:s.id});chgR=true;}
+  if(rv>0){res.push({id:uid(),data:s.data||hoje(),tipo:'entrada',val:String(rv),desc:'Materiais '+pctRes+'% — sessão '+(s.cli||''),ref:s.id});chgR=true;}
   const pctMkt=R(cf.mkt!==undefined&&cf.mkt!==''?cf.mkt:7);const mvv=Math.round(studioShare*pctMkt)/100;
   if(mvv>0){mkf.push({id:uid(),data:s.data||hoje(),tipo:'entrada',val:String(mvv),desc:'Fundo Mkt '+pctMkt+'% — sessão '+(s.cli||''),ref:s.id});chgMk=true;
     showToast('📣 '+$R(mvv)+' ('+pctMkt+'% de '+$R(v)+') reservados p/ marketing — '+(s.cli||'sessão'));}
+  const pctGio=R(cf.giro!==undefined&&cf.giro!==''?cf.giro:5);const gvv=Math.round(studioShare*pctGio)/100;
+  if(gvv>0){gio.push({id:uid(),data:s.data||hoje(),tipo:'entrada',val:String(gvv),desc:'Capital de Giro '+pctGio+'% — sessão '+(s.cli||''),ref:s.id});chgGio=true;}
   s.finOk=1;chgS=true;
 }});
 /* Baixa automática de estoque (materiais da sessão concluída) */
@@ -1562,7 +1594,7 @@ sess.forEach(s=>{if(s.stat==='Concluído'&&!s.pvOk){
   s.pvOk=1;chgS=true;
 }});
 if(chgPV)sdb('ct_cicatri',cic);}catch(e){console.warn('[pós-venda automático]',e);}
-if(chgS)sdb('ct_sessoes',sess);if(chgC)sdb('ct_clientes',cls);if(chgF)sdb('ct_financeiro',fin);if(chgCom)sdb('ct_comissoes',com);if(chgR)sdb('ct_reserva',res);if(chgMk)sdb('ct_mkt_fundo',mkf);
+if(chgS)sdb('ct_sessoes',sess);if(chgC)sdb('ct_clientes',cls);if(chgF)sdb('ct_financeiro',fin);if(chgCom)sdb('ct_comissoes',com);if(chgR)sdb('ct_reserva',res);if(chgMk)sdb('ct_mkt_fundo',mkf);if(chgGio)sdb('ct_giro',gio);
 }catch(e){console.warn('[conciliação]',e);}}
 function renderDash(){
   conciliarSessoes();autoFollowUp();
@@ -1609,7 +1641,7 @@ function rAg(f){
   document.getElementById('agFil').innerHTML=['Todos','Agendado','Confirmado','Concluído','Cancelado','Faltou'].map(s=>`<button onclick="rAg('${s}')" style="padding:6px 14px;border-radius:7px;font-size:12.5px;font-weight:600;cursor:pointer;border:1.5px solid ${(!f&&s==='Todos')||f===s?'var(--nav)':'var(--brd2)'};background:${(!f&&s==='Todos')||f===s?'var(--nav)':'transparent'};color:${(!f&&s==='Todos')||f===s?'var(--gold3)':'var(--tx2)'}">${s}</button>`).join('');
   updDl();
   document.getElementById('agTb').innerHTML=db.length?db.map(s=>`<tr>
-    <td>${dtBR(s.data)}</td><td>${s.hora||'—'}</td><td><strong style="cursor:pointer;text-decoration:underline dotted" title="Abrir ficha do cliente" onclick="verClienteNome('${(s.cli||'').replace(/'/g,"\\'")}')">${s.cli||'—'}</strong></td>
+    <td>${dtBR(s.data)}</td><td>${s.hora||'—'}</td><td><strong style="cursor:pointer;text-decoration:underline dotted" title="Abrir ficha do cliente" onclick="verClienteNome('${(ctLiveNome(s)||'').replace(/'/g,"\\'")}')">${ctLiveNome(s)||'—'}</strong></td>
     <td><a href="https://wa.me/55${(ctLiveTel(s)||'').replace(/\D/g,'')}" target="_blank" style="color:var(--grn)">${ctLiveTel(s)||'—'}</a></td>
     <td>${s.est||'—'}</td><td>${bdg(s.stat)}</td>
     <td style="color:var(--grn);font-weight:600">${$R(s.val)}</td><td>${$R(s.sin)}</td><td>${$R(s.sal)}</td>
@@ -2203,7 +2235,7 @@ function rCl(){
 function saveCl(){const id=document.getElementById('clId').value||uid();const c={id,nome:document.getElementById('clNome').value,tel:document.getElementById('clTel').value,email:document.getElementById('clEmail').value,insta:document.getElementById('clInsta').value,nasc:document.getElementById('clNasc').value,cid:document.getElementById('clCid').value,est:document.getElementById('clEst').value,stat:document.getElementById('clSt').value,ind:document.getElementById('clInd').value,ori:document.getElementById('clOri').value,ret:document.getElementById('clRet').value,obs:document.getElementById('clObs').value,local:document.getElementById('clLocal').value,valor:document.getElementById('clValor').value,sinal:document.getElementById('clSinal').value,projSt:document.getElementById('clProjSt').value,cpf:document.getElementById('clCpf').value,endr:document.getElementById('clEndr').value,alerg:document.getElementById('clAlerg').value,med:document.getElementById('clMed').value,saude:document.getElementById('clSaude').value,emerg:document.getElementById('clEmerg').value,img:document.getElementById('clImg').value,contrato:document.getElementById('clContrato').value,lang:document.getElementById('clLang').value,respNome:document.getElementById('clRespNome').value,respCpf:document.getElementById('clRespCpf').value,ultContato:hoje()};const db=gdb('ct_clientes'),i=db.findIndex(x=>x.id===id);const prev=i>=0?db[i]:null;c.sinalReg=prev?R(prev.sinalReg):0;c.nps=prev?(prev.nps||''):'';
 /* Amarração automática: sinal novo (ou aumentado) vira receita no Financeiro */
 const sNow=R(c.sinal);if(sNow>c.sinalReg){const delta=sNow-c.sinalReg;const fdb=gdb('ct_financeiro');fdb.push({id:uid(),tipo:'receita',data:hoje(),desc:'Sinal — '+(c.nome||'cliente')+(c.local?' ('+c.local+')':''),cat:'Sessão de Tatuagem',forma:'',val:String(delta),ref:'',obs:'Lançado automaticamente pela Ficha de Projeto',cliId:id,auto:'sinal'});sdb('ct_financeiro',fdb);c.sinalCred=(prev&&prev.sinalCred!==undefined?R(prev.sinalCred):(prev?R(prev.sinalReg):0))+delta;c.sinalReg=sNow;if(!c.projSt||c.projSt==='📝 Orçamento')c.projSt='💰 Sinal Pago';showToast('💰 Sinal de R$'+delta.toFixed(2).replace('.',',')+' lançado no Financeiro!');}
-if(i>=0)db[i]={...db[i],...c};else db.push({...c,criadoEm:new Date().toISOString()});sdb('ct_clientes',db);try{upsertPjFromCliente(id)}catch(e){}closeM('mCl');rCl();if(typeof rFin==='function')try{rFin()}catch(e){}if(typeof renderDash==='function')try{renderDash()}catch(e){}showToast('✅ Cliente salvo!');}
+if(i>=0)db[i]={...db[i],...c};else db.push({...c,criadoEm:new Date().toISOString()});sdb('ct_clientes',db);try{upsertPjFromCliente(id)}catch(e){}try{ctPVClientes()}catch(e){}closeM('mCl');rCl();if(typeof rFin==='function')try{rFin()}catch(e){}if(typeof renderDash==='function')try{renderDash()}catch(e){}showToast('✅ Cliente salvo!');}
 function editCl(id){const c=gdb('ct_clientes').find(x=>x.id===id);if(!c)return;document.getElementById('clId').value=c.id;document.getElementById('clNome').value=c.nome||'';document.getElementById('clTel').value=c.tel||'';document.getElementById('clEmail').value=c.email||'';document.getElementById('clInsta').value=c.insta||'';document.getElementById('clNasc').value=c.nasc||'';document.getElementById('clCid').value=c.cid||'';document.getElementById('clEst').value=c.est||'';document.getElementById('clSt').value=c.stat||'🟢 Ativo';document.getElementById('clInd').value=c.ind||'';document.getElementById('clOri').value=c.ori||'Instagram';document.getElementById('clRet').value=c.ret||'';document.getElementById('clObs').value=c.obs||'';document.getElementById('clLocal').value=c.local||'';document.getElementById('clValor').value=c.valor||'';document.getElementById('clSinal').value=c.sinal||'';document.getElementById('clProjSt').value=c.projSt||'';['clCpf','clEndr','clAlerg','clMed','clSaude','clEmerg','clRespNome','clRespCpf'].forEach((f,ix)=>{document.getElementById(f).value=c[['cpf','endr','alerg','med','saude','emerg','respNome','respCpf'][ix]]||'';});document.getElementById('clImg').value=c.img||'';document.getElementById('clContrato').value=c.contrato||'';document.getElementById('clLang').value=c.lang||'pt';document.getElementById('mClT').textContent='Editar Cliente';openM('mCl');}
 function novoCl(){const d={clId:'',clNome:'',clTel:'',clEmail:'',clInsta:'',clNasc:'',clCid:'',clEst:'',clSt:'🟢 Ativo',clInd:'',clOri:'Instagram',clRet:'',clObs:'',clLocal:'',clValor:'',clSinal:'',clProjSt:'',clCpf:'',clEndr:'',clAlerg:'',clMed:'',clSaude:'',clEmerg:'',clImg:'',clContrato:'',clLang:'pt',clRespNome:'',clRespCpf:''};Object.keys(d).forEach(k=>{const el=document.getElementById(k);if(el)el.value=d[k];});const t=document.getElementById('mClT');if(t)t.textContent='Novo Cliente';openM('mCl');}
 function delCl(id){if(!confirm('Excluir cliente?'))return;sdb('ct_clientes',gdb('ct_clientes').filter(c=>c.id!==id));rCl();}
@@ -2230,7 +2262,7 @@ function sCliPick(){const nm=(document.getElementById('sCli').value||'').trim().
  if(c.est){const sel=document.getElementById('sEst');if([...sel.options].some(o=>o.text===c.est))sel.value=c.est;}}
 /* Nova sessão já preenchida a partir da ficha do cliente */
 function novaSessaoCliente(cid){const c=gdb('ct_clientes').find(x=>x.id===cid);if(!c)return;novaSessao();document.getElementById('sCli').value=c.nome||'';document.getElementById('sTel').value=c.tel||'';sCliPick();}
-function novaSessao(){document.getElementById('sId').value='';['sData','sHora','sCli','sTel','sVal','sSin','sSal','sDur','sLoc','sObs'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('sEst').value='Blackwork';document.getElementById('sSt').value='Agendado';popProf();document.getElementById('sProf').value='';popProj();document.getElementById('sProj').value='';renderMatRows([]);document.getElementById('sFaltaMot').value='';stToggle();document.getElementById('mST').textContent='Nova Sessão';openM('mS');}
+function novaSessao(){updDl();document.getElementById('sId').value='';['sData','sHora','sCli','sTel','sVal','sSin','sSal','sDur','sLoc','sObs'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('sEst').value='Blackwork';document.getElementById('sSt').value='Agendado';popProf();document.getElementById('sProf').value='';popProj();document.getElementById('sProj').value='';renderMatRows([]);document.getElementById('sFaltaMot').value='';stToggle();document.getElementById('mST').textContent='Nova Sessão';openM('mS');}
 function pjCalc(p){const ss=gdb('ct_sessoes').filter(s=>s.projId===p.id);const conc=ss.filter(s=>s.stat==='Concluído');
  const pago=Math.round((R(p.sinal)+R(p.pagoExtra)+conc.reduce((a,s)=>a+R(s.val),0)+ss.filter(s=>s.stat!=='Concluído'&&s.stat!=='Cancelado').reduce((a,s)=>a+R(s.sin),0))*100)/100;
  const tot=R(p.valor)||ss.reduce((a,s)=>a+R(s.val),0);
@@ -2240,15 +2272,15 @@ function rPj(){updDl();const db=gdb('ct_projetos').sort((a,b)=>(b.criadoEm||'')>
  const tSaldo=atv.reduce((a,p)=>a+pjCalc(p).saldo,0);
  document.getElementById('pjKpi').innerHTML=`<div class="kpi-card kpi-gold"><div class="kpi-num c-gold">${atv.length}</div><div class="kpi-label">🎨 Projetos Ativos</div></div><div class="kpi-card kpi-green"><div class="kpi-num c-green">${db.filter(p=>p.st==='✅ Finalizado').length}</div><div class="kpi-label">✅ Finalizados</div></div><div class="kpi-card kpi-red"><div class="kpi-num c-red">${$R(tSaldo)}</div><div class="kpi-label">💰 A Receber (ativos)</div></div><div class="kpi-card kpi-gray"><div class="kpi-num">${db.length}</div><div class="kpi-label">Total de Projetos</div></div>`;
  document.getElementById('pjCt').textContent=db.length+' projetos';
- document.getElementById('pjTb').innerHTML=db.length?db.map(p=>{const k=pjCalc(p);const prev=R(p.sessPrev)||k.ss.length;return`<tr><td><strong style="cursor:pointer;text-decoration:underline dotted" onclick="verClienteNome('${(p.cli||'').replace(/'/g,"\\'")}')">${p.cli||'—'}</strong></td><td><strong>${p.nome||'—'}</strong></td><td>${p.local||'—'}</td><td>${p.est||'—'}</td><td style="min-width:110px">${k.conc.length}/${prev||'?'}${pb(prev>0?(k.conc.length/prev*100):0)}</td><td style="color:var(--grn);font-weight:600">${k.tot?$R(k.tot):'—'}</td><td>${$R(k.pago)}</td><td>${k.saldo>0?'<span style="color:var(--red);font-weight:600">'+$R(k.saldo)+'</span>':'<span style="color:var(--grn);font-weight:600">Quitado ✓</span>'}</td><td>${bdg(p.st)}</td><td style="white-space:nowrap;display:flex;gap:3px"><button class="btn btn-ghost btn-xs" onclick="editPj('${p.id}')">✏️</button>${p.st!=='✅ Finalizado'?`<button class="btn btn-success btn-xs" title="Finalizar projeto" onclick="finPj('${p.id}')">✅</button>`:''}<button class="btn btn-danger btn-xs" onclick="delPj('${p.id}')">🗑</button></td></tr>`;}).join(''):`<tr><td colspan="10" class="empty-row"><p>Nenhum projeto</p><span>Crie um projeto ao aprovar um orçamento de várias sessões</span></td></tr>`;}
-function novoPj(){updDl();document.getElementById('pjId').value='';['pjCli','pjNome','pjLocal','pjValor','pjSinal','pjSess','pjObs'].forEach(i=>document.getElementById(i).value='');document.getElementById('pjEst').value='Blackwork';document.getElementById('pjSt').value='📝 Orçamento';document.getElementById('mPjT').textContent='Novo Projeto';openM('mPj');}
+ document.getElementById('pjTb').innerHTML=db.length?db.map(p=>{const k=pjCalc(p);const prev=R(p.sessPrev)||k.ss.length;return`<tr><td><strong style="cursor:pointer;text-decoration:underline dotted" onclick="verClienteNome('${(ctLiveNome(p)||'').replace(/'/g,"\\'")}')">${ctLiveNome(p)||'—'}</strong></td><td><strong>${p.nome||'—'}</strong></td><td>${p.local||'—'}</td><td>${p.est||'—'}</td><td style="min-width:110px">${k.conc.length}/${prev||'?'}${pb(prev>0?(k.conc.length/prev*100):0)}</td><td style="color:var(--grn);font-weight:600">${k.tot?$R(k.tot):'—'}</td><td>${$R(k.pago)}</td><td>${k.saldo>0?'<span style="color:var(--red);font-weight:600">'+$R(k.saldo)+'</span>':'<span style="color:var(--grn);font-weight:600">Quitado ✓</span>'}</td><td>${bdg(p.st)}</td><td style="white-space:nowrap;display:flex;gap:3px"><button class="btn btn-ghost btn-xs" onclick="editPj('${p.id}')">✏️</button>${p.st!=='✅ Finalizado'?`<button class="btn btn-success btn-xs" title="Finalizar projeto" onclick="finPj('${p.id}')">✅</button>`:''}<button class="btn btn-danger btn-xs" onclick="delPj('${p.id}')">🗑</button></td></tr>`;}).join(''):`<tr><td colspan="10" class="empty-row"><p>Nenhum projeto</p><span>Crie um projeto ao aprovar um orçamento de várias sessões</span></td></tr>`;}
+function novoPj(){updDl();document.getElementById('pjId').value='';['pjCli','pjNome','pjLocal','pjValor','pjSinal','pjSess','pjObs'].forEach(i=>document.getElementById(i).value='');document.getElementById('pjEst').value='Blackwork';document.getElementById('pjSt').value='📝 Orçamento';fillCliSelect('pjCli','');document.getElementById('mPjT').textContent='Novo Projeto';openM('mPj');}
 function savePj(){const id=document.getElementById('pjId').value||uid();const db=gdb('ct_projetos'),i=db.findIndex(x=>x.id===id);
  const p={id,cli:document.getElementById('pjCli').value.trim(),nome:document.getElementById('pjNome').value.trim(),local:document.getElementById('pjLocal').value,est:document.getElementById('pjEst').value,valor:document.getElementById('pjValor').value,sinal:document.getElementById('pjSinal').value,sessPrev:document.getElementById('pjSess').value,st:document.getElementById('pjSt').value,obs:document.getElementById('pjObs').value};
  if(!p.cli||!p.nome){showToast('⚠️ Informe cliente e nome do projeto');return;}
  const prev=i>=0?db[i]:null;p.criadoEm=prev?prev.criadoEm:new Date().toISOString();p.sinalReg=prev?R(prev.sinalReg):0;
  const sNow=R(p.sinal);if(sNow>p.sinalReg){const delta=sNow-p.sinalReg;const c=gdb('ct_clientes').find(x=>(x.nome||'').trim().toLowerCase()===p.cli.toLowerCase());const fdb=gdb('ct_financeiro');fdb.push({id:uid(),tipo:'receita',data:hoje(),desc:'Sinal — '+p.cli+' ('+p.nome+')',cat:'Sessão de Tatuagem',forma:'',val:String(delta),ref:'',obs:'Sinal do projeto lançado automaticamente',cliId:c?c.id:'',projId:id,auto:'sinal'});sdb('ct_financeiro',fdb);p.sinalReg=sNow;if(!p.st||p.st==='📝 Orçamento')p.st='💰 Sinal Pago';showToast('💰 Sinal de '+$R(delta)+' lançado no Financeiro!');}
  if(i>=0)db[i]={...db[i],...p};else db.push(p);sdb('ct_projetos',db);closeM('mPj');rPj();try{renderDash()}catch(e){}showToast('✅ Projeto salvo!');}
-function editPj(id){const p=gdb('ct_projetos').find(x=>x.id===id);if(!p)return;updDl();document.getElementById('pjId').value=p.id;document.getElementById('pjCli').value=p.cli||'';document.getElementById('pjNome').value=p.nome||'';document.getElementById('pjLocal').value=p.local||'';document.getElementById('pjEst').value=p.est||'Blackwork';document.getElementById('pjValor').value=p.valor||'';document.getElementById('pjSinal').value=p.sinal||'';document.getElementById('pjSess').value=p.sessPrev||'';document.getElementById('pjSt').value=p.st||'📝 Orçamento';document.getElementById('pjObs').value=p.obs||'';document.getElementById('mPjT').textContent='Editar Projeto';openM('mPj');}
+function editPj(id){const p=gdb('ct_projetos').find(x=>x.id===id);if(!p)return;updDl();document.getElementById('pjId').value=p.id;fillCliSelect('pjCli',p.cli||'');document.getElementById('pjNome').value=p.nome||'';document.getElementById('pjLocal').value=p.local||'';document.getElementById('pjEst').value=p.est||'Blackwork';document.getElementById('pjValor').value=p.valor||'';document.getElementById('pjSinal').value=p.sinal||'';document.getElementById('pjSess').value=p.sessPrev||'';document.getElementById('pjSt').value=p.st||'📝 Orçamento';document.getElementById('pjObs').value=p.obs||'';document.getElementById('mPjT').textContent='Editar Projeto';openM('mPj');}
 function finPj(id){const db=gdb('ct_projetos'),p=db.find(x=>x.id===id);if(!p)return;const k=pjCalc(p);if(k.saldo>0){if(confirm('Este projeto tem saldo de '+$R(k.saldo)+'.\n\nOK = o valor FOI RECEBIDO (lanço no Financeiro e marco Quitado)\nCancelar = finalizar mantendo o saldo em aberto')){quitarProjeto(p);}}p.st='✅ Finalizado';p.finalizadoEm=hoje();sdb('ct_projetos',db);rPj();try{renderDash()}catch(e){}showToast('✅ Projeto finalizado — fica no histórico do cliente!');}
 function delPj(id){if(!confirm('Excluir projeto? As sessões vinculadas NÃO serão apagadas, apenas desvinculadas.'))return;const ss=gdb('ct_sessoes');let chg=false;ss.forEach(s=>{if(s.projId===id){s.projId='';chg=true;}});if(chg)sdb('ct_sessoes',ss);sdb('ct_projetos',gdb('ct_projetos').filter(p=>p.id!==id));rPj();}
 function popProj(cliNome){const sel=document.getElementById('sProj');if(!sel)return;const db=gdb('ct_projetos').filter(p=>p.st!=='📁 Arquivado');
@@ -2406,7 +2438,7 @@ function rMktFundo(){const el=document.getElementById('mktFundo');if(!el)return;
    <div style="margin-top:8px;font-size:12.5px;display:flex;align-items:center;gap:6px">Percentual por sessão: <input type="number" id="mkPctIn" value="${pct}" min="0" max="100" style="width:64px;padding:4px 6px;border:1px solid var(--brd2,#ccc);border-radius:6px"> % <button class="btn btn-ghost btn-xs" onclick="salvarPctMkt()">Salvar</button></div></div>
   <div style="flex:1;min-width:250px">
    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--tx3);margin-bottom:6px">📊 Plano de distribuição sugerido</div>
-   <div style="font-size:12.5px;line-height:1.7">🎯 <strong>60% Tráfego local</strong> (Instagram + Google na sua cidade): <strong>${$R(saldo*0.6)}</strong><br>📸 <strong>25% Conteúdo</strong> (fotos profissionais, reels, portfólio): <strong>${$R(saldo*0.25)}</strong><br>🧪 <strong>15% Testes</strong> (novos criativos, parcerias, brindes): <strong>${$R(saldo*0.15)}</strong></div>
+   <div style="font-size:12.5px;line-height:1.7">🎯 <strong>65% Tráfego local</strong> (impulsionar Instagram + Google na sua cidade): <strong>${$R(saldo*0.65)}</strong><br>🎬 <strong>20% Turbinar seu conteúdo</strong> (impulsionar seus melhores Reels/posts — você mesmo grava): <strong>${$R(saldo*0.20)}</strong><br>🧪 <strong>15% Testes e parcerias</strong> (novos criativos, colabs, brindes): <strong>${$R(saldo*0.15)}</strong></div>
    <div style="font-size:12px;color:var(--tx3);margin-top:8px">📈 <strong>Plano de crescimento:</strong> faturamento médio ${$R(fat3)}/mês → invista ${faixa.p} do faturamento. ${faixa.dica}</div>
   </div>
   <div style="flex:1;min-width:220px;font-size:12.5px">
@@ -2557,34 +2589,42 @@ function rFU(){
   document.getElementById('fuTb').innerHTML=lista.length?lista.map(f=>{
     const d=f.dias||(f.ult?Math.floor((Date.now()-new Date(f.ult).getTime())/86400000):999);
     const cf=conf();const waTxt=encodeURIComponent(f._wa||`Olá ${f.cli}! 😊 Aqui é do ${cf.nome||'estúdio'}. Já faz um tempo desde sua última tatuagem — que tal planejarmos a próxima? Temos novidades! 🖤`);
-    return`<tr><td><strong>${f.cli||'—'}</strong></td><td><a href="https://wa.me/55${(f.tel||'').replace(/\D/g,'')}" target="_blank" style="color:var(--grn)">${f.tel||'—'}</a></td><td>${dtBR(f.ult)}</td><td>${f.ult?`<span class="bdg ${d>90?'b-red':d>60?'b-yellow':'b-green'}">${d>365?'+1 ano':d+'d'}</span>`:'—'}</td><td>${bdg(f.prio||'🟡 Média')}</td><td style="max-width:120px;font-size:12px">${f.acao||'—'}</td><td>${dtBR(f.dataA)}</td><td style="max-width:120px;font-size:12px">${f.res||'—'}</td><td>${dtBR(f.prox)}</td><td>${bdg(f.stat||'Pendente')}</td><td style="font-size:12px">${f.obs||'—'}</td>
-    <td style="white-space:nowrap">${!f._a?`<button class="btn btn-ghost btn-xs" onclick="editFU('${f.id}')">✏️</button>`:''}<a class="btn btn-success btn-xs" href="https://wa.me/55${(f.tel||'').replace(/\D/g,'')}?text=${waTxt}" target="_blank">📲</a></td></tr>`;
+    return`<tr><td><strong>${ctLiveNome(f)||'—'}</strong></td><td><a href="https://wa.me/55${(ctLiveTel(f)||'').replace(/\D/g,'')}" target="_blank" style="color:var(--grn)">${ctLiveTel(f)||'—'}</a></td><td>${dtBR(f.ult)}</td><td>${f.ult?`<span class="bdg ${d>90?'b-red':d>60?'b-yellow':'b-green'}">${d>365?'+1 ano':d+'d'}</span>`:'—'}</td><td>${bdg(f.prio||'🟡 Média')}</td><td style="max-width:120px;font-size:12px">${f.acao||'—'}</td><td>${dtBR(f.dataA)}</td><td style="max-width:120px;font-size:12px">${f.res||'—'}</td><td>${dtBR(f.prox)}</td><td>${bdg(f.stat||'Pendente')}</td><td style="font-size:12px">${f.obs||'—'}</td>
+    <td style="white-space:nowrap">${!f._a?`<button class="btn btn-ghost btn-xs" onclick="editFU('${f.id}')">✏️</button>`:''}<a class="btn btn-success btn-xs" href="https://wa.me/55${(ctLiveTel(f)||'').replace(/\D/g,'')}?text=${waTxt}" target="_blank">📲</a></td></tr>`;
   }).join(''):`<tr><td colspan="12" class="empty-row"><p>Todos os clientes em dia! 🎉</p></td></tr>`;
   updDl();
 }
 function saveFU(){const id=document.getElementById('fuId').value||uid();const f={id,cli:document.getElementById('fuCli').value,tel:document.getElementById('fuTel').value,ult:document.getElementById('fuUlt').value,prio:document.getElementById('fuPrio').value,acao:document.getElementById('fuAcao').value,dataA:document.getElementById('fuDA').value,stat:document.getElementById('fuSt').value,res:document.getElementById('fuRes').value,prox:document.getElementById('fuProx').value,obs:document.getElementById('fuObs').value};const db=gdb('ct_followup'),i=db.findIndex(x=>x.id===id);if(i>=0)db[i]=f;else db.push(f);sdb('ct_followup',db);closeM('mFU');rFU();showToast('✅ Follow-up salvo!');}
-function editFU(id){const f=gdb('ct_followup').find(x=>x.id===id);if(!f)return;document.getElementById('fuId').value=f.id;document.getElementById('fuCli').value=f.cli||'';document.getElementById('fuTel').value=f.tel||'';document.getElementById('fuUlt').value=f.ult||'';document.getElementById('fuPrio').value=f.prio||'🟡 Média';document.getElementById('fuAcao').value=f.acao||'';document.getElementById('fuDA').value=f.dataA||'';document.getElementById('fuSt').value=f.stat||'Pendente';document.getElementById('fuRes').value=f.res||'';document.getElementById('fuProx').value=f.prox||'';document.getElementById('fuObs').value=f.obs||'';openM('mFU');}
+function novoFU(){['fuId','fuCli','fuTel','fuUlt','fuAcao','fuDA','fuRes','fuProx','fuObs'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('fuPrio').value='🟡 Média';document.getElementById('fuSt').value='Pendente';fillCliSelect('fuCli','');openM('mFU');}
+function editFU(id){const f=gdb('ct_followup').find(x=>x.id===id);if(!f)return;document.getElementById('fuId').value=f.id;fillCliSelect('fuCli',f.cli||'');document.getElementById('fuTel').value=f.tel||'';document.getElementById('fuUlt').value=f.ult||'';document.getElementById('fuPrio').value=f.prio||'🟡 Média';document.getElementById('fuAcao').value=f.acao||'';document.getElementById('fuDA').value=f.dataA||'';document.getElementById('fuSt').value=f.stat||'Pendente';document.getElementById('fuRes').value=f.res||'';document.getElementById('fuProx').value=f.prox||'';document.getElementById('fuObs').value=f.obs||'';openM('mFU');}
 
 // ── FINANCEIRO ──
 function gFG(t,c,m){return gobj('ct_fg_'+t,{})[c+'_'+m]||'';}
 function sFG(t,c,m,v){const k='ct_fg_'+t,o=gobj(k,{});o[c+'_'+m]=v;sobj(k,o);setTimeout(buildFG,60);}
+// Fase 0/Financeiro — mapeia cada lançamento real para a linha certa da grade
+function fgCat(f){const c=(f.cat||'').toLowerCase();if(f.tipo==='receita'){if(f.auto==='sessao'||c.indexOf('sess')>-1)return 'Sessões de Tatuagem';if(c.indexOf('retoq')>-1)return 'Retoques';if(c.indexOf('produto')>-1)return 'Venda de Produtos';if(c.indexOf('curso')>-1||c.indexOf('workshop')>-1)return 'Cursos e Workshops';return 'Outros';}if(c.indexOf('aluguel')>-1)return 'Aluguel do Estúdio';if(c.indexOf('material')>-1||c.indexOf('insumo')>-1||c.indexOf('reposi')>-1)return 'Materiais e Insumos';if(c.indexOf('marketing')>-1||c.indexOf('public')>-1||c.indexOf('tráfego')>-1||c.indexOf('trafego')>-1)return 'Marketing e Publicidade';if(c.indexOf('capacit')>-1||c.indexOf('curso')>-1)return 'Cursos e Capacitação';if(c.indexOf('equipa')>-1)return 'Equipamentos';if(c.indexOf('imposto')>-1||c.indexOf('taxa')>-1)return 'Impostos e Taxas';if(c.indexOf('salár')>-1||c.indexOf('salar')>-1||c.indexOf('comiss')>-1)return 'Salários / Comissões';return 'Outros';}
+function fgReal(tipo,gradeCat,m){const mes='2026-'+String(m).padStart(2,'0');const tp=tipo==='rec'?'receita':'despesa';return gdb('ct_financeiro').filter(f=>f.tipo===tp&&(f.data||'').slice(0,7)===mes&&fgCat(f)===gradeCat).reduce((a,f)=>a+R(f.val),0);}
+function fgEff(tipo,c,m){const man=gFG(tipo,c,m);return man!==''?R(man):fgReal(tipo,c,m);}
+function fgCell(tipo,c,mi){const man=gFG(tipo,c,mi+1);const real=fgReal(tipo,c,mi+1);const auto=man===''&&real>0;const val=man!==''?man:(auto?real:'');const stl=auto?'color:var(--gold,#b8860b);font-weight:600':'';const tt=auto?'Valor real dos lançamentos (automático) — digite para sobrescrever com um valor planejado':'';return`<td><input type="number" value="${val}" placeholder="0" title="${tt}" style="${stl}" onchange="sFG('${tipo}','${c}',${mi+1},this.value)" onclick="this.select()"></td>`;}
 function buildFG(){
   const hdr=`<tr><th class="fl">DESCRIÇÃO</th>${MSS.map(m=>`<th>${m}</th>`).join('')}<th>TOTAL ANO</th></tr>`;
-  function mkR(cats,tipo,rcls){return cats.map(c=>{const cells=MSS.map((_,mi)=>`<td><input type="number" value="${gFG(tipo,c,mi+1)||''}" placeholder="0" onchange="sFG('${tipo}','${c}',${mi+1},this.value)" onclick="this.select()"></td>`).join('');const tot=MSS.reduce((_,__,mi)=>_+R(gFG(tipo,c,mi+1)),0);return`<tr><td class="fc">${c}</td>${cells}<td class="${rcls}" style="text-align:right;font-weight:700;padding:8px 12px">${$R(tot)}</td></tr>`;}).join('');}
-  function mkT(cats,tipo,rcls){const cells=MSS.map((_,mi)=>{const t=cats.reduce((a,c)=>a+R(gFG(tipo,c,mi+1)),0);return`<td class="${rcls}" style="text-align:right">${$R(t)}</td>`;}).join('');const tot=MSS.reduce((_,__,mi)=>_+cats.reduce((a,c)=>a+R(gFG(tipo,c,mi+1)),0),0);return`<tr class="fr-${rcls.split('-')[1]}"><td class="fc fr-${rcls.split('-')[1]}">TOTAL</td>${cells}<td class="${rcls}" style="font-weight:700;text-align:right;padding:8px 12px">${$R(tot)}</td></tr>`;}
+  function mkR(cats,tipo,rcls){return cats.map(c=>{const cells=MSS.map((_,mi)=>fgCell(tipo,c,mi)).join('');const tot=MSS.reduce((a,_,mi)=>a+fgEff(tipo,c,mi+1),0);return`<tr><td class="fc">${c}</td>${cells}<td class="${rcls}" style="text-align:right;font-weight:700;padding:8px 12px">${$R(tot)}</td></tr>`;}).join('');}
+  function mkT(cats,tipo,rcls){const cells=MSS.map((_,mi)=>{const t=cats.reduce((a,c)=>a+fgEff(tipo,c,mi+1),0);return`<td class="${rcls}" style="text-align:right">${$R(t)}</td>`;}).join('');const tot=MSS.reduce((a,_,mi)=>a+cats.reduce((x,c)=>x+fgEff(tipo,c,mi+1),0),0);return`<tr class="fr-${rcls.split('-')[1]}"><td class="fc fr-${rcls.split('-')[1]}">TOTAL</td>${cells}<td class="${rcls}" style="font-weight:700;text-align:right;padding:8px 12px">${$R(tot)}</td></tr>`;}
   document.getElementById('tRec').innerHTML=hdr+mkR(CAT_R,'rec','fr-green')+mkT(CAT_R,'rec','fr-green');
   document.getElementById('tDesp').innerHTML=hdr+mkR(CAT_D,'dep','fr-red')+mkT(CAT_D,'dep','fr-red');
   const lH=`<tr><th class="fl">RESULTADO</th>${MSS.map(m=>`<th>${m}</th>`).join('')}<th>TOTAL ANO</th></tr>`;
-  const lR=MSS.map((_,mi)=>CAT_R.reduce((a,c)=>a+R(gFG('rec',c,mi+1)),0)-CAT_D.reduce((a,c)=>a+R(gFG('dep',c,mi+1)),0));
+  const lR=MSS.map((_,mi)=>CAT_R.reduce((a,c)=>a+fgEff('rec',c,mi+1),0)-CAT_D.reduce((a,c)=>a+fgEff('dep',c,mi+1),0));
   document.getElementById('tLuc').innerHTML=lH+`<tr><td class="fc fr-gold">💎 LUCRO LÍQUIDO</td>${lR.map(v=>`<td class="fr-gold" style="text-align:right;padding:8px">${$R(v)}</td>`).join('')}<td class="fr-gold" style="font-weight:700;text-align:right;padding:8px 12px">${$R(lR.reduce((a,v)=>a+v,0))}</td></tr>`;
 }
 function rRes(){const el=document.getElementById('resBox');if(!el)return;const db=gdb('ct_reserva').sort((a,b)=>b.data>a.data?1:-1);const saldo=db.reduce((a,r)=>a+(r.tipo==='retirada'?-R(r.val):R(r.val)),0);const cf=conf();
-el.innerHTML=`<div style="display:flex;gap:28px;flex-wrap:wrap;align-items:center"><div><div style="font-size:26px;font-weight:700;color:var(--gold,#b8860b)">${$R(saldo)}</div><div style="font-size:12px;color:var(--tx3)">disponível para reposição e capital de giro (${R(cf.reserva!==undefined&&cf.reserva!==''?cf.reserva:10)}% por sessão — edite em Configurações)</div></div><div style="flex:1;min-width:240px;font-size:12.5px">${db.length?db.slice(0,4).map(r=>`<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px dashed rgba(128,128,128,.2)"><span>${dtBR(r.data)} · ${r.desc||(r.tipo==='retirada'?'Retirada':'Entrada')}</span><strong style="color:${r.tipo==='retirada'?'var(--red)':'var(--grn)'}">${r.tipo==='retirada'?'−':'+'}${$R(R(r.val))}</strong></div>`).join(''):'<span style="color:var(--tx3)">Nenhuma movimentação ainda — conclua sessões e a reserva acumula sozinha.</span>'}</div></div>`;}
+el.innerHTML=`<div style="display:flex;gap:28px;flex-wrap:wrap;align-items:center"><div><div style="font-size:26px;font-weight:700;color:var(--gold,#b8860b)">${$R(saldo)}</div><div style="font-size:12px;color:var(--tx3)">disponível para reposição de materiais (${R(cf.reserva!==undefined&&cf.reserva!==''?cf.reserva:10)}% por sessão — edite em Configurações)</div></div><div style="flex:1;min-width:240px;font-size:12.5px">${db.length?db.slice(0,4).map(r=>`<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px dashed rgba(128,128,128,.2)"><span>${dtBR(r.data)} · ${r.desc||(r.tipo==='retirada'?'Retirada':'Entrada')}</span><strong style="color:${r.tipo==='retirada'?'var(--red)':'var(--grn)'}">${r.tipo==='retirada'?'−':'+'}${$R(R(r.val))}</strong></div>`).join(''):'<span style="color:var(--tx3)">Nenhuma movimentação ainda — conclua sessões e a reserva acumula sozinha.</span>'}</div></div>`;}
+function rGiro(){const el=document.getElementById('gioBox');if(!el)return;const db=gdb('ct_giro').sort((a,b)=>b.data>a.data?1:-1);const saldo=db.reduce((a,r)=>a+(r.tipo==='retirada'?-R(r.val):R(r.val)),0);const cf=conf();el.innerHTML=`<div style="display:flex;gap:28px;flex-wrap:wrap;align-items:center"><div><div style="font-size:26px;font-weight:700;color:var(--gold,#b8860b)">${$R(saldo)}</div><div style="font-size:12px;color:var(--tx3)">capital de giro do estúdio (${R(cf.giro!==undefined&&cf.giro!==''?cf.giro:5)}% por sessão — edite em Configurações)</div></div><div style="flex:1;min-width:240px;font-size:12.5px">${db.length?db.slice(0,4).map(r=>`<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px dashed rgba(128,128,128,.2)"><span>${dtBR(r.data)} · ${r.desc||(r.tipo==='retirada'?'Retirada':'Entrada')}</span><strong style="color:${r.tipo==='retirada'?'var(--red)':'var(--grn)'}">${r.tipo==='retirada'?'−':'+'}${$R(R(r.val))}</strong></div>`).join(''):'<span style="color:var(--tx3)">Nenhuma movimentação ainda — conclua sessões e o capital de giro acumula sozinho.</span>'}</div></div>`;}
+function usarGiro(){const v=prompt('Valor retirado do Capital de Giro (R$):');if(!v||!R(v))return;const saldo=gdb('ct_giro').reduce((a,r)=>a+(r.tipo==='retirada'?-R(r.val):R(r.val)),0);if(R(v)>saldo&&!confirm('Valor maior que o saldo ('+$R(saldo)+'). Registrar mesmo assim?'))return;const d=prompt('No que foi usado? (ex: aluguel, contas do mês)')||'Uso do capital de giro';const db=gdb('ct_giro');db.push({id:uid(),data:hoje(),tipo:'retirada',val:String(R(v)),desc:d});sdb('ct_giro',db);const fin=gdb('ct_financeiro');fin.push({id:uid(),tipo:'despesa',data:hoje(),desc:'Capital de Giro → '+d,cat:'Outros',forma:'',val:String(R(v)),ref:'',obs:'Retirada do Capital de Giro',auto:'giro'});sdb('ct_financeiro',fin);rGiro();try{if(typeof rFin==='function')rFin();}catch(e){}showToast('🏦 Retirada do capital de giro registrada.');}
 function saveRes(){const v=R(document.getElementById('resVal').value),d=document.getElementById('resDesc').value.trim();if(v<=0){showToast('⚠️ Informe o valor da retirada');return;}const db=gdb('ct_reserva');const saldo=db.reduce((a,r)=>a+(r.tipo==='retirada'?-R(r.val):R(r.val)),0);if(v>saldo&&!confirm('Valor maior que o saldo do fundo ('+$R(saldo)+'). Registrar mesmo assim?'))return;
 db.push({id:uid(),data:hoje(),tipo:'retirada',val:String(v),desc:d||'Retirada'});sdb('ct_reserva',db);
 const fin=gdb('ct_financeiro');fin.push({id:uid(),tipo:'despesa',data:hoje(),desc:'Reserva → '+(d||'reposição de materiais'),cat:'Reposição/Materiais',forma:'',val:String(v),ref:'',obs:'Retirada do Fundo de Reserva',auto:'reserva'});sdb('ct_financeiro',fin);
 document.getElementById('resVal').value='';document.getElementById('resDesc').value='';closeM('mRes');rFin();renderDash();showToast('🏦 Retirada registrada e lançada como despesa!');}
-function rFin(){
+function rFin(){rGiro();
   rRes();
   const db=gdb('ct_financeiro');const rec=db.filter(f=>f.tipo==='receita').reduce((a,f)=>a+R(f.val),0);const desp=db.filter(f=>f.tipo==='despesa').reduce((a,f)=>a+R(f.val),0);
   document.getElementById('finKpi').innerHTML=`<div class="kpi-card kpi-gold"><div class="kpi-num c-gold">${$R(rec)}</div><div class="kpi-label">💚 Total Receitas</div></div><div class="kpi-card kpi-red"><div class="kpi-num c-red">${$R(desp)}</div><div class="kpi-label">❌ Total Despesas</div></div><div class="kpi-card kpi-green"><div class="kpi-num c-green">${$R(rec-desp)}</div><div class="kpi-label">💎 Lucro Líquido</div></div><div class="kpi-card kpi-gray"><div class="kpi-num">${rec>0?((1-desp/rec)*100).toFixed(1)+'%':'0%'}</div><div class="kpi-label">📊 Margem Líquida</div></div>`;
@@ -2609,12 +2649,16 @@ function saveEst(){const id=document.getElementById('eId').value||uid();const e=
 function editEst(id){const e=gdb('ct_estoque').find(x=>x.id===id);if(!e)return;document.getElementById('eId').value=e.id;document.getElementById('eProd').value=e.prod||'';document.getElementById('eCat').value=e.cat||'Tinta';document.getElementById('eQtd').value=e.qtd||'';document.getElementById('eMin').value=e.eMin||'';document.getElementById('eUni').value=e.uni||'';document.getElementById('eVl').value=e.eVl||'';document.getElementById('eForn').value=e.forn||'';document.getElementById('eUlt').value=e.eUlt||'';document.getElementById('eObs').value=e.obs||'';document.getElementById('mET').textContent='Editar Item';openM('mE');}
 function delEst(id){if(!confirm('Excluir?'))return;sdb('ct_estoque',gdb('ct_estoque').filter(e=>e.id!==id));rEst();}
 // ── LEADS ──
-function rLd(){const db=gdb('ct_leads');const atv=db.filter(l=>l.et!=='fechado'&&l.et!=='perdido');document.getElementById('ldKpi').innerHTML=`<div class="kpi-card kpi-blue"><div class="kpi-num c-blue">${atv.length}</div><div class="kpi-label">Leads Ativos</div></div><div class="kpi-card kpi-gold"><div class="kpi-num c-gold">${$R(atv.reduce((a,l)=>a+R(l.val),0))}</div><div class="kpi-label">Pipeline (R$)</div></div><div class="kpi-card kpi-green"><div class="kpi-num c-green">${db.filter(l=>l.et==='fechado').length}</div><div class="kpi-label">Fechados</div></div><div class="kpi-card kpi-red"><div class="kpi-num c-red">${db.filter(l=>l.et==='perdido').length}</div><div class="kpi-label">Perdidos</div></div>`;
+const LD_STAGES=['contato','orcamento','negociacao','agendado','fechado','perdido'];
+function rLd(){let db=gdb('ct_leads');let _chg=false;db.forEach(l=>{if(LD_STAGES.indexOf(l.et)<0){l.et='contato';_chg=true;}});if(_chg)sdb('ct_leads',db);const atv=db.filter(l=>l.et!=='fechado'&&l.et!=='perdido');document.getElementById('ldKpi').innerHTML=`<div class="kpi-card kpi-blue"><div class="kpi-num c-blue">${atv.length}</div><div class="kpi-label">Leads Ativos</div></div><div class="kpi-card kpi-gold"><div class="kpi-num c-gold">${$R(atv.reduce((a,l)=>a+R(l.val),0))}</div><div class="kpi-label">Pipeline (R$)</div></div><div class="kpi-card kpi-green"><div class="kpi-num c-green">${db.filter(l=>l.et==='fechado').length}</div><div class="kpi-label">Fechados</div></div><div class="kpi-card kpi-red"><div class="kpi-num c-red">${db.filter(l=>l.et==='perdido').length}</div><div class="kpi-label">Perdidos</div></div>`;
 const cols=[{k:'contato',lb:'📩 Contato'},{k:'orcamento',lb:'📋 Orçamento'},{k:'negociacao',lb:'🤝 Negociação'},{k:'agendado',lb:'📅 Agendado'},{k:'fechado',lb:'✅ Fechado'},{k:'perdido',lb:'❌ Perdido'}];
-document.getElementById('ldKanban').innerHTML=cols.map(col=>{const its=db.filter(l=>l.et===col.k);return`<div class="kb-col"><div class="kb-head"><span class="kb-title">${col.lb}</span><span class="kb-ct">${its.length}</span></div>${its.map(l=>`<div class="kb-card" onclick="editLd('${l.id}')"><h4>${l.nome||'—'}</h4><p class="kb-meta">${l.est||''} ${l.tam?'· '+l.tam:''} ${l.val?'· '+$R(l.val):''}</p><p class="kb-meta" style="display:flex;gap:5px;align-items:center"><span>${l.temp==='quente'?'🔥':l.temp==='morno'?'⚡':'❄️'}</span><a class="btn btn-success btn-xs" href="https://wa.me/55${(l.tel||'').replace(/\D/g,'')}" target="_blank" onclick="event.stopPropagation()">📲</a><button class="btn btn-danger btn-xs" onclick="event.stopPropagation();delLd('${l.id}')" style="margin-left:auto">🗑</button></p></div>`).join('')}</div>`;}).join('');}
-function saveLd(){const id=document.getElementById('ldId').value||uid();const l={id,nome:document.getElementById('ldNome').value,tel:document.getElementById('ldTel').value,email:document.getElementById('ldEmail').value,est:document.getElementById('ldEst').value,tam:document.getElementById('ldTam').value,val:document.getElementById('ldVal').value,et:document.getElementById('ldEt').value,temp:document.getElementById('ldTemp').value,ori:document.getElementById('ldOri').value,prox:document.getElementById('ldProx').value,passo:document.getElementById('ldPasso').value};const db=gdb('ct_leads'),i=db.findIndex(x=>x.id===id);if(i>=0)db[i]=l;else db.push(l);sdb('ct_leads',db);closeM('mLd');rLd();showToast('✅ Lead salvo!');}
-function editLd(id){const l=gdb('ct_leads').find(x=>x.id===id);if(!l)return;document.getElementById('ldId').value=l.id;document.getElementById('ldNome').value=l.nome||'';document.getElementById('ldTel').value=l.tel||'';document.getElementById('ldEmail').value=l.email||'';document.getElementById('ldEst').value=l.est||'';document.getElementById('ldTam').value=l.tam||'';document.getElementById('ldVal').value=l.val||'';document.getElementById('ldEt').value=l.et||'contato';document.getElementById('ldTemp').value=l.temp||'quente';document.getElementById('ldOri').value=l.ori||'Instagram';document.getElementById('ldProx').value=l.prox||'';document.getElementById('ldPasso').value=l.passo||'';document.getElementById('mLdT').textContent='Editar Lead';openM('mLd');}
+document.getElementById('ldKanban').innerHTML=cols.map(col=>{const its=db.filter(l=>l.et===col.k);return`<div class="kb-col"><div class="kb-head"><span class="kb-title">${col.lb}</span><span class="kb-ct">${its.length}</span></div>${its.map(l=>`<div class="kb-card" onclick="editLd('${l.id}')"><h4>${ctLiveNome(l)||'—'}</h4><p class="kb-meta">${l.est||''} ${l.tam?'· '+l.tam:''} ${l.val?'· '+$R(l.val):''}</p><p class="kb-meta" style="display:flex;gap:5px;align-items:center"><span>${l.temp==='quente'?'🔥':l.temp==='morno'?'⚡':'❄️'}</span><a class="btn btn-success btn-xs" href="https://wa.me/55${(ctLiveTel(l)||'').replace(/\D/g,'')}" target="_blank" onclick="event.stopPropagation()">📲</a><button class="btn btn-ghost btn-xs" onclick="event.stopPropagation();converterLeadCliente('${l.id}')" title="Converter em cliente do CRM" style="margin-left:auto">👤➕</button><button class="btn btn-danger btn-xs" onclick="event.stopPropagation();delLd('${l.id}')">🗑</button></p></div>`).join('')}</div>`;}).join('');}
+function saveLd(){const id=document.getElementById('ldId').value||uid();const l={id,nome:document.getElementById('ldNome').value,tel:document.getElementById('ldTel').value,email:document.getElementById('ldEmail').value,est:document.getElementById('ldEst').value,tam:document.getElementById('ldTam').value,val:document.getElementById('ldVal').value,et:document.getElementById('ldEt').value,temp:document.getElementById('ldTemp').value,ori:document.getElementById('ldOri').value,prox:document.getElementById('ldProx').value,passo:document.getElementById('ldPasso').value};const db=gdb('ct_leads'),i=db.findIndex(x=>x.id===id);if(i>=0){l.criadoEm=db[i].criadoEm||new Date().toISOString();l.ultContato=hoje();db[i]=l;}else{l.criadoEm=new Date().toISOString();l.ultContato=hoje();db.push(l);}sdb('ct_leads',db);closeM('mLd');rLd();showToast('✅ Lead salvo!');}
+function ldPreencherDeCliente(){const nome=(document.getElementById('ldCliCrm')||{}).value||'';if(!nome)return;const c=gdb('ct_clientes').find(x=>(x.nome||'').trim().toLowerCase()===nome.trim().toLowerCase());if(!c)return;document.getElementById('ldNome').value=c.nome||'';document.getElementById('ldTel').value=c.tel||'';document.getElementById('ldEmail').value=c.email||'';if(c.est){const es=document.getElementById('ldEst');if(es&&[...es.options].some(o=>o.value===c.est||o.textContent===c.est))es.value=c.est;}if(c.ori){const or=document.getElementById('ldOri');if(or&&[...or.options].some(o=>o.textContent===c.ori))or.value=c.ori;}showToast('✅ Lead preenchido com os dados de '+(c.nome||'')+'.');}
+function novoLd(){['ldId','ldNome','ldTel','ldEmail','ldVal','ldProx','ldPasso'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('ldEst').value='';document.getElementById('ldTam').value='';document.getElementById('ldEt').value='contato';document.getElementById('ldTemp').value='quente';document.getElementById('ldOri').value='Instagram';fillCliSelect('ldCliCrm','','— começar do zero / novo lead —');document.getElementById('mLdT').textContent='Novo Lead';openM('mLd');}
+function editLd(id){const l=gdb('ct_leads').find(x=>x.id===id);if(!l)return;fillCliSelect('ldCliCrm','','— começar do zero / novo lead —');document.getElementById('ldId').value=l.id;document.getElementById('ldNome').value=l.nome||'';document.getElementById('ldTel').value=l.tel||'';document.getElementById('ldEmail').value=l.email||'';document.getElementById('ldEst').value=l.est||'';document.getElementById('ldTam').value=l.tam||'';document.getElementById('ldVal').value=l.val||'';document.getElementById('ldEt').value=l.et||'contato';document.getElementById('ldTemp').value=l.temp||'quente';document.getElementById('ldOri').value=l.ori||'Instagram';document.getElementById('ldProx').value=l.prox||'';document.getElementById('ldPasso').value=l.passo||'';document.getElementById('mLdT').textContent='Editar Lead';openM('mLd');}
 function delLd(id){if(!confirm('Excluir?'))return;sdb('ct_leads',gdb('ct_leads').filter(l=>l.id!==id));rLd();}
+function converterLeadCliente(id){const l=gdb('ct_leads').find(x=>x.id===id);if(!l)return;const cls=gdb('ct_clientes');const dup=cls.find(c=>(c.nome||'').trim().toLowerCase()===(l.nome||'').trim().toLowerCase());if(dup){showToast('ℹ️ "'+(l.nome||'')+'" já está no Clientes CRM.');if(typeof verCliente==='function')verCliente(dup.id);return;}if(!confirm('Converter "'+(l.nome||'lead')+'" em cliente no Clientes CRM?'))return;const novo={id:uid(),nome:l.nome||'',tel:l.tel||'',email:l.email||'',insta:'',nasc:'',cid:'',est:l.est||'',stat:'🟢 Ativo',ind:'',ori:l.ori||'Instagram',ret:'',obs:'Convertido do funil de Leads.'+(l.tam?' Tamanho: '+l.tam+'.':'')+(l.passo?' Próximo passo: '+l.passo+'.':''),local:'',valor:l.val||'',sinal:'',projSt:'',cpf:'',endr:'',alerg:'',med:'',saude:'',emerg:'',img:'',contrato:'',lang:'pt',respNome:'',respCpf:'',sinalReg:0,nps:'',ultContato:hoje(),criadoEm:new Date().toISOString()};cls.push(novo);sdb('ct_clientes',cls);const lds=gdb('ct_leads'),li=lds.findIndex(x=>x.id===id);if(li>=0){lds[li].et='fechado';sdb('ct_leads',lds);}try{updDl();ctPVClientes();fillCliSelect('fuCli');fillCliSelect('pjCli');fillCliSelect('ctCli');}catch(e){}rLd();try{if(typeof rCl==='function')rCl();}catch(e){}showToast('✅ "'+(l.nome||'Lead')+'" agora está no Clientes CRM (lead marcado como Fechado).');}
 // ── METAS ──
 function gMG(k,m){return gobj('ct_mg',{})[k+'_'+m]||'';}function sMG(k,m,v){const o=gobj('ct_mg',{});o[k+'_'+m]=v;sobj('ct_mg',o);}
 function buildMG(){const hdr=`<table style="min-width:1000px;width:100%;border-collapse:collapse"><thead><tr><th style="text-align:left;padding:9px 16px;background:#F9FAFB;border:1px solid var(--brd);font-size:11px;font-weight:700;color:var(--tx3);letter-spacing:1px;text-transform:uppercase">INDICADOR</th>${MSS.map(m=>`<th style="padding:9px 8px;background:#F9FAFB;border:1px solid var(--brd);font-size:11px;font-weight:700;color:var(--tx3)">${m}</th>`).join('')}<th style="padding:9px 8px;background:#F9FAFB;border:1px solid var(--brd);font-size:11px;color:var(--tx3)">TOTAL</th></tr></thead><tbody>`;const rows=META_I.map(ind=>{const mR=MSS.map((_,mi)=>{const v=gMG(ind.k+'_m',mi+1)||ind.def;return`<td style="border:1px solid var(--brd);padding:0"><input type="number" value="${v}" style="width:100%;padding:6px 7px;border:none;outline:none;font-size:12px;text-align:right;font-family:inherit;background:rgba(180,83,9,.04)" onchange="sMG('${ind.k}_m',${mi+1},this.value)" onclick="this.select()"></td>`;}).join('');const rR=MSS.map((_,mi)=>`<td style="border:1px solid var(--brd);padding:0"><input type="number" value="${gMG(ind.k+'_r',mi+1)||''}" placeholder="0" style="width:100%;padding:6px 7px;border:none;outline:none;font-size:12px;text-align:right;font-family:inherit" onchange="sMG('${ind.k}_r',${mi+1},this.value)" onclick="this.select()"></td>`).join('');return`<tr style="background:var(--goldb)"><td style="padding:7px 16px;border:1px solid var(--brd);font-weight:700;font-size:12px" colspan="${MSS.length+2}">${ind.lb}</td></tr><tr><td style="padding:7px 16px;border:1px solid var(--brd);font-size:12px;background:#FAFAFA">Meta</td>${mR}<td style="border:1px solid var(--brd);text-align:right;padding:6px 10px;font-size:12px;font-weight:700">${ind.m?$R(ind.def*12):ind.def*12}</td></tr><tr><td style="padding:7px 16px;border:1px solid var(--brd);font-size:12px">Realizado</td>${rR}<td style="border:1px solid var(--brd);text-align:right;padding:6px 10px;font-size:12px;color:var(--tx3)">—</td></tr>`;}).join('');document.getElementById('metGrade').innerHTML=hdr+rows+'</tbody></table>';}
@@ -2627,7 +2671,7 @@ document.getElementById('sinGrid').innerHTML=sinais.map(s=>`<div class="sinal-ca
 function buildCicG(id,data){const el=document.getElementById(id);if(!el)return;const arr=data||CIC_DATA;el.innerHTML=arr.map(c=>`<div class="cic-card"><div class="cic-day">${c.ic}</div><div class="cic-period">Dias ${c.day}</div><h4>${c.t}</h4><ul class="cic-list">${c.items.map(i=>`<li>${i}</li>`).join('')}</ul></div>`).join('');}
 function cicGuiaTab(tipo,el){const tabs=document.querySelectorAll('#cicGTabs .tab-btn');tabs.forEach(b=>b.classList.toggle('on',el?b===el:b.getAttribute('data-tipo')===tipo));buildCicG('cicG',(CIC_TIPOS[tipo]||CIC_TIPOS['Tatuagem']).data);}
 function okBdg(v){return v?'<span class="bdg b-green">✔</span>':'<span class="bdg b-gray">❌</span>';}
-function rCic(){const db=gdb('ct_cicatri');updDl();document.getElementById('cicCt').textContent=db.length+' registros';document.getElementById('cicTb').innerHTML=db.length?db.map(c=>`<tr><td><strong>${c.cli||'—'}</strong></td><td>${c.tel||'—'}</td><td>${(CIC_TIPOS[c.tipo]||CIC_TIPOS['Tatuagem']).ic} ${c.tipo||'Tatuagem'}</td><td>${dtBR(c.data)}</td><td>${okBdg(c.guiaOk)}</td><td>${okBdg(c.avalOk)}</td><td>${dtBR(c.ret)}</td><td>${bdg(c.stat)}</td><td>${c.retq||'—'}</td><td>${c.aval||'—'}</td><td style="white-space:nowrap"><button class="btn btn-ghost btn-xs" onclick="ctEnviarCicRow('${c.id}')" title="Enviar guia de cuidados">📖</button> <button class="btn btn-ghost btn-xs" onclick="ctPedirAvalCicRow('${c.id}')" title="Pedir avaliação no Google">⭐</button> <button class="btn btn-ghost btn-xs" onclick="editCic('${c.id}')">✏️</button> <button class="btn btn-danger btn-xs" onclick="delCic('${c.id}')">🗑</button></td></tr>`).join(''):`<tr><td colspan="11" class="empty-row"><p>Nenhum registro</p></td></tr>`;}
+function rCic(){const db=gdb('ct_cicatri');updDl();ctPVClientes();document.getElementById('cicCt').textContent=db.length+' registros';document.getElementById('cicTb').innerHTML=db.length?db.map(c=>`<tr><td><strong>${ctLiveNome(c)||'—'}</strong></td><td>${ctLiveTel(c)||'—'}</td><td>${(CIC_TIPOS[c.tipo]||CIC_TIPOS['Tatuagem']).ic} ${c.tipo||'Tatuagem'}</td><td>${dtBR(c.data)}</td><td>${okBdg(c.guiaOk)}</td><td>${okBdg(c.avalOk)}</td><td>${dtBR(c.ret)}</td><td>${bdg(c.stat)}</td><td>${c.retq||'—'}</td><td>${c.aval||'—'}</td><td style="white-space:nowrap"><button class="btn btn-ghost btn-xs" onclick="ctEnviarCicRow('${c.id}')" title="Enviar guia de cuidados">📖</button> <button class="btn btn-ghost btn-xs" onclick="ctPedirAvalCicRow('${c.id}')" title="Pedir avaliação no Google">⭐</button> <button class="btn btn-ghost btn-xs" onclick="editCic('${c.id}')">✏️</button> <button class="btn btn-danger btn-xs" onclick="delCic('${c.id}')">🗑</button></td></tr>`).join(''):`<tr><td colspan="11" class="empty-row"><p>Nenhum registro</p></td></tr>`;}
 function saveCic(){const id=document.getElementById('ccId').value||uid();const old=gdb('ct_cicatri').find(x=>x.id===id)||{};const c={...old,id,cli:document.getElementById('ccCli').value,tel:document.getElementById('ccTel').value,tipo:document.getElementById('ccTipo').value,data:document.getElementById('ccData').value,ret:document.getElementById('ccRet').value,est:document.getElementById('ccEst').value,reg:document.getElementById('ccReg').value,stat:document.getElementById('ccSt').value,retq:document.getElementById('ccRetq').value,dr:document.getElementById('ccDR').value,aval:document.getElementById('ccAval').value,obs:document.getElementById('ccObs').value};const db=gdb('ct_cicatri'),i=db.findIndex(x=>x.id===id);if(i>=0)db[i]=c;else db.push(c);sdb('ct_cicatri',db);closeM('mCic');rCic();showToast('✅ Registro salvo!');}
 function editCic(id){const c=gdb('ct_cicatri').find(x=>x.id===id);if(!c)return;document.getElementById('ccId').value=c.id;document.getElementById('ccCli').value=c.cli||'';document.getElementById('ccTel').value=c.tel||'';document.getElementById('ccTipo').value=c.tipo||'Tatuagem';document.getElementById('ccData').value=c.data||'';document.getElementById('ccRet').value=c.ret||'';document.getElementById('ccEst').value=c.est||'';document.getElementById('ccReg').value=c.reg||'';document.getElementById('ccSt').value=c.stat||'🔄 Em Andamento';document.getElementById('ccRetq').value=c.retq||'✅ Sim';document.getElementById('ccDR').value=c.dr||'';document.getElementById('ccAval').value=c.aval||'';document.getElementById('ccObs').value=c.obs||'';document.getElementById('mCicT').textContent='Editar';openM('mCic');}
 function delCic(id){if(!confirm('Excluir?'))return;sdb('ct_cicatri',gdb('ct_cicatri').filter(c=>c.id!==id));rCic();}
@@ -2648,9 +2692,9 @@ function ctLinkCuidados(o){o=o||{};const cf=conf();const p=new URLSearchParams()
   if(o.reg)p.set('reg',o.reg);
   if(o.data)p.set('dt',dtBR(o.data));
   const wa=ctWaNum(cf.tel);if(wa)p.set('wa',wa);
-  if(cf.googleRev)p.set('g',cf.googleRev);
+  if(cf.googleRev)p.set('g',(cf.googleRev||'').replace(/^https?:\/\//i,''));
   if(cf.insta)p.set('ig',(cf.insta||'').replace(/^@/,''));
-  if(cf.site)p.set('site',cf.site);
+  if(cf.site)p.set('site',(cf.site||'').replace(/^https?:\/\//i,''));
   // idioma do cliente — cliente de outro país recebe o guia na língua dele
   var _cli=gdb('ct_clientes').find(x=>(x.nome||'').trim().toLowerCase()===((o&&o.cli)||'').trim().toLowerCase());
   var lang=(o&&o.lang)||(_cli&&_cli.lang)||'pt';if(['pt','en','es'].indexOf(lang)<0)lang='pt';
@@ -2681,6 +2725,10 @@ function ctEnviarSessao(id){const s=gdb('ct_sessoes').find(x=>x.id===id);if(!s)r
 // ── FONTE ÚNICA DE CLIENTE (cadastro uma vez, puxa nas outras abas) ──
 function ctCliOf(rec){if(!rec)return null;const cl=gdb('ct_clientes');if(rec.cliId){const c=cl.find(x=>x.id===rec.cliId);if(c)return c;}const nm=((rec.cli||rec.nome)||'').trim().toLowerCase();return nm?cl.find(x=>(x.nome||'').trim().toLowerCase()===nm)||null:null;}
 function ctLiveTel(rec){const c=ctCliOf(rec);return (c&&c.tel)||(rec&&rec.tel)||'';}
+function ctLiveNome(rec){const c=ctCliOf(rec);return (c&&c.nome)||(rec&&(rec.cli||rec.nome))||'';}
+// Fase 0 — Fonte Única: dá o cliId (ID do cliente) a registros antigos que só tinham o nome.
+// Idempotente e não-destrutivo: só grava onde falta cliId E existe cliente com o mesmo nome.
+function ctBackfillCliId(){try{const cls=gdb('ct_clientes');if(!cls.length)return 0;const byName=n=>{const k=(n||'').trim().toLowerCase();return k?(cls.find(c=>(c.nome||'').trim().toLowerCase()===k)||null):null;};let total=0;[['ct_leads','nome'],['ct_followup','cli'],['ct_contratos','cli'],['ct_cicatri','cli'],['ct_projetos','cli'],['ct_sessoes','cli']].forEach(([key,nf])=>{const arr=gdb(key);let chg=false;arr.forEach(r=>{if(r&&!r.cliId){const c=byName(r[nf]);if(c){r.cliId=c.id;chg=true;total++;}}});if(chg)sdb(key,arr);});if(total)console.info('[Fase 0] cliId preenchido em '+total+' registro(s).');return total;}catch(e){console.warn('[Fase 0 backfill]',e);return 0;}}
 function ctCliIdByName(nome){return (gdb('ct_clientes').find(x=>(x.nome||'').trim().toLowerCase()===(nome||'').trim().toLowerCase())||{}).id||'';}
 function ctFillFromCli(nameId,map){const nEl=document.getElementById(nameId);if(!nEl)return;const c=gdb('ct_clientes').find(x=>(x.nome||'').trim().toLowerCase()===(nEl.value||'').trim().toLowerCase());if(!c)return;Object.keys(map).forEach(fid=>{const el=document.getElementById(fid);const val=c[map[fid]];if(el&&val!=null&&val!=='')el.value=val;});}
 function ctWireAutofill(){const wire=(nameId,map)=>{const el=document.getElementById(nameId);if(el)el.addEventListener('change',()=>ctFillFromCli(nameId,map));};wire('sCli',{sTel:'tel'});wire('ccCli',{ccTel:'tel'});}
@@ -2689,6 +2737,8 @@ function ctMsgAvaliacao(o,rev){const cf=conf();const est=cf.nome||'nosso estúdi
   return ola+'🖤\n\nQue bom te ver com a tattoo já cicatrizada! Se você curtiu o resultado e o atendimento, deixar uma avaliação no Google ajuda demais o '+est+' — leva só 30 segundinhos:\n\n⭐ '+rev+'\n\nMuito obrigado de verdade! 🙏';}
 function ctPedirAvaliacao(o){o=o||{};const rev=(conf().googleRev||'').trim();if(!rev){showToast('⚠️ Configure o "Link de avaliação Google" em Comece por Aqui.');return;}const tel=ctWaNum(ctResolveTel(o));if(!tel){showToast('⚠️ Sem WhatsApp do cliente.');return;}window.open('https://wa.me/'+tel+'?text='+encodeURIComponent(ctMsgAvaliacao(o,rev)),'_blank');ctUpsertPV(o,{avalOk:1});if(document.getElementById('p-cicatrizacao')&&document.getElementById('p-cicatrizacao').classList.contains('on'))rCic();showToast('⭐ WhatsApp aberto com o pedido de avaliação!');}
 function ctPedirAvalCicRow(id){const c=gdb('ct_cicatri').find(x=>x.id===id);if(!c)return;ctPedirAvaliacao({cli:c.cli,tel:c.tel});}
+function fillCliSelect(id,current,placeholder){const sel=document.getElementById(id);if(!sel||sel.tagName!=='SELECT')return;const ph=placeholder||'— escolha um cliente —';const cur=current!=null?current:sel.value;const cl=gdb('ct_clientes').slice().sort((a,b)=>(a.nome||'').localeCompare(b.nome||'','pt',{sensitivity:'base'}));const e=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');let opts=`<option value="">${e(ph)}</option>`+cl.map(c=>`<option value="${e(c.nome)}">${e(c.nome||'—')}${c.tel?' · '+e(c.tel):''}</option>`).join('');if(cur&&!cl.some(c=>(c.nome||'')===cur))opts+=`<option value="${e(cur)}">${e(cur)} (fora do CRM)</option>`;sel.innerHTML=opts;if(cur)sel.value=cur;}
+function ctPVClientes(){fillCliSelect('pvCli');}
 function ctPVFill(){ctFillFromCli('pvCli',{pvTel:'tel'});}
 function ctPVTipoChange(){const t=(document.getElementById('pvTipo')||{}).value||'Tatuagem';cicGuiaTab(t);}
 function ctPVCuidados(){const cli=(document.getElementById('pvCli')||{}).value||'';const tel=(document.getElementById('pvTel')||{}).value||'';const tipo=(document.getElementById('pvTipo')||{}).value||'Tatuagem';if(!cli&&!tel){showToast('⚠️ Escolha o cliente primeiro.');return;}ctEnviarCuidados({cli,tel,tipo});}
@@ -2834,14 +2884,14 @@ function ctGuiaSave(){
   var tipo=document.getElementById('gzTipo').value,lang=document.getElementById('gzLang').value;
   var all=gobj('ct_guias',{});all[ctGuiaKey(tipo,lang)]=ctGuiaReadForm();sobj('ct_guias',all);
   document.getElementById('gzEditedBadge').style.display='inline-flex';
-  try{if(typeof pushCloud==='function')pushCloud('ct_guias');}catch(e){}
+  
   showToast('✅ Guia de '+tipo+' ('+lang.toUpperCase()+') salvo! O cliente já recebe esse texto.');
 }
 function ctGuiaReset(){
   var tipo=document.getElementById('gzTipo').value,lang=document.getElementById('gzLang').value;
   if(!confirm('Restaurar o texto PADRÃO deste guia ('+tipo+' · '+lang.toUpperCase()+')?\nSua personalização será apagada.'))return;
   var all=gobj('ct_guias',{});delete all[ctGuiaKey(tipo,lang)];sobj('ct_guias',all);
-  try{if(typeof pushCloud==='function')pushCloud('ct_guias');}catch(e){}
+  
   ctGuiaLoadForm();showToast('↩️ Texto padrão restaurado.');
 }
 function ctGuiaPreview(){
@@ -2865,7 +2915,8 @@ function popProf(){const el=document.getElementById('sProf');if(!el)return;const
 function saveCom(){const id=uid();const c={id,data:document.getElementById('coData').value,prof:document.getElementById('coProf').value,ref:document.getElementById('coRef').value,vs:document.getElementById('coVS').value,pct:document.getElementById('coPct').value,vp:document.getElementById('coVP').value,st:document.getElementById('coSt').value,dpg:document.getElementById('coDPg').value};const db=gdb('ct_comissoes');db.push(c);sdb('ct_comissoes',db);closeM('mCom');rCom();showToast('✅ Comissão salva!');}
 function delCom(id){if(!confirm('Excluir?'))return;sdb('ct_comissoes',gdb('ct_comissoes').filter(c=>c.id!==id));rCom();}
 // ── CONTRATOS (REGISTRAR) ──
-function rCont(){const db=gdb('ct_contratos').sort((a,b)=>b.data>a.data?1:-1);updDl();document.getElementById('contTb').innerHTML=db.length?db.map(c=>`<tr><td>${dtBR(c.data)}</td><td><strong>${c.cli||'—'}</strong></td><td>${c.tipo||'—'}</td><td>${bdg(c.st)}</td><td style="font-size:12px">${c.obs||'—'}</td><td><button class="btn btn-danger btn-xs" onclick="delCont('${c.id}')">🗑</button></td></tr>`).join(''):`<tr><td colspan="6" class="empty-row"><p>Nenhum contrato registrado</p></td></tr>`;}
+function rCont(){const db=gdb('ct_contratos').sort((a,b)=>b.data>a.data?1:-1);updDl();fillCliSelect('ctCli');document.getElementById('contTb').innerHTML=db.length?db.map(c=>`<tr><td>${dtBR(c.data)}</td><td><strong>${ctLiveNome(c)||'—'}</strong></td><td>${c.tipo||'—'}</td><td>${bdg(c.st)}</td><td style="font-size:12px">${c.obs||'—'}</td><td><button class="btn btn-danger btn-xs" onclick="delCont('${c.id}')">🗑</button></td></tr>`).join(''):`<tr><td colspan="6" class="empty-row"><p>Nenhum contrato registrado</p></td></tr>`;}
+function novoCont(){['ctData','ctObs'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});fillCliSelect('ctCli','');openM('mCont');}
 function saveCont(){const id=uid();const c={id,data:document.getElementById('ctData').value,cli:document.getElementById('ctCli').value,tipo:document.getElementById('ctTipo').value,st:document.getElementById('ctSt').value,obs:document.getElementById('ctObs').value};const db=gdb('ct_contratos');db.push(c);sdb('ct_contratos',db);closeM('mCont');rCont();showToast('✅ Contrato registrado!');}
 function delCont(id){if(!confirm('Excluir?'))return;sdb('ct_contratos',gdb('ct_contratos').filter(c=>c.id!==id));rCont();}
 // ── RELATÓRIO ──
@@ -3294,8 +3345,8 @@ function iniciarSistemaTrial(t){
   // Rebuildar sidebar com cadeados
   buildSb();
 
-  // Ir para dashboard
-  go('dashboard');
+  // Ir para a Central de Hoje
+  go('hoje');
   renderDash();
 }
 
@@ -3404,6 +3455,999 @@ window.falarCarlosWpp=function(){
   };
   window.open(`https://wa.me/${CARLOS_WPP}?text=${encodeURIComponent(msgs[lang]||msgs.pt)}`,'_blank');
 };
+
+</script>
+<style>
+/* ═══ RELACIONAMENTO — estilos aditivos ═══ */
+/* Central Tattoo — estilos aditivos do Relacionamento (usa as vars existentes) */
+.rel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.rel-card{border:1px solid var(--brd);border-radius:12px;background:var(--white);padding:13px 14px;box-shadow:var(--sh);display:flex;flex-direction:column;gap:6px}
+.rel-card-h{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.rel-card-h strong{font-size:14.5px;color:var(--txt)}
+.rel-score{font-size:12px;letter-spacing:1px;white-space:nowrap}
+.rel-meta{display:flex;gap:5px;flex-wrap:wrap}
+.rel-tag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;background:var(--bg);color:var(--tx2);border:1px solid var(--brd)}
+.rel-tag-red{background:var(--redb);color:var(--red2);border-color:var(--red)}
+.rel-line{font-size:12px;color:var(--tx3)}
+.rel-sug{font-size:12.5px;line-height:1.5;color:var(--tx2);background:var(--goldb);border:1px solid var(--goldbrd);border-radius:9px;padding:9px 11px}
+.rel-sug-rot{font-size:10.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.rel-actions{display:flex;gap:6px;margin-top:2px}
+/* lead card info */
+.rel-lead-info{display:flex;flex-direction:column;gap:2px;margin-top:6px;font-size:11.5px;color:var(--tx3)}
+.rel-lead-info span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* pipeline value por etapa */
+.rel-stage-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px}
+.rel-stage{background:var(--white);border:1px solid var(--brd);border-radius:10px;padding:10px 12px;box-shadow:var(--sh)}
+.rel-stage-lb{font-size:11.5px;font-weight:600;color:var(--tx2);margin-bottom:6px}
+.rel-stage-bar{height:7px;border-radius:6px;background:var(--bg);overflow:hidden}
+.rel-stage-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:6px}
+.rel-stage-val{font-size:13px;font-weight:700;color:var(--gold);margin-top:6px}
+/* dashboard intel */
+.rel-intel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;padding:4px 0}
+.rel-intel{display:flex;gap:11px;align-items:flex-start;border:1px solid var(--brd);border-radius:11px;padding:11px 13px;background:var(--off)}
+.rel-intel-ic{font-size:22px;line-height:1}
+.rel-intel-lb{font-size:11px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.4px}
+.rel-intel-v{font-size:16px;font-weight:700;color:var(--txt);margin-top:2px}
+.rel-intel-s{font-size:11.5px;color:var(--tx3);margin-top:1px}
+/* financeiro lucratividade */
+.rel-prof-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;padding:4px 2px 12px}
+.rel-prof-kpi{border:1px solid var(--brd);border-radius:10px;padding:10px 12px;background:var(--off)}
+.rel-prof-kpi .l{font-size:11px;color:var(--tx3);text-transform:uppercase;letter-spacing:.4px}
+.rel-prof-kpi .v{font-size:18px;font-weight:700;color:var(--txt);margin-top:3px}
+.rel-prof-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;padding:0 2px}
+.rel-prof-t{font-size:12.5px;font-weight:700;color:var(--gold);margin-bottom:6px}
+.rel-prof-row{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid var(--brd);font-size:13px}
+.rel-prof-row strong{color:var(--grn)}
+/* agenda prep */
+.rel-prep{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:6px;margin-top:8px}
+.rel-prep-i{font-size:12.5px;padding:7px 10px;border-radius:8px;border:1px solid var(--brd);background:var(--off);color:var(--tx2)}
+.rel-prep-i.ok{background:var(--grnb);border-color:var(--grn);color:var(--grn2)}
+.rel-prep-i.no{background:var(--bg)}
+/* campanhas */
+.rel-camp-box{border:1px solid var(--goldbrd);border-radius:12px;background:var(--goldb);padding:14px;margin-top:6px}
+.rel-camp-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.rel-camp-msg{font-size:12.5px;color:var(--tx2);margin-bottom:10px}
+.rel-camp-list{display:flex;flex-direction:column;gap:6px;max-height:340px;overflow-y:auto}
+.rel-camp-item{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--white);border:1px solid var(--brd);border-radius:8px;padding:7px 11px;font-size:13px}
+/* banco de mensagens */
+.rel-bsec{margin-bottom:18px}
+.rel-bsec h4{font-size:13px;font-weight:700;color:var(--gold);margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--goldbrd)}
+.rel-bitem{margin-bottom:12px}
+.rel-bitem label{display:block;font-size:12px;font-weight:600;color:var(--tx2);margin-bottom:4px}
+/* badge no menu */
+.rel-navbadge{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;margin-left:8px;border-radius:20px;background:var(--red);color:#fff;font-size:11px;font-weight:700;vertical-align:middle}
+
+</style>
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   CENTRAL TATTOO — MOTOR DE RELACIONAMENTO + UPGRADES  (aditivo v15)
+   Não altera identidade visual, cores nem estrutura.
+   Lê os cadastros existentes (ct_clientes, ct_sessoes, ct_leads,
+   ct_financeiro, ct_projetos, ct_contratos, ct_estoque).
+   Base única, sem duplicação — os módulos conversam entre si.
+═══════════════════════════════════════════════════════════════════ */
+
+/* ---------- utilitários locais (com fallback defensivo) ---------- */
+function relR(v){ return (typeof R==='function')?R(v):(parseFloat(String(v==null?0:v).replace(/[^\d.-]/g,''))||0); }
+function relRS(v){ return (typeof $R==='function')?$R(v):('R$ '+relR(v).toFixed(2)); }
+function relDt(v){ return (typeof dtBR==='function' && v)?dtBR(v):(v||'—'); }
+function relHoje(){ return (typeof hoje==='function')?hoje():new Date().toISOString().slice(0,10); }
+function relMes(){ return (typeof ma==='function')?ma():new Date().toISOString().slice(0,7); }
+function relToast(m){ if(typeof showToast==='function')showToast(m); }
+function relG(k){ try{ return (typeof gdb==='function')?(gdb(k)||[]):(JSON.parse(localStorage.getItem(k)||'[]')); }catch(e){ return []; } }
+function relObj(k,d){ try{ return (typeof gobj==='function')?gobj(k,d||{}):(JSON.parse(localStorage.getItem(k)||'null')||(d||{})); }catch(e){ return d||{}; } }
+function relSetObj(k,o){ try{ if(typeof sobj==='function')sobj(k,o); else localStorage.setItem(k,JSON.stringify(o)); }catch(e){} }
+function relSet(k,a){ try{ if(typeof sdb==='function')sdb(k,a); else localStorage.setItem(k,JSON.stringify(a)); }catch(e){} }
+function relConf(){ try{ return (typeof conf==='function')?conf():{}; }catch(e){ return {}; } }
+function relTel(c){ var t=((c&&c.tel)||'').replace(/\D/g,''); if(!t)return''; if(t.length<=11)t='55'+t; return t; }
+function relPrimeiro(nome){ return String(nome||'').trim().split(/\s+/)[0]||''; }
+function relDias(iso){ if(!iso)return null; var d=new Date(String(iso).slice(0,10)+'T00:00:00'); if(isNaN(d))return null; return Math.floor((Date.now()-d.getTime())/86400000); }
+function relEsc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* ---------- normalização de serviço (ponto 8) ---------- */
+function relServ(est){
+  var e=String(est||'').toLowerCase();
+  if(/fine\s*line|fineline|delicad/.test(e))return 'fineline';
+  if(/cover|cobertura|coberta/.test(e))return 'coverup';
+  if(/fecha|braç|braco|perna|sleeve|manga/.test(e))return 'fechamento';
+  if(/realis/.test(e))return 'realismo';
+  if(/pierc/.test(e))return 'piercing';
+  if(/micro|pigment/.test(e))return 'micro';
+  if(/estét|estet|aréola|areola/.test(e))return 'estetico';
+  return 'geral';
+}
+var REL_SERV_LB={fineline:'Fine Line',coverup:'Cover-up',fechamento:'Fechamento',realismo:'Realismo',piercing:'Piercing',micro:'Micropigmentação',estetico:'Estético',geral:'Tatuagem'};
+
+/* ---------- gatilhos por tempo (pontos 5 e 7) ---------- */
+var REL_TRIG=[
+  {d:7,   obj:'Cicatrização',              chave:'7'},
+  {d:30,  obj:'Nova venda',                chave:'30'},
+  {d:60,  obj:'Criar desejo',              chave:'60'},
+  {d:90,  obj:'Reativar',                  chave:'90'},
+  {d:180, obj:'Conectar com emoções',      chave:'180'},
+  {d:365, obj:'Trazer de volta ao estúdio',chave:'365'}
+];
+function relGatilho(dias){ if(dias==null)return null; var t=null; for(var i=0;i<REL_TRIG.length;i++){ if(dias>=REL_TRIG[i].d)t=REL_TRIG[i]; } return t; }
+
+/* ═══════════ BANCO DE MENSAGENS (pontos 6, 7, 8, 17) ═══════════ */
+var BANCO_MSG={
+  tempo:{
+    '7':['Oi {nome}! 🖤 Passando pra saber como está a cicatrização da sua tattoo. Está seguindo os cuidados direitinho? Qualquer dúvida, é só me chamar — faço questão de acompanhar cada trabalho meu de perto.'],
+    '30':['{nome}, já faz um mês da nossa sessão e aposto que sua tattoo está cicatrizada e linda! ✨ Quando a pele descansa, a gente já consegue pensar no próximo passo do projeto. Tá com alguma ideia na cabeça?'],
+    '60':['Toda vez que revejo a sua tattoo lembro do quanto ela ficou marcante, {nome}. 🖤 Poucos trabalhos combinam tão bem com a pessoa. Se quiser dar continuidade, tenho ideias que combinariam demais com você.'],
+    '90':['{nome}, senti sua falta por aqui! 🖤 Faz um tempinho desde a sua última tattoo. Se estiver pensando em algo novo, me chama — adoraria reservar um horário especial pra você.'],
+    '180':['Uma boa tatuagem carrega uma história, {nome}. A sua marcou um momento — e histórias assim merecem continuação. 🖤 Que tal a gente escrever o próximo capítulo juntos?'],
+    '365':['Faz um ano da sua tattoo, {nome}! 🎉 Que tal comemorar essa data com um projeto novo? Separei um horário especial pra clientes que já fazem parte da casa como você.']
+  },
+  servico:{
+    fineline:['{nome}, sua fine line ficou com aquela delicadeza que combina tanto com você. 🤍 Tenho ideias de traços finos que ficariam perfeitos como continuação — quer ver?'],
+    realismo:['{nome}, seu realismo ficou impressionante! 🖤 Um trabalho desse nível pede espaço pra crescer. Já pensou em expandir e transformar em algo ainda maior?'],
+    fechamento:['{nome}, o fechamento ficou incrível — daqueles de parar pra olhar. 🖤 Que tal levar essa mesma qualidade pra outra região e manter a harmonia do conjunto?'],
+    coverup:['{nome}, foi uma honra ressignificar aquela tattoo com você. 🖤 Ver sua autoestima renovada é o que me move. Se quiser dar o próximo passo nessa nova fase, estou aqui.'],
+    piercing:['Oi {nome}! ✨ Passando pra lembrar da manutenção do seu piercing — troca de joia, higienização e acompanhamento. Quer agendar um horário rápido?'],
+    micro:['{nome}, a micropigmentação tem seu momento ideal de retoque pra manter o resultado perfeito. 🤍 Já está chegando a hora — quer que eu reserve um horário?'],
+    estetico:['{nome}, procedimentos como o seu rendem muito mais com manutenção periódica. 🤍 Posso te acompanhar de perto pra manter tudo impecável — quer marcar sua revisão?'],
+    geral:['{nome}, sua tattoo ficou linda! 🖤 Se estiver pensando no próximo projeto, me chama — vou adorar criar algo novo com você.']
+  },
+  categoria:{
+    emocao:['{nome}, cada trabalho que faço carrega um pedaço da história de quem confia em mim. A sua ficou marcada na minha memória. 🖤'],
+    autoestima:['{nome}, ver o quanto sua tattoo elevou sua autoestima é o maior presente que meu trabalho pode me dar. 🤍 Você merece se sentir assim sempre.'],
+    cobranca:['Oi {nome}! Tudo bem? 🖤 Passando pra alinhar o saldo referente à sua tattoo. Consigo facilitar da forma que for melhor pra você — me diz o que fica confortável?'],
+    retorno:['{nome}, faz um tempinho desde a sua última sessão! Que tal marcarmos seu retorno? Tenho horários especiais reservados pra clientes da casa. 🖤'],
+    reativacao:['{nome}, senti sua falta! 🖤 Voltei com novidades e ideias que têm tudo a ver com o seu estilo. Bora retomar seu projeto de onde paramos?'],
+    promocao:['{nome}, tô com uma condição especial esse mês pra clientes que já fazem parte da casa. 🖤 São poucas vagas e quis avisar você primeiro.'],
+    aniversario:['Feliz aniversário, {nome}! 🎉🖤 Desejo um ano lindo — e, se quiser se presentear, preparei um mimo especial de aniversário pra sua próxima tattoo.'],
+    datas:['{nome}, chegando essa data especial preparei condições exclusivas pra quem já é cliente da casa. 🖤 Quis que você soubesse em primeira mão.'],
+    continuacao:['{nome}, seu projeto tem tudo pra crescer e ficar ainda mais impactante. 🖤 Já visualizei o próximo passo — quer que eu te mostre?'],
+    vip:['{nome}, você é um dos clientes que fazem esse estúdio ser o que é. 🖤 Por isso, sempre que decidir fazer algo novo, terá prioridade e um cuidado à parte comigo.'],
+    premium:['{nome}, reservo horários e condições exclusivas pra um grupo seleto de clientes — e você faz parte dele. 🤍 Quando quiser criar algo novo, é só me chamar.'],
+    posproc:['Oi {nome}! 🖤 Como você está se sentindo depois do procedimento? Lembre dos cuidados que passei e conte comigo pra qualquer dúvida.'],
+    poscicatri:['{nome}, sua tattoo já deve estar cicatrizada e no ponto! ✨ Me manda uma foto de como ficou? Adoro acompanhar o resultado final dos meus trabalhos.'],
+    retoque:['{nome}, chegou o momento ideal de dar aquela revitalizada na sua tattoo com um retoque. 🖤 Assim ela continua impecável por muito mais tempo. Quer agendar?']
+  }
+};
+var REL_CAT_LB={emocao:'Emoção',autoestima:'Autoestima',cobranca:'Cobrança',retorno:'Retorno',reativacao:'Reativação',promocao:'Promoções',aniversario:'Aniversário',datas:'Datas comemorativas',continuacao:'Continuação de projeto',vip:'Clientes VIP',premium:'Clientes Premium',posproc:'Pós-procedimento',poscicatri:'Pós-cicatrização',retoque:'Retoques'};
+
+function relMsgKey(grupo,chave,idx){ return grupo+'.'+chave+'.'+idx; }
+function relMsgGet(grupo,chave,idx){
+  var ov=relObj('ct_msgbank',{}); var k=relMsgKey(grupo,chave,idx);
+  if(ov[k]!=null && String(ov[k]).trim()!=='')return ov[k];
+  try{ return BANCO_MSG[grupo][chave][idx]||''; }catch(e){ return ''; }
+}
+function relMsgSet(grupo,chave,idx,txt){ var ov=relObj('ct_msgbank',{}); ov[relMsgKey(grupo,chave,idx)]=txt; relSetObj('ct_msgbank',ov); }
+function relMsgReset(grupo,chave,idx){ var ov=relObj('ct_msgbank',{}); delete ov[relMsgKey(grupo,chave,idx)]; relSetObj('ct_msgbank',ov); }
+function relTpl(t,c,extra){
+  extra=extra||{}; var cf=relConf();
+  var map={'{nome}':relPrimeiro(c&&c.nome),'{estudio}':cf.nome||'nosso estúdio','{servico}':extra.servico||'sua tatuagem','{dias}':(extra.dias!=null?extra.dias:'')};
+  return String(t||'').replace(/\{nome\}|\{estudio\}|\{servico\}|\{dias\}/g,function(k){return map[k];});
+}
+
+/* ═══════════ ESTATÍSTICAS + SCORE DO CLIENTE (pontos 9, 10) ═══════════ */
+function relCliStats(c){
+  var nome=String(c.nome||'').trim().toLowerCase();
+  var ss=relG('ct_sessoes').filter(function(s){return String(s.cli||'').trim().toLowerCase()===nome;});
+  var conc=ss.filter(function(s){return s.stat==='Concluído';});
+  var gasto=conc.reduce(function(a,s){return a+relR(s.val);},0);
+  var ult=null,ultEst='';
+  conc.forEach(function(s){ if(s.data && (!ult || s.data>ult)){ult=s.data;ultEst=s.est||'';} });
+  var pjs=relG('ct_projetos').filter(function(p){return String(p.cli||'').trim().toLowerCase()===nome;});
+  // saldo devedor (cobrança)
+  var saldo=0;
+  try{
+    if(pjs.length && typeof pjCalc==='function'){ saldo=pjs.filter(function(p){return p.st!=='📁 Arquivado';}).reduce(function(a,p){return a+relR(pjCalc(p).saldo);},0); }
+    else{ var pagoA=relG('ct_financeiro').filter(function(f){return f.auto==='sessao'&&f.cliId===c.id;}).reduce(function(a,f){return a+relR(f.val);},0); saldo=Math.max(0,relR(c.valor)-relR(c.sinal)-pagoA); }
+  }catch(e){ saldo=Math.max(0,relR(c.valor)-relR(c.sinal)); }
+  var indic=relG('ct_clientes').filter(function(x){return String(x.ind||'').trim().toLowerCase()===nome && nome!=='';}).length;
+  var dias=ult?relDias(ult):relDias(c.criadoEm);
+  return {sessoes:conc.length, gasto:gasto, ticket:conc.length?gasto/conc.length:0, ultData:ult, ultEst:ultEst, servico:relServ(ultEst||c.est), dias:dias, indicacoes:indic, saldo:saldo};
+}
+function relScore(st){
+  var pts=0;
+  if(st.sessoes>=5)pts+=3; else if(st.sessoes>=3)pts+=2; else if(st.sessoes>=1)pts+=1;
+  if(st.gasto>=3000)pts+=3; else if(st.gasto>=1500)pts+=2; else if(st.gasto>=500)pts+=1;
+  if(st.indicacoes>=2)pts+=2; else if(st.indicacoes>=1)pts+=1;
+  if(st.dias!=null){ if(st.dias<=90)pts+=1; else if(st.dias>365)pts-=1; }
+  var stars=pts>=8?5:pts>=6?4:pts>=4?3:pts>=2?2:1;
+  if(st.sessoes===0)stars=1;
+  var lb={5:'VIP',4:'Recorrente',3:'Médio',2:'Frio',1:'Inativo'};
+  return {stars:stars,label:lb[stars]};
+}
+function relStars(n){ var s=''; for(var i=1;i<=5;i++)s+=(i<=n?'⭐':'☆'); return s; }
+
+/* aniversário: dias até o próximo aniversário */
+function relDiasAniv(nasc){
+  if(!nasc)return null; var d=new Date(String(nasc).slice(0,10)+'T00:00:00'); if(isNaN(d))return null;
+  var now=new Date(); var t=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  var nx=new Date(now.getFullYear(),d.getMonth(),d.getDate());
+  if(nx<t)nx=new Date(now.getFullYear()+1,d.getMonth(),d.getDate());
+  return Math.round((nx-t)/86400000);
+}
+
+/* ═══════════ BASE + CATEGORIZAÇÃO AUTOMÁTICA (pontos 4, 5, 15) ═══════════ */
+function relBase(){
+  return relG('ct_clientes').map(function(c){ var st=relCliStats(c); return {c:c,st:st,sc:relScore(st),aniv:relDiasAniv(c.nasc)}; });
+}
+function relCategorias(base){
+  base=base||relBase();
+  var cats={retorno:[],reativacao:[],premium:[],cobranca:[],aniversario:[],frios:[]};
+  base.forEach(function(e){
+    var d=e.st.dias;
+    if(d!=null && d>=25 && d<180)cats.retorno.push(e);
+    if(d!=null && d>=180)cats.reativacao.push(e);
+    if(e.sc.stars>=4)cats.premium.push(e);
+    if(e.st.saldo>0)cats.cobranca.push(e);
+    if(e.aniv!=null && e.aniv<=7)cats.aniversario.push(e);
+    if(e.sc.stars<=2 && e.st.sessoes>=1 && d!=null && d>=90)cats.frios.push(e);
+  });
+  // ordena por relevância (score desc, depois dias desc)
+  Object.keys(cats).forEach(function(k){ cats[k].sort(function(a,b){ return (b.sc.stars-a.sc.stars)||((b.st.dias||0)-(a.st.dias||0)); }); });
+  return cats;
+}
+
+/* ═══════════ SUGESTÃO DE MENSAGEM POR CONTEXTO ═══════════ */
+function relSugestao(e,tab){
+  var c=e.c, st=e.st;
+  var extra={servico:REL_SERV_LB[st.servico]||'sua tatuagem',dias:st.dias};
+  var texto='', rot='';
+  if(tab==='cobranca'){ texto=relMsgGet('categoria','cobranca',0); rot='Cobrança gentil'; }
+  else if(tab==='aniversario'){ texto=relMsgGet('categoria','aniversario',0); rot='Aniversário'; }
+  else if(tab==='premium'){ texto=relMsgGet('categoria','vip',0); rot='VIP / Exclusividade'; }
+  else if(tab==='reativacao'){ texto=relMsgGet('categoria','reativacao',0); rot='Reativação'; }
+  else if(tab==='frios'){ texto=relMsgGet('categoria','retorno',0); rot='Retorno'; }
+  else{ // retorno → usa o gatilho de tempo mais próximo, senão serviço
+    var g=relGatilho(st.dias);
+    if(g){ texto=relMsgGet('tempo',g.chave,0); rot=g.d+' dias · '+g.obj; }
+    else { texto=relMsgGet('servico',st.servico,0); rot=REL_SERV_LB[st.servico]; }
+  }
+  return {texto:relTpl(texto,c,extra),rotulo:rot};
+}
+
+/* ═══════════ ENVIO + LOG NA TIMELINE (pontos 11, 18) ═══════════ */
+function relEnviar(cliId,texto,marca){
+  var c=relG('ct_clientes').find(function(x){return x.id===cliId;});
+  if(!c){ relToast('⚠️ Cliente não encontrado.'); return; }
+  var tel=relTel(c);
+  if(!tel){ relToast('⚠️ Cliente sem telefone cadastrado.'); return; }
+  var log=relG('ct_relmsg'); log.push({id:(typeof uid==='function'?uid():'m'+Date.now()),cliId:cliId,cli:c.nome||'',data:relHoje(),tipo:marca||'Relacionamento'}); relSet('ct_relmsg',log);
+  window.open('https://wa.me/'+tel+'?text='+encodeURIComponent(texto),'_blank');
+  relToast('📲 Mensagem aberta no WhatsApp e registrada na timeline.');
+  if(document.getElementById('p-relacionamento').classList.contains('on'))rRelac();
+}
+
+/* ═══════════ RENDER DO MÓDULO RELACIONAMENTO ═══════════ */
+var REL_TAB='retorno';
+var REL_TAB_DEF=[
+  {k:'retorno',lb:'🔁 Retorno',cor:'gold'},
+  {k:'reativacao',lb:'⚡ Reativação',cor:'blue'},
+  {k:'premium',lb:'💎 Premium/VIP',cor:'gold'},
+  {k:'cobranca',lb:'💰 Cobrança',cor:'red'},
+  {k:'aniversario',lb:'🎂 Aniversariantes',cor:'green'},
+  {k:'frios',lb:'❄️ Clientes Frios',cor:'gray'}
+];
+function relTab(k){ REL_TAB=k; rRelac(); }
+
+function rRelac(){
+  var base=relBase(), cats=relCategorias(base);
+  var totalAtivos=base.length;
+  var hojeRetorno=cats.retorno.filter(function(e){var g=relGatilho(e.st.dias);return g&&(g.d===30||g.d===7);}).length||cats.retorno.length;
+  var saldoTotal=cats.cobranca.reduce(function(a,e){return a+e.st.saldo;},0);
+  // KPIs (ponto 4 + 18)
+  var kpi=[
+    {n:cats.retorno.length,l:'🔁 Para Retorno',cls:'kpi-gold',c:'c-gold'},
+    {n:cats.reativacao.length,l:'⚡ Para Reativar',cls:'kpi-blue',c:'c-blue'},
+    {n:cats.premium.length,l:'💎 Premium/VIP',cls:'kpi-gold',c:'c-gold'},
+    {n:relRS(saldoTotal),l:'💰 A Receber ('+cats.cobranca.length+')',cls:cats.cobranca.length?'kpi-red':'kpi-gray',c:cats.cobranca.length?'c-red':''},
+    {n:cats.aniversario.length,l:'🎂 Aniversários (7d)',cls:'kpi-green',c:'c-green'},
+    {n:totalAtivos,l:'👥 Base de Clientes',cls:'kpi-gray',c:''}
+  ];
+  var elK=document.getElementById('relKpi'); if(elK)elK.innerHTML=kpi.map(function(k){return '<div class="kpi-card '+k.cls+'"><div class="kpi-num '+k.c+'">'+k.n+'</div><div class="kpi-label">'+k.l+'</div></div>';}).join('');
+  // Tabs
+  var elT=document.getElementById('relTabs');
+  if(elT)elT.innerHTML=REL_TAB_DEF.map(function(t){var on=REL_TAB===t.k;var ct=cats[t.k].length;return '<button onclick="relTab(\''+t.k+'\')" style="padding:7px 14px;border-radius:8px;font-size:12.5px;font-weight:600;cursor:pointer;border:1.5px solid '+(on?'var(--nav)':'var(--brd2)')+';background:'+(on?'var(--nav)':'transparent')+';color:'+(on?'var(--gold3)':'var(--tx2)')+'">'+t.lb+' <span style="opacity:.8">('+ct+')</span></button>';}).join('');
+  var elC=document.getElementById('relCt'); if(elC)elC.textContent=(cats[REL_TAB]||[]).length+' clientes';
+  // Lista da aba ativa
+  var lista=cats[REL_TAB]||[];
+  var elL=document.getElementById('relLista');
+  if(elL){
+    if(!lista.length){ elL.innerHTML='<p style="color:var(--tx3);font-size:13px;padding:16px 4px">✅ Nenhum cliente nesta categoria agora. O sistema atualiza sozinho conforme as sessões acontecem.</p>'; }
+    else{
+      elL.innerHTML='<div class="rel-grid">'+lista.map(function(e){
+        var c=e.c, st=e.st, sug=relSugestao(e,REL_TAB);
+        var infoDias=(st.dias!=null)?(st.dias+' dias sem visita'):'sem histórico de sessão';
+        if(REL_TAB==='aniversario')infoDias=(e.aniv===0?'🎉 Hoje!':'faz aniversário em '+e.aniv+' dia'+(e.aniv>1?'s':''));
+        var saldoTag=st.saldo>0?'<span class="rel-tag rel-tag-red">saldo '+relRS(st.saldo)+'</span>':'';
+        var texto=sug.texto.replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+        return '<div class="rel-card">'+
+          '<div class="rel-card-h"><strong>'+relEsc(c.nome||'—')+'</strong><span class="rel-score" title="'+e.sc.label+'">'+relStars(e.sc.stars)+'</span></div>'+
+          '<div class="rel-meta"><span class="rel-tag">'+e.sc.label+'</span> <span class="rel-tag">'+(REL_SERV_LB[st.servico]||'Tatuagem')+'</span> '+saldoTag+'</div>'+
+          '<div class="rel-line">📅 '+infoDias+(st.ultData?' · última: '+relDt(st.ultData):'')+'</div>'+
+          '<div class="rel-line">💰 '+relRS(st.gasto)+' gastos · '+st.sessoes+' sessão(ões)'+(st.indicacoes?' · '+st.indicacoes+' indicação(ões)':'')+'</div>'+
+          '<div class="rel-sug"><div class="rel-sug-rot">💬 '+sug.rotulo+'</div>'+relEsc(sug.texto)+'</div>'+
+          '<div class="rel-actions">'+
+            '<button class="btn btn-success btn-xs" onclick="relEnviar(\''+c.id+'\',\''+texto+'\',\''+sug.rotulo.replace(/'/g,"")+'\')">📲 Enviar</button>'+
+            '<button class="btn btn-ghost btn-xs" onclick="relVerFicha(\''+c.id+'\')">👤 Ficha</button>'+
+          '</div>'+
+        '</div>';
+      }).join('')+'</div>';
+    }
+  }
+  relCampBtns(base,cats);
+}
+function relVerFicha(id){ if(typeof verCliente==='function')verCliente(id); }
+
+/* ═══════════ CAMPANHAS INTERNAS 1 CLIQUE (ponto 16) ═══════════ */
+function relCampBtns(base,cats){
+  base=base||relBase(); cats=cats||relCategorias(base);
+  var btns=[
+    {k:'d180',lb:'⏳ Sem tatuar +180 dias'},
+    {k:'fineline',lb:'🤍 Fizeram Fine Line'},
+    {k:'coverup',lb:'🖤 Fizeram Cover-up'},
+    {k:'realismo',lb:'🎨 Fizeram Realismo'},
+    {k:'vip',lb:'💎 Clientes VIP'},
+    {k:'aniv',lb:'🎂 Aniversariantes do mês'},
+    {k:'gasto',lb:'💰 Gastaram acima de…'}
+  ];
+  var el=document.getElementById('relCampBtns');
+  if(el)el.innerHTML=btns.map(function(b){return '<button class="btn btn-ghost btn-sm" onclick="relCamp(\''+b.k+'\')" style="border:1.5px solid var(--brd2)">'+b.lb+'</button>';}).join('');
+}
+function relCamp(tipo){
+  var el=document.getElementById('relCampRes'); if(!el)return;
+  var base=relBase(), sel=[], titulo='', catMsg='retorno';
+  if(tipo==='d180'){ titulo='Clientes sem tatuar há mais de 180 dias'; catMsg='reativacao'; sel=base.filter(function(e){return e.st.dias!=null&&e.st.dias>=180;}); }
+  else if(tipo==='fineline'||tipo==='coverup'||tipo==='realismo'){ titulo='Clientes que fizeram '+REL_SERV_LB[tipo]; catMsg='continuacao'; sel=base.filter(function(e){return e.st.servico===tipo;}); }
+  else if(tipo==='vip'){ titulo='Clientes VIP'; catMsg='vip'; sel=base.filter(function(e){return e.sc.stars>=4;}); }
+  else if(tipo==='aniv'){ titulo='Aniversariantes deste mês'; catMsg='aniversario'; var m=(new Date()).getMonth(); sel=base.filter(function(e){var d=e.c.nasc?new Date(String(e.c.nasc).slice(0,10)+'T00:00:00'):null;return d&&!isNaN(d)&&d.getMonth()===m;}); }
+  else if(tipo==='gasto'){ var v=parseFloat(prompt('Enviar para clientes que gastaram ACIMA de quanto? (R$)','1500')||'0'); if(!v){el.innerHTML='';return;} titulo='Clientes que gastaram acima de '+relRS(v); catMsg='premium'; sel=base.filter(function(e){return e.st.gasto>=v;}); }
+  sel.sort(function(a,b){return b.st.gasto-a.st.gasto;});
+  var msgBase=relMsgGet('categoria',catMsg,0);
+  if(!sel.length){ el.innerHTML='<p style="color:var(--tx3);font-size:13px;padding:10px 4px">Nenhum cliente encontrado para este segmento.</p>'; return; }
+  el.innerHTML='<div class="rel-camp-box"><div class="rel-camp-head"><strong>📣 '+relEsc(titulo)+'</strong><span class="badge-count">'+sel.length+' clientes</span></div>'+
+    '<div class="rel-camp-msg">💬 Mensagem base: <em>'+relEsc(relTpl(msgBase,{nome:'{nome}'},{}))+'</em></div>'+
+    '<div class="rel-camp-list">'+sel.map(function(e){var c=e.c;var t=relTpl(msgBase,c,{servico:REL_SERV_LB[e.st.servico],dias:e.st.dias}).replace(/'/g,'&#39;');var tel=relTel(c);return '<div class="rel-camp-item"><span>'+relStars(e.sc.stars)+' <strong>'+relEsc(c.nome||'—')+'</strong> <span style="color:var(--tx3)">· '+relRS(e.st.gasto)+'</span></span>'+(tel?'<button class="btn btn-success btn-xs" onclick="relEnviar(\''+c.id+'\',\''+t+'\',\'Campanha: '+catMsg+'\')">📲 Enviar</button>':'<span class="rel-tag rel-tag-red">sem telefone</span>')+'</div>';}).join('')+'</div>'+
+    '<div style="padding:10px 2px 2px;font-size:12px;color:var(--tx3)">💡 Clique em cada 📲 para disparar no WhatsApp (o navegador abre uma aba por vez). Cada envio já fica registrado na timeline do cliente.</div>'+
+  '</div>';
+}
+
+/* ═══════════ BANCO DE MENSAGENS — EDITOR (ponto 17) ═══════════ */
+function relBancoOpen(){
+  var m=document.getElementById('mRelBanco');
+  if(!m){
+    m=document.createElement('div'); m.className='modal-wrap'; m.id='mRelBanco';
+    m.innerHTML='<div class="modal" style="max-width:760px">'+
+      '<div class="modal-head"><h3>💬 Banco de Mensagens</h3><button class="modal-close" onclick="closeM(\'mRelBanco\')">✕</button></div>'+
+      '<div class="modal-body"><div class="tut" style="margin-bottom:12px">💡 Todas as mensagens são <strong>editáveis</strong>. Use <code>{nome}</code>, <code>{estudio}</code>, <code>{servico}</code> e <code>{dias}</code> — o sistema troca automaticamente. As mensagens trabalham gatilhos mentais (emoção, autoestima, exclusividade, escassez, autoridade, prova social, continuidade e realização).</div>'+
+      '<div id="relBancoBody"></div></div>'+
+      '<div class="modal-foot"><button class="btn btn-ghost btn-sm" onclick="closeM(\'mRelBanco\')">Fechar</button></div>'+
+    '</div>';
+    document.body.appendChild(m);
+  }
+  relBancoRender();
+  if(typeof openM==='function')openM('mRelBanco'); else m.classList.add('on');
+}
+function relBancoRender(){
+  var body=document.getElementById('relBancoBody'); if(!body)return;
+  var html='';
+  // por tempo
+  html+='<div class="rel-bsec"><h4>⏱️ Por Tempo (pós-sessão)</h4>';
+  REL_TRIG.forEach(function(g){ html+=relBancoItem('tempo',g.chave,0,g.d+' dias — '+g.obj); });
+  html+='</div>';
+  // por serviço
+  html+='<div class="rel-bsec"><h4>🎨 Por Tipo de Serviço</h4>';
+  Object.keys(BANCO_MSG.servico).forEach(function(k){ html+=relBancoItem('servico',k,0,REL_SERV_LB[k]||k); });
+  html+='</div>';
+  // por categoria
+  html+='<div class="rel-bsec"><h4>🗂️ Por Categoria</h4>';
+  Object.keys(BANCO_MSG.categoria).forEach(function(k){ html+=relBancoItem('categoria',k,0,REL_CAT_LB[k]||k); });
+  html+='</div>';
+  body.innerHTML=html;
+}
+function relBancoItem(grupo,chave,idx,rot){
+  var val=relMsgGet(grupo,chave,idx);
+  var id='mb_'+grupo+'_'+chave+'_'+idx;
+  var edited=(function(){var ov=relObj('ct_msgbank',{});return ov[relMsgKey(grupo,chave,idx)]!=null;})();
+  return '<div class="rel-bitem"><label>'+relEsc(rot)+(edited?' <span class="rel-tag" style="background:var(--goldb);color:var(--gold)">editada</span>':'')+'</label>'+
+    '<textarea class="fi" id="'+id+'" rows="3" style="font-size:13px">'+relEsc(val)+'</textarea>'+
+    '<div style="display:flex;gap:6px;margin-top:5px">'+
+      '<button class="btn btn-primary btn-xs" onclick="relBancoSave(\''+grupo+'\',\''+chave+'\','+idx+',\''+id+'\')">💾 Salvar</button>'+
+      '<button class="btn btn-ghost btn-xs" onclick="relBancoResetItem(\''+grupo+'\',\''+chave+'\','+idx+')">↺ Restaurar padrão</button>'+
+      '<button class="btn btn-ghost btn-xs" onclick="relBancoCopy(\''+id+'\')">📋 Copiar</button>'+
+    '</div></div>';
+}
+function relBancoSave(grupo,chave,idx,elid){ var el=document.getElementById(elid); if(!el)return; relMsgSet(grupo,chave,idx,el.value); relToast('💾 Mensagem salva!'); relBancoRender(); }
+function relBancoResetItem(grupo,chave,idx){ relMsgReset(grupo,chave,idx); relToast('↺ Mensagem restaurada.'); relBancoRender(); }
+function relBancoCopy(elid){ var el=document.getElementById(elid); if(!el)return; try{ navigator.clipboard.writeText(el.value); relToast('📋 Copiado!'); }catch(e){ el.select(); document.execCommand&&document.execCommand('copy'); relToast('📋 Copiado!'); } }
+
+/* ═══════════════════════════════════════════════════════════════════
+   UPGRADES NOS MÓDULOS EXISTENTES (sobrescreve sem tocar no código antigo)
+═══════════════════════════════════════════════════════════════════ */
+
+/* ---------- PIPELINE DE LEADS turbinado (pontos 1, 2, 3) ---------- */
+window.rLd=function(){
+  var db=relG('ct_leads'); var _chg=false;
+  var STG=(typeof LD_STAGES!=='undefined')?LD_STAGES:['contato','orcamento','negociacao','agendado','fechado','perdido'];
+  db.forEach(function(l){ if(STG.indexOf(l.et)<0){l.et='contato';_chg=true;} });
+  if(_chg)relSet('ct_leads',db);
+  var atv=db.filter(function(l){return l.et!=='fechado'&&l.et!=='perdido';});
+  var pipe=atv.reduce(function(a,l){return a+relR(l.val);},0);
+  var med=atv.length?pipe/atv.length:0;
+  var hj=relHoje();
+  var precisa=atv.filter(function(l){return (l.prox&&l.prox<=hj)||l.et==='contato';}).length;
+  var parados=atv.filter(function(l){return l.et==='orcamento'&&(l.criadoEm?relDias(l.criadoEm)>=5:true);}).length;
+  var agconf=atv.filter(function(l){return l.et==='agendado';}).length;
+  // KPIs — Central de Oportunidades
+  var kpi=[
+    {n:atv.length,l:'Leads Ativos',cls:'kpi-blue',c:'c-blue'},
+    {n:relRS(pipe),l:'Pipeline (R$)',cls:'kpi-gold',c:'c-gold'},
+    {n:relRS(med),l:'Valor Médio',cls:'kpi-gold',c:'c-gold'},
+    {n:precisa,l:'⏰ Precisam resposta',cls:precisa?'kpi-red':'kpi-gray',c:precisa?'c-red':''},
+    {n:parados,l:'📋 Orçamentos parados',cls:parados?'kpi-red':'kpi-gray',c:parados?'c-red':''},
+    {n:agconf,l:'📅 Aguardando confirmação',cls:'kpi-green',c:'c-green'}
+  ];
+  var elK=document.getElementById('ldKpi'); if(elK)elK.innerHTML=kpi.map(function(k){return '<div class="kpi-card '+k.cls+'"><div class="kpi-num '+k.c+'">'+k.n+'</div><div class="kpi-label">'+k.l+'</div></div>';}).join('');
+  // barra de valor por etapa (ponto 3)
+  var cols=[{k:'contato',lb:'📩 Contato'},{k:'orcamento',lb:'📋 Orçamento'},{k:'negociacao',lb:'🤝 Negociação'},{k:'agendado',lb:'📅 Agendado'},{k:'fechado',lb:'✅ Fechado'},{k:'perdido',lb:'❌ Perdido'}];
+  var maxV=Math.max.apply(null,cols.map(function(col){return db.filter(function(l){return l.et===col.k;}).reduce(function(a,l){return a+relR(l.val);},0);}).concat([1]));
+  var kb=document.getElementById('ldKanban');
+  var stats='<div class="rel-stage-stats">'+cols.filter(function(c){return c.k!=='perdido';}).map(function(col){var v=db.filter(function(l){return l.et===col.k;}).reduce(function(a,l){return a+relR(l.val);},0);var pct=Math.round(v/maxV*100);return '<div class="rel-stage"><div class="rel-stage-lb">'+col.lb+'</div><div class="rel-stage-bar"><div class="rel-stage-fill" style="width:'+pct+'%"></div></div><div class="rel-stage-val">'+relRS(v)+'</div></div>';}).join('')+'</div>';
+  // cards ricos (ponto 2)
+  var kanban=cols.map(function(col){
+    var its=db.filter(function(l){return l.et===col.k;});
+    return '<div class="kb-col"><div class="kb-head"><span class="kb-title">'+col.lb+'</span><span class="kb-ct">'+its.length+'</span></div>'+its.map(function(l){
+      var nome=(typeof ctLiveNome==='function'?ctLiveNome(l):null)||l.nome||'—';
+      var tel=(typeof ctLiveTel==='function'?ctLiveTel(l):null)||l.tel||'';
+      var temp=l.temp==='quente'?'🔥 Quente':l.temp==='morno'?'⚡ Morno':'❄️ Frio';
+      var tempoP=l.criadoEm?relDias(l.criadoEm):null;
+      var ultC=l.ultContato?relDias(l.ultContato):null;
+      return '<div class="kb-card" onclick="editLd(\''+l.id+'\')">'+
+        '<h4>'+relEsc(nome)+'</h4>'+
+        '<p class="kb-meta">'+temp+(l.est?' · '+relEsc(l.est):'')+'</p>'+
+        (l.val?'<p class="kb-meta" style="color:var(--grn);font-weight:600">'+relRS(l.val)+'</p>':'')+
+        '<div class="rel-lead-info">'+
+          (l.ori?'<span>📍 '+relEsc(l.ori)+'</span>':'')+
+          (ultC!=null?'<span>💬 últ. contato '+(ultC===0?'hoje':ultC+'d')+'</span>':'')+
+          (tempoP!=null?'<span>⏱️ '+tempoP+'d no funil</span>':'')+
+          (l.prox?'<span>📅 prevista '+relDt(l.prox)+'</span>':'')+
+          (l.passo?'<span>➡️ '+relEsc(l.passo).slice(0,40)+'</span>':'')+
+        '</div>'+
+        '<p class="kb-meta" style="display:flex;gap:5px;align-items:center;margin-top:6px">'+
+          '<a class="btn btn-success btn-xs" href="https://wa.me/55'+tel.replace(/\D/g,'')+'" target="_blank" onclick="event.stopPropagation()">📲</a>'+
+          '<button class="btn btn-ghost btn-xs" onclick="event.stopPropagation();converterLeadCliente(\''+l.id+'\')" title="Converter em cliente do CRM" style="margin-left:auto">👤➕</button>'+
+          '<button class="btn btn-danger btn-xs" onclick="event.stopPropagation();delLd(\''+l.id+'\')">🗑</button>'+
+        '</p>'+
+      '</div>';
+    }).join('')+'</div>';
+  }).join('');
+  if(kb)kb.innerHTML=stats+'<div class="kanban" style="margin:0;padding:0;display:flex;gap:14px;overflow-x:auto">'+kanban+'</div>';
+};
+
+/* ---------- DASHBOARD: Inteligência do Mês (ponto 12) ---------- */
+var _relOrigDash=window.renderDash;
+window.renderDash=function(){
+  try{ if(_relOrigDash)_relOrigDash.apply(this,arguments); }catch(e){}
+  try{ relDashIntel(); }catch(e){}
+};
+function relDashIntel(){
+  var pan=document.getElementById('p-dashboard'); if(!pan)return;
+  var box=document.getElementById('relDashIntel');
+  if(!box){ box=document.createElement('div'); box.id='relDashIntel'; box.className='card'; pan.appendChild(box); }
+  var sess=relG('ct_sessoes'), cli=relG('ct_clientes'), leads=relG('ct_leads'), fin=relG('ct_financeiro');
+  var m=relMes(), ano=m.slice(0,4);
+  var concM=sess.filter(function(s){return s.stat==='Concluído'&&s.data&&s.data.slice(0,7)===m;});
+  var concA=sess.filter(function(s){return s.stat==='Concluído'&&s.data&&s.data.slice(0,4)===ano;});
+  var fatM=concM.reduce(function(a,s){return a+relR(s.val);},0);
+  var fatA=concA.reduce(function(a,s){return a+relR(s.val);},0);
+  var tg=relObj('ct_tg',{fat:'8000'}); var meta=relR(String(tg.fat||'0').replace(/[^\d.,]/g,'').replace(',','.'));
+  var falta=Math.max(0,meta-fatM);
+  // maior cliente
+  var gastoPor={}; sess.filter(function(s){return s.stat==='Concluído';}).forEach(function(s){var n=(s.cli||'—');gastoPor[n]=(gastoPor[n]||0)+relR(s.val);});
+  var maior=Object.keys(gastoPor).sort(function(a,b){return gastoPor[b]-gastoPor[a];})[0];
+  // serviço mais vendido (ano)
+  var servCt={}; concA.forEach(function(s){var e=s.est||'—';servCt[e]=(servCt[e]||0)+1;});
+  var topServ=Object.keys(servCt).sort(function(a,b){return servCt[b]-servCt[a];})[0];
+  // origem dos clientes
+  var oriCt={}; cli.forEach(function(c){if(c.ori){oriCt[c.ori]=(oriCt[c.ori]||0)+1;}});
+  var topOri=Object.keys(oriCt).sort(function(a,b){return oriCt[b]-oriCt[a];})[0];
+  // conversão pipeline
+  var fech=leads.filter(function(l){return l.et==='fechado';}).length, perd=leads.filter(function(l){return l.et==='perdido';}).length;
+  var conv=(fech+perd)?Math.round(fech/(fech+perd)*100):0;
+  // novos vs recorrentes
+  var novosM=cli.filter(function(c){return c.criadoEm&&c.criadoEm.slice(0,7)===m;}).length;
+  var recorr=cli.filter(function(c){var n=(c.nome||'').trim().toLowerCase();return sess.filter(function(s){return (s.cli||'').trim().toLowerCase()===n&&s.stat==='Concluído';}).length>1;}).length;
+  var it=[
+    {ic:'🎯',lb:'Meta do mês',v:relRS(meta),s:falta>0?('faltam '+relRS(falta)):'✅ meta batida!'},
+    {ic:'💰',lb:'Faturamento mês',v:relRS(fatM),s:'ano: '+relRS(fatA)},
+    {ic:'👑',lb:'Maior cliente',v:maior||'—',s:maior?relRS(gastoPor[maior]):''},
+    {ic:'🔥',lb:'Serviço mais vendido',v:topServ||'—',s:topServ?servCt[topServ]+' sessões no ano':''},
+    {ic:'📍',lb:'Principal origem',v:topOri||'—',s:topOri?oriCt[topOri]+' clientes':''},
+    {ic:'📈',lb:'Conversão do funil',v:conv+'%',s:fech+' fechados / '+perd+' perdidos'},
+    {ic:'✨',lb:'Novos clientes (mês)',v:novosM,s:recorr+' recorrentes na base'}
+  ];
+  box.innerHTML='<div class="card-h"><h3>🧠 Inteligência do Mês</h3></div><div class="rel-intel-grid">'+it.map(function(i){return '<div class="rel-intel"><div class="rel-intel-ic">'+i.ic+'</div><div><div class="rel-intel-lb">'+i.lb+'</div><div class="rel-intel-v">'+relEsc(i.v)+'</div>'+(i.s?'<div class="rel-intel-s">'+relEsc(i.s)+'</div>':'')+'</div></div>';}).join('')+'</div>';
+}
+
+/* ---------- FINANCEIRO: Lucratividade (ponto 13) ---------- */
+var _relOrigFin=window.rFin;
+window.rFin=function(){
+  try{ if(_relOrigFin)_relOrigFin.apply(this,arguments); }catch(e){}
+  try{ relFinProfit(); }catch(e){}
+};
+function relFinProfit(){
+  var pan=document.getElementById('p-financeiro'); if(!pan)return;
+  var box=document.getElementById('relFinProfit');
+  if(!box){ box=document.createElement('div'); box.id='relFinProfit'; box.className='card'; pan.appendChild(box); }
+  var sess=relG('ct_sessoes').filter(function(s){return s.stat==='Concluído';});
+  function lucro(s){ return relR(s.val)-relR(s.matCusto||0); }
+  var totFat=sess.reduce(function(a,s){return a+relR(s.val);},0);
+  var totLuc=sess.reduce(function(a,s){return a+lucro(s);},0);
+  var totH=sess.reduce(function(a,s){return a+relR(s.dur);},0);
+  // por cliente
+  var porCli={}; sess.forEach(function(s){var n=s.cli||'—';porCli[n]=(porCli[n]||0)+lucro(s);});
+  var topCli=Object.keys(porCli).sort(function(a,b){return porCli[b]-porCli[a];}).slice(0,5);
+  // por procedimento
+  var porProc={}; sess.forEach(function(s){var e=s.est||'—';porProc[e]=(porProc[e]||0)+lucro(s);});
+  var topProc=Object.keys(porProc).sort(function(a,b){return porProc[b]-porProc[a];}).slice(0,5);
+  // dias da semana
+  var wd=['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado']; var porDia={};
+  sess.forEach(function(s){if(!s.data)return;var d=new Date(s.data+'T00:00:00');if(isNaN(d))return;var k=wd[d.getDay()];porDia[k]=(porDia[k]||0)+lucro(s);});
+  var topDia=Object.keys(porDia).sort(function(a,b){return porDia[b]-porDia[a];})[0];
+  // meses
+  var porMes={}; sess.forEach(function(s){if(!s.data)return;var k=s.data.slice(0,7);porMes[k]=(porMes[k]||0)+lucro(s);});
+  var topMes=Object.keys(porMes).sort(function(a,b){return porMes[b]-porMes[a];})[0];
+  var ticket=sess.length?totFat/sess.length:0;
+  var lucroHora=totH?totLuc/totH:0;
+  function linha(obj,keys){ return keys.map(function(k){return '<div class="rel-prof-row"><span>'+relEsc(k)+'</span><strong>'+relRS(obj[k])+'</strong></div>';}).join(''); }
+  box.innerHTML='<div class="card-h"><h3>💎 Lucratividade</h3></div>'+
+    '<div class="rel-prof-grid">'+
+      '<div class="rel-prof-kpi"><div class="l">Lucro total</div><div class="v" style="color:var(--grn)">'+relRS(totLuc)+'</div></div>'+
+      '<div class="rel-prof-kpi"><div class="l">Lucro por hora</div><div class="v">'+relRS(lucroHora)+'</div></div>'+
+      '<div class="rel-prof-kpi"><div class="l">Lucro por sessão</div><div class="v">'+relRS(sess.length?totLuc/sess.length:0)+'</div></div>'+
+      '<div class="rel-prof-kpi"><div class="l">Ticket médio</div><div class="v">'+relRS(ticket)+'</div></div>'+
+      '<div class="rel-prof-kpi"><div class="l">Dia mais lucrativo</div><div class="v" style="font-size:16px">'+(topDia||'—')+'</div></div>'+
+      '<div class="rel-prof-kpi"><div class="l">Mês mais lucrativo</div><div class="v" style="font-size:16px">'+(topMes?relEsc(topMes):'—')+'</div></div>'+
+    '</div>'+
+    '<div class="rel-prof-cols">'+
+      '<div><div class="rel-prof-t">🏆 Lucro por cliente (top 5)</div>'+(topCli.length?linha(porCli,topCli):'<div class="rel-prof-row"><span>Sem dados</span></div>')+'</div>'+
+      '<div><div class="rel-prof-t">🎨 Lucro por procedimento</div>'+(topProc.length?linha(porProc,topProc):'<div class="rel-prof-row"><span>Sem dados</span></div>')+'</div>'+
+    '</div>';
+}
+
+/* ---------- AGENDA: Preparação da Sessão (ponto 14) ---------- */
+var _relOrigVerSessao=window.verSessao;
+window.verSessao=function(id){
+  try{ if(_relOrigVerSessao)_relOrigVerSessao.apply(this,arguments); }catch(e){}
+  try{
+    var s=relG('ct_sessoes').find(function(x){return x.id===id;}); if(!s)return;
+    var nome=(s.cli||'').trim().toLowerCase();
+    var contratos=relG('ct_contratos').filter(function(x){return (x.cli||'').trim().toLowerCase()===nome;});
+    var contratoAssinado=contratos.some(function(x){return /assin|assinado|✅/i.test(String(x.st||''));});
+    var matSep=Array.isArray(s.mat)&&s.mat.length>0;
+    var sinalOk=relR(s.sin)>0;
+    var confirm=s.stat==='Confirmado'||s.stat==='Concluído';
+    function chk(ok,txt){ return '<div class="rel-prep-i '+(ok?'ok':'no')+'">'+(ok?'✅':'⬜')+' '+txt+'</div>'; }
+    var bloco='<div id="relPrepBlock" style="margin-top:14px"><strong>🎯 Preparação da Sessão</strong>'+
+      '<div class="rel-prep">'+
+        chk(sinalOk,'Sinal pago ('+relRS(s.sin)+')')+
+        chk(matSep,'Material separado'+(matSep?' ('+s.mat.length+' itens)':''))+
+        chk(contratoAssinado,'Contrato assinado')+
+        chk(confirm,'Sessão confirmada')+
+      '</div>'+
+      '<div style="font-size:11.5px;color:var(--tx3);margin-top:6px">Saldo restante: '+relRS(s.sal)+' · Tempo estimado: '+(s.dur||'—')+'h</div>'+
+    '</div>';
+    var body=document.getElementById('mVSB');
+    if(body && !document.getElementById('relPrepBlock')){ body.insertAdjacentHTML('beforeend',bloco); }
+  }catch(e){}
+};
+
+/* ---------- TIMELINE 360°: inclui mensagens enviadas (ponto 11) ---------- */
+var _relOrigTl=window.tlEventos;
+window.tlEventos=function(c,pub){
+  var ev=[]; try{ ev=_relOrigTl?_relOrigTl(c,pub):[]; }catch(e){ ev=[]; }
+  try{
+    relG('ct_relmsg').filter(function(m){return m.cliId===c.id||(String(m.cli||'').trim().toLowerCase()===String(c.nome||'').trim().toLowerCase());}).forEach(function(m){
+      if(m.data)ev.push({d:m.data,ic:'💛',t:'Mensagem de relacionamento',s:m.tipo||''});
+    });
+    ev.sort(function(a,b){return b.d>a.d?1:b.d<a.d?-1:0;});
+  }catch(e){}
+  return ev;
+};
+
+/* ---------- resumo inteligente + badge no menu (pontos 4, 18) ---------- */
+function relBootResumo(){
+  try{
+    var cats=relCategorias();
+    var atencao=cats.cobranca.length+cats.aniversario.length+cats.retorno.filter(function(e){var g=relGatilho(e.st.dias);return g&&g.d<=30;}).length;
+    var nav=document.getElementById('si-relacionamento');
+    if(nav){
+      var b=nav.querySelector('.rel-navbadge');
+      if(atencao>0){
+        if(!b){ b=document.createElement('span'); b.className='rel-navbadge'; nav.appendChild(b); }
+        b.textContent=atencao;
+      } else if(b){ b.remove(); }
+    }
+  }catch(e){}
+}
+
+/* dispara o resumo ao carregar e periodicamente */
+if(document.readyState==='complete'||document.readyState==='interactive'){ setTimeout(relBootResumo,1500); }
+else { window.addEventListener('load',function(){ setTimeout(relBootResumo,1500); }); }
+setInterval(relBootResumo,120000);
+
+</script>
+<style>
+/* ═══ CENTRAL DE HOJE + AUTOMAÇÕES ═══ */
+/* Central Tattoo — Central de Hoje + Automações (usa as vars existentes) */
+/* ---- Central de Hoje ---- */
+.hoje-hero{display:flex;justify-content:space-between;align-items:center;gap:16px;background:linear-gradient(135deg,var(--nav),var(--nav2,var(--nav)));border:1px solid var(--goldbrd);border-radius:14px;padding:20px 22px;margin-bottom:18px;box-shadow:var(--sh2)}
+.hoje-ola{font-family:'Cinzel',serif;font-size:22px;font-weight:700;color:var(--gold3)}
+.hoje-data{font-size:13px;color:var(--gold);opacity:.85;text-transform:capitalize;margin-top:3px}
+.hoje-contador{text-align:center;flex-shrink:0}
+.hoje-num{font-size:38px;font-weight:800;color:var(--gold3);line-height:1}
+.hoje-num-lb{font-size:11px;color:var(--gold);opacity:.85;text-transform:uppercase;letter-spacing:.5px}
+.hoje-zero{text-align:center;font-size:15px;color:var(--tx2);line-height:1.7;background:var(--grnb);border:1px solid var(--grn);border-radius:12px;padding:28px 20px}
+.hoje-bloco{margin-bottom:16px}
+.hoje-bt{font-size:14px;color:var(--txt);padding:6px 0 10px 12px;border-left:3px solid var(--gold);display:flex;align-items:center;gap:8px}
+.hoje-ct{font-size:11px;font-weight:700;background:var(--nav);color:var(--gold3);border-radius:20px;padding:2px 9px}
+.hoje-item{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--white);border:1px solid var(--brd);border-radius:10px;padding:10px 13px;margin-bottom:6px;box-shadow:var(--sh)}
+.hoje-item-i{display:flex;flex-direction:column;gap:1px;min-width:0}
+.hoje-item-i strong{font-size:13.5px;color:var(--txt)}
+.hoje-item-i span{font-size:12px;color:var(--tx3)}
+.hoje-item-a{display:flex;gap:5px;flex-shrink:0;align-items:center}
+/* ---- Automações ---- */
+.auto-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;font-size:13.5px;color:var(--tx2)}
+.auto-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:18px}
+.auto-card{border:1px solid var(--brd);border-radius:12px;background:var(--white);padding:14px;box-shadow:var(--sh);opacity:.62;transition:opacity .2s}
+.auto-card.on{opacity:1;border-color:var(--goldbrd)}
+.auto-card-h{display:flex;align-items:center;gap:9px}
+.auto-card-h strong{font-size:13.5px;color:var(--txt);flex:1}
+.auto-ic{font-size:19px}
+.auto-desc{font-size:12px;color:var(--tx3);line-height:1.5;margin-top:8px}
+.auto-params{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.auto-param{flex:1;min-width:120px}
+.auto-param label{display:block;font-size:11px;color:var(--tx3);margin-bottom:3px}
+.auto-param input{font-size:13px;padding:6px 9px}
+/* switch */
+.auto-switch{position:relative;display:inline-block;width:40px;height:22px;flex-shrink:0}
+.auto-switch input{opacity:0;width:0;height:0}
+.auto-slider{position:absolute;inset:0;cursor:pointer;background:var(--brd2);border-radius:22px;transition:.25s}
+.auto-slider:before{content:'';position:absolute;height:16px;width:16px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.25s}
+.auto-switch input:checked+.auto-slider{background:var(--gold)}
+.auto-switch input:checked+.auto-slider:before{transform:translateX(18px)}
+.auto-fase2{border:1px solid var(--goldbrd);background:var(--goldb)}
+.auto-log{display:flex;flex-direction:column;gap:0;max-height:320px;overflow-y:auto}
+.auto-log-i{font-size:12.5px;color:var(--tx2);padding:8px 2px;border-bottom:1px solid var(--brd);line-height:1.4}
+.auto-log-t{display:inline-block;font-size:11px;color:var(--tx3);margin-right:8px;font-variant-numeric:tabular-nums}
+/* selo cliente ouro */
+.cli-selo{font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px}
+.cli-selo.ouro{background:var(--goldb);color:var(--gold);border:1px solid var(--goldbrd)}
+.cli-selo.diamante{background:#e8f0fb;color:#2563a8;border:1px solid #bcd4f0}
+
+</style>
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   CENTRAL TATTOO — CENTRAL DE HOJE + MOTOR DE REGRAS  (aditivo v16)
+   Fase 1 completa. Reaproveita o motor de Relacionamento (rel_*).
+   Client-side, roda ao abrir o app. Só ESCREVE: tag Ouro (reversível),
+   marcações de acompanhamento feito, e o log. Todo o resto é calculado
+   ao vivo dos dados existentes — base única, sem duplicação.
+═══════════════════════════════════════════════════════════════════ */
+
+/* ---------- config do motor ---------- */
+var MOTOR_DEFAULT={
+  retorno:{on:true},
+  ouro:{on:true, valor:5000, valorDiamante:10000},
+  indicou:{on:true, qtd:3},
+  faltou:{on:true},
+  saldo:{on:true, dias:7},
+  acomp:{on:true, marcos:[7,30,90,180]},
+  aniversario:{on:true},
+  confirmacao:{on:true},
+  leads:{on:true}
+};
+function motorCfg(){ var c=relObj('ct_regras',{}); var out={}; Object.keys(MOTOR_DEFAULT).forEach(function(k){ out[k]=Object.assign({},MOTOR_DEFAULT[k],c[k]||{}); }); return out; }
+function motorSetCfg(c){ relSetObj('ct_regras',c); }
+function motorToggle(k){ var c=motorCfg(); c[k].on=!c[k].on; motorSetCfg(c); motorRodar(true); rAuto(); relBootResumo(); }
+function motorSetParam(k,p,v){ var c=motorCfg(); c[k][p]=v; motorSetCfg(c); motorRodar(true); rAuto(); }
+
+/* ---------- log ---------- */
+function motorLog(txt){ var l=relG('ct_regras_log'); l.unshift({id:(typeof uid==='function'?uid():'l'+Date.now()),ts:new Date().toISOString(),txt:txt}); if(l.length>120)l=l.slice(0,120); relSet('ct_regras_log',l); }
+function motorLogHoje(){ var l=relG('ct_regras_log'); var h=relHoje(); return l.filter(function(x){return (x.ts||'').slice(0,10)===h;}); }
+
+/* ---------- acompanhamentos concluídos (só marcação, sem gerar tabela) ---------- */
+function acompKey(sessId,marco){ return sessId+':'+marco; }
+function acompFeitos(){ return relObj('ct_acomp_feito',{}); }
+function acompMarcar(sessId,marco){ var f=acompFeitos(); f[acompKey(sessId,marco)]=relHoje(); relSetObj('ct_acomp_feito',f); }
+
+/* ═══════════ MOTOR — executa as regras ═══════════ */
+function motorRodar(silent){
+  var cfg=motorCfg();
+  var res={ouroNovos:0,diamanteNovos:0};
+  // Regra OURO / DIAMANTE (única que grava tag no cliente — reversível)
+  if(cfg.ouro.on){
+    var cli=relG('ct_clientes'), mudou=false;
+    cli.forEach(function(c){
+      var st=relCliStats(c);
+      var novo='';
+      if(st.gasto>=relR(cfg.ouro.valorDiamante))novo='diamante';
+      else if(st.gasto>=relR(cfg.ouro.valor))novo='ouro';
+      if((c.tag||'')!==novo){
+        if(novo==='ouro'){res.ouroNovos++; motorLog('⭐ '+ (c.nome||'Cliente') +' virou Cliente Ouro (R$ '+st.gasto.toFixed(0)+' gastos).');}
+        if(novo==='diamante'){res.diamanteNovos++; motorLog('💎 '+ (c.nome||'Cliente') +' virou Cliente Diamante (R$ '+st.gasto.toFixed(0)+' gastos).');}
+        c.tag=novo; c.tagEm=novo?relHoje():''; mudou=true;
+      }
+    });
+    if(mudou)relSet('ct_clientes',cli);
+  } else {
+    // regra desligada: limpa tags para não confundir
+    var cli2=relG('ct_clientes'), m2=false;
+    cli2.forEach(function(c){ if(c.tag){c.tag='';m2=true;} });
+    if(m2)relSet('ct_clientes',cli2);
+  }
+  // registra 1 execução por dia no log (resumo)
+  var jaHoje=relG('ct_regras_log').some(function(x){return (x.ts||'').slice(0,10)===relHoje() && /Motor executado/.test(x.txt);});
+  if(!jaHoje){ var d=motorPendencias(); motorLog('▶️ Motor executado — '+d.total+' pendência(s) para hoje.'); }
+  return res;
+}
+
+/* ═══════════ PENDÊNCIAS DO DIA (calculado ao vivo) ═══════════ */
+function motorPendencias(){
+  var cfg=motorCfg(), base=relBase(), cats=relCategorias(base);
+  var hj=relHoje();
+  var out={aniversario:[],retorno:[],acomp:[],cobranca:[],confirmacao:[],leads:[],ouro:[],total:0};
+  // aniversariantes (hoje + próximos 3 dias)
+  if(cfg.aniversario.on) out.aniversario=base.filter(function(e){return e.aniv!=null && e.aniv<=3;}).sort(function(a,b){return a.aniv-b.aniv;});
+  // retorno no ponto (gatilho 30/60/90)
+  if(cfg.retorno.on) out.retorno=cats.retorno.filter(function(e){var g=relGatilho(e.st.dias);return g&&g.d>=30&&g.d<=90;});
+  // cobranças (saldo há X dias)
+  if(cfg.saldo.on){
+    var dcob=relR(cfg.saldo.dias);
+    out.cobranca=cats.cobranca.filter(function(e){return e.st.dias==null||e.st.dias>=dcob;});
+  }
+  // acompanhamentos devidos hoje (janela ±2 dias de cada marco)
+  if(cfg.acomp.on){
+    var feitos=acompFeitos(), marcos=cfg.acomp.marcos||[7,30,90,180];
+    relG('ct_sessoes').filter(function(s){return s.stat==='Concluído'&&s.data;}).forEach(function(s){
+      var d=relDias(s.data); if(d==null)return;
+      marcos.forEach(function(mk){
+        if(d>=mk-2 && d<=mk+2 && !feitos[acompKey(s.id,mk)]){
+          out.acomp.push({sess:s,marco:mk});
+        }
+      });
+    });
+  }
+  // sessões de amanhã/hoje sem confirmação
+  if(cfg.confirmacao.on){
+    var amanha=new Date(Date.now()+86400000).toISOString().slice(0,10);
+    out.confirmacao=relG('ct_sessoes').filter(function(s){return (s.data===hj||s.data===amanha)&&s.stat!=='Confirmado'&&s.stat!=='Concluído'&&s.stat!=='Cancelado'&&s.stat!=='Faltou';});
+  }
+  // leads que precisam resposta
+  if(cfg.leads.on){
+    var STG=(typeof LD_STAGES!=='undefined')?LD_STAGES:['contato','orcamento','negociacao','agendado','fechado','perdido'];
+    out.leads=relG('ct_leads').filter(function(l){return STG.indexOf(l.et)>=0&&l.et!=='fechado'&&l.et!=='perdido'&&((l.prox&&l.prox<=hj)||l.et==='contato');});
+  }
+  // clientes que viraram ouro/diamante hoje
+  out.ouro=relG('ct_clientes').filter(function(c){return c.tag&&c.tagEm===hj;});
+  out.total=out.aniversario.length+out.retorno.length+out.acomp.length+out.cobranca.length+out.confirmacao.length+out.leads.length;
+  return out;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CENTRAL DE HOJE
+═══════════════════════════════════════════════════════════════════ */
+function motorSaudacao(){ var h=new Date().getHours(); return h<12?'Bom dia':h<18?'Boa tarde':'Boa noite'; }
+function rHoje(){
+  motorRodar(true);
+  var p=motorPendencias();
+  var cf=relConf();
+  var nome=relPrimeiro(cf.nome)||'Carlos';
+  var dataBR=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});
+  var el=document.getElementById('hojeBody'); if(!el)return;
+  // cabeçalho
+  var head='<div class="hoje-hero"><div><div class="hoje-ola">'+motorSaudacao()+', '+relEsc(cf.nome||'Carlos')+'! 👋</div>'+
+    '<div class="hoje-data">'+dataBR+'</div></div>'+
+    '<div class="hoje-contador"><div class="hoje-num">'+p.total+'</div><div class="hoje-num-lb">ação'+(p.total!==1?'ões':'')+' pra hoje</div></div></div>';
+  if(p.total===0 && !p.ouro.length){
+    el.innerHTML=head+'<div class="hoje-zero">✨ <strong>Tudo em dia!</strong><br>Nenhuma pendência pra hoje. O sistema segue de olho por você — volte amanhã.</div>';
+    return;
+  }
+  var html=head;
+  // helper de bloco
+  function bloco(ic,titulo,cor,itens){ if(!itens.length)return''; return '<div class="hoje-bloco"><div class="hoje-bt" style="border-left-color:var('+cor+')">'+ic+' <strong>'+titulo+'</strong> <span class="hoje-ct">'+itens.length+'</span></div>'+itens.join('')+'</div>'; }
+  function acaoWpp(cliId,texto,marca){ var t=String(texto).replace(/"/g,'&quot;').replace(/'/g,'&#39;'); return '<button class="btn btn-success btn-xs" onclick="relEnviar(\''+cliId+'\',\''+t+'\',\''+(marca||'')+'\')">📲 Enviar</button>'; }
+  function linha(nome,info,acoes){ return '<div class="hoje-item"><div class="hoje-item-i"><strong>'+relEsc(nome)+'</strong><span>'+info+'</span></div><div class="hoje-item-a">'+acoes+'</div></div>'; }
+
+  // ⭐ novos Ouro/Diamante
+  if(p.ouro.length){
+    var its=p.ouro.map(function(c){var sel=c.tag==='diamante'?'💎 Cliente Diamante':'⭐ Cliente Ouro';return linha(c.nome,sel+' — reconheça esse cliente!','<button class="btn btn-ghost btn-xs" onclick="verCliente(\''+c.id+'\')">👤 Ficha</button>');});
+    html+=bloco('🏆','Subiram de nível hoje','--gold',its);
+  }
+  // 🎂 aniversariantes
+  if(p.aniversario.length){
+    var its2=p.aniversario.map(function(e){var c=e.c;var txt=relTpl(relMsgGet('categoria','aniversario',0),c,{});var q=e.aniv===0?'🎉 é HOJE!':'em '+e.aniv+' dia'+(e.aniv>1?'s':'');return linha(c.nome,'Aniversário '+q,(relTel(c)?acaoWpp(c.id,txt,'Aniversário'):'<span class="rel-tag rel-tag-red">sem telefone</span>')+' <button class="btn btn-ghost btn-xs" onclick="verCliente(\''+c.id+'\')">👤</button>');});
+    html+=bloco('🎂','Aniversariantes','--grn',its2);
+  }
+  // 🔔 acompanhamentos
+  if(p.acomp.length){
+    var its3=p.acomp.map(function(a){var s=a.sess;var c=relG('ct_clientes').find(function(x){return (x.nome||'').trim().toLowerCase()===(s.cli||'').trim().toLowerCase();})||{id:'',nome:s.cli,tel:s.tel};var txt=relTpl(relMsgGet('tempo',String(a.marco),0),c,{});var send=(c.id&&relTel(c))?acaoWpp(c.id,txt,'Acompanhamento '+a.marco+'d'):'<span class="rel-tag">registrar</span>';return linha(s.cli||'—','Acompanhamento de '+a.marco+' dias · '+(s.est||'tattoo'),send+' <button class="btn btn-ghost btn-xs" onclick="acompFeitoUI(\''+s.id+'\','+a.marco+')">✓ Feito</button>');});
+    html+=bloco('🔔','Acompanhamentos pós-tattoo','--gold',its3);
+  }
+  // 🔁 retornos
+  if(p.retorno.length){
+    var its4=p.retorno.slice(0,12).map(function(e){var c=e.c;var sug=relSugestao(e,'retorno');return linha(c.nome,e.st.dias+' dias sem visita · '+(REL_SERV_LB[e.st.servico]||'tattoo'),(relTel(c)?acaoWpp(c.id,sug.texto,sug.rotulo.replace(/'/g,'')):'')+' <button class="btn btn-ghost btn-xs" onclick="verCliente(\''+c.id+'\')">👤</button>');});
+    html+=bloco('🔁','Clientes no ponto de retorno','--gold',its4);
+  }
+  // 💰 cobranças
+  if(p.cobranca.length){
+    var its5=p.cobranca.map(function(e){var c=e.c;var txt=relTpl(relMsgGet('categoria','cobranca',0),c,{});return linha(c.nome,'Saldo de '+relRS(e.st.saldo)+' pendente',(relTel(c)?acaoWpp(c.id,txt,'Cobrança'):'')+' <button class="btn btn-ghost btn-xs" onclick="verCliente(\''+c.id+'\')">👤</button>');});
+    html+=bloco('💰','Cobranças a alinhar','--red',its5);
+  }
+  // 📅 confirmações
+  if(p.confirmacao.length){
+    var its6=p.confirmacao.map(function(s){var tel=(s.tel||'').replace(/\D/g,'');var quando=s.data===relHoje()?'HOJE':'amanhã';var txt='Oi! Passando pra confirmar sua sessão '+quando+(s.hora?' às '+s.hora:'')+'. Posso confirmar? 🖤';var wa=tel?'<a class="btn btn-success btn-xs" href="https://wa.me/55'+tel+'?text='+encodeURIComponent(txt)+'" target="_blank">📲 Confirmar</a>':'';return linha(s.cli||'—','Sessão '+quando+(s.hora?' · '+s.hora:'')+' · '+(s.est||''),wa+' <button class="btn btn-ghost btn-xs" onclick="verSessao(\''+s.id+'\')">📋</button>');});
+    html+=bloco('📅','Sessões a confirmar','--gold',its6);
+  }
+  // 🎯 leads
+  if(p.leads.length){
+    var its7=p.leads.slice(0,12).map(function(l){var nome=(typeof ctLiveNome==='function'?ctLiveNome(l):null)||l.nome||'—';var tel=((typeof ctLiveTel==='function'?ctLiveTel(l):null)||l.tel||'').replace(/\D/g,'');var wa=tel?'<a class="btn btn-success btn-xs" href="https://wa.me/55'+tel+'" target="_blank">📲</a>':'';return linha(nome,'Lead parado · '+(l.est||'')+(l.val?' · '+relRS(l.val):''),wa+' <button class="btn btn-ghost btn-xs" onclick="editLd(\''+l.id+'\')">✏️</button>');});
+    html+=bloco('🎯','Leads que precisam de resposta','--blue',its7);
+  }
+  el.innerHTML=html;
+}
+function acompFeitoUI(sessId,marco){ acompMarcar(sessId,marco); relToast('✅ Acompanhamento registrado!'); rHoje(); }
+
+/* ═══════════════════════════════════════════════════════════════════
+   AUTOMAÇÕES (Motor de Regras)
+═══════════════════════════════════════════════════════════════════ */
+var MOTOR_REGRAS_UI=[
+  {k:'acomp',ic:'🔔',t:'Acompanhamento automático',d:'Ao concluir um procedimento, cria os lembretes de 7, 30, 90 e 180 dias na Central de Hoje.'},
+  {k:'retorno',ic:'🔁',t:'Fila de retorno',d:'Cliente 30 dias sem tatuar entra automaticamente na fila de retorno.'},
+  {k:'ouro',ic:'⭐',t:'Cliente Ouro / Diamante',d:'Marca selo automático por valor gasto acumulado.',params:[{p:'valor',lb:'Ouro a partir de R$'},{p:'valorDiamante',lb:'Diamante a partir de R$'}]},
+  {k:'saldo',ic:'💰',t:'Cobrança automática',d:'Saldo pendente vira tarefa de cobrança na Central de Hoje.',params:[{p:'dias',lb:'Após quantos dias'}]},
+  {k:'aniversario',ic:'🎂',t:'Aniversariantes',d:'Avisa dos aniversários com a mensagem pronta pra enviar.'},
+  {k:'confirmacao',ic:'📅',t:'Confirmação de sessão',d:'Sessão de hoje/amanhã sem confirmar aparece na Central de Hoje.'},
+  {k:'faltou',ic:'⚠️',t:'Recuperação de falta',d:'Cliente que faltou entra no radar para recuperação.'},
+  {k:'indicou',ic:'🎁',t:'Benefício por indicação',d:'Cliente que indicou X pessoas ganha destaque para benefício.',params:[{p:'qtd',lb:'Nº de indicações'}]},
+  {k:'leads',ic:'🎯',t:'Leads parados',d:'Leads sem resposta aparecem na Central de Hoje.'}
+];
+function rAuto(){
+  var cfg=motorCfg();
+  var el=document.getElementById('autoBody'); if(!el)return;
+  var ativas=MOTOR_REGRAS_UI.filter(function(r){return cfg[r.k]&&cfg[r.k].on;}).length;
+  var html='<div class="tut" style="margin-bottom:14px">💡 O <strong>Motor de Regras</strong> é a inteligência de negócio da Central Tattoo. Você liga as regras e o sistema trabalha sozinho — detectando o que precisa de ação e deixando tudo pronto na <strong>Central de Hoje</strong>. Não é IA: é processo padronizado que não esquece de nada.</div>';
+  html+='<div class="auto-head"><div><strong>'+ativas+' de '+MOTOR_REGRAS_UI.length+'</strong> regras ativas</div><button class="btn btn-primary btn-sm" onclick="motorRodarUI()">▶️ Rodar motor agora</button></div>';
+  html+='<div class="auto-grid">'+MOTOR_REGRAS_UI.map(function(r){
+    var c=cfg[r.k]||{on:false}; var on=c.on;
+    var params=(r.params||[]).map(function(pp){return '<div class="auto-param"><label>'+pp.lb+'</label><input type="number" class="fi" value="'+relEsc(c[pp.p])+'" onchange="motorSetParam(\''+r.k+'\',\''+pp.p+'\',this.value)"></div>';}).join('');
+    return '<div class="auto-card '+(on?'on':'')+'">'+
+      '<div class="auto-card-h"><span class="auto-ic">'+r.ic+'</span><strong>'+r.t+'</strong>'+
+        '<label class="auto-switch"><input type="checkbox" '+(on?'checked':'')+' onchange="motorToggle(\''+r.k+'\')"><span class="auto-slider"></span></label></div>'+
+      '<div class="auto-desc">'+r.d+'</div>'+
+      (on&&params?'<div class="auto-params">'+params+'</div>':'')+
+    '</div>';
+  }).join('')+'</div>';
+  // Fase 2
+  html+='<div class="card auto-fase2"><div class="card-h"><h3>🤖 Piloto Automático 24h</h3><span class="rel-tag" style="background:var(--goldb);color:var(--gold)">grátis via Supabase</span></div>'+
+    '<p style="font-size:13px;color:var(--tx2);line-height:1.6;padding:2px 2px 10px">Hoje o motor roda quando você abre o app. Com o Piloto Automático, um "vigia" roda sozinho todo dia de manhã no Supabase (de graça) e te manda um e-mail com o resumo do dia — além de disparar automaticamente os e-mails de aniversário e acompanhamento. O WhatsApp continua sendo você, no toque pessoal. Deixei tudo pronto pra colar.</p>'+
+    '<button class="btn btn-ghost btn-sm" onclick="motorFase2Kit()" style="border:1.5px solid var(--brd2)">📦 Ver kit de ativação (SQL + função)</button></div>';
+  // Log
+  var log=relG('ct_regras_log').slice(0,25);
+  html+='<div class="card"><div class="card-h"><h3>📜 Histórico do Motor</h3><span class="badge-count">'+relG('ct_regras_log').length+'</span></div>'+
+    (log.length?('<div class="auto-log">'+log.map(function(x){var d=new Date(x.ts);var q=isNaN(d)?'':d.toLocaleDateString('pt-BR')+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});return '<div class="auto-log-i"><span class="auto-log-t">'+q+'</span>'+relEsc(x.txt)+'</div>';}).join('')+'</div>'):'<p style="color:var(--tx3);font-size:13px;padding:12px 2px">O motor ainda não registrou ações. Clique em "Rodar motor agora".</p>')+'</div>';
+  el.innerHTML=html;
+}
+function motorRodarUI(){ var r=motorRodar(false); relBootResumo(); rAuto(); if(document.getElementById('p-hoje').classList.contains('on'))rHoje(); relToast('▶️ Motor executado! '+(r.ouroNovos+r.diamanteNovos>0?((r.ouroNovos+r.diamanteNovos)+' cliente(s) subiram de nível.'):'Tudo processado.')); }
+
+/* ---------- KIT FASE 2 (modal com SQL + Edge Function prontos) ---------- */
+function motorFase2Kit(){
+  var proj='ejapatxehmxondjqsgvv';
+  var sql="-- 1) Habilite as extensões (Supabase > Database > Extensions): pg_cron e pg_net\n"+
+    "-- 2) Rode este SQL no SQL Editor (agende para 08h de Brasília = 11h UTC):\n"+
+    "select cron.schedule(\n"+
+    "  'central-tattoo-diario',\n"+
+    "  '0 11 * * *',\n"+
+    "  $$ select net.http_post(\n"+
+    "       url:='https://"+proj+".functions.supabase.co/motor-diario',\n"+
+    "       headers:='{\"Content-Type\":\"application/json\"}'::jsonb\n"+
+    "     ); $$\n"+
+    ");";
+  var fn="// supabase/functions/motor-diario/index.ts\n"+
+    "// Deploy: supabase functions deploy motor-diario --no-verify-jwt\n"+
+    "import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';\n\n"+
+    "const sb = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SERVICE_ROLE_KEY')!);\n"+
+    "const RESEND = Deno.env.get('RESEND_API_KEY')!;\n"+
+    "const ADMIN = 'carlostattoobh@gmail.com';\n\n"+
+    "function dias(iso:string){ const d=new Date(iso.slice(0,10)+'T00:00:00'); return Math.floor((Date.now()-d.getTime())/86400000); }\n"+
+    "async function email(to:string, subject:string, html:string){\n"+
+    "  await fetch('https://api.resend.com/emails',{method:'POST',headers:{'Authorization':`Bearer ${RESEND}`,'Content-Type':'application/json'},\n"+
+    "    body:JSON.stringify({from:'Central Tattoo <no-reply@carlostattoobh.com.br>',to,subject,html})});\n"+
+    "}\n\n"+
+    "Deno.serve(async () => {\n"+
+    "  // lê o blob de dados do estúdio (mesma tabela do app)\n"+
+    "  const { data } = await sb.from('ct_dados').select('valor').eq('chave','ct_clientes').single();\n"+
+    "  const clientes = data ? JSON.parse(data.valor) : [];\n"+
+    "  const hoje = new Date(); const md = (hoje.getMonth()+1)+'-'+hoje.getDate();\n"+
+    "  const aniversariantes = clientes.filter((c:any)=>{ if(!c.nasc)return false; const d=new Date(c.nasc.slice(0,10)+'T00:00:00'); return (d.getMonth()+1)+'-'+d.getDate()===md; });\n"+
+    "  // 1) resumo pro admin\n"+
+    "  const lista = aniversariantes.map((c:any)=>'<li>'+c.nome+' - '+(c.tel||'')+'</li>').join('');\n"+
+    "  await email(ADMIN, 'Central Tattoo - seu dia', '<h2>Bom dia!</h2><p>Aniversariantes hoje: <b>'+aniversariantes.length+'</b></p><ul>'+lista+'</ul><p>Abra a Central de Hoje para ver retornos, cobrancas e acompanhamentos.</p>');\n"+
+    "  // 2) parabens automatico pros aniversariantes (so quem tem e-mail)\n"+
+    "  for (const c of aniversariantes) {\n"+
+    "    if (c.email) await email(c.email, 'Feliz aniversario!', '<p>Oi '+(c.nome||'').split(' ')[0]+', e a Carlos Tattoo BH desejando um feliz aniversario! Preparamos um mimo especial pra sua proxima tattoo.</p>');\n"+
+    "  }\n"+
+    "  return new Response(JSON.stringify({ok:true, aniversariantes:aniversariantes.length}), {headers:{'Content-Type':'application/json'}});\n"+
+    "});";
+  var m=document.getElementById('mFase2');
+  if(!m){ m=document.createElement('div'); m.className='modal-wrap'; m.id='mFase2'; document.body.appendChild(m); }
+  m.innerHTML='<div class="modal" style="max-width:820px">'+
+    '<div class="modal-head"><h3>📦 Piloto Automático 24h — Kit de Ativação</h3><button class="modal-close" onclick="closeM(\'mFase2\')">✕</button></div>'+
+    '<div class="modal-body">'+
+      '<div class="tut" style="margin-bottom:14px">✅ Tudo aqui é <strong>grátis</strong> (plano free do Supabase + Resend que você já usa). Você cola, faz o deploy uma vez, e o sistema passa a trabalhar 24h — mesmo com o app fechado.</div>'+
+      '<div class="rel-bsec"><h4>Passo 1 — Edge Function (motor-diario)</h4><p style="font-size:12.5px;color:var(--tx3);margin-bottom:6px">Crie a função no Supabase e cole o código. Ela usa o <code>RESEND_API_KEY</code> e o <code>SERVICE_ROLE_KEY</code> que você já tem nos secrets.</p>'+
+        '<textarea class="fi" id="kitFn" rows="10" style="font-family:monospace;font-size:11px" readonly>'+relEsc(fn)+'</textarea>'+
+        '<button class="btn btn-primary btn-xs" style="margin-top:6px" onclick="motorKitCopy(\'kitFn\')">📋 Copiar função</button></div>'+
+      '<div class="rel-bsec"><h4>Passo 2 — Agendamento diário (SQL)</h4><p style="font-size:12.5px;color:var(--tx3);margin-bottom:6px">Habilite <code>pg_cron</code> e <code>pg_net</code> em Extensions, depois rode este SQL no SQL Editor:</p>'+
+        '<textarea class="fi" id="kitSql" rows="8" style="font-family:monospace;font-size:11px" readonly>'+relEsc(sql)+'</textarea>'+
+        '<button class="btn btn-primary btn-xs" style="margin-top:6px" onclick="motorKitCopy(\'kitSql\')">📋 Copiar SQL</button></div>'+
+      '<div style="font-size:12.5px;color:var(--tx2);background:var(--goldb);border:1px solid var(--goldbrd);border-radius:9px;padding:11px">💡 Pronto. Todo dia às 8h o vigia roda sozinho: te manda o resumo por e-mail e dispara os parabéns de aniversário. Quando quiser, dá pra expandir pra WhatsApp API sem mexer no resto.</div>'+
+    '</div>'+
+    '<div class="modal-foot"><button class="btn btn-ghost btn-sm" onclick="closeM(\'mFase2\')">Fechar</button></div>'+
+  '</div>';
+  if(typeof openM==='function')openM('mFase2'); else m.classList.add('on');
+}
+function motorKitCopy(id){ var el=document.getElementById(id); if(!el)return; el.select(); try{navigator.clipboard.writeText(el.value);}catch(e){document.execCommand&&document.execCommand('copy');} relToast('📋 Copiado!'); }
+
+/* ═══════════════════════════════════════════════════════════════════
+   MARKETING ↔ CRM (mesmo motor de campanhas, na aba Marketing)
+═══════════════════════════════════════════════════════════════════ */
+var _motorOrigMkt=window.rMkt;
+window.rMkt=function(){
+  try{ if(_motorOrigMkt)_motorOrigMkt.apply(this,arguments); }catch(e){}
+  try{ motorMktCampanhas(); }catch(e){}
+};
+function motorMktCampanhas(){
+  var pan=document.getElementById('p-marketing'); if(!pan)return;
+  var box=document.getElementById('mktCampanhas');
+  if(!box){ box=document.createElement('div'); box.id='mktCampanhas'; box.className='card'; pan.appendChild(box); }
+  var btns=[
+    {k:'d180',lb:'⏳ Sem tatuar +180 dias'},{k:'fineline',lb:'🤍 Fine Line'},{k:'coverup',lb:'🖤 Cover-up'},
+    {k:'realismo',lb:'🎨 Realismo'},{k:'vip',lb:'💎 VIP'},{k:'aniv',lb:'🎂 Aniversariantes'},{k:'gasto',lb:'💰 Por valor gasto'}
+  ];
+  box.innerHTML='<div class="card-h"><h3>🎯 Campanhas do CRM</h3></div>'+
+    '<p style="font-size:12.5px;color:var(--tx3);padding:0 2px 10px">Puxa direto da sua base de clientes. Escolha um segmento e dispare a campanha certa — a mesma inteligência da Central de Relacionamento, aqui no Marketing.</p>'+
+    '<div style="display:flex;gap:8px;flex-wrap:wrap;padding:0 2px 10px">'+btns.map(function(b){return '<button class="btn btn-ghost btn-sm" style="border:1.5px solid var(--brd2)" onclick="relCamp(\''+b.k+'\',\'mktCampRes\')">'+b.lb+'</button>';}).join('')+'</div>'+
+    '<div id="mktCampRes"></div>';
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   BADGE DA CENTRAL DE HOJE NO MENU + BOOT
+═══════════════════════════════════════════════════════════════════ */
+var _motorOrigBoot=(typeof relBootResumo==='function')?relBootResumo:null;
+function motorBootBadge(){
+  try{
+    var p=motorPendencias();
+    var nav=document.getElementById('si-hoje');
+    if(nav){
+      var b=nav.querySelector('.rel-navbadge');
+      if(p.total>0){ if(!b){b=document.createElement('span');b.className='rel-navbadge';nav.appendChild(b);} b.textContent=p.total; }
+      else if(b){ b.remove(); }
+    }
+  }catch(e){}
+}
+// estende o boot do relacionamento para também atualizar o badge de hoje
+relBootResumo=function(){ try{ if(_motorOrigBoot)_motorOrigBoot(); }catch(e){} motorBootBadge(); };
+
+/* roda o motor ao abrir o app e leva o admin pra Central de Hoje uma vez */
+function motorBoot(){
+  try{ motorRodar(true); }catch(e){}
+  try{ motorBootBadge(); }catch(e){}
+  try{
+    if(typeof IS_ADM!=='undefined' && IS_ADM && !sessionStorage.getItem('ct_hoje_visto')){
+      sessionStorage.setItem('ct_hoje_visto','1');
+      if(typeof go==='function')go('hoje');
+    }
+  }catch(e){}
+}
+if(document.readyState==='complete'||document.readyState==='interactive'){ setTimeout(motorBoot,1800); }
+else { window.addEventListener('load',function(){ setTimeout(motorBoot,1800); }); }
 
 </script>
 </body>
