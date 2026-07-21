@@ -126,7 +126,12 @@ a{text-decoration:none;color:inherit;}
 .tbl td{padding:11px 14px;border-bottom:1px solid var(--brd);font-size:13px;vertical-align:middle;color:var(--txt);}
 .tbl tr:last-child td{border-bottom:none;}
 .tbl tbody tr:hover td{background:#F9FAFB;}
-.tw{overflow-x:auto;}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+@media(max-width:900px){
+  .tw{margin:0 -2px;}
+  .tw .tbl{min-width:640px;}
+  .tw .tbl th,.tw .tbl td{padding:9px 10px;font-size:12.5px;}
+}
 .empty-row{text-align:center;padding:36px 20px;color:var(--tx3);}
 .empty-row p{font-size:13.5px;margin-bottom:4px;}
 .empty-row span{font-size:12px;}
@@ -218,20 +223,11 @@ textarea.fi{resize:vertical;min-height:76px;}
 .mkt-table td{padding:8px;border:1px solid var(--brd);font-size:12px;text-align:center;}
 .mkt-table tr:nth-child(even) td{background:#FAFAFA;}
 
-/* ── KANBAN ── */
-.kanban{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;}
+/* ── LISTA DE LEADS (tabela) ── */
 .ld-kanban-wrap{display:block;}
-.kb-col{background:#F9FAFB;border:1px solid var(--brd);border-radius:12px;padding:14px;flex:0 0 250px;min-width:250px;}
 #ldKpi{grid-template-columns:repeat(6,minmax(0,1fr));}
 @media(max-width:1100px){#ldKpi{grid-template-columns:repeat(3,minmax(0,1fr));}}
 @media(max-width:560px){#ldKpi{grid-template-columns:repeat(2,minmax(0,1fr));}}
-.kb-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
-.kb-title{font-size:11.5px;font-weight:700;color:var(--tx2);letter-spacing:.5px;text-transform:uppercase;}
-.kb-ct{background:var(--white);border:1px solid var(--brd);border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;color:var(--tx3);}
-.kb-card{background:var(--white);border:1px solid var(--brd);border-radius:9px;padding:12px;margin-bottom:8px;cursor:pointer;box-shadow:var(--sh);transition:all .2s;}
-.kb-card:hover{border-color:var(--gold3);box-shadow:var(--sh2);transform:translateY(-1px);}
-.kb-card h4{font-size:13px;font-weight:600;margin-bottom:3px;}
-.kb-card .kb-meta{font-size:12px;color:var(--tx3);margin-top:4px;}
 
 /* ── SINAIS ── */
 .sinal-card{border-radius:12px;padding:18px 20px;border:1px solid;}
@@ -308,18 +304,37 @@ textarea.fi{resize:vertical;min-height:76px;}
   .portal-hero{background:#1A0F06!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
 }
 
+/* ══════════════════════════════════════
+   RESPONSIVO — TABLET & MOBILE
+   Breakpoints: 1024 (tablet grande/paisagem), 900 (tablet retrato / hambúrguer),
+   640 (celular), 420 (celular pequeno)
+══════════════════════════════════════ */
+
+/* ── TABLET (≤1024px): sidebar mais estreita, grids de 3 viram 2 ── */
+@media(max-width:1024px){
+  .sb{width:190px;}
+  .g3,.fg3{grid-template-columns:1fr 1fr;}
+  .kpi-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));}
+  .calc-grid{grid-template-columns:1fr;}
+  .cic-guide{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));}
+}
+
+/* ── TABLET RETRATO / MOBILE (≤900px): sidebar vira menu hambúrguer ── */
 @media(max-width:900px){
   .sb{display:none;}
-  .g2,.calc-grid{grid-template-columns:1fr;}
-  .kanban{grid-template-columns:1fr;}
+  .g2,.g3,.fg2,.fg3,.calc-grid{grid-template-columns:1fr;}
   .metas-grid,.kpi-grid{grid-template-columns:repeat(2,1fr);}
+  .em-features,.tm-modules{grid-template-columns:1fr;}
+  .hoje-hero{flex-wrap:wrap;}
+  .tab-bar{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .tab-btn{white-space:nowrap;}
 }
 /* ── MOBILE HAMBURGER ── */
 .hbg{display:none;background:none;border:none;cursor:pointer;padding:6px;flex-direction:column;gap:5px;}
 .hbg span{display:block;width:22px;height:2px;background:rgba(255,255,255,.7);border-radius:2px;transition:all .3s;}
 @media(max-width:900px){
   .hbg{display:flex;}
-  .sb{position:fixed;top:56px;left:0;bottom:0;z-index:200;transform:translateX(-100%);transition:transform .3s;box-shadow:var(--sh3);}
+  .sb{position:fixed;top:56px;left:0;bottom:0;z-index:200;transform:translateX(-100%);transition:transform .3s;box-shadow:var(--sh3);width:250px;}
   .sb.open{transform:translateX(0);}
   .sb-overlay{display:none;position:fixed;inset:0;top:56px;background:rgba(0,0,0,.4);z-index:199;}
   .sb-overlay.on{display:block;}
@@ -327,6 +342,64 @@ textarea.fi{resize:vertical;min-height:76px;}
   .kanban{grid-template-columns:1fr;}
   .metas-grid,.kpi-grid{grid-template-columns:repeat(2,1fr);}
   .panel{padding:16px 14px 60px;}
+  .pg{gap:12px;}
+  .pg-t h2{font-size:22px;}
+  .pg-actions{width:100%;}
+  .pg-actions .btn{flex:1;justify-content:center;}
+  .card-h{padding:12px 16px;}
+  .card-h h3{font-size:16px;}
+  .card-b{padding:16px;}
+  .modal{max-height:96vh;border-radius:14px;}
+  .modal-head{padding:16px 18px 14px;}
+  .modal-head h3{font-size:18px;}
+  .modal-body{padding:16px 18px;}
+  .modal-foot{padding:12px 18px;flex-wrap:wrap;}
+  .modal-foot .btn{flex:1;justify-content:center;min-width:110px;}
+  .mkt-table th,.mkt-table td{padding:5px;font-size:10.5px;}
+  .res-price{font-size:36px;}
+  .tut-hero{padding:26px 22px;}
+  .tut-hero h1{font-size:28px;}
+  .tut-card{padding:20px;}
+  .conf-section{padding:18px;}
+}
+
+/* ── CELULAR (≤640px) ── */
+@media(max-width:640px){
+  html,body{font-size:13.5px;}
+  .hdr{padding:0 12px;}
+  .layout{min-height:calc(100vh - 56px);}
+  .panel{padding:14px 12px 56px;}
+  .kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+  .kpi-card{padding:14px 15px;}
+  .kpi-num{font-size:24px;}
+  .metas-grid{grid-template-columns:1fr 1fr;gap:8px;}
+  .metas-box{padding:16px 18px;}
+  .card-h{flex-direction:column;align-items:flex-start;gap:6px;}
+  .card-h .badge-count{align-self:flex-start;}
+  .fg3{grid-template-columns:1fr;}
+  .tm-box,.lm-box,.em-box{max-width:100%;}
+  .tm-header,.em-top{padding:24px 22px 18px;}
+  .tm-body,.em-body,.lm-body{padding:20px 22px 24px;}
+  .tm-title,.em-title{font-size:22px;}
+  .em-price{font-size:38px;}
+  .em-features{grid-template-columns:1fr;}
+  .portal-hero,.tut-hero{padding:20px;}
+  .portal-hero h2{font-size:22px;}
+  .cic-guide{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));}
+  .btn{padding:8px 14px;font-size:12.5px;}
+}
+
+/* ── CELULAR PEQUENO (≤420px) ── */
+@media(max-width:420px){
+  .kpi-grid,.metas-grid{grid-template-columns:1fr 1fr;}
+  .sinal-card,.calc-panel,.tut-card{padding:16px;}
+  .res-price{font-size:30px;}
+  .hoje-num{font-size:30px;}
+  .em-price{font-size:32px;}
+  .tm-title,.em-title,.lm-title{font-size:19px;}
+  .modal-head h3{font-size:16px;}
+  .fg label{font-size:10.5px;}
+  .fi{padding:9px 11px;font-size:13px;}
 }
 
 /* ── TUTORIAL ── */
@@ -763,13 +836,18 @@ textarea.fi{resize:vertical;min-height:76px;}
   <div class="pg"><div class="pg-t"><h2>🎯 Pipeline de Leads</h2><p>Nenhuma oportunidade pode escapar</p></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-ghost" onclick="baixarModeloImportacao()">⬇️ Baixar Modelo de Planilha</button><button class="btn btn-ghost" onclick="document.getElementById('ldImportFile').click()">📤 Importar Planilha</button><input type="file" id="ldImportFile" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleImportPlanilha(event)"><button class="btn btn-ghost" id="btnImportLegado" onclick="importarLeadsLegado()">📥 Importar Lista Antiga</button><button class="btn btn-primary" onclick="novoLd()">+ Novo Lead</button></div></div>
   <div class="tut">💡 <strong>ETAPA:</strong> 1.Contato | 2.Orçamento | 3.Negociação | 4.Agendado | 5.Fechado ✅ | 6.Perdido ❌. <strong>TEMPERATURA:</strong> 🔥 Quente | ⚡ Morno | ❄️ Frio.</div>
   <div class="kpi-grid" id="ldKpi"></div>
-  <div class="card" style="margin-bottom:16px"><div class="card-h"><h3>💬 Mensagens de Campanha</h3></div>
-    <div class="tut" style="margin:10px 12px 0">💡 As mensagens prontas pra enviar (rotação semanal, sem repetir gatilho, sem desconto) agora aparecem na <strong>Central de Operações</strong>, junto com o resto das suas pendências do dia. Aqui você só edita os textos do banco.</div>
-    <div style="padding:10px 12px 12px"><button class="btn btn-ghost btn-sm" onclick="ldBancoOpen()">💬 Banco de Mensagens</button></div>
-  </div>
   <div class="card" style="margin-bottom:16px">
     <div style="padding:12px 12px 0;display:flex;gap:8px;flex-wrap:wrap">
       <input type="text" id="ldSearch" placeholder="🔎 Buscar por nome ou telefone" oninput="rLd()" style="flex:1;min-width:220px;padding:8px 12px;border:1px solid var(--brd2);border-radius:8px;font-size:13px;font-family:inherit">
+      <select id="ldFiltroEtapa" onchange="rLd()" style="padding:8px 12px;border:1px solid var(--brd2);border-radius:8px;font-size:13px;font-family:inherit">
+        <option value="">Todas as etapas</option>
+        <option value="contato">📩 Contato</option>
+        <option value="orcamento">📋 Orçamento</option>
+        <option value="negociacao">🤝 Negociação</option>
+        <option value="agendado">📅 Agendado</option>
+        <option value="fechado">✅ Fechado</option>
+        <option value="perdido">❌ Perdido</option>
+      </select>
       <select id="ldFiltroTemp" onchange="rLd()" style="padding:8px 12px;border:1px solid var(--brd2);border-radius:8px;font-size:13px;font-family:inherit">
         <option value="">Todas as temperaturas</option>
         <option value="quente">🔥 Quente</option>
@@ -3095,12 +3173,62 @@ function ldUltimoEnvio(leadId){
 }
 function ldDiasDesde(iso){ if(!iso)return null; return relDias(iso); }
 
-/* pool de gatilhos disponível pro lead (reconexão só pra quem já é cliente) */
 function ldPool(l){ return LEAD_GATILHOS.filter(function(g){ return g.soCliente ? ldEhCliente(l) : true; }); }
 
-/* escolhe o próximo gatilho evitando repetir o último usado */
+/* categoria de abordagem de cada gatilho — usada pra agrupar o seletor e pra sugerir o gatilho certo pra etapa do lead */
+var LEAD_GATILHO_GRUPO={
+  autoridade:'🧊 Primeiro contato', novidade:'🧊 Primeiro contato',
+  escassez:'📋 Já pediu orçamento', exclusividade:'📋 Já pediu orçamento',
+  reconexao:'👤 Já é cliente / já tatuou',
+  dor:'💙 Abordagem sensível', tristeza:'💙 Abordagem sensível',
+  alegria:'🎉 Abordagem positiva', felicidade:'🎉 Abordagem positiva'
+};
+var LEAD_GATILHO_GRUPO_ORDEM=['🧊 Primeiro contato','📋 Já pediu orçamento','👤 Já é cliente / já tatuou','💙 Abordagem sensível','🎉 Abordagem positiva'];
+
+/* opções de gatilho pra troca manual (Central de Operações), agrupadas por abordagem */
+function hjGatilhoOptions(l,gAtual){
+  var pool=(typeof ldPool==='function')?ldPool(l):[];
+  var grupos={};
+  pool.forEach(function(g){ var gr=LEAD_GATILHO_GRUPO[g.k]||'Outros'; (grupos[gr]=grupos[gr]||[]).push(g); });
+  return LEAD_GATILHO_GRUPO_ORDEM.filter(function(gr){return grupos[gr];}).map(function(gr){
+    return '<optgroup label="'+gr+'">'+grupos[gr].map(function(g){return '<option value="'+g.k+'"'+(g.k===gAtual?' selected':'')+'>'+g.lb+'</option>';}).join('')+'</optgroup>';
+  }).join('');
+}
+/* troca o gatilho sugerido por outro escolhido pelo tatuador — recarrega o texto padrão desse gatilho na caixa editável */
+function hjLeadTrocarGatilho(leadId,gKey){
+  var l=gdb('ct_leads').find(function(x){return x.id===leadId;}); if(!l)return;
+  var seg=ldSeg(l), idi=ldIdi(l);
+  var txtBase=ldMsgGet(gKey,idi,seg), texto=ldTpl(txtBase,l);
+  var ta=document.getElementById('hjTxt_'+leadId); if(ta)ta.value=texto;
+}
+/* envia exatamente o texto que está na caixa (editado ou não), registra o gatilho realmente usado, e some SÓ com o card enviado — sem redesenhar a tela toda (preserva edições em outros cards ainda não enviados) */
+function hjLeadEnviar(leadId){
+  var l=gdb('ct_leads').find(function(x){return x.id===leadId;}); if(!l)return;
+  var tel=((typeof ctLiveTel==='function'?ctLiveTel(l):null)||l.tel||'').replace(/\D/g,'');
+  if(!tel){showToast('⚠️ Lead sem telefone.');return;}
+  var sel=document.getElementById('hjSel_'+leadId), ta=document.getElementById('hjTxt_'+leadId);
+  var gatilho=(sel&&sel.value)||'';
+  var texto=((ta&&ta.value)||'').trim();
+  if(!texto){showToast('⚠️ Mensagem vazia.');return;}
+  var log=ldCampLog(); log.push({id:uid(),leadId:leadId,gatilho:gatilho,data:hoje(),seg:ldSeg(l),idi:ldIdi(l)}); sdb('ct_leadcamp',log);
+  window.open('https://wa.me/55'+tel+'?text='+encodeURIComponent(texto),'_blank');
+  showToast('📲 Mensagem aberta no WhatsApp — próximo envio pra este lead em 7 dias.');
+  if(typeof hjRemoverCardEnviado==='function')hjRemoverCardEnviado(leadId);
+  if(typeof rLd==='function')rLd();
+}
+
+/* prioridade de abordagem conforme a etapa/status do lead — quem já é cliente sempre recebe reconexão; quem já pediu orçamento recebe gatilho de "fechar agora"; lead novo recebe gatilho de primeiro contato */
+function ldPrioridadeGatilhos(l){
+  if(ldEhCliente(l))return ['reconexao'];
+  if(l.et==='orcamento'||l.et==='negociacao')return ['exclusividade','escassez','novidade','autoridade'];
+  return ['autoridade','novidade','escassez','exclusividade'];
+}
+/* escolhe o próximo gatilho: primeiro tenta respeitar a prioridade da etapa (evitando repetir o último usado); se não sobrar opção, cai no rodízio semanal de sempre */
 function ldProximoGatilho(l){
   var pool=ldPool(l), ult=ldUltimoEnvio(l.id), ultK=ult?ult.gatilho:null;
+  var prioridade=ldPrioridadeGatilhos(l);
+  var porPrioridade=prioridade.map(function(k){return pool.find(function(g){return g.k===k;});}).filter(Boolean).filter(function(g){return g.k!==ultK;});
+  if(porPrioridade.length)return porPrioridade[0];
   var opts=pool.filter(function(g){return g.k!==ultK;});
   if(!opts.length)opts=pool;
   var semana=Math.floor(Date.now()/(7*86400000));
@@ -3121,41 +3249,6 @@ function ldCampFila(){
   }).filter(function(x){ return x.devido && x.tel.replace(/\D/g,''); });
   fila.sort(function(a,b){ return (b.dias==null?9999:b.dias)-(a.dias==null?9999:a.dias); });
   return fila;
-}
-
-function ldCampEnviar(leadId,gatilho,texto){
-  var l=gdb('ct_leads').find(function(x){return x.id===leadId;}); if(!l)return;
-  var tel=((typeof ctLiveTel==='function'?ctLiveTel(l):null)||l.tel||'').replace(/\D/g,'');
-  if(!tel){showToast('⚠️ Lead sem telefone.');return;}
-  var log=ldCampLog(); log.push({id:uid(),leadId:leadId,gatilho:gatilho,data:hoje(),seg:ldSeg(l),idi:ldIdi(l)}); sdb('ct_leadcamp',log);
-  window.open('https://wa.me/55'+tel+'?text='+encodeURIComponent(texto),'_blank');
-  showToast('📲 Mensagem aberta no WhatsApp — próximo envio pra este lead em 7 dias.');
-  if(typeof rLd==='function')rLd();
-  if(typeof rHoje==='function')rHoje();
-}
-
-/* ═══════════ RENDER: fila semanal dentro do painel de Leads ═══════════ */
-function rLdCamp(){
-  var fila=ldCampFila();
-  var ct=document.getElementById('ldCampCt'); if(ct)ct.textContent=fila.length+' pra hoje';
-  var el=document.getElementById('ldCampLista'); if(!el)return;
-  if(!fila.length){ el.innerHTML='<p style="color:var(--tx3);font-size:13px;padding:10px 4px">✅ Nenhuma mensagem pendente agora. O sistema libera novos envios conforme completa 7 dias desde o último contato de cada lead.</p>'; return; }
-  el.innerHTML='<div class="rel-grid">'+fila.slice(0,30).map(function(x){
-    var l=x.l, g=ldProximoGatilho(l), seg=ldSeg(l), idi=ldIdi(l);
-    var txtBase=ldMsgGet(g.k,idi,seg), texto=ldTpl(txtBase,l);
-    var textoEsc=texto.replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-    var nome=(typeof ctLiveNome==='function'?ctLiveNome(l):null)||l.nome||'—';
-    return '<div class="rel-card">'+
-      '<div class="rel-card-h"><strong>'+relEsc(nome)+'</strong><span class="rel-tag">'+(LEAD_SEG_LB[seg]||seg)+'</span></div>'+
-      '<div class="rel-meta"><span class="rel-tag">'+g.lb+'</span><span class="rel-tag">'+(LEAD_IDI_LB[idi]||idi)+'</span>'+(ldEhCliente(l)?'<span class="rel-tag">👤 já é cliente</span>':'<span class="rel-tag">❄️ lead frio</span>')+'</div>'+
-      '<div class="rel-line">'+(x.dias==null?'Primeira mensagem de campanha':x.dias+' dias desde o último envio')+'</div>'+
-      '<div class="rel-sug"><div class="rel-sug-rot">💬 '+g.lb+'</div>'+relEsc(texto)+'</div>'+
-      '<div class="rel-actions">'+
-        '<button class="btn btn-success btn-xs" onclick="ldCampEnviar(\''+l.id+'\',\''+g.k+'\',\''+textoEsc+'\')">📲 Enviar</button>'+
-        '<button class="btn btn-ghost btn-xs" onclick="editLd(\''+l.id+'\')">✏️ Editar Lead</button>'+
-      '</div>'+
-    '</div>';
-  }).join('')+'</div>'+(fila.length>30?'<p style="font-size:12px;color:var(--tx3);padding:8px 4px">Mostrando os 30 mais prioritários de '+fila.length+' pendentes.</p>':'');
 }
 
 /* ═══════════ BANCO DE MENSAGENS DE LEADS — EDITOR ═══════════ */
@@ -4394,12 +4487,14 @@ window.rLd=function(){
   var maxV=Math.max.apply(null,cols.map(function(col){return db.filter(function(l){return l.et===col.k;}).reduce(function(a,l){return a+relR(l.val);},0);}).concat([1]));
   var kb=document.getElementById('ldKanban');
   var stats='<div class="rel-stage-stats">'+cols.filter(function(c){return c.k!=='perdido';}).map(function(col){var v=db.filter(function(l){return l.et===col.k;}).reduce(function(a,l){return a+relR(l.val);},0);var pct=Math.round(v/maxV*100);return '<div class="rel-stage"><div class="rel-stage-lb">'+col.lb+'</div><div class="rel-stage-bar"><div class="rel-stage-fill" style="width:'+pct+'%"></div></div><div class="rel-stage-val">'+relRS(v)+'</div></div>';}).join('')+'</div>';
-  // cards ricos (ponto 2) — com busca por nome/telefone e filtro de temperatura
+  // tabela única (ponto 2) — todas as etapas, com busca por nome/telefone, filtro de etapa e temperatura
   var termoBusca=((document.getElementById('ldSearch')||{}).value||'').trim().toLowerCase();
   var termoTel=termoBusca.replace(/\D/g,'');
   var filtroTemp=(document.getElementById('ldFiltroTemp')||{}).value||'';
+  var filtroEtapa=(document.getElementById('ldFiltroEtapa')||{}).value||'';
   function ldPassaFiltro(l){
     if(filtroTemp && l.temp!==filtroTemp)return false;
+    if(filtroEtapa && l.et!==filtroEtapa)return false;
     if(!termoBusca)return true;
     var nome=((typeof ctLiveNome==='function'?ctLiveNome(l):null)||l.nome||'').toLowerCase();
     var tel=((typeof ctLiveTel==='function'?ctLiveTel(l):null)||l.tel||'');
@@ -4407,34 +4502,38 @@ window.rLd=function(){
     if(termoTel && tel.replace(/\D/g,'').indexOf(termoTel)>-1)return true;
     return false;
   }
-  var kanban=cols.map(function(col){
-    var its=db.filter(function(l){return l.et===col.k;}).filter(ldPassaFiltro);
-    return '<div class="kb-col"><div class="kb-head"><span class="kb-title">'+col.lb+'</span><span class="kb-ct">'+its.length+'</span></div>'+its.map(function(l){
-      var nome=(typeof ctLiveNome==='function'?ctLiveNome(l):null)||l.nome||'—';
-      var tel=(typeof ctLiveTel==='function'?ctLiveTel(l):null)||l.tel||'';
-      var temp=l.temp==='quente'?'🔥 Quente':l.temp==='morno'?'⚡ Morno':'❄️ Frio';
-      var tempoP=l.criadoEm?relDias(l.criadoEm):null;
-      var ultC=l.ultContato?relDias(l.ultContato):null;
-      return '<div class="kb-card" onclick="editLd(\''+l.id+'\')">'+
-        '<h4>'+relEsc(nome)+'</h4>'+
-        '<p class="kb-meta">'+temp+(l.est?' · '+relEsc(l.est):'')+'</p>'+
-        (l.val?'<p class="kb-meta" style="color:var(--grn);font-weight:600">'+relRS(l.val)+'</p>':'')+
-        '<div class="rel-lead-info">'+
-          (l.ori?'<span>📍 '+relEsc(l.ori)+'</span>':'')+
-          (ultC!=null?'<span>💬 últ. contato '+(ultC===0?'hoje':ultC+'d')+'</span>':'')+
-          (tempoP!=null?'<span>⏱️ '+tempoP+'d no funil</span>':'')+
-          (l.prox?'<span>📅 prevista '+relDt(l.prox)+'</span>':'')+
-          (l.passo?'<span>➡️ '+relEsc(l.passo).slice(0,40)+'</span>':'')+
-        '</div>'+
-        '<p class="kb-meta" style="display:flex;gap:5px;align-items:center;margin-top:6px">'+
-          (tel.replace(/\D/g,'')?'<a class="btn btn-success btn-xs" href="https://wa.me/55'+tel.replace(/\D/g,'')+'" target="_blank" onclick="event.stopPropagation()">📲</a>':'')+
-          '<button class="btn btn-ghost btn-xs" onclick="event.stopPropagation();converterLeadCliente(\''+l.id+'\')" title="Converter em cliente do CRM" style="margin-left:auto">👤➕</button>'+
-          '<button class="btn btn-danger btn-xs" onclick="event.stopPropagation();delLd(\''+l.id+'\')">🗑</button>'+
-        '</p>'+
-      '</div>';
-    }).join('')+'</div>';
+  var ordemEtapa={contato:0,orcamento:1,negociacao:2,agendado:3,fechado:4,perdido:5};
+  var linhas=db.filter(ldPassaFiltro).slice().sort(function(a,b){
+    var oa=ordemEtapa[a.et]!=null?ordemEtapa[a.et]:9, ob=ordemEtapa[b.et]!=null?ordemEtapa[b.et]:9;
+    if(oa!==ob)return oa-ob;
+    return (b.ultContato||'').localeCompare(a.ultContato||'');
+  });
+  var colLb={contato:'📩 Contato',orcamento:'📋 Orçamento',negociacao:'🤝 Negociação',agendado:'📅 Agendado',fechado:'✅ Fechado',perdido:'❌ Perdido'};
+  var tempLb={quente:'🔥 Quente',morno:'⚡ Morno',frio:'❄️ Frio'};
+  var linhasHtml=linhas.map(function(l){
+    var nome=(typeof ctLiveNome==='function'?ctLiveNome(l):null)||l.nome||'—';
+    var tel=(typeof ctLiveTel==='function'?ctLiveTel(l):null)||l.tel||'';
+    var telD=tel.replace(/\D/g,'');
+    return '<tr>'+
+      '<td><strong>'+relEsc(nome)+'</strong></td>'+
+      '<td>'+(telD?relEsc(tel):'<span style="color:var(--tx3)">—</span>')+'</td>'+
+      '<td>'+(colLb[l.et]||l.et)+'</td>'+
+      '<td>'+(tempLb[l.temp]||l.temp||'—')+'</td>'+
+      '<td>'+(l.val?relRS(l.val):'—')+'</td>'+
+      '<td>'+(l.ori?relEsc(l.ori):'—')+'</td>'+
+      '<td style="white-space:nowrap">'+
+        (telD?'<a class="btn btn-success btn-xs" href="https://wa.me/55'+telD+'" target="_blank" title="WhatsApp">📲</a> ':'')+
+        '<button class="btn btn-ghost btn-xs" onclick="editLd(\''+l.id+'\')" title="Editar">✏️</button> '+
+        '<button class="btn btn-ghost btn-xs" onclick="converterLeadCliente(\''+l.id+'\')" title="Converter em cliente">👤➕</button> '+
+        '<button class="btn btn-danger btn-xs" onclick="delLd(\''+l.id+'\')" title="Excluir">🗑</button>'+
+      '</td>'+
+    '</tr>';
   }).join('');
-  if(kb)kb.innerHTML=stats+'<div class="kanban" style="margin:0;padding:0;display:flex;gap:14px;overflow-x:auto">'+kanban+'</div>';
+  var tabela='<div class="tw"><table class="tbl"><thead><tr><th>Nome</th><th>WhatsApp</th><th>Etapa</th><th>Temperatura</th><th>Valor</th><th>Origem</th><th>Ações</th></tr></thead><tbody>'+
+    (linhasHtml||'<tr><td colspan="7" class="empty-row"><p>Nenhum lead encontrado com esse filtro.</p></td></tr>')+
+    '</tbody></table></div>';
+  var kb=document.getElementById('ldKanban');
+  if(kb)kb.innerHTML=stats+'<div class="card" style="margin-top:12px"><div class="card-h"><h3>📋 Todos os Leads</h3><span class="badge-count">'+linhas.length+'</span></div>'+tabela+'</div>';
 };
 
 /* ---------- DASHBOARD: Inteligência do Mês (ponto 12) ---------- */
@@ -4750,7 +4849,99 @@ function motorPendencias(){
    CENTRAL DE HOJE
 ═══════════════════════════════════════════════════════════════════ */
 function motorSaudacao(){ var h=new Date().getHours(); return h<12?'Bom dia':h<18?'Boa tarde':'Boa noite'; }
+/* ---------- Central de Operações: fila de leads em lotes de 10 + envio em lote (um por vez, respeitando o bloqueio de pop-up do navegador) ---------- */
+var HOJE_LEADS_SHOW=10, HOJE_LEADS_FILA=null, HOJE_LOTE=null;
+
+function hjRenderLeadCard(x){
+  var l=x.l, g=(typeof ldProximoGatilho==='function')?ldProximoGatilho(l):null;
+  var nome=(typeof ctLiveNome==='function'?ctLiveNome(l):null)||l.nome||'—';
+  if(!g){
+    var tel0=(x.tel||'').replace(/\D/g,'');
+    var wa0=tel0?'<a class="btn btn-success btn-xs" href="https://wa.me/55'+tel0+'" target="_blank">📲</a>':'';
+    return '<div class="hoje-item" id="hjCard_'+l.id+'"><div class="hoje-item-i"><strong>'+relEsc(nome)+'</strong><span>Lead parado · '+(l.est||'')+'</span></div><div class="hoje-item-a">'+wa0+' <button class="btn btn-ghost btn-xs" onclick="editLd(\''+l.id+'\')">✏️</button></div></div>';
+  }
+  var seg=ldSeg(l), idi=ldIdi(l);
+  var txtBase=ldMsgGet(g.k,idi,seg), texto=ldTpl(txtBase,l);
+  var tagCliente=ldEhCliente(l)?'👤 já é cliente':'❄️ lead frio';
+  var info=(LEAD_SEG_LB[seg]||seg)+' · '+tagCliente;
+  return '<div class="hoje-item" id="hjCard_'+l.id+'" style="flex-direction:column;align-items:stretch;gap:6px">'+
+    '<div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap">'+
+      '<div class="hoje-item-i"><strong>'+relEsc(nome)+'</strong><span>'+info+'</span></div>'+
+      '<select id="hjSel_'+l.id+'" onchange="hjLeadTrocarGatilho(\''+l.id+'\',this.value)" style="font-size:12px;padding:5px 8px;border:1px solid var(--brd2);border-radius:6px;font-family:inherit;background:var(--white);color:var(--tx2)">'+hjGatilhoOptions(l,g.k)+'</select>'+
+    '</div>'+
+    '<textarea id="hjTxt_'+l.id+'" rows="2" style="font-size:12px;color:var(--tx2);background:var(--goldb);border:1px solid var(--goldbrd);border-radius:8px;padding:7px 10px;width:100%;font-family:inherit;resize:vertical">'+relEsc(texto)+'</textarea>'+
+    '<div style="display:flex;gap:6px;justify-content:flex-end">'+
+      '<button class="btn btn-success btn-xs" onclick="hjLeadEnviar(\''+l.id+'\')">📲 Enviar</button>'+
+      '<button class="btn btn-ghost btn-xs" onclick="editLd(\''+l.id+'\')">✏️ Editar Lead</button>'+
+    '</div>'+
+  '</div>';
+}
+
+/* carrega mais 10 sem redesenhar os cards já visíveis (preserva edições em andamento) */
+function hojeCarregarMaisLeads(){
+  var lista=document.getElementById('hjLeadsList'); if(!lista||!HOJE_LEADS_FILA)return;
+  var prox=HOJE_LEADS_FILA.slice(HOJE_LEADS_SHOW,HOJE_LEADS_SHOW+10);
+  lista.insertAdjacentHTML('beforeend',prox.map(hjRenderLeadCard).join(''));
+  HOJE_LEADS_SHOW+=10;
+  var restam=HOJE_LEADS_FILA.length-HOJE_LEADS_SHOW;
+  var wrap=document.getElementById('hjMaisBtnWrap');
+  if(wrap)wrap.innerHTML=restam>0?'<button class="btn btn-ghost btn-sm" onclick="hojeCarregarMaisLeads()">⬇️ Carregar mais 10 (restam '+restam+')</button>':'';
+}
+
+/* remove só o card enviado da tela e ajusta os contadores, sem redesenhar o resto */
+function hjRemoverCardEnviado(leadId){
+  var card=document.getElementById('hjCard_'+leadId);
+  if(card){
+    var bloco=card.closest?card.closest('.hoje-bloco'):null;
+    card.remove();
+    var ct=document.getElementById('hjLeadsCt');
+    if(ct){ var n=Math.max(0,(parseInt(ct.textContent,10)||1)-1); ct.textContent=n; if(n===0&&bloco)bloco.remove(); }
+    var topo=document.querySelector('.hoje-num');
+    if(topo){ var n2=Math.max(0,(parseInt(topo.textContent,10)||1)-1); topo.textContent=n2; }
+  }
+  if(HOJE_LEADS_FILA)HOJE_LEADS_FILA=HOJE_LEADS_FILA.filter(function(x){return x.l.id!==leadId;});
+}
+
+/* envio em lote: um WhatsApp por clique (navegador não deixa abrir vários de uma vez sem gesto do usuário) */
+function hojeLoteIniciar(){
+  var lista=document.getElementById('hjLeadsList'); if(!lista)return;
+  var cards=lista.querySelectorAll('[id^="hjCard_"]');
+  var ids=[]; cards.forEach(function(c){ ids.push(c.id.replace('hjCard_','')); });
+  if(!ids.length){ showToast('✅ Nada pendente pra enviar agora.'); return; }
+  HOJE_LOTE={queue:ids,idx:0,total:ids.length,enviados:0};
+  hojeLoteRenderStatus();
+}
+function hojeLoteRenderStatus(){
+  var el=document.getElementById('hjLoteStatus'); if(!el)return;
+  if(!HOJE_LOTE){ el.innerHTML=''; return; }
+  if(HOJE_LOTE.idx>=HOJE_LOTE.queue.length){
+    el.innerHTML='<div class="tut" style="margin-bottom:8px">✅ <strong>Lote concluído</strong> — '+HOJE_LOTE.enviados+' mensagem(ns) enviada(s).</div>';
+    HOJE_LOTE=null;
+    return;
+  }
+  var idAtual=HOJE_LOTE.queue[HOJE_LOTE.idx];
+  var l=gdb('ct_leads').find(function(x){return x.id===idAtual;});
+  var nome=l?((typeof ctLiveNome==='function'?ctLiveNome(l):null)||l.nome||'—'):'(lead removido)';
+  el.innerHTML='<div class="tut" style="margin-bottom:8px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">'+
+    '🔵 Lote: '+(HOJE_LOTE.idx+1)+'/'+HOJE_LOTE.total+' — próximo: <strong>'+relEsc(nome)+'</strong>'+
+    '<button class="btn btn-success btn-xs" onclick="hojeLoteEnviarAtual()">📲 Enviar este</button>'+
+    '<button class="btn btn-ghost btn-xs" onclick="hojeLotePular()">⏭️ Pular</button>'+
+    '<button class="btn btn-ghost btn-xs" onclick="hojeLoteCancelar()">✖️ Cancelar lote</button>'+
+  '</div>';
+}
+function hojeLoteEnviarAtual(){
+  if(!HOJE_LOTE)return;
+  var id=HOJE_LOTE.queue[HOJE_LOTE.idx];
+  if(document.getElementById('hjCard_'+id)){ hjLeadEnviar(id); HOJE_LOTE.enviados++; }
+  else { showToast('⚠️ Esse lead já não está mais na lista.'); }
+  HOJE_LOTE.idx++;
+  hojeLoteRenderStatus();
+}
+function hojeLotePular(){ if(!HOJE_LOTE)return; HOJE_LOTE.idx++; hojeLoteRenderStatus(); }
+function hojeLoteCancelar(){ HOJE_LOTE=null; var el=document.getElementById('hjLoteStatus'); if(el)el.innerHTML=''; }
+
 function rHoje(){
+  HOJE_LEADS_SHOW=10; HOJE_LOTE=null;
   motorRodar(true);
   var p=motorPendencias();
   var cf=relConf();
@@ -4801,27 +4992,20 @@ function rHoje(){
     var its6=p.confirmacao.map(function(s){var tel=(s.tel||'').replace(/\D/g,'');var quando=s.data===relHoje()?'HOJE':'amanhã';var txt='Oi! Passando pra confirmar sua sessão '+quando+(s.hora?' às '+s.hora:'')+'. Posso confirmar? 🖤';var wa=tel?'<a class="btn btn-success btn-xs" href="https://wa.me/55'+tel+'?text='+encodeURIComponent(txt)+'" target="_blank">📲 Confirmar</a>':'';return linha(s.cli||'—','Sessão '+quando+(s.hora?' · '+s.hora:'')+' · '+(s.est||''),wa+' <button class="btn btn-ghost btn-xs" onclick="verSessao(\''+s.id+'\')">📋</button>');});
     html+=bloco('📅','Sessões a confirmar','--gold',its6);
   }
-  // 🎯 leads — mensagem de campanha já pronta pra enviar (rotação semanal)
+  // 🎯 leads — mensagem de campanha sugerida (por etapa/segmento), gatilho trocável, texto editável, em lotes de 10
   if(p.leads.length){
-    var its7=p.leads.slice(0,12).map(function(x){
-      var l=x.l, g=(typeof ldProximoGatilho==='function')?ldProximoGatilho(l):null;
-      var nome=(typeof ctLiveNome==='function'?ctLiveNome(l):null)||l.nome||'—';
-      if(!g){ var tel0=(x.tel||'').replace(/\D/g,''); var wa0=tel0?'<a class="btn btn-success btn-xs" href="https://wa.me/55'+tel0+'" target="_blank">📲</a>':''; return linha(nome,'Lead parado · '+(l.est||''),wa0+' <button class="btn btn-ghost btn-xs" onclick="editLd(\''+l.id+'\')">✏️</button>'); }
-      var seg=ldSeg(l), idi=ldIdi(l);
-      var txtBase=ldMsgGet(g.k,idi,seg), texto=ldTpl(txtBase,l);
-      var textoEsc=texto.replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-      var tagCliente=ldEhCliente(l)?'👤 já é cliente':'❄️ lead frio';
-      var info=g.lb+' · '+(LEAD_SEG_LB[seg]||seg)+' · '+tagCliente;
-      var acao='<button class="btn btn-success btn-xs" onclick="ldCampEnviar(\''+l.id+'\',\''+g.k+'\',\''+textoEsc+'\')">📲 Enviar</button> <button class="btn btn-ghost btn-xs" onclick="editLd(\''+l.id+'\')">✏️</button>';
-      return '<div class="hoje-item" style="flex-direction:column;align-items:stretch;gap:6px">'+
-        '<div style="display:flex;justify-content:space-between;gap:12px;align-items:center">'+
-          '<div class="hoje-item-i"><strong>'+relEsc(nome)+'</strong><span>'+info+'</span></div>'+
-          '<div class="hoje-item-a">'+acao+'</div>'+
-        '</div>'+
-        '<div style="font-size:12px;color:var(--tx2);background:var(--goldb);border:1px solid var(--goldbrd);border-radius:8px;padding:7px 10px">💬 '+relEsc(texto)+'</div>'+
-      '</div>';
-    });
-    html+=bloco('🎯','Leads que precisam de resposta','--blue',its7);
+    HOJE_LEADS_FILA=p.leads;
+    var mostrar=Math.min(HOJE_LEADS_SHOW,p.leads.length);
+    var visiveis=p.leads.slice(0,mostrar);
+    var cardsHtml=visiveis.map(hjRenderLeadCard).join('');
+    var restam=p.leads.length-mostrar;
+    var maisBtn='<div id="hjMaisBtnWrap">'+(restam>0?'<button class="btn btn-ghost btn-sm" onclick="hojeCarregarMaisLeads()">⬇️ Carregar mais 10 (restam '+restam+')</button>':'')+'</div>';
+    var toolbar='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">'+
+        '<button class="btn btn-ghost btn-sm" onclick="ldBancoOpen()">💬 Banco de Mensagens</button>'+
+        '<button class="btn btn-primary btn-sm" onclick="hojeLoteIniciar()">▶️ Enviar lote (visíveis)</button>'+
+      '</div><div id="hjLoteStatus"></div>';
+    html+='<div class="hoje-bloco"><div class="hoje-bt" style="border-left-color:var(--blu)">🎯 <strong>Leads que precisam de resposta</strong> <span class="hoje-ct" id="hjLeadsCt">'+p.leads.length+'</span></div>'+
+      toolbar+'<div id="hjLeadsList">'+cardsHtml+'</div>'+maisBtn+'</div>';
   }
   el.innerHTML=html;
 }
