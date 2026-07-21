@@ -763,10 +763,20 @@ textarea.fi{resize:vertical;min-height:76px;}
   <div class="pg"><div class="pg-t"><h2>🎯 Pipeline de Leads</h2><p>Nenhuma oportunidade pode escapar</p></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-ghost" onclick="baixarModeloImportacao()">⬇️ Baixar Modelo de Planilha</button><button class="btn btn-ghost" onclick="document.getElementById('ldImportFile').click()">📤 Importar Planilha</button><input type="file" id="ldImportFile" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleImportPlanilha(event)"><button class="btn btn-ghost" id="btnImportLegado" onclick="importarLeadsLegado()">📥 Importar Lista Antiga</button><button class="btn btn-primary" onclick="novoLd()">+ Novo Lead</button></div></div>
   <div class="tut">💡 <strong>ETAPA:</strong> 1.Contato | 2.Orçamento | 3.Negociação | 4.Agendado | 5.Fechado ✅ | 6.Perdido ❌. <strong>TEMPERATURA:</strong> 🔥 Quente | ⚡ Morno | ❄️ Frio.</div>
   <div class="kpi-grid" id="ldKpi"></div>
-  <div class="card" style="margin-bottom:16px"><div class="card-h"><h3>📣 Central de Mensagens da Semana</h3><span class="badge-count" id="ldCampCt">—</span></div>
-    <div class="tut" style="margin:10px 12px 0">💡 O sistema roda em ciclo de 7 em 7 dias: cada lead recebe uma mensagem por semana, sem repetir o mesmo gatilho duas vezes seguidas. Leads que já são clientes recebem mensagem de <strong>reconexão</strong>; leads frios recebem gatilhos de autoridade, escassez, novidade, exclusividade e emocionais. Nenhuma mensagem usa desconto.</div>
-    <div style="padding:10px 12px 0"><button class="btn btn-ghost btn-sm" onclick="ldBancoOpen()">💬 Banco de Mensagens</button></div>
-    <div id="ldCampLista" style="padding:6px 12px 12px"></div>
+  <div class="card" style="margin-bottom:16px"><div class="card-h"><h3>💬 Mensagens de Campanha</h3></div>
+    <div class="tut" style="margin:10px 12px 0">💡 As mensagens prontas pra enviar (rotação semanal, sem repetir gatilho, sem desconto) agora aparecem na <strong>Central de Operações</strong>, junto com o resto das suas pendências do dia. Aqui você só edita os textos do banco.</div>
+    <div style="padding:10px 12px 12px"><button class="btn btn-ghost btn-sm" onclick="ldBancoOpen()">💬 Banco de Mensagens</button></div>
+  </div>
+  <div class="card" style="margin-bottom:16px">
+    <div style="padding:12px 12px 0;display:flex;gap:8px;flex-wrap:wrap">
+      <input type="text" id="ldSearch" placeholder="🔎 Buscar por nome ou telefone" oninput="rLd()" style="flex:1;min-width:220px;padding:8px 12px;border:1px solid var(--brd2);border-radius:8px;font-size:13px;font-family:inherit">
+      <select id="ldFiltroTemp" onchange="rLd()" style="padding:8px 12px;border:1px solid var(--brd2);border-radius:8px;font-size:13px;font-family:inherit">
+        <option value="">Todas as temperaturas</option>
+        <option value="quente">🔥 Quente</option>
+        <option value="morno">⚡ Morno</option>
+        <option value="frio">❄️ Frio</option>
+      </select>
+    </div>
   </div>
   <div class="ld-kanban-wrap" id="ldKanban"></div>
 </div>
@@ -1257,7 +1267,7 @@ const META_I=[
 ];
 const COM_DEF=[{f:'Tatuador Principal',p:60},{f:'Tatuador',p:55},{f:'Atendimento',p:30},{f:'Piercing',p:50}];
 const ADM_M=[
-  {s:'INÍCIO'},{id:'hoje',ic:'🌅',lb:'Central de Hoje'},{id:'configuracoes',ic:'🚀',lb:'Comece por Aqui'},
+  {s:'INÍCIO'},{id:'hoje',ic:'🌅',lb:'Central de Operações'},{id:'configuracoes',ic:'🚀',lb:'Comece por Aqui'},
   {s:'GESTÃO'},{id:'dashboard',ic:'📊',lb:'Dashboard'},{id:'agenda',ic:'📅',lb:'Agenda'},{id:'clientes',ic:'👥',lb:'Clientes CRM',trial_lock:true},{id:'projetos',ic:'🎨',lb:'Projetos',trial_lock:true},{id:'followup',ic:'🔔',lb:'Follow-Up',trial_lock:true},{id:'relacionamento',ic:'💛',lb:'Relacionamento',trial_lock:true},{id:'automacoes',ic:'⚙️',lb:'Automações',trial_lock:true},
   {s:'FINANCEIRO'},{id:'financeiro',ic:'💰',lb:'Financeiro',trial_lock:true},{id:'calculadora',ic:'🧮',lb:'Calculadora'},{id:'comissoes',ic:'💼',lb:'Comissões',trial_lock:true},
   {s:'OPERACIONAL'},{id:'estoque',ic:'📦',lb:'Estoque',trial_lock:true},{id:'leads',ic:'🎯',lb:'Leads',trial_lock:true},{id:'metas',ic:'📈',lb:'Metas',trial_lock:true},{id:'sinais',ic:'💎',lb:'Sinais',trial_lock:true},
@@ -1270,7 +1280,7 @@ const TRIAL_FREE=['dashboard','agenda','calculadora','tutorial'];
 const LOCK_INFO={
   clientes:{ic:'👥',title:'CRM de Clientes',desc:'Cadastro completo, fidelização e histórico de cada cliente.',feats:['Cadastro com foto e histórico','Ticket médio automático','NPS de satisfação','Controle de retornos']},
   followup:{ic:'🔔',title:'Follow-Up Automático',desc:'Nunca perca um cliente por falta de contato.',feats:['Clientes sem visita há 30/60/90 dias','Mensagem WhatsApp pré-pronta','Prioridade automática','Histórico de contatos']},
-  automacoes:{ic:'⚙️',title:'Motor de Automação',desc:'Regras de negócio que fazem a Central Tattoo trabalhar sozinha por você.',feats:['Acompanhamento automático 7/30/90/180 dias','Cliente Ouro por valor gasto','Cobrança e retorno automáticos','Central de Hoje: o que fazer hoje']},
+  automacoes:{ic:'⚙️',title:'Motor de Automação',desc:'Regras de negócio que fazem a Central Tattoo trabalhar sozinha por você.',feats:['Acompanhamento automático 7/30/90/180 dias','Cliente Ouro por valor gasto','Cobrança e retorno automáticos','Central de Operações: o que fazer hoje']},
   relacionamento:{ic:'💛',title:'Central de Relacionamento',desc:'Transforme cada cliente em cliente fiel — o sistema trabalha por você.',feats:['Follow-up automático por data real','Score de relacionamento ⭐','Banco de mensagens com gatilhos mentais','Campanhas internas em 1 clique']},
   financeiro:{ic:'💰',title:'Financeiro Completo',desc:'Receitas, despesas, DRE e fluxo de caixa.',feats:['Grade mensal editável','DRE automático','Fluxo de caixa anual','Exportação Excel']},
   comissoes:{ic:'💼',title:'Gestão de Comissões',desc:'Controle de comissões da equipe com cálculo automático.',feats:['% por função','Cálculo automático','Histórico de pagamentos','Relatório da equipe']},
@@ -1313,17 +1323,17 @@ const AREOLA_DATA=[
 const CIC_TIPOS={'Tatuagem':{ic:'🖋️',data:CIC_DATA},'Piercing':{ic:'💎',data:PIERCING_DATA},'Aréola':{ic:'🎗️',data:AREOLA_DATA}};
 
 const TUT_EXTRA={
- hoje:`<div class="tut-card"><h3>☀️ Central de Hoje — seu ponto de partida todo dia</h3><div class="sub">Abra aqui de manhã: o sistema já separou o que precisa da sua atenção</div>
-  <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>O que é</strong><p>É o resumo inteligente do seu dia. Em vez de caçar informação módulo por módulo, a Central de Hoje reúne numa tela só tudo o que precisa de ação: aniversariantes, retornos, cobranças, sessões a confirmar, leads parados e acompanhamentos pós-tattoo.</p></div></div>
+ hoje:`<div class="tut-card"><h3>☀️ Central de Operações — seu ponto de partida todo dia</h3><div class="sub">Abra aqui de manhã: o sistema já separou o que precisa da sua atenção</div>
+  <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>O que é</strong><p>É o resumo inteligente do seu dia. Em vez de caçar informação módulo por módulo, a Central de Operações reúne numa tela só tudo o que precisa de ação: aniversariantes, retornos, cobranças, sessões a confirmar, leads parados e acompanhamentos pós-tattoo.</p></div></div>
   <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Cada bloco tem um botão de ação</strong><p>Ao lado de cada item aparece o botão certo: <strong>📲 Enviar</strong> abre o WhatsApp com a mensagem já pronta; <strong>Confirmar</strong> monta a confirmação da sessão; <strong>👤 Ficha</strong> abre o cliente. Você só revisa e envia.</p></div></div>
   <div class="tut-step"><div class="tut-n">3</div><div class="tut-step-body"><strong>O contador no topo</strong><p>O número grande mostra quantas ações existem para hoje. Quando zera, aparece "Tudo em dia!" — sinal de que nada importante ficou para trás.</p></div></div>
-  <div class="tut-tip">💡 Os itens não são inventados: cada um vem de uma regra do <strong>Motor de Automações</strong> (data real da última sessão, aniversário cadastrado, saldo em aberto...). Ligue mais regras em Automações para a Central de Hoje trabalhar ainda mais por você.</div></div>`,
+  <div class="tut-tip">💡 Os itens não são inventados: cada um vem de uma regra do <strong>Motor de Automações</strong> (data real da última sessão, aniversário cadastrado, saldo em aberto...). Ligue mais regras em Automações para a Central de Operações trabalhar ainda mais por você.</div></div>`,
  leads:`<div class="tut-card"><h3>🎯 Pipeline de Leads — nenhuma oportunidade escapa</h3><div class="sub">Do primeiro contato ao fechamento, organizado como um funil</div>
   <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>As 6 etapas</strong><p><strong>Contato</strong> (chegou mensagem) → <strong>Orçamento</strong> (mandou preço) → <strong>Negociação</strong> (conversando valores/datas) → <strong>Agendado</strong> (marcou) → <strong>Fechado</strong> ✅ ou <strong>Perdido</strong> ❌. Mova o lead editando o card e trocando a etapa.</p></div></div>
   <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Temperatura</strong><p>🔥 Quente (quer fechar), ⚡ Morno (interessado, sem pressa), ❄️ Frio (só perguntou). Priorize os quentes — eles convertem hoje.</p></div></div>
   <div class="tut-step"><div class="tut-n">3</div><div class="tut-step-body"><strong>Os painéis no topo</strong><p>Mostram na hora: leads ativos, valor total em jogo (pipeline), ticket médio, quantos <strong>precisam de resposta</strong> e quantos <strong>orçamentos estão parados</strong>. É o seu radar para não deixar dinheiro esfriar.</p></div></div>
   <div class="tut-step"><div class="tut-n">4</div><div class="tut-step-body"><strong>Fechou? Converta em cliente</strong><p>Clique em <strong>👤➕</strong> no card e o lead vira cliente do CRM com os dados já preenchidos. Nada de digitar de novo.</p></div></div>
-  <div class="tut-tip">💡 Leads sem resposta há dias aparecem sozinhos na <strong>Central de Hoje</strong>. Você nunca esquece de dar retorno.</div></div>`,
+  <div class="tut-tip">💡 Leads sem resposta há dias aparecem sozinhos na <strong>Central de Operações</strong>. Você nunca esquece de dar retorno.</div></div>`,
  relacionamento:`<div class="tut-card"><h3>💛 Central de Relacionamento — fidelização no automático</h3><div class="sub">Quem já é seu cliente é o mais barato de fazer voltar</div>
   <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>A fila de relacionamento</strong><p>O sistema calcula, pela data real da última sessão de cada cliente, quem está no ponto de um contato: retorno, aniversário, acompanhamento pós-tattoo, cobrança de saldo. Tudo organizado por prioridade, sem você planilhar nada.</p></div></div>
   <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Mensagem certa, na hora certa</strong><p>Clique em <strong>Enviar</strong> e o WhatsApp abre com a mensagem apropriada já escrita para aquele momento. Você ajusta se quiser e manda. O toque humano continua seu — o sistema só garante o timing.</p></div></div>
@@ -1331,7 +1341,7 @@ const TUT_EXTRA={
   <div class="tut-step"><div class="tut-n">4</div><div class="tut-step-body"><strong>Campanhas em 1 clique</strong><p>Quer reativar clientes parados ou avisar de uma novidade? Os botões de campanha selecionam o público certo e preparam o disparo — você revisa e envia.</p></div></div>
   <div class="tut-tip">💡 Cliente Ouro e Diamante: o sistema marca selo automático por valor gasto acumulado (ajustável em Automações). Reconhecer esses clientes é o que transforma cliente em fã.</div></div>`,
  automacoes:`<div class="tut-card"><h3>⚙️ Automações — o sistema trabalhando sozinho</h3><div class="sub">Você liga as regras; ele detecta o que precisa de ação</div>
-  <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>O que é o Motor de Regras</strong><p>É a inteligência de negócio da Central. Cada regra observa seus dados e, quando algo merece atenção, deixa pronto na <strong>Central de Hoje</strong>. Não é IA adivinhando — é processo padronizado que nunca esquece.</p></div></div>
+  <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>O que é o Motor de Regras</strong><p>É a inteligência de negócio da Central. Cada regra observa seus dados e, quando algo merece atenção, deixa pronto na <strong>Central de Operações</strong>. Não é IA adivinhando — é processo padronizado que nunca esquece.</p></div></div>
   <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Ligue só o que faz sentido</strong><p>Cada regra tem um interruptor: acompanhamento pós-tattoo, fila de retorno, cliente Ouro/Diamante, cobrança de saldo, aniversários, confirmação de sessão, recuperação de falta, benefício por indicação e leads parados. Algumas têm ajustes (a partir de quantos dias, qual valor).</p></div></div>
   <div class="tut-step"><div class="tut-n">3</div><div class="tut-step-body"><strong>Rodar agora</strong><p>Clique em <strong>▶️ Rodar motor agora</strong> a qualquer momento para reprocessar tudo. Normalmente ele já roda sozinho quando você abre o sistema.</p></div></div>
   <div class="tut-step"><div class="tut-n">4</div><div class="tut-step-body"><strong>Piloto Automático 24h</strong><p>Deixa a Central trabalhando por você mesmo com o sistema fechado: prepara o resumo do dia e mantém aniversários e acompanhamentos em dia. Clique no card para ver tudo que ele faz por você.</p></div></div></div>`,
@@ -1402,7 +1412,7 @@ const TUT_EXTRA={
 };
 const TUT_DATA=[
   {id:'inicio',ic:'🚀',lb:'Início Rápido'},
-  {id:'hoje',ic:'☀️',lb:'Central de Hoje'},
+  {id:'hoje',ic:'☀️',lb:'Central de Operações'},
   {id:'agenda',ic:'📅',lb:'Agenda'},
   {id:'crm',ic:'👥',lb:'Clientes CRM'},
   {id:'projetos',ic:'🎨',lb:'Projetos'},
@@ -3120,7 +3130,8 @@ function ldCampEnviar(leadId,gatilho,texto){
   var log=ldCampLog(); log.push({id:uid(),leadId:leadId,gatilho:gatilho,data:hoje(),seg:ldSeg(l),idi:ldIdi(l)}); sdb('ct_leadcamp',log);
   window.open('https://wa.me/55'+tel+'?text='+encodeURIComponent(texto),'_blank');
   showToast('📲 Mensagem aberta no WhatsApp — próximo envio pra este lead em 7 dias.');
-  rLd();
+  if(typeof rLd==='function')rLd();
+  if(typeof rHoje==='function')rHoje();
 }
 
 /* ═══════════ RENDER: fila semanal dentro do painel de Leads ═══════════ */
@@ -3839,7 +3850,7 @@ function iniciarSistemaTrial(t){
   // Rebuildar sidebar com cadeados
   buildSb();
 
-  // Ir para a Central de Hoje
+  // Ir para a Central de Operações
   go('hoje');
   renderDash();
 }
@@ -4383,9 +4394,21 @@ window.rLd=function(){
   var maxV=Math.max.apply(null,cols.map(function(col){return db.filter(function(l){return l.et===col.k;}).reduce(function(a,l){return a+relR(l.val);},0);}).concat([1]));
   var kb=document.getElementById('ldKanban');
   var stats='<div class="rel-stage-stats">'+cols.filter(function(c){return c.k!=='perdido';}).map(function(col){var v=db.filter(function(l){return l.et===col.k;}).reduce(function(a,l){return a+relR(l.val);},0);var pct=Math.round(v/maxV*100);return '<div class="rel-stage"><div class="rel-stage-lb">'+col.lb+'</div><div class="rel-stage-bar"><div class="rel-stage-fill" style="width:'+pct+'%"></div></div><div class="rel-stage-val">'+relRS(v)+'</div></div>';}).join('')+'</div>';
-  // cards ricos (ponto 2)
+  // cards ricos (ponto 2) — com busca por nome/telefone e filtro de temperatura
+  var termoBusca=((document.getElementById('ldSearch')||{}).value||'').trim().toLowerCase();
+  var termoTel=termoBusca.replace(/\D/g,'');
+  var filtroTemp=(document.getElementById('ldFiltroTemp')||{}).value||'';
+  function ldPassaFiltro(l){
+    if(filtroTemp && l.temp!==filtroTemp)return false;
+    if(!termoBusca)return true;
+    var nome=((typeof ctLiveNome==='function'?ctLiveNome(l):null)||l.nome||'').toLowerCase();
+    var tel=((typeof ctLiveTel==='function'?ctLiveTel(l):null)||l.tel||'');
+    if(nome.indexOf(termoBusca)>-1)return true;
+    if(termoTel && tel.replace(/\D/g,'').indexOf(termoTel)>-1)return true;
+    return false;
+  }
   var kanban=cols.map(function(col){
-    var its=db.filter(function(l){return l.et===col.k;});
+    var its=db.filter(function(l){return l.et===col.k;}).filter(ldPassaFiltro);
     return '<div class="kb-col"><div class="kb-head"><span class="kb-title">'+col.lb+'</span><span class="kb-ct">'+its.length+'</span></div>'+its.map(function(l){
       var nome=(typeof ctLiveNome==='function'?ctLiveNome(l):null)||l.nome||'—';
       var tel=(typeof ctLiveTel==='function'?ctLiveTel(l):null)||l.tel||'';
@@ -4412,7 +4435,6 @@ window.rLd=function(){
     }).join('')+'</div>';
   }).join('');
   if(kb)kb.innerHTML=stats+'<div class="kanban" style="margin:0;padding:0;display:flex;gap:14px;overflow-x:auto">'+kanban+'</div>';
-  if(typeof rLdCamp==='function')rLdCamp();
 };
 
 /* ---------- DASHBOARD: Inteligência do Mês (ponto 12) ---------- */
@@ -4570,8 +4592,8 @@ setInterval(relBootResumo,120000);
 </script>
 <style>
 /* ═══ CENTRAL DE HOJE + AUTOMAÇÕES ═══ */
-/* Central Tattoo — Central de Hoje + Automações (usa as vars existentes) */
-/* ---- Central de Hoje ---- */
+/* Central Tattoo — Central de Operações + Automações (usa as vars existentes) */
+/* ---- Central de Operações ---- */
 .hoje-hero{display:flex;justify-content:space-between;align-items:center;gap:16px;background:linear-gradient(135deg,var(--nav),var(--nav2,var(--nav)));border:1px solid var(--goldbrd);border-radius:14px;padding:20px 22px;margin-bottom:18px;box-shadow:var(--sh2)}
 .hoje-ola{font-family:'Cinzel',serif;font-size:22px;font-weight:700;color:var(--gold3)}
 .hoje-data{font-size:13px;color:#EFE0BC;opacity:1;text-transform:capitalize;margin-top:3px}
@@ -4714,10 +4736,9 @@ function motorPendencias(){
     var amanha=new Date(Date.now()+86400000).toISOString().slice(0,10);
     out.confirmacao=relG('ct_sessoes').filter(function(s){return (s.data===hj||s.data===amanha)&&s.stat!=='Confirmado'&&s.stat!=='Concluído'&&s.stat!=='Cancelado'&&s.stat!=='Faltou';});
   }
-  // leads que precisam resposta
+  // leads que precisam resposta — usa a mesma fila de campanha (rotação semanal, sem repetir gatilho)
   if(cfg.leads.on){
-    var STG=(typeof LD_STAGES!=='undefined')?LD_STAGES:['contato','orcamento','negociacao','agendado','fechado','perdido'];
-    out.leads=relG('ct_leads').filter(function(l){return STG.indexOf(l.et)>=0&&l.et!=='fechado'&&l.et!=='perdido'&&((l.prox&&l.prox<=hj)||l.et==='contato');});
+    out.leads=(typeof ldCampFila==='function')?ldCampFila():[];
   }
   // clientes que viraram ouro/diamante hoje
   out.ouro=relG('ct_clientes').filter(function(c){return c.tag&&c.tagEm===hj;});
@@ -4780,9 +4801,26 @@ function rHoje(){
     var its6=p.confirmacao.map(function(s){var tel=(s.tel||'').replace(/\D/g,'');var quando=s.data===relHoje()?'HOJE':'amanhã';var txt='Oi! Passando pra confirmar sua sessão '+quando+(s.hora?' às '+s.hora:'')+'. Posso confirmar? 🖤';var wa=tel?'<a class="btn btn-success btn-xs" href="https://wa.me/55'+tel+'?text='+encodeURIComponent(txt)+'" target="_blank">📲 Confirmar</a>':'';return linha(s.cli||'—','Sessão '+quando+(s.hora?' · '+s.hora:'')+' · '+(s.est||''),wa+' <button class="btn btn-ghost btn-xs" onclick="verSessao(\''+s.id+'\')">📋</button>');});
     html+=bloco('📅','Sessões a confirmar','--gold',its6);
   }
-  // 🎯 leads
+  // 🎯 leads — mensagem de campanha já pronta pra enviar (rotação semanal)
   if(p.leads.length){
-    var its7=p.leads.slice(0,12).map(function(l){var nome=(typeof ctLiveNome==='function'?ctLiveNome(l):null)||l.nome||'—';var tel=((typeof ctLiveTel==='function'?ctLiveTel(l):null)||l.tel||'').replace(/\D/g,'');var wa=tel?'<a class="btn btn-success btn-xs" href="https://wa.me/55'+tel+'" target="_blank">📲</a>':'';return linha(nome,'Lead parado · '+(l.est||'')+(l.val?' · '+relRS(l.val):''),wa+' <button class="btn btn-ghost btn-xs" onclick="editLd(\''+l.id+'\')">✏️</button>');});
+    var its7=p.leads.slice(0,12).map(function(x){
+      var l=x.l, g=(typeof ldProximoGatilho==='function')?ldProximoGatilho(l):null;
+      var nome=(typeof ctLiveNome==='function'?ctLiveNome(l):null)||l.nome||'—';
+      if(!g){ var tel0=(x.tel||'').replace(/\D/g,''); var wa0=tel0?'<a class="btn btn-success btn-xs" href="https://wa.me/55'+tel0+'" target="_blank">📲</a>':''; return linha(nome,'Lead parado · '+(l.est||''),wa0+' <button class="btn btn-ghost btn-xs" onclick="editLd(\''+l.id+'\')">✏️</button>'); }
+      var seg=ldSeg(l), idi=ldIdi(l);
+      var txtBase=ldMsgGet(g.k,idi,seg), texto=ldTpl(txtBase,l);
+      var textoEsc=texto.replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+      var tagCliente=ldEhCliente(l)?'👤 já é cliente':'❄️ lead frio';
+      var info=g.lb+' · '+(LEAD_SEG_LB[seg]||seg)+' · '+tagCliente;
+      var acao='<button class="btn btn-success btn-xs" onclick="ldCampEnviar(\''+l.id+'\',\''+g.k+'\',\''+textoEsc+'\')">📲 Enviar</button> <button class="btn btn-ghost btn-xs" onclick="editLd(\''+l.id+'\')">✏️</button>';
+      return '<div class="hoje-item" style="flex-direction:column;align-items:stretch;gap:6px">'+
+        '<div style="display:flex;justify-content:space-between;gap:12px;align-items:center">'+
+          '<div class="hoje-item-i"><strong>'+relEsc(nome)+'</strong><span>'+info+'</span></div>'+
+          '<div class="hoje-item-a">'+acao+'</div>'+
+        '</div>'+
+        '<div style="font-size:12px;color:var(--tx2);background:var(--goldb);border:1px solid var(--goldbrd);border-radius:8px;padding:7px 10px">💬 '+relEsc(texto)+'</div>'+
+      '</div>';
+    });
     html+=bloco('🎯','Leads que precisam de resposta','--blue',its7);
   }
   el.innerHTML=html;
@@ -4793,21 +4831,21 @@ function acompFeitoUI(sessId,marco){ acompMarcar(sessId,marco); relToast('✅ Ac
    AUTOMAÇÕES (Motor de Regras)
 ═══════════════════════════════════════════════════════════════════ */
 var MOTOR_REGRAS_UI=[
-  {k:'acomp',ic:'🔔',t:'Acompanhamento automático',d:'Ao concluir um procedimento, cria os lembretes de 7, 30, 90 e 180 dias na Central de Hoje.'},
+  {k:'acomp',ic:'🔔',t:'Acompanhamento automático',d:'Ao concluir um procedimento, cria os lembretes de 7, 30, 90 e 180 dias na Central de Operações.'},
   {k:'retorno',ic:'🔁',t:'Fila de retorno',d:'Cliente 30 dias sem tatuar entra automaticamente na fila de retorno.'},
   {k:'ouro',ic:'⭐',t:'Cliente Ouro / Diamante',d:'Marca selo automático por valor gasto acumulado.',params:[{p:'valor',lb:'Ouro a partir de R$'},{p:'valorDiamante',lb:'Diamante a partir de R$'}]},
-  {k:'saldo',ic:'💰',t:'Cobrança automática',d:'Saldo pendente vira tarefa de cobrança na Central de Hoje.',params:[{p:'dias',lb:'Após quantos dias'}]},
+  {k:'saldo',ic:'💰',t:'Cobrança automática',d:'Saldo pendente vira tarefa de cobrança na Central de Operações.',params:[{p:'dias',lb:'Após quantos dias'}]},
   {k:'aniversario',ic:'🎂',t:'Aniversariantes',d:'Avisa dos aniversários com a mensagem pronta pra enviar.'},
-  {k:'confirmacao',ic:'📅',t:'Confirmação de sessão',d:'Sessão de hoje/amanhã sem confirmar aparece na Central de Hoje.'},
+  {k:'confirmacao',ic:'📅',t:'Confirmação de sessão',d:'Sessão de hoje/amanhã sem confirmar aparece na Central de Operações.'},
   {k:'faltou',ic:'⚠️',t:'Recuperação de falta',d:'Cliente que faltou entra no radar para recuperação.'},
   {k:'indicou',ic:'🎁',t:'Benefício por indicação',d:'Cliente que indicou X pessoas ganha destaque para benefício.',params:[{p:'qtd',lb:'Nº de indicações'}]},
-  {k:'leads',ic:'🎯',t:'Leads parados',d:'Leads sem resposta aparecem na Central de Hoje.'}
+  {k:'leads',ic:'🎯',t:'Leads parados',d:'Leads sem resposta aparecem na Central de Operações.'}
 ];
 function rAuto(){
   var cfg=motorCfg();
   var el=document.getElementById('autoBody'); if(!el)return;
   var ativas=MOTOR_REGRAS_UI.filter(function(r){return cfg[r.k]&&cfg[r.k].on;}).length;
-  var html='<div class="tut" style="margin-bottom:14px">💡 O <strong>Motor de Regras</strong> é a inteligência de negócio da Central Tattoo. Você liga as regras e o sistema trabalha sozinho — detectando o que precisa de ação e deixando tudo pronto na <strong>Central de Hoje</strong>. Não é IA: é processo padronizado que não esquece de nada.</div>';
+  var html='<div class="tut" style="margin-bottom:14px">💡 O <strong>Motor de Regras</strong> é a inteligência de negócio da Central Tattoo. Você liga as regras e o sistema trabalha sozinho — detectando o que precisa de ação e deixando tudo pronto na <strong>Central de Operações</strong>. Não é IA: é processo padronizado que não esquece de nada.</div>';
   html+='<div class="auto-head"><div><strong>'+ativas+' de '+MOTOR_REGRAS_UI.length+'</strong> regras ativas</div><button class="btn btn-primary btn-sm" onclick="motorRodarUI()">▶️ Rodar motor agora</button></div>';
   html+='<div class="auto-grid">'+MOTOR_REGRAS_UI.map(function(r){
     var c=cfg[r.k]||{on:false}; var on=c.on;
@@ -4890,7 +4928,7 @@ function motorBootBadge(){
 // estende o boot do relacionamento para também atualizar o badge de hoje
 relBootResumo=function(){ try{ if(_motorOrigBoot)_motorOrigBoot(); }catch(e){} motorBootBadge(); };
 
-/* roda o motor ao abrir o app e leva o admin pra Central de Hoje uma vez */
+/* roda o motor ao abrir o app e leva o admin pra Central de Operações uma vez */
 function motorBoot(){
   try{ motorRodar(true); }catch(e){}
   try{ motorBootBadge(); }catch(e){}
