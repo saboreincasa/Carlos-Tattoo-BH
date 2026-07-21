@@ -96,8 +96,8 @@ a{text-decoration:none;color:inherit;}
 
 /* ── KPI GRID ── */
 .kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:24px;}
-.kpi-card{background:var(--white);border:1px solid var(--brd);border-radius:12px;padding:18px 20px;box-shadow:var(--sh);position:relative;overflow:hidden;}
-.kpi-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;}
+.kpi-card{background:var(--white);border:1px solid var(--brd);border-radius:12px;padding:18px 20px;box-shadow:var(--sh);position:relative;overflow:visible;}
+.kpi-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:12px 0 0 12px;}
 .kpi-gold::before{background:linear-gradient(to bottom,var(--gold2),var(--gold3));}
 .kpi-green::before{background:linear-gradient(to bottom,var(--grn),#34D399);}
 .kpi-red::before{background:linear-gradient(to bottom,var(--red),#F87171);}
@@ -220,6 +220,7 @@ textarea.fi{resize:vertical;min-height:76px;}
 
 /* ── KANBAN ── */
 .kanban{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;}
+.ld-kanban-wrap{display:block;}
 .kb-col{background:#F9FAFB;border:1px solid var(--brd);border-radius:12px;padding:14px;flex:0 0 250px;min-width:250px;}
 #ldKpi{grid-template-columns:repeat(6,minmax(0,1fr));}
 @media(max-width:1100px){#ldKpi{grid-template-columns:repeat(3,minmax(0,1fr));}}
@@ -759,11 +760,27 @@ textarea.fi{resize:vertical;min-height:76px;}
 
 <!-- ═══ LEADS ═══ -->
 <div class="panel" id="p-leads">
-  <div class="pg"><div class="pg-t"><h2>🎯 Pipeline de Leads</h2><p>Nenhuma oportunidade pode escapar</p></div><button class="btn btn-primary" onclick="novoLd()">+ Novo Lead</button></div>
+  <div class="pg"><div class="pg-t"><h2>🎯 Pipeline de Leads</h2><p>Nenhuma oportunidade pode escapar</p></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-ghost" onclick="baixarModeloImportacao()">⬇️ Baixar Modelo de Planilha</button><button class="btn btn-ghost" onclick="document.getElementById('ldImportFile').click()">📤 Importar Planilha</button><input type="file" id="ldImportFile" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleImportPlanilha(event)"><button class="btn btn-ghost" id="btnImportLegado" onclick="importarLeadsLegado()">📥 Importar Lista Antiga</button><button class="btn btn-primary" onclick="novoLd()">+ Novo Lead</button></div></div>
   <div class="tut">💡 <strong>ETAPA:</strong> 1.Contato | 2.Orçamento | 3.Negociação | 4.Agendado | 5.Fechado ✅ | 6.Perdido ❌. <strong>TEMPERATURA:</strong> 🔥 Quente | ⚡ Morno | ❄️ Frio.</div>
   <div class="kpi-grid" id="ldKpi"></div>
-  <div class="kanban" id="ldKanban"></div>
+  <div class="card" style="margin-bottom:16px"><div class="card-h"><h3>📣 Central de Mensagens da Semana</h3><span class="badge-count" id="ldCampCt">—</span></div>
+    <div class="tut" style="margin:10px 12px 0">💡 O sistema roda em ciclo de 7 em 7 dias: cada lead recebe uma mensagem por semana, sem repetir o mesmo gatilho duas vezes seguidas. Leads que já são clientes recebem mensagem de <strong>reconexão</strong>; leads frios recebem gatilhos de autoridade, escassez, novidade, exclusividade e emocionais. Nenhuma mensagem usa desconto.</div>
+    <div style="padding:10px 12px 0"><button class="btn btn-ghost btn-sm" onclick="ldBancoOpen()">💬 Banco de Mensagens</button></div>
+    <div id="ldCampLista" style="padding:6px 12px 12px"></div>
+  </div>
+  <div class="ld-kanban-wrap" id="ldKanban"></div>
 </div>
+
+<div class="modal-wrap" id="mLdBanco"><div class="modal" style="max-width:820px">
+  <div class="modal-head"><h3>💬 Banco de Mensagens — Leads</h3><button class="modal-close" onclick="closeM('mLdBanco')">✕</button></div>
+  <div class="modal-body">
+    <div class="tut" style="margin-bottom:12px">💡 Todas editáveis. Use <code>{nome}</code> — o sistema troca pelo primeiro nome do lead automaticamente. Cada gatilho tem uma versão por segmento (Tatuagem / Aréola / Piercing) e por idioma (PT/EN/ES).</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px" id="ldBancoSegTabs"></div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px" id="ldBancoIdiTabs"></div>
+    <div id="ldBancoBody"></div>
+  </div>
+  <div class="modal-foot"><button class="btn btn-ghost btn-sm" onclick="closeM('mLdBanco')">Fechar</button></div>
+</div></div>
 
 <!-- ═══ METAS ═══ -->
 <div class="panel" id="p-metas">
@@ -1119,6 +1136,8 @@ textarea.fi{resize:vertical;min-height:76px;}
     <div class="fg2"><div class="fg"><label>Etapa</label><select class="fi" id="ldEt"><option value="contato">1. Contato Inicial</option><option value="orcamento">2. Orçamento Enviado</option><option value="negociacao">3. Negociação</option><option value="agendado">4. Agendado</option><option value="fechado">5. Fechado ✅</option><option value="perdido">6. Perdido ❌</option></select></div><div class="fg"><label>Origem</label><select class="fi" id="ldOri"><option>Instagram</option><option>Indicação</option><option>Google</option><option>Site</option><option>TikTok</option><option>WhatsApp</option><option>Outro</option></select></div></div>
     <div class="fg2"><div class="fg"><label>Email</label><input class="fi" type="email" id="ldEmail"></div><div class="fg"><label>Próxima Ação</label><input class="fi" type="date" id="ldProx"></div></div>
     <div class="fg"><label>Próximo Passo</label><textarea class="fi" id="ldPasso" rows="2"></textarea></div>
+    <div class="fg2"><div class="fg"><label>Segmento <span style="font-weight:400;color:var(--tx3);font-size:12px">— define qual mensagem de campanha ele recebe</span></label><select class="fi" id="ldSeg"><option value="tatuagem">🖤 Tatuagem</option><option value="areola">🎗️ Reconstrução de Aréola</option><option value="piercing">💎 Piercing</option></select></div><div class="fg"><label>Idioma</label><select class="fi" id="ldIdi"><option value="pt">🇧🇷 Português</option><option value="en">🇺🇸 English</option><option value="es">🇪🇸 Español</option></select></div></div>
+    <div class="fg"><label>Já é cliente? <span style="font-weight:400;color:var(--tx3);font-size:12px">— já tatuou/fez procedimento com você antes</span></label><select class="fi" id="ldJaCli"><option value="Não">Não — lead frio</option><option value="Sim">Sim — já é cliente</option></select></div>
   </div>
   <div class="modal-foot"><button class="btn btn-ghost btn-sm" onclick="closeM('mLd')">Cancelar</button><button class="btn btn-primary btn-sm" onclick="saveLd()">Salvar Lead</button></div>
 </div></div>
@@ -2495,21 +2514,6 @@ function reagendarSessao(id){const s=gdb('ct_sessoes').find(x=>x.id===id);if(!s)
 
 // ── FUNDO DE MARKETING ──
 function fundoMktSaldo(){const db=gdb('ct_mkt_fundo');return db.reduce((a,r)=>a+(r.tipo==='retirada'?-R(r.val):R(r.val)),0);}
-function rMktFundo(){const el=document.getElementById('mktFundo');if(!el)return;const cf=conf();const pct=R(cf.mkt!==undefined&&cf.mkt!==''?cf.mkt:7);const db=gdb('ct_mkt_fundo').sort((a,b)=>b.data>a.data?1:-1);const saldo=fundoMktSaldo();
- const fat3=(()=>{const hoje3=new Date();let t=0;for(let i=0;i<3;i++){const d=new Date(hoje3.getFullYear(),hoje3.getMonth()-i,1);const mm=d.toISOString().slice(0,7);t+=gdb('ct_sessoes').filter(s=>s.stat==='Concluído'&&(s.data||'').slice(0,7)===mm).reduce((a,s)=>a+R(s.val),0);}return t/3;})();
- const faixa=fat3<5000?{p:'5-7%',dica:'Fase de tração: priorize conteúdo orgânico + R$10-15/dia em tráfego local.'}:fat3<15000?{p:'7%',dica:'Fase de crescimento: tráfego consistente + parcerias locais.'}:{p:'10%',dica:'Fase de escala: aumente o investimento para dominar o nicho na sua região.'};
- el.innerHTML=`<div style="display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start">
-  <div><div style="font-size:26px;font-weight:700;color:var(--gold,#b8860b)">${$R(saldo)}</div><div style="font-size:12px;color:var(--tx3)">acumulado para investir em divulgação</div>
-   <div style="margin-top:8px;font-size:12.5px;display:flex;align-items:center;gap:6px">Percentual por sessão: <input type="number" id="mkPctInLegacy" value="${pct}" min="0" max="100" style="width:64px;padding:4px 6px;border:1px solid var(--brd2,#ccc);border-radius:6px"> % <button class="btn btn-ghost btn-xs" onclick="salvarPctMkt()">Salvar</button></div></div>
-  <div style="flex:1;min-width:250px">
-   <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--tx3);margin-bottom:6px">📊 Plano de distribuição sugerido</div>
-   <div style="font-size:12.5px;line-height:1.7">🎯 <strong>65% Tráfego local</strong> (impulsionar Instagram + Google na sua cidade): <strong>${$R(saldo*0.65)}</strong><br>🎬 <strong>20% Turbinar seu conteúdo</strong> (impulsionar seus melhores Reels/posts — você mesmo grava): <strong>${$R(saldo*0.20)}</strong><br>🧪 <strong>15% Testes e parcerias</strong> (novos criativos, colabs, brindes): <strong>${$R(saldo*0.15)}</strong></div>
-   <div style="font-size:12px;color:var(--tx3);margin-top:8px">📈 <strong>Plano de crescimento:</strong> faturamento médio ${$R(fat3)}/mês → invista ${faixa.p} do faturamento. ${faixa.dica}</div>
-  </div>
-  <div style="flex:1;min-width:220px;font-size:12.5px">
-   <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--tx3);margin-bottom:6px">Movimentações</div>
-   ${db.length?db.slice(0,5).map(r=>`<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px dashed rgba(128,128,128,.2)"><span>${dtBR(r.data)} · ${r.desc||''}</span><strong style="color:${r.tipo==='retirada'?'var(--red)':'var(--grn)'}">${r.tipo==='retirada'?'−':'+'}${$R(R(r.val))}</strong></div>`).join(''):'<span style="color:var(--tx3)">Conclua sessões e o fundo acumula sozinho.</span>'}
-  </div></div>`+ctEduBlock();}
 function ctLocale(){const cf=conf();if(cf&&['pt','en','es'].includes(cf.lang))return cf.lang;if(window.TRIAL_LANG&&['pt','en','es'].includes(window.TRIAL_LANG))return window.TRIAL_LANG;const n=(navigator.language||'pt').slice(0,2).toLowerCase();return n==='en'||n==='es'?n:'pt';}
 function ctEduBlock(){const saldo=fundoMktSaldo();const edu=saldo*0.10;const lc=ctLocale();
   // Links do Stripe são multi-moeda (USD, EUR, BRL): o MESMO link cobra na
@@ -2715,15 +2719,458 @@ function editEst(id){const e=gdb('ct_estoque').find(x=>x.id===id);if(!e)return;d
 function delEst(id){if(!confirm('Excluir?'))return;sdb('ct_estoque',gdb('ct_estoque').filter(e=>e.id!==id));rEst();}
 // ── LEADS ──
 const LD_STAGES=['contato','orcamento','negociacao','agendado','fechado','perdido'];
-function rLd(){let db=gdb('ct_leads');let _chg=false;db.forEach(l=>{if(LD_STAGES.indexOf(l.et)<0){l.et='contato';_chg=true;}});if(_chg)sdb('ct_leads',db);const atv=db.filter(l=>l.et!=='fechado'&&l.et!=='perdido');document.getElementById('ldKpi').innerHTML=`<div class="kpi-card kpi-blue"><div class="kpi-num c-blue">${atv.length}</div><div class="kpi-label">Leads Ativos</div></div><div class="kpi-card kpi-gold"><div class="kpi-num c-gold">${$R(atv.reduce((a,l)=>a+R(l.val),0))}</div><div class="kpi-label">Pipeline (R$)</div></div><div class="kpi-card kpi-green"><div class="kpi-num c-green">${db.filter(l=>l.et==='fechado').length}</div><div class="kpi-label">Fechados</div></div><div class="kpi-card kpi-red"><div class="kpi-num c-red">${db.filter(l=>l.et==='perdido').length}</div><div class="kpi-label">Perdidos</div></div>`;
-const cols=[{k:'contato',lb:'📩 Contato'},{k:'orcamento',lb:'📋 Orçamento'},{k:'negociacao',lb:'🤝 Negociação'},{k:'agendado',lb:'📅 Agendado'},{k:'fechado',lb:'✅ Fechado'},{k:'perdido',lb:'❌ Perdido'}];
-document.getElementById('ldKanban').innerHTML=cols.map(col=>{const its=db.filter(l=>l.et===col.k);return`<div class="kb-col"><div class="kb-head"><span class="kb-title">${col.lb}</span><span class="kb-ct">${its.length}</span></div>${its.map(l=>`<div class="kb-card" onclick="editLd('${l.id}')"><h4>${ctLiveNome(l)||'—'}</h4><p class="kb-meta">${l.est||''} ${l.tam?'· '+l.tam:''} ${l.val?'· '+$R(l.val):''}</p><p class="kb-meta" style="display:flex;gap:5px;align-items:center"><span>${l.temp==='quente'?'🔥':l.temp==='morno'?'⚡':'❄️'}</span><a class="btn btn-success btn-xs" href="https://wa.me/55${(ctLiveTel(l)||'').replace(/\D/g,'')}" target="_blank" onclick="event.stopPropagation()">📲</a><button class="btn btn-ghost btn-xs" onclick="event.stopPropagation();converterLeadCliente('${l.id}')" title="Converter em cliente do CRM" style="margin-left:auto">👤➕</button><button class="btn btn-danger btn-xs" onclick="event.stopPropagation();delLd('${l.id}')">🗑</button></p></div>`).join('')}</div>`;}).join('');}
-function saveLd(){const id=document.getElementById('ldId').value||uid();const l={id,nome:document.getElementById('ldNome').value,tel:document.getElementById('ldTel').value,email:document.getElementById('ldEmail').value,est:document.getElementById('ldEst').value,tam:document.getElementById('ldTam').value,val:document.getElementById('ldVal').value,et:document.getElementById('ldEt').value,temp:document.getElementById('ldTemp').value,ori:document.getElementById('ldOri').value,prox:document.getElementById('ldProx').value,passo:document.getElementById('ldPasso').value};const db=gdb('ct_leads'),i=db.findIndex(x=>x.id===id);if(i>=0){l.criadoEm=db[i].criadoEm||new Date().toISOString();l.ultContato=hoje();db[i]=l;}else{l.criadoEm=new Date().toISOString();l.ultContato=hoje();db.push(l);}sdb('ct_leads',db);closeM('mLd');rLd();showToast('✅ Lead salvo!');}
+// ── IMPORTAÇÃO DA LISTA ANTIGA DE CONTATOS (tráfego pago, não convertidos) ──
+const LEADS_LEGADO=[{"nome":"Adenilson","tel":"+553193936887"},{"nome":"Aderson","tel":"+553182481087"},{"nome":"Aderson Santos","tel":"+5521970146945"},{"nome":"Adilson","tel":"+553182688363"},{"nome":"Adrian","tel":"+553184390613"},{"nome":"Adriana","tel":"+553190773793"},{"nome":"Adriana","tel":"+5531986324858"},{"nome":"Adriana","tel":"+553197819213"},{"nome":"Adriana","tel":"+553194602430"},{"nome":"Adriana Martiniano","tel":"+553189054847"},{"nome":"Adriano","tel":"+553195714780"},{"nome":"Adriel","tel":"+553183421142"},{"nome":"Adrielzinho","tel":"+553399368777"},{"nome":"Ailton","tel":"+553196068528"},{"nome":"Alan Walker","tel":"+553189682958"},{"nome":"Aldair","tel":"+987412357"},{"nome":"Alê","tel":"+553192370790"},{"nome":"Alef Adriano","tel":"+553182051373"},{"nome":"Alessandra","tel":"+553185730631"},{"nome":"Alessandra","tel":"+553173638835"},{"nome":"Alex Moreira","tel":"+553189184033"},{"nome":"Alexandra","tel":"+553184259335"},{"nome":"Alexandre","tel":"+553175107819"},{"nome":"Aline","tel":"+5531989300887"},{"nome":"Aline Nunes","tel":"+553182755589"},{"nome":"Alison","tel":"+553199240905"},{"nome":"Alisson","tel":"+553188250038"},{"nome":"Amanda","tel":"+553193732235"},{"nome":"Amanda Marques","tel":"+553186850872"},{"nome":"Amanda Nails","tel":"+553185965026"},{"nome":"Ana Clara Olivei","tel":"+553171961975"},{"nome":"Ana","tel":"+553184080407"},{"nome":"Ana","tel":"+553190904819"},{"nome":"Ana","tel":"+553192457231"},{"nome":"Ana Cristina","tel":"+553199427311"},{"nome":"Ana Paula","tel":"+553188512872"},{"nome":"Analice Baracho","tel":"+553175339432"},{"nome":"Analu","tel":"+553182237834"},{"nome":"Anderson","tel":"+553184854148"},{"nome":"Andréa","tel":"+553188494905"},{"nome":"Andrea Prado","tel":"+5531985060798"},{"nome":"Andreia","tel":"+553182848093"},{"nome":"Andresa","tel":"+553172548097"},{"nome":"Ane","tel":"+553196641150"},{"nome":"Angela","tel":"+02131997853423"},{"nome":"Angelica","tel":"+5531993819897"},{"nome":"Angélica","tel":"+553184555174"},{"nome":"Anne","tel":"+553183153478"},{"nome":"Antônio Marcos","tel":"+553186050444"},{"nome":"Ariane","tel":"+553184418058"},{"nome":"Aurea","tel":"+553199974594"},{"nome":"Austen","tel":"+553193766095"},{"nome":"Baiano","tel":"+553187868879"},{"nome":"Bela","tel":"+553186704179"},{"nome":"Bete","tel":"+553171394212"},{"nome":"Bete de Jesus","tel":"+553188571074"},{"nome":"Beth","tel":"+553182780597"},{"nome":"Beto Gesso","tel":"+5531973648510"},{"nome":"Bia","tel":"+557192377475"},{"nome":"Bianca","tel":"+985122347"},{"nome":"Bibi","tel":"+553175335994"},{"nome":"Brenda","tel":"+553193545861"},{"nome":"Breno","tel":"+553193089047"},{"nome":"Bruna","tel":"+553197709836"},{"nome":"Bruna","tel":"+553185620513"},{"nome":"Bruno","tel":"+553175204381"},{"nome":"Bruno","tel":"+553799970322"},{"nome":"Bruno Marlon","tel":"+553193254481"},{"nome":"Camila Camis","tel":"+553171026686"},{"nome":"Camila","tel":"+553192138234"},{"nome":"Camilly","tel":"+553187723314"},{"nome":"Carina Paula","tel":"+553185303119"},{"nome":"Carina","tel":"+553191548204"},{"nome":"Carla","tel":"+553189094729"},{"nome":"Carlinha","tel":"+553195186110"},{"nome":"Carlos Agenor","tel":"+553199478931"},{"nome":"Carlos","tel":"+553199092215"},{"nome":"Carlos","tel":"+553182714126"},{"nome":"Carol Ins","tel":"+553195959438"},{"nome":"Carol Edilene","tel":"+553186565609"},{"nome":"Caroline","tel":"+553172412632"},{"nome":"Carvalho","tel":"+553191628246"},{"nome":"Caryna","tel":"+553182576291"},{"nome":"Catia","tel":"+553172602951"},{"nome":"Cesar","tel":"+553185011795"},{"nome":"Charles Lucas","tel":"+553171152499"},{"nome":"Charlin","tel":"+553183550082"},{"nome":"Christian","tel":"+553190810757"},{"nome":"Cilene","tel":"+553188536059"},{"nome":"Cirlene de Paula","tel":"+553186675574"},{"nome":"Clarisse","tel":"+553172045364"},{"nome":"Cláudia","tel":"+553181202810"},{"nome":"Claudia","tel":"+553184938544"},{"nome":"Claudia","tel":"+553198143886"},{"nome":"Claudia Pereira","tel":"+553173284533"},{"nome":"Claudinha","tel":"+553199947098"},{"nome":"Claudio","tel":"+553185051588"},{"nome":"Claudio Tppp","tel":"+553192891061"},{"nome":"Cleide","tel":"+553193483930"},{"nome":"Cleo","tel":"+553199767314"},{"nome":"Cliccy","tel":"+553189558408"},{"nome":"Contato 102","tel":"+02131994967345"},{"nome":"Contato 103","tel":"+553184914953"},{"nome":"Contato 104","tel":"+553182920283"},{"nome":"Contato 105","tel":"+5531995575830"},{"nome":"Contato 106","tel":"+553184525837"},{"nome":"Contato 107","tel":"+553187792475"},{"nome":"Contato 108","tel":"+553171317928"},{"nome":"Contato 109","tel":"+5531987426932"},{"nome":"Contato 110","tel":"+553183138019"},{"nome":"Contato 111","tel":"+553180258863"},{"nome":"Contato 112","tel":"+5531985279997"},{"nome":"Contato 113","tel":"+5531989681279"},{"nome":"Contato 114","tel":"+5531987883720"},{"nome":"Contato 115","tel":"+5538997460988"},{"nome":"Contato 116","tel":"+553195802956"},{"nome":"Contato 117","tel":"+553186854724"},{"nome":"Contato 118","tel":"+553186457062"},{"nome":"Contato 119","tel":"+5531988586173"},{"nome":"Contato 120","tel":"+553175608350"},{"nome":"Contato 121","tel":"+5531998913482"},{"nome":"Contato 122","tel":"+553189110861"},{"nome":"Contato 123","tel":"+553194320544"},{"nome":"Contato 124","tel":"+553171136837"},{"nome":"Contato 125","tel":"+5531996236760"},{"nome":"Contato 126","tel":"+5531991565821"},{"nome":"Contato 127","tel":"+553196222518"},{"nome":"Contato 128","tel":"+5531986536646"},{"nome":"Contato 129","tel":"+553189821673"},{"nome":"Contato 130","tel":"+5531997950705"},{"nome":"Contato 131","tel":"+5531995171481"},{"nome":"Contato 132","tel":"+553199365182"},{"nome":"Contato 133","tel":"+5531997616243"},{"nome":"Contato 134","tel":"+553186604090"},{"nome":"Contato 135","tel":"+5531986686863"},{"nome":"Contato 136","tel":"+553189839136"},{"nome":"Contato 137","tel":"+553194208869"},{"nome":"Contato 138","tel":"+553187258978"},{"nome":"Contato 139","tel":"+553171277881"},{"nome":"Contato 140","tel":"+5531984280185"},{"nome":"Contato 141","tel":"+553194051356"},{"nome":"Contato 142","tel":"+5531991580136"},{"nome":"Contato 143","tel":"+5531996305775"},{"nome":"Contato 144","tel":"+5531988453216"},{"nome":"Contato 145","tel":"+5531989378706"},{"nome":"Contato 146","tel":"+5531992078712"},{"nome":"Contato 147","tel":"+5531997119907"},{"nome":"Contato 148","tel":"+553188896829"},{"nome":"Contato 149","tel":"+5571981613129"},{"nome":"Contato 150","tel":"+553185753039"},{"nome":"Contato 151","tel":"+553187120616"},{"nome":"Contato 152","tel":"+5531993635487"},{"nome":"Contato 153","tel":"+553189658901"},{"nome":"Contato 154","tel":"+553188374025"},{"nome":"Contato 155","tel":"+5531984401269"},{"nome":"Contato 156","tel":"+5531993315554"},{"nome":"Contato 157","tel":"+5531992388436"},{"nome":"Contato 158","tel":"+553171760739"},{"nome":"Ieheiwjw7e","tel":"+553191090836"},{"nome":"Iw7e","tel":"+553197750163"},{"nome":"Jdjdjd","tel":"+553196221076"},{"nome":"Mulher","tel":"+553184741665"},{"nome":"Sisud","tel":"+987660573"},{"nome":"Contato 164","tel":"+553183729784"},{"nome":"Contato 165","tel":"+553186941003"},{"nome":"Clindia","tel":"+553186674017"},{"nome":"Consuelo","tel":"+553188460824"},{"nome":"Cristia","tel":"+553184582133"},{"nome":"Cristian","tel":"+553186011449"},{"nome":"Cristiane","tel":"+5531998937714"},{"nome":"Cristiane","tel":""},{"nome":"Cristianee","tel":"+553189176500"},{"nome":"Cristianne","tel":"+553182406196"},{"nome":"Cristiano","tel":"+553172121457"},{"nome":"Cristiano","tel":"+553199246502"},{"nome":"Cristina","tel":"+553195406820"},{"nome":"Cristina Barreiro","tel":"+5513997522464"},{"nome":"Cristina Silva","tel":"+553192273514"},{"nome":"Cristina","tel":"+553195904739"},{"nome":"Cristina Xavier","tel":"+553195506891"},{"nome":"Daiane","tel":"+553584674793"},{"nome":"Dani","tel":"+553186125259"},{"nome":"Dani","tel":"+553189427062"},{"nome":"Daniele","tel":"+988570299"},{"nome":"Daniele Pereira","tel":"+553184290935"},{"nome":"Danieljackson","tel":"+553189856788"},{"nome":"Danielle","tel":"+553189111606"},{"nome":"Danilo","tel":"+553197164343"},{"nome":"Danne Binha","tel":"+984973789"},{"nome":"Dany","tel":"+553172016890"},{"nome":"Davina Vizinha","tel":"+553187740248"},{"nome":"Day","tel":"+553187438057"},{"nome":"Débora","tel":"+553198827906"},{"nome":"Debora Tppp","tel":"+553184154667"},{"nome":"Dede","tel":"+553195567451"},{"nome":"Deir","tel":"+553180211975"},{"nome":"Denise Costa","tel":"+553187969293"},{"nome":"Denubia","tel":"+553189231862"},{"nome":"Diego's","tel":"+559870248885"},{"nome":"Dolores","tel":"+553171422499"},{"nome":"Dora","tel":"+553187948935"},{"nome":"Dora Maria","tel":"+553191442741"},{"nome":"Duda","tel":"+553196080449"},{"nome":"Duda","tel":"+553192756318"},{"nome":"Duda","tel":"+553172675933"},{"nome":"Dudu","tel":"+553189496486"},{"nome":"Ederson Cardoso","tel":"+553191452004"},{"nome":"Edivania","tel":"+553197520741"},{"nome":"Eduardo","tel":"+553197867970"},{"nome":"Elaine","tel":"+993078563"},{"nome":"Elaine Clindia","tel":"+553197831591"},{"nome":"Elaine","tel":"+553199734601"},{"nome":"Elaine","tel":"+553196518589"},{"nome":"Elaine Tppp","tel":"+553198090209"},{"nome":"Elaine Silva","tel":"+553186027064"},{"nome":"Elainecristina","tel":"+553185347588"},{"nome":"Eldair","tel":"+553191737612"},{"nome":"Eliana","tel":"+553183594012"},{"nome":"Eliane","tel":"+553196979455"},{"nome":"Elisabete","tel":"+553197132259"},{"nome":"Elisângela Alves Jesus","tel":"+553195811525"},{"nome":"Elisângela","tel":"+553183970536"},{"nome":"Elisangela Trindade","tel":"+553187524155"},{"nome":"Elizabete","tel":"+553191311773"},{"nome":"Eliziany Pereira","tel":"+553195979617"},{"nome":"Elly","tel":"+553195558713"},{"nome":"Emanuelle","tel":"+553192169459"},{"nome":"Emerson","tel":"+553186134771"},{"nome":"Emerson","tel":"+553193480728"},{"nome":"Emersonn","tel":"+553180520763"},{"nome":"Erica","tel":"+553186895418"},{"nome":"Erica","tel":"+553193956767"},{"nome":"Erika","tel":"+559184658551"},{"nome":"Erivelton","tel":"+553184175817"},{"nome":"Estefane","tel":"+553188345999"},{"nome":"Estela","tel":"+553185040878"},{"nome":"Ester","tel":"+5531998777731"},{"nome":"Euzinha","tel":"+553171702213"},{"nome":"Eva Lucia Ribeiro","tel":"+553182103789"},{"nome":"Evanice","tel":"+553189064942"},{"nome":"Everson","tel":"+553171297354"},{"nome":"Everton Caetano","tel":"+553194364196"},{"nome":"Fabi","tel":"+553196036838"},{"nome":"Fabiana","tel":"+553188134556"},{"nome":"Fabio","tel":"+5531989649711"},{"nome":"Fábio B","tel":"+555597265354"},{"nome":"Fábio","tel":"+5515996665601"},{"nome":"Fabio Tppp","tel":"+553182430683"},{"nome":"Fábio Júnio","tel":"+553188672731"},{"nome":"Fabio Junior","tel":"+553196591488"},{"nome":"• Fabíola G .","tel":"+553194724314"},{"nome":"Faby","tel":"+553181111415"},{"nome":"Fabyane","tel":"+553194649429"},{"nome":"Faell","tel":"+553192484264"},{"nome":"Falido","tel":"+553398492132"},{"nome":"Farlen","tel":"+553195642463"},{"nome":"Farley","tel":"+553191990469"},{"nome":"Fernanda","tel":"+5531998891644"},{"nome":"Fernanda","tel":"+553195423681"},{"nome":"Fernanda Ind","tel":"+553181079580"},{"nome":"Fernanda","tel":"+553171929610"},{"nome":"Fernanda","tel":""},{"nome":"Fernanda Correia","tel":"+553192036432"},{"nome":"Fernandaaa","tel":"+553193361091"},{"nome":"Fernando","tel":"+553197908315"},{"nome":"Fernando Dias","tel":"+553190897724"},{"nome":"Fernando Junior","tel":"+553190852889"},{"nome":"Figueiredo","tel":"+553193636488"},{"nome":"Filipe","tel":"+989698457"},{"nome":"Flávia","tel":"+553191970427"},{"nome":"Flavio","tel":"+557199785658"},{"nome":"Fran","tel":"+553171768234"},{"nome":"Franciele","tel":"+989831770"},{"nome":"Franciele","tel":"+553186973560"},{"nome":"Franciele","tel":"+553195359032"},{"nome":"Francielle","tel":"+999734518"},{"nome":"Fransione","tel":"+553182401063"},{"nome":"Fred","tel":"+553198191079"},{"nome":"↬frozen","tel":"+553186404190"},{"nome":"Gabi","tel":"+553171484138"},{"nome":"Gabi","tel":"+553172553066"},{"nome":"Gabi Reis","tel":"+553175774889"},{"nome":"Gabriel Ribeiro","tel":"+553191315201"},{"nome":"Gabriela","tel":"+553184842361"},{"nome":"Geiz Paixao","tel":"+553171719180"},{"nome":"Genice Campos","tel":"+553192436066"},{"nome":"George","tel":"+558791090464"},{"nome":"Gerci","tel":"+553171682972"},{"nome":"Gerlania","tel":"+553190600655"},{"nome":"Gilberto","tel":"+553199192505"},{"nome":"Gilberto","tel":"+553197671348"},{"nome":"Gilberto","tel":"+553198068648"},{"nome":"Gilberto Santos","tel":"+553198131262"},{"nome":"Gilson","tel":"+553188445270"},{"nome":"Girlando Alves","tel":"+553193280806"},{"nome":"Giselle Guidi","tel":"+553193919122"},{"nome":"Glaucia","tel":"+553175445770"},{"nome":"Gleicy","tel":"+553173319851"},{"nome":"Gleisin","tel":"+5531920076858"},{"nome":"Gleyce","tel":"+553184920479"},{"nome":"Gleyce Carvalhari","tel":"+553182730706"},{"nome":"Graca","tel":"+553186628314"},{"nome":"Grazi","tel":"+553188251303"},{"nome":"Grazi Dani","tel":"+553185932133"},{"nome":"Grazi","tel":"+553189222553"},{"nome":"Graziele","tel":"+553187540798"},{"nome":"Grazielle","tel":"+553172323627"},{"nome":"Grazielle","tel":"+553189580204"},{"nome":"Gustavo","tel":"+553189480770"},{"nome":"Gustavo Henrique","tel":"+553173538374"},{"nome":"Harunaoliver","tel":"+553183529480"},{"nome":"Helen Andreia","tel":"+553187328776"},{"nome":"Henrik","tel":"+553198754888"},{"nome":"Henrique","tel":"+553186734465"},{"nome":"Hiann Alves","tel":"+553182811135"},{"nome":"Iara","tel":"+553136460880"},{"nome":"Ícaro Michael","tel":"+553171344357"},{"nome":"Igor","tel":"+553184634983"},{"nome":"Igor Mateus","tel":"+553199730739"},{"nome":"Irlene","tel":"+553171771658"},{"nome":"Isa","tel":"+553195366437"},{"nome":"Isabel Cristina","tel":"+553186038346"},{"nome":"Isabella","tel":"+553197865585"},{"nome":"Izabela","tel":"+553196751126"},{"nome":"Jacque","tel":"+553195652242"},{"nome":"Jana Polly","tel":"+553195470865"},{"nome":"Janaina","tel":"+553198668062"},{"nome":"Janderson","tel":"+553198430698"},{"nome":"Jane Silva","tel":"+553188415486"},{"nome":"Jaque","tel":"+553193315544"},{"nome":"Jaqueline","tel":"+5531991401592"},{"nome":"Jean","tel":"+553191271201"},{"nome":"Jeferson","tel":"+553197982639"},{"nome":"Jefferson","tel":"+553172213160"},{"nome":"Jenifer","tel":"+553190860584"},{"nome":"Jennifer","tel":"+553173135038"},{"nome":"~jéssica","tel":"+553185872435"},{"nome":"Jessica","tel":"+553187170251"},{"nome":"Jéssica","tel":"+553171585928"},{"nome":"Jesús","tel":"+553193090574"},{"nome":"Jhow","tel":"+553172093846"},{"nome":"Jô","tel":"+553199242724"},{"nome":"Joana Alves","tel":"+553173376299"},{"nome":"João Carlos","tel":"+553197838638"},{"nome":"Joao","tel":"+553195801673"},{"nome":"João Paulo","tel":"+553397321758"},{"nome":"Joao Pedro","tel":"+553196902922"},{"nome":"João Vitor","tel":"+553186307440"},{"nome":"Joe Filipe","tel":"+553183696015"},{"nome":"Joh","tel":"+553188993953"},{"nome":"Jonathan","tel":"+553175683571"},{"nome":"Jonh Lennon Pereira","tel":"+553189717429"},{"nome":"Jordana","tel":"+553198033642"},{"nome":"Jose","tel":"+985043958"},{"nome":"Josiane","tel":"+553183315084"},{"nome":"Josy","tel":"+553171620428"},{"nome":"Joyce","tel":"+553193698009"},{"nome":"Joyce","tel":"+553189313827"},{"nome":"Ju","tel":"+553189086788"},{"nome":"Jucelia","tel":"+553193667793"},{"nome":"Juh","tel":"+558281126545"},{"nome":"Juju","tel":"+553172385759"},{"nome":"Júlia","tel":"+553186223689"},{"nome":"Juliana","tel":"+553172438936"},{"nome":"Juliana","tel":"+553497167113"},{"nome":"Juliana","tel":"+553189474201"},{"nome":"Julienarrara","tel":"+553182011368"},{"nome":"Junia","tel":"+553190614941"},{"nome":"Junior","tel":"+553198710009"},{"nome":"Junior Vidro","tel":"+971900790"},{"nome":"Jussara","tel":"+553180261266"},{"nome":"Kaka","tel":"+553193623598"},{"nome":"Kare","tel":"+553192258534"},{"nome":"Karen","tel":"+5531996294847"},{"nome":"Karen","tel":"+553172382948"},{"nome":"Karine Costa","tel":"+553175201325"},{"nome":"Karla","tel":"+553171536157"},{"nome":"Kassia","tel":"+553171769730"},{"nome":"Kell","tel":"+553185735548"},{"nome":"Kelly","tel":"+553198769211"},{"nome":"Kelly","tel":"+553189860895"},{"nome":"Kelly Cristina","tel":"+553189231715"},{"nome":"Kenia","tel":"+553198782388"},{"nome":"Késia","tel":"+553171573287"},{"nome":"Kethelen","tel":"+553196451679"},{"nome":"Ksnsk","tel":"+553197057373"},{"nome":"Lais","tel":"+553175615899"},{"nome":"Lais Soares","tel":"+553185021409"},{"nome":"Lane","tel":"+553398032674"},{"nome":"Larissa","tel":"+553194134036"},{"nome":"Larissa","tel":"+553193604442"},{"nome":"Laura","tel":"+553171180015"},{"nome":"Layria Maria","tel":"+553182172044"},{"nome":"Leila","tel":"+553180207760"},{"nome":"Leila","tel":"+553172238442"},{"nome":"~leile","tel":"+553172480866"},{"nome":"Leily Macedo","tel":"+553182686757"},{"nome":"Leiyde","tel":"+553186458614"},{"nome":"Leonidia","tel":"+553182334024"},{"nome":"Lethys","tel":"+553188063603"},{"nome":"Lia Dias","tel":"+553198409009"},{"nome":"Lidy","tel":"+553199662925"},{"nome":"Lidy Tpppp","tel":"+553191583896"},{"nome":"Lili","tel":"+553189612889"},{"nome":"Lilian Márcia","tel":"+553193458583"},{"nome":"Liliane","tel":"+553198457200"},{"nome":"Lily","tel":"+553192832652"},{"nome":"Lipe","tel":"+553181173284"},{"nome":"Lora","tel":"+553185513079"},{"nome":"Loraine Paixao","tel":"+553199465974"},{"nome":"Lorena","tel":"+553187697669"},{"nome":"Lorrainy","tel":"+553187402227"},{"nome":"Lu","tel":"+553182430993"},{"nome":"Lú Rodrigue","tel":"+553171599611"},{"nome":"Luan Coelho","tel":"+553192676177"},{"nome":"Lucas","tel":"+553193411306"},{"nome":"Lucas","tel":"+553182240337"},{"nome":"Lucas","tel":"+553196877920"},{"nome":"Lucia Oliveira","tel":"+553199747601"},{"nome":"Luciana Brandão","tel":"+553199364040"},{"nome":"Luciana F.","tel":"+553196684756"},{"nome":"Luciane Oliveira","tel":"+553184027787"},{"nome":"Luciane Valadares","tel":"+553198860719"},{"nome":"Luciano","tel":"+553185080048"},{"nome":"Luciano","tel":"+5521995225154"},{"nome":"Luciene Marinho","tel":"+553185594990"},{"nome":"Lucilene","tel":"+553192841288"},{"nome":"Lud","tel":"+553192329212"},{"nome":"Ludimila Ferreira","tel":"+553192099384"},{"nome":"Ludmila","tel":"+553171677017"},{"nome":"Ludy","tel":"+553186814953"},{"nome":"Luiz","tel":"+553186173423"},{"nome":"Luzia","tel":"+553195926478"},{"nome":"Luziane","tel":"+553182206470"},{"nome":"Luzilene","tel":"+553182526306"},{"nome":"Magna","tel":"+553181192481"},{"nome":"Maicon","tel":"+553185308294"},{"nome":"Manel","tel":"+5531991440380"},{"nome":"Mara","tel":"+553191526316"},{"nome":"Mara","tel":"+553193082648"},{"nome":"Marcela","tel":"+553182045184"},{"nome":"Marcela Esther","tel":"+553899851426"},{"nome":"Marcelle","tel":"+553195480970"},{"nome":"Marcelo","tel":"+553192711096"},{"nome":"Marcia","tel":"+553185058961"},{"nome":"Marcia Tppp","tel":"+553184917219"},{"nome":"Marcilio Junior","tel":"+553191425811"},{"nome":"Marcos Carlos","tel":"+553175114090"},{"nome":"Marcos","tel":"+553187452605"},{"nome":"Marcos","tel":"+553191656675"},{"nome":"Marcos","tel":"+553187869976"},{"nome":"Margarete","tel":"+553197913724"},{"nome":"Maria Augusta","tel":"+553191857051"},{"nome":"Maria Irma Carina","tel":"+553199663803"},{"nome":"Maria","tel":"+553190721161"},{"nome":"Maria","tel":"+553198923324"},{"nome":"Maria Tppp","tel":"+553183471151"},{"nome":"Maria Tpppp","tel":"+553184220902"},{"nome":"Maria","tel":"+553188521879"},{"nome":"Mariana","tel":"+553188759969"},{"nome":"Marina","tel":"+553172478820"},{"nome":"Martiniana","tel":"+553188744808"},{"nome":"Mary","tel":"+553181197628"},{"nome":"Mary","tel":"+553185963223"},{"nome":"Mary","tel":"+553191166456"},{"nome":"Matheus & Alyne","tel":"+553191784019"},{"nome":"Matheus","tel":"+553194628731"},{"nome":"Matheus","tel":"+553171195570"},{"nome":"Maura","tel":"+553192977920"},{"nome":"Maurílio","tel":"+553298822265"},{"nome":"Maximirian","tel":"+553182260136"},{"nome":"Meire","tel":"+553189502445"},{"nome":"Mell","tel":"+991331319"},{"nome":"Mh","tel":"+553191317235"},{"nome":"Micaele","tel":"+553194274552"},{"nome":"Michelle","tel":"+553196376009"},{"nome":"Michelle Rocha","tel":"+553196172795"},{"nome":"Mila","tel":"+553196192122"},{"nome":"Miriam","tel":"+553182705204"},{"nome":"Miryam","tel":"+553198701983"},{"nome":"Mitaly","tel":"+553188598390"},{"nome":"Moises","tel":"+5531996589689"},{"nome":"Monica","tel":"+553191659811"},{"nome":"Monique","tel":"+553195609520"},{"nome":"Morena","tel":"+553171599368"},{"nome":"Morenin","tel":"+553188432886"},{"nome":"Nai Duarte","tel":"+553171212501"},{"nome":"Nairim","tel":"+553195647099"},{"nome":"Nalu","tel":"+553171702603"},{"nome":"Nando","tel":"+553186093935"},{"nome":"Natalia","tel":"+553172478961"},{"nome":"Nathalie","tel":"+553189329997"},{"nome":"Naty","tel":"+553196575630"},{"nome":"Naty","tel":"+553199852334"},{"nome":"Naty","tel":"+553187272636"},{"nome":"Nayara","tel":"+553171551080"},{"nome":"Nayara","tel":"+553197202340"},{"nome":"Neguin","tel":"+553186405226"},{"nome":"~nely","tel":"+553171257827"},{"nome":"Neyde Magalhães","tel":"+553186010129"},{"nome":"Nic","tel":"+553182670548"},{"nome":"Nice","tel":"+553192482978"},{"nome":"Nil","tel":"+5531971824442"},{"nome":"Nina","tel":"+553195883778"},{"nome":"Nirce","tel":"+553197240586"},{"nome":"Nisiene","tel":"+553193984085"},{"nome":"Ohana","tel":"+553175928548"},{"nome":"Olina","tel":"+553194796973"},{"nome":"Oliver","tel":"+553183397580"},{"nome":"Osmar","tel":"+553189876285"},{"nome":"Paloma","tel":"+553187507795"},{"nome":"Pamela","tel":"+553196307087"},{"nome":"Patrícia","tel":"+553196349003"},{"nome":"Patrícia","tel":"+553184147242"},{"nome":"Paula","tel":"+553183853818"},{"nome":"Paula","tel":"+553185512983"},{"nome":"Paulo","tel":"+553171856945"},{"nome":"Pet","tel":"+553199937358"},{"nome":"Polly","tel":"+553185545245"},{"nome":"Pollyana","tel":"+553189012242"},{"nome":"Preta","tel":"+553188253386"},{"nome":"Pricila Mendes","tel":"+553196512015"},{"nome":"Priscila","tel":"+553189868030"},{"nome":"Raiane","tel":"+553191551233"},{"nome":"Renata","tel":"+553180510489"},{"nome":"Renata Nascimento","tel":"+553173537444"},{"nome":"Renato Barros","tel":"+553189090555"},{"nome":"Renato","tel":"+5531982217544"},{"nome":"Riviane","tel":"+986922308"},{"nome":"Robert","tel":"+553192203741"},{"nome":"Roberto","tel":"+553185838388"},{"nome":"Robson","tel":"+553195446082"},{"nome":"Rodolfo","tel":"+553183294334"},{"nome":"Rodrigo Using","tel":"+553183179640"},{"nome":"Rosangela","tel":"+993725644"},{"nome":"Rosângela","tel":"+553189757045"},{"nome":"Rosangela Pere","tel":"+553183724520"},{"nome":"Rute Vizinha","tel":"+553188216126"},{"nome":"Ryan","tel":"+553199712915"},{"nome":"Sabrina","tel":"+553190686209"},{"nome":"Sailon Christian","tel":"+557799068813"},{"nome":"Samuel Du","tel":"+553195953743"},{"nome":"~samy","tel":"+553173605835"},{"nome":"Sandra","tel":"+553185128481"},{"nome":"Sarah","tel":"+553198037940"},{"nome":"Shai","tel":"+553192358989"},{"nome":"Shey","tel":"+553184832675"},{"nome":"Shirlene","tel":"+553185740740"},{"nome":"Shirley","tel":"+553197047389"},{"nome":"Silvana","tel":"+553185534587"},{"nome":"Silvana","tel":"+553197303292"},{"nome":"Simone","tel":"+553191521888"},{"nome":"Simone","tel":"+553185738509"},{"nome":"Solange Tpppp","tel":"+553173658621"},{"nome":"Solange Soares","tel":"+553192920270"},{"nome":"Sophia","tel":"+553185960497"},{"nome":"Soraia","tel":"+553186143994"},{"nome":"Steh","tel":"+553184803358"},{"nome":"Stephanie","tel":"+553175990901"},{"nome":"Sthefanny Amorim","tel":"+553193488096"},{"nome":"Tabata","tel":"+553194146446"},{"nome":"Tamara","tel":"+553188264502"},{"nome":"Tatiana","tel":"+5531986835469"},{"nome":"Tatiana Linardi","tel":"+553194186259"},{"nome":"Tatiana Guimarães","tel":"+553187106483"},{"nome":"Tatiane","tel":"+553191413526"},{"nome":"Tatiane Santiago","tel":"+553199235821"},{"nome":"Tawilly","tel":"+553197685783"},{"nome":"Tereza","tel":"+553198568551"},{"nome":"Tereza","tel":"+553191166516"},{"nome":"Thaiane","tel":"+553182627965"},{"nome":"Thais Silva","tel":"+553180420911"},{"nome":"Thaty","tel":"+5531985420325"},{"nome":"Thayllor Scarfieldy","tel":"+553182106275"},{"nome":"Thayssa","tel":"+553186909611"},{"nome":"Thiago","tel":"+553387200648"},{"nome":"Thiiagooh Brittooh.","tel":"+553189291852"},{"nome":"Tiago","tel":"+553187238410"},{"nome":"Toco","tel":"+5531996807304"},{"nome":"Valdeci Batata","tel":"+553183047363"},{"nome":"Valdirene","tel":"+553191167148"},{"nome":"Vandinha","tel":"+553197751186"},{"nome":"Vanessa","tel":"+999491910"},{"nome":"Verinha","tel":"+553197000277"},{"nome":"Vicente","tel":"+553193612891"},{"nome":"Victor","tel":"+553182085416"},{"nome":"Vitinho","tel":"+553195002573"},{"nome":"Vitória","tel":"+553187811066"},{"nome":"Viviane","tel":"+987603743"},{"nome":"Viviane Gomes","tel":"+553183137405"},{"nome":"Viviane Tavares","tel":"+553193344449"},{"nome":"Wagner","tel":"+553186817305"},{"nome":"Warley","tel":"+553187352725"},{"nome":"Weronica","tel":"+5531998828365"},{"nome":"Wesley","tel":"+982599152"},{"nome":"Will","tel":"+557588201080"},{"nome":"Xaiane","tel":"+73509140"},{"nome":"Zelia","tel":"+553185810206"},{"nome":"Zeni Prates","tel":"+553184140039"},{"nome":"Zin","tel":"+553198784685"}];
+const CT_MODELO_IMPORT_B64='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';
+
+function baixarModeloImportacao(){
+  try{
+    const bin=atob(CT_MODELO_IMPORT_B64);
+    const bytes=new Uint8Array(bin.length);
+    for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
+    const blob=new Blob([bytes],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;a.download='Modelo_Importacao_Central_Tattoo.xlsx';document.body.appendChild(a);a.click();document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url);},3000);
+    showToast('✅ Modelo baixado! Preencha e depois use "📤 Importar Planilha".');
+  }catch(e){console.error(e);showToast('⚠️ Não foi possível baixar o modelo.');}
+}
+
+function ctNormHeader(s){
+  return (s||'').toString().trim().toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-z0-9]+/g,' ').trim();
+}
+
+var CT_IMPORT_COL_MAP={
+  'nome':'nome',
+  'whatsapp':'tel',
+  'telefone fixo':'telFixo',
+  'telefone':'telFixo',
+  'email':'email',
+  'e mail':'email',
+  'cidade':'cidade',
+  'origem':'ori',
+  'ja e cliente sim nao':'jaCli',
+  'ja e cliente':'jaCli',
+  'procedimento de interesse':'proc',
+  'procedimento':'proc',
+  'valor estimado r':'val',
+  'valor estimado':'val',
+  'valor':'val',
+  'observacoes':'obs',
+  'observacao':'obs'
+};
+
+function ctMapColKey(normHeader){
+  if(CT_IMPORT_COL_MAP[normHeader])return CT_IMPORT_COL_MAP[normHeader];
+  if(normHeader.indexOf('nome')>-1 && normHeader.indexOf('cliente')<0)return 'nome';
+  if(normHeader.indexOf('whatsapp')>-1)return 'tel';
+  if(normHeader.indexOf('telefone')>-1)return 'telFixo';
+  if(normHeader.indexOf('email')>-1)return 'email';
+  if(normHeader.indexOf('cidade')>-1)return 'cidade';
+  if(normHeader.indexOf('origem')>-1)return 'ori';
+  if(normHeader.indexOf('cliente')>-1)return 'jaCli';
+  if(normHeader.indexOf('procedimento')>-1||normHeader.indexOf('interesse')>-1)return 'proc';
+  if(normHeader.indexOf('valor')>-1)return 'val';
+  if(normHeader.indexOf('observa')>-1)return 'obs';
+  return null;
+}
+
+function ctSegmentoDeTexto(txt){
+  const t=ctNormHeader(txt);
+  if(!t)return 'tatuagem';
+  if(t.indexOf('areola')>-1||t.indexOf('mastectomia')>-1||t.indexOf('mamilo')>-1)return 'areola';
+  if(t.indexOf('piercing')>-1)return 'piercing';
+  return 'tatuagem';
+}
+
+function handleImportPlanilha(ev){
+  const file=(ev.target.files||[])[0];
+  if(!file)return;
+  if(typeof XLSX==='undefined'){showToast('⚠️ Biblioteca de planilha não carregou. Recarregue a página e tente de novo.');ev.target.value='';return;}
+  const isCsv=/\.csv$/i.test(file.name);
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      let wb;
+      if(isCsv){ wb=XLSX.read(e.target.result,{type:'string'}); }
+      else{ wb=XLSX.read(e.target.result,{type:'array'}); }
+      let sheetName=wb.SheetNames.find(function(n){return !/como preencher|instru/i.test(n);})||wb.SheetNames[0];
+      const sheet=wb.Sheets[sheetName];
+      const rows=XLSX.utils.sheet_to_json(sheet,{header:1,defval:''});
+      let headerRowIdx=-1,headerMap=[];
+      for(let i=0;i<Math.min(rows.length,15);i++){
+        const row=rows[i]||[];
+        const norm=row.map(ctNormHeader);
+        const hasNome=norm.some(function(h){return h==='nome';});
+        const hasContato=norm.some(function(h){return h.indexOf('whatsapp')>-1||h.indexOf('telefone')>-1;});
+        if(hasNome&&hasContato){headerRowIdx=i;headerMap=norm;break;}
+      }
+      if(headerRowIdx===-1){
+        showToast('⚠️ Não encontrei as colunas "Nome" e "WhatsApp/Telefone" na planilha. Baixe o modelo e preencha sem alterar as colunas.');
+        ev.target.value='';
+        return;
+      }
+      const colKeys=headerMap.map(ctMapColKey);
+      const dataRows=rows.slice(headerRowIdx+1);
+      const leadsAtuais=gdb('ct_leads');
+      const clientesAtuais=gdb('ct_clientes');
+      const telsExistentes=new Set([].concat(leadsAtuais,clientesAtuais).map(function(x){return (x.tel||'').replace(/\D/g,'');}).filter(Boolean));
+      let novos=0,ignorados=0,semDados=0;
+      dataRows.forEach(function(row){
+        if(!row || row.every(function(c){return c===''||c===null||c===undefined;}))return;
+        const rec={};
+        colKeys.forEach(function(k,idx){ if(k) rec[k]=(row[idx]!==undefined&&row[idx]!==null)?String(row[idx]).trim():''; });
+        const nome=rec.nome||'';
+        const tel=rec.tel||rec.telFixo||'';
+        if(!nome && !tel){semDados++;return;}
+        const telDigits=tel.replace(/\D/g,'');
+        if(telDigits && telsExistentes.has(telDigits)){ignorados++;return;}
+        if(telDigits)telsExistentes.add(telDigits);
+        const jaCliRaw=ctNormHeader(rec.jaCli||'');
+        const jaCli=(jaCliRaw==='sim')?'Sim':'Não';
+        const seg=ctSegmentoDeTexto(rec.proc||'');
+        const partesPasso=[];
+        if(rec.cidade)partesPasso.push('Cidade: '+rec.cidade);
+        if(rec.obs)partesPasso.push('Obs: '+rec.obs);
+        leadsAtuais.push({
+          id:uid(),nome:nome||'(sem nome)',tel:tel,email:rec.email||'',
+          est:'',tam:rec.proc||'',val:rec.val||'',
+          et:'contato',temp:'quente',ori:rec.ori||'Importação de planilha',
+          prox:'',passo:partesPasso.join(' · '),
+          seg:seg,idi:'pt',jaCli:jaCli,
+          criadoEm:new Date().toISOString(),ultContato:hoje()
+        });
+        novos++;
+      });
+      sdb('ct_leads',leadsAtuais);
+      rLd();
+      showToast('✅ '+novos+' lead(s) importado(s)'+(ignorados?' · '+ignorados+' já existiam (mesmo telefone)':'')+(semDados?' · '+semDados+' linha(s) vazia(s) ignoradas':'')+'.');
+    }catch(err){
+      console.error(err);
+      showToast('⚠️ Erro ao ler a planilha. Confira se o arquivo segue o modelo baixado.');
+    }finally{
+      ev.target.value='';
+    }
+  };
+  if(isCsv)reader.readAsText(file,'utf-8'); else reader.readAsArrayBuffer(file);
+}
+
+function importarLeadsLegado(){
+  if(!confirm('Importar '+LEADS_LEGADO.length+' contatos da lista antiga pro Pipeline de Leads (etapa "Contato")? Contatos que já existem (mesmo telefone) em Leads ou Clientes serão ignorados.'))return;
+  const leadsAtuais=gdb('ct_leads');
+  const clientesAtuais=gdb('ct_clientes');
+  const telsExistentes=new Set([...leadsAtuais,...clientesAtuais].map(x=>(x.tel||'').replace(/\D/g,'')).filter(Boolean));
+  let novos=0,ignorados=0;
+  LEADS_LEGADO.forEach(function(c){
+    const telDigits=(c.tel||'').replace(/\D/g,'');
+    if(telDigits&&telsExistentes.has(telDigits)){ignorados++;return;}
+    if(telDigits)telsExistentes.add(telDigits);
+    leadsAtuais.push({
+      id:uid(),nome:c.nome,tel:c.tel,email:'',est:'',tam:'',val:'',
+      et:'contato',temp:'morno',ori:'Lista antiga (tráfego pago)',
+      prox:'',passo:'Reengajar — já demonstrou interesse antes, não converteu',
+      criadoEm:new Date().toISOString(),ultContato:hoje()
+    });
+    novos++;
+  });
+  sdb('ct_leads',leadsAtuais);
+  rLd();
+  const btn=document.getElementById('btnImportLegado');if(btn)btn.style.display='none';
+  showToast('✅ '+novos+' leads importados'+(ignorados?' · '+ignorados+' já existiam e foram ignorados':'')+'.');
+}
+
+function saveLd(){const id=document.getElementById('ldId').value||uid();const l={id,nome:document.getElementById('ldNome').value,tel:document.getElementById('ldTel').value,email:document.getElementById('ldEmail').value,est:document.getElementById('ldEst').value,tam:document.getElementById('ldTam').value,val:document.getElementById('ldVal').value,et:document.getElementById('ldEt').value,temp:document.getElementById('ldTemp').value,ori:document.getElementById('ldOri').value,prox:document.getElementById('ldProx').value,passo:document.getElementById('ldPasso').value,seg:document.getElementById('ldSeg').value,idi:document.getElementById('ldIdi').value,jaCli:document.getElementById('ldJaCli').value};const db=gdb('ct_leads'),i=db.findIndex(x=>x.id===id);if(i>=0){l.criadoEm=db[i].criadoEm||new Date().toISOString();l.ultContato=hoje();db[i]=l;}else{l.criadoEm=new Date().toISOString();l.ultContato=hoje();db.push(l);}sdb('ct_leads',db);closeM('mLd');rLd();showToast('✅ Lead salvo!');}
 function ldPreencherDeCliente(){const nome=(document.getElementById('ldCliCrm')||{}).value||'';if(!nome)return;const c=gdb('ct_clientes').find(x=>(x.nome||'').trim().toLowerCase()===nome.trim().toLowerCase());if(!c)return;document.getElementById('ldNome').value=c.nome||'';document.getElementById('ldTel').value=c.tel||'';document.getElementById('ldEmail').value=c.email||'';if(c.est){const es=document.getElementById('ldEst');if(es&&[...es.options].some(o=>o.value===c.est||o.textContent===c.est))es.value=c.est;}if(c.ori){const or=document.getElementById('ldOri');if(or&&[...or.options].some(o=>o.textContent===c.ori))or.value=c.ori;}showToast('✅ Lead preenchido com os dados de '+(c.nome||'')+'.');}
-function novoLd(){['ldId','ldNome','ldTel','ldEmail','ldVal','ldProx','ldPasso'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('ldEst').value='';document.getElementById('ldTam').value='';document.getElementById('ldEt').value='contato';document.getElementById('ldTemp').value='quente';document.getElementById('ldOri').value='Instagram';fillCliSelect('ldCliCrm','','— começar do zero / novo lead —');document.getElementById('mLdT').textContent='Novo Lead';openM('mLd');}
-function editLd(id){const l=gdb('ct_leads').find(x=>x.id===id);if(!l)return;fillCliSelect('ldCliCrm','','— começar do zero / novo lead —');document.getElementById('ldId').value=l.id;document.getElementById('ldNome').value=l.nome||'';document.getElementById('ldTel').value=l.tel||'';document.getElementById('ldEmail').value=l.email||'';document.getElementById('ldEst').value=l.est||'';document.getElementById('ldTam').value=l.tam||'';document.getElementById('ldVal').value=l.val||'';document.getElementById('ldEt').value=l.et||'contato';document.getElementById('ldTemp').value=l.temp||'quente';document.getElementById('ldOri').value=l.ori||'Instagram';document.getElementById('ldProx').value=l.prox||'';document.getElementById('ldPasso').value=l.passo||'';document.getElementById('mLdT').textContent='Editar Lead';openM('mLd');}
+function novoLd(){['ldId','ldNome','ldTel','ldEmail','ldVal','ldProx','ldPasso'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('ldEst').value='';document.getElementById('ldTam').value='';document.getElementById('ldEt').value='contato';document.getElementById('ldTemp').value='quente';document.getElementById('ldOri').value='Instagram';document.getElementById('ldSeg').value='tatuagem';document.getElementById('ldIdi').value='pt';document.getElementById('ldJaCli').value='Não';fillCliSelect('ldCliCrm','','— começar do zero / novo lead —');document.getElementById('mLdT').textContent='Novo Lead';openM('mLd');}
+function editLd(id){const l=gdb('ct_leads').find(x=>x.id===id);if(!l)return;fillCliSelect('ldCliCrm','','— começar do zero / novo lead —');document.getElementById('ldId').value=l.id;document.getElementById('ldNome').value=l.nome||'';document.getElementById('ldTel').value=l.tel||'';document.getElementById('ldEmail').value=l.email||'';document.getElementById('ldEst').value=l.est||'';document.getElementById('ldTam').value=l.tam||'';document.getElementById('ldVal').value=l.val||'';document.getElementById('ldEt').value=l.et||'contato';document.getElementById('ldTemp').value=l.temp||'quente';document.getElementById('ldOri').value=l.ori||'Instagram';document.getElementById('ldProx').value=l.prox||'';document.getElementById('ldPasso').value=l.passo||'';document.getElementById('ldSeg').value=l.seg||'tatuagem';document.getElementById('ldIdi').value=l.idi||'pt';document.getElementById('ldJaCli').value=l.jaCli||'Não';document.getElementById('mLdT').textContent='Editar Lead';openM('mLd');}
 function delLd(id){if(!confirm('Excluir?'))return;sdb('ct_leads',gdb('ct_leads').filter(l=>l.id!==id));rLd();}
 function converterLeadCliente(id){const l=gdb('ct_leads').find(x=>x.id===id);if(!l)return;const cls=gdb('ct_clientes');const dup=cls.find(c=>(c.nome||'').trim().toLowerCase()===(l.nome||'').trim().toLowerCase());if(dup){showToast('ℹ️ "'+(l.nome||'')+'" já está no Clientes CRM.');if(typeof verCliente==='function')verCliente(dup.id);return;}if(!confirm('Converter "'+(l.nome||'lead')+'" em cliente no Clientes CRM?'))return;const novo={id:uid(),nome:l.nome||'',tel:l.tel||'',email:l.email||'',insta:'',nasc:'',cid:'',est:l.est||'',stat:'🟢 Ativo',ind:'',ori:l.ori||'Instagram',ret:'',obs:'Convertido do funil de Leads.'+(l.tam?' Tamanho: '+l.tam+'.':'')+(l.passo?' Próximo passo: '+l.passo+'.':''),local:'',valor:l.val||'',sinal:'',projSt:'',cpf:'',endr:'',alerg:'',med:'',saude:'',emerg:'',img:'',contrato:'',lang:'pt',respNome:'',respCpf:'',sinalReg:0,nps:'',ultContato:hoje(),criadoEm:new Date().toISOString()};cls.push(novo);sdb('ct_clientes',cls);const lds=gdb('ct_leads'),li=lds.findIndex(x=>x.id===id);if(li>=0){lds[li].et='fechado';sdb('ct_leads',lds);}try{updDl();ctPVClientes();fillCliSelect('fuCli');fillCliSelect('pjCli');fillCliSelect('ctCli');}catch(e){}rLd();try{if(typeof rCl==='function')rCl();}catch(e){}showToast('✅ "'+(l.nome||'Lead')+'" agora está no Clientes CRM (lead marcado como Fechado).');}
+
+/* ═══════════════════ CAMPANHAS DE LEADS — ROTAÇÃO SEMANAL (7 em 7 dias) ═══════════════════ */
+var LEAD_GATILHOS=[
+  {k:'autoridade',lb:'🏆 Autoridade'},
+  {k:'escassez',lb:'⏳ Escassez de Agenda'},
+  {k:'novidade',lb:'✨ Novidade'},
+  {k:'exclusividade',lb:'💎 Exclusividade'},
+  {k:'reconexao',lb:'🔁 Reconexão',soCliente:true},
+  {k:'dor',lb:'🩹 Acolhimento (Dor/Superação)'},
+  {k:'tristeza',lb:'💙 Empatia'},
+  {k:'alegria',lb:'🎉 Alegria'},
+  {k:'felicidade',lb:'🌟 Felicidade / Resultado'}
+];
+var LEAD_SEG_LB={tatuagem:'🖤 Tatuagem',areola:'🎗️ Aréola',piercing:'💎 Piercing'};
+var LEAD_IDI_LB={pt:'🇧🇷 PT',en:'🇺🇸 EN',es:'🇪🇸 ES'};
+var LEAD_MSG_BANK={
+ "autoridade": {
+  "pt": {
+   "tatuagem": "Oi {nome}! Separei alguns trabalhos recentes que fiz no estilo que você buscava — quer que eu te mostre como ficaria a sua ideia?",
+   "areola": "Oi {nome}, tudo bem? Já acompanhei muitas mulheres na reconstrução de aréola e cada resultado me lembra por que esse trabalho importa tanto. Posso te mostrar alguns antes e depois?",
+   "piercing": "Oi {nome}! Trabalho seguindo todo protocolo de biossegurança em cada aplicação. Separei fotos de trabalhos recentes — quer ver?"
+  },
+  "en": {
+   "tatuagem": "Hi {nome}! I put together some recent work in the style you were looking for — want me to show you how your idea could look?",
+   "areola": "Hi {nome}, how are you? I've guided many women through areola reconstruction, and every result reminds me why this work matters. Want to see some before-and-afters?",
+   "piercing": "Hi {nome}! I follow full safety protocol for every piercing. I put together some recent photos — want to see them?"
+  },
+  "es": {
+   "tatuagem": "¡Hola {nome}! Reuní algunos trabajos recientes en el estilo que buscabas — ¿quieres que te muestre cómo quedaría tu idea?",
+   "areola": "Hola {nome}, ¿cómo estás? Ya acompañé a muchas mujeres en la reconstrucción de aréola y cada resultado me recuerda por qué este trabajo importa tanto. ¿Puedo mostrarte algunos antes y después?",
+   "piercing": "¡Hola {nome}! Trabajo siguiendo todo el protocolo de bioseguridad. Separé fotos de trabajos recientes — ¿quieres verlas?"
+  }
+ },
+ "escassez": {
+  "pt": {
+   "tatuagem": "{nome}, essa semana a agenda fechou mais cedo que o normal — sobraram poucas datas no mês. Se ainda tiver interesse na sua ideia, esse é um bom momento pra conversarmos.",
+   "areola": "{nome}, tenho poucas datas reservadas por mês pra reconstrução de aréola, porque cada sessão exige tempo e atenção total. Se quiser garantir a sua, esse é o momento certo pra conversarmos.",
+   "piercing": "{nome}, a agenda de aplicações dessa semana já está quase fechando. Se ainda quiser fazer o piercing, me chama pra reservar um horário."
+  },
+  "en": {
+   "tatuagem": "{nome}, my schedule filled up earlier than usual this week — only a few dates left this month. If you're still interested in your idea, now's a good time to talk.",
+   "areola": "{nome}, I only take a few areola reconstruction sessions per month, since each one needs full time and attention. If you'd like to secure yours, now's the moment to talk.",
+   "piercing": "{nome}, this week's piercing slots are almost full. If you still want to get it done, message me to reserve a time."
+  },
+  "es": {
+   "tatuagem": "{nome}, esta semana la agenda se cerró más rápido de lo normal — quedan pocas fechas este mes. Si aún te interesa tu idea, es un buen momento para hablar.",
+   "areola": "{nome}, reservo pocas fechas al mes para reconstrucción de aréola, porque cada sesión exige tiempo y atención total. Si quieres asegurar la tuya, este es el momento.",
+   "piercing": "{nome}, los horarios de esta semana para piercing ya casi se llenan. Si todavía quieres hacerlo, escríbeme para reservar un horario."
+  }
+ },
+ "novidade": {
+  "pt": {
+   "tatuagem": "Oi {nome}! Comecei a trabalhar uma técnica nova aqui no estúdio que está dando muito certo. Se ainda estiver pensando na sua tattoo, posso te mostrar como ficaria — sem compromisso.",
+   "areola": "{nome}, tenho estudado técnicas mais recentes de pigmentação de aréola, com resultado ainda mais natural. Posso te explicar como funciona, sem compromisso.",
+   "piercing": "Oi {nome}! Recebi joias novas que ficam lindas em diferentes estilos de piercing. Quer ver as opções?"
+  },
+  "en": {
+   "tatuagem": "Hi {nome}! I've started working with a new technique at the studio that's turning out great. If you're still thinking about your tattoo, I can show you how it would look — no pressure.",
+   "areola": "{nome}, I've been studying newer areola pigmentation techniques with even more natural results. I can walk you through how it works, no pressure.",
+   "piercing": "Hi {nome}! I just got new jewelry that looks great on different piercing styles. Want to see the options?"
+  },
+  "es": {
+   "tatuagem": "¡Hola {nome}! Empecé a trabajar con una técnica nueva en el estudio que está funcionando muy bien. Si todavía piensas en tu tatuaje, puedo mostrarte cómo quedaría — sin compromiso.",
+   "areola": "{nome}, he estudiado técnicas más recientes de pigmentación de aréola, con resultados aún más naturales. Puedo explicarte cómo funciona, sin compromiso.",
+   "piercing": "¡Hola {nome}! Recibí joyas nuevas que quedan hermosas en distintos estilos de piercing. ¿Quieres ver las opciones?"
+  }
+ },
+ "exclusividade": {
+  "pt": {
+   "tatuagem": "{nome}, separei uma data no mês pra quem já demonstrou interesse antes de eu divulgar pro público. Topa ser um dos primeiros a marcar?",
+   "areola": "{nome}, reservo um número limitado de vagas por mês pra reconstrução de aréola pra dar atenção total a cada cliente. Quer que eu reserve uma pra você antes de abrir pro público?",
+   "piercing": "{nome}, separei alguns horários pra quem já perguntou sobre piercing antes de divulgar. Quer garantir o seu?"
+  },
+  "en": {
+   "tatuagem": "{nome}, I set aside a date this month for people who already showed interest, before opening it up publicly. Want to be one of the first to book?",
+   "areola": "{nome}, I keep a limited number of areola reconstruction spots each month to give every client my full attention. Want me to hold one for you before it opens up publicly?",
+   "piercing": "{nome}, I set aside a few slots for people who already asked about piercing, before opening them up. Want to lock yours in?"
+  },
+  "es": {
+   "tatuagem": "{nome}, aparté una fecha este mes para quienes ya mostraron interés, antes de abrirla al público. ¿Quieres ser de los primeros en reservar?",
+   "areola": "{nome}, reservo un número limitado de citas al mes para reconstrucción de aréola, para dar atención total a cada clienta. ¿Quieres que aparte una para ti antes de abrirla al público?",
+   "piercing": "{nome}, aparté algunos horarios para quienes ya preguntaron por piercing, antes de abrirlos. ¿Quieres asegurar el tuyo?"
+  }
+ },
+ "reconexao": {
+  "pt": {
+   "tatuagem": "{nome}, tudo bem? Faz um tempo desde sua última sessão aqui. Tenho pensado em ideias que combinariam bem pra continuar seu projeto. Bate um papo?",
+   "areola": "{nome}, como você está? Faz um tempo desde nossa última sessão. Se quiser conversar sobre continuidade ou retoque, estou aqui.",
+   "piercing": "{nome}, tudo bem? Já faz um tempo desde a sua última visita. Quer passar aqui pra dar uma olhada no piercing ou trocar a joia?"
+  },
+  "en": {
+   "tatuagem": "{nome}, how have you been? It's been a while since your last session here. I've had some ideas that would work well to continue your project. Want to chat?",
+   "areola": "{nome}, how are you doing? It's been a while since our last session. If you'd like to talk about continuing or a touch-up, I'm here.",
+   "piercing": "{nome}, how's it going? It's been a while since your last visit. Want to stop by to check the piercing or change the jewelry?"
+  },
+  "es": {
+   "tatuagem": "{nome}, ¿cómo estás? Ha pasado un tiempo desde tu última sesión aquí. He pensado en ideas que combinarían bien para continuar tu proyecto. ¿Hablamos?",
+   "areola": "{nome}, ¿cómo te encuentras? Ha pasado un tiempo desde nuestra última sesión. Si quieres hablar sobre continuar o un retoque, aquí estoy.",
+   "piercing": "{nome}, ¿cómo estás? Ya pasó un tiempo desde tu última visita. ¿Quieres pasar para revisar el piercing o cambiar la joya?"
+  }
+ },
+ "dor": {
+  "pt": {
+   "tatuagem": "{nome}, sei que às vezes uma tatuagem carrega mais do que estética — pode ser sobre cobrir uma cicatriz ou virar a página de algo difícil. Se for esse o seu caso, quero te ouvir com calma antes de qualquer coisa.",
+   "areola": "{nome}, sei que chegar até aqui pode ter envolvido uma jornada difícil. Meu trabalho é te acompanhar com todo cuidado nesse processo, sem pressa e sem julgamento. Quando quiser conversar, estou aqui.",
+   "piercing": "{nome}, se o piercing for parte de um processo pessoal de retomar algo seu, eu entendo a importância disso. Podemos conversar com calma sobre o que você tem em mente."
+  },
+  "en": {
+   "tatuagem": "{nome}, I know a tattoo can sometimes carry more than aesthetics — it can be about covering a scar or turning the page on something hard. If that's your case, I want to listen carefully before anything else.",
+   "areola": "{nome}, I know getting to this point may have meant a difficult journey. My job is to walk with you through this process with care, no rush and no judgment. Whenever you'd like to talk, I'm here.",
+   "piercing": "{nome}, if this piercing is part of reclaiming something personal, I understand how much that matters. We can talk it through at whatever pace feels right."
+  },
+  "es": {
+   "tatuagem": "{nome}, sé que a veces un tatuaje lleva más que estética — puede ser cubrir una cicatriz o cerrar un capítulo difícil. Si es tu caso, quiero escucharte con calma antes que nada.",
+   "areola": "{nome}, sé que llegar hasta aquí puede haber significado un camino difícil. Mi trabajo es acompañarte con todo el cuidado en este proceso, sin prisa y sin juicios. Cuando quieras hablar, aquí estoy.",
+   "piercing": "{nome}, si el piercing es parte de recuperar algo tuyo, entiendo lo importante que es. Podemos hablarlo con calma."
+  }
+ },
+ "tristeza": {
+  "pt": {
+   "tatuagem": "{nome}, às vezes a gente adia um projeto importante porque não é só sobre desenho — é sobre coragem. Quando estiver pronta(o), quero fazer parte dessa etapa com você.",
+   "areola": "{nome}, você não precisa passar por essa fase sozinha(o). Estou aqui pra te acompanhar no seu tempo, com respeito e cuidado em cada detalhe.",
+   "piercing": "{nome}, se esse piercing representa uma virada pra você, saiba que pode contar comigo pra fazer essa parte com leveza."
+  },
+  "en": {
+   "tatuagem": "{nome}, sometimes we put off an important project because it isn't just about the design — it's about courage. Whenever you're ready, I'd like to be part of that step with you.",
+   "areola": "{nome}, you don't have to go through this stage alone. I'm here to walk with you at your own pace, with respect and care in every detail.",
+   "piercing": "{nome}, if this piercing represents a turning point for you, know that you can count on me to make it feel light."
+  },
+  "es": {
+   "tatuagem": "{nome}, a veces posponemos un proyecto importante porque no es solo sobre el diseño — es sobre valentía. Cuando estés lista(o), quiero ser parte de esa etapa contigo.",
+   "areola": "{nome}, no tienes que pasar por esta etapa sola(o). Estoy aquí para acompañarte a tu ritmo, con respeto y cuidado en cada detalle.",
+   "piercing": "{nome}, si este piercing representa un cambio importante para ti, puedes contar conmigo para hacerlo con calma."
+  }
+ },
+ "alegria": {
+  "pt": {
+   "tatuagem": "{nome}, decidir fazer uma tatuagem é sempre um motivo pra comemorar! 🖤 Vamos transformar sua ideia em algo que você vai amar carregar pra sempre?",
+   "areola": "{nome}, cada reconstrução de aréola que faço é uma celebração — de força, de recomeço. Quero muito fazer parte dessa conquista com você.",
+   "piercing": "{nome}, um piercing novo é sempre uma boa notícia! ✨ Vamos marcar um horário pra celebrar essa novidade?"
+  },
+  "en": {
+   "tatuagem": "{nome}, deciding to get a tattoo is always something to celebrate! 🖤 Let's turn your idea into something you'll love carrying forever?",
+   "areola": "{nome}, every areola reconstruction I do is a celebration — of strength, of a new chapter. I'd love to be part of that milestone with you.",
+   "piercing": "{nome}, a new piercing is always good news! ✨ Let's set a time to celebrate it?"
+  },
+  "es": {
+   "tatuagem": "{nome}, ¡decidir hacerte un tatuaje siempre es motivo de celebración! 🖤 ¿Convertimos tu idea en algo que amarás llevar para siempre?",
+   "areola": "{nome}, cada reconstrucción de aréola que hago es una celebración — de fuerza, de un nuevo comienzo. Me encantaría ser parte de este logro contigo.",
+   "piercing": "¡{nome}, un piercing nuevo siempre es una buena noticia! ✨ ¿Agendamos un horario para celebrarlo?"
+  }
+ },
+ "felicidade": {
+  "pt": {
+   "tatuagem": "{nome}, imagina olhar no espelho e ver exatamente a ideia que você tinha na cabeça, finalmente pronta. 🖤 Vamos dar esse passo?",
+   "areola": "{nome}, muitas clientes me dizem que, ao ver o resultado pronto, sentem que recuperaram uma parte importante de si mesmas. Quero te ajudar a chegar nesse momento.",
+   "piercing": "{nome}, imagina o look novo com o piercing do jeito que você sempre quis. ✨ Vamos marcar?"
+  },
+  "en": {
+   "tatuagem": "{nome}, imagine looking in the mirror and seeing exactly the idea you had in your head, finally finished. 🖤 Ready to take that step?",
+   "areola": "{nome}, many clients tell me that seeing the finished result feels like getting an important part of themselves back. I'd love to help you get there.",
+   "piercing": "{nome}, imagine your new look with the piercing exactly how you always wanted it. ✨ Shall we book it?"
+  },
+  "es": {
+   "tatuagem": "{nome}, imagina mirarte al espejo y ver exactamente la idea que tenías en mente, por fin lista. 🖤 ¿Damos ese paso?",
+   "areola": "{nome}, muchas clientas me dicen que, al ver el resultado terminado, sienten que recuperaron una parte importante de sí mismas. Quiero ayudarte a llegar a ese momento.",
+   "piercing": "{nome}, imagina tu nuevo look con el piercing tal como siempre lo quisiste. ✨ ¿Agendamos?"
+  }
+ }
+};
+
+function ldSeg(l){ return (l&&l.seg)||'tatuagem'; }
+function ldIdi(l){ return (l&&l.idi)||'pt'; }
+function ldEhCliente(l){ return l&&l.jaCli==='Sim'; }
+function ldPrimeiroNome(nome){ return String(nome||'').trim().split(' ')[0]||nome||''; }
+
+/* banco editável — mesma lógica de override do Relacionamento (ct_leadmsgbank) */
+function ldMsgKey(g,idi,seg){ return g+'.'+idi+'.'+seg; }
+function ldMsgGet(g,idi,seg){
+  var ov=gobj('ct_leadmsgbank',{}); var k=ldMsgKey(g,idi,seg);
+  if(ov[k]!=null && String(ov[k]).trim()!=='')return ov[k];
+  try{ return LEAD_MSG_BANK[g][idi][seg]||LEAD_MSG_BANK[g]['pt'][seg]||''; }catch(e){ return ''; }
+}
+function ldMsgSet(g,idi,seg,txt){ var ov=gobj('ct_leadmsgbank',{}); ov[ldMsgKey(g,idi,seg)]=txt; sobj('ct_leadmsgbank',ov); }
+function ldMsgReset(g,idi,seg){ var ov=gobj('ct_leadmsgbank',{}); delete ov[ldMsgKey(g,idi,seg)]; sobj('ct_leadmsgbank',ov); showToast('↩️ Restaurado ao padrão.'); }
+function ldTpl(txt,l){ return String(txt||'').replace(/\{nome\}/g, ldPrimeiroNome(l.nome)); }
+
+/* histórico de envios de campanha — para não repetir gatilho e respeitar o ciclo de 7 dias */
+function ldCampLog(){ return gdb('ct_leadcamp'); }
+function ldUltimoEnvio(leadId){
+  var log=ldCampLog().filter(function(x){return x.leadId===leadId;});
+  if(!log.length)return null;
+  log.sort(function(a,b){return a.data<b.data?1:-1;});
+  return log[0];
+}
+function ldDiasDesde(iso){ if(!iso)return null; return relDias(iso); }
+
+/* pool de gatilhos disponível pro lead (reconexão só pra quem já é cliente) */
+function ldPool(l){ return LEAD_GATILHOS.filter(function(g){ return g.soCliente ? ldEhCliente(l) : true; }); }
+
+/* escolhe o próximo gatilho evitando repetir o último usado */
+function ldProximoGatilho(l){
+  var pool=ldPool(l), ult=ldUltimoEnvio(l.id), ultK=ult?ult.gatilho:null;
+  var opts=pool.filter(function(g){return g.k!==ultK;});
+  if(!opts.length)opts=pool;
+  var semana=Math.floor(Date.now()/(7*86400000));
+  var seed=String(l.id||'')+String(semana);
+  var h=0; for(var i=0;i<seed.length;i++)h=(h*31+seed.charCodeAt(i))>>>0;
+  return opts[h%opts.length];
+}
+
+/* fila de hoje: leads ativos, com telefone, nunca contatados via campanha OU sem contato há 7+ dias */
+function ldCampFila(){
+  var db=gdb('ct_leads').filter(function(l){return l.et!=='fechado' && l.et!=='perdido';});
+  var fila=db.map(function(l){
+    var tel=(typeof ctLiveTel==='function'?ctLiveTel(l):null)||l.tel||'';
+    var ult=ldUltimoEnvio(l.id);
+    var dias=ult?ldDiasDesde(ult.data):null;
+    var devido=!ult || (dias!=null && dias>=7);
+    return {l:l,tel:tel,dias:dias,devido:devido};
+  }).filter(function(x){ return x.devido && x.tel.replace(/\D/g,''); });
+  fila.sort(function(a,b){ return (b.dias==null?9999:b.dias)-(a.dias==null?9999:a.dias); });
+  return fila;
+}
+
+function ldCampEnviar(leadId,gatilho,texto){
+  var l=gdb('ct_leads').find(function(x){return x.id===leadId;}); if(!l)return;
+  var tel=((typeof ctLiveTel==='function'?ctLiveTel(l):null)||l.tel||'').replace(/\D/g,'');
+  if(!tel){showToast('⚠️ Lead sem telefone.');return;}
+  var log=ldCampLog(); log.push({id:uid(),leadId:leadId,gatilho:gatilho,data:hoje(),seg:ldSeg(l),idi:ldIdi(l)}); sdb('ct_leadcamp',log);
+  window.open('https://wa.me/55'+tel+'?text='+encodeURIComponent(texto),'_blank');
+  showToast('📲 Mensagem aberta no WhatsApp — próximo envio pra este lead em 7 dias.');
+  rLd();
+}
+
+/* ═══════════ RENDER: fila semanal dentro do painel de Leads ═══════════ */
+function rLdCamp(){
+  var fila=ldCampFila();
+  var ct=document.getElementById('ldCampCt'); if(ct)ct.textContent=fila.length+' pra hoje';
+  var el=document.getElementById('ldCampLista'); if(!el)return;
+  if(!fila.length){ el.innerHTML='<p style="color:var(--tx3);font-size:13px;padding:10px 4px">✅ Nenhuma mensagem pendente agora. O sistema libera novos envios conforme completa 7 dias desde o último contato de cada lead.</p>'; return; }
+  el.innerHTML='<div class="rel-grid">'+fila.slice(0,30).map(function(x){
+    var l=x.l, g=ldProximoGatilho(l), seg=ldSeg(l), idi=ldIdi(l);
+    var txtBase=ldMsgGet(g.k,idi,seg), texto=ldTpl(txtBase,l);
+    var textoEsc=texto.replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    var nome=(typeof ctLiveNome==='function'?ctLiveNome(l):null)||l.nome||'—';
+    return '<div class="rel-card">'+
+      '<div class="rel-card-h"><strong>'+relEsc(nome)+'</strong><span class="rel-tag">'+(LEAD_SEG_LB[seg]||seg)+'</span></div>'+
+      '<div class="rel-meta"><span class="rel-tag">'+g.lb+'</span><span class="rel-tag">'+(LEAD_IDI_LB[idi]||idi)+'</span>'+(ldEhCliente(l)?'<span class="rel-tag">👤 já é cliente</span>':'<span class="rel-tag">❄️ lead frio</span>')+'</div>'+
+      '<div class="rel-line">'+(x.dias==null?'Primeira mensagem de campanha':x.dias+' dias desde o último envio')+'</div>'+
+      '<div class="rel-sug"><div class="rel-sug-rot">💬 '+g.lb+'</div>'+relEsc(texto)+'</div>'+
+      '<div class="rel-actions">'+
+        '<button class="btn btn-success btn-xs" onclick="ldCampEnviar(\''+l.id+'\',\''+g.k+'\',\''+textoEsc+'\')">📲 Enviar</button>'+
+        '<button class="btn btn-ghost btn-xs" onclick="editLd(\''+l.id+'\')">✏️ Editar Lead</button>'+
+      '</div>'+
+    '</div>';
+  }).join('')+'</div>'+(fila.length>30?'<p style="font-size:12px;color:var(--tx3);padding:8px 4px">Mostrando os 30 mais prioritários de '+fila.length+' pendentes.</p>':'');
+}
+
+/* ═══════════ BANCO DE MENSAGENS DE LEADS — EDITOR ═══════════ */
+var LD_BANCO_SEG='tatuagem', LD_BANCO_IDI='pt';
+function ldBancoOpen(){ ldBancoTabs(); ldBancoRender(); if(typeof openM==='function')openM('mLdBanco'); }
+function ldBancoSeg(s){ LD_BANCO_SEG=s; ldBancoTabs(); ldBancoRender(); }
+function ldBancoIdi(i){ LD_BANCO_IDI=i; ldBancoTabs(); ldBancoRender(); }
+function ldBancoTabs(){
+  var s=document.getElementById('ldBancoSegTabs');
+  if(s)s.innerHTML=Object.keys(LEAD_SEG_LB).map(function(k){var on=LD_BANCO_SEG===k;return '<button onclick="ldBancoSeg(\''+k+'\')" style="padding:6px 12px;border-radius:8px;font-size:12.5px;font-weight:600;cursor:pointer;border:1.5px solid '+(on?'var(--nav)':'var(--brd2)')+';background:'+(on?'var(--nav)':'transparent')+';color:'+(on?'var(--gold3)':'var(--tx2)')+'">'+LEAD_SEG_LB[k]+'</button>';}).join('');
+  var i=document.getElementById('ldBancoIdiTabs');
+  if(i)i.innerHTML=Object.keys(LEAD_IDI_LB).map(function(k){var on=LD_BANCO_IDI===k;return '<button onclick="ldBancoIdi(\''+k+'\')" style="padding:6px 12px;border-radius:8px;font-size:12.5px;font-weight:600;cursor:pointer;border:1.5px solid '+(on?'var(--gold)':'var(--brd2)')+';background:'+(on?'var(--goldb)':'transparent')+';color:'+(on?'var(--gold)':'var(--tx2)')+'">'+LEAD_IDI_LB[k]+'</button>';}).join('');
+}
+function ldBancoRender(){
+  var body=document.getElementById('ldBancoBody'); if(!body)return;
+  body.innerHTML=LEAD_GATILHOS.map(function(g){
+    var txt=ldMsgGet(g.k,LD_BANCO_IDI,LD_BANCO_SEG);
+    var id='ldb_'+g.k;
+    return '<div class="rel-bsec"><h4>'+g.lb+(g.soCliente?' <span style="font-weight:400;font-size:11px;color:var(--tx3)">(somente leads que já são clientes)</span>':'')+'</h4>'+
+      '<textarea class="fi" id="'+id+'" rows="2" style="margin-bottom:6px">'+relEsc(txt)+'</textarea>'+
+      '<div style="display:flex;gap:6px"><button class="btn btn-primary btn-xs" onclick="ldMsgSet(\''+g.k+'\',\''+LD_BANCO_IDI+'\',\''+LD_BANCO_SEG+'\',document.getElementById(\''+id+'\').value);showToast(\'✅ Mensagem salva!\')">💾 Salvar</button>'+
+      '<button class="btn btn-ghost btn-xs" onclick="ldMsgReset(\''+g.k+'\',\''+LD_BANCO_IDI+'\',\''+LD_BANCO_SEG+'\');ldBancoRender()">↩️ Restaurar padrão</button></div>'+
+    '</div>';
+  }).join('');
+}
+
 // ── METAS ──
 function gMG(k,m){return gobj('ct_mg',{})[k+'_'+m]||'';}function sMG(k,m,v){const o=gobj('ct_mg',{});o[k+'_'+m]=v;sobj('ct_mg',o);}
 function buildMG(){const hdr=`<table style="min-width:1000px;width:100%;border-collapse:collapse"><thead><tr><th style="text-align:left;padding:9px 16px;background:#F9FAFB;border:1px solid var(--brd);font-size:11px;font-weight:700;color:var(--tx3);letter-spacing:1px;text-transform:uppercase">INDICADOR</th>${MSS.map(m=>`<th style="padding:9px 8px;background:#F9FAFB;border:1px solid var(--brd);font-size:11px;font-weight:700;color:var(--tx3)">${m}</th>`).join('')}<th style="padding:9px 8px;background:#F9FAFB;border:1px solid var(--brd);font-size:11px;color:var(--tx3)">TOTAL</th></tr></thead><tbody>`;const rows=META_I.map(ind=>{const mR=MSS.map((_,mi)=>{const v=gMG(ind.k+'_m',mi+1)||ind.def;return`<td style="border:1px solid var(--brd);padding:0"><input type="number" value="${v}" style="width:100%;padding:6px 7px;border:none;outline:none;font-size:12px;text-align:right;font-family:inherit;background:rgba(180,83,9,.04)" onchange="sMG('${ind.k}_m',${mi+1},this.value)" onclick="this.select()"></td>`;}).join('');const rR=MSS.map((_,mi)=>`<td style="border:1px solid var(--brd);padding:0"><input type="number" value="${gMG(ind.k+'_r',mi+1)||''}" placeholder="0" style="width:100%;padding:6px 7px;border:none;outline:none;font-size:12px;text-align:right;font-family:inherit" onchange="sMG('${ind.k}_r',${mi+1},this.value)" onclick="this.select()"></td>`).join('');return`<tr style="background:var(--goldb)"><td style="padding:7px 16px;border:1px solid var(--brd);font-weight:700;font-size:12px" colspan="${MSS.length+2}">${ind.lb}</td></tr><tr><td style="padding:7px 16px;border:1px solid var(--brd);font-size:12px;background:#FAFAFA">Meta</td>${mR}<td style="border:1px solid var(--brd);text-align:right;padding:6px 10px;font-size:12px;font-weight:700">${ind.m?$R(ind.def*12):ind.def*12}</td></tr><tr><td style="padding:7px 16px;border:1px solid var(--brd);font-size:12px">Realizado</td>${rR}<td style="border:1px solid var(--brd);text-align:right;padding:6px 10px;font-size:12px;color:var(--tx3)">—</td></tr>`;}).join('');document.getElementById('metGrade').innerHTML=hdr+rows+'</tbody></table>';}
@@ -2995,24 +3442,6 @@ function rPr(){const db=gdb('ct_precos');document.getElementById('prTb').innerHT
 function savePr(){const p={id:uid(),est:document.getElementById('prEst').value,tam:document.getElementById('prTam').value,min:document.getElementById('prMin').value,max:document.getElementById('prMax').value,obs:document.getElementById('prObs').value};const db=gdb('ct_precos');db.push(p);sdb('ct_precos',db);closeM('mPr');rPr();showToast('✅ Preço salvo!');}
 function delPr(id){if(!confirm('Excluir?'))return;sdb('ct_precos',gdb('ct_precos').filter(p=>p.id!==id));rPr();}
 // ── MARKETING ──
-function rMktResumo(){const el=document.getElementById('mktResumo');if(!el)return;const m=ma();
-  const sess=gdb('ct_sessoes').filter(s=>s.stat==='Concluído'&&(s.data||'').slice(0,7)===m);
-  const fin=gdb('ct_financeiro');
-  const rec=fin.filter(f=>f.data&&f.data.slice(0,7)===m&&f.tipo==='receita').reduce((a,f)=>a+R(f.val),0);
-  const desp=fin.filter(f=>f.data&&f.data.slice(0,7)===m&&f.tipo==='despesa').reduce((a,f)=>a+R(f.val),0);
-  const fat=rec||sess.reduce((a,s)=>a+R(s.val),0);
-  const lucro=fat-desp;
-  const mktMes=gdb('ct_mkt_fundo').filter(r=>r.tipo==='entrada'&&(r.data||'').slice(0,7)===m).reduce((a,r)=>a+R(r.val),0);
-  const pctReal=fat>0?(mktMes/fat*100):0;
-  const [ano,mm]=m.split('-');document.getElementById('mktResMes').textContent=MSS[parseInt(mm)-1]+' '+ano;
-  el.innerHTML=`<div class="kpi-grid">
-    <div class="kpi-card kpi-gray"><div class="kpi-num">${sess.length}</div><div class="kpi-label">Tatuagens Concluídas</div></div>
-    <div class="kpi-card kpi-gold"><div class="kpi-num c-gold">${$R(fat)}</div><div class="kpi-label">Faturamento</div></div>
-    <div class="kpi-card kpi-red"><div class="kpi-num c-red">${$R(desp)}</div><div class="kpi-label">Despesas</div></div>
-    <div class="kpi-card kpi-green"><div class="kpi-num c-green">${$R(lucro)}</div><div class="kpi-label">Lucro Líquido</div></div>
-    <div class="kpi-card kpi-gold"><div class="kpi-num c-gold">${$R(mktMes)}</div><div class="kpi-label">Investido em Marketing</div></div>
-    <div class="kpi-card kpi-gray"><div class="kpi-num">${pctReal.toFixed(1)}%</div><div class="kpi-label">% do Faturamento</div></div>
-  </div>`;}
 function rMkt(){rMktResumo();rMktFundo();const db=gdb('ct_mkt').sort((a,b)=>a.data>b.data?1:-1);document.getElementById('mktCt').textContent=db.length+' posts';document.getElementById('mktKpi').innerHTML=`<div class="kpi-card kpi-gray"><div class="kpi-num">${db.filter(m=>m.st==='Planejado').length}</div><div class="kpi-label">Planejados</div></div><div class="kpi-card kpi-gold"><div class="kpi-num c-gold">${db.filter(m=>m.st==='Produzindo').length}</div><div class="kpi-label">Produzindo</div></div><div class="kpi-card kpi-green"><div class="kpi-num c-green">${db.filter(m=>m.st==='Publicado').length}</div><div class="kpi-label">Publicados</div></div><div class="kpi-card kpi-gray"><div class="kpi-num">${db.length}</div><div class="kpi-label">Total</div></div>`;document.getElementById('mktTb').innerHTML=db.length?db.map(m=>`<tr><td>${dtBR(m.data)}</td><td>${m.plat}</td><td>${m.tipo}</td><td>${m.tema||'—'}</td><td>${bdg(m.st)}</td><td><button class="btn btn-danger btn-xs" onclick="delMkt('${m.id}')">🗑</button></td></tr>`).join(''):`<tr><td colspan="6" class="empty-row"><p>Nenhum post</p></td></tr>`;}
 function saveMkt(){const m={id:uid(),data:document.getElementById('mkData').value,plat:document.getElementById('mkPlat').value,tipo:document.getElementById('mkTipo').value,st:document.getElementById('mkSt').value,tema:document.getElementById('mkTema').value};const db=gdb('ct_mkt');db.push(m);sdb('ct_mkt',db);closeM('mMkt');rMkt();showToast('✅ Post planejado!');}
 function delMkt(id){if(!confirm('Excluir?'))return;sdb('ct_mkt',gdb('ct_mkt').filter(m=>m.id!==id));rMkt();}
@@ -3983,6 +4412,7 @@ window.rLd=function(){
     }).join('')+'</div>';
   }).join('');
   if(kb)kb.innerHTML=stats+'<div class="kanban" style="margin:0;padding:0;display:flex;gap:14px;overflow-x:auto">'+kanban+'</div>';
+  if(typeof rLdCamp==='function')rLdCamp();
 };
 
 /* ---------- DASHBOARD: Inteligência do Mês (ponto 12) ---------- */
