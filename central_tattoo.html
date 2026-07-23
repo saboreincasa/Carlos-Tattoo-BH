@@ -108,7 +108,7 @@ a{text-decoration:none;color:inherit;}
 .kpi-red::before{background:linear-gradient(to bottom,var(--red),#F87171);}
 .kpi-blue::before{background:linear-gradient(to bottom,var(--blu),#60A5FA);}
 .kpi-gray::before{background:linear-gradient(to bottom,var(--tx3),var(--tx4));}
-.kpi-num{font-family:'Cinzel',serif;font-size:clamp(19px,2.1vw,30px);font-weight:700;line-height:1.1;margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.5px;}
+.kpi-num{font-family:'Cinzel',serif;font-size:clamp(16px,2vw,30px);font-weight:700;line-height:1.1;margin-bottom:5px;white-space:nowrap;letter-spacing:-.5px;}
 .kpi-card{min-width:0;}
 .kpi-grid{grid-template-columns:repeat(auto-fill,minmax(178px,1fr));}
 .kpi-num.c-gold{color:var(--gold2);}
@@ -3349,7 +3349,11 @@ function ldProximoGatilho(l){
 
 /* fila de hoje: leads ativos, com telefone, nunca contatados via campanha OU sem contato há 7+ dias */
 function ldCampFila(){
-  var db=gdb('ct_leads').filter(function(l){return l.et!=='fechado' && l.et!=='perdido';});
+  /* base fria fora: era ela que inflava o badge da Central de Operações para 598 */
+  var db=gdb('ct_leads').filter(function(l){
+    if(typeof ctLeadFrio==='function' && ctLeadFrio(l))return false;
+    return l.et!=='fechado' && l.et!=='perdido';
+  });
   var fila=db.map(function(l){
     var tel=(typeof ctLiveTel==='function'?ctLiveTel(l):null)||l.tel||'';
     var ult=ldUltimoEnvio(l.id);
@@ -4577,13 +4581,15 @@ function relBancoCopy(elid){ var el=document.getElementById(elid); if(!el)return
 
 /* ---------- PIPELINE DE LEADS turbinado (pontos 1, 2, 3) ---------- */
 window.rLd=function(){
-  var db=relG('ct_leads'); var _chg=false;
+  var _todos=relG('ct_leads'); var _chg=false;
   var STG=(typeof LD_STAGES!=='undefined')?LD_STAGES:['contato','orcamento','negociacao','agendado','fechado','perdido'];
-  db.forEach(function(l){ if(STG.indexOf(l.et)<0){l.et='contato';_chg=true;} });
-  if(_chg)relSet('ct_leads',db);
+  _todos.forEach(function(l){ if(STG.indexOf(l.et)<0){l.et='contato';_chg=true;} });
+  /* base fria fica de fora de TODO indicador e da tabela principal */
+  var db=_todos.filter(function(l){ return !(typeof ctLeadFrio==='function'&&ctLeadFrio(l)); });
+  if(_chg)relSet('ct_leads',_todos);   /* salva a lista COMPLETA, não a filtrada */
   var atv=db.filter(function(l){return l.et!=='fechado'&&l.et!=='perdido';});
   var pipe=atv.reduce(function(a,l){return a+relR(l.val);},0);
-  var med=atv.length?pipe/atv.length:0;
+  var comVal=atv.filter(function(l){return relR(l.val)>0;});var med=comVal.length?pipe/comVal.length:0;
   var hj=relHoje();
   var precisa=atv.filter(function(l){return (l.prox&&l.prox<=hj)||l.et==='contato';}).length;
   var parados=atv.filter(function(l){return l.et==='orcamento'&&(l.criadoEm?relDias(l.criadoEm)>=5:true);}).length;
@@ -6722,6 +6728,633 @@ window.ctCobrarTodasAval=function(){
         'ou se o trabalho ainda vai acontecer. Trate um a um pelo botão "Completar".');
     }
     return todos.apply(this,arguments);
+  };
+})();
+
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   AUTO-AJUSTE DOS NÚMEROS DOS CARTÕES
+   ───────────────────────────────────────────────────────────────────
+   Eu tinha resolvido o estouro do Relatórios com text-overflow:ellipsis.
+   Trocou um defeito por outro: "R$ 1.500,00" virava "R$ 1.50...".
+   Número cortado é pior que número grande. Agora ele encolhe até caber.
+═══════════════════════════════════════════════════════════════════ */
+window.ctAjustarKpis=function(){
+  try{
+    document.querySelectorAll('.kpi-num').forEach(function(el){
+      if(!el.offsetParent)return;                 /* invisível, ignora */
+      el.style.fontSize='';                        /* volta ao clamp */
+      var tam=parseFloat(getComputedStyle(el).fontSize)||24;
+      var guarda=0;
+      while(el.scrollWidth>el.clientWidth+1&&tam>12&&guarda++<24){
+        tam-=1; el.style.fontSize=tam+'px';
+      }
+    });
+  }catch(e){}
+};
+(function(){
+  var t;
+  function agenda(){ clearTimeout(t); t=setTimeout(ctAjustarKpis,120); }
+  window.addEventListener('resize',agenda);
+  /* qualquer repintura de cartão dispara o reajuste */
+  if(window.MutationObserver){
+    var mo=new MutationObserver(agenda);
+    setTimeout(function(){
+      document.querySelectorAll('.kpi-grid').forEach(function(g){
+        mo.observe(g,{childList:true,subtree:true});
+      });
+    },1000);
+  }
+  setTimeout(agenda,1300);
+})();
+
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   ITEM 1 · BASE FRIA SEPARADA DOS LEADS REAIS
+   ───────────────────────────────────────────────────────────────────
+   600 contatos importados em 3 milissegundos, sem valor, sem
+   observação e sem próxima ação, estavam contaminando todo indicador
+   do módulo: "602 leads ativos", "602 precisam resposta" em vermelho
+   e valor médio de R$ 2,49. Alarme que soa sempre é alarme ignorado.
+   Eles não somem — vão para uma base própria, e voltam sozinhos ao
+   pipeline no instante em que der sinal de vida.
+═══════════════════════════════════════════════════════════════════ */
+
+/* Sinais de vida: qualquer um destes tira o lead da base fria */
+window.ctLeadAcordou=function(l){
+  if(!l)return false;
+  if(relR(l.val)>0)return true;                          /* tem valor */
+  if((l.obs||'').trim())return true;                     /* alguém anotou algo */
+  if((l.prox||'').trim())return true;                    /* tem próxima ação */
+  if(l.temp==='quente')return true;                      /* foi marcado quente */
+  if(l.et&&l.et!=='contato')return true;                 /* avançou de etapa */
+  return false;
+};
+
+/* Um lead é frio se está marcado E continua sem sinal de vida */
+window.ctLeadFrio=function(l){
+  if(!l||!l.fria)return false;
+  if(ctLeadAcordou(l)){ l.fria=0; return false; }         /* desperta sozinho */
+  return true;
+};
+
+/* ── MIGRAÇÃO RETROATIVA (roda uma vez) ──
+   Detecta importação em massa pela assinatura: muitos registros
+   criados no mesmo segundo, todos sem valor/obs/próxima ação. */
+window.ctMigrarBaseFria=function(forcar){
+  try{
+    if(!forcar&&localStorage.getItem('ct_fria_migrada'))return {ok:false,motivo:'ja_rodou'};
+    var db=gdb('ct_leads'); if(!db.length)return {ok:false,motivo:'vazio'};
+
+    /* agrupa por segundo de criação */
+    var porSeg={};
+    db.forEach(function(l){
+      var s=(l.criadoEm||'').slice(0,19); if(!s)return;
+      (porSeg[s]=porSeg[s]||[]).push(l);
+    });
+
+    var marcados=0;
+    db.forEach(function(l){
+      if(l.fria)return;
+      if(ctLeadAcordou(l))return;                          /* tem vida, não mexe */
+      var seg=(l.criadoEm||'').slice(0,19);
+      var loteGrande=seg&&porSeg[seg]&&porSeg[seg].length>=20;
+      var origemLista=/lista antiga|importa|planilha|legado/i.test(l.ori||'');
+      if(loteGrande||origemLista){ l.fria=1; marcados++; }
+    });
+
+    if(marcados)sdb('ct_leads',db);
+    localStorage.setItem('ct_fria_migrada',new Date().toISOString());
+    return {ok:true,marcados:marcados,total:db.length};
+  }catch(e){ console.warn('[migrar base fria]',e); return {ok:false}; }
+};
+
+/* Contadores da base fria */
+window.ctFriaResumo=function(){
+  var db=gdb('ct_leads');
+  var frios=db.filter(function(l){return l.fria&&!ctLeadAcordou(l);});
+  var porOri={};
+  frios.forEach(function(l){
+    var o=(l.ori||'sem origem'); porOri[o]=(porOri[o]||0)+1;
+  });
+  return {total:frios.length,porOrigem:porOri,lista:frios};
+};
+
+/* Tirar da base fria manualmente */
+window.ctDespertarLead=function(id){
+  var db=gdb('ct_leads'), i=db.findIndex(function(l){return l.id===id;});
+  if(i<0)return;
+  db[i].fria=0;
+  if(!db[i].passo)db[i].passo='Reengajado manualmente — definir próxima ação';
+  sdb('ct_leads',db);
+  try{rLd();}catch(e){}
+  showToast('🔥 '+(db[i].nome||'Lead')+' voltou para o pipeline ativo.');
+};
+
+/* Devolver um lead ativo para a base fria */
+window.ctEsfriarLead=function(id){
+  var db=gdb('ct_leads'), i=db.findIndex(function(l){return l.id===id;});
+  if(i<0)return;
+  if(ctLeadAcordou(db[i])&&!confirm('Esse lead tem valor ou próxima ação definida.\nMandar para a base fria mesmo assim?'))return;
+  db[i].fria=1; db[i].val=''; db[i].prox='';
+  sdb('ct_leads',db);
+  try{rLd();}catch(e){}
+  showToast('❄️ Lead movido para a base fria.');
+};
+
+/* ── PAINEL DA BASE FRIA no rodapé do módulo Leads ── */
+window.ctFriaPainel=function(){
+  var pan=document.getElementById('p-leads'); if(!pan)return;
+  var r=ctFriaResumo();
+  var box=document.getElementById('friaBox');
+
+  if(!r.total){ if(box)box.style.display='none'; return; }
+  if(!box){
+    box=document.createElement('div'); box.id='friaBox'; box.className='card';
+    box.style.marginTop='14px';
+    pan.appendChild(box);
+  }
+  box.style.display='';
+
+  var aberto=localStorage.getItem('ct_fria_aberta')==='1';
+  var origens=Object.keys(r.porOrigem).map(function(o){
+    return '<span style="display:inline-block;background:var(--bg2);border:1px solid var(--brd);'+
+      'border-radius:20px;padding:2px 10px;font-size:11.5px;margin:2px 3px 2px 0">'+
+      o+' · <strong>'+r.porOrigem[o]+'</strong></span>';
+  }).join('');
+
+  var lista='';
+  if(aberto){
+    if(typeof window.FRIA_LIMITE!=='number')window.FRIA_LIMITE=25;
+    var vis=r.lista.slice(0,window.FRIA_LIMITE);
+    lista='<div class="tw"><table class="tbl"><thead><tr><th>Nome</th><th>WhatsApp</th><th>Origem</th><th>Ação</th></tr></thead><tbody>'+
+      vis.map(function(l){
+        var tel=(l.tel||'').replace(/\D/g,'');
+        return '<tr><td><strong>'+(l.nome||'—')+'</strong></td>'+
+          '<td>'+(l.tel||'—')+'</td>'+
+          '<td style="font-size:12px;color:var(--tx3)">'+(l.ori||'—')+'</td>'+
+          '<td style="white-space:nowrap">'+
+            (tel?'<button class="btn btn-ghost btn-xs" onclick="window.open(\'https://wa.me/'+tel+'\',\'_blank\')" title="Abrir WhatsApp">📲</button> ':'')+
+            '<button class="btn btn-success btn-xs" onclick="ctDespertarLead(\''+l.id+'\')" title="Mover para o pipeline ativo">🔥 Despertar</button>'+
+          '</td></tr>';
+      }).join('')+
+      '</tbody></table></div>'+
+      (r.total>vis.length?'<div style="padding:12px;text-align:center;border-top:1px solid var(--brd)">'+
+        '<span style="font-size:12px;color:var(--tx3);margin-right:8px">'+vis.length+' de '+r.total+'</span>'+
+        '<button class="btn btn-ghost btn-sm" onclick="window.FRIA_LIMITE+=50;ctFriaPainel()">⬇ Carregar mais 50</button></div>':'');
+  }
+
+  box.innerHTML=
+    '<div class="card-h" style="cursor:pointer" onclick="ctFriaToggle()">'+
+      '<h3>❄️ Base Fria</h3>'+
+      '<span class="badge-count">'+r.total+'</span>'+
+      '<span style="margin-left:auto;font-size:12px;color:var(--tx3)">'+(aberto?'▲ ocultar':'▼ ver lista')+'</span>'+
+    '</div>'+
+    '<div class="card-b">'+
+      '<div style="font-size:12.5px;color:var(--tx2);margin-bottom:9px">'+
+        'Contatos importados que nunca deram sinal de vida. <strong>Ficam fora de todos os indicadores</strong> '+
+        'para não distorcer pipeline, valor médio e alertas. '+
+        'Assim que um deles ganhar valor, observação, próxima ação, temperatura quente ou avançar de etapa, '+
+        'ele <strong>volta sozinho</strong> para o pipeline ativo.</div>'+
+      '<div style="margin-bottom:'+(aberto?'12px':'0')+'">'+origens+'</div>'+
+      lista+
+    '</div>';
+};
+
+window.ctFriaToggle=function(){
+  var a=localStorage.getItem('ct_fria_aberta')==='1';
+  localStorage.setItem('ct_fria_aberta',a?'0':'1');
+  ctFriaPainel();
+};
+
+/* Liga o painel ao render do módulo */
+(function(){
+  var ant=window.rLd;
+  window.rLd=function(){
+    var r; try{ r=ant.apply(this,arguments); }catch(e){ console.warn('[rLd]',e); }
+    try{ ctFriaPainel(); }catch(e){ console.warn('[painel fria]',e); }
+    return r;
+  };
+})();
+
+/* Importação futura já nasce marcada como fria */
+(function(){
+  var ant=window.importarLeadsLegado;
+  if(typeof ant!=='function')return;
+  window.importarLeadsLegado=function(){
+    var antes=gdb('ct_leads').length;
+    var r=ant.apply(this,arguments);
+    setTimeout(function(){
+      var db=gdb('ct_leads'); var n=0;
+      db.forEach(function(l){
+        if(!l.fria&&/lista antiga/i.test(l.ori||'')&&!ctLeadAcordou(l)){ l.fria=1; n++; }
+      });
+      if(n){ sdb('ct_leads',db); try{rLd();}catch(e){} }
+    },300);
+    return r;
+  };
+})();
+
+/* Migração retroativa na primeira abertura */
+(function(){
+  setTimeout(function(){
+    try{
+      var r=ctMigrarBaseFria();
+      if(r&&r.ok&&r.marcados){
+        try{rLd();}catch(e){}
+        setTimeout(function(){
+          showToast('❄️ '+r.marcados+' contatos movidos para a Base Fria — seus indicadores de Leads agora refletem só oportunidades reais.');
+        },1500);
+      }
+    }catch(e){ console.warn('[migração fria]',e); }
+  },1600);
+})();
+
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   ITEM 2 · RELACIONAMENTO VIRA AGENDA, NÃO LISTA
+   ───────────────────────────────────────────────────────────────────
+   As abas continuam (retorno, reativação, premium, cobrança, aniversário),
+   mas deixam de ser o ponto de partida. Agora a primeira coisa que
+   aparece é UMA fila única, ordenada por urgência, dizendo quem
+   contatar e por quê. Nada foi inventado: reaproveita relBase,
+   relCategorias, relGatilho, relSugestao e relEnviar.
+═══════════════════════════════════════════════════════════════════ */
+
+/* Monta a fila do dia a partir das categorias já existentes */
+window.ctAgendaRelac=function(){
+  var base=relBase(), cats=relCategorias(base), fila=[], vistos={};
+
+  function add(e,tipo,urg,motivo,rotulo){
+    var id=e.c.id;
+    /* um cliente aparece uma vez só, com o motivo mais urgente */
+    if(vistos[id]!=null){ if(fila[vistos[id]].urg<=urg)return; fila.splice(vistos[id],1);
+      Object.keys(vistos).forEach(function(k){ if(vistos[k]>vistos[id])vistos[k]--; }); }
+    vistos[id]=fila.length;
+    fila.push({e:e,tipo:tipo,urg:urg,motivo:motivo,rot:rotulo});
+  }
+
+  /* urgência: 1 = hoje, 2 = esta semana, 3 = quando der */
+  cats.cobranca.forEach(function(e){
+    add(e,'cobranca',1,'Saldo de '+relRS(e.st.saldo)+' em aberto','💰 Cobrar');
+  });
+  cats.aniversario.forEach(function(e){
+    var d=e.aniv;
+    add(e,'aniversario',d<=1?1:2,
+      d===0?'Faz aniversário HOJE':(d===1?'Faz aniversário amanhã':'Aniversário em '+d+' dias'),
+      '🎂 Parabenizar');
+  });
+  cats.retorno.forEach(function(e){
+    var g=relGatilho(e.st.dias);
+    var marco=g?g.d:e.st.dias;
+    add(e,'retorno',(marco>=90?1:2),
+      e.st.dias+' dias sem visita — '+(marco>=90?'janela de retorno passando':'bom momento pra manutenção'),
+      '🔁 Chamar de volta');
+  });
+  cats.reativacao.forEach(function(e){
+    add(e,'reativacao',3,Math.floor(e.st.dias/30)+' meses sem contato — esfriou','⚡ Reativar');
+  });
+  cats.premium.forEach(function(e){
+    if(vistos[e.c.id]!=null)return;
+    if(e.st.dias!=null&&e.st.dias<25)return;              /* veio há pouco, não incomoda */
+    add(e,'premium',3,'Cliente premium — vale oferta exclusiva','💎 Oferecer projeto');
+  });
+
+  fila.sort(function(a,b){
+    if(a.urg!==b.urg)return a.urg-b.urg;
+    var da=a.e.st.dias==null?9999:a.e.st.dias, dbb=b.e.st.dias==null?9999:b.e.st.dias;
+    return dbb-da;                                         /* mais parado primeiro */
+  });
+  return fila;
+};
+
+/* Já foi contatado hoje? evita mandar duas vezes */
+window.ctRelacJaHoje=function(cliId){
+  try{
+    var hj=relHoje();
+    return relG('ct_relmsg').some(function(m){return m.cliId===cliId&&m.data===hj;});
+  }catch(e){ return false; }
+};
+
+window.ctAgendaRelacPainel=function(){
+  var pan=document.getElementById('p-relacionamento'); if(!pan)return;
+  var fila=ctAgendaRelac();
+  var box=document.getElementById('relAgenda');
+  if(!box){
+    box=document.createElement('div'); box.id='relAgenda'; box.className='card';
+    box.style.marginBottom='14px';
+    var tabs=document.getElementById('relTabs');
+    var alvo=tabs?tabs.closest('.card')||tabs.parentNode:null;
+    if(alvo&&alvo.parentNode)alvo.parentNode.insertBefore(box,alvo); else pan.appendChild(box);
+  }
+
+  if(!fila.length){
+    box.innerHTML='<div class="card-b" style="text-align:center;padding:26px">'+
+      '<div style="font-size:34px;margin-bottom:6px">☕</div>'+
+      '<strong style="font-size:14px">Nenhum contato pendente hoje</strong>'+
+      '<div style="font-size:12.5px;color:var(--tx3);margin-top:3px">A fila se refaz sozinha conforme as sessões acontecem.</div></div>';
+    return;
+  }
+
+  var hoje=fila.filter(function(f){return f.urg===1;});
+  var semana=fila.filter(function(f){return f.urg===2;});
+  var depois=fila.filter(function(f){return f.urg===3;});
+  if(typeof window.REL_AG_LIM!=='number')window.REL_AG_LIM=12;
+
+  function linha(f){
+    var c=f.e.c, sug=relSugestao(f.e,f.tipo);
+    var feito=ctRelacJaHoje(c.id);
+    var cor={cobranca:'var(--red)',aniversario:'var(--grn)',retorno:'var(--gold2)',
+             reativacao:'var(--blu)',premium:'var(--gold2)'}[f.tipo]||'var(--tx3)';
+    var txt=(sug&&sug.texto?sug.texto:'').replace(/\{nome\}/g,(c.nome||'').split(' ')[0]);
+    return '<div style="display:flex;gap:11px;align-items:center;padding:11px 13px;border:1px solid var(--brd);'+
+      'border-left:3px solid '+cor+';border-radius:10px;margin-bottom:7px;'+(feito?'opacity:.5;':'')+'">'+
+      '<div style="flex:1;min-width:0">'+
+        '<div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">'+
+          '<strong style="font-size:13.5px">'+(c.nome||'—')+'</strong>'+
+          '<span style="font-size:10px;font-weight:700;color:'+cor+'">'+f.rot+'</span>'+
+          (feito?'<span style="font-size:10.5px;color:var(--grn)">✓ falado hoje</span>':'')+
+        '</div>'+
+        '<div style="font-size:12px;color:var(--tx3);margin-top:2px">'+f.motivo+'</div>'+
+      '</div>'+
+      '<button class="btn '+(feito?'btn-ghost':'btn-primary')+' btn-xs" style="flex-shrink:0" '+
+        'onclick="relEnviar(\''+c.id+'\','+JSON.stringify(txt).replace(/"/g,'&quot;')+',\''+f.rot.replace(/[^\wÀ-ú ]/g,'').trim()+'\')">'+
+        '📲 Enviar</button>'+
+    '</div>';
+  }
+
+  function bloco(titulo,arr,sub){
+    if(!arr.length)return '';
+    var vis=arr.slice(0,window.REL_AG_LIM);
+    return '<div style="margin-bottom:14px">'+
+      '<div style="font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;'+
+        'color:var(--tx3);margin-bottom:7px">'+titulo+' <span style="color:var(--tx4)">· '+arr.length+'</span></div>'+
+      (sub?'<div style="font-size:11.5px;color:var(--tx4);margin-bottom:7px">'+sub+'</div>':'')+
+      vis.map(linha).join('')+
+      (arr.length>vis.length?'<button class="btn btn-ghost btn-xs" onclick="window.REL_AG_LIM+=20;ctAgendaRelacPainel()">⬇ ver mais '+(arr.length-vis.length)+'</button>':'')+
+    '</div>';
+  }
+
+  box.innerHTML=
+    '<div class="card-h"><h3>📆 Sua fila de hoje</h3>'+
+      '<span class="badge-count">'+fila.length+'</span></div>'+
+    '<div class="card-b">'+
+      bloco('🔴 Hoje',hoje,'Não deixe passar — janela fechando ou dinheiro parado.')+
+      bloco('🟡 Esta semana',semana,'')+
+      bloco('⚪ Quando sobrar tempo',depois,'')+
+    '</div>';
+};
+
+/* Liga ao render do módulo */
+(function(){
+  var ant=window.rRelac;
+  if(typeof ant!=='function')return;
+  window.rRelac=function(){
+    var r; try{ r=ant.apply(this,arguments); }catch(e){ console.warn('[rRelac]',e); }
+    try{ ctAgendaRelacPainel(); }catch(e){ console.warn('[agenda relac]',e); }
+    return r;
+  };
+})();
+
+/* ═══════════════════════════════════════════════════════════════════
+   ITEM 3 · LEAD RESPONDE TRÊS PERGUNTAS DE RELANCE
+   ───────────────────────────────────────────────────────────────────
+   Quem é? · Quanto vale? · O que devo fazer agora?
+   Sem módulo novo: a mesma tabela ganha um painel de prioridade em
+   cima, com a próxima ação já escrita e o botão pronto.
+═══════════════════════════════════════════════════════════════════ */
+
+window.ctLeadProxAcao=function(l){
+  var hj=relHoje();
+  var dias=l.ultContato?relDias(l.ultContato):(l.criadoEm?relDias(l.criadoEm):null);
+  var et=l.et||'contato';
+
+  if(l.prox&&l.prox<=hj)
+    return {urg:1,rot:'Ação marcada venceu',txt:'Você agendou um retorno para '+ (l.prox.split('-').reverse().join('/')) +'. Fale agora.'};
+  if(et==='agendado')
+    return {urg:1,rot:'Confirmar presença',txt:'Está agendado. Confirme a sessão para não tomar furo.'};
+  if(et==='negociacao')
+    return {urg:1,rot:'Fechar',txt:'Está negociando'+(dias!=null?' há '+dias+' dias':'')+'. Puxe para o fechamento.'};
+  if(et==='orcamento'&&dias!=null&&dias>=5)
+    return {urg:1,rot:'Orçamento parado',txt:'Enviou orçamento há '+dias+' dias sem resposta. Faça o follow-up.'};
+  if(et==='orcamento')
+    return {urg:2,rot:'Aguardando resposta',txt:'Orçamento enviado'+(dias!=null?' há '+dias+' dias':'')+'. Dê mais um ou dois dias.'};
+  if(et==='contato'&&dias!=null&&dias>=3)
+    return {urg:1,rot:'Sem resposta',txt:dias+' dias desde o contato. Reative antes de esfriar de vez.'};
+  if(et==='contato')
+    return {urg:2,rot:'Enviar orçamento',txt:'Primeiro contato feito. Mande a proposta enquanto está quente.'};
+  return {urg:3,rot:'Acompanhar',txt:'Sem ação urgente.'};
+};
+
+window.ctLeadValor=function(l){
+  var v=relR(l.val);
+  if(v>0)return {v:v,txt:relRS(v),conf:'declarado'};
+  /* sem valor: estima pelo preço médio das sessões concluídas */
+  try{
+    var conc=gdb('ct_sessoes').filter(function(s){return s.stat==='Concluído'&&relR(s.val)>0;});
+    if(conc.length){
+      var med=conc.reduce(function(a,s){return a+relR(s.val);},0)/conc.length;
+      return {v:med,txt:'~'+relRS(med),conf:'estimado'};
+    }
+  }catch(e){}
+  return {v:0,txt:'—',conf:'sem base'};
+};
+
+window.ctLeadsPrioridade=function(){
+  var db=gdb('ct_leads').filter(function(l){
+    if(typeof ctLeadFrio==='function'&&ctLeadFrio(l))return false;   /* base fria fora */
+    return l.et!=='fechado'&&l.et!=='perdido';
+  });
+  return db.map(function(l){
+    var a=ctLeadProxAcao(l), v=ctLeadValor(l);
+    var tempPeso={quente:0,morno:1,frio:2}[l.temp||'morno'];
+    return {l:l,acao:a,val:v,ordem:a.urg*100+tempPeso*10-Math.min(v.v/1000,9)};
+  }).sort(function(a,b){return a.ordem-b.ordem;});
+};
+
+window.ctLeadsPainel=function(){
+  var pan=document.getElementById('p-leads'); if(!pan)return;
+  var pri=ctLeadsPrioridade();
+  var box=document.getElementById('ldPrio');
+  if(!box){
+    box=document.createElement('div'); box.id='ldPrio'; box.className='card';
+    box.style.margin='0 0 14px';
+    var kanban=document.getElementById('ldKanban');
+    if(kanban&&kanban.parentNode)kanban.parentNode.insertBefore(box,kanban); else pan.appendChild(box);
+  }
+  if(!pri.length){ box.style.display='none'; return; }
+  box.style.display='';
+
+  var urgentes=pri.filter(function(p){return p.acao.urg===1;});
+  if(typeof window.LD_PRIO_LIM!=='number')window.LD_PRIO_LIM=8;
+  var mostrar=(urgentes.length?urgentes:pri).slice(0,window.LD_PRIO_LIM);
+  var totalRel=(urgentes.length?urgentes:pri).length;
+
+  var tempIc={quente:'🔥',morno:'⚡',frio:'❄️'};
+  box.innerHTML=
+    '<div class="card-h" style="background:var(--goldb);border-bottom:1px solid var(--goldbrd)">'+
+      '<h3>🎯 Onde agir primeiro</h3>'+
+      '<span class="badge-count">'+totalRel+'</span></div>'+
+    '<div class="card-b">'+
+      mostrar.map(function(p){
+        var l=p.l, tel=(l.tel||'').replace(/\D/g,'');
+        var cor=p.acao.urg===1?'var(--red)':p.acao.urg===2?'var(--gold2)':'var(--tx3)';
+        return '<div style="display:flex;gap:12px;align-items:center;padding:11px 13px;border:1px solid var(--brd);'+
+          'border-left:3px solid '+cor+';border-radius:10px;margin-bottom:7px;flex-wrap:wrap">'+
+          /* QUEM É */
+          '<div style="flex:1.4;min-width:150px">'+
+            '<strong style="font-size:13.5px">'+(tempIc[l.temp||'morno']||'')+' '+(l.nome||'—')+'</strong>'+
+            '<div style="font-size:11.5px;color:var(--tx3)">'+(l.ori||'sem origem')+' · '+(l.et||'contato')+'</div>'+
+          '</div>'+
+          /* QUANTO VALE */
+          '<div style="flex:.7;min-width:88px">'+
+            '<div style="font-size:13px;font-weight:600;color:'+(p.val.conf==='declarado'?'var(--grn)':'var(--tx3)')+'">'+p.val.txt+'</div>'+
+            '<div style="font-size:10px;color:var(--tx4);text-transform:uppercase;letter-spacing:.4px">'+p.val.conf+'</div>'+
+          '</div>'+
+          /* O QUE FAZER AGORA */
+          '<div style="flex:1.6;min-width:180px">'+
+            '<div style="font-size:11.5px;font-weight:700;color:'+cor+'">'+p.acao.rot+'</div>'+
+            '<div style="font-size:11.5px;color:var(--tx3)">'+p.acao.txt+'</div>'+
+          '</div>'+
+          '<div style="flex-shrink:0;white-space:nowrap">'+
+            (tel?'<button class="btn btn-primary btn-xs" onclick="window.open(\'https://wa.me/'+tel+'\',\'_blank\')">📲 Falar</button> ':'')+
+            '<button class="btn btn-ghost btn-xs" onclick="editLd(\''+l.id+'\')">✏️</button>'+
+          '</div>'+
+        '</div>';
+      }).join('')+
+      (totalRel>mostrar.length?'<button class="btn btn-ghost btn-xs" onclick="window.LD_PRIO_LIM+=15;ctLeadsPainel()">⬇ ver mais '+(totalRel-mostrar.length)+'</button>':'')+
+      (urgentes.length?'':'<div style="font-size:12px;color:var(--tx3)">Nenhuma ação vencida. Estes são os próximos da fila.</div>')+
+    '</div>';
+};
+
+(function(){
+  var ant=window.rLd;
+  window.rLd=function(){
+    var r; try{ r=ant.apply(this,arguments); }catch(e){ console.warn('[rLd]',e); }
+    try{ ctLeadsPainel(); }catch(e){ console.warn('[painel leads]',e); }
+    return r;
+  };
+})();
+
+/* ═══════════════════════════════════════════════════════════════════
+   ITEM 4 · O BADGE VOLTA A SER SINAL
+   ───────────────────────────────────────────────────────────────────
+   598 não era um alerta, era papel de parede. Com a base fria fora do
+   ldCampFila o número já despenca; aqui eu garanto que ele nunca mais
+   vire ruído: teto visual de 99+ e cor conforme a gravidade real.
+═══════════════════════════════════════════════════════════════════ */
+(function(){
+  var ant=window.motorBootBadge;
+  if(typeof ant!=='function')return;
+  window.motorBootBadge=function(){
+    try{ ant.apply(this,arguments); }catch(e){}
+    try{
+      var p=motorPendencias();
+      var nav=document.getElementById('si-hoje'); if(!nav)return;
+      var b=nav.querySelector('.rel-navbadge'); if(!b)return;
+      /* urgência real = o que tem hora marcada ou dinheiro parado */
+      var urgente=p.confirmacao.length+p.cobranca.length+p.aniversario.length;
+      b.textContent=p.total>99?'99+':p.total;
+      b.title=p.total+' pendência(s): '+
+        [p.confirmacao.length&&p.confirmacao.length+' confirmação(ões)',
+         p.cobranca.length&&p.cobranca.length+' cobrança(s)',
+         p.aniversario.length&&p.aniversario.length+' aniversário(s)',
+         p.retorno.length&&p.retorno.length+' retorno(s)',
+         p.acomp.length&&p.acomp.length+' acompanhamento(s)',
+         p.leads.length&&p.leads.length+' lead(s)'].filter(Boolean).join(' · ');
+      b.style.background=urgente?'var(--red)':(p.total?'var(--gold2)':'');
+    }catch(e){}
+  };
+})();
+
+/* ═══════════════════════════════════════════════════════════════════
+   ITEM 5 · FICHA DO CLIENTE VIRA LINHA DO TEMPO
+   ───────────────────────────────────────────────────────────────────
+   Antes: blocos separados que exigiam leitura. Agora: uma cronologia
+   única — sessões, pagamentos, mensagens, guias e avaliação — na
+   ordem em que aconteceram. Entende-se o cliente em segundos.
+═══════════════════════════════════════════════════════════════════ */
+window.ctTimelineCliente=function(cliId){
+  var c=gdb('ct_clientes').find(function(x){return x.id===cliId;});
+  if(!c)return [];
+  var nome=(c.nome||'').trim().toLowerCase(), ev=[];
+  function bate(v){ return (v||'').trim().toLowerCase()===nome; }
+
+  if(c.criadoEm)ev.push({d:c.criadoEm.slice(0,10),ic:'👤',t:'Entrou na base',
+    s:(c.ori?'Origem: '+c.ori:'')+(c.indic?' · Indicado por '+c.indic:''),cor:'var(--tx3)'});
+
+  gdb('ct_sessoes').filter(function(s){return bate(s.cli);}).forEach(function(s){
+    var p=(typeof ctProcedDe==='function')?ctProcedDe(s.est):'Tatuagem';
+    ev.push({d:s.data,ic:p==='Aréola'?'🎗️':(p==='Piercing'?'💎':'🖋️'),
+      t:s.stat==='Concluído'?(p+' realizada'):(p+' '+(s.stat||'').toLowerCase()),
+      s:[s.est,s.loc,relR(s.val)>0?relRS(relR(s.val)):''].filter(Boolean).join(' · '),
+      cor:s.stat==='Concluído'?'var(--grn)':'var(--gold2)'});
+  });
+
+  gdb('ct_financeiro').filter(function(f){return bate(f.cli)&&f.tipo==='receita';}).forEach(function(f){
+    ev.push({d:f.data,ic:'💰',t:'Pagamento',s:relRS(relR(f.val))+(f.desc?' · '+f.desc:''),cor:'var(--grn)'});
+  });
+
+  gdb('ct_cicatri').filter(function(x){return bate(x.cli);}).forEach(function(x){
+    if(x.guiaOk)ev.push({d:x.data,ic:'📖',t:'Guia de cuidados enviado',s:x.tipo||'',cor:'var(--blu)'});
+    if(x.avalOk)ev.push({d:x.data,ic:'⭐',t:'Avaliação no Google pedida',s:'',cor:'var(--gold2)'});
+    if(x.ret)ev.push({d:x.ret,ic:'🔁',t:'Retorno de 30 dias',s:x.stat||'',cor:'var(--tx3)'});
+  });
+
+  try{
+    gdb('ct_relmsg').filter(function(m){return m.cliId===cliId||bate(m.cli);}).forEach(function(m){
+      ev.push({d:m.data,ic:'📲',t:'Mensagem enviada',s:m.tipo||'Relacionamento',cor:'var(--blu)'});
+    });
+  }catch(e){}
+
+  gdb('ct_projetos').filter(function(p){return bate(p.cli);}).forEach(function(p){
+    if(p.finalizadoEm)ev.push({d:p.finalizadoEm,ic:'🏁',t:'Projeto concluído',s:p.nome||'',cor:'var(--grn)'});
+  });
+
+  return ev.filter(function(e){return e.d;})
+           .sort(function(a,b){return (b.d||'').localeCompare(a.d||'');});
+};
+
+window.ctTimelineHTML=function(cliId){
+  var ev=ctTimelineCliente(cliId);
+  if(!ev.length)return '<div style="font-size:12.5px;color:var(--tx3);padding:12px 2px">'+
+    'Nenhum evento ainda. Registre um serviço para a história começar.</div>';
+  if(typeof window.TL_LIM!=='number')window.TL_LIM=14;
+  var vis=ev.slice(0,window.TL_LIM);
+  return '<div style="position:relative;padding-left:22px;margin-top:6px">'+
+    '<div style="position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--brd)"></div>'+
+    vis.map(function(e){
+      return '<div style="position:relative;margin-bottom:13px">'+
+        '<div style="position:absolute;left:-21px;top:1px;width:16px;height:16px;border-radius:50%;'+
+          'background:var(--white);border:2px solid '+e.cor+';display:flex;align-items:center;'+
+          'justify-content:center;font-size:8px">'+e.ic+'</div>'+
+        '<div style="font-size:10.5px;color:var(--tx4);letter-spacing:.3px">'+
+          (e.d?e.d.split('-').reverse().join('/'):'')+'</div>'+
+        '<div style="font-size:13px;font-weight:600">'+e.t+'</div>'+
+        (e.s?'<div style="font-size:11.5px;color:var(--tx3)">'+e.s+'</div>':'')+
+      '</div>';
+    }).join('')+
+    (ev.length>vis.length?'<button class="btn btn-ghost btn-xs" onclick="window.TL_LIM+=20;verCliente(\''+cliId+'\')">⬇ ver mais '+(ev.length-vis.length)+'</button>':'')+
+  '</div>';
+};
+
+(function(){
+  var ant=window.verCliente;
+  if(typeof ant!=='function')return;
+  window.verCliente=function(id){
+    try{ ant.apply(this,arguments); }catch(e){ console.warn('[verCliente]',e); }
+    try{
+      var alvo=document.getElementById('mVCB'); if(!alvo)return;
+      var old=document.getElementById('ctTL'); if(old)old.remove();
+      var div=document.createElement('div'); div.id='ctTL';
+      div.innerHTML='<div style="margin:18px 0 4px"><strong>🕐 Linha do tempo</strong>'+
+        '<span style="font-size:11.5px;color:var(--tx3);margin-left:6px">tudo que aconteceu, do mais recente</span></div>'+
+        ctTimelineHTML(id);
+      alvo.appendChild(div);
+    }catch(e){ console.warn('[timeline]',e); }
   };
 })();
 
