@@ -101,19 +101,21 @@ a{text-decoration:none;color:inherit;}
 
 /* ── KPI GRID ── */
 .kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:24px;}
-.kpi-card{background:var(--white);border:1px solid var(--brd);border-radius:12px;padding:18px 20px;box-shadow:var(--sh);position:relative;overflow:visible;}
+.kpi-card{background:var(--white);border:1px solid var(--brd);border-radius:12px;padding:18px 16px;box-shadow:var(--sh);position:relative;overflow:hidden;min-width:0;}
 .kpi-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:12px 0 0 12px;}
 .kpi-gold::before{background:linear-gradient(to bottom,var(--gold2),var(--gold3));}
 .kpi-green::before{background:linear-gradient(to bottom,var(--grn),#34D399);}
 .kpi-red::before{background:linear-gradient(to bottom,var(--red),#F87171);}
 .kpi-blue::before{background:linear-gradient(to bottom,var(--blu),#60A5FA);}
 .kpi-gray::before{background:linear-gradient(to bottom,var(--tx3),var(--tx4));}
-.kpi-num{font-family:'Cinzel',serif;font-size:30px;font-weight:700;line-height:1;margin-bottom:5px;}
+.kpi-num{font-family:'Cinzel',serif;font-size:clamp(19px,2.1vw,30px);font-weight:700;line-height:1.1;margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.5px;}
+.kpi-card{min-width:0;}
+.kpi-grid{grid-template-columns:repeat(auto-fill,minmax(178px,1fr));}
 .kpi-num.c-gold{color:var(--gold2);}
 .kpi-num.c-green{color:var(--grn);}
 .kpi-num.c-red{color:var(--red);}
 .kpi-num.c-blue{color:var(--blu);}
-.kpi-label{font-size:11px;font-weight:600;color:var(--tx3);letter-spacing:.8px;text-transform:uppercase;}
+.kpi-label{font-size:10.5px;font-weight:600;color:var(--tx3);letter-spacing:.5px;text-transform:uppercase;line-height:1.35;}
 .kpi-sub{font-size:11.5px;color:var(--tx4);margin-top:2px;}
 
 /* ── METAS BOX ── */
@@ -760,13 +762,13 @@ body.sb-aberta .hbg span:nth-child(3){transform:translateY(-7px) rotate(-45deg);
 <!-- ═══ CLIENTES ═══ -->
 <div class="panel" id="p-clientes">
   <div class="pg"><div class="pg-t"><h2>👥 CRM de Clientes</h2><p>Fidelização é o segredo do crescimento</p></div><div class="pg-actions"><button class="btn btn-success" onclick="ctEscolherClienteServico()">➕ Novo Serviço</button><button class="btn btn-primary" onclick="novoCl()">+ Novo Cliente</button></div></div>
-  <div class="tut">💡 <strong>STATUS:</strong> 🟢 Ativo | 🟡 Retorno Pendente | 🔴 Inativo. <strong>NPS</strong> 0-10. <strong>TICKET MÉDIO</strong> = Total Gasto ÷ Sessões. <strong>INDICADO POR</strong> rastreia o boca a boca.</div>
+  <div class="tut">💡 <strong>STATUS:</strong> 🟢 Ativo | 🟡 Retorno Pendente | 🔴 Inativo. <strong>AVALIAÇÃO</strong> = deixou review no Google. <strong>TICKET MÉDIO</strong> = Total Gasto ÷ Sessões. <strong>INDICADO POR</strong> rastreia o boca a boca.</div>
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;">
     <input class="fi" style="max-width:280px;padding:8px 14px;" placeholder="🔍 Buscar nome, telefone ou email..." id="bCl" oninput="rCl()">
     <select class="fi" style="max-width:200px;padding:8px 14px;" id="fCl" onchange="rCl()"><option value="">Todos os status</option><option>🟢 Ativo</option><option>🟡 Retorno Pendente</option><option>🔴 Inativo</option></select>
   </div>
   <div class="card"><div class="card-h"><h3>Clientes</h3><span class="badge-count" id="clCt">—</span></div>
-  <div class="tw"><table class="tbl"><thead><tr><th>Nome</th><th>Telefone</th><th>Email</th><th>Cidade</th><th>Sessões</th><th>Status</th><th>Total Gasto</th><th>Ticket Médio</th><th>NPS</th><th>Estilo</th><th>Origem</th><th>Prx. Retorno</th><th>Últ. Tattoo</th><th>Projeto</th><th>Saldo</th><th></th></tr></thead><tbody id="clTb"></tbody></table></div></div>
+  <div class="tw"><table class="tbl"><thead><tr><th>Nome</th><th>Telefone</th><th>Email</th><th>Cidade</th><th>Sessões</th><th>Status</th><th>Total Gasto</th><th>Ticket Médio</th><th>Avaliação</th><th>Estilo</th><th>Origem</th><th>Prx. Retorno</th><th>Últ. Tattoo</th><th>Projeto</th><th>Saldo</th><th></th></tr></thead><tbody id="clTb"></tbody></table></div></div>
 </div>
 
 <!-- ═══ PROJETOS ═══ -->
@@ -1390,8 +1392,6 @@ const META_I=[
   {k:'fieis',lb:'⭐ Clientes Fidelizados',def:10},
   {k:'canc',lb:'❌ Cancelamentos (máximo)',def:2},
   {k:'marg',lb:'📊 Margem de Lucro (%)',def:40,p:true},
-  {k:'nps',lb:'⭐ NPS Médio (0-10)',def:8},
-  {k:'insta',lb:'📱 Seguidores Instagram',def:1000},
 ];
 const COM_DEF=[{f:'Tatuador Principal',p:60},{f:'Tatuador',p:55},{f:'Atendimento',p:30},{f:'Piercing',p:50}];
 const ADM_M=[
@@ -1406,7 +1406,7 @@ const ADM_M=[
 const TRIAL_FREE=['dashboard','agenda','calculadora','tutorial'];
 // Infos dos módulos para o modal de bloqueio
 const LOCK_INFO={
-  clientes:{ic:'👥',title:'CRM de Clientes',desc:'Cadastro completo, fidelização e histórico de cada cliente.',feats:['Cadastro com foto e histórico','Ticket médio automático','NPS de satisfação','Controle de retornos']},
+  clientes:{ic:'👥',title:'CRM de Clientes',desc:'Cadastro completo, fidelização e histórico de cada cliente.',feats:['Cadastro com foto e histórico','Ticket médio automático','Avaliação no Google','Controle de retornos']},
   followup:{ic:'🔔',title:'Follow-Up Automático',desc:'Nunca perca um cliente por falta de contato.',feats:['Clientes sem visita há 30/60/90 dias','Mensagem WhatsApp pré-pronta','Prioridade automática','Histórico de contatos']},
   automacoes:{ic:'⚙️',title:'Motor de Automação',desc:'Regras de negócio que fazem a Central Tattoo trabalhar sozinha por você.',feats:['Acompanhamento automático 7/30/90/180 dias','Cliente Ouro por valor gasto','Cobrança e retorno automáticos','Central de Operações: o que fazer hoje']},
   relacionamento:{ic:'💛',title:'Central de Relacionamento',desc:'Transforme cada cliente em cliente fiel — o sistema trabalha por você.',feats:['Follow-up automático por data real','Score de relacionamento ⭐','Banco de mensagens com gatilhos mentais','Campanhas internas em 1 clique']},
@@ -1509,16 +1509,7 @@ const TUT_EXTRA={
  <div class="tut-card"><h3>📦 Materiais da Sessão</h3><div class="sub">Custo real e baixa automática de estoque</div>
   <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>Adicione os materiais</strong><p>Na sessão, clique em <strong>+ Material</strong> e selecione itens do seu Estoque com a quantidade usada (agulhas, tinta em ml, luvas...).</p></div></div>
   <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>A baixa é automática</strong><p>Ao marcar <strong>Concluído</strong>, o sistema desconta do estoque, registra a movimentação e calcula o <strong>lucro real da sessão</strong> (valor − custo dos materiais), visível na ficha 👁.</p></div></div></div>`,
- crm:`<div class="tut-card"><h3>⭐ NPS — Nota de Satisfação</h3><div class="sub">Um número que mede a chance de indicação</div>
-  <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>O que é</strong><p>NPS (Net Promoter Score) responde uma pergunta: <strong>"De 0 a 10, quanto você indicaria o estúdio para um amigo?"</strong> Pergunte ao final da sessão ou no WhatsApp de pós-venda.</p></div></div>
-  <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Como interpretar</strong><p><strong>9-10 = Promotor</strong> → peça avaliação no Google e indicação AGORA, esse cliente vende por você. <strong>7-8 = Neutro</strong> → satisfeito, mas não vai divulgar. <strong>0-6 = Detrator</strong> → algo incomodou; converse antes que vire reclamação pública.</p></div></div>
-  <div class="tut-step"><div class="tut-n">3</div><div class="tut-step-body"><strong>Por que registrar</strong><p>O NPS aparece no CRM e na ficha do cliente. Com o tempo você enxerga quem são seus promotores — a fonte mais barata de clientes novos que existe.</p></div></div></div>
- <div class="tut-card"><h3>🤝 Indicado por × Origem</h3><div class="sub">Rastreie de onde vêm seus clientes</div>
-  <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>Origem = o canal</strong><p>Instagram, Google, Site, Indicação, Passante... É POR ONDE o cliente chegou. Alimenta o relatório de onde investir.</p></div></div>
-  <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Indicado por = a pessoa</strong><p>Quando a origem é Indicação, escreva O NOME de quem indicou (cliente, médico parceiro, amigo). Depois filtre e descubra quem mais te traz cliente — essa pessoa merece um agrado.</p></div></div></div>
- <div class="tut-card"><h3>📄 Contrato em 1 clique</h3><div class="sub">Gerado com os dados do cadastro</div>
-  <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>Escolha o tipo no cadastro</strong><p>No final da ficha do cliente, selecione: <strong>Padrão</strong>, <strong>Menor de Idade</strong> (exige responsável legal), <strong>Aréola/Reconstrução</strong> (com termo de consentimento e cláusula de sigilo) ou <strong>Cover-up</strong> (com cláusula de limitações).</p></div></div>
-  <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Clique em 📄</strong><p>Na lista de clientes ou na ficha 👁. O contrato abre pronto para imprimir/salvar em PDF, preenchido com nome, CPF, endereço, projeto, valores, ficha de saúde e autorização de imagem — e fica registrado no módulo Contratos.</p></div></div></div>`,
+ crm:`<div class="tut-card"><h3>⭐ Avaliação no Google</h3><div class="sub">O único termômetro de satisfação que também te faz crescer</div><div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>Por que Google e não nota interna</strong><p>Uma nota que só você vê não traz cliente novo. Uma avaliação no Google aparece na busca, sobe seu ranking local e convence quem ainda não te conhece. É prova social e SEO no mesmo gesto.</p></div></div><div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Quando pedir</strong><p>Não no dia da sessão. Espere cicatrizar — por volta do 10º dia, quando o cliente vê o resultado final e está feliz. O Pós-Venda te avisa na hora certa.</p></div></div><div class="tut-step"><div class="tut-n">3</div><div class="tut-step-body"><strong>Como cobrar</strong><p>Botão ⭐ na linha do cliente, no CRM ou no Pós-Venda. Abre o WhatsApp com a mensagem e o link prontos. Ao enviar, o sistema marca sozinho que já foi cobrado.</p></div></div></div>`,
  projetos:`<div class="tut-card"><h3>🎨 Projetos — trabalhos de várias sessões</h3><div class="sub">Fechamentos organizados do orçamento à última sessão</div>
   <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>O que é</strong><p>Projeto agrupa um trabalho grande (ex: "Fechamento Costas") com valor total, sinal e sessões previstas. Um cliente pode ter vários projetos ao longo dos anos sem misturar informações.</p></div></div>
   <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Como criar</strong><p>Preencha o bloco "Projeto de Tatuagem" no cadastro do cliente (cria sozinho) ou vá em <strong>🎨 Projetos → + Novo</strong>. O sinal informado cai automaticamente no Financeiro.</p></div></div>
@@ -1794,7 +1785,7 @@ function rTutorial(id){
     crm:`<div class="tut-card"><h3>👥 Como Usar o CRM de Clientes</h3><div class="sub">Gerencie o relacionamento com cada cliente e aumente a fidelização</div>
       <div class="tut-step"><div class="tut-n">1</div><div class="tut-step-body"><strong>Cadastrar novo cliente</strong><p>Clique em <span class="tut-tag">+ Novo Cliente</span>. Campos obrigatórios: <strong>Nome</strong> e <strong>Telefone</strong>. O <strong>Email</strong> é importante pois dá acesso ao Portal do Cliente. Quanto mais informações, melhor o relacionamento.</p></div></div>
       <div class="tut-step"><div class="tut-n">2</div><div class="tut-step-body"><strong>Status do cliente</strong><p><span class="tut-tag">🟢 Ativo</span> = veio recentemente, relacionamento ativo. <span class="tut-tag">🟡 Retorno Pendente</span> = fez a tattoo mas ainda não voltou para retoque ou nova sessão. <span class="tut-tag">🔴 Inativo</span> = mais de 90 dias sem contato — hora de fazer follow-up!</p></div></div>
-      <div class="tut-step"><div class="tut-n">3</div><div class="tut-step-body"><strong>NPS — Nota de Satisfação</strong><p>NPS vai de 0 a 10. Pergunte ao cliente: "De 0 a 10, quanto você indicaria nosso estúdio?" <span class="tut-tag">9–10</span> = Promotor ⭐ | <span class="tut-tag">7–8</span> = Neutro | <span class="tut-tag">0–6</span> = Detrator. Meta: NPS médio acima de 8.</p></div></div>
+      <div class="tut-step"><div class="tut-n">3</div><div class="tut-step-body"><strong>Avaliação no Google</strong><p>A coluna <strong>Avaliação</strong> mostra quem já deixou review e quem falta. Clique no ⭐ para abrir o WhatsApp com o pedido pronto. Meta: pelo menos 70% dos clientes com pós-venda concluído avaliando.</p></div></div>
       <div class="tut-step"><div class="tut-n">4</div><div class="tut-step-body"><strong>Total Gasto e Ticket Médio</strong><p>Calculados automaticamente pelas sessões "Concluídas" da Agenda vinculadas ao nome do cliente. Para isso, o nome do cliente na sessão deve ser idêntico ao cadastrado aqui.</p></div></div>
       <div class="tut-step"><div class="tut-n">5</div><div class="tut-step-body"><strong>Origem e Indicado por</strong><p>Preencha sempre esses campos! Eles revelam quais canais trazem mais clientes. Ex: se Instagram traz 60% dos clientes, você sabe onde investir mais. "Indicado por" rastreia o boca a boca.</p></div></div>
       <div class="tut-step"><div class="tut-n">6</div><div class="tut-step-body"><strong>Próxima Data de Retorno</strong><p>Configure para retoques ou novas sessões planejadas. O módulo <strong>🔔 Follow-Up</strong> usa essa data para avisar quando o prazo se aproxima.</p></div></div>
@@ -2518,12 +2509,12 @@ function rCl(){
     const pjsC=gdb('ct_projetos').filter(p=>(p.cli||'').trim().toLowerCase()===(c.nome||'').trim().toLowerCase()&&p.st!=='📁 Arquivado');
     const sd=pjsC.length?pjsC.reduce((a,p)=>a+pjCalc(p).saldo,0):(R(c.valor)-R(c.sinal)-pagoA);
     const cf=conf();const waTxt=encodeURIComponent(`Olá ${c.nome}! Tudo bem? Aqui é do ${cf.nome||'estúdio'}. Já faz um tempo desde sua última visita — que tal marcarmos sua próxima tattoo? 🖤`);
-    return`<tr><td><strong style="cursor:pointer;text-decoration:underline dotted" title="Abrir ficha + timeline" onclick="verCliente('${c.id}')">${c.nome||'—'}</strong></td><td><a href="https://wa.me/55${(c.tel||'').replace(/\D/g,'')}" target="_blank" style="color:var(--grn)">${c.tel||'—'}</a></td><td>${c.email||'—'}</td><td>${c.cid||'—'}</td><td>${ss.length}</td><td>${bdg(c.stat)}</td><td style="color:var(--grn);font-weight:600">${$R(tg)}</td><td>${$R(tk)}</td><td>${c.nps?c.nps+'/10':'—'}</td><td>${c.est||'—'}</td><td>${c.ori||'—'}</td><td>${c.ret?dtBR(c.ret):'—'}</td><td>${ult?dtBR(ult):'—'}</td><td style="font-size:12px">${c.projSt?c.projSt+(c.local?'<br><span style="opacity:.65">'+c.local+'</span>':''):'—'}</td><td>${(pjsC.length||R(c.valor)>0)?(sd>0?'<span style="color:var(--red,#c0392b);font-weight:600">'+$R(sd)+'</span>':'<span style="color:var(--grn);font-weight:600">Quitado ✓</span>'):'—'}</td>
+    return`<tr><td><strong style="cursor:pointer;text-decoration:underline dotted" title="Abrir ficha + timeline" onclick="verCliente('${c.id}')">${c.nome||'—'}</strong></td><td><a href="https://wa.me/55${(c.tel||'').replace(/\D/g,'')}" target="_blank" style="color:var(--grn)">${c.tel||'—'}</a></td><td>${c.email||'—'}</td><td>${c.cid||'—'}</td><td>${ss.length}</td><td>${bdg(c.stat)}</td><td style="color:var(--grn);font-weight:600">${$R(tg)}</td><td>${$R(tk)}</td><td>${ctAvalCell(c)}</td><td>${c.est||'—'}</td><td>${c.ori||'—'}</td><td>${c.ret?dtBR(c.ret):'—'}</td><td>${ult?dtBR(ult):'—'}</td><td style="font-size:12px">${c.projSt?c.projSt+(c.local?'<br><span style="opacity:.65">'+c.local+'</span>':''):'—'}</td><td>${(pjsC.length||R(c.valor)>0)?(sd>0?'<span style="color:var(--red,#c0392b);font-weight:600">'+$R(sd)+'</span>':'<span style="color:var(--grn);font-weight:600">Quitado ✓</span>'):'—'}</td>
     <td style="white-space:nowrap;display:flex;gap:3px"><button class="btn btn-ghost btn-xs" title="Ficha + Timeline" onclick="verCliente('${c.id}')">👁</button><button class="btn btn-ghost btn-xs" title="Agendar sessão para este cliente" onclick="novaSessaoCliente('${c.id}')">📅</button><button class="btn btn-ghost btn-xs" title="Gerar contrato preenchido" onclick="geraContrato('${c.id}')">📄</button><button class="btn btn-ghost btn-xs" onclick="editCl('${c.id}')">✏️</button><a class="btn btn-success btn-xs" href="https://wa.me/55${(c.tel||'').replace(/\D/g,'')}?text=${waTxt}" target="_blank">📲</a><button class="btn btn-danger btn-xs" onclick="delCl('${c.id}')">🗑</button></td></tr>`;
   }).join(''):`<tr><td colspan="16" class="empty-row"><p>Nenhum cliente cadastrado</p></td></tr>`;
   updDl();
 }
-function saveCl(){const id=document.getElementById('clId').value||uid();const c={id,nome:document.getElementById('clNome').value,tel:document.getElementById('clTel').value,email:document.getElementById('clEmail').value,insta:document.getElementById('clInsta').value,nasc:document.getElementById('clNasc').value,cid:document.getElementById('clCid').value,est:document.getElementById('clEst').value,stat:document.getElementById('clSt').value,ind:document.getElementById('clInd').value,ori:document.getElementById('clOri').value,ret:document.getElementById('clRet').value,obs:document.getElementById('clObs').value,local:document.getElementById('clLocal').value,valor:document.getElementById('clValor').value,sinal:document.getElementById('clSinal').value,projSt:document.getElementById('clProjSt').value,cpf:document.getElementById('clCpf').value,endr:document.getElementById('clEndr').value,alerg:document.getElementById('clAlerg').value,med:document.getElementById('clMed').value,saude:document.getElementById('clSaude').value,emerg:document.getElementById('clEmerg').value,img:document.getElementById('clImg').value,contrato:document.getElementById('clContrato').value,lang:document.getElementById('clLang').value,respNome:document.getElementById('clRespNome').value,respCpf:document.getElementById('clRespCpf').value,ultContato:hoje()};const db=gdb('ct_clientes'),i=db.findIndex(x=>x.id===id);const prev=i>=0?db[i]:null;c.sinalReg=prev?R(prev.sinalReg):0;c.nps=prev?(prev.nps||''):'';
+function saveCl(){const id=document.getElementById('clId').value||uid();const c={id,nome:document.getElementById('clNome').value,tel:document.getElementById('clTel').value,email:document.getElementById('clEmail').value,insta:document.getElementById('clInsta').value,nasc:document.getElementById('clNasc').value,cid:document.getElementById('clCid').value,est:document.getElementById('clEst').value,stat:document.getElementById('clSt').value,ind:document.getElementById('clInd').value,ori:document.getElementById('clOri').value,ret:document.getElementById('clRet').value,obs:document.getElementById('clObs').value,local:document.getElementById('clLocal').value,valor:document.getElementById('clValor').value,sinal:document.getElementById('clSinal').value,projSt:document.getElementById('clProjSt').value,cpf:document.getElementById('clCpf').value,endr:document.getElementById('clEndr').value,alerg:document.getElementById('clAlerg').value,med:document.getElementById('clMed').value,saude:document.getElementById('clSaude').value,emerg:document.getElementById('clEmerg').value,img:document.getElementById('clImg').value,contrato:document.getElementById('clContrato').value,lang:document.getElementById('clLang').value,respNome:document.getElementById('clRespNome').value,respCpf:document.getElementById('clRespCpf').value,ultContato:hoje()};const db=gdb('ct_clientes'),i=db.findIndex(x=>x.id===id);const prev=i>=0?db[i]:null;c.sinalReg=prev?R(prev.sinalReg):0;
 /* Amarração automática: sinal novo (ou aumentado) vira receita no Financeiro */
 const sNow=R(c.sinal);if(sNow>c.sinalReg){const delta=sNow-c.sinalReg;const fdb=gdb('ct_financeiro');fdb.push({id:uid(),tipo:'receita',data:hoje(),desc:'Sinal — '+(c.nome||'cliente')+(c.local?' ('+c.local+')':''),cat:'Sessão de Tatuagem',forma:'',val:String(delta),ref:'',obs:'Lançado automaticamente pela Ficha de Projeto',cliId:id,auto:'sinal'});sdb('ct_financeiro',fdb);c.sinalCred=(prev&&prev.sinalCred!==undefined?R(prev.sinalCred):(prev?R(prev.sinalReg):0))+delta;c.sinalReg=sNow;if(!c.projSt||c.projSt==='📝 Orçamento')c.projSt='💰 Sinal Pago';showToast('💰 Sinal de R$'+delta.toFixed(2).replace('.',',')+' lançado no Financeiro!');}
 if(i>=0)db[i]={...db[i],...c};else db.push({...c,criadoEm:new Date().toISOString()});sdb('ct_clientes',db);try{upsertPjFromCliente(id)}catch(e){}try{ctPVClientes()}catch(e){}closeM('mCl');rCl();if(typeof rFin==='function')try{rFin()}catch(e){}if(typeof renderDash==='function')try{renderDash()}catch(e){}showToast('✅ Cliente salvo!');}
@@ -2626,7 +2617,7 @@ function verCliente(id){const c=gdb('ct_clientes').find(x=>x.id===id);if(!c)retu
    <div><div class="n" style="color:var(--grn)">${$R(tg)}</div><div class="l">Total Gasto</div></div>
    <div><div class="n">${conc.length?$R(tg/conc.length):'—'}</div><div class="l">Ticket Médio</div></div>
    <div><div class="n" style="color:${saldo>0?'var(--red)':'var(--grn)'}">${saldo>0?$R(saldo):'Quitado ✓'}</div><div class="l">Saldo</div></div>
-   <div><div class="n">${c.nps?c.nps+'/10':'—'}</div><div class="l">NPS</div></div>
+   <div><div class="n">${ctAvalFicha(c)}</div><div class="l">Avaliação Google</div></div>
   </div>
   <div style="font-size:13px;color:var(--tx3);margin-bottom:12px">${c.tel?'📞 '+c.tel+' · ':''}${c.email?'✉️ '+c.email+' · ':''}${c.insta?'📷 '+c.insta+' · ':''}${c.cid||''}${c.stat?' · '+c.stat:''}</div>
   ${pjs.length?`<div style="margin-bottom:14px"><strong>🎨 Projetos</strong>${pjs.map(p=>{const k=pjCalc(p);const prev=R(p.sessPrev)||k.ss.length;return`<div style="border:1px solid var(--brd2,#E5E7EB);border-radius:10px;padding:10px 12px;margin-top:8px"><div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px"><strong>${p.nome||'Projeto'}</strong>${bdg(p.st)}</div><div class="pj-prog" style="margin-top:4px">${p.local?p.local+' · ':''}${k.conc.length}/${prev||'?'} sessões · ${$R(k.pago)} pago${k.tot>0?' de '+$R(k.tot)+' · saldo '+$R(k.saldo):''}</div>${pb(k.tot>0?(k.pago/k.tot*100):0)}</div>`;}).join('')}</div>`:''}
@@ -3094,7 +3085,7 @@ function ldPreencherDeCliente(){const nome=(document.getElementById('ldCliCrm')|
 function novoLd(){['ldId','ldNome','ldTel','ldEmail','ldVal','ldProx','ldPasso'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('ldEst').value='';document.getElementById('ldTam').value='';document.getElementById('ldEt').value='contato';document.getElementById('ldTemp').value='quente';document.getElementById('ldOri').value='Instagram';document.getElementById('ldSeg').value='tatuagem';document.getElementById('ldIdi').value='pt';document.getElementById('ldJaCli').value='Não';fillCliSelect('ldCliCrm','','— começar do zero / novo lead —');document.getElementById('mLdT').textContent='Novo Lead';openM('mLd');}
 function editLd(id){const l=gdb('ct_leads').find(x=>x.id===id);if(!l)return;fillCliSelect('ldCliCrm','','— começar do zero / novo lead —');document.getElementById('ldId').value=l.id;document.getElementById('ldNome').value=l.nome||'';document.getElementById('ldTel').value=l.tel||'';document.getElementById('ldEmail').value=l.email||'';document.getElementById('ldEst').value=l.est||'';document.getElementById('ldTam').value=l.tam||'';document.getElementById('ldVal').value=l.val||'';document.getElementById('ldEt').value=l.et||'contato';document.getElementById('ldTemp').value=l.temp||'quente';document.getElementById('ldOri').value=l.ori||'Instagram';document.getElementById('ldProx').value=l.prox||'';document.getElementById('ldPasso').value=l.passo||'';document.getElementById('ldSeg').value=l.seg||'tatuagem';document.getElementById('ldIdi').value=l.idi||'pt';document.getElementById('ldJaCli').value=l.jaCli||'Não';document.getElementById('mLdT').textContent='Editar Lead';openM('mLd');}
 function delLd(id){if(!confirm('Excluir?'))return;sdb('ct_leads',gdb('ct_leads').filter(l=>l.id!==id));rLd();}
-function converterLeadCliente(id){const l=gdb('ct_leads').find(x=>x.id===id);if(!l)return;const cls=gdb('ct_clientes');const dup=cls.find(c=>(c.nome||'').trim().toLowerCase()===(l.nome||'').trim().toLowerCase());if(dup){showToast('ℹ️ "'+(l.nome||'')+'" já está no Clientes CRM.');if(typeof verCliente==='function')verCliente(dup.id);return;}if(!confirm('Converter "'+(l.nome||'lead')+'" em cliente no Clientes CRM?'))return;const novo={id:uid(),nome:l.nome||'',tel:l.tel||'',email:l.email||'',insta:'',nasc:'',cid:'',est:l.est||'',stat:'🟢 Ativo',ind:'',ori:l.ori||'Instagram',ret:'',obs:'Convertido do funil de Leads.'+(l.tam?' Tamanho: '+l.tam+'.':'')+(l.passo?' Próximo passo: '+l.passo+'.':''),local:'',valor:l.val||'',sinal:'',projSt:'',cpf:'',endr:'',alerg:'',med:'',saude:'',emerg:'',img:'',contrato:'',lang:'pt',respNome:'',respCpf:'',sinalReg:0,nps:'',ultContato:hoje(),criadoEm:new Date().toISOString()};cls.push(novo);sdb('ct_clientes',cls);const lds=gdb('ct_leads'),li=lds.findIndex(x=>x.id===id);if(li>=0){lds[li].et='fechado';sdb('ct_leads',lds);}try{updDl();ctPVClientes();fillCliSelect('fuCli');fillCliSelect('pjCli');fillCliSelect('ctCli');}catch(e){}rLd();try{if(typeof rCl==='function')rCl();}catch(e){}showToast('✅ "'+(l.nome||'Lead')+'" agora está no Clientes CRM (lead marcado como Fechado).');}
+function converterLeadCliente(id){const l=gdb('ct_leads').find(x=>x.id===id);if(!l)return;const cls=gdb('ct_clientes');const dup=cls.find(c=>(c.nome||'').trim().toLowerCase()===(l.nome||'').trim().toLowerCase());if(dup){showToast('ℹ️ "'+(l.nome||'')+'" já está no Clientes CRM.');if(typeof verCliente==='function')verCliente(dup.id);return;}if(!confirm('Converter "'+(l.nome||'lead')+'" em cliente no Clientes CRM?'))return;const novo={id:uid(),nome:l.nome||'',tel:l.tel||'',email:l.email||'',insta:'',nasc:'',cid:'',est:l.est||'',stat:'🟢 Ativo',ind:'',ori:l.ori||'Instagram',ret:'',obs:'Convertido do funil de Leads.'+(l.tam?' Tamanho: '+l.tam+'.':'')+(l.passo?' Próximo passo: '+l.passo+'.':''),local:'',valor:l.val||'',sinal:'',projSt:'',cpf:'',endr:'',alerg:'',med:'',saude:'',emerg:'',img:'',contrato:'',lang:'pt',respNome:'',respCpf:'',sinalReg:0,ultContato:hoje(),criadoEm:new Date().toISOString()};cls.push(novo);sdb('ct_clientes',cls);const lds=gdb('ct_leads'),li=lds.findIndex(x=>x.id===id);if(li>=0){lds[li].et='fechado';sdb('ct_leads',lds);}try{updDl();ctPVClientes();fillCliSelect('fuCli');fillCliSelect('pjCli');fillCliSelect('ctCli');}catch(e){}rLd();try{if(typeof rCl==='function')rCl();}catch(e){}showToast('✅ "'+(l.nome||'Lead')+'" agora está no Clientes CRM (lead marcado como Fechado).');}
 
 /* ═══════════════════ CAMPANHAS DE LEADS — ROTAÇÃO SEMANAL (7 em 7 dias) ═══════════════════ */
 var LEAD_GATILHOS=[
@@ -3400,7 +3391,7 @@ function buildMG(){const hdr=`<table style="min-width:1000px;width:100%;border-c
 function rMet(){const sess=gdb('ct_sessoes'),cl=gdb('ct_clientes'),fin=gdb('ct_financeiro');const m=ma(),sm=sess.filter(s=>s.data&&s.data.slice(0,7)===m);const rec=fin.filter(f=>f.data&&f.data.slice(0,7)===m&&f.tipo==='receita').reduce((a,f)=>a+R(f.val),0);const desp=fin.filter(f=>f.data&&f.data.slice(0,7)===m&&f.tipo==='despesa').reduce((a,f)=>a+R(f.val),0);const conc=sm.filter(s=>s.stat==='Concluído');const fat=rec||conc.reduce((a,s)=>a+R(s.val),0);const reais=[fat,sm.length,cl.filter(c=>c.criadoEm&&c.criadoEm.slice(0,7)===m).length,conc.length?fat/conc.length:0,cl.filter(c=>c.stat==='🟢 Ativo').length,sm.filter(s=>s.stat==='Cancelado').length,fat>0?((fat-desp)/fat*100):0,0,0];document.getElementById('metTb').innerHTML=META_I.map((ind,idx)=>{const meta=ind.def,real=reais[idx]||0;const pct=meta>0?(real/meta)*100:0;const st=pct>=100?'<span class="bdg b-green">✅ Atingida</span>':pct>=70?'<span class="bdg b-yellow">⚠️ Parcial</span>':'<span class="bdg b-red">❌ Abaixo</span>';return`<tr><td><strong>${ind.lb}</strong></td><td>${ind.m?$R(meta):meta}</td><td style="font-weight:600">${ind.m?$R(real):real.toFixed(ind.p?1:0)}</td><td><span style="font-weight:700;color:${pct>=100?'var(--grn)':pct>=70?'var(--ylw)':'var(--red)'}">${pct.toFixed(0)}%</span>${pb(pct)}</td><td style="color:${real-meta>=0?'var(--grn)':'var(--red)'};font-weight:600">${ind.m?$R(real-meta):(real-meta).toFixed(1)}</td><td>${st}</td></tr>`;}).join('');}
 function expMetas(){if(typeof XLSX==='undefined')return;const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(META_I.flatMap(ind=>MSS.map((_,mi)=>({'Indicador':ind.lb,'Mês':MSS[mi],'Meta':gMG(ind.k+'_m',mi+1)||ind.def,'Realizado':gMG(ind.k+'_r',mi+1)||0})))),'Metas 2026');XLSX.writeFile(wb,'Metas_CT_2026.xlsx');}
 // ── SINAIS ──
-function rSin(){const sess=gdb('ct_sessoes'),cl=gdb('ct_clientes'),fin=gdb('ct_financeiro'),est=gdb('ct_estoque');const m=ma(),sm=sess.filter(s=>s.data&&s.data.slice(0,7)===m);const rec=fin.filter(f=>f.data&&f.data.slice(0,7)===m&&f.tipo==='receita').reduce((a,f)=>a+R(f.val),0);const desp=fin.filter(f=>f.data&&f.data.slice(0,7)===m&&f.tipo==='despesa').reduce((a,f)=>a+R(f.val),0);const fat=rec||sm.filter(s=>s.stat==='Concluído').reduce((a,s)=>a+R(s.val),0);const marg=fat>0?((fat-desp)/fat*100):0;const cancel=sm.filter(s=>s.stat==='Cancelado').length,cr=sm.length>0?(cancel/sm.length*100):0;const baixo=est.filter(e=>R(e.qtd)<=R(e.eMin)&&R(e.eMin)>0);const semC=cl.filter(c=>!c.ultContato||(Date.now()-new Date(c.ultContato).getTime())>(90*86400000));const npsMed=cl.filter(c=>c.nps).reduce((a,c)=>a+R(c.nps),0)/(cl.filter(c=>c.nps).length||1);const sinais=[{ic:'💰',t:'Faturamento do Mês',d:`${$R(fat)} registrado. Meta: ${document.getElementById('tFat')?.value||'R$ 8.000'}.`,cls:fat>0?'ok':'warn'},{ic:'📊',t:'Margem de Lucro',d:`${marg.toFixed(1)}% de margem. ${marg>=40?'✅ Acima da meta de 40%!':'⚠️ Abaixo de 40% — revise suas despesas.'}`,cls:marg>=40?'ok':marg>=25?'warn':'danger'},{ic:'❌',t:'Taxa de Cancelamento',d:`${cr.toFixed(0)}% cancelado. ${cr<=10?'✅ Dentro do aceitável.':'⚠️ Acima de 10% — identifique as causas.'}`,cls:cr<=10?'ok':cr<=20?'warn':'danger'},{ic:'📦',t:'Estoque Crítico',d:`${baixo.length===0?'✅ Nenhum item crítico.':baixo.length+' item(ns) precisam de reposição: '+baixo.map(e=>e.prod).slice(0,3).join(', ')+'.'}`,cls:baixo.length===0?'ok':baixo.length<=2?'warn':'danger'},{ic:'🔔',t:'Follow-Up Pendente',d:`${semC.length===0?'✅ Todos em dia.':semC.length+' cliente(s) sem contato há mais de 90 dias.'}`,cls:semC.length===0?'ok':semC.length<=3?'warn':'danger'},{ic:'⭐',t:'NPS Médio',d:`${cl.filter(c=>c.nps).length?'NPS médio: '+npsMed.toFixed(1)+'/10. '+(npsMed>=8?'✅ Excelente!':npsMed>=6?'Bom.':'⚠️ Satisfação baixa.'):'Sem avaliações NPS ainda.'}`,cls:!cl.filter(c=>c.nps).length?'warn':npsMed>=8?'ok':npsMed>=6?'warn':'danger'},{ic:'🎯',t:'Pipeline de Leads',d:`${gdb('ct_leads').filter(l=>l.et!=='fechado'&&l.et!=='perdido').length} leads ativos no funil.`,cls:'ok'},{ic:'📅',t:'Agenda Futura',d:`${sess.filter(s=>s.data>=hoje()&&s.stat!=='Cancelado').length} sessão(ões) agendadas.`,cls:'ok'},{ic:'💎',t:'Lucro do Mês',d:`Lucro: ${$R(fat-desp)}. ${fat-desp>=0?'✅ Resultado positivo!':'⚠️ Resultado negativo — revise despesas.'}`,cls:(fat-desp)>=0?'ok':'danger'}];
+function rSin(){const sess=gdb('ct_sessoes'),cl=gdb('ct_clientes'),fin=gdb('ct_financeiro'),est=gdb('ct_estoque');const m=ma(),sm=sess.filter(s=>s.data&&s.data.slice(0,7)===m);const rec=fin.filter(f=>f.data&&f.data.slice(0,7)===m&&f.tipo==='receita').reduce((a,f)=>a+R(f.val),0);const desp=fin.filter(f=>f.data&&f.data.slice(0,7)===m&&f.tipo==='despesa').reduce((a,f)=>a+R(f.val),0);const fat=rec||sm.filter(s=>s.stat==='Concluído').reduce((a,s)=>a+R(s.val),0);const marg=fat>0?((fat-desp)/fat*100):0;const cancel=sm.filter(s=>s.stat==='Cancelado').length,cr=sm.length>0?(cancel/sm.length*100):0;const baixo=est.filter(e=>R(e.qtd)<=R(e.eMin)&&R(e.eMin)>0);const semC=cl.filter(c=>!c.ultContato||(Date.now()-new Date(c.ultContato).getTime())>(90*86400000));const sinais=[{ic:'💰',t:'Faturamento do Mês',d:`${$R(fat)} registrado. Meta: ${document.getElementById('tFat')?.value||'R$ 8.000'}.`,cls:fat>0?'ok':'warn'},{ic:'📊',t:'Margem de Lucro',d:`${marg.toFixed(1)}% de margem. ${marg>=40?'✅ Acima da meta de 40%!':'⚠️ Abaixo de 40% — revise suas despesas.'}`,cls:marg>=40?'ok':marg>=25?'warn':'danger'},{ic:'❌',t:'Taxa de Cancelamento',d:`${cr.toFixed(0)}% cancelado. ${cr<=10?'✅ Dentro do aceitável.':'⚠️ Acima de 10% — identifique as causas.'}`,cls:cr<=10?'ok':cr<=20?'warn':'danger'},{ic:'📦',t:'Estoque Crítico',d:`${baixo.length===0?'✅ Nenhum item crítico.':baixo.length+' item(ns) precisam de reposição: '+baixo.map(e=>e.prod).slice(0,3).join(', ')+'.'}`,cls:baixo.length===0?'ok':baixo.length<=2?'warn':'danger'},{ic:'🔔',t:'Follow-Up Pendente',d:`${semC.length===0?'✅ Todos em dia.':semC.length+' cliente(s) sem contato há mais de 90 dias.'}`,cls:semC.length===0?'ok':semC.length<=3?'warn':'danger'},{ic:'⭐',t:'Avaliações no Google',d:`${(function(){var c=gdb('ct_cicatri');var t=c.length,a=c.filter(function(x){return x.avalOk;}).length;if(!t)return 'Nenhum pós-venda registrado ainda.';var f=t-a;return a+' de '+t+' clientes avaliaram. '+(f?f+' ainda não foram cobrados — cada review sobe seu ranking no Google.':'✅ Todos cobrados!');})()}`,cls:(function(){var c=gdb('ct_cicatri');if(!c.length)return 'warn';var p=c.filter(function(x){return x.avalOk;}).length/c.length;return p>=.7?'ok':p>=.4?'warn':'danger';})()},{ic:'🎯',t:'Pipeline de Leads',d:`${gdb('ct_leads').filter(l=>l.et!=='fechado'&&l.et!=='perdido').length} leads ativos no funil.`,cls:'ok'},{ic:'📅',t:'Agenda Futura',d:`${sess.filter(s=>s.data>=hoje()&&s.stat!=='Cancelado').length} sessão(ões) agendadas.`,cls:'ok'},{ic:'💎',t:'Lucro do Mês',d:`Lucro: ${$R(fat-desp)}. ${fat-desp>=0?'✅ Resultado positivo!':'⚠️ Resultado negativo — revise despesas.'}`,cls:(fat-desp)>=0?'ok':'danger'}];
 document.getElementById('sinGrid').innerHTML=sinais.map(s=>`<div class="sinal-card ${s.cls}"><div class="sinal-icon">${s.ic}</div><div class="sinal-title">${s.t}</div><div class="sinal-desc">${s.d}</div></div>`).join('');}
 // ── CICATRIZAÇÃO ──
 function buildCicG(id,data){const el=document.getElementById(id);if(!el)return;const arr=data||CIC_DATA;el.innerHTML=arr.map(c=>`<div class="cic-card"><div class="cic-day">${c.ic}</div><div class="cic-period">Dias ${c.day}</div><h4>${c.t}</h4><ul class="cic-list">${c.items.map(i=>`<li>${i}</li>`).join('')}</ul></div>`).join('');}
@@ -3659,7 +3650,7 @@ function rRel(){const sess=gdb('ct_sessoes'),cl=gdb('ct_clientes'),fin=gdb('ct_f
 const meses={};sess.forEach(s=>{if(s.data){const mm=s.data.slice(0,7);if(!meses[mm])meses[mm]={s:0,v:0};if(s.stat==='Concluído'){meses[mm].s++;meses[mm].v+=R(s.val);}}});fin.forEach(f=>{if(f.data){const mm=f.data.slice(0,7);if(!meses[mm])meses[mm]={s:0,v:0};}});document.getElementById('relMen').innerHTML=`<thead><tr><th>Mês</th><th>Sessões</th><th>Fat.</th><th>Receitas</th><th>Despesas</th><th>Lucro</th><th>Ticket Médio</th></tr></thead><tbody>${Object.keys(meses).sort().reverse().slice(0,12).map(k=>{const[a,mm]=k.split('-');const r=fin.filter(f=>f.data&&f.data.slice(0,7)===k&&f.tipo==='receita').reduce((a,f)=>a+R(f.val),0);const d=fin.filter(f=>f.data&&f.data.slice(0,7)===k&&f.tipo==='despesa').reduce((a,f)=>a+R(f.val),0);return`<tr><td><strong>${MSS[parseInt(mm)-1]} ${a}</strong></td><td>${meses[k].s}</td><td style="color:var(--grn)">${$R(meses[k].v)}</td><td style="color:var(--grn)">${$R(r)}</td><td style="color:var(--red)">${$R(d)}</td><td style="font-weight:700;color:${r-d>=0?'var(--grn)':'var(--red)'}">${$R(r-d)}</td><td>${$R(meses[k].s?meses[k].v/meses[k].s:0)}</td></tr>`;}).join('')||`<tr><td colspan="7" class="empty-row"><p>Sem dados</p></td></tr>`}</tbody>`;
 const top=cl.map(c=>{const ss=conc.filter(s=>s.cli===c.nome);return{...c,total:ss.reduce((a,s)=>a+R(s.val),0),ns:ss.length};}).sort((a,b)=>b.total-a.total).slice(0,10);document.getElementById('relTop').innerHTML=top.length?top.map((c,i)=>`<tr><td style="font-weight:700;color:var(--tx3)">${i+1}</td><td><strong>${c.nome}</strong></td><td>${c.ns}</td><td style="color:var(--grn);font-weight:700">${$R(c.total)}</td></tr>`).join(''):`<tr><td colspan="4" class="empty-row"><p>Sem dados</p></td></tr>`;
 const estilos={};conc.forEach(s=>{const e=s.est||'Outros';if(!estilos[e])estilos[e]={n:0,v:0};estilos[e].n++;estilos[e].v+=R(s.val);});const totE=Object.values(estilos).reduce((a,e)=>a+e.v,0);document.getElementById('relEst').innerHTML=Object.entries(estilos).sort((a,b)=>b[1].v-a[1].v).map(([e,d])=>`<tr><td><strong>${e}</strong></td><td>${d.n}</td><td style="color:var(--grn);font-weight:600">${$R(d.v)}</td><td>${$R(d.n?d.v/d.n:0)}</td><td>${totE>0?(d.v/totE*100).toFixed(1):0}%</td></tr>`).join('')||`<tr><td colspan="5" class="empty-row"><p>Sem sessões</p></td></tr>`;}
-function expRel(){if(typeof XLSX==='undefined')return;const wb=XLSX.utils.book_new();const s=gdb('ct_sessoes'),c=gdb('ct_clientes'),f=gdb('ct_financeiro');XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s.map(x=>({'Data':dtBR(x.data),'Hora':x.hora,'Cliente':x.cli,'Estilo':x.est,'Status':x.stat,'Valor':R(x.val)}))),'Agenda');XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(c.map(x=>({'Nome':x.nome,'Telefone':x.tel,'Email':x.email,'Cidade':x.cid,'Status':x.stat,'NPS':x.nps}))),'Clientes');XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(f.map(x=>({'Data':dtBR(x.data),'Tipo':x.tipo,'Descrição':x.desc,'Categoria':x.cat,'Valor':R(x.val)}))),'Financeiro');XLSX.writeFile(wb,'CentralTattoo_'+hoje()+'.xlsx');}
+function expRel(){if(typeof XLSX==='undefined')return;const wb=XLSX.utils.book_new();const s=gdb('ct_sessoes'),c=gdb('ct_clientes'),f=gdb('ct_financeiro');XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s.map(x=>({'Data':dtBR(x.data),'Hora':x.hora,'Cliente':x.cli,'Estilo':x.est,'Status':x.stat,'Valor':R(x.val)}))),'Agenda');XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(c.map(x=>({'Nome':x.nome,'Telefone':x.tel,'Email':x.email,'Cidade':x.cid,'Status':x.stat,'Avaliação Google':ctAvalTexto(x)}))),'Clientes');XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(f.map(x=>({'Data':dtBR(x.data),'Tipo':x.tipo,'Descrição':x.desc,'Categoria':x.cat,'Valor':R(x.val)}))),'Financeiro');XLSX.writeFile(wb,'CentralTattoo_'+hoje()+'.xlsx');}
 // ── PREÇOS ──
 function rPr(){const db=gdb('ct_precos');document.getElementById('prTb').innerHTML=db.length?db.map(p=>`<tr><td><strong>${p.est}</strong></td><td>${p.tam}</td><td style="color:var(--grn);font-weight:600">${$R(p.min)}</td><td style="color:var(--gold2);font-weight:600">${$R(p.max)}</td><td style="font-size:12px;color:var(--tx3)">${p.obs||'—'}</td><td><button class="btn btn-danger btn-xs" onclick="delPr('${p.id}')">🗑</button></td></tr>`).join(''):`<tr><td colspan="6" class="empty-row"><p>Nenhum preço cadastrado</p></td></tr>`;}
 function savePr(){const p={id:uid(),est:document.getElementById('prEst').value,tam:document.getElementById('prTam').value,min:document.getElementById('prMin').value,max:document.getElementById('prMax').value,obs:document.getElementById('prObs').value};const db=gdb('ct_precos');db.push(p);sdb('ct_precos',db);closeM('mPr');rPr();showToast('✅ Preço salvo!');}
@@ -6367,6 +6358,371 @@ window.ctDensificar=function(tbId){
   setTimeout(function(){
     Object.keys(mapa).forEach(function(fn){ ctDensificar(mapa[fn]); });
   },900);
+})();
+
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   COERÊNCIA FINANCEIRA — uma verdade só para o faturamento
+   ───────────────────────────────────────────────────────────────────
+   O sistema estava relatando TRÊS faturamentos diferentes:
+     Relatório  R$ 6.000  (todo o Financeiro, desde sempre)
+     Metas      R$ 6.500  (Financeiro do mês corrente)
+     Sessões    R$ 1.300  (o que foi realmente tatuado)
+   E o Ticket Médio das Metas dividia receita do Financeiro pelo
+   número de SESSÕES — misturando duas bases distintas e devolvendo
+   R$ 2.166,67 com selo de "meta atingida".
+═══════════════════════════════════════════════════════════════════ */
+
+/* Fonte única de verdade. periodo = 'mes' | 'tudo' */
+window.ctFaturamento=function(periodo){
+  var m=(typeof ma==='function')?ma():new Date().toISOString().slice(0,7);
+  var sess=gdb('ct_sessoes'), fin=gdb('ct_financeiro');
+
+  function noPeriodo(d){ return periodo==='tudo' ? !!d : (d&&d.slice(0,7)===m); }
+
+  var conc=sess.filter(function(s){return s.stat==='Concluído'&&noPeriodo(s.data);});
+  var servico=conc.reduce(function(a,s){return a+R(s.val);},0);
+
+  /* receita do Financeiro que NÃO veio de sessão (venda de produto, etc.) */
+  var outras=fin.filter(function(f){
+    return f.tipo==='receita'&&noPeriodo(f.data)&&!f.ref;
+  }).reduce(function(a,f){return a+R(f.val);},0);
+
+  var desp=fin.filter(function(f){
+    return f.tipo==='despesa'&&noPeriodo(f.data);
+  }).reduce(function(a,f){return a+R(f.val);},0);
+
+  var total=servico+outras;
+  return {
+    servico:servico,          /* o que saiu da agulha */
+    outras:outras,            /* receita avulsa */
+    total:total,              /* faturamento de verdade */
+    despesas:desp,
+    lucro:total-desp,
+    sessoes:conc.length,
+    ticket:conc.length?servico/conc.length:0,   /* serviço ÷ sessões — mesma base */
+    margem:total>0?((total-desp)/total*100):null,
+    temDespesa:desp>0
+  };
+};
+
+/* METAS passa a usar a fonte única */
+window.rMet=function(){
+  try{
+    var cl=gdb('ct_clientes'), sess=gdb('ct_sessoes');
+    var m=(typeof ma==='function')?ma():new Date().toISOString().slice(0,7);
+    var f=ctFaturamento('mes');
+    var sm=sess.filter(function(s){return s.data&&s.data.slice(0,7)===m;});
+
+    var reais=[
+      f.total,
+      sm.length,
+      cl.filter(function(c){return c.criadoEm&&c.criadoEm.slice(0,7)===m;}).length,
+      f.ticket,
+      cl.filter(function(c){return c.stat==='🟢 Ativo';}).length,
+      sm.filter(function(s){return s.stat==='Cancelado';}).length,
+      f.margem
+    ];
+
+    var tb=document.getElementById('metTb'); if(!tb)return;
+    tb.innerHTML=META_I.map(function(ind,idx){
+      var meta=ind.def, real=reais[idx];
+
+      /* margem sem despesa lançada não é 100% de lucro — é falta de dado */
+      if(ind.k==='marg'&&!f.temDespesa){
+        return '<tr><td><strong>'+ind.lb+'</strong></td><td>'+meta+'%</td>'+
+          '<td style="color:var(--tx3)">—</td>'+
+          '<td colspan="2" style="font-size:12px;color:var(--ylw)">⚠️ Nenhuma despesa lançada no mês</td>'+
+          '<td><span class="bdg b-yellow">Sem dados</span></td></tr>';
+      }
+
+      real=real||0;
+      /* cancelamento é teto: quanto menos, melhor */
+      var inverso=(ind.k==='canc');
+      var pct=meta>0?(inverso?(real<=meta?100:(meta/real)*100):(real/meta)*100):0;
+      var st=pct>=100?'<span class="bdg b-green">✅ Atingida</span>'
+            :pct>=70?'<span class="bdg b-yellow">⚠️ Parcial</span>'
+                    :'<span class="bdg b-red">❌ Abaixo</span>';
+      var dif=real-meta;
+      return '<tr><td><strong>'+ind.lb+'</strong></td>'+
+        '<td>'+(ind.m?$R(meta):meta)+'</td>'+
+        '<td style="font-weight:600">'+(ind.m?$R(real):real.toFixed(ind.p?1:0))+'</td>'+
+        '<td><span style="font-weight:700;color:'+(pct>=100?'var(--grn)':pct>=70?'var(--ylw)':'var(--red)')+'">'+
+          pct.toFixed(0)+'%</span>'+pb(Math.min(pct,100))+'</td>'+
+        '<td style="color:'+((inverso?-dif:dif)>=0?'var(--grn)':'var(--red)')+';font-weight:600">'+
+          (ind.m?$R(dif):dif.toFixed(1))+'</td>'+
+        '<td>'+st+'</td></tr>';
+    }).join('');
+  }catch(e){console.warn('[rMet]',e);}
+};
+
+/* RELATÓRIO: separar o que é serviço do que é receita avulsa */
+window._ctRRelOrig=window.rRel;
+window.rRel=function(){
+  try{ if(window._ctRRelOrig)window._ctRRelOrig.apply(this,arguments); }catch(e){}
+  try{
+    var t=ctFaturamento('tudo');
+    var el=document.getElementById('relatKpi'); if(!el)return;
+    var cards=el.querySelectorAll('.kpi-card');
+    /* corrige o rótulo do 1º card e insere a quebra logo abaixo do grid */
+    if(cards[0]){
+      var lb=cards[0].querySelector('.kpi-label');
+      if(lb)lb.textContent='Faturamento Total';
+      var num=cards[0].querySelector('.kpi-num');
+      if(num)num.textContent=$R(t.total);
+    }
+    if(cards[3]){ /* Total Sessões: contar só concluídas */
+      var n3=cards[3].querySelector('.kpi-num');
+      var l3=cards[3].querySelector('.kpi-label');
+      if(n3)n3.textContent=t.sessoes;
+      if(l3)l3.textContent='Sessões Concluídas';
+    }
+    var box=document.getElementById('relQuebra');
+    if(!box){
+      box=document.createElement('div'); box.id='relQuebra'; box.className='tut';
+      box.style.cssText='margin:-10px 0 20px';
+      el.parentNode.insertBefore(box,el.nextSibling);
+    }
+    box.innerHTML='💡 <strong>De onde vem o faturamento:</strong> '+
+      '<strong style="color:var(--grn)">'+$R(t.servico)+'</strong> de serviço ('+t.sessoes+' sessões concluídas)'+
+      (t.outras>0?' + <strong style="color:var(--gold2)">'+$R(t.outras)+'</strong> de receita avulsa lançada direto no Financeiro':'')+
+      '. Ticket médio = serviço ÷ sessões = <strong>'+$R(t.ticket)+'</strong>.';
+  }catch(e){console.warn('[rRel coerência]',e);}
+};
+
+/* SINAIS usa a mesma fonte */
+window._ctRSinOrig=window.rSin;
+window.rSin=function(){
+  try{ if(window._ctRSinOrig)window._ctRSinOrig.apply(this,arguments); }catch(e){}
+};
+
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   AVALIAÇÃO NO GOOGLE — substitui o NPS em todo o sistema
+   ───────────────────────────────────────────────────────────────────
+   O NPS exigia que o Carlos digitasse à mão uma nota que o cliente
+   nunca teve como dar (o cliente não acessa a Central). Ficava vazio
+   em 100% dos cadastros. A avaliação no Google é pública, verificável,
+   já rastreada pelo Pós-Venda (avalOk) e ainda melhora o ranking local.
+═══════════════════════════════════════════════════════════════════ */
+
+/* Estado da avaliação de um cliente: pediu? avaliou? já pode pedir? */
+window.ctAvalStatus=function(c){
+  var nome=(c&&c.nome||'').trim().toLowerCase();
+  if(!nome)return {estado:'sem_pv'};
+  var pvs=gdb('ct_cicatri').filter(function(x){
+    return (x.cli||'').trim().toLowerCase()===nome;
+  });
+  if(!pvs.length)return {estado:'sem_pv'};
+
+  var avaliou=pvs.some(function(x){return x.avalOk;});
+  if(avaliou)return {estado:'avaliou',pv:pvs.find(function(x){return x.avalOk;})};
+
+  /* mais recente primeiro */
+  pvs.sort(function(a,b){return (b.data||'').localeCompare(a.data||'');});
+  var pv=pvs[0];
+  var dias=pv.data?Math.floor((Date.now()-new Date(pv.data+'T00:00:00').getTime())/864e5):0;
+  return {estado:dias>=10?'cobrar':'cedo',dias:dias,pv:pv,faltam:Math.max(0,10-dias)};
+};
+
+/* Célula da coluna Avaliação no CRM */
+window.ctAvalCell=function(c){
+  var s=ctAvalStatus(c);
+  if(s.estado==='avaliou')
+    return '<span class="bdg b-green" title="Avaliação já registrada">⭐ Avaliou</span>';
+  if(s.estado==='sem_pv')
+    return '<span style="color:var(--tx4)">—</span>';
+  if(s.estado==='cedo')
+    return '<span class="bdg b-yellow" title="Espere cicatrizar antes de pedir">⏳ '+s.faltam+'d</span>';
+  return '<button class="btn btn-primary btn-xs" onclick="ctCobrarAval(\''+c.id+'\')" '+
+         'title="Cicatrizou há '+s.dias+' dias — abrir WhatsApp com o pedido">⭐ Pedir</button>';
+};
+
+/* Bloco da ficha 360 */
+window.ctAvalFicha=function(c){
+  var s=ctAvalStatus(c);
+  return s.estado==='avaliou'?'⭐ Sim'
+       : s.estado==='cobrar' ?'❌ Falta'
+       : s.estado==='cedo'   ?'⏳ '+s.faltam+'d'
+       : '—';
+};
+
+/* Texto para a exportação Excel */
+window.ctAvalTexto=function(c){
+  var s=ctAvalStatus(c);
+  return s.estado==='avaliou'?'Avaliou'
+       : s.estado==='cobrar' ?'Pendente'
+       : s.estado==='cedo'   ?'Aguardando cicatrizar'
+       : 'Sem pós-venda';
+};
+
+/* Cobrança direto da linha do CRM */
+window.ctCobrarAval=function(cliId){
+  var c=gdb('ct_clientes').find(function(x){return x.id===cliId;});
+  if(!c){showToast('⚠️ Cliente não encontrado.');return;}
+  if(!(conf().googleRev||'').trim()){
+    showToast('⚠️ Cadastre o "Link de avaliação Google" em Comece por Aqui.');
+    return;
+  }
+  var s=ctAvalStatus(c);
+  ctPedirAvaliacao({cli:c.nome,tel:c.tel||'',id:s.pv?s.pv.id:''});
+  setTimeout(function(){ try{rCl();}catch(e){} },600);
+};
+
+/* Painel de avaliações pendentes no topo do CRM */
+window.ctAvalPainel=function(){
+  var pan=document.getElementById('p-clientes'); if(!pan)return;
+  var cls=gdb('ct_clientes');
+  var pend=[],ok=0;
+  cls.forEach(function(c){
+    var s=ctAvalStatus(c);
+    if(s.estado==='avaliou')ok++;
+    else if(s.estado==='cobrar')pend.push({c:c,dias:s.dias});
+  });
+
+  var box=document.getElementById('avalBox');
+  if(!pend.length&&!ok){ if(box)box.style.display='none'; return; }
+  if(!box){
+    box=document.createElement('div'); box.id='avalBox';
+    box.style.cssText='border:1px solid var(--brd);border-left:3px solid var(--gold2);'+
+      'border-radius:10px;padding:12px 14px;margin-bottom:14px;background:var(--goldb)';
+    var tabela=pan.querySelector('.card');
+    if(tabela)pan.insertBefore(box,tabela); else pan.appendChild(box);
+  }
+  box.style.display='';
+  var total=ok+pend.length;
+  var pct=total?Math.round(ok/total*100):0;
+  box.innerHTML=
+    '<div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center">'+
+      '<div><strong style="font-size:13.5px">⭐ Avaliações no Google</strong>'+
+      '<div style="font-size:12px;color:var(--tx3);margin-top:2px">'+
+        ok+' de '+total+' clientes avaliaram ('+pct+'%). '+
+        (pend.length?'<strong style="color:var(--gold2)">'+pend.length+' pronto(s) para cobrar.</strong>'
+                    :'Nenhuma cobrança pendente.')+
+      '</div></div>'+
+      (pend.length?'<button class="btn btn-primary btn-sm" onclick="ctCobrarTodasAval()">⭐ Cobrar os '+pend.length+'</button>':'')+
+    '</div>'+
+    (pend.length?'<div style="font-size:11.5px;color:var(--tx4);margin-top:7px">'+
+      pend.slice(0,6).map(function(p){return p.c.nome+' ('+p.dias+'d)';}).join(' · ')+
+      (pend.length>6?' + '+(pend.length-6):'')+'</div>':'');
+};
+
+window.ctCobrarTodasAval=function(){
+  var cls=gdb('ct_clientes').filter(function(c){return ctAvalStatus(c).estado==='cobrar';});
+  if(!cls.length)return;
+  if(!confirm('Abrir o WhatsApp para '+cls.length+' cliente(s)?\n\n'+
+    'Vai abrir uma aba por cliente — o navegador pode pedir permissão para pop-ups.'))return;
+  cls.forEach(function(c,i){ setTimeout(function(){ctCobrarAval(c.id);}, i*900); });
+};
+
+/* Liga o painel ao render do CRM */
+(function(){
+  var ant=window.rCl;
+  window.rCl=function(){
+    var r; try{ r=ant.apply(this,arguments); }catch(e){ console.warn('[rCl]',e); }
+    try{ ctAvalPainel(); }catch(e){}
+    return r;
+  };
+  setTimeout(function(){ try{ctAvalPainel();}catch(e){} },1200);
+})();
+
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   VARREDURA v2 — buraco de valor em projeto parcialmente lançado
+   ───────────────────────────────────────────────────────────────────
+   A v1 só perguntava "esse projeto tem sessão?". Se tivesse UMA,
+   passava. Mas um projeto de R$1.500 com uma única sessão de R$300
+   tem R$1.200 fora do faturamento — e ninguém avisava.
+═══════════════════════════════════════════════════════════════════ */
+(function(){
+  var v1=window.ctVarrer;
+  window.ctVarrer=function(){
+    var achados=[];
+    try{ achados=v1.apply(this,arguments)||[]; }catch(e){ console.warn('[varrer v1]',e); }
+    try{
+      var sess=gdb('ct_sessoes'), pjs=gdb('ct_projetos');
+      pjs.forEach(function(p){
+        if(p.st==='📁 Arquivado')return;
+        var total=R(p.valor); if(total<=0)return;
+        var minhas=sess.filter(function(s){return s.projId===p.id;});
+        if(!minhas.length)return;                    /* já coberto pela v1 */
+        var lancado=minhas.reduce(function(a,s){return a+R(s.val);},0);
+        var falta=total-lancado;
+        /* tolera R$1 de arredondamento */
+        if(falta<=1)return;
+        var prev=parseInt(p.sessPrev,10)||0;
+        achados.push({
+          tipo:'projeto_valor_incompleto', id:p.id,
+          titulo:(p.cli||'?')+' — '+(p.nome||'projeto'),
+          detalhe:'Projeto de '+$R(total)+' com só '+$R(lancado)+' lançado em '+
+                  minhas.length+' sessão(ões)'+(prev?' de '+prev+' previstas':'')+
+                  ' · faltam '+$R(falta),
+          acao:'Completar', gravidade:'alta'
+        });
+      });
+    }catch(e){ console.warn('[varrer v2]',e); }
+    return achados;
+  };
+
+  /* Ação de correção do novo tipo */
+  var corr=window.ctCorrigir;
+  window.ctCorrigir=function(tipo,id){
+    if(tipo!=='projeto_valor_incompleto')return corr.apply(this,arguments);
+    var p=gdb('ct_projetos').find(function(x){return x.id===id;});
+    if(!p)return;
+    var sess=gdb('ct_sessoes').filter(function(s){return s.projId===id;});
+    var lancado=sess.reduce(function(a,s){return a+R(s.val);},0);
+    var falta=R(p.valor)-lancado;
+    var prev=parseInt(p.sessPrev,10)||0;
+    var sug=prev>sess.length?(prev-sess.length):1;
+
+    var r=prompt('Projeto "'+(p.nome||'')+'" de '+$R(R(p.valor))+'.\n\n'+
+      'Já lançado: '+$R(lancado)+' em '+sess.length+' sessão(ões).\n'+
+      'Faltam '+$R(falta)+'.\n\n'+
+      'Em quantas sessões esse valor restante foi feito?\n'+
+      '(0 = o cliente ainda não pagou/fez o resto)', String(sug));
+    if(r===null)return;
+    var n=Math.max(0,Math.min(50,parseInt(r,10)||0));
+    if(n===0){ showToast('ℹ️ Nada lançado — o saldo segue como receita em aberto.'); return; }
+
+    var c=gdb('ct_clientes').find(function(x){
+      return (x.nome||'').trim().toLowerCase()===(p.cli||'').trim().toLowerCase();
+    });
+    var vps=Math.round(falta/n*100)/100;
+    var base=p.finalizadoEm||hoje();
+    var criadas=0;
+    for(var i=0;i<n;i++){
+      var d=new Date(base+'T00:00:00');
+      d.setDate(d.getDate()-(n-1-i)*21);
+      var v=(i===n-1)?Math.round((falta-vps*(n-1))*100)/100:vps;
+      var res=ctRegistrarServico({
+        cliId:c?c.id:'', cli:p.cli, tel:c?(c.tel||''):'',
+        proced:ctProcedDe(p.est), est:p.est||'Realismo',
+        loc:p.local||'', data:d.toISOString().slice(0,10),
+        val:v, sin:0, stat:'Concluído', projId:p.id,
+        obs:'Complemento do projeto "'+(p.nome||'')+'" — varredura',
+        origem:'projeto', refId:p.id+'#compl'+(sess.length+i+1)
+      });
+      if(res.ok)criadas++;
+    }
+    ctReRenderTudo(); ctVarrerRender();
+    showToast('✅ '+criadas+' sessão(ões) de complemento criadas — '+$R(falta)+' entrou no faturamento.');
+  };
+
+  /* Corrigir-tudo ignora o novo tipo: ele SEMPRE precisa da sua confirmação */
+  var todos=window.ctCorrigirTudo;
+  window.ctCorrigirTudo=function(){
+    var incompletos=ctVarrer().filter(function(x){return x.tipo==='projeto_valor_incompleto';});
+    if(incompletos.length){
+      alert('Atenção: '+incompletos.length+' projeto(s) têm valor parcialmente lançado.\n\n'+
+        'Esses eu NÃO corrijo em lote — só você sabe se o cliente já pagou o resto '+
+        'ou se o trabalho ainda vai acontecer. Trate um a um pelo botão "Completar".');
+    }
+    return todos.apply(this,arguments);
+  };
 })();
 
 </script>
