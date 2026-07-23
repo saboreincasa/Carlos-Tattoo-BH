@@ -5319,6 +5319,33 @@ else { window.addEventListener('load',function(){ setTimeout(motorBoot,1800); })
 .mktf-tot{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px solid var(--brd);font-size:12px;color:var(--tx3)}
 .mktf-tot .pos{color:var(--grn)} .mktf-tot .neg{color:var(--red)}
 
+
+/* ── TABELAS DENSIFICADAS ── */
+.tbl-dens td{vertical-align:top;padding:11px 12px;}
+.tbl-dens th{padding:9px 12px;}
+.dens-p{font-size:13px;line-height:1.45;}
+.dens-s{font-size:11.5px;line-height:1.45;color:var(--tx3);margin-top:3px;}
+.dens-s[data-lb]:not([data-lb=""])::before{
+  content:attr(data-lb) " ";
+  font-size:9.5px;text-transform:uppercase;letter-spacing:.4px;
+  color:var(--tx4);opacity:.8;margin-right:3px;
+}
+.dens-s .badge,.dens-s .bdg{font-size:10.5px;padding:1px 7px;}
+/* primeira coluna congelada — o nome nunca some ao rolar */
+.tbl-dens td:first-child,.tbl-dens th:first-child{
+  position:sticky;left:0;z-index:3;background:var(--white);
+  box-shadow:1px 0 0 var(--brd);
+}
+.tbl-dens thead th:first-child{z-index:4;background:var(--bg2);}
+.tbl-dens tbody tr:hover td:first-child{background:var(--goldb);}
+/* coluna de ações compacta */
+.tbl-dens td:last-child{white-space:nowrap;}
+.tbl-dens td:last-child .btn-xs{padding:5px 8px;margin:1px;}
+@media(max-width:900px){
+  .tbl-dens td{padding:10px;}
+  .tbl-dens td:first-child,.tbl-dens th:first-child{position:static;box-shadow:none;}
+}
+
 </style>
 <script>
 /* ═══════════════════════════════════════════════════════════════════
@@ -6205,6 +6232,141 @@ window.rCic=function(){
       it.appendChild(b);
     }catch(e){}
   },1800);
+})();
+
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   DENSIFICAÇÃO DE TABELAS — nenhuma coluna é excluída
+   ───────────────────────────────────────────────────────────────────
+   Dados da mesma família passam a dividir a mesma célula, empilhados.
+   O rótulo original vira etiqueta da linha de baixo, então nada some
+   nem fica ambíguo. O motor MOVE nós do DOM (não copia innerHTML),
+   preservando botões, badges, links e handlers intactos.
+═══════════════════════════════════════════════════════════════════ */
+
+window.CT_GRUPOS={
+  clTb:[
+    {t:'Cliente',    c:[0,3]},
+    {t:'Contato',    c:[1,2]},
+    {t:'Situação',   c:[5,8]},
+    {t:'Histórico',  c:[4,9,10]},
+    {t:'Financeiro', c:[6,7]},
+    {t:'Retorno',    c:[11,12]},
+    {t:'Projeto',    c:[13,14]},
+    {t:'',           c:[15]}
+  ],
+  agTb:[
+    {t:'Quando',   c:[0,1,9]},
+    {t:'Cliente',  c:[2,3]},
+    {t:'Trabalho', c:[4,10]},
+    {t:'Status',   c:[5]},
+    {t:'Valores',  c:[6,7,8]},
+    {t:'Obs',      c:[11]},
+    {t:'',         c:[12]}
+  ],
+  pjTb:[
+    {t:'Cliente',  c:[0,1]},
+    {t:'Trabalho', c:[2,3,4]},
+    {t:'Valores',  c:[5,6,7]},
+    {t:'Status',   c:[8]},
+    {t:'',         c:[9]}
+  ],
+  fuTb:[
+    {t:'Cliente',        c:[0,1]},
+    {t:'Última visita',  c:[2,3]},
+    {t:'Prioridade',     c:[4]},
+    {t:'Ação planejada', c:[5,6,7]},
+    {t:'Próximo passo',  c:[8,9]},
+    {t:'Obs',            c:[10]},
+    {t:'',               c:[11]}
+  ],
+  cicTb:[
+    {t:'Cliente',        c:[0,1]},
+    {t:'Procedimento',   c:[2,3]},
+    {t:'Enviados',       c:[4,5]},
+    {t:'Acompanhamento', c:[6,7,8]},
+    {t:'Nota',           c:[9]},
+    {t:'',               c:[10]}
+  ]
+};
+
+window.ctDensificar=function(tbId){
+  try{
+    var grupos=CT_GRUPOS[tbId]; if(!grupos)return;
+    var tb=document.getElementById(tbId); if(!tb)return;
+    var table=tb.closest('table'); if(!table)return;
+
+    /* guarda os rótulos originais uma única vez */
+    if(!table.dataset.densOrig){
+      var ths=[].slice.call(table.querySelectorAll('thead th'));
+      if(!ths.length)return;
+      table.dataset.densOrig=JSON.stringify(ths.map(function(t){return (t.textContent||'').trim();}));
+    }
+    var orig=JSON.parse(table.dataset.densOrig);
+
+    /* cabeçalho novo — só uma vez */
+    var htr=table.querySelector('thead tr');
+    if(htr&&!htr.dataset.dens){
+      htr.innerHTML=grupos.map(function(g){return '<th>'+(g.t||'')+'</th>';}).join('');
+      htr.dataset.dens='1';
+    }
+    table.classList.add('tbl-dens');
+
+    [].slice.call(tb.rows).forEach(function(tr){
+      if(tr.dataset.dens)return;
+      var cells=[].slice.call(tr.cells);
+
+      /* linha de "nenhum registro" */
+      if(cells.length===1&&cells[0].hasAttribute('colspan')){
+        cells[0].setAttribute('colspan',grupos.length);
+        tr.dataset.dens='1';return;
+      }
+      /* segurança: se a contagem não bate, deixa como está */
+      if(cells.length!==orig.length)return;
+
+      var novos=grupos.map(function(g){
+        var td=document.createElement('td');
+        g.c.forEach(function(ci,idx){
+          var src=cells[ci]; if(!src)return;
+          var txt=(src.textContent||'').trim();
+          /* não empilha secundário vazio */
+          if(idx>0&&(!txt||txt==='—'||txt==='-'))return;
+          var d=document.createElement('div');
+          if(idx===0){d.className='dens-p';}
+          else{d.className='dens-s';d.setAttribute('data-lb',(orig[ci]||'').replace(/\.$/,''));}
+          while(src.firstChild)d.appendChild(src.firstChild);
+          td.appendChild(d);
+        });
+        if(!td.childNodes.length)td.innerHTML='<div class="dens-p" style="color:var(--tx4)">—</div>';
+        if(g.c.length===1)td.style.whiteSpace='nowrap';
+        return td;
+      });
+
+      tr.innerHTML='';
+      novos.forEach(function(td){tr.appendChild(td);});
+      tr.dataset.dens='1';
+    });
+  }catch(e){console.warn('[densificar '+tbId+']',e);}
+};
+
+/* Liga a densificação em cada render, sem tocar nas funções originais */
+(function(){
+  var mapa={rCl:'clTb',rAg:'agTb',rPj:'pjTb',rFU:'fuTb',rCic:'cicTb'};
+  Object.keys(mapa).forEach(function(fn){
+    var anterior=window[fn];
+    if(typeof anterior!=='function')return;
+    window[fn]=function(){
+      var r;
+      try{ r=anterior.apply(this,arguments); }catch(e){ console.warn('['+fn+']',e); }
+      ctDensificar(mapa[fn]);
+      return r;
+    };
+  });
+  /* primeira pintura */
+  setTimeout(function(){
+    Object.keys(mapa).forEach(function(fn){ ctDensificar(mapa[fn]); });
+  },900);
 })();
 
 </script>
