@@ -759,7 +759,7 @@ body.sb-aberta .hbg span:nth-child(3){transform:translateY(-7px) rotate(-45deg);
 
 <!-- ═══ CLIENTES ═══ -->
 <div class="panel" id="p-clientes">
-  <div class="pg"><div class="pg-t"><h2>👥 CRM de Clientes</h2><p>Fidelização é o segredo do crescimento</p></div><button class="btn btn-primary" onclick="novoCl()">+ Novo Cliente</button></div>
+  <div class="pg"><div class="pg-t"><h2>👥 CRM de Clientes</h2><p>Fidelização é o segredo do crescimento</p></div><div class="pg-actions"><button class="btn btn-success" onclick="ctEscolherClienteServico()">➕ Novo Serviço</button><button class="btn btn-primary" onclick="novoCl()">+ Novo Cliente</button></div></div>
   <div class="tut">💡 <strong>STATUS:</strong> 🟢 Ativo | 🟡 Retorno Pendente | 🔴 Inativo. <strong>NPS</strong> 0-10. <strong>TICKET MÉDIO</strong> = Total Gasto ÷ Sessões. <strong>INDICADO POR</strong> rastreia o boca a boca.</div>
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;">
     <input class="fi" style="max-width:280px;padding:8px 14px;" placeholder="🔍 Buscar nome, telefone ou email..." id="bCl" oninput="rCl()">
@@ -1197,7 +1197,7 @@ body.sb-aberta .hbg span:nth-child(3){transform:translateY(-7px) rotate(-45deg);
     <div class="fg2"><div class="fg"><label>Valor da Tatuagem (R$)</label><input class="fi" type="number" id="clValor" min="0" step="50" placeholder="0"></div><div class="fg"><label>Sinal Pago (R$)</label><input class="fi" type="number" id="clSinal" min="0" step="50" placeholder="0"></div></div>
     <div class="fg"><label>Observações</label><textarea class="fi" id="clObs" rows="2"></textarea></div>
   </div>
-  <div class="modal-foot"><button class="btn btn-ghost btn-sm" onclick="closeM('mCl')">Cancelar</button><button class="btn btn-primary btn-sm" onclick="saveCl()">Salvar Cliente</button></div>
+  <div class="modal-foot"><button class="btn btn-ghost btn-sm" onclick="closeM('mCl')">Cancelar</button><button class="btn btn-success btn-sm" id="clBtnServ" onclick="ctServicoDoModal()">➕ Adicionar Serviço</button><button class="btn btn-primary btn-sm" onclick="saveCl()">Salvar Cliente</button></div>
 </div></div>
 
 <!-- ═══ MODAL PROJETO ═══ -->
@@ -5996,6 +5996,215 @@ window.rCl=function(){
       }
     }catch(e){}
   },1400);
+})();
+
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   CORREÇÃO 2 — DESCOBERTA E PÓS-VENDA
+   ───────────────────────────────────────────────────────────────────
+   Problema 1: o ➕ ficava na 16ª coluna de uma tabela com rolagem
+   horizontal. Existia, mas não era achável. Agora tem botão grande no
+   topo do CRM e dentro do modal de edição do cliente.
+   Problema 2: o Pós-Venda só nascia de sessão concluída. Projeto
+   Finalizado sem sessão = trabalho feito e Pós-Venda mudo.
+═══════════════════════════════════════════════════════════════════ */
+
+/* Escolher cliente e já cair no modal de serviço */
+window.ctEscolherClienteServico=function(){
+  var cls=gdb('ct_clientes').slice().sort(function(a,b){
+    return (a.nome||'').localeCompare(b.nome||'','pt',{sensitivity:'base'});
+  });
+  if(!cls.length){showToast('⚠️ Cadastre um cliente primeiro.');return;}
+
+  var m=document.getElementById('mPickCli');
+  if(!m){
+    m=document.createElement('div');m.className='modal-wrap';m.id='mPickCli';
+    m.innerHTML='<div class="modal" style="max-width:480px">'+
+      '<div class="modal-head"><h3>➕ Novo Serviço — para quem?</h3>'+
+      '<button class="modal-close" onclick="closeM(\'mPickCli\')">✕</button></div>'+
+      '<div class="modal-body" id="mPickCliB"></div>'+
+      '<div class="modal-foot"><button class="btn btn-ghost btn-sm" onclick="closeM(\'mPickCli\')">Cancelar</button></div>'+
+    '</div>';
+    document.body.appendChild(m);
+  }
+  document.getElementById('mPickCliB').innerHTML=
+    '<div class="fg"><label>Buscar</label><input class="fi" id="pickBusca" placeholder="Digite o nome..." oninput="ctPickFiltrar()"></div>'+
+    '<div id="pickLista" style="max-height:340px;overflow-y:auto;margin-top:8px"></div>';
+  window._ctPickCls=cls;
+  ctPickFiltrar();
+  openM('mPickCli');
+};
+
+window.ctPickFiltrar=function(){
+  var t=((document.getElementById('pickBusca')||{}).value||'').trim().toLowerCase();
+  var cls=(window._ctPickCls||[]).filter(function(c){
+    return !t||(c.nome||'').toLowerCase().indexOf(t)>-1||(c.tel||'').indexOf(t)>-1;
+  });
+  var el=document.getElementById('pickLista'); if(!el)return;
+  el.innerHTML=cls.length?cls.map(function(c){
+    var ss=gdb('ct_sessoes').filter(function(s){
+      return (s.cli||'').trim().toLowerCase()===(c.nome||'').trim().toLowerCase();
+    }).length;
+    return '<div onclick="closeM(\'mPickCli\');ctAbrirServico(\''+c.id+'\')" '+
+      'style="border:1px solid var(--brd);border-radius:9px;padding:10px 12px;margin-bottom:6px;cursor:pointer" '+
+      'onmouseover="this.style.background=\'var(--goldb)\'" onmouseout="this.style.background=\'\'">'+
+      '<strong style="font-size:13.5px">'+(c.nome||'—')+'</strong>'+
+      '<div style="font-size:12px;color:var(--tx3)">'+(c.tel||'sem telefone')+' · '+ss+' serviço(s)</div>'+
+    '</div>';
+  }).join(''):'<div style="text-align:center;padding:22px;color:var(--tx3);font-size:13px">Nenhum cliente encontrado.</div>';
+};
+
+/* Botão dentro do modal Editar Cliente */
+window.ctServicoDoModal=function(){
+  var id=(document.getElementById('clId')||{}).value||'';
+  if(!id){showToast('⚠️ Salve o cliente primeiro, depois adicione o serviço.');return;}
+  closeM('mCl');
+  ctAbrirServico(id);
+};
+
+/* Esconde o botão de serviço quando é cadastro novo (ainda sem id) */
+window._ctNovoClOrig=window.novoCl;
+window.novoCl=function(){
+  try{ if(window._ctNovoClOrig)window._ctNovoClOrig.apply(this,arguments); }catch(e){}
+  try{ var b=document.getElementById('clBtnServ'); if(b)b.style.display='none'; }catch(e){}
+};
+window._ctEditClOrig=window.editCl;
+window.editCl=function(id){
+  try{ if(window._ctEditClOrig)window._ctEditClOrig(id); }catch(e){}
+  try{ var b=document.getElementById('clBtnServ'); if(b)b.style.display=''; }catch(e){}
+};
+
+/* ═══════════════════════════════════════════════════
+   PÓS-VENDA: painel "aguardando" — puxa quem terminou
+   trabalho e ainda não tem registro de acompanhamento
+═══════════════════════════════════════════════════ */
+window.ctPVPendentes=function(){
+  var cic=gdb('ct_cicatri'), sess=gdb('ct_sessoes'),
+      pjs=gdb('ct_projetos'), cls=gdb('ct_clientes'), out=[];
+
+  function jaTemPV(nome,data){
+    var n=(nome||'').trim().toLowerCase();
+    return cic.some(function(x){
+      return (x.cli||'').trim().toLowerCase()===n && (!data||x.data===data);
+    });
+  }
+
+  /* sessões concluídas sem Pós-Venda */
+  sess.forEach(function(s){
+    if(s.stat!=='Concluído')return;
+    var tem=cic.some(function(x){return x.sessaoId===s.id;})||jaTemPV(s.cli,s.data);
+    if(!tem){
+      out.push({origem:'sessao',id:s.id,cli:s.cli,tel:s.tel||'',
+        proced:ctProcedDe(s.est),data:s.data||hoje(),est:s.est||'',
+        motivo:'Sessão concluída em '+(s.data?s.data.split('-').reverse().join('/'):'?')});
+    }
+  });
+
+  /* projetos finalizados sem sessão e sem Pós-Venda */
+  pjs.forEach(function(p){
+    if(p.st!=='✅ Finalizado')return;
+    var temSessao=sess.some(function(s){return s.projId===p.id;});
+    if(temSessao)return;
+    if(jaTemPV(p.cli))return;
+    var c=cls.find(function(x){
+      return (x.nome||'').trim().toLowerCase()===(p.cli||'').trim().toLowerCase();
+    });
+    out.push({origem:'projeto',id:p.id,cli:p.cli,tel:c?(c.tel||''):'',
+      proced:ctProcedDe(p.est),data:p.finalizadoEm||hoje(),est:p.est||'',
+      motivo:'Projeto "'+(p.nome||'')+'" finalizado, sem sessão registrada'});
+  });
+
+  return out;
+};
+
+/* Cria o registro de Pós-Venda a partir de um pendente */
+window.ctPVCriar=function(origem,id){
+  var pend=ctPVPendentes().find(function(x){return x.origem===origem&&x.id===id;});
+  if(!pend){showToast('ℹ️ Esse item já foi processado.');return;}
+
+  var cic=gdb('ct_cicatri');
+  var ret=pend.data?new Date(new Date(pend.data+'T00:00:00').getTime()+30*864e5).toISOString().slice(0,10):'';
+  cic.push({id:uid(), sessaoId:(origem==='sessao'?id:''),
+    cli:pend.cli, tel:pend.tel, tipo:pend.proced, data:pend.data, ret:ret,
+    est:pend.est, reg:'', stat:'🔄 Em Andamento', retq:'✅ Sim',
+    guiaOk:0, avalOk:0,
+    obs:'Criado pelo painel de pendências do Pós-Venda ('+origem+')'});
+  sdb('ct_cicatri',cic);
+
+  if(origem==='sessao'){
+    var ss=gdb('ct_sessoes'),i=ss.findIndex(function(s){return s.id===id;});
+    if(i>=0){ss[i].pvOk=1;sdb('ct_sessoes',ss);}
+  }
+  try{ if(typeof rCic==='function')rCic(); }catch(e){}
+  ctPVRenderPendentes();
+  showToast('✅ Pós-Venda criado para '+pend.cli+' — envie o guia de '+pend.proced+'.');
+};
+
+window.ctPVCriarTodos=function(){
+  var p=ctPVPendentes();
+  if(!p.length){showToast('✅ Nada pendente.');return;}
+  if(!confirm('Criar registro de Pós-Venda para '+p.length+' cliente(s)?'))return;
+  p.forEach(function(x){ctPVCriar(x.origem,x.id);});
+  showToast('✅ '+p.length+' registro(s) de Pós-Venda criados.');
+};
+
+window.ctPVRenderPendentes=function(){
+  var pan=document.getElementById('p-cicatrizacao'); if(!pan)return;
+  var box=document.getElementById('pvPendBox');
+  if(!box){
+    box=document.createElement('div');box.id='pvPendBox';box.className='card';
+    var ref=pan.querySelector('.tut')||pan.querySelector('.pg');
+    if(ref&&ref.nextSibling)pan.insertBefore(box,ref.nextSibling); else pan.appendChild(box);
+  }
+  var p=ctPVPendentes();
+  if(!p.length){box.style.display='none';return;}
+  box.style.display='';
+  box.innerHTML=
+    '<div class="card-h" style="background:var(--redb);border-bottom:1px solid #FECACA">'+
+      '<h3 style="color:var(--red)">⏳ Aguardando Pós-Venda</h3>'+
+      '<span class="badge-count" style="background:var(--red);color:#fff;border-color:var(--red)">'+p.length+'</span>'+
+    '</div>'+
+    '<div class="card-b">'+
+      '<div style="font-size:12.5px;color:var(--tx2);margin-bottom:12px">'+
+        'Esses clientes tiveram trabalho concluído e <strong>ainda não têm acompanhamento</strong>. '+
+        'Sem registro aqui, eles não recebem guia de cuidados nem pedido de avaliação no Google.</div>'+
+      '<button class="btn btn-primary btn-sm" style="width:100%;margin-bottom:12px" onclick="ctPVCriarTodos()">⚡ Criar Pós-Venda para todos ('+p.length+')</button>'+
+      p.map(function(x){
+        var ic=(CT_PROCED[x.proced]||{}).ic||'🖋️';
+        return '<div style="border:1px solid var(--brd);border-radius:9px;padding:10px 12px;margin-bottom:7px;'+
+          'display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center">'+
+          '<div style="flex:1;min-width:190px">'+
+            '<strong style="font-size:13.5px">'+ic+' '+(x.cli||'—')+'</strong>'+
+            '<div style="font-size:12px;color:var(--tx3)">'+x.motivo+'</div>'+
+          '</div>'+
+          '<button class="btn btn-success btn-xs" onclick="ctPVCriar(\''+x.origem+'\',\''+x.id+'\')">➕ Criar</button>'+
+        '</div>';
+      }).join('')+
+    '</div>';
+};
+
+/* rCic passa a montar o painel de pendências junto */
+window._ctRCicOrig=window.rCic;
+window.rCic=function(){
+  try{ if(window._ctRCicOrig)window._ctRCicOrig.apply(this,arguments); }catch(e){}
+  try{ ctPVRenderPendentes(); }catch(e){console.warn('[pv pendentes]',e);}
+};
+
+/* Badge de pendência no menu lateral do Pós-Venda */
+(function(){
+  setTimeout(function(){
+    try{
+      var n=ctPVPendentes().length; if(!n)return;
+      var it=document.getElementById('si-cicatrizacao'); if(!it)return;
+      if(it.querySelector('.pv-badge'))return;
+      var b=document.createElement('span');
+      b.className='pv-badge';
+      b.style.cssText='margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:700;border-radius:20px;padding:1px 7px';
+      b.textContent=n;
+      it.appendChild(b);
+    }catch(e){}
+  },1800);
 })();
 
 </script>
