@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <script src="ct_cloud.js?v=16"></script>
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Central Tattoo">
+<meta name="theme-color" content="#1A0F06">
 <meta name="robots" content="noindex, nofollow">
 <title>⚡ Central Tattoo Pro — Sistema 2026</title>
 <meta name="description" content="Área de trial do sistema Central Tattoo Pro — gestão completa de estúdio de tatuagem.">
@@ -282,6 +287,15 @@ textarea.fi{resize:vertical;min-height:76px;}
 .gk-i:hover,.gk-i.sel{background:var(--bg2,#F5F5F4)}
 .gk-i small{color:var(--tx3,#9CA3AF);white-space:nowrap}
 .gk-hint{padding:10px 18px;font-size:11.5px;color:var(--tx3,#9CA3AF);border-top:1px solid var(--brd2,#E5E7EB)}
+.hdr-sync{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:8px;padding:6px 10px;font-size:14px;cursor:pointer;line-height:1;transition:all .2s;}
+.hdr-sync:hover{background:rgba(255,255,255,.18);}
+.hdr-sync.ok{border-color:rgba(52,211,153,.5);}
+.hdr-sync.pend{border-color:rgba(251,191,36,.6);animation:syncPulse 1.4s ease-in-out infinite;}
+.hdr-sync.off{border-color:rgba(248,113,113,.6);}
+@keyframes syncPulse{0%,100%{opacity:1}50%{opacity:.45}}
+/* voltar ao topo */
+#btnTopo{display:none;position:fixed;right:16px;bottom:calc(20px + env(safe-area-inset-bottom));z-index:480;width:46px;height:46px;border-radius:50%;border:1px solid rgba(251,191,36,.3);background:var(--nav);color:var(--gold3);font-size:18px;cursor:pointer;box-shadow:var(--sh3);}
+#btnTopo.on{display:block;}
 .hdr-gk{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.75);border-radius:8px;padding:6px 12px;font-size:12px;cursor:pointer;margin-right:12px;font-family:inherit}
 .hdr-gk:hover{background:rgba(255,255,255,.18)}
 @media(max-width:640px){.hdr-gk span{display:none}}
@@ -321,7 +335,8 @@ textarea.fi{resize:vertical;min-height:76px;}
 
 /* ── TABLET RETRATO / MOBILE (≤900px): sidebar vira menu hambúrguer ── */
 @media(max-width:900px){
-  .sb{display:none;}
+  /* NÃO usar display:none aqui — a sidebar vira gaveta deslizante logo abaixo.
+     O display:none antigo anulava o transform e o menu nunca abria no celular. */
   .g2,.g3,.fg2,.fg3,.calc-grid{grid-template-columns:1fr;}
   .metas-grid,.kpi-grid{grid-template-columns:repeat(2,1fr);}
   .em-features,.tm-modules{grid-template-columns:1fr;}
@@ -330,14 +345,23 @@ textarea.fi{resize:vertical;min-height:76px;}
   .tab-btn{white-space:nowrap;}
 }
 /* ── MOBILE HAMBURGER ── */
-.hbg{display:none;background:none;border:none;cursor:pointer;padding:6px;flex-direction:column;gap:5px;}
-.hbg span{display:block;width:22px;height:2px;background:rgba(255,255,255,.7);border-radius:2px;transition:all .3s;}
+.hbg{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-direction:column;gap:5px;flex-shrink:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
+.hbg span{display:block;width:22px;height:2px;background:rgba(255,255,255,.75);border-radius:2px;transition:transform .3s,opacity .3s;}
+/* ☰ vira ✕ quando o menu está aberto */
+body.sb-aberta .hbg span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+body.sb-aberta .hbg span:nth-child(2){opacity:0;}
+body.sb-aberta .hbg span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+/* overlay fica fora da media query pra não virar div solta no desktop */
+.sb-overlay{display:none;}
 @media(max-width:900px){
   .hbg{display:flex;}
-  .sb{position:fixed;top:56px;left:0;bottom:0;z-index:200;transform:translateX(-100%);transition:transform .3s;box-shadow:var(--sh3);width:250px;}
+  .sb{display:block;position:fixed;top:56px;left:0;bottom:0;z-index:295;transform:translateX(-100%);transition:transform .28s ease;box-shadow:var(--sh3);width:min(280px,82vw);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding-bottom:calc(28px + env(safe-area-inset-bottom));}
   .sb.open{transform:translateX(0);}
-  .sb-overlay{display:none;position:fixed;inset:0;top:56px;background:rgba(0,0,0,.4);z-index:199;}
+  .sb-i{padding:13px 18px;font-size:14px;}
+  .sb-icon{font-size:17px;}
+  .sb-overlay{position:fixed;inset:0;top:56px;background:rgba(0,0,0,.45);z-index:294;}
   .sb-overlay.on{display:block;}
+  body.sb-aberta{overflow:hidden;}
   .g2,.calc-grid{grid-template-columns:1fr;}
   .kanban{grid-template-columns:1fr;}
   .metas-grid,.kpi-grid{grid-template-columns:repeat(2,1fr);}
@@ -361,6 +385,30 @@ textarea.fi{resize:vertical;min-height:76px;}
   .tut-hero h1{font-size:28px;}
   .tut-card{padding:20px;}
   .conf-section{padding:18px;}
+}
+
+/* ── REFINAMENTO MOBILE (≤900px) ── */
+@media(max-width:900px){
+  html,body{overflow-x:hidden;}
+  /* header não pode espremer o hambúrguer */
+  .hdr{padding:0 12px;gap:8px;}
+  .hdr-l{min-width:0;flex:1;gap:10px;}
+  .hdr-r{flex-shrink:0;gap:8px;}
+  .hdr-logo{font-size:18px;white-space:nowrap;}
+  .hdr-name,.hdr-div{display:none;}
+  .hdr-gk{margin-right:0;padding:8px 10px;}
+  .btn-exit{padding:8px 12px;}
+  /* iOS: fonte <16px faz o Safari dar zoom sozinho ao focar o campo */
+  .fi,input,select,textarea{font-size:16px;}
+  /* alvos de toque com no mínimo 40px */
+  .btn,.btn-sm{min-height:40px;}
+  .btn-xs{min-height:32px;padding:6px 12px;}
+  .tut-nav-btn,.tab-btn{min-height:38px;}
+  /* respeitar entalhe/barra do iPhone */
+  .panel{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right));padding-bottom:calc(60px + env(safe-area-inset-bottom));}
+  #toast{left:12px;right:12px;bottom:calc(20px + env(safe-area-inset-bottom));text-align:center;}
+  .modal{max-height:calc(100vh - 24px);}
+  .modal-foot{position:sticky;bottom:0;background:var(--white);}
 }
 
 /* ── CELULAR (≤640px) ── */
@@ -399,7 +447,7 @@ textarea.fi{resize:vertical;min-height:76px;}
   .tm-title,.em-title,.lm-title{font-size:19px;}
   .modal-head h3{font-size:16px;}
   .fg label{font-size:10.5px;}
-  .fi{padding:9px 11px;font-size:13px;}
+  .fi{padding:10px 11px;font-size:16px;} /* 16px obrigatório: abaixo disso o iOS dá zoom sozinho */
 }
 
 /* ── TUTORIAL ── */
@@ -652,6 +700,7 @@ textarea.fi{resize:vertical;min-height:76px;}
     <div class="hdr-name" id="hdrNome">Central Tattoo · Sistema 2026</div>
   </div>
   <div class="hdr-r">
+    <button class="hdr-sync" id="hdrSync" onclick="ctForcarSync()" title="Estado da nuvem — toque para reenviar">☁️</button>
     <button class="hdr-gk" id="hdrGk" onclick="openGK()" title="Busca global">🔍 <span>Buscar · Ctrl+K</span></button>
     <span class="hdr-user">Olá, <span id="hdU">—</span></span>
     <button class="btn-exit" onclick="sair()">Sair →</button>
@@ -670,6 +719,7 @@ textarea.fi{resize:vertical;min-height:76px;}
 </div>
 
 
+<button id="btnTopo" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Voltar ao topo">↑</button>
 <div class="sb-overlay" id="sbOverlay" onclick="toggleSb()"></div>
 <div class="layout">
 <aside class="sb" id="sb"></aside>
@@ -838,8 +888,8 @@ textarea.fi{resize:vertical;min-height:76px;}
   <div class="kpi-grid" id="ldKpi"></div>
   <div class="card" style="margin-bottom:16px">
     <div style="padding:12px 12px 0;display:flex;gap:8px;flex-wrap:wrap">
-      <input type="text" id="ldSearch" placeholder="🔎 Buscar por nome ou telefone" oninput="rLd()" style="flex:1;min-width:220px;padding:8px 12px;border:1px solid var(--brd2);border-radius:8px;font-size:13px;font-family:inherit">
-      <select id="ldFiltroEtapa" onchange="rLd()" style="padding:8px 12px;border:1px solid var(--brd2);border-radius:8px;font-size:13px;font-family:inherit">
+      <input type="text" id="ldSearch" placeholder="🔎 Buscar por nome ou telefone" oninput="window.LD_LIMITE=50;rLd()" style="flex:1;min-width:220px;padding:8px 12px;border:1px solid var(--brd2);border-radius:8px;font-size:13px;font-family:inherit">
+      <select id="ldFiltroEtapa" onchange="window.LD_LIMITE=50;rLd()" style="padding:8px 12px;border:1px solid var(--brd2);border-radius:8px;font-size:13px;font-family:inherit">
         <option value="">Todas as etapas</option>
         <option value="contato">📩 Contato</option>
         <option value="orcamento">📋 Orçamento</option>
@@ -848,7 +898,7 @@ textarea.fi{resize:vertical;min-height:76px;}
         <option value="fechado">✅ Fechado</option>
         <option value="perdido">❌ Perdido</option>
       </select>
-      <select id="ldFiltroTemp" onchange="rLd()" style="padding:8px 12px;border:1px solid var(--brd2);border-radius:8px;font-size:13px;font-family:inherit">
+      <select id="ldFiltroTemp" onchange="window.LD_LIMITE=50;rLd()" style="padding:8px 12px;border:1px solid var(--brd2);border-radius:8px;font-size:13px;font-family:inherit">
         <option value="">Todas as temperaturas</option>
         <option value="quente">🔥 Quente</option>
         <option value="morno">⚡ Morno</option>
@@ -1529,7 +1579,7 @@ function nextToast(){if(!TOAST_Q.length)return;const t=document.getElementById('
 function bdg(s){const m={'Concluído':'b-green','Agendado':'b-blue','Confirmado':'b-gold','Cancelado':'b-red','Faltou':'b-yellow','Pago':'b-green','Pendente':'b-yellow','Em Andamento':'b-yellow','🟢 Ativo':'b-green','🟡 Retorno Pendente':'b-yellow','🔴 Inativo':'b-red','✅ Perfeita':'b-green','⚠️ Problemas':'b-red','🔄 Em Andamento':'b-yellow'};return`<span class="bdg ${m[s]||'b-gray'}">${s||'—'}</span>`;}
 function pb(pct,cls){const c=cls||(pct>=100?'pg-green':pct>=70?'pg-gold':'pg-red');return`<div class="prog"><div class="prog-f ${c}" style="width:${Math.min(pct,100)}%"></div></div>`;}
 function updDl(){const cl=gdb('ct_clientes');['dl1','dl2','dl3','dl4','dlPV'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=cl.map(c=>`<option value="${c.nome}">`).join('');});}
-function conf(){return gobj('ct_conf',{nome:'Carlos Tattoo BH',cnpj:'',tel:'',insta:'',end:'',cid:'Belo Horizonte, MG',email:'',site:'',espec:'',horario:'',reserva:10,mkt:7,anivTipo:'pct',anivVal:20});}
+function conf(){return gobj('ct_conf',{nome:'Carlos Tattoo BH',cnpj:'',tel:'',insta:'',end:'',cid:'Belo Horizonte, MG',email:'',site:'',espec:'',horario:'',reserva:10,giro:5,mkt:7,anivTipo:'pct',anivVal:20});}
 // ── Módulos que viram "gavetas" de dados (usados no backup E na sincronização com o Supabase) ──
 const CT_SYNC_KEYS=['ct_sessoes','ct_clientes','ct_projetos','ct_mov_estoque','ct_mkt_fundo','ct_reserva','ct_equipe','ct_followup','ct_financeiro','ct_fg_rec','ct_fg_dep','ct_estoque','ct_leads','ct_mg','ct_cicatri','ct_comissoes','ct_com_pct','ct_contratos','ct_precos','ct_mkt','ct_tg','ct_usuarios','ct_guias','ct_giro'];
 
@@ -1582,12 +1632,69 @@ const MT={1:1.0,2:1.3,3:1.6,4:2.2},MC={1:1.0,2:1.25,3:1.5};
   setTimeout(()=>{
     loadTG();buildFG();buildMG();initEst();migrarProjetosLegado();ctBackfillCliId();
     renderDash();calc();
+    try{ctLembrarBackup();}catch(e){}
   },100);
 })();
 
 // ── NAV & SIDEBAR ──
+/* ═══════════════════════════════════════════════════════════
+   INDICADOR DE NUVEM · VOLTAR AO TOPO · LEMBRETE DE BACKUP
+═══════════════════════════════════════════════════════════ */
+window.ctSyncEstado=function(estado,dica){
+  var el=document.getElementById('hdrSync'); if(!el)return;
+  el.classList.remove('ok','pend','off');
+  var mapa={ok:['ok','☁️','Tudo salvo na nuvem'],
+            pend:['pend','🔄','Enviando para a nuvem...'],
+            off:['off','⚠️','Sem conexão — salvo só neste aparelho']};
+  var m=mapa[estado]||mapa.ok;
+  el.classList.add(m[0]); el.textContent=m[1];
+  el.title=(dica||m[2])+' · toque para reenviar';
+};
+(function monitorarNuvem(){
+  function atualiza(){ ctSyncEstado(navigator.onLine?'ok':'off'); }
+  window.addEventListener('online',atualiza);
+  window.addEventListener('offline',atualiza);
+  // toda gravação em ct_* acende o indicador por 1,2s
+  var setOrig=localStorage.setItem.bind(localStorage);
+  localStorage.setItem=function(k,v){
+    setOrig(k,v);
+    if(typeof k==='string'&&k.indexOf('ct_')===0&&!/^ct_(sessao|trial_)/.test(k)){
+      if(navigator.onLine){ ctSyncEstado('pend');
+        clearTimeout(window._ctSyncT);
+        window._ctSyncT=setTimeout(function(){ctSyncEstado(navigator.onLine?'ok':'off');},1200);
+      } else ctSyncEstado('off');
+    }
+  };
+  setTimeout(atualiza,300);
+})();
+
+// Voltar ao topo
+window.addEventListener('scroll',function(){
+  var b=document.getElementById('btnTopo'); if(!b)return;
+  b.classList.toggle('on',window.scrollY>420);
+},{passive:true});
+
+// Lembrete de backup semanal (não incomoda mais de 1× por semana)
+function ctLembrarBackup(){
+  try{
+    var ult=localStorage.getItem('ct_ult_backup');
+    var dias=ult?Math.floor((Date.now()-new Date(ult).getTime())/864e5):999;
+    if(dias>=7){
+      setTimeout(function(){
+        showToast(ult?('⚠️ Último backup há '+dias+' dias — vale baixar um novo.')
+                     :'⚠️ Você ainda não baixou nenhum backup. Configurações → Baixar Backup.');
+      },4000);
+    }
+  }catch(e){}
+}
+
 function sair(){sessionStorage.removeItem('ct_sessao');window.location.href='acesso.html';}
-function toggleSb(){const sb=document.getElementById('sb'),ov=document.getElementById('sbOverlay');sb.classList.toggle('open');ov.classList.toggle('on');}
+function abrirSb(){const sb=document.getElementById('sb'),ov=document.getElementById('sbOverlay');if(!sb)return;sb.classList.add('open');if(ov)ov.classList.add('on');document.body.classList.add('sb-aberta');const b=document.getElementById('hbgBtn');if(b)b.setAttribute('aria-expanded','true');}
+function fecharSb(){const sb=document.getElementById('sb'),ov=document.getElementById('sbOverlay');if(sb)sb.classList.remove('open');if(ov)ov.classList.remove('on');document.body.classList.remove('sb-aberta');const b=document.getElementById('hbgBtn');if(b)b.setAttribute('aria-expanded','false');}
+function toggleSb(){const sb=document.getElementById('sb');if(!sb)return;sb.classList.contains('open')?fecharSb():abrirSb();}
+// ESC fecha o menu · voltar pro desktop fecha e destrava o scroll
+document.addEventListener('keydown',e=>{if(e.key==='Escape')fecharSb();});
+window.addEventListener('resize',()=>{if(window.innerWidth>900)fecharSb();});
 function buildSb(){
   const mn=IS_ADM?ADM_M:CLI_M;
   const isTrial=window.TRIAL_MODE===true;
@@ -1610,8 +1717,8 @@ function go(id){
   document.querySelectorAll('.sb-i').forEach(s=>s.classList.remove('on'));
   const p=document.getElementById('p-'+id),s=document.getElementById('si-'+id);
   if(p)p.classList.add('on');if(s)s.classList.add('on');
-  const ov=document.getElementById('sbOverlay'),sb=document.getElementById('sb');
-  if(ov&&sb){ov.classList.remove('on');sb.classList.remove('open');}
+  fecharSb();
+  if(window.innerWidth<=900){try{window.scrollTo({top:0,behavior:'instant'});}catch(e){window.scrollTo(0,0);}}
   const r={hoje:rHoje,automacoes:rAuto,dashboard:renderDash,agenda:rAg,clientes:rCl,projetos:rPj,followup:rFU,relacionamento:rRelac,financeiro:rFin,estoque:rEst,leads:rLd,metas:rMet,sinais:rSin,cicatrizacao:rCic,comissoes:rCom,relatorio:rRel,precos:rPr,marketing:rMkt,contratos:rCont,portal:rPortal,tutorial:rTutorial,configuracoes:rConf};
   if(r[id])r[id]();
 }
@@ -1641,12 +1748,18 @@ function rConf(){
 }
 function delUser(email){if(!confirm(`Remover acesso de ${email}?`))return;sdb('ct_usuarios',gdb('ct_usuarios').filter(u=>u.email!==email));rConf();showToast('Usuário removido.');}
 function backupData(){
-  const keys=[...CT_SYNC_KEYS,'ct_conf'];
-  const bk={v:'1.0',date:new Date().toISOString(),data:{}};
+  // Antes o backup usava só CT_SYNC_KEYS e deixava de fora ct_conf, ct_regras,
+  // ct_msgbank, ct_relmsg, ct_leadcamp, ct_logo, ct_acomp_feito, ct_fg_*, ct_aniv_*.
+  // Agora varre tudo que começa com ct_ (menos sessão, trial e lixo do site).
+  const ignorar=/^ct_(sessao|trial_|acessos|cookies|last_|cache_|deadline|pos_sessao)/;
+  const keys=[];
+  for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.indexOf('ct_')===0&&!ignorar.test(k))keys.push(k);}
+  const bk={v:'2.0',date:new Date().toISOString(),chaves:keys.length,data:{}};
   keys.forEach(k=>{const v=localStorage.getItem(k);if(v)bk.data[k]=v;});
   const blob=new Blob([JSON.stringify(bk,null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`Backup_CentralTattoo_${hoje()}.json`;a.click();
-  showToast('✅ Backup baixado!');
+  try{localStorage.setItem('ct_ult_backup',new Date().toISOString());}catch(e){}
+  showToast('✅ Backup baixado — '+keys.length+' gavetas de dados.');
 }
 function restoreData(inp){
   const f=inp.files[0];if(!f)return;
@@ -3855,21 +3968,27 @@ window.iniciarTrial=async function(){
     });
 
     if(error&&error.code==='23505'){
-      // Email já existe — verificar se trial ainda está válido
+      // E-mail já existe. O token NÃO volta mais nessa consulta:
+      // antes, digitar o e-mail de qualquer pessoa devolvia a credencial
+      // de acesso dela. Agora só é possível retomar no próprio aparelho,
+      // onde o token já está guardado.
       const{data:exRows}=await sbClient.rpc('trial_por_email',{p_email:email});
       const existing=exRows&&exRows[0];
-      if(existing&&new Date(existing.data_expiracao)>now){
-        // Reativar trial existente
-        localStorage.setItem('ct_trial_token',existing.token);
+      const tokenLocal=localStorage.getItem('ct_trial_token');
+      if(existing&&new Date(existing.data_expiracao)>now&&tokenLocal){
         localStorage.setItem('ct_trial_expiry',existing.data_expiracao);
         localStorage.setItem('ct_trial_nome',existing.nome);
         localStorage.setItem('ct_trial_email',existing.email);
         window.TRIAL_MODE=true;
-        window.TRIAL_DATA={token:existing.token,expiry:new Date(existing.data_expiracao),nome:existing.nome,email:existing.email};
+        window.TRIAL_DATA={token:tokenLocal,expiry:new Date(existing.data_expiracao),nome:existing.nome,email:existing.email};
         USER={nome:existing.nome,email:existing.email};
         document.getElementById('trial-modal').classList.remove('show');
         iniciarSistemaTrial(t);
         return;
+      } else if(existing&&new Date(existing.data_expiracao)>now){
+        err.innerHTML='Esse e-mail já tem um teste ativo. Abra o link que enviamos por e-mail/WhatsApp no aparelho onde você começou, ou fale com o Carlos.';
+        err.style.display='block';
+        btn.disabled=false;document.getElementById('tm-btn-text').textContent=t.btn_start;return;
       } else {
         err.textContent=t.err_exists;err.style.display='block';
         btn.disabled=false;document.getElementById('tm-btn-text').textContent=t.btn_start;return;
@@ -4034,11 +4153,11 @@ window.irParaCompra=function(){
   const lang=window.TRIAL_LANG||'pt';
   const link=BUY_LINKS[lang]||BUY_LINKS.pt;
 
-  // Marcar como convertido no Supabase (via RPC)
-  const token=localStorage.getItem('ct_trial_token');
-  if(sbClient&&token){
-    sbClient.rpc('marcar_status_trial',{p_token:token,p_status:'convertido'}).then(()=>{});
-  }
+  // ATENÇÃO: aqui NÃO se marca 'convertido'.
+  // Antes, clicar no botão já convertia o trial — dava acesso vitalício
+  // sem pagar nada e inflava a métrica de conversão com meros cliques.
+  // Quem converte agora é o webhook do Stripe (service_role), no pagamento real.
+  try{localStorage.setItem('ct_checkout_iniciado',new Date().toISOString());}catch(e){}
 
   window.open(link,'_blank');
 };
@@ -4510,7 +4629,11 @@ window.rLd=function(){
   });
   var colLb={contato:'📩 Contato',orcamento:'📋 Orçamento',negociacao:'🤝 Negociação',agendado:'📅 Agendado',fechado:'✅ Fechado',perdido:'❌ Perdido'};
   var tempLb={quente:'🔥 Quente',morno:'⚡ Morno',frio:'❄️ Frio'};
-  var linhasHtml=linhas.map(function(l){
+  // ── PAGINAÇÃO ── com 600+ leads, montar tudo de uma vez congela o celular.
+  if(typeof window.LD_LIMITE!=='number')window.LD_LIMITE=50;
+  var totalFiltrado=linhas.length;
+  var visiveis=linhas.slice(0,window.LD_LIMITE);
+  var linhasHtml=visiveis.map(function(l){
     var nome=(typeof ctLiveNome==='function'?ctLiveNome(l):null)||l.nome||'—';
     var tel=(typeof ctLiveTel==='function'?ctLiveTel(l):null)||l.tel||'';
     var telD=tel.replace(/\D/g,'');
@@ -4532,8 +4655,19 @@ window.rLd=function(){
   var tabela='<div class="tw"><table class="tbl"><thead><tr><th>Nome</th><th>WhatsApp</th><th>Etapa</th><th>Temperatura</th><th>Valor</th><th>Origem</th><th>Ações</th></tr></thead><tbody>'+
     (linhasHtml||'<tr><td colspan="7" class="empty-row"><p>Nenhum lead encontrado com esse filtro.</p></td></tr>')+
     '</tbody></table></div>';
+  var rodape='';
+  if(totalFiltrado>visiveis.length){
+    rodape='<div style="padding:14px;text-align:center;border-top:1px solid var(--brd)">'+
+      '<div style="font-size:12.5px;color:var(--tx3);margin-bottom:8px">Mostrando <strong>'+visiveis.length+'</strong> de <strong>'+totalFiltrado+'</strong> leads</div>'+
+      '<button class="btn btn-ghost btn-sm" onclick="window.LD_LIMITE+=50;rLd()">⬇ Carregar mais 50</button> '+
+      '<button class="btn btn-ghost btn-sm" onclick="window.LD_LIMITE=99999;rLd()">Mostrar todos ('+totalFiltrado+')</button>'+
+    '</div>';
+  } else if(window.LD_LIMITE>50 && totalFiltrado>50){
+    rodape='<div style="padding:12px;text-align:center;border-top:1px solid var(--brd)">'+
+      '<button class="btn btn-ghost btn-xs" onclick="window.LD_LIMITE=50;rLd()">↺ Voltar a mostrar 50</button></div>';
+  }
   var kb=document.getElementById('ldKanban');
-  if(kb)kb.innerHTML=stats+'<div class="card" style="margin-top:12px"><div class="card-h"><h3>📋 Todos os Leads</h3><span class="badge-count">'+linhas.length+'</span></div>'+tabela+'</div>';
+  if(kb)kb.innerHTML=stats+'<div class="card" style="margin-top:12px"><div class="card-h"><h3>📋 Todos os Leads</h3><span class="badge-count">'+totalFiltrado+'</span></div>'+tabela+rodape+'</div>';
 };
 
 /* ---------- DASHBOARD: Inteligência do Mês (ponto 12) ---------- */
