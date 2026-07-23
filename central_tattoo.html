@@ -1870,10 +1870,16 @@ if(chgP)sdb('ct_projetos',pjs);}catch(e){console.warn('[projeto status]',e);}
 try{const cic=gdb('ct_cicatri');let chgPV=false;
 sess.forEach(s=>{if(s.stat==='Concluído'&&!s.pvOk){
   const nmL=(s.cli||'').trim().toLowerCase();
-  if(nmL&&!cic.some(x=>(x.cli||'').trim().toLowerCase()===nmL&&x.data===s.data)){
+  // A checagem antiga era por cliente+data: se o mesmo cliente fizesse DOIS
+  // procedimentos no mesmo dia (ex.: reconstrução de aréola + tatuagem),
+  // o segundo era descartado em silêncio e ficava sem guia de cuidados.
+  // Agora cada sessão gera o seu próprio Pós-Venda, com o guia certo.
+  const jaTem=cic.some(x=>x.sessaoId?x.sessaoId===s.id
+    :((x.cli||'').trim().toLowerCase()===nmL&&x.data===s.data&&(x.est||'')===(s.est||'')));
+  if(nmL&&!jaTem){
     const ret=s.data?new Date(new Date(s.data+'T00:00:00').getTime()+30*86400000).toISOString().slice(0,10):'';
-    const _tp=/ar[eé]ola/i.test(s.est||'')?'Aréola':'Tatuagem';
-    cic.push({id:uid(),cli:s.cli,tel:s.tel||'',tipo:_tp,data:s.data||hoje(),ret,est:s.est||'',reg:'',stat:'🔄 Em Andamento',retq:'✅ Sim',guiaOk:0,avalOk:0,obs:'Criado automaticamente ao concluir a sessão'});
+    const _tp=/ar[eé]ola/i.test(s.est||'')?'Aréola':(/piercing/i.test(s.est||'')?'Piercing':'Tatuagem');
+    cic.push({id:uid(),sessaoId:s.id,cli:s.cli,tel:s.tel||'',tipo:_tp,data:s.data||hoje(),ret,est:s.est||'',reg:'',stat:'🔄 Em Andamento',retq:'✅ Sim',guiaOk:0,avalOk:0,obs:'Criado automaticamente ao concluir a sessão'});
     chgPV=true;
   }
   s.pvOk=1;chgS=true;
@@ -5404,6 +5410,593 @@ window.rMktFundo=function(){
 
 /* re-render se a aba de marketing já estiver aberta ao carregar este patch */
 try{ if(document.getElementById('p-marketing')&&document.getElementById('p-marketing').classList.contains('on')){ if(typeof rMkt==='function')rMkt(); } }catch(e){}
+
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   BARRAMENTO CENTRAL — todas as abas conversando
+   ───────────────────────────────────────────────────────────────────
+   Antes: só a Agenda criava sessão, e só sessão disparava a cadeia.
+   Cliente e Projeto ficavam mudos — o trabalho acontecia e o sistema
+   não sabia. Agora TODA porta de entrada passa por ctRegistrarServico(),
+   que cria a sessão e deixa conciliarSessoes() distribuir para
+   Financeiro · Reserva · Giro · Marketing · Comissões · Estoque ·
+   Pós-Venda · Projeto · Relacionamento · Dashboard · Metas · Relatório.
+═══════════════════════════════════════════════════════════════════ */
+
+/* Procedimento → estilo padrão, para o Pós-Venda escolher o guia certo */
+window.CT_PROCED={
+  'Tatuagem':{ic:'🖋️',estiloPadrao:'Realismo'},
+  'Aréola'  :{ic:'🎗️',estiloPadrao:'Aréola'},
+  'Piercing':{ic:'💎',estiloPadrao:'Piercing'}
+};
+
+/* Descobre o procedimento a partir do estilo gravado na sessão */
+window.ctProcedDe=function(est){
+  var e=(est||'').toLowerCase();
+  if(/ar[eé]ola/.test(e))return 'Aréola';
+  if(/piercing/.test(e))return 'Piercing';
+  return 'Tatuagem';
+};
+
+/* ─────────────────────────────────────────────────────────────
+   PORTA ÚNICA. Toda aba chama daqui.
+   d = {cliId, cli, tel, proced, est, loc, data, hora, val, sin,
+        stat, prof, projId, obs, origem, refId, mat}
+   origem: 'agenda' | 'ficha' | 'projeto' | 'lead'
+   refId : id do registro de origem — impede duplicidade
+───────────────────────────────────────────────────────────── */
+window.ctRegistrarServico=function(d){
+  d=d||{};
+  var db=gdb('ct_sessoes');
+
+  /* trava anti-duplicidade por origem+refId */
+  if(d.origem&&d.refId){
+    var jaExiste=db.find(function(s){return s.origem===d.origem&&s.refId===d.refId;});
+    if(jaExiste&&!d.forcar)return {ok:false,motivo:'duplicado',sessao:jaExiste};
+  }
+
+  var cli=(d.cli||'').trim();
+  if(!cli)return {ok:false,motivo:'sem_cliente'};
+
+  var proced=d.proced||ctProcedDe(d.est);
+  var est=d.est||(CT_PROCED[proced]?CT_PROCED[proced].estiloPadrao:'Realismo');
+  var val=R(d.val),sin=R(d.sin);
+
+  var s={
+    id:uid(),
+    data:d.data||hoje(),
+    hora:d.hora||'',
+    cli:cli,
+    cliId:d.cliId||(typeof ctCliIdByName==='function'?ctCliIdByName(cli):''),
+    tel:d.tel||'',
+    est:est,
+    stat:d.stat||'Concluído',
+    val:String(val),
+    sin:String(sin),
+    sal:String(Math.max(0,val-sin)),
+    dur:d.dur||'',
+    loc:d.loc||'',
+    obs:d.obs||'',
+    prof:d.prof||'',
+    projId:d.projId||'',
+    faltaMot:'',
+    mat:d.mat||[],
+    origem:d.origem||'ficha',
+    refId:d.refId||'',
+    criadoEm:new Date().toISOString()
+  };
+
+  db.push(s);
+  sdb('ct_sessoes',db);
+
+  /* espelha o telefone no cadastro do cliente se lá estiver vazio */
+  try{
+    var cls=gdb('ct_clientes'),ic=cls.findIndex(function(x){return x.id===s.cliId;});
+    if(ic>=0){
+      var mudou=false;
+      if(!cls[ic].tel&&s.tel){cls[ic].tel=s.tel;mudou=true;}
+      cls[ic].ultContato=s.data;mudou=true;
+      if(mudou)sdb('ct_clientes',cls);
+    }
+  }catch(e){}
+
+  /* dispara a cadeia inteira */
+  try{ conciliarSessoes(); }catch(e){ console.warn('[barramento/conciliação]',e); }
+  ctReRenderTudo();
+
+  return {ok:true,sessao:s};
+};
+
+/* Repinta todas as abas afetadas — o que estiver aberto atualiza na hora */
+window.ctReRenderTudo=function(){
+  ['renderDash','rAg','rCl','rPj','rFin','rCic','rRel','rMet','rSin','rCom','rEst','rFU','rRelac','rHoje','rLd']
+    .forEach(function(fn){ try{ if(typeof window[fn]==='function')window[fn](); }catch(e){} });
+  try{ if(typeof updDl==='function')updDl(); }catch(e){}
+};
+
+/* ═══════════════════════════════════════════════════
+   MODAL "+ ADICIONAR SERVIÇO" — porta na ficha do cliente
+═══════════════════════════════════════════════════ */
+window.ctAbrirServico=function(cliId,projId){
+  var c=gdb('ct_clientes').find(function(x){return x.id===cliId;});
+  if(!c){showToast('⚠️ Cliente não encontrado.');return;}
+
+  var m=document.getElementById('mServ');
+  if(!m){
+    m=document.createElement('div');m.className='modal-wrap';m.id='mServ';
+    m.innerHTML='<div class="modal" style="max-width:620px">'+
+      '<div class="modal-head"><h3 id="mServT">➕ Adicionar Serviço</h3>'+
+      '<button class="modal-close" onclick="closeM(\'mServ\')">✕</button></div>'+
+      '<div class="modal-body" id="mServB"></div>'+
+      '<div class="modal-foot">'+
+        '<button class="btn btn-ghost btn-sm" onclick="closeM(\'mServ\')">Cancelar</button>'+
+        '<button class="btn btn-primary btn-sm" onclick="ctSalvarServico()">💾 Registrar Serviço</button>'+
+      '</div></div>';
+    document.body.appendChild(m);
+  }
+
+  var eqp=gdb('ct_equipe');
+  var pjs=gdb('ct_projetos').filter(function(p){
+    return (p.cli||'').trim().toLowerCase()===(c.nome||'').trim().toLowerCase()&&p.st!=='📁 Arquivado';
+  });
+
+  document.getElementById('mServT').textContent='➕ Adicionar Serviço — '+(c.nome||'');
+  document.getElementById('mServB').innerHTML=
+    '<input type="hidden" id="svCliId" value="'+c.id+'">'+
+    '<div class="tut" style="margin-bottom:14px">💡 Ao registrar, o sistema cria a sessão e alimenta <strong>sozinho</strong>: Financeiro, fundos de Reserva/Giro/Marketing, Comissões, Pós-Venda com o guia certo, Projeto, Relacionamento, Dashboard, Metas e Relatório.</div>'+
+    '<div class="fg2">'+
+      '<div class="fg"><label>Procedimento</label><select class="fi" id="svProced" onchange="ctServProcedChange()">'+
+        '<option value="Tatuagem">🖋️ Tatuagem</option>'+
+        '<option value="Aréola">🎗️ Micropigmentação de Aréola</option>'+
+        '<option value="Piercing">💎 Piercing</option>'+
+      '</select></div>'+
+      '<div class="fg"><label>Estilo / Técnica</label><select class="fi" id="svEst">'+
+        ['Realismo','Blackwork','Fineline','Old School','New School','Geométrico','Aquarela','Minimalista','Oriental','Tribal','Cover Up','Aréola','Cicatriz','Piercing','Outro']
+          .map(function(e){return '<option>'+e+'</option>';}).join('')+
+      '</select></div>'+
+    '</div>'+
+    '<div class="fg2">'+
+      '<div class="fg"><label>Data do serviço</label><input class="fi" type="date" id="svData" value="'+hoje()+'"></div>'+
+      '<div class="fg"><label>Local do corpo</label><input class="fi" id="svLoc" placeholder="Ex: antebraço direito"></div>'+
+    '</div>'+
+    '<div class="fg3">'+
+      '<div class="fg"><label>Valor (R$)</label><input class="fi" type="number" id="svVal" placeholder="0" oninput="ctServSaldo()"></div>'+
+      '<div class="fg"><label>Sinal já pago (R$)</label><input class="fi" type="number" id="svSin" placeholder="0" oninput="ctServSaldo()"></div>'+
+      '<div class="fg"><label>Saldo</label><input class="fi" id="svSal" readonly style="background:#F9FAFB;color:var(--tx2)"></div>'+
+    '</div>'+
+    '<div class="fg2">'+
+      '<div class="fg"><label>Status</label><select class="fi" id="svStat">'+
+        '<option>Concluído</option><option>Agendado</option><option>Confirmado</option>'+
+      '</select></div>'+
+      '<div class="fg"><label>Profissional</label><select class="fi" id="svProf">'+
+        '<option value="">Eu (dono do estúdio)</option>'+
+        eqp.map(function(e){return '<option value="'+e.nome+'">'+e.nome+'</option>';}).join('')+
+      '</select></div>'+
+    '</div>'+
+    (pjs.length?'<div class="fg"><label>🎨 Vincular a um projeto</label><select class="fi" id="svProj">'+
+      '<option value="">— Serviço avulso —</option>'+
+      pjs.map(function(p){return '<option value="'+p.id+'"'+(p.id===projId?' selected':'')+'>'+p.nome+'</option>';}).join('')+
+     '</select></div>':'<input type="hidden" id="svProj" value="">')+
+    '<div class="fg"><label>Observações</label><textarea class="fi" id="svObs" rows="2" placeholder="Detalhes do que foi feito"></textarea></div>';
+
+  ctServProcedChange();
+  openM('mServ');
+};
+
+window.ctServProcedChange=function(){
+  var p=(document.getElementById('svProced')||{}).value||'Tatuagem';
+  var sel=document.getElementById('svEst'); if(!sel)return;
+  if(p==='Aréola')sel.value='Aréola';
+  else if(p==='Piercing')sel.value='Piercing';
+  else if(sel.value==='Aréola'||sel.value==='Piercing')sel.value='Realismo';
+};
+
+window.ctServSaldo=function(){
+  var v=R((document.getElementById('svVal')||{}).value),
+      s=R((document.getElementById('svSin')||{}).value),
+      el=document.getElementById('svSal');
+  if(el)el.value=Math.max(0,v-s).toFixed(2);
+};
+
+window.ctSalvarServico=function(){
+  var cliId=document.getElementById('svCliId').value;
+  var c=gdb('ct_clientes').find(function(x){return x.id===cliId;});
+  if(!c){showToast('⚠️ Cliente não encontrado.');return;}
+  var val=R(document.getElementById('svVal').value);
+  if(val<=0&&!confirm('Valor está zerado. Registrar mesmo assim?'))return;
+
+  var r=ctRegistrarServico({
+    cliId:c.id, cli:c.nome, tel:c.tel||'',
+    proced:document.getElementById('svProced').value,
+    est:document.getElementById('svEst').value,
+    loc:document.getElementById('svLoc').value,
+    data:document.getElementById('svData').value||hoje(),
+    val:val, sin:R(document.getElementById('svSin').value),
+    stat:document.getElementById('svStat').value,
+    prof:document.getElementById('svProf').value,
+    projId:(document.getElementById('svProj')||{}).value||'',
+    obs:document.getElementById('svObs').value,
+    origem:'ficha'
+  });
+
+  if(!r.ok){showToast('⚠️ Não foi possível registrar.');return;}
+  closeM('mServ');
+  var p=document.getElementById('svProced')?document.getElementById('svProced').value:'';
+  showToast('✅ Serviço registrado — Financeiro, fundos e Pós-Venda ('+p+') atualizados.');
+  try{ if(document.getElementById('mVC').classList.contains('on'))verCliente(c.id); }catch(e){}
+};
+
+/* ═══════════════════════════════════════════════════
+   PROJETO FINALIZADO → gera as sessões que faltam
+   Pergunta em quantas sessões o trabalho foi feito.
+═══════════════════════════════════════════════════ */
+window.ctProjetoGerarSessoes=function(projId,silencioso){
+  var p=gdb('ct_projetos').find(function(x){return x.id===projId;});
+  if(!p)return {ok:false};
+  var jaTem=gdb('ct_sessoes').filter(function(s){return s.projId===projId;});
+  if(jaTem.length)return {ok:false,motivo:'ja_tem_sessoes',qtd:jaTem.length};
+
+  var tot=R(p.valor);
+  var sug=R(p.sessPrev)||1;
+  var n=sug;
+  if(!silencioso){
+    var resp=prompt('O projeto "'+(p.nome||'')+'" ('+$R(tot)+') foi feito em quantas sessões?\n\n'+
+      'O sistema vai criar as sessões e dividir o valor entre elas —\n'+
+      'assim o ticket médio e o faturamento ficam corretos.',String(sug));
+    if(resp===null)return {ok:false,motivo:'cancelado'};
+    n=Math.max(1,Math.min(50,parseInt(resp,10)||1));
+  }
+
+  var c=gdb('ct_clientes').find(function(x){
+    return (x.nome||'').trim().toLowerCase()===(p.cli||'').trim().toLowerCase();
+  });
+  var valorPorSessao=Math.round(tot/n*100)/100;
+  var base=p.finalizadoEm||hoje();
+  var criadas=0;
+
+  for(var i=0;i<n;i++){
+    /* espaça as sessões de 21 em 21 dias para trás, da última para a primeira */
+    var d=new Date(base+'T00:00:00');
+    d.setDate(d.getDate()-(n-1-i)*21);
+    var dataSessao=d.toISOString().slice(0,10);
+    /* a última sessão absorve a sobra do arredondamento */
+    var v=(i===n-1)?Math.round((tot-valorPorSessao*(n-1))*100)/100:valorPorSessao;
+
+    var r=ctRegistrarServico({
+      cliId:c?c.id:'', cli:p.cli, tel:c?(c.tel||''):'',
+      proced:ctProcedDe(p.est), est:p.est||'Realismo',
+      loc:p.local||'', data:dataSessao,
+      val:v, sin:0, stat:'Concluído',
+      projId:p.id,
+      obs:'Sessão '+(i+1)+'/'+n+' do projeto "'+(p.nome||'')+'" — gerada na varredura',
+      origem:'projeto', refId:p.id+'#'+(i+1)
+    });
+    if(r.ok)criadas++;
+  }
+  return {ok:true,criadas:criadas,valorPorSessao:valorPorSessao};
+};
+
+/* finPj original passa a oferecer a geração das sessões */
+window._ctFinPjOrig=window.finPj;
+window.finPj=function(id){
+  try{ if(window._ctFinPjOrig)window._ctFinPjOrig(id); }catch(e){}
+  try{
+    var jaTem=gdb('ct_sessoes').filter(function(s){return s.projId===id;});
+    if(!jaTem.length){
+      var p=gdb('ct_projetos').find(function(x){return x.id===id;});
+      if(p&&R(p.valor)>0){
+        setTimeout(function(){
+          if(confirm('Esse projeto não tem nenhuma sessão registrada.\n\n'+
+             'Sem sessão, o trabalho não entra no Dashboard, nas Metas nem no ticket médio.\n\n'+
+             'Quer gerar as sessões agora?')){
+            var r=ctProjetoGerarSessoes(id);
+            if(r.ok)showToast('✅ '+r.criadas+' sessão(ões) criadas — faturamento e Pós-Venda atualizados.');
+          }
+        },400);
+      }
+    }
+  }catch(e){console.warn('[finPj barramento]',e);}
+};
+
+/* ═══════════════════════════════════════════════════
+   VARREDURA — acha tudo que aconteceu mas o sistema não soube
+═══════════════════════════════════════════════════ */
+window.ctVarrer=function(){
+  var achados=[];
+  var sess=gdb('ct_sessoes'),cls=gdb('ct_clientes'),
+      pjs=gdb('ct_projetos'),cic=gdb('ct_cicatri'),fin=gdb('ct_financeiro');
+
+  /* 1 · projetos com trabalho feito e nenhuma sessão */
+  pjs.forEach(function(p){
+    var temSessao=sess.some(function(s){return s.projId===p.id;});
+    var avancado=['✅ Finalizado','🎨 Em Andamento'].indexOf(p.st)>=0;
+    if(!temSessao&&avancado&&R(p.valor)>0){
+      achados.push({tipo:'projeto_sem_sessao',id:p.id,
+        titulo:(p.cli||'?')+' — '+(p.nome||'projeto'),
+        detalhe:p.st+' · '+$R(R(p.valor))+' · nenhuma sessão registrada',
+        acao:'Gerar sessões',gravidade:'alta'});
+    }
+  });
+
+  /* 2 · clientes com valor combinado mas zero sessão */
+  cls.forEach(function(c){
+    var nome=(c.nome||'').trim().toLowerCase();
+    var temSessao=sess.some(function(s){return (s.cli||'').trim().toLowerCase()===nome;});
+    var temProjeto=pjs.some(function(p){return (p.cli||'').trim().toLowerCase()===nome;});
+    if(!temSessao&&!temProjeto&&R(c.valor)>0){
+      achados.push({tipo:'cliente_sem_sessao',id:c.id,
+        titulo:c.nome||'cliente',
+        detalhe:'Valor de '+$R(R(c.valor))+' na ficha, mas nenhum serviço registrado',
+        acao:'Registrar serviço',gravidade:'alta'});
+    }
+  });
+
+  /* 3 · sessões concluídas sem Pós-Venda */
+  sess.forEach(function(s){
+    if(s.stat!=='Concluído')return;
+    var tem=cic.some(function(x){
+      return x.sessaoId?x.sessaoId===s.id
+        :((x.cli||'').trim().toLowerCase()===(s.cli||'').trim().toLowerCase()&&x.data===s.data);
+    });
+    if(!tem){
+      achados.push({tipo:'sessao_sem_pv',id:s.id,
+        titulo:(s.cli||'?')+' — '+(s.est||'sessão'),
+        detalhe:'Sessão concluída em '+(s.data||'?')+' sem registro de Pós-Venda',
+        acao:'Criar Pós-Venda',gravidade:'media'});
+    }
+  });
+
+  /* 4 · sessões concluídas que nunca entraram no Financeiro */
+  sess.forEach(function(s){
+    if(s.stat!=='Concluído'||R(s.val)<=0)return;
+    var tem=fin.some(function(f){return f.ref===s.id&&f.tipo==='receita';});
+    if(!tem){
+      achados.push({tipo:'sessao_sem_fin',id:s.id,
+        titulo:(s.cli||'?')+' — '+$R(R(s.val)),
+        detalhe:'Sessão concluída em '+(s.data||'?')+' sem receita no Financeiro',
+        acao:'Lançar receita',gravidade:'alta'});
+    }
+  });
+
+  /* 5 · Pós-Venda parado há mais de 10 dias sem pedido de avaliação */
+  cic.forEach(function(x){
+    if(x.avalOk)return;
+    if(!x.data)return;
+    var dias=Math.floor((Date.now()-new Date(x.data+'T00:00:00').getTime())/864e5);
+    if(dias>=10&&dias<=180){
+      achados.push({tipo:'pv_sem_avaliacao',id:x.id,
+        titulo:(x.cli||'?')+' — '+(x.tipo||'procedimento'),
+        detalhe:'Cicatrizou há '+dias+' dias e ainda não recebeu pedido de avaliação',
+        acao:'Pedir avaliação',gravidade:'media'});
+    }
+  });
+
+  /* 6 · clientes sem telefone — não dá pra acionar no WhatsApp */
+  cls.forEach(function(c){
+    if(!(c.tel||'').replace(/\D/g,'')){
+      achados.push({tipo:'cliente_sem_tel',id:c.id,
+        titulo:c.nome||'cliente',
+        detalhe:'Sem telefone — fica fora de Follow-Up, Relacionamento e campanhas',
+        acao:'Completar cadastro',gravidade:'baixa'});
+    }
+  });
+
+  return achados;
+};
+
+window.ctAbrirVarredura=function(){
+  var m=document.getElementById('mVarr');
+  if(!m){
+    m=document.createElement('div');m.className='modal-wrap';m.id='mVarr';
+    m.innerHTML='<div class="modal" style="max-width:780px">'+
+      '<div class="modal-head"><h3>🔎 Varredura do Sistema</h3>'+
+      '<button class="modal-close" onclick="closeM(\'mVarr\')">✕</button></div>'+
+      '<div class="modal-body" id="mVarrB"></div>'+
+      '<div class="modal-foot">'+
+        '<button class="btn btn-ghost btn-sm" onclick="closeM(\'mVarr\')">Fechar</button>'+
+        '<button class="btn btn-primary btn-sm" onclick="ctVarrerRender()">🔄 Verificar de novo</button>'+
+      '</div></div>';
+    document.body.appendChild(m);
+  }
+  ctVarrerRender();
+  openM('mVarr');
+};
+
+window.ctVarrerRender=function(){
+  var body=document.getElementById('mVarrB'); if(!body)return;
+  var a=ctVarrer();
+  if(!a.length){
+    body.innerHTML='<div style="text-align:center;padding:40px 20px">'+
+      '<div style="font-size:44px;margin-bottom:10px">✅</div>'+
+      '<div style="font-size:16px;font-weight:600;margin-bottom:4px">Tudo conversando</div>'+
+      '<div style="font-size:13px;color:var(--tx3)">Nenhuma inconsistência entre as abas.</div></div>';
+    return;
+  }
+  var cor={alta:'var(--red)',media:'var(--ylw)',baixa:'var(--tx3)'};
+  var rot={alta:'CRÍTICO',media:'ATENÇÃO',baixa:'MENOR'};
+  var porGrav={alta:0,media:0,baixa:0};
+  a.forEach(function(x){porGrav[x.gravidade]++;});
+
+  body.innerHTML=
+    '<div class="tut" style="margin-bottom:14px">Encontrei <strong>'+a.length+'</strong> ponto(s) onde o trabalho aconteceu mas o sistema não registrou. '+
+    '<span style="color:var(--red);font-weight:600">'+porGrav.alta+' crítico(s)</span> · '+
+    '<span style="color:var(--ylw);font-weight:600">'+porGrav.media+' atenção</span> · '+
+    porGrav.baixa+' menor(es).</div>'+
+    (porGrav.alta?'<button class="btn btn-primary btn-sm" style="width:100%;margin-bottom:14px" onclick="ctCorrigirTudo()">⚡ Corrigir automaticamente os '+porGrav.alta+' críticos</button>':'')+
+    a.map(function(x){
+      return '<div style="border:1px solid var(--brd);border-left:3px solid '+cor[x.gravidade]+';border-radius:9px;padding:11px 13px;margin-bottom:8px">'+
+        '<div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center">'+
+          '<div style="flex:1;min-width:200px">'+
+            '<div style="font-size:9.5px;font-weight:700;letter-spacing:1px;color:'+cor[x.gravidade]+'">'+rot[x.gravidade]+'</div>'+
+            '<strong style="font-size:13.5px">'+x.titulo+'</strong>'+
+            '<div style="font-size:12px;color:var(--tx3);margin-top:2px">'+x.detalhe+'</div>'+
+          '</div>'+
+          '<button class="btn btn-ghost btn-xs" onclick="ctCorrigir(\''+x.tipo+'\',\''+x.id+'\')">'+x.acao+'</button>'+
+        '</div></div>';
+    }).join('');
+};
+
+window.ctCorrigir=function(tipo,id){
+  if(tipo==='projeto_sem_sessao'){
+    var r=ctProjetoGerarSessoes(id);
+    if(r.ok)showToast('✅ '+r.criadas+' sessão(ões) criadas.');
+    else if(r.motivo==='ja_tem_sessoes')showToast('ℹ️ Esse projeto já tem sessões.');
+  }
+  else if(tipo==='cliente_sem_sessao'){ closeM('mVarr'); ctAbrirServico(id); return; }
+  else if(tipo==='sessao_sem_pv'||tipo==='sessao_sem_fin'){
+    var ss=gdb('ct_sessoes'),i=ss.findIndex(function(s){return s.id===id;});
+    if(i>=0){ if(tipo==='sessao_sem_pv')ss[i].pvOk=0; else ss[i].finOk=0; sdb('ct_sessoes',ss); }
+    try{conciliarSessoes();}catch(e){}
+    showToast('✅ Corrigido.');
+  }
+  else if(tipo==='pv_sem_avaliacao'){
+    closeM('mVarr');
+    if(typeof go==='function')go('cicatrizacao');
+    showToast('👉 Use "Pedir avaliação no Google" no Pós-Venda.');
+    return;
+  }
+  else if(tipo==='cliente_sem_tel'){ closeM('mVarr'); if(typeof editCl==='function')editCl(id); return; }
+  ctReRenderTudo(); ctVarrerRender();
+};
+
+window.ctCorrigirTudo=function(){
+  var a=ctVarrer().filter(function(x){return x.gravidade==='alta';});
+  if(!a.length)return;
+  if(!confirm('Corrigir '+a.length+' item(ns) crítico(s)?\n\n'+
+    'Projetos sem sessão vão perguntar em quantas sessões o trabalho foi feito.\n'+
+    'Clientes com valor na ficha precisam ser lançados um a um.'))return;
+  var feitos=0;
+  a.forEach(function(x){
+    if(x.tipo==='projeto_sem_sessao'){ var r=ctProjetoGerarSessoes(x.id); if(r.ok)feitos+=r.criadas; }
+    else if(x.tipo==='sessao_sem_fin'){
+      var ss=gdb('ct_sessoes'),i=ss.findIndex(function(s){return s.id===x.id;});
+      if(i>=0){ss[i].finOk=0;sdb('ct_sessoes',ss);feitos++;}
+    }
+  });
+  try{conciliarSessoes();}catch(e){}
+  ctReRenderTudo(); ctVarrerRender();
+  showToast('✅ '+feitos+' correção(ões) aplicadas.');
+};
+
+/* ═══════════════════════════════════════════════════
+   FICHA DO CLIENTE VIRA LINHA DO TEMPO DE SERVIÇOS
+   (a Conceição passa a mostrar aréola + tatuagem separados)
+═══════════════════════════════════════════════════ */
+window._ctVerClienteOrig=window.verCliente;
+window.verCliente=function(id){
+  try{ if(window._ctVerClienteOrig)window._ctVerClienteOrig(id); }catch(e){}
+  try{
+    var c=gdb('ct_clientes').find(function(x){return x.id===id;}); if(!c)return;
+    var nome=(c.nome||'').trim().toLowerCase();
+    var ss=gdb('ct_sessoes').filter(function(s){return (s.cli||'').trim().toLowerCase()===nome;})
+             .sort(function(a,b){return (b.data||'').localeCompare(a.data||'');});
+    var cic=gdb('ct_cicatri').filter(function(x){return (x.cli||'').trim().toLowerCase()===nome;});
+
+    /* agrupa por procedimento */
+    var porProc={};
+    ss.forEach(function(s){
+      var p=ctProcedDe(s.est);
+      if(!porProc[p])porProc[p]={qtd:0,total:0,ultima:'',itens:[]};
+      porProc[p].qtd++; porProc[p].total+=R(s.val);
+      if((s.data||'')>porProc[p].ultima)porProc[p].ultima=s.data||'';
+      porProc[p].itens.push(s);
+    });
+
+    var chaves=Object.keys(porProc);
+    var html='<div style="margin:16px 0 6px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">'+
+      '<strong>🧾 Serviços realizados</strong>'+
+      '<button class="btn btn-primary btn-xs" onclick="closeM(\'mVC\');ctAbrirServico(\''+c.id+'\')">➕ Adicionar Serviço</button>'+
+    '</div>';
+
+    if(!chaves.length){
+      html+='<div style="border:1px dashed var(--brd2);border-radius:10px;padding:16px;text-align:center;font-size:12.5px;color:var(--tx3)">'+
+        'Nenhum serviço registrado ainda.<br>Use <strong>➕ Adicionar Serviço</strong> — ele alimenta Financeiro, fundos, Pós-Venda e Dashboard de uma vez.</div>';
+    } else {
+      html+=chaves.map(function(p){
+        var d=porProc[p];
+        var ic=(CT_PROCED[p]||{}).ic||'🖋️';
+        var pv=cic.filter(function(x){return (x.tipo||'')===p;});
+        var guias=pv.filter(function(x){return x.guiaOk;}).length;
+        var avals=pv.filter(function(x){return x.avalOk;}).length;
+        return '<div style="border:1px solid var(--brd);border-radius:10px;padding:11px 13px;margin-bottom:8px">'+
+          '<div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center">'+
+            '<strong style="font-size:13.5px">'+ic+' '+p+'</strong>'+
+            '<span style="font-size:12px;color:var(--grn);font-weight:600">'+$R(d.total)+'</span>'+
+          '</div>'+
+          '<div style="font-size:12px;color:var(--tx3);margin-top:3px">'+
+            d.qtd+' sessão(ões) · última em '+(d.ultima?d.ultima.split('-').reverse().join('/'):'—')+
+            ' · guia '+(guias?'✅':'—')+' · avaliação '+(avals?'✅':'❌')+
+          '</div>'+
+          '<div style="font-size:11.5px;color:var(--tx4);margin-top:5px">'+
+            d.itens.slice(0,4).map(function(s){
+              return (s.data?s.data.split('-').reverse().join('/'):'—')+' · '+(s.est||'')+
+                     (s.loc?' · '+s.loc:'')+' · '+$R(R(s.val))+' · '+(s.stat||'');
+            }).join('<br>')+
+            (d.itens.length>4?'<br>+ '+(d.itens.length-4)+' anterior(es)':'')+
+          '</div>'+
+        '</div>';
+      }).join('');
+    }
+
+    var alvo=document.getElementById('mVCB');
+    if(alvo){
+      var marca=alvo.innerHTML.indexOf('<strong>🕐 Linha do Tempo</strong>');
+      if(marca>=0)alvo.innerHTML=alvo.innerHTML.slice(0,marca)+html+alvo.innerHTML.slice(marca);
+      else alvo.insertAdjacentHTML('beforeend',html);
+    }
+  }catch(e){console.warn('[ficha 360 serviços]',e);}
+};
+
+/* Botão "+ Serviço" direto na tabela de Clientes */
+window._ctRClOrig=window.rCl;
+window.rCl=function(){
+  try{ if(window._ctRClOrig)window._ctRClOrig.apply(this,arguments); }catch(e){}
+  try{
+    document.querySelectorAll('#clTb tr').forEach(function(tr){
+      if(tr.querySelector('.ct-btn-serv'))return;
+      var b=tr.querySelector('button[onclick*="verCliente("]');
+      if(!b)return;
+      var mm=/verCliente\('([^']+)'\)/.exec(b.getAttribute('onclick')||'');
+      if(!mm)return;
+      var td=b.closest('td'); if(!td)return;
+      var novo=document.createElement('button');
+      novo.className='btn btn-success btn-xs ct-btn-serv';
+      novo.title='Adicionar serviço'; novo.textContent='➕';
+      novo.setAttribute('onclick',"ctAbrirServico('"+mm[1]+"')");
+      td.insertBefore(novo,td.firstChild);
+    });
+  }catch(e){}
+};
+
+/* Varredura acessível: botão no Dashboard + alerta no boot */
+(function(){
+  function montarBotao(){
+    try{
+      var pan=document.getElementById('p-dashboard'); if(!pan)return;
+      if(document.getElementById('btnVarr'))return;
+      var acoes=pan.querySelector('.pg-actions'); if(!acoes)return;
+      var b=document.createElement('button');
+      b.id='btnVarr'; b.className='btn btn-ghost btn-sm';
+      b.textContent='🔎 Varredura'; b.setAttribute('onclick','ctAbrirVarredura()');
+      acoes.insertBefore(b,acoes.firstChild);
+    }catch(e){}
+  }
+  setTimeout(function(){
+    montarBotao();
+    try{
+      var criticos=ctVarrer().filter(function(x){return x.gravidade==='alta';}).length;
+      if(criticos){
+        var b=document.getElementById('btnVarr');
+        if(b){b.classList.remove('btn-ghost');b.classList.add('btn-danger');
+              b.textContent='🔎 Varredura ('+criticos+')';}
+        setTimeout(function(){
+          showToast('🔎 '+criticos+' registro(s) fora do sistema — abra a Varredura no Dashboard.');
+        },2600);
+      }
+    }catch(e){}
+  },1400);
+})();
 
 </script>
 </body>
