@@ -1826,12 +1826,21 @@ function saveTG(){sobj('ct_tg',{fat:document.getElementById('tFat').value,sess:d
 function conciliarSessoes(){try{
 const sess=gdb('ct_sessoes'),cls=gdb('ct_clientes'),fin=gdb('ct_financeiro'),eqp=gdb('ct_equipe'),com=gdb('ct_comissoes'),res=gdb('ct_reserva');
 const cf=conf();const pctRes=R(cf.reserva!==undefined&&cf.reserva!==''?cf.reserva:10);const mkf=gdb('ct_mkt_fundo');let chgMk=false;const gio=gdb('ct_giro');let chgGio=false;
+const pjsC=gdb('ct_projetos');let chgPjC=false;
 let chgS=false,chgC=false,chgF=false,chgCom=false,chgR=false;
 sess.forEach(s=>{if(s.stat==='Concluído'&&!s.finOk){
   const c=cls.find(x=>(x.nome||'').trim().toLowerCase()===(s.cli||'').trim().toLowerCase());
-  let cred=c?(c.sinalCred!==undefined?R(c.sinalCred):R(c.sinalReg)):0;
+  /* ── CRÉDITO É DO PROJETO, NUNCA DA PESSOA ──
+     Antes o crédito ficava no cliente: qualquer sessão dele — de qualquer
+     serviço — comia o adiantamento pago por OUTRA coisa. Foi assim que a
+     tatuagem avulsa de R$300 consumiu o sinal do projeto de aréola e nunca
+     entrou no Financeiro. Agora o abatimento só acontece dentro do projeto
+     que gerou o crédito. Sessão avulsa cobra cheio.                        */
+  const _pjS=s.projId?pjsC.find(x=>x.id===s.projId):null;
+  let cred=0;
+  if(_pjS){ cred=(_pjS.sinalCred!==undefined)?R(_pjS.sinalCred):(R(_pjS.sinalReg)||R(_pjS.sinal)); }
   const v=R(s.val),use=Math.min(cred,v),lanc=v-use;
-  if(c&&use>0){c.sinalCred=cred-use;chgC=true;}
+  if(_pjS&&use>0){_pjS.sinalCred=cred-use;chgPjC=true;}
   if(lanc>0){fin.push({id:uid(),tipo:'receita',data:s.data||hoje(),desc:'Sessão — '+(s.cli||'cliente')+(s.est?' ('+s.est+')':''),cat:'Sessão de Tatuagem',forma:'',val:String(lanc),ref:s.id,obs:'Conciliação automática de sessão concluída'+(use>0?' (abatido sinal de R$'+use.toFixed(2).replace('.',',')+')':''),cliId:c?c.id:'',auto:'sessao'});chgF=true;}
   /* Comissão automática da equipe */
   let vp=0;const memb=s.prof?eqp.find(e=>e.nome===s.prof):null;
@@ -1879,7 +1888,7 @@ sess.forEach(s=>{if(s.stat==='Concluído'&&!s.pvOk){
   s.pvOk=1;chgS=true;
 }});
 if(chgPV)sdb('ct_cicatri',cic);}catch(e){console.warn('[pós-venda automático]',e);}
-if(chgS)sdb('ct_sessoes',sess);if(chgC)sdb('ct_clientes',cls);if(chgF)sdb('ct_financeiro',fin);if(chgCom)sdb('ct_comissoes',com);if(chgR)sdb('ct_reserva',res);if(chgMk)sdb('ct_mkt_fundo',mkf);if(chgGio)sdb('ct_giro',gio);
+if(chgPjC)sdb('ct_projetos',pjsC);if(chgS)sdb('ct_sessoes',sess);if(chgC)sdb('ct_clientes',cls);if(chgF)sdb('ct_financeiro',fin);if(chgCom)sdb('ct_comissoes',com);if(chgR)sdb('ct_reserva',res);if(chgMk)sdb('ct_mkt_fundo',mkf);if(chgGio)sdb('ct_giro',gio);
 }catch(e){console.warn('[conciliação]',e);}}
 function renderDash(){
   conciliarSessoes();autoFollowUp();
@@ -2549,7 +2558,11 @@ function sCliPick(){const nm=(document.getElementById('sCli').value||'').trim().
 function novaSessaoCliente(cid){const c=gdb('ct_clientes').find(x=>x.id===cid);if(!c)return;novaSessao();document.getElementById('sCli').value=c.nome||'';document.getElementById('sTel').value=c.tel||'';sCliPick();}
 function novaSessao(){updDl();document.getElementById('sId').value='';['sData','sHora','sCli','sTel','sVal','sSin','sSal','sDur','sLoc','sObs'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('sEst').value='Blackwork';document.getElementById('sSt').value='Agendado';popProf();document.getElementById('sProf').value='';popProj();document.getElementById('sProj').value='';renderMatRows([]);document.getElementById('sFaltaMot').value='';stToggle();document.getElementById('mST').textContent='Nova Sessão';openM('mS');}
 function pjCalc(p){const ss=gdb('ct_sessoes').filter(s=>s.projId===p.id);const conc=ss.filter(s=>s.stat==='Concluído');
- const pago=Math.round((R(p.sinal)+R(p.pagoExtra)+conc.reduce((a,s)=>a+R(s.val),0)+ss.filter(s=>s.stat!=='Concluído'&&s.stat!=='Cancelado').reduce((a,s)=>a+R(s.sin),0))*100)/100;
+ /* O valor da sessão concluída JÁ inclui o sinal — somar p.sinal por fora
+    contava o mesmo dinheiro duas vezes (era o R$1.100 pago num projeto de
+    R$1.000). O sinal só entra sozinho enquanto nenhuma sessão foi concluída. */
+ const _sinalSolto=conc.length?0:R(p.sinal);
+ const pago=Math.round((_sinalSolto+R(p.pagoExtra)+conc.reduce((a,s)=>a+R(s.val),0)+ss.filter(s=>s.stat!=='Concluído'&&s.stat!=='Cancelado').reduce((a,s)=>a+R(s.sin),0))*100)/100;
  const tot=R(p.valor)||ss.reduce((a,s)=>a+R(s.val),0);
  return{ss,conc,pago,tot,saldo:Math.max(0,Math.round((tot-pago)*100)/100)};}
 function rPj(){updDl();const db=gdb('ct_projetos').sort((a,b)=>(b.criadoEm||'')>(a.criadoEm||'')?1:-1);
@@ -8474,6 +8487,425 @@ ldBancoRender=function(){
 setTimeout(function(){
   try{ var p=document.getElementById('p-hoje'); if(p&&p.classList.contains('on')&&typeof rHoje==='function')rHoje(); }catch(e){}
 },3000);
+</script>
+
+
+<!-- ═══ VÍNCULO SESSÃO↔CLIENTE (v19) ═══ -->
+<div class="modal-wrap" id="mOrf"><div class="modal" style="max-width:680px">
+  <div class="modal-head"><h3>🔗 Pessoas sem ficha no CRM</h3><button class="modal-close" onclick="closeM('mOrf')">✕</button></div>
+  <div class="modal-body"><div id="mOrfB"></div></div>
+</div></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   CENTRAL TATTOO — VÍNCULO SESSÃO ↔ CLIENTE  (correção v19)
+
+   O BUG: o campo Cliente da Agenda é texto livre. Ao salvar, o sistema
+   procurava o nome no CRM e, se não achasse, gravava cliId vazio e
+   seguia em frente. A sessão existia, o dinheiro entrava no faturamento,
+   mas a PESSOA não existia em lugar nenhum — sem ficha, sem histórico,
+   sem aniversário, sem retorno, sem cobrança, sem 360°.
+
+   A CORREÇÃO: nome novo passa a virar ficha na hora (com confirmação),
+   e existe um reparo que resgata todo mundo que já ficou órfão.
+═══════════════════════════════════════════════════════════════════ */
+
+/* cria a ficha e devolve o id */
+window.ctCriarClienteRapido=function(nome,extra){
+  extra=extra||{};
+  var cls=gdb('ct_clientes');
+  var chave=String(nome||'').trim().toLowerCase();
+  var jaTem=cls.find(function(c){return String(c.nome||'').trim().toLowerCase()===chave;});
+  if(jaTem)return jaTem.id;
+  var novo={
+    id:uid(), nome:String(nome||'').trim(), tel:extra.tel||'', email:'', insta:'', nasc:'',
+    cid:'', est:extra.est||'', stat:'🟢 Ativo', ind:'', ori:extra.ori||'Agenda', ret:'',
+    obs:extra.obs||'Ficha criada automaticamente a partir da Agenda.',
+    local:extra.loc||'', valor:extra.valor||'', sinal:extra.sinal||'', projSt:'',
+    cpf:'', endr:'', alerg:'', med:'', saude:'', emerg:'', img:'', contrato:'', lang:'pt',
+    respNome:'', respCpf:'', sinalReg:0, ultContato:hoje(), criadoEm:new Date().toISOString()
+  };
+  cls.push(novo); sdb('ct_clientes',cls);
+  return novo.id;
+};
+
+function ctAtualizarTelasCliente(){
+  try{ if(typeof updDl==='function')updDl(); }catch(e){}
+  try{ if(typeof rCl==='function')rCl(); }catch(e){}
+  try{ if(typeof ctPVClientes==='function')ctPVClientes(); }catch(e){}
+  try{ if(typeof fillCliSelect==='function'){fillCliSelect('fuCli');fillCliSelect('pjCli');fillCliSelect('ctCli');} }catch(e){}
+}
+
+/* ═══════════ saveSess com vínculo garantido ═══════════ */
+var _saveSessOrig=window.saveSess;
+window.saveSess=function(){
+  try{
+    var el=document.getElementById('sCli');
+    var nome=el?String(el.value||'').trim():'';
+    if(nome){
+      var id=ctCliIdByName(nome);
+      if(!id){
+        var ok=confirm('"'+nome+'" ainda não tem ficha no Clientes CRM.\n\nSem ficha essa pessoa não entra no histórico, no retorno, no aniversário nem no 360°.\n\nCriar a ficha agora?');
+        if(ok){
+          var t=document.getElementById('sTel'), e2=document.getElementById('sEst'),
+              lo=document.getElementById('sLoc'), v=document.getElementById('sVal'), si=document.getElementById('sSin');
+          ctCriarClienteRapido(nome,{
+            tel:t?t.value:'', est:e2?e2.value:'', loc:lo?lo.value:'',
+            valor:v?v.value:'', sinal:si?si.value:''
+          });
+          ctAtualizarTelasCliente();
+          showToast('👤 Ficha de "'+nome+'" criada no CRM.');
+        }
+      }
+    }
+  }catch(err){ console.warn('[vinculo sessao]',err); }
+  return _saveSessOrig.apply(this,arguments);
+};
+
+/* ═══════════ REPARO — quem já ficou órfão ═══════════ */
+window.ctOrfaos=function(){
+  var cls={}, out=[];
+  gdb('ct_clientes').forEach(function(c){ var k=String(c.nome||'').trim().toLowerCase(); if(k)cls[k]=1; });
+  var vistos={};
+  function add(nome,origem,dados){
+    var k=String(nome||'').trim().toLowerCase();
+    if(!k||cls[k])return;
+    if(vistos[k]){ if(vistos[k].origens.indexOf(origem)<0)vistos[k].origens.push(origem); return; }
+    vistos[k]={nome:String(nome).trim(),origens:[origem],dados:dados||{}};
+    out.push(vistos[k]);
+  }
+  gdb('ct_sessoes').forEach(function(s){ add(s.cli,'Agenda',{tel:s.tel,est:s.est,loc:s.loc,valor:s.val,sinal:s.sin}); });
+  gdb('ct_projetos').forEach(function(p){ add(p.cli,'Projetos',{est:p.est,valor:p.val}); });
+  gdb('ct_cicatri').forEach(function(x){ add(x.cli,'Pós-Venda',{tel:x.tel,est:x.est}); });
+  return out;
+};
+
+window.ctRepararOrfaos=function(){
+  var lista=ctOrfaos();
+  var body=document.getElementById('mOrfB'); if(!body)return;
+  if(!lista.length){
+    body.innerHTML='<div class="tut">✅ Tudo vinculado. Toda pessoa que aparece na Agenda, Projetos ou Pós-Venda tem ficha no CRM.</div>';
+    openM('mOrf'); return;
+  }
+  body.innerHTML=
+    '<div class="tut" style="margin-bottom:14px">⚠️ Estas pessoas aparecem em Agenda, Projetos ou Pós-Venda mas <strong>não têm ficha no Clientes CRM</strong>. Sem ficha elas não entram no histórico, no retorno, no aniversário nem no 360° — e o dinheiro delas aparece no faturamento sem dono.</div>'+
+    '<div style="margin-bottom:14px"><button class="btn btn-primary btn-sm" onclick="ctRepararTodos()">✅ Criar ficha de todas ('+lista.length+')</button></div>'+
+    lista.map(function(o){
+      return '<div class="opt-li" id="orf_'+relEsc(o.nome).replace(/[^a-zA-Z0-9]/g,'')+'">'+
+        '<div class="opt-li-i"><strong>'+relEsc(o.nome)+'</strong><span>aparece em: '+o.origens.join(' · ')+(o.dados.tel?' · '+relEsc(o.dados.tel):'')+'</span></div>'+
+        '<button class="btn btn-soft btn-xs" onclick="ctRepararUm(\''+encodeURIComponent(o.nome)+'\')">👤 Criar ficha</button>'+
+      '</div>';
+    }).join('');
+  openM('mOrf');
+};
+
+window.ctRepararUm=function(nomeEnc){
+  var nome=decodeURIComponent(nomeEnc);
+  var o=ctOrfaos().find(function(x){return x.nome===nome;});
+  ctCriarClienteRapido(nome,o?o.dados:{});
+  ctReligarIds();
+  ctAtualizarTelasCliente();
+  showToast('👤 Ficha de "'+nome+'" criada.');
+  ctRepararOrfaos();
+};
+
+window.ctRepararTodos=function(){
+  var lista=ctOrfaos();
+  if(!lista.length)return;
+  if(!confirm('Criar ficha no CRM para '+lista.length+' pessoa(s)?\n\nOs dados que já existem (telefone, estilo, valores) são aproveitados. Você pode completar depois.'))return;
+  lista.forEach(function(o){ ctCriarClienteRapido(o.nome,o.dados); });
+  ctReligarIds();
+  ctAtualizarTelasCliente();
+  showToast('✅ '+lista.length+' ficha(s) criada(s) no CRM.');
+  ctRepararOrfaos();
+  if(typeof rHoje==='function')try{rHoje();}catch(e){}
+};
+
+/* religa os cliId das sessões/projetos que estavam soltos */
+window.ctReligarIds=function(){
+  try{
+    var ss=gdb('ct_sessoes'), mud=false;
+    ss.forEach(function(s){
+      if(!s.cliId && s.cli){ var id=ctCliIdByName(s.cli); if(id){s.cliId=id;mud=true;} }
+    });
+    if(mud)sdb('ct_sessoes',ss);
+  }catch(e){}
+};
+
+/* ═══════════ CARD NA CENTRAL DE OPERAÇÕES ═══════════ */
+(function(){
+  if(typeof ctOportunidades!=='function')return;
+  var _origOp=ctOportunidades;
+  window.ctOportunidades=function(){
+    var o=_origOp.apply(this,arguments);
+    try{
+      var orf=ctOrfaos();
+      o.itens.unshift({
+        k:'orfaos', ic:'🔗', n:orf.length,
+        t:'pessoas sem ficha no CRM',
+        s:orf.length?'aparecem na Agenda mas não existem no CRM':'todo mundo vinculado',
+        cls:orf.length?'crit':'bom', lista:orf
+      });
+    }catch(e){}
+    return o;
+  };
+  var _origAbrir=ctOportAbrir;
+  window.ctOportAbrir=function(k){
+    if(k==='orfaos'){ ctRepararOrfaos(); return; }
+    return _origAbrir.apply(this,arguments);
+  };
+})();
+
+/* aviso único no boot, se houver órfãos */
+setTimeout(function(){
+  try{
+    ctReligarIds();
+    var n=ctOrfaos().length;
+    if(n && !sessionStorage.getItem('ct_orf_avisado')){
+      sessionStorage.setItem('ct_orf_avisado','1');
+      showToast('🔗 '+n+' pessoa(s) da Agenda ainda sem ficha no CRM — veja na Central de Operações.');
+    }
+  }catch(e){}
+},3400);
+</script>
+
+
+<!-- ═══ REPARO FINANCEIRO (v20) ═══ -->
+<div class="modal-wrap" id="mConc"><div class="modal" style="max-width:760px">
+  <div class="modal-head"><h3 id="mConcT">⚖️ Conciliação</h3><button class="modal-close" onclick="closeM('mConc')">✕</button></div>
+  <div class="modal-body"><div id="mConcB"></div></div>
+</div></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   CENTRAL TATTOO — REPARO FINANCEIRO v20
+   O núcleo já foi corrigido (crédito por projeto + pjCalc sem dupla
+   contagem). Aqui ficam as ferramentas para arrumar o que o bug antigo
+   já deixou torto na base — sempre com o Carlos aprovando cada passo.
+═══════════════════════════════════════════════════════════════════ */
+
+function _R(v){ return parseFloat(String(v==null?0:v).replace(/[^\d.-]/g,''))||0; }
+function _RS(v){ return 'R$ '+_R(v).toFixed(2).replace('.',','); }
+
+/* ── 1 · MIGRAÇÃO: crédito sai do cliente e vai para o projeto ── */
+window.ctMigrarCredito=function(silencioso){
+  try{
+    if(localStorage.getItem('ct_cred_migrado'))return 0;
+    var cls=gdb('ct_clientes'), pjs=gdb('ct_projetos'), mudou=0;
+    cls.forEach(function(c){
+      var cred=(c.sinalCred!==undefined)?_R(c.sinalCred):0;
+      if(cred<=0)return;
+      var meus=pjs.filter(function(p){ return String(p.cli||'').trim().toLowerCase()===String(c.nome||'').trim().toLowerCase(); });
+      var alvo=meus.find(function(p){return p.st!=='✅ Finalizado';})||meus[0];
+      if(alvo && alvo.sinalCred===undefined){ alvo.sinalCred=cred; mudou++; }
+    });
+    /* projetos que nunca tiveram crédito definido herdam o sinal registrado */
+    pjs.forEach(function(p){
+      if(p.sinalCred===undefined){
+        var jaUsou=gdb('ct_sessoes').some(function(s){return s.projId===p.id&&s.stat==='Concluído'&&s.finOk;});
+        p.sinalCred=jaUsou?0:(_R(p.sinalReg)||_R(p.sinal));
+        mudou++;
+      }
+    });
+    if(mudou)sdb('ct_projetos',pjs);
+    localStorage.setItem('ct_cred_migrado',hoje());
+    if(mudou&&!silencioso)showToast('🔄 Crédito migrado para o projeto em '+mudou+' registro(s).');
+    return mudou;
+  }catch(e){ console.warn('[migrar credito]',e); return 0; }
+};
+
+/* ── 2 · CAÇA AO DINHEIRO QUE NÃO FOI LANÇADO ──
+   Sessão avulsa (sem projeto) tinha que lançar o valor cheio. Se lançou
+   menos, foi o bug antigo comendo crédito de outro serviço.              */
+window.ctReceitaFaltante=function(){
+  var ses=gdb('ct_sessoes'), fin=gdb('ct_financeiro'), out=[];
+  ses.forEach(function(s){
+    if(s.stat!=='Concluído')return;
+    if(s.projId)return;                       /* sessão de projeto pode abater legitimamente */
+    var esperado=_R(s.val); if(esperado<=0)return;
+    var lancado=fin.filter(function(f){return f.tipo==='receita'&&f.ref===s.id;})
+                   .reduce(function(a,f){return a+_R(f.val);},0);
+    var falta=Math.round((esperado-lancado)*100)/100;
+    if(falta>0.01)out.push({s:s,esperado:esperado,lancado:lancado,falta:falta});
+  });
+  return out;
+};
+
+window.ctPainelReceitaFaltante=function(){
+  var lst=ctReceitaFaltante();
+  document.getElementById('mConcT').textContent='💰 Receita de serviço avulso não lançada';
+  var b=document.getElementById('mConcB');
+  if(!lst.length){ b.innerHTML='<div class="tut">✅ Nenhuma. Todo serviço avulso concluído está lançado pelo valor cheio.</div>'; openM('mConc'); return; }
+  var total=lst.reduce(function(a,x){return a+x.falta;},0);
+  b.innerHTML='<div class="tut" style="margin-bottom:14px">Estes serviços foram feitos <strong>fora de um projeto</strong>, então deveriam ter entrado no Financeiro pelo valor cheio. O bug antigo abateu crédito de outro serviço e engoliu a diferença.</div>'+
+    '<div style="margin-bottom:14px"><button class="btn btn-primary btn-sm" onclick="ctLancarReceitaFaltante()">✅ Lançar '+_RS(total)+' no Financeiro</button></div>'+
+    lst.map(function(x){
+      return '<div class="opt-li"><div class="opt-li-i"><strong>'+relEsc(x.s.cli||'—')+' · '+relEsc(x.s.est||'serviço')+'</strong>'+
+        '<span>'+(x.s.data||'—')+' · valor '+_RS(x.esperado)+' · lançado '+_RS(x.lancado)+'</span></div>'+
+        '<span class="bdg b-red">falta '+_RS(x.falta)+'</span></div>';
+    }).join('');
+  openM('mConc');
+};
+
+window.ctLancarReceitaFaltante=function(){
+  var lst=ctReceitaFaltante(); if(!lst.length)return;
+  var total=lst.reduce(function(a,x){return a+x.falta;},0);
+  if(!confirm('Lançar '+_RS(total)+' em '+lst.length+' entrada(s) de receita no Financeiro?\n\nSão serviços avulsos já concluídos cuja receita ficou de fora. Você pode editar ou apagar cada lançamento depois.'))return;
+  var fin=gdb('ct_financeiro');
+  lst.forEach(function(x){
+    fin.push({ id:uid(), tipo:'receita', data:x.s.data||hoje(),
+      desc:'Serviço avulso — '+(x.s.cli||'cliente')+(x.s.est?' ('+x.s.est+')':''),
+      cat:'Sessão de Tatuagem', forma:'', val:String(x.falta), ref:x.s.id,
+      cliId:x.s.cliId||'', projId:'', auto:'reparo',
+      obs:'Reparo: receita de serviço avulso que o cálculo antigo abateu como crédito.' });
+  });
+  sdb('ct_financeiro',fin);
+  showToast('✅ '+_RS(total)+' lançado(s) no Financeiro.');
+  try{ if(typeof rFin==='function')rFin(); if(typeof rHoje==='function')rHoje(); }catch(e){}
+  ctPainelReceitaFaltante();
+};
+
+/* ── 3 · CONCILIAÇÃO PROJETO A PROJETO ── */
+window.ctConciliacao=function(){
+  var pjs=gdb('ct_projetos'), fin=gdb('ct_financeiro'), ses=gdb('ct_sessoes');
+  return pjs.map(function(p){
+    var calc=(typeof pjCalc==='function')?pjCalc(p):{pago:0,saldo:0};
+    var caixa=fin.filter(function(f){return f.tipo==='receita'&&f.projId===p.id;}).reduce(function(a,f){return a+_R(f.val);},0);
+    var nSes=ses.filter(function(s){return s.projId===p.id&&s.stat==='Concluído';}).length;
+    return { p:p, contratado:_R(p.valor), pago:_R(calc.pago), saldo:_R(calc.saldo),
+             caixa:caixa, sessoes:nSes, excesso:Math.round((_R(calc.pago)-_R(p.valor))*100)/100 };
+  });
+};
+
+window.ctPainelConciliacao=function(){
+  var lst=ctConciliacao();
+  document.getElementById('mConcT').textContent='⚖️ Conciliação dos projetos';
+  var probl=lst.filter(function(x){return x.excesso>0.01;});
+  var b=document.getElementById('mConcB');
+  b.innerHTML=
+    '<div class="tut" style="margin-bottom:14px">Comparação entre o valor <strong>contratado</strong> e o que o sistema registra como <strong>recebido</strong>. Diferença positiva quase sempre é lançamento duplicado do bug antigo.</div>'+
+    (probl.length?'<div class="tut" style="margin-bottom:14px;border-left:3px solid var(--red)">⚠️ <strong>'+probl.length+' projeto(s) com valor recebido acima do contratado.</strong> Eu <u>não</u> apago lançamento financeiro sozinho — é o seu dinheiro e só você sabe o que de fato entrou. Clique em cada um pra revisar no Financeiro.</div>':'')+
+    '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:12.5px">'+
+    '<tr style="text-align:left;color:var(--tx3);border-bottom:1px solid var(--brd)">'+
+      '<th style="padding:7px 4px">Cliente</th><th>Contratado</th><th>Registrado</th><th>Sessões</th><th>Situação</th></tr>'+
+    lst.map(function(x){
+      var cor=x.excesso>0.01?'var(--red)':(x.saldo>0?'var(--ylw)':'var(--grn)');
+      var sit=x.excesso>0.01?('excesso de '+_RS(x.excesso)):(x.saldo>0?('falta '+_RS(x.saldo)):'quitado ✓');
+      return '<tr style="border-bottom:1px solid var(--brd)">'+
+        '<td style="padding:8px 4px"><strong>'+relEsc(x.p.cli||'—')+'</strong><br><span style="color:var(--tx3);font-size:11px">'+relEsc(x.p.nome||'')+'</span></td>'+
+        '<td>'+_RS(x.contratado)+'</td><td>'+_RS(x.pago)+'</td><td style="text-align:center">'+x.sessoes+'</td>'+
+        '<td style="color:'+cor+';font-weight:700">'+sit+'</td></tr>';
+    }).join('')+'</table></div>'+
+    '<div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">'+
+      '<button class="btn btn-soft btn-sm" onclick="closeM(\'mConc\');go(\'financeiro\')">💰 Abrir Financeiro</button>'+
+      '<button class="btn btn-soft btn-sm" onclick="ctPainelReceitaFaltante()">💸 Receita não lançada</button>'+
+      '<button class="btn btn-soft btn-sm" onclick="ctPainelSemDono()">🔗 Lançamentos sem dono</button>'+
+    '</div>';
+  openM('mConc');
+};
+
+/* ── 4 · LANÇAMENTOS SEM CLIENTE VINCULADO ── */
+window.ctLancamentosSemDono=function(){
+  var cls=gdb('ct_clientes'), ids={};
+  cls.forEach(function(c){ ids[c.id]=c.nome; });
+  return gdb('ct_financeiro').filter(function(f){
+    if(f.tipo!=='receita')return false;
+    return !f.cliId || !ids[f.cliId];
+  });
+};
+
+window.ctPainelSemDono=function(){
+  var lst=ctLancamentosSemDono();
+  document.getElementById('mConcT').textContent='🔗 Lançamentos sem cliente vinculado';
+  var b=document.getElementById('mConcB');
+  if(!lst.length){ b.innerHTML='<div class="tut">✅ Toda receita está vinculada a uma ficha do CRM.</div>'; openM('mConc'); return; }
+  var total=lst.reduce(function(a,f){return a+_R(f.val);},0);
+  b.innerHTML='<div class="tut" style="margin-bottom:14px">'+lst.length+' receita(s) somando <strong>'+_RS(total)+'</strong> não apontam para nenhuma ficha do CRM. Elas entram no faturamento mas não aparecem no histórico de ninguém — então não geram retorno, cobrança nem 360°.</div>'+
+    lst.map(function(f){
+      return '<div class="opt-li"><div class="opt-li-i"><strong>'+relEsc(f.desc||'(sem descrição)')+'</strong>'+
+        '<span>'+(f.data||'—')+' · '+(f.cat||'sem categoria')+'</span></div>'+
+        '<span class="bdg b-yellow">'+_RS(f.val)+'</span></div>';
+    }).join('')+
+    '<div class="tut" style="margin-top:14px">💡 Para vincular: abra o Financeiro, edite o lançamento e escolha o cliente. Se a pessoa ainda não tem ficha, crie primeiro em Clientes CRM.</div>'+
+    '<div style="margin-top:10px"><button class="btn btn-primary btn-sm" onclick="closeM(\'mConc\');go(\'financeiro\')">💰 Abrir Financeiro</button></div>';
+  openM('mConc');
+};
+
+/* ── 5 · CARDS NA CENTRAL DE OPERAÇÕES ── */
+(function(){
+  if(typeof ctOportunidades!=='function')return;
+  var _op=ctOportunidades;
+  window.ctOportunidades=function(){
+    var o=_op.apply(this,arguments);
+    try{
+      var falt=ctReceitaFaltante();
+      var faltTot=falt.reduce(function(a,x){return a+x.falta;},0);
+      var conc=ctConciliacao().filter(function(x){return x.excesso>0.01;});
+      var semDono=ctLancamentosSemDono();
+      o.itens.splice(1,0,
+        {k:'faltante', ic:'💸', n:falt.length, t:'serviços avulsos não lançados',
+         s:falt.length?_RS(faltTot)+' de receita fora do caixa':'toda receita lançada',
+         cls:falt.length?'crit':'bom', lista:falt},
+        {k:'conciliar', ic:'⚖️', n:conc.length, t:'projetos com valor divergente',
+         s:conc.length?'recebido acima do contratado — revisar':'contratado e recebido batem',
+         cls:conc.length?'aten':'bom', lista:conc},
+        {k:'semdono', ic:'🔗', n:semDono.length, t:'receitas sem cliente vinculado',
+         s:semDono.length?'não aparecem no histórico de ninguém':'tudo vinculado',
+         cls:semDono.length?'aten':'bom', lista:semDono}
+      );
+    }catch(e){ console.warn('[cards financeiros]',e); }
+    return o;
+  };
+  var _ab=ctOportAbrir;
+  window.ctOportAbrir=function(k){
+    if(k==='faltante'){ ctPainelReceitaFaltante(); return; }
+    if(k==='conciliar'){ ctPainelConciliacao(); return; }
+    if(k==='semdono'){ ctPainelSemDono(); return; }
+    return _ab.apply(this,arguments);
+  };
+})();
+
+/* ── 6 · AVISO DE CRÉDITO NA TELA DA SESSÃO ── */
+window.ctAvisoCredito=function(){
+  try{
+    var sel=document.getElementById('sProj'); if(!sel)return;
+    var alvo=document.getElementById('ctCredAviso');
+    if(!alvo){
+      alvo=document.createElement('div'); alvo.id='ctCredAviso';
+      alvo.style.cssText='font-size:12px;margin-top:6px;padding:8px 10px;border-radius:8px;display:none';
+      sel.parentNode.appendChild(alvo);
+    }
+    var pid=sel.value;
+    if(!pid){
+      alvo.style.cssText+=';display:block;background:var(--goldb);border:1px solid var(--goldbrd);color:var(--tx2)';
+      alvo.innerHTML='🧾 <strong>Serviço avulso.</strong> Vai ser lançado pelo valor cheio no Financeiro — não abate crédito de nenhum projeto.';
+      return;
+    }
+    var p=gdb('ct_projetos').find(function(x){return x.id===pid;});
+    var cred=p?((p.sinalCred!==undefined)?_R(p.sinalCred):(_R(p.sinalReg)||_R(p.sinal))):0;
+    alvo.style.display='block';
+    if(cred>0){
+      alvo.style.background='#ECFDF5'; alvo.style.border='1px solid var(--grn)'; alvo.style.color='var(--grn2)';
+      alvo.innerHTML='💳 <strong>'+_RS(cred)+' de crédito</strong> disponível no projeto <em>'+relEsc(p.nome||'')+'</em>. Ao concluir, o sistema abate desse saldo e lança só a diferença.';
+    }else{
+      alvo.style.background='var(--goldb)'; alvo.style.border='1px solid var(--goldbrd)'; alvo.style.color='var(--tx2)';
+      alvo.innerHTML='🧾 Projeto sem crédito disponível — a sessão será lançada pelo valor cheio.';
+    }
+  }catch(e){}
+};
+document.addEventListener('change',function(e){ if(e.target&&e.target.id==='sProj')ctAvisoCredito(); });
+
+/* ── boot ── */
+setTimeout(function(){
+  try{
+    ctMigrarCredito(true);
+    var f=ctReceitaFaltante();
+    if(f.length && !sessionStorage.getItem('ct_falt_avisado')){
+      sessionStorage.setItem('ct_falt_avisado','1');
+      showToast('💸 '+_RS(f.reduce(function(a,x){return a+x.falta;},0))+' de receita avulsa fora do caixa — veja na Central de Operações.');
+    }
+  }catch(e){}
+},3800);
 </script>
 
 </body>
