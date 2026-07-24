@@ -1167,7 +1167,7 @@ body.sb-aberta .hbg span:nth-child(3){transform:translateY(-7px) rotate(-45deg);
   <div class="modal-head"><h3 id="mST">Nova Sessão</h3><button class="modal-close" onclick="closeM('mS')">✕</button></div>
   <div class="modal-body"><input type="hidden" id="sId">
     <div class="fg2"><div class="fg"><label>Data</label><input class="fi" type="date" id="sData"></div><div class="fg"><label>Hora</label><input class="fi" type="time" id="sHora"></div></div>
-    <div class="fg2"><div class="fg"><label>Cliente</label><input class="fi" id="sCli" list="dl1" onchange="sCliPick()" onblur="sCliPick()"></div><div class="fg"><label>Telefone</label><input class="fi" id="sTel"></div></div>
+    <div class="fg2"><div class="fg"><label>Cliente <span style="font-weight:400;color:var(--tx3);font-size:11px">— só quem tem ficha no CRM</span></label><div style="display:flex;gap:6px"><select class="fi" id="sCli" onchange="sCliPick()" style="flex:1"><option value="">— escolha um cliente —</option></select><button type="button" class="btn btn-soft btn-sm" style="white-space:nowrap" onclick="ctNovoClienteRapido()">+ Novo</button></div></div><div class="fg"><label>Telefone</label><input class="fi" id="sTel"></div></div>
     <datalist id="dl1"></datalist>
     <div class="fg2"><div class="fg"><label>Estilo</label><select class="fi" id="sEst"><option>Blackwork</option><option>Realismo</option><option>Old School</option><option>New School</option><option>Geométrico</option><option>Aquarela</option><option>Minimalista</option><option>Oriental</option><option>Fineline</option><option>Aréola</option><option>Cicatriz</option><option>Tribal</option><option>Cover Up</option><option>Outro</option></select></div><div class="fg"><label>Status</label><select class="fi" id="sSt" onchange="stToggle()"><option>Agendado</option><option>Confirmado</option><option>Concluído</option><option>Cancelado</option><option>Faltou</option></select></div></div>
     <div class="fg" id="sFaltaBox" style="display:none"><label>Motivo da falta / cancelamento</label><input class="fi" id="sFaltaMot" placeholder="Ex: imprevisto no trabalho — quer remarcar semana que vem"></div>
@@ -8906,6 +8906,160 @@ setTimeout(function(){
     }
   }catch(e){}
 },3800);
+</script>
+
+
+<!-- ═══ PORTA ÚNICA DE CLIENTE (v21) ═══ -->
+<div class="modal-wrap" id="mNovoCli"><div class="modal" style="max-width:460px">
+  <div class="modal-head"><h3>👤 Novo cliente</h3><button class="modal-close" onclick="closeM('mNovoCli')">✕</button></div>
+  <div class="modal-body">
+    <div class="tut" style="margin-bottom:14px">A ficha nasce aqui e vale pro sistema inteiro — Agenda, Projetos, Financeiro, Pós-Venda e 360°. Você completa o resto depois em Clientes CRM.</div>
+    <div class="fg"><label>Nome *</label><input class="fi" id="ncNome" placeholder="Nome completo"></div>
+    <div class="fg"><label>WhatsApp *</label><input class="fi" id="ncTel" placeholder="31 9 9999-9999"></div>
+    <div class="fg2">
+      <div class="fg"><label>Estilo</label><input class="fi" id="ncEst" placeholder="Fineline, Aréola, Realismo..."></div>
+      <div class="fg"><label>Origem</label><input class="fi" id="ncOri" placeholder="Instagram, Google, indicação..."></div>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px">
+      <button class="btn btn-ghost btn-sm" onclick="closeM('mNovoCli')">Cancelar</button>
+      <button class="btn btn-primary btn-sm" onclick="ctSalvarNovoCliente()">💾 Criar ficha</button>
+    </div>
+  </div>
+</div></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   CENTRAL TATTOO — PORTA ÚNICA DE CLIENTE (v21)
+
+   O problema estrutural: o nome do cliente era texto livre na Agenda.
+   Qualquer nome digitado virava uma "pessoa" que não existia em lugar
+   nenhum — foi assim que a Jessica ficou órfã, com sessão, pós-venda e
+   faturamento, mas sem ficha.
+
+   A regra agora: a ficha do CRM é a ÚNICA origem de cliente.
+   · Agenda, Projetos, Pós-Venda e Financeiro só oferecem quem já existe.
+   · Não existe mais campo de digitar nome solto.
+   · Precisa de alguém novo? "+ Novo" cria a ficha na hora, no CRM.
+   · E o que já ficou torto é consertado sozinho na abertura, sem clique.
+═══════════════════════════════════════════════════════════════════ */
+
+/* ── 1 · popular o seletor da Agenda ── */
+window.ctPopularSelCliente=function(valorAtual){
+  var sel=document.getElementById('sCli'); if(!sel)return;
+  var atual=valorAtual!==undefined?valorAtual:sel.value;
+  var cls=gdb('ct_clientes').slice().sort(function(a,b){
+    return String(a.nome||'').localeCompare(String(b.nome||''),'pt-BR');
+  });
+  sel.innerHTML='<option value="">— escolha um cliente —</option>'+
+    cls.map(function(c){
+      return '<option value="'+relEsc(c.nome)+'" data-id="'+c.id+'">'+relEsc(c.nome)+'</option>';
+    }).join('');
+  if(atual)sel.value=atual;
+};
+
+/* mantém o seletor cheio sempre que a agenda abre */
+(function(){
+  var alvos=['openSess','novaSessao','editSess','abrirSessao'];
+  alvos.forEach(function(fn){
+    if(typeof window[fn]!=='function')return;
+    var orig=window[fn];
+    window[fn]=function(){
+      var r=orig.apply(this,arguments);
+      setTimeout(function(){
+        var sel=document.getElementById('sCli');
+        var manter=sel?sel.value:'';
+        ctPopularSelCliente(manter);
+        if(typeof ctAvisoCredito==='function')ctAvisoCredito();
+      },30);
+      return r;
+    };
+  });
+})();
+
+/* ── 2 · cadastro rápido a partir da Agenda ── */
+window.ctNovoClienteRapido=function(){
+  ['ncNome','ncTel','ncEst','ncOri'].forEach(function(id){
+    var el=document.getElementById(id); if(el)el.value='';
+  });
+  var tel=document.getElementById('sTel');
+  if(tel&&tel.value)document.getElementById('ncTel').value=tel.value;
+  var est=document.getElementById('sEst');
+  if(est&&est.value)document.getElementById('ncEst').value=est.value;
+  openM('mNovoCli');
+  setTimeout(function(){ var n=document.getElementById('ncNome'); if(n)n.focus(); },80);
+};
+
+window.ctSalvarNovoCliente=function(){
+  var nome=(document.getElementById('ncNome').value||'').trim();
+  var tel=(document.getElementById('ncTel').value||'').trim();
+  if(!nome){ showToast('⚠️ O nome é obrigatório.'); return; }
+  if(!tel){ showToast('⚠️ O WhatsApp é obrigatório — sem ele a pessoa não recebe nada do sistema.'); return; }
+  var jaTem=gdb('ct_clientes').find(function(c){
+    return String(c.nome||'').trim().toLowerCase()===nome.toLowerCase();
+  });
+  if(jaTem){ showToast('⚠️ Já existe uma ficha com esse nome.'); closeM('mNovoCli'); ctPopularSelCliente(jaTem.nome); return; }
+  ctCriarClienteRapido(nome,{
+    tel:tel,
+    est:(document.getElementById('ncEst').value||'').trim(),
+    ori:(document.getElementById('ncOri').value||'').trim()||'Agenda',
+    obs:'Ficha criada no cadastro rápido da Agenda.'
+  });
+  try{ if(typeof updDl==='function')updDl(); if(typeof rCl==='function')rCl(); }catch(e){}
+  try{ if(typeof fillCliSelect==='function'){fillCliSelect('fuCli');fillCliSelect('pjCli');fillCliSelect('ctCli');} }catch(e){}
+  ctPopularSelCliente(nome);
+  var t=document.getElementById('sTel'); if(t&&!t.value)t.value=tel;
+  if(typeof sCliPick==='function')try{sCliPick();}catch(e){}
+  closeM('mNovoCli');
+  showToast('✅ Ficha de "'+nome+'" criada — já vale pro sistema inteiro.');
+};
+
+/* ── 3 · REPARO AUTOMÁTICO, SEM CLIQUE ──
+   Ficha faltando nunca é o estado desejado. Se aparecer alguém sem ficha
+   (dado antigo, importação, planilha), o sistema cria e religa sozinho.  */
+window.ctReparoAutomatico=function(){
+  try{
+    if(typeof ctOrfaos!=='function')return 0;
+    var orf=ctOrfaos();
+    if(!orf.length){ if(typeof ctReligarIds==='function')ctReligarIds(); return 0; }
+    orf.forEach(function(o){ ctCriarClienteRapido(o.nome,o.dados||{}); });
+    if(typeof ctReligarIds==='function')ctReligarIds();
+    try{ if(typeof updDl==='function')updDl(); if(typeof rCl==='function')rCl(); }catch(e){}
+    try{ if(typeof fillCliSelect==='function'){fillCliSelect('fuCli');fillCliSelect('pjCli');fillCliSelect('ctCli');} }catch(e){}
+    var nomes=orf.map(function(o){return o.nome;}).join(', ');
+    showToast('🔗 Ficha criada automaticamente para: '+nomes);
+    console.log('[reparo automático] fichas criadas:',nomes);
+    return orf.length;
+  }catch(e){ console.warn('[reparo automático]',e); return 0; }
+};
+
+/* ── 4 · TRAVA FINAL: salvar sessão exige cliente com ficha ── */
+(function(){
+  var orig=window.saveSess;
+  if(typeof orig!=='function')return;
+  window.saveSess=function(){
+    var sel=document.getElementById('sCli');
+    var nome=sel?String(sel.value||'').trim():'';
+    if(!nome){
+      showToast('⚠️ Escolha um cliente. Se for alguém novo, use "+ Novo" — a ficha precisa existir antes da sessão.');
+      if(sel)sel.focus();
+      return;
+    }
+    if(!ctCliIdByName(nome)){
+      showToast('⚠️ Esse cliente não tem ficha no CRM. Use "+ Novo" para criar.');
+      if(sel)sel.focus();
+      return;
+    }
+    return orig.apply(this,arguments);
+  };
+})();
+
+/* ── boot: repara e popula ── */
+setTimeout(function(){
+  ctReparoAutomatico();
+  ctPopularSelCliente();
+  try{ var p=document.getElementById('p-hoje');
+       if(p&&p.classList.contains('on')&&typeof rHoje==='function')rHoje(); }catch(e){}
+},4200);
 </script>
 
 </body>
