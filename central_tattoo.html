@@ -81,8 +81,11 @@ a{text-decoration:none;color:inherit;}
 
 /* ── BUTTONS ── */
 .btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border:none;white-space:nowrap;letter-spacing:.2px;}
-.btn-primary{background:var(--nav);color:var(--gold3);}
-.btn-primary:hover{background:#2D1A0C;}
+.btn-primary{background:linear-gradient(135deg,#A07830,#8A6526);color:#FFFBEB;box-shadow:0 1px 2px rgba(160,120,48,.28);}
+.btn-primary:hover{background:linear-gradient(135deg,#B98C3C,#A07830);box-shadow:0 2px 6px rgba(160,120,48,.34);}
+/* variante suave — botões pequenos e de ícone, pra não pesar a tela */
+.btn-soft{background:var(--goldb);border:1.5px solid var(--goldbrd);color:var(--gold);}
+.btn-soft:hover{background:#FDF4DC;border-color:var(--gold2);color:#8A6526;}
 .btn-success{background:var(--grn);color:#fff;}
 .btn-success:hover{background:var(--grn2);}
 .btn-danger{background:var(--red);color:#fff;}
@@ -163,10 +166,10 @@ a{text-decoration:none;color:inherit;}
 /* ── MODALS ── */
 .modal-wrap{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:16px;}
 .modal-wrap.on{display:flex;}
-.modal{background:var(--white);border-radius:16px;width:100%;max-width:560px;max-height:92vh;overflow-y:auto;box-shadow:var(--sh3);}
-.modal-head{padding:22px 24px 18px;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;}
+.modal{background:var(--white);border-radius:16px;width:100%;max-width:560px;max-height:92vh;overflow-y:auto;overscroll-behavior:contain;box-shadow:var(--sh3);}
+.modal-head{padding:18px 22px 16px;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--white);z-index:5;border-radius:16px 16px 0 0;}
 .modal-head h3{font-family:'Cinzel',serif;font-size:21px;font-weight:600;}
-.modal-close{background:none;border:none;font-size:18px;color:var(--tx3);cursor:pointer;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.modal-close{background:var(--goldb);border:1px solid var(--goldbrd);font-size:19px;line-height:1;color:var(--gold);cursor:pointer;width:42px;height:42px;flex-shrink:0;border-radius:10px;display:flex;align-items:center;justify-content:center;transition:all .2s;}
 .modal-close:hover{background:#F3F4F6;color:var(--txt);}
 .modal-body{padding:22px 24px;}
 .modal-foot{padding:16px 24px;border-top:1px solid var(--brd);display:flex;gap:8px;justify-content:flex-end;}
@@ -1176,7 +1179,7 @@ body.sb-aberta .hbg span:nth-child(3){transform:translateY(-7px) rotate(-45deg);
     <div style="font-size:12px;color:var(--tx3);margin-bottom:8px">Ao marcar a sessão como <strong>Concluído</strong>, a baixa no estoque acontece automaticamente e o custo entra no lucro real.</div>
     <div id="sMatBox"></div>
   </div>
-  <div class="modal-foot"><button class="btn btn-ghost btn-sm" onclick="closeM('mS')">Cancelar</button><button class="btn btn-primary btn-sm" onclick="saveSess()">Salvar Sessão</button></div>
+  <div class="modal-foot"><button class="btn btn-ghost btn-sm" onclick="closeM('mS')">Cancelar</button><button class="btn btn-success btn-sm" id="sBtnOutro" onclick="ctOutroServico()" title="Salva esta e já abre outra para o mesmo cliente">➕ Salvar e adicionar outro serviço</button><button class="btn btn-primary btn-sm" onclick="saveSess()">Salvar Sessão</button></div>
 </div></div>
 
 <div class="modal-wrap" id="mCl"><div class="modal">
@@ -3347,22 +3350,60 @@ function ldProximoGatilho(l){
   return opts[h%opts.length];
 }
 
-/* fila de hoje: leads ativos, com telefone, nunca contatados via campanha OU sem contato há 7+ dias */
+/* ═══════════ FILA DE TRABALHO DA CENTRAL DE OPERAÇÕES ═══════════
+   A base fria ENTRA na fila — é ela que alimenta o trabalho diário.
+   Ela não infla mais o contador porque o contador conta só o LOTE VISÍVEL (10).
+   Um lead só sai da fila quando:
+     • recebe mensagem  → descansa X dias e volta como 2ª/3ª tentativa
+     • é marcado "✅ Respondeu" → sai de vez (vira quente no funil)
+     • é marcado "🚫 Não insistir" → sai de vez
+   Se ninguém for trabalhado hoje, tudo continua lá amanhã, na mesma ordem. */
+var HOJE_DESCANSO_DIAS=7;   /* dias de descanso antes da próxima tentativa */
+function hojeIncluirFria(){ try{var v=localStorage.getItem('ct_hoje_fria');return v===null?true:v==='1';}catch(e){return true;} }
+function hojeToggleFria(){ try{localStorage.setItem('ct_hoje_fria',hojeIncluirFria()?'0':'1');}catch(e){} if(typeof rHoje==='function')rHoje(); }
+function ldTentativas(leadId){ return ldCampLog().filter(function(x){return x.leadId===leadId;}).length; }
+
 function ldCampFila(){
-  /* base fria fora: era ela que inflava o badge da Central de Operações para 598 */
+  var incFria=hojeIncluirFria();
   var db=gdb('ct_leads').filter(function(l){
-    if(typeof ctLeadFrio==='function' && ctLeadFrio(l))return false;
-    return l.et!=='fechado' && l.et!=='perdido';
+    if(l.et==='fechado'||l.et==='perdido')return false;
+    if(l.respondeuEm)return false;                                        /* já respondeu */
+    if(l.naoInsistir)return false;                                        /* pediu pra parar */
+    if(!incFria && typeof ctLeadFrio==='function' && ctLeadFrio(l))return false;
+    return true;
   });
   var fila=db.map(function(l){
     var tel=(typeof ctLiveTel==='function'?ctLiveTel(l):null)||l.tel||'';
     var ult=ldUltimoEnvio(l.id);
     var dias=ult?ldDiasDesde(ult.data):null;
-    var devido=!ult || (dias!=null && dias>=7);
-    return {l:l,tel:tel,dias:dias,devido:devido};
+    var devido=!ult || (dias!=null && dias>=HOJE_DESCANSO_DIAS);
+    var fria=(typeof ctLeadFrio==='function')?!!ctLeadFrio(l):false;
+    return {l:l,tel:tel,dias:dias,devido:devido,fria:fria,tent:ldTentativas(l.id)};
   }).filter(function(x){ return x.devido && x.tel.replace(/\D/g,''); });
-  fila.sort(function(a,b){ return (b.dias==null?9999:b.dias)-(a.dias==null?9999:a.dias); });
+  /* ordem: lead ativo antes da base fria; dentro de cada grupo, o mais parado primeiro */
+  fila.sort(function(a,b){
+    if(a.fria!==b.fria)return a.fria?1:-1;
+    return (b.dias==null?9999:b.dias)-(a.dias==null?9999:a.dias);
+  });
   return fila;
+}
+
+/* ✅ respondeu — sai da fila de vez e sobe pra quente no funil */
+function hjLeadRespondeu(leadId){
+  var db=gdb('ct_leads'), l=db.find(function(x){return x.id===leadId;}); if(!l)return;
+  l.respondeuEm=hoje(); l.temp='quente'; l.fria=0;
+  if(!l.et||l.et==='contato')l.et='orcamento';
+  sdb('ct_leads',db);
+  showToast('✅ '+(l.nome||'Lead')+' respondeu — movido pra Orçamento e fora da fila.');
+  if(typeof hjRemoverCardEnviado==='function')hjRemoverCardEnviado(leadId);
+  if(typeof rLd==='function')rLd();
+}
+/* 🚫 não insistir — tira da fila sem marcar como perdido */
+function hjLeadNaoInsistir(leadId){
+  var db=gdb('ct_leads'), l=db.find(function(x){return x.id===leadId;}); if(!l)return;
+  l.naoInsistir=hoje(); sdb('ct_leads',db);
+  showToast('🚫 '+(l.nome||'Lead')+' saiu da fila de contato.');
+  if(typeof hjRemoverCardEnviado==='function')hjRemoverCardEnviado(leadId);
 }
 
 /* ═══════════ BANCO DE MENSAGENS DE LEADS — EDITOR ═══════════ */
@@ -4978,7 +5019,10 @@ function motorPendencias(){
   }
   // clientes que viraram ouro/diamante hoje
   out.ouro=relG('ct_clientes').filter(function(c){return c.tag&&c.tagEm===hj;});
-  out.total=out.aniversario.length+out.retorno.length+out.acomp.length+out.cobranca.length+out.confirmacao.length+out.leads.length;
+  /* o contador do topo mostra o TRABALHO DO DIA, não o tamanho da base:
+     conta no máximo o lote visível de leads (10). A fila completa fica em out.leadsFila. */
+  out.leadsFila=out.leads.length;
+  out.total=out.aniversario.length+out.retorno.length+out.acomp.length+out.cobranca.length+out.confirmacao.length+Math.min(out.leads.length,10);
   return out;
 }
 
@@ -4999,17 +5043,21 @@ function hjRenderLeadCard(x){
   }
   var seg=ldSeg(l), idi=ldIdi(l);
   var txtBase=ldMsgGet(g.k,idi,seg), texto=ldTpl(txtBase,l);
-  var tagCliente=ldEhCliente(l)?'👤 já é cliente':'❄️ lead frio';
-  var info=(LEAD_SEG_LB[seg]||seg)+' · '+tagCliente;
+  var tagCliente=ldEhCliente(l)?'👤 já é cliente':(x.fria?'🧊 base antiga':'🎯 lead ativo');
+  var tent=x.tent||0;
+  var selTent=tent>0?' · <b>'+(tent+1)+'ª tentativa</b>'+(x.dias!=null?' (últ. há '+x.dias+'d)':''):' · 1º contato';
+  var info=(LEAD_SEG_LB[seg]||seg)+' · '+tagCliente+selTent;
   return '<div class="hoje-item" id="hjCard_'+l.id+'" style="flex-direction:column;align-items:stretch;gap:6px">'+
     '<div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap">'+
       '<div class="hoje-item-i"><strong>'+relEsc(nome)+'</strong><span>'+info+'</span></div>'+
       '<select id="hjSel_'+l.id+'" onchange="hjLeadTrocarGatilho(\''+l.id+'\',this.value)" style="font-size:12px;padding:5px 8px;border:1px solid var(--brd2);border-radius:6px;font-family:inherit;background:var(--white);color:var(--tx2)">'+hjGatilhoOptions(l,g.k)+'</select>'+
     '</div>'+
     '<textarea id="hjTxt_'+l.id+'" rows="2" style="font-size:12px;color:var(--tx2);background:var(--goldb);border:1px solid var(--goldbrd);border-radius:8px;padding:7px 10px;width:100%;font-family:inherit;resize:vertical">'+relEsc(texto)+'</textarea>'+
-    '<div style="display:flex;gap:6px;justify-content:flex-end">'+
+    '<div style="display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap">'+
       '<button class="btn btn-success btn-xs" onclick="hjLeadEnviar(\''+l.id+'\')">📲 Enviar</button>'+
-      '<button class="btn btn-ghost btn-xs" onclick="editLd(\''+l.id+'\')">✏️ Editar Lead</button>'+
+      '<button class="btn btn-primary btn-xs" onclick="hjLeadRespondeu(\''+l.id+'\')">✅ Respondeu</button>'+
+      '<button class="btn btn-ghost btn-xs" onclick="editLd(\''+l.id+'\')">✏️ Editar</button>'+
+      '<button class="btn btn-ghost btn-xs" onclick="hjLeadNaoInsistir(\''+l.id+'\')">🚫 Não insistir</button>'+
     '</div>'+
   '</div>';
 }
@@ -5019,6 +5067,10 @@ function hojeCarregarMaisLeads(){
   var lista=document.getElementById('hjLeadsList'); if(!lista||!HOJE_LEADS_FILA)return;
   var prox=HOJE_LEADS_FILA.slice(HOJE_LEADS_SHOW,HOJE_LEADS_SHOW+10);
   lista.insertAdjacentHTML('beforeend',prox.map(hjRenderLeadCard).join(''));
+  var ctEl=document.getElementById('hjLeadsCt');
+  if(ctEl)ctEl.textContent=(parseInt(ctEl.textContent,10)||0)+prox.length;
+  var numEl=document.querySelector('.hoje-num');
+  if(numEl)numEl.textContent=(parseInt(numEl.textContent,10)||0)+prox.length;
   HOJE_LEADS_SHOW+=10;
   var restam=HOJE_LEADS_FILA.length-HOJE_LEADS_SHOW;
   var wrap=document.getElementById('hjMaisBtnWrap');
@@ -5089,8 +5141,10 @@ function rHoje(){
   var head='<div class="hoje-hero"><div><div class="hoje-ola">'+motorSaudacao()+', '+relEsc(cf.nome||'Carlos')+'! 👋</div>'+
     '<div class="hoje-data">'+dataBR+'</div></div>'+
     '<div class="hoje-contador"><div class="hoje-num">'+p.total+'</div><div class="hoje-num-lb">'+(p.total!==1?'ações':'ação')+' pra hoje</div></div></div>';
-  if(p.total===0 && !p.ouro.length){
-    el.innerHTML=head+'<div class="hoje-zero">✨ <strong>Tudo em dia!</strong><br>Nenhuma pendência pra hoje. O sistema segue de olho por você — volte amanhã.</div>';
+  if(p.total===0 && !p.ouro.length && !p.leads.length){
+    var extra='<br><button class="btn btn-soft btn-sm" style="margin-top:12px" onclick="go(\'leads\')">📤 Importar planilha de leads</button>'+
+      '<button class="btn btn-ghost btn-sm ct-so-dono" style="display:none;margin-left:8px;margin-top:12px" onclick="ctImportarLeadsSite()">⬇️ Importar leads do site</button>';
+    el.innerHTML=head+'<div class="hoje-zero">✨ <strong>Tudo em dia!</strong><br>Nenhuma pendência pra hoje. O sistema segue de olho por você — volte amanhã.'+extra+'</div>';
     return;
   }
   var html=head;
@@ -5137,11 +5191,13 @@ function rHoje(){
     var cardsHtml=visiveis.map(hjRenderLeadCard).join('');
     var restam=p.leads.length-mostrar;
     var maisBtn='<div id="hjMaisBtnWrap">'+(restam>0?'<button class="btn btn-ghost btn-sm" onclick="hojeCarregarMaisLeads()">⬇️ Carregar mais 10 (restam '+restam+')</button>':'')+'</div>';
-    var toolbar='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">'+
+    var toolbar='<div class="tut" style="margin-bottom:10px;font-size:12.5px">📋 Trabalhe de <strong>10 em 10</strong>. Quem você <strong>não</strong> mandar mensagem hoje continua aqui amanhã, na mesma ordem. Quem receber mensagem descansa '+HOJE_DESCANSO_DIAS+' dias e volta como próxima tentativa — até responder ou você marcar 🚫.</div>'+
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;align-items:center">'+
         '<button class="btn btn-ghost btn-sm" onclick="ldBancoOpen()">💬 Banco de Mensagens</button>'+
         '<button class="btn btn-primary btn-sm" onclick="hojeLoteIniciar()">▶️ Enviar lote (visíveis)</button>'+
+        '<button class="btn btn-ghost btn-sm ct-so-dono" style="display:none" onclick="ctImportarLeadsSite()">⬇️ Importar leads do site</button>'+
       '</div><div id="hjLoteStatus"></div>';
-    html+='<div class="hoje-bloco"><div class="hoje-bt" style="border-left-color:var(--blu)">🎯 <strong>Leads que precisam de resposta</strong> <span class="hoje-ct" id="hjLeadsCt">'+p.leads.length+'</span></div>'+
+    html+='<div class="hoje-bloco"><div class="hoje-bt" style="border-left-color:var(--blu)">🎯 <strong>Leads pra contatar hoje</strong> <span class="hoje-ct" id="hjLeadsCt">'+mostrar+'</span> <span style="font-size:11.5px;color:var(--tx3)">de '+p.leads.length+' na fila</span></div>'+
       toolbar+'<div id="hjLeadsList">'+cardsHtml+'</div>'+maisBtn+'</div>';
   }
   el.innerHTML=html;
@@ -7514,6 +7570,911 @@ window.ctPVCombinado=function(){
   showToast('📲 Guia + avaliação enviados numa mensagem só.');
 };
 
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   "SALVAR E ADICIONAR OUTRO SERVIÇO"
+   ───────────────────────────────────────────────────────────────────
+   A Agenda é registro de EVENTOS: dois procedimentos = duas linhas,
+   e isso está certo — são datas, valores, guias de cicatrização e
+   históricos diferentes. O que estava errado era o trabalho manual:
+   para lançar o segundo serviço o Carlos redigitava cliente, telefone,
+   local e projeto. Agora tudo isso vem junto e só o serviço fica vazio.
+═══════════════════════════════════════════════════════════════════ */
+
+window.ctOutroServico=function(){
+  var cli=(document.getElementById('sCli')||{}).value||'';
+  if(!cli.trim()){ showToast('⚠️ Preencha o cliente antes.'); return; }
+
+  /* guarda o que se repete entre serviços do mesmo cliente */
+  var herda={
+    cli:cli,
+    tel:(document.getElementById('sTel')||{}).value||'',
+    loc:(document.getElementById('sLoc')||{}).value||'',
+    prof:(document.getElementById('sProf')||{}).value||'',
+    proj:(document.getElementById('sProj')||{}).value||'',
+    data:(document.getElementById('sData')||{}).value||''
+  };
+
+  /* salva a sessão atual usando o fluxo normal do sistema */
+  try{ saveSess(); }catch(e){ console.warn('[saveSess]',e); showToast('⚠️ Não consegui salvar.'); return; }
+
+  /* reabre já preenchido com o cliente, vazio no serviço */
+  setTimeout(function(){
+    try{
+      if(typeof novaSess==='function')novaSess();
+      else if(typeof novoS==='function')novoS();
+      else { var m=document.getElementById('mS'); if(m)openM('mS'); }
+
+      setTimeout(function(){
+        function set(id,v){ var el=document.getElementById(id); if(el&&v!=null)el.value=v; }
+        set('sCli',herda.cli); set('sTel',herda.tel);
+        set('sLoc',herda.loc); set('sProf',herda.prof);
+        set('sProj',herda.proj); set('sData',herda.data);
+        /* serviço em branco: é o que muda */
+        set('sVal',''); set('sSin',''); set('sSal','');
+        set('sDur',''); set('sObs',''); set('sHora','');
+        var est=document.getElementById('sEst');
+        if(est)est.selectedIndex=0;
+        var t=document.getElementById('mST');
+        if(t)t.textContent='➕ Outro serviço — '+herda.cli;
+
+        /* aviso do que foi herdado */
+        var body=document.querySelector('#mS .modal-body');
+        if(body&&!document.getElementById('sHerdou')){
+          var d=document.createElement('div');
+          d.id='sHerdou'; d.className='tut';
+          d.style.cssText='margin-bottom:12px';
+          d.innerHTML='✅ Cliente, telefone, local e projeto já vieram de <strong>'+herda.cli+'</strong>. '+
+            'Preencha só o <strong>estilo, valor e data</strong> do novo procedimento.<br>'+
+            '<span style="font-size:11.5px;color:var(--tx3)">Cada serviço vira uma sessão própria — é o que garante '+
+            'o guia de cuidados certo e o faturamento separado.</span>';
+          body.insertBefore(d,body.firstChild);
+        }
+        var el=document.getElementById('sEst'); if(el)el.focus();
+      },160);
+    }catch(e){ console.warn('[outro serviço]',e); }
+  },260);
+};
+
+/* Limpa o aviso quando o modal é aberto pelo caminho normal */
+(function(){
+  ['novaSess','novoS','editSess','editS'].forEach(function(fn){
+    var ant=window[fn];
+    if(typeof ant!=='function')return;
+    window[fn]=function(){
+      try{ var d=document.getElementById('sHerdou'); if(d)d.remove(); }catch(e){}
+      return ant.apply(this,arguments);
+    };
+  });
+})();
+
+/* ── Higiene: nome com espaço sobrando quebra o casamento entre abas ── */
+window.ctLimparNomes=function(){
+  var mudou=0;
+  ['ct_clientes','ct_sessoes','ct_cicatri','ct_projetos','ct_leads'].forEach(function(k){
+    var db=gdb(k), alterou=false;
+    db.forEach(function(r){
+      ['nome','cli'].forEach(function(campo){
+        if(typeof r[campo]==='string'){
+          var limpo=r[campo].replace(/\s+/g,' ').trim();
+          if(limpo!==r[campo]){ r[campo]=limpo; alterou=true; mudou++; }
+        }
+      });
+    });
+    if(alterou)sdb(k,db);
+  });
+  return mudou;
+};
+(function(){
+  setTimeout(function(){
+    try{
+      var n=ctLimparNomes();
+      if(n){ ctReRenderTudo&&ctReRenderTudo();
+        console.log('[higiene] '+n+' nome(s) com espaço extra corrigidos'); }
+    }catch(e){}
+  },2200);
+})();
+
 </script>
+
+<!-- ═══ MÓDULO OPORTUNIDADES PERDIDAS (v17) ═══ -->
+<style>
+/* ═══ PAINEL DE OPORTUNIDADES PERDIDAS ═══ */
+#ctOportWrap{margin-bottom:18px}
+.opt-hd{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.opt-hd h3{font-family:'Cinzel',serif;font-size:15px;color:var(--txt);margin:0}
+.opt-perda{font-size:12.5px;color:var(--red);font-weight:700;background:var(--redb,#FEF2F2);border:1px solid var(--red);border-radius:20px;padding:4px 12px}
+.opt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.opt-card{border:1px solid var(--brd);border-left:4px solid var(--brd2);border-radius:11px;background:var(--white);padding:12px 13px;box-shadow:var(--sh);cursor:pointer;transition:transform .12s,box-shadow .12s}
+.opt-card:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
+.opt-card.zero{opacity:.45;cursor:default}
+.opt-card.zero:hover{transform:none;box-shadow:var(--sh)}
+.opt-card.crit{border-left-color:var(--red)}
+.opt-card.aten{border-left-color:var(--ylw)}
+.opt-card.oport{border-left-color:var(--gold)}
+.opt-card.bom{border-left-color:var(--grn)}
+.opt-n{font-size:26px;font-weight:800;line-height:1;color:var(--txt)}
+.opt-t{font-size:12.5px;color:var(--tx2);margin-top:5px;line-height:1.35;font-weight:600}
+.opt-s{font-size:11.5px;color:var(--tx3);margin-top:4px;line-height:1.35}
+.opt-li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 2px;border-bottom:1px solid var(--brd);flex-wrap:wrap}
+.opt-li:last-child{border-bottom:none}
+.opt-li-i strong{font-size:13.5px;color:var(--txt);display:block}
+.opt-li-i span{font-size:12px;color:var(--tx3)}
+@media(max-width:640px){.opt-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}.opt-n{font-size:22px}}
+</style>
+
+<div class="modal-wrap" id="mOport"><div class="modal" style="max-width:760px">
+  <div class="modal-head"><h3 id="mOportT">Oportunidade</h3><button class="modal-close" onclick="closeM('mOport')">✕</button></div>
+  <div class="modal-body"><div id="mOportB"></div></div>
+</div></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   CENTRAL TATTOO — OPORTUNIDADES PERDIDAS  (aditivo v17)
+   Sai do "quantos clientes eu tenho" e entra em "quanto dinheiro está
+   parado e o que fazer agora". Tudo calculado ao vivo da base existente:
+   nenhuma tabela nova, nenhuma duplicação de dado.
+═══════════════════════════════════════════════════════════════════ */
+
+/* ═══════════ TRAVA DE DONO — NÃO USAR IS_ADM AQUI ═══════════
+   IS_ADM não serve de trava: no boot, usuário sem sessão recebe IS_ADM=true,
+   e o modo trial também liga IS_ADM=true. Qualquer coisa presa em IS_ADM
+   estaria aberta pra qualquer cliente do SaaS.
+   A única identidade confiável é o e-mail do JWT autenticado no Supabase —
+   o mesmo que a policy `leads_select_admin` exige no banco. Aqui é só a
+   segunda camada: mesmo que alguém force a UI, o RLS nega no servidor.    */
+var CT_DONO_EMAIL='carlostattoobh@gmail.com';
+var CT_DONO=null, CT_SB=null;
+
+window.ctSbCliente=async function(){
+  if(CT_SB)return CT_SB;
+  try{
+    var m=await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
+    CT_SB=m.createClient(SB_URL,SB_KEY);
+  }catch(e){ CT_SB=null; }
+  return CT_SB;
+};
+window.ctDonoDoSite=async function(){
+  if(CT_DONO!==null)return CT_DONO;
+  CT_DONO=false;
+  try{
+    var cli=await ctSbCliente(); if(!cli)return false;
+    var s=await cli.auth.getSession();
+    var email=((s&&s.data&&s.data.session&&s.data.session.user&&s.data.session.user.email)||'').toLowerCase();
+    CT_DONO=(email===CT_DONO_EMAIL);
+  }catch(e){ CT_DONO=false; }
+  return CT_DONO;
+};
+/* botões marcados com .ct-so-dono nascem escondidos e só aparecem pro dono */
+window.ctRevelarBotoesDono=async function(){
+  var dono=await ctDonoDoSite();
+  try{ document.querySelectorAll('.ct-so-dono').forEach(function(b){ b.style.display=dono?'':'none'; }); }catch(e){}
+};
+
+/* ---------- normalizador: lead do site chega em outro formato ---------- */
+/* O Rabisco/formulários gravam {nome, wpp, tipo, origem, data} e o CRM
+   espera {id, nome, tel, et, ori, criadoEm}. Sem isso o lead entra mudo:
+   não aparece na fila, não recebe mensagem e não vira cliente.          */
+window.ctLeadsNormalizar=function(silencioso){
+  try{
+    var db=gdb('ct_leads'), mudou=0;
+    db.forEach(function(l){
+      if(!l.id){ l.id=(typeof uid==='function'?uid():'l'+Date.now()+Math.random().toString(36).slice(2,6)); mudou++; }
+      if(!l.tel && l.wpp){ l.tel=l.wpp; mudou++; }
+      if(!l.et){ l.et='contato'; mudou++; }
+      if(!l.ori && l.origem){ l.ori=l.origem; mudou++; }
+      if(!l.seg){ l.seg=/aréola|areola/i.test(l.tipo||l.seg||'')?'areola':(/piercing/i.test(l.tipo||'')?'piercing':'tatuagem'); mudou++; }
+      if(!l.criadoEm && l.data){ l.criadoEm=l.data; mudou++; }
+      if(!l.temp){ l.temp='morno'; mudou++; }
+    });
+    if(mudou){ sdb('ct_leads',db); if(!silencioso&&typeof showToast==='function')showToast('🔧 '+mudou+' campo(s) de lead normalizado(s).'); }
+    return mudou;
+  }catch(e){ return 0; }
+};
+
+/* ---------- importar os leads que o site capturou (tabela public.leads) ---------- */
+window.ctImportarLeadsSite=async function(){
+  /* trava 1 — identidade real do JWT. Sem isso, nem chega a consultar. */
+  if(!(await ctDonoDoSite())){
+    showToast('🔒 Esta função é exclusiva do proprietário do site de origem.');
+    return;
+  }
+  if(!confirm('Buscar no site os leads capturados pelo Rabisco, formulários e páginas regionais e trazer pra fila da Central?\n\nDuplicados (mesmo telefone) são ignorados.'))return;
+  try{
+    var cli=await ctSbCliente();
+    if(!cli){ showToast('⚠️ Não consegui falar com a nuvem agora.'); return; }
+    /* trava 2 — o RLS no servidor. Se a trava 1 for burlada, isto nega. */
+    var r=await cli.from('leads').select('nome,wpp,email,origem,tipo,data,categoria,score').order('data',{ascending:false}).limit(500);
+    if(r.error){ showToast('🔒 Acesso negado pelo servidor.'); return; }
+    var vindos=r.data||[];
+    if(!vindos.length){ showToast('Nenhum lead novo no site.'); return; }
+    var db=gdb('ct_leads');
+    var jaTem={};
+    db.forEach(function(l){ var t=String(l.tel||l.wpp||'').replace(/\D/g,''); if(t)jaTem[t.slice(-9)]=1; });
+    var novos=0;
+    vindos.forEach(function(v){
+      var t=String(v.wpp||'').replace(/\D/g,''); if(!t)return;
+      if(jaTem[t.slice(-9)])return;
+      jaTem[t.slice(-9)]=1;
+      db.push({
+        id:(typeof uid==='function'?uid():'l'+Date.now()+novos),
+        nome:v.nome||'Lead do site', tel:t, email:v.email||'',
+        et:'contato', temp:(v.score&&v.score>=80)?'quente':(v.score&&v.score>=50)?'morno':'frio',
+        seg:/aréola|areola/i.test(v.tipo||v.categoria||'')?'areola':(/piercing/i.test(v.tipo||'')?'piercing':'tatuagem'),
+        ori:v.origem||'site', obs:(v.categoria?'Categoria: '+v.categoria:''),
+        criadoEm:v.data||new Date().toISOString(), fria:0
+      });
+      novos++;
+    });
+    if(novos)sdb('ct_leads',db);
+    showToast(novos?('✅ '+novos+' lead(s) do site importado(s) pra fila!'):'Tudo já estava importado.');
+    if(typeof rHoje==='function')rHoje();
+    if(typeof rLd==='function')rLd();
+  }catch(e){ console.warn('[import leads]',e); showToast('⚠️ Falhou a importação. Tente de novo.'); }
+};
+
+/* ═══════════ CÁLCULO DAS OPORTUNIDADES ═══════════ */
+window.ctOportunidades=function(){
+  var base=(typeof relBase==='function')?relBase():[];
+  var sess=gdb('ct_sessoes'), leads=gdb('ct_leads'), cic=gdb('ct_cicatri');
+  var hj=relHoje();
+
+  /* ticket médio real — usado pra estimar o dinheiro parado */
+  var conc=sess.filter(function(s){return s.stat==='Concluído'&&relR(s.val)>0;});
+  var ticket=conc.length?conc.reduce(function(a,s){return a+relR(s.val);},0)/conc.length:0;
+  if(!ticket)ticket=800;
+
+  /* 1 · sumidos há +180 dias (já tatuaram e nunca mais voltaram) */
+  var sumidos=base.filter(function(e){return e.st.sessoes>=1 && e.st.dias!=null && e.st.dias>=180;});
+
+  /* 2 · aniversariantes nos próximos 7 dias */
+  var aniv=base.filter(function(e){return e.aniv!=null && e.aniv<=7;}).sort(function(a,b){return a.aniv-b.aniv;});
+
+  /* 3 · não avaliaram no Google (pós-venda registrado, avaliação não cobrada) */
+  var semAval=cic.filter(function(x){return !x.avalOk;});
+
+  /* 4 · potencial de cover-up / continuação — tatuou, passou 90d+, não é aréola */
+  var coverUp=base.filter(function(e){
+    if(e.st.sessoes<1)return false;
+    if(e.st.dias==null||e.st.dias<90)return false;
+    var s=String(e.st.ultEst||e.c.est||'').toLowerCase();
+    if(/aréola|areola|piercing/.test(s))return false;
+    return true;
+  });
+
+  /* 5 · orçamento parado — lead em negociação sem movimento há 15+ dias */
+  var parados=leads.filter(function(l){
+    if(l.et!=='orcamento'&&l.et!=='negociacao')return false;
+    var d=relDias(l.atualizadoEm||l.criadoEm||l.data);
+    return d!=null&&d>=15;
+  });
+
+  /* 6 · cancelou ou faltou 2x ou mais */
+  var porCli={};
+  sess.forEach(function(s){
+    if(s.stat!=='Cancelado'&&s.stat!=='Faltou')return;
+    var k=String(s.cli||'').trim().toLowerCase(); if(!k)return;
+    (porCli[k]=porCli[k]||{nome:s.cli,qt:0,val:0}); porCli[k].qt++; porCli[k].val+=relR(s.val)||ticket;
+  });
+  var faltosos=Object.keys(porCli).filter(function(k){return porCli[k].qt>=2;}).map(function(k){return porCli[k];});
+
+  /* 7 · saldo em aberto (dinheiro já vendido e não recebido) */
+  var devendo=base.filter(function(e){return e.st.saldo>0;});
+  var saldoTotal=devendo.reduce(function(a,e){return a+e.st.saldo;},0);
+
+  /* 8 · fila de contato parada (leads com telefone que ninguém falou) */
+  var fila=(typeof ldCampFila==='function')?ldCampFila():[];
+
+  /* dinheiro estimado parado na mesa */
+  var perdaSumidos=sumidos.length*ticket;
+  var perdaParados=parados.reduce(function(a,l){return a+(relR(l.val)||ticket);},0);
+  var perdaFaltas=faltosos.reduce(function(a,f){return a+f.val;},0);
+  var perdaTotal=perdaSumidos+perdaParados+perdaFaltas+saldoTotal;
+
+  return {
+    ticket:ticket, perdaTotal:perdaTotal, saldoTotal:saldoTotal,
+    itens:[
+      {k:'sumidos', ic:'⚠️', n:sumidos.length, t:'sumidos há +180 dias', s:'≈ '+relRS(perdaSumidos)+' em retornos não feitos', cls:'crit', lista:sumidos},
+      {k:'saldo',   ic:'💰', n:devendo.length, t:'com saldo em aberto',   s:relRS(saldoTotal)+' já vendidos e não recebidos', cls:'crit', lista:devendo},
+      {k:'parados', ic:'📋', n:parados.length, t:'orçamentos parados +15d', s:'≈ '+relRS(perdaParados)+' em negociação esfriando', cls:'aten', lista:parados},
+      {k:'faltas',  ic:'❌', n:faltosos.length,n2:1, t:'cancelaram/faltaram 2x+', s:'≈ '+relRS(perdaFaltas)+' em horários vazios', cls:'aten', lista:faltosos},
+      {k:'coverup', ic:'🎨', n:coverUp.length, t:'no ponto de cover-up/continuação', s:'≈ '+relRS(coverUp.length*ticket)+' em projetos possíveis', cls:'oport', lista:coverUp},
+      {k:'aval',    ic:'⭐', n:semAval.length, t:'ainda não avaliaram no Google', s:'cada review sobe seu ranking local', cls:'oport', lista:semAval},
+      {k:'aniv',    ic:'🎂', n:aniv.length,    t:'fazem aniversário em 7 dias',   s:'melhor desculpa pra reaproximar', cls:'bom', lista:aniv},
+      {k:'fila',    ic:'🎯', n:fila.length,    t:'leads na fila de contato',      s:'≈ '+relRS(fila.length*ticket*0.05)+' se 5% fecharem', cls:'bom', lista:fila}
+    ]
+  };
+};
+
+/* ═══════════ PAINEL ═══════════ */
+window.ctOportHTML=function(){
+  var o=ctOportunidades();
+  var cards=o.itens.map(function(i){
+    return '<div class="opt-card '+i.cls+(i.n?'':' zero')+'"'+(i.n?' onclick="ctOportAbrir(\''+i.k+'\')"':'')+'>'+
+      '<div class="opt-n">'+i.ic+' '+i.n+'</div>'+
+      '<div class="opt-t">'+i.t+'</div>'+
+      '<div class="opt-s">'+i.s+'</div>'+
+    '</div>';
+  }).join('');
+  return '<div id="ctOportWrap" class="card" style="padding:14px 16px">'+
+    '<div class="opt-hd"><h3>💸 Dinheiro parado na mesa</h3>'+
+      (o.perdaTotal>0?'<span class="opt-perda">≈ '+relRS(o.perdaTotal)+' em oportunidades abertas</span>':'')+
+    '</div>'+
+    '<div class="opt-grid">'+cards+'</div>'+
+    '<div style="font-size:11.5px;color:var(--tx3);margin-top:10px;line-height:1.5">Estimativa com base no seu ticket médio real de '+relRS(o.ticket)+'. Clique em qualquer card pra ver os nomes e agir na hora.</div>'+
+  '</div>';
+};
+
+/* ═══════════ MODAL COM OS NOMES + AÇÃO ═══════════ */
+window.ctOportAbrir=function(k){
+  var o=ctOportunidades();
+  var it=o.itens.find(function(x){return x.k===k;}); if(!it)return;
+  document.getElementById('mOportT').textContent=it.ic+' '+it.n+' '+it.t;
+  var body='';
+
+  function wpp(tel,texto,rot){
+    var t=String(tel||'').replace(/\D/g,''); if(!t)return'<span class="bdg b-red">sem telefone</span>';
+    if(t.length<=11)t='55'+t;
+    return '<a class="btn btn-success btn-xs" target="_blank" href="https://wa.me/'+t+'?text='+encodeURIComponent(texto)+'">📲 '+(rot||'Enviar')+'</a>';
+  }
+  function li(nome,info,acoes){ return '<div class="opt-li"><div class="opt-li-i"><strong>'+relEsc(nome||'—')+'</strong><span>'+info+'</span></div><div style="display:flex;gap:5px;flex-wrap:wrap">'+acoes+'</div></div>'; }
+  var pn=function(n){ return String(n||'').trim().split(' ')[0]||''; };
+
+  if(k==='sumidos'){
+    body=it.lista.slice(0,60).map(function(e){
+      var c=e.c, t='Oi '+pn(c.nome)+'! Faz um tempão que a gente não se fala 🖤 Tô com uns projetos novos que combinam demais com o teu estilo. Bora fechar a próxima?';
+      return li(c.nome, e.st.dias+' dias sem voltar · último: '+(e.st.ultEst||'tattoo')+' · já gastou '+relRS(e.st.gasto), wpp(c.tel,t,'Reativar')+' <button class="btn btn-ghost btn-xs" onclick="closeM(\'mOport\');verCliente(\''+c.id+'\')">👤</button>');
+    }).join('');
+  }
+  else if(k==='saldo'){
+    body=it.lista.slice(0,60).map(function(e){
+      var c=e.c, t='Oi '+pn(c.nome)+'! Tudo certo? Passando só pra alinhar o saldo de '+relRS(e.st.saldo)+' do teu projeto. Prefere PIX ou cartão? 🖤';
+      return li(c.nome, 'saldo de '+relRS(e.st.saldo)+' em aberto', wpp(c.tel,t,'Cobrar')+' <button class="btn btn-ghost btn-xs" onclick="closeM(\'mOport\');verCliente(\''+c.id+'\')">👤</button>');
+    }).join('');
+  }
+  else if(k==='parados'){
+    body=it.lista.slice(0,60).map(function(l){
+      var d=relDias(l.atualizadoEm||l.criadoEm||l.data);
+      var t='Oi '+pn(l.nome)+'! Aquele orçamento ainda tá de pé 🖤 Quer que eu segure uma data pra você essa semana?';
+      return li(l.nome, d+' dias parado · '+(l.et==='orcamento'?'orçamento':'negociação')+(relR(l.val)?' · '+relRS(l.val):''), wpp(l.tel||l.wpp,t,'Retomar')+' <button class="btn btn-ghost btn-xs" onclick="closeM(\'mOport\');editLd(\''+l.id+'\')">✏️</button>');
+    }).join('');
+  }
+  else if(k==='faltas'){
+    body=it.lista.map(function(f){
+      var t='Oi '+pn(f.nome)+'! Vi que a gente não conseguiu fechar as últimas datas. Quer que eu te mande dois horários e a gente resolve de vez? 🖤';
+      var c=gdb('ct_clientes').find(function(x){return String(x.nome||'').trim().toLowerCase()===String(f.nome||'').trim().toLowerCase();})||{};
+      return li(f.nome, f.qt+' cancelamentos/faltas · ≈ '+relRS(f.val)+' em horários vazios', wpp(c.tel,t,'Reagendar'));
+    }).join('');
+  }
+  else if(k==='coverup'){
+    body=it.lista.slice(0,60).map(function(e){
+      var c=e.c, t='Oi '+pn(c.nome)+'! Lembrei de você 🖤 Tô com agenda aberta pra fechamento e cover-up. Bora dar sequência no teu projeto?';
+      return li(c.nome, e.st.dias+' dias desde a última · '+(e.st.ultEst||'tattoo')+' · ticket '+relRS(e.st.ticket), wpp(c.tel,t,'Oferecer')+' <button class="btn btn-ghost btn-xs" onclick="closeM(\'mOport\');verCliente(\''+c.id+'\')">👤</button>');
+    }).join('');
+  }
+  else if(k==='aval'){
+    body=it.lista.slice(0,60).map(function(x){
+      var link=(function(){try{return (conf().googleRev||'').trim();}catch(e){return '';}})();
+      var t='Oi '+pn(x.cli)+'! Que bom que curtiu o resultado 🖤 Se puder deixar uma avaliação no Google, me ajuda demais a alcançar mais gente'+(link?': '+link:'.');
+      return li(x.cli, (x.est||x.tipo||'procedimento')+' em '+(x.data||'—'), wpp(x.tel,t,'Pedir review')+' <button class="btn btn-ghost btn-xs" onclick="closeM(\'mOport\');go(\'cicatrizacao\')">📋</button>');
+    }).join('');
+    var lk=(function(){try{return (conf().googleRev||'').trim();}catch(e){return '';}})();
+    body+='<div class="tut" style="margin-top:12px">'+(lk?('🔗 Link de review em uso: <code>'+relEsc(lk)+'</code> '):'⚠️ <strong>Nenhum link de avaliação configurado</strong> — a mensagem vai sem link. ')+
+      '<button class="btn btn-ghost btn-xs" onclick="ctDefinirReview()">✏️ Definir link do Google</button></div>';
+  }
+  else if(k==='aniv'){
+    body=it.lista.map(function(e){
+      var c=e.c, q=e.aniv===0?'é HOJE! 🎉':'em '+e.aniv+' dia'+(e.aniv>1?'s':'');
+      var t='Parabéns, '+pn(c.nome)+'! 🎂🖤 Que o ano novo venha cheio de coisa boa. Tô te esperando pra comemorar com arte nova.';
+      return li(c.nome, 'aniversário '+q, wpp(c.tel,t,'Parabenizar')+' <button class="btn btn-ghost btn-xs" onclick="closeM(\'mOport\');verCliente(\''+c.id+'\')">👤</button>');
+    }).join('');
+  }
+  else if(k==='fila'){
+    body='<div class="tut">🎯 A fila de contato é trabalhada de 10 em 10 direto na Central de Operações, com a mensagem já pronta em cada card. Feche esta janela e role até o bloco <strong>Leads pra contatar hoje</strong>.</div>'+
+      '<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">'+
+      '<button class="btn btn-primary btn-sm" onclick="closeM(\'mOport\');go(\'hoje\')">▶️ Ir pra fila</button>'+
+      '<button class="btn btn-ghost btn-sm ct-so-dono" style="display:none" onclick="ctImportarLeadsSite()">⬇️ Importar leads do site</button></div>';
+  }
+
+  document.getElementById('mOportB').innerHTML=body||'<div class="tut">Nada por aqui hoje. 🖤</div>';
+  ctRevelarBotoesDono();
+  openM('mOport');
+};
+
+/* link de avaliação do Google — guardado localmente, sem link inventado */
+window.ctDefinirReview=function(){
+  /* o link já existe em Configurações (cf.googleRev) — não duplicar */
+  closeM('mOport'); go('configuracoes');
+  showToast('⚙️ Preencha "Link de avaliação Google" em Configurações.');
+};
+
+/* ═══════════ ENCAIXE NA CENTRAL DE OPERAÇÕES ═══════════ */
+/* Envolve o rHoje original: painel de oportunidades entra logo abaixo do
+   cabeçalho, antes das pendências do dia. Se um dia o rHoje mudar, isto
+   continua funcionando — não reescreve nada, só injeta.                  */
+(function(){
+  if(typeof rHoje!=='function')return;
+  var _orig=rHoje;
+  window.rHoje=function(){
+    _orig.apply(this,arguments);
+    try{
+      var el=document.getElementById('hojeBody'); if(!el)return;
+      var antigo=document.getElementById('ctOportWrap'); if(antigo)antigo.remove();
+      var hero=el.querySelector('.hoje-hero');
+      if(hero)hero.insertAdjacentHTML('afterend',ctOportHTML());
+      else el.insertAdjacentHTML('afterbegin',ctOportHTML());
+      ctRevelarBotoesDono();
+    }catch(e){ console.warn('[oportunidades]',e); }
+  };
+})();
+
+/* boot: normaliza os leads uma vez e redesenha se a Central já estiver aberta */
+setTimeout(function(){
+  try{
+    ctLeadsNormalizar(true);
+    var p=document.getElementById('p-hoje');
+    if(p&&p.classList.contains('on')&&typeof rHoje==='function')rHoje();
+  }catch(e){}
+},2600);
+</script>
+
+
+<!-- ═══ BANCO DE MENSAGENS v18 ═══ -->
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   CENTRAL TATTOO — BANCO DE MENSAGENS v18
+   Três problemas resolvidos aqui:
+   1. Todo mundo recebia o MESMO texto → risco de bloqueio no WhatsApp.
+      Agora cada gatilho tem várias variações, sorteadas pelo id do lead
+      e pelo número da tentativa. 600 leads = 600 combinações diferentes.
+   2. Gatilho não girava (pegava sempre o primeiro da lista).
+      Agora gira por etapa do funil e nunca repete o último usado.
+   3. Aréola recebia gatilho de venda. Aréola é reconstrução pós-mastectomia:
+      escassez e urgência são inadequadas e queimam a confiança médica.
+      O segmento passa a ter registro próprio — acolhimento, informação,
+      zero pressão — e os gatilhos de urgência ficam bloqueados nele.
+═══════════════════════════════════════════════════════════════════ */
+
+/* fase: frio | morno | quente | cliente
+   areola:true  → liberado para o segmento aréola
+   soAreola:true→ existe SOMENTE no segmento aréola
+   soCliente    → só para quem já tatuou com você                        */
+LEAD_GATILHOS=[
+  /* ── 🧊 primeiro contato ── */
+  {k:'prova',       lb:'🖼️ Prova visual',        fase:'frio',   areola:true},
+  {k:'curiosidade', lb:'👀 Curiosidade',          fase:'frio'},
+  {k:'autoridade',  lb:'🏆 Autoridade',           fase:'frio',   areola:true},
+  {k:'espelho',     lb:'🪞 Espelho (identificação)',fase:'frio'},
+  /* ── 📋 já pediu orçamento ── */
+  {k:'objecao',     lb:'🛡️ Quebra de objeção',    fase:'morno'},
+  {k:'escassez',    lb:'⏳ Escassez de agenda',    fase:'morno'},
+  {k:'exclusividade',lb:'💎 Exclusividade',        fase:'morno'},
+  {k:'facilidade',  lb:'💳 Facilitar pagamento',   fase:'morno'},
+  /* ── 🔥 decidindo ── */
+  {k:'risco',       lb:'🤝 Tirar o risco',         fase:'quente'},
+  {k:'data',        lb:'📅 Reservar data',         fase:'quente'},
+  /* ── 👤 já é cliente ── */
+  {k:'reconexao',   lb:'🔁 Reconexão',             fase:'cliente', soCliente:true, areola:true},
+  {k:'continuacao', lb:'🎨 Continuação/fechamento',fase:'cliente', soCliente:true},
+  {k:'anivTattoo',  lb:'🎂 Aniversário da tattoo', fase:'cliente', soCliente:true},
+  /* ── 🎗️ exclusivos de aréola ── */
+  {k:'acolhimento', lb:'🎗️ Acolhimento',          fase:'frio',  areola:true, soAreola:true},
+  {k:'tecnica',     lb:'📘 Como funciona',         fase:'morno', areola:true, soAreola:true},
+  {k:'medico',      lb:'🩺 Ponte com o médico',    fase:'morno', areola:true, soAreola:true},
+  {k:'semPressa',   lb:'🕊️ Sem pressa',           fase:'quente',areola:true, soAreola:true}
+];
+
+var LEAD_FASE_LB={frio:'🧊 Primeiro contato',morno:'📋 Já pediu orçamento',quente:'🔥 Decidindo',cliente:'👤 Já é cliente'};
+var LEAD_FASE_ORDEM=['frio','morno','quente','cliente'];
+
+/* ═══════════ BANCO — cada entrada é uma LISTA de variações ═══════════ */
+var LEAD_MSG_V2={
+
+prova:{pt:{
+ tatuagem:[
+  "{nome}, terminei um trabalho essa semana que me lembrou da ideia que você tinha comentado. Posso te mandar a foto?",
+  "{nome}, tenho uma pasta de trabalhos que não vão pro Instagram — só mostro pra quem já conversou comigo. Quer dar uma olhada?",
+  "{nome}, separei três fotos de projetos parecidos com o que você queria. Te mando aqui?",
+  "{nome}, fechei uma peça ontem e o resultado ficou bem perto do que você tinha descrito. Quer ver?",
+  "{nome}, tenho antes e depois de cobertura que costumam surpreender bastante. Posso te mostrar?"],
+ areola:[
+  "{nome}, tenho antes e depois de pacientes que autorizaram o uso das imagens. Se quiser ver, te envio com todo cuidado.",
+  "{nome}, posso te mostrar resultados reais de reconstrução, sempre com autorização das pacientes. Quer que eu envie?",
+  "{nome}, se ajudar na sua decisão, consigo te colocar em contato com uma paciente que já passou por isso comigo.",
+  "{nome}, tenho registros do antes, do dia e da cicatrização. Ver o processo inteiro costuma tranquilizar bastante. Quer ver?"],
+ piercing:[
+  "{nome}, separei fotos de aplicações recentes com as joias que costumo indicar. Quer ver?",
+  "{nome}, tenho fotos de cicatrização acompanhada do começo ao fim. Te mostro?",
+  "{nome}, posso te mandar exemplos de como fica no seu tipo de orelha. Quer?"]},
+ en:{tatuagem:["{nome}, I just finished a piece that reminded me of the idea you mentioned. Can I send you the photo?","{nome}, I keep a folder of work that never goes on Instagram. Want a look?"],
+     areola:["{nome}, I have before-and-after images from patients who gave permission. I can share them with you carefully, if you'd like.","{nome}, I can show you real reconstruction results, always with patient consent. Would that help?"],
+     piercing:["{nome}, I have photos of recent placements and the jewelry I recommend. Want to see?"]},
+ es:{tatuagem:["{nome}, terminé un trabajo que me recordó a tu idea. ¿Te mando la foto?","{nome}, tengo una carpeta de trabajos que no publico en Instagram. ¿Quieres verla?"],
+     areola:["{nome}, tengo antes y después de pacientes que autorizaron el uso de las imágenes. Si quieres, te las envío con todo cuidado.","{nome}, puedo mostrarte resultados reales de reconstrucción, siempre con permiso de las pacientes. ¿Te ayudaría?"],
+     piercing:["{nome}, tengo fotos de colocaciones recientes. ¿Quieres verlas?"]}},
+
+curiosidade:{pt:{
+ tatuagem:[
+  "{nome}, pergunta rápida: aquela ideia que você tinha em mente continua de pé ou mudou?",
+  "{nome}, você chegou a decidir o local do corpo? Isso muda bastante o orçamento.",
+  "{nome}, me tira uma dúvida — você quer preto e cinza ou colorido? É a primeira coisa que preciso saber pra te passar um valor real.",
+  "{nome}, é sua primeira tatuagem ou você já tem outras?",
+  "{nome}, você prefere fazer tudo de uma vez ou dividir em sessões menores?"],
+ piercing:[
+  "{nome}, já decidiu qual furo quer fazer primeiro?",
+  "{nome}, você tem alergia a algum metal? Isso define a joia que eu indico.",
+  "{nome}, é seu primeiro piercing ou você já tem outros?"]},
+ en:{tatuagem:["{nome}, quick question: is that idea you had still on, or did it change?","{nome}, did you decide on the body placement? That changes the quote a lot."],
+     piercing:["{nome}, have you decided which piercing you want first?"]},
+ es:{tatuagem:["{nome}, pregunta rápida: ¿esa idea que tenías sigue en pie o cambió?","{nome}, ¿ya decidiste la zona del cuerpo? Eso cambia bastante el presupuesto."],
+     piercing:["{nome}, ¿ya decidiste qué perforación quieres primero?"]}},
+
+autoridade:{pt:{
+ tatuagem:[
+  "{nome}, trabalho com realismo preto e cinza há sete anos, mais de 2.400 peças. Se quiser, te explico como eu penso a sua ideia antes de falar de valor.",
+  "{nome}, minha especialidade é cover-up e pele difícil — cicatriz, estria, tatuagem antiga mal feita. Se for o seu caso, vale a gente conversar.",
+  "{nome}, antes de falar de preço eu gosto de entender o projeto. Me conta o que você quer cobrir ou criar?",
+  "{nome}, eu desenho pensando em como a peça vai estar daqui a dez anos, não só no dia que sai do estúdio. Quer que eu te mostre a diferença?",
+  "{nome}, se você já levou um não de outro estúdio por causa da pele ou da tatuagem antiga, me manda uma foto. Costumo achar saída."],
+ areola:[
+  "{nome}, a reconstrução de aréola é uma das especialidades da minha casa. Trabalho com pele que passou por cirurgia e cicatriz.",
+  "{nome}, atendo em espaço reservado, com privacidade total — só eu e você na sala, no horário que for melhor pra você.",
+  "{nome}, cada tom eu misturo na hora, a partir de referência real, pra chegar o mais perto possível do seu. Posso te explicar como faço?"],
+ piercing:[
+  "{nome}, sigo protocolo completo de biossegurança em cada aplicação, material descartável e joia de titânio. Quer entender como funciona?",
+  "{nome}, faço acompanhamento da cicatrização depois, não só a aplicação. Te explico?"]},
+ en:{tatuagem:["{nome}, I've worked with black and grey realism for seven years, over 2,400 pieces. Happy to walk you through your idea before we talk numbers.","{nome}, my specialty is cover-ups and difficult skin — scars, stretch marks, bad old work. If that's your case, let's talk."],
+     areola:["{nome}, areola reconstruction is one of my studio's specialties. I work with skin that's been through surgery and scarring.","{nome}, I work in a private room — just you and me, at whatever time suits you best."],
+     piercing:["{nome}, I follow a full biosafety protocol on every placement, single-use material and titanium jewelry."]},
+ es:{tatuagem:["{nome}, trabajo con realismo en negro y gris hace siete años, más de 2.400 piezas. Si quieres, te explico cómo pienso tu idea antes de hablar de valores.","{nome}, mi especialidad es cover-up y piel difícil — cicatriz, estría, tatuaje antiguo mal hecho."],
+     areola:["{nome}, la reconstrucción de areola es una de las especialidades de mi estudio. Trabajo con piel que pasó por cirugía y cicatriz.","{nome}, atiendo en sala reservada, con privacidad total."],
+     piercing:["{nome}, sigo protocolo completo de bioseguridad en cada colocación, material descartable y joya de titanio."]}},
+
+espelho:{pt:{
+ tatuagem:[
+  "{nome}, quase todo mundo que me procura diz a mesma coisa: tenho medo de me arrepender. É exatamente por isso que eu desenho antes e só fecho quando você aprova.",
+  "{nome}, muita gente adia a primeira tatuagem por anos esperando a hora certa. Normalmente a hora certa é quando você encontra o artista, não a data.",
+  "{nome}, se você está travado entre duas ideias, isso é normal — metade dos meus clientes chega assim. Consigo te ajudar a decidir.",
+  "{nome}, você não precisa chegar com tudo pronto. Chega com a ideia, eu monto o resto.",
+  "{nome}, tem gente que carrega uma tatuagem de que não gosta há anos achando que não tem solução. Quase sempre tem."],
+ piercing:[
+  "{nome}, a maior dúvida que me chega é sobre a dor. É bem mais rápido do que a maioria imagina.",
+  "{nome}, muita gente desiste por medo de cicatrizar mal. Com joia certa e acompanhamento, isso muda tudo."]},
+ en:{tatuagem:["{nome}, nearly everyone who comes to me says the same thing: I'm afraid I'll regret it. That's exactly why I draw first and only book once you approve.","{nome}, plenty of people put off their first tattoo for years waiting for the right time. Usually the right time is finding the right artist."],
+     piercing:["{nome}, the most common question I get is about pain. It's much quicker than most people expect."]},
+ es:{tatuagem:["{nome}, casi todos los que me buscan dicen lo mismo: tengo miedo de arrepentirme. Por eso dibujo antes y solo cerramos cuando lo apruebas.","{nome}, mucha gente posterga el primer tatuaje años esperando el momento justo. Suele ser cuando encuentras al artista."],
+     piercing:["{nome}, la duda más común que me llega es sobre el dolor. Es mucho más rápido de lo que la mayoría imagina."]}},
+
+objecao:{pt:{
+ tatuagem:[
+  "{nome}, sobre o valor: dá pra dividir, e a data já fica reservada com o sinal. Isso ajuda?",
+  "{nome}, se o que te segurou foi a dor — a maioria descreve como incômodo, não como dor. E a gente para sempre que você precisar.",
+  "{nome}, se o problema foi o tempo, dá pra dividir em sessões menores. Não precisa ficar horas de uma vez.",
+  "{nome}, se ficou alguma dúvida no orçamento, me fala qual. Prefiro esclarecer do que te deixar na dúvida.",
+  "{nome}, se você achou que ficou caro, me diz o que você tinha em mente. Consigo adaptar o projeto sem perder qualidade."],
+ piercing:[
+  "{nome}, sobre a cicatrização: com joia de titânio e o cuidado certo, o processo é bem tranquilo. Quer que eu te explique?",
+  "{nome}, se a dúvida foi o preço, o valor já inclui a joia e o acompanhamento. Te explico?"]},
+ en:{tatuagem:["{nome}, about the price: we can split it, and the deposit locks your date. Does that help?","{nome}, if pain was the concern — most people describe it as discomfort, not pain. And we pause whenever you need."],
+     piercing:["{nome}, about healing: with titanium jewelry and the right care, it's a smooth process."]},
+ es:{tatuagem:["{nome}, sobre el valor: se puede dividir, y la fecha queda reservada con la seña. ¿Te sirve?","{nome}, si lo que te frenó fue el dolor — la mayoría lo describe como molestia, no dolor. Y paramos cuando necesites."],
+     piercing:["{nome}, sobre la cicatrización: con joya de titanio y el cuidado correcto, el proceso es tranquilo."]}},
+
+escassez:{pt:{
+ tatuagem:[
+  "{nome}, estou fechando a agenda de {mes} e sobraram poucas datas. Se ainda quiser, me avisa que eu seguro uma pra você.",
+  "{nome}, projeto grande eu encaixo uma vez por mês. A próxima janela é agora — depois só no mês que vem.",
+  "{nome}, tive um cancelamento essa semana. Se te interessar, a data é sua.",
+  "{nome}, antes de abrir a agenda pro público eu aviso quem já tinha conversado comigo. Quer uma data?"],
+ piercing:[
+  "{nome}, essa semana ainda tenho horário livre. Depois fica mais apertado.",
+  "{nome}, tive uma desmarcação hoje. Se quiser aproveitar, é só falar."]},
+ en:{tatuagem:["{nome}, I'm closing the {mes} calendar and only a few dates are left. Want me to hold one?","{nome}, I only fit one large project per month. This window is now — after that it's next month."],
+     piercing:["{nome}, I still have openings this week. After that it gets tighter."]},
+ es:{tatuagem:["{nome}, estoy cerrando la agenda de {mes} y quedan pocas fechas. ¿Te guardo una?","{nome}, proyecto grande encajo uno por mes. La próxima ventana es ahora."],
+     piercing:["{nome}, esta semana todavía tengo horario libre. Después se complica."]}},
+
+exclusividade:{pt:{
+ tatuagem:[
+  "{nome}, separei uma data pra quem já tinha demonstrado interesse antes de eu divulgar pro público. Topa?",
+  "{nome}, estou montando um projeto autoral e quero fazer em pele que combine com o traço. Lembrei da sua ideia.",
+  "{nome}, esse é um desenho que eu faço uma vez só — depois não repito em ninguém. Quer ver?",
+  "{nome}, estou selecionando alguns projetos pro portfólio desse semestre. Se topar, tenho condição especial."],
+ piercing:[
+  "{nome}, chegaram joias novas de titânio em modelos que eu não costumo ter. Quer ver antes de eu postar?",
+  "{nome}, tenho uma peça só, e lembrei de você quando ela chegou."]},
+ en:{tatuagem:["{nome}, I set aside a date for people who reached out before I open it publicly. Interested?","{nome}, I'm working on an original piece and looking for the right skin for it. Your idea came to mind."],
+     piercing:["{nome}, new titanium jewelry just came in, models I don't usually stock. Want a look before I post it?"]},
+ es:{tatuagem:["{nome}, aparté una fecha para quien ya había mostrado interés antes de publicarla. ¿Te interesa?","{nome}, estoy armando una pieza de autor y busco la piel adecuada. Me acordé de tu idea."],
+     piercing:["{nome}, llegaron joyas nuevas de titanio que no suelo tener. ¿Quieres verlas antes de que las publique?"]}},
+
+facilidade:{pt:{
+ tatuagem:[
+  "{nome}, dá pra fazer no PIX ou parcelar no cartão. Qual funciona melhor pra você?",
+  "{nome}, o sinal reserva a data e o restante você acerta no dia. Quer que eu segure?",
+  "{nome}, dá pra começar por uma sessão menor e ir construindo. Muita gente faz assim.",
+  "{nome}, se o valor cheio pesou, me fala o que cabe no seu orçamento que eu adapto o projeto."],
+ piercing:[
+  "{nome}, o valor já inclui a joia. Aceito PIX e cartão.",
+  "{nome}, dá pra fazer um agora e o outro depois, sem pressa."]},
+ en:{tatuagem:["{nome}, we can do bank transfer or split it on card. Which works better for you?","{nome}, the deposit holds your date and you settle the rest on the day. Want me to hold it?"],
+     piercing:["{nome}, the price already includes the jewelry. Card or transfer, either works."]},
+ es:{tatuagem:["{nome}, se puede pagar de una o en cuotas con tarjeta. ¿Qué te sirve más?","{nome}, la seña reserva la fecha y el resto lo arreglas el día. ¿Te la guardo?"],
+     piercing:["{nome}, el valor ya incluye la joya. Acepto transferencia y tarjeta."]}},
+
+risco:{pt:{
+ tatuagem:[
+  "{nome}, você não fecha nada sem ver o desenho. Eu faço o projeto, você aprova, aí sim marcamos.",
+  "{nome}, se depois de ver o desenho você não curtir, não tem compromisso nenhum.",
+  "{nome}, o retoque já está incluído. Você não paga a mais por isso.",
+  "{nome}, quer passar no estúdio pra conversar antes? Sem compromisso, só pra conhecer o espaço."],
+ piercing:[
+  "{nome}, se não cicatrizar bem, eu acompanho até resolver. Não te deixo sozinho nisso.",
+  "{nome}, pode vir só pra conversar e ver as joias antes de decidir."]},
+ en:{tatuagem:["{nome}, you don't commit to anything before seeing the drawing. I design it, you approve, then we book.","{nome}, the touch-up is already included. You don't pay extra for it."],
+     piercing:["{nome}, if healing gives you trouble, I follow up until it's sorted."]},
+ es:{tatuagem:["{nome}, no cierras nada sin ver el diseño. Yo lo hago, tú lo apruebas, y recién ahí agendamos.","{nome}, el retoque ya está incluido. No pagas extra por eso."],
+     piercing:["{nome}, si la cicatrización te da problemas, te acompaño hasta resolverlo."]}},
+
+data:{pt:{
+ tatuagem:[
+  "{nome}, consigo te encaixar essa semana ou na que vem. Qual prefere?",
+  "{nome}, estou com duas datas boas em aberto. Te mando os horários?",
+  "{nome}, se você me confirmar hoje, eu seguro a data sem sinal até amanhã.",
+  "{nome}, me diz só o período que funciona pra você — manhã ou tarde — que eu monto as opções."],
+ piercing:[
+  "{nome}, tenho horário essa semana. Quer marcar?",
+  "{nome}, me fala o dia que fica melhor e eu vejo aqui."]},
+ en:{tatuagem:["{nome}, I can fit you in this week or next. Which works better?","{nome}, I have two good slots open. Want me to send the times?"],
+     piercing:["{nome}, I have openings this week. Want to book?"]},
+ es:{tatuagem:["{nome}, puedo encajarte esta semana o la próxima. ¿Cuál prefieres?","{nome}, tengo dos fechas buenas libres. ¿Te mando los horarios?"],
+     piercing:["{nome}, tengo horario esta semana. ¿Agendamos?"]}},
+
+reconexao:{pt:{
+ tatuagem:[
+  "{nome}, quanto tempo! Como ficou a cicatrização da última? Manda uma foto que eu quero ver.",
+  "{nome}, lembrei de você essa semana. Está com vontade de dar sequência naquele projeto?",
+  "{nome}, faz um tempo que a gente não se fala. Estou com agenda aberta se quiser fechar mais uma.",
+  "{nome}, tudo certo por aí? Qualquer coisa da tatuagem, é só me chamar."],
+ areola:[
+  "{nome}, como você está? Passando só pra saber como ficou a cor depois desse tempo.",
+  "{nome}, se sentir que a cor clareou um pouco, é esperado — o retoque resolve. Quer marcar?",
+  "{nome}, lembrei de você. Qualquer dúvida sobre a região, pode me chamar a qualquer momento."],
+ piercing:[
+  "{nome}, como ficou a cicatrização? Se quiser trocar a joia, é só falar.",
+  "{nome}, faz tempo que não te vejo. Tudo certo com o piercing?"]},
+ en:{tatuagem:["{nome}, it's been a while! How did the last one heal? Send me a photo, I'd love to see.","{nome}, you crossed my mind this week. Feel like continuing that project?"],
+     areola:["{nome}, how are you doing? Just checking how the colour is holding up.","{nome}, if the colour has faded a little, that's expected — the touch-up handles it."],
+     piercing:["{nome}, how did the healing go? Happy to swap the jewelry whenever."]},
+ es:{tatuagem:["{nome}, ¡cuánto tiempo! ¿Cómo cicatrizó la última? Mándame una foto, quiero verla.","{nome}, me acordé de ti esta semana. ¿Con ganas de continuar ese proyecto?"],
+     areola:["{nome}, ¿cómo estás? Paso solo para saber cómo quedó el color con el tiempo.","{nome}, si sientes que el color aclaró un poco, es esperado — el retoque lo resuelve."],
+     piercing:["{nome}, ¿cómo fue la cicatrización? Si quieres cambiar la joya, avísame."]}},
+
+continuacao:{pt:{
+ tatuagem:[
+  "{nome}, aquela peça pede continuação. Já pensou em fechar de vez?",
+  "{nome}, quem tem uma peça boa geralmente quer a segunda. Bora pensar na próxima?",
+  "{nome}, estou com espaço na agenda pra projeto de fechamento. Lembrei de você.",
+  "{nome}, dá pra conectar o que você já tem numa peça só. Quer que eu desenhe uma ideia?"],
+ piercing:[
+  "{nome}, dá pra montar uma composição na orelha com o que você já tem. Quer ver como ficaria?",
+  "{nome}, o próximo furo combina bem com o que você já fez. Te mostro?"]},
+ en:{tatuagem:["{nome}, that piece is asking for a continuation. Ever thought about a full sleeve?","{nome}, we could connect what you already have into a single piece. Want me to sketch an idea?"],
+     piercing:["{nome}, we could build a full ear composition around what you have. Want to see?"]},
+ es:{tatuagem:["{nome}, esa pieza pide continuación. ¿Pensaste en cerrarla del todo?","{nome}, se puede conectar lo que ya tienes en una sola pieza. ¿Te dibujo una idea?"],
+     piercing:["{nome}, se puede armar una composición en la oreja con lo que ya tienes. ¿Te muestro?"]}},
+
+anivTattoo:{pt:{
+ tatuagem:[
+  "{nome}, sua tatuagem faz aniversário esse mês. Manda uma foto de como ela está?",
+  "{nome}, faz um ano da nossa sessão. Se quiser um retoque, é por minha conta.",
+  "{nome}, lembrei que já faz tempo daquela peça. Está cuidando bem dela?"],
+ piercing:[
+  "{nome}, seu piercing já tem um tempo. Quer trocar a joia?",
+  "{nome}, faz um ano da aplicação. Tudo certo com ele?"]},
+ en:{tatuagem:["{nome}, your tattoo has a birthday this month. Send me a photo of how it's holding up?","{nome}, it's been a year since our session. If you want a touch-up, it's on me."],
+     piercing:["{nome}, your piercing has been in a while. Want to change the jewelry?"]},
+ es:{tatuagem:["{nome}, tu tatuaje cumple años este mes. ¿Me mandas una foto de cómo está?","{nome}, hace un año de nuestra sesión. Si quieres un retoque, va por mi cuenta."],
+     piercing:["{nome}, tu piercing ya tiene tiempo. ¿Quieres cambiar la joya?"]}},
+
+/* ═══ EXCLUSIVOS DE ARÉOLA — sem urgência, sem escassez, sem gatilho de venda ═══ */
+acolhimento:{pt:{areola:[
+  "{nome}, aqui é o Carlos, do estúdio. Sei que a decisão de fazer a reconstrução tem o tempo dela. Quando você quiser conversar, sem compromisso, é só me chamar.",
+  "{nome}, não tenho pressa nenhuma com você. Se quiser só tirar dúvidas agora e pensar depois, tudo bem.",
+  "{nome}, esse é um processo que eu conduzo com muito cuidado. Se preferir, começamos só por uma conversa.",
+  "{nome}, muitas mulheres me procuram meses depois do primeiro contato. Estou aqui quando você estiver pronta."]},
+ en:{areola:["{nome}, this is Carlos from the studio. I know this decision takes the time it takes. Whenever you'd like to talk, no commitment, just reach out.","{nome}, there's no rush at all on my side. If you'd rather just ask questions now and think it over later, that's completely fine."]},
+ es:{areola:["{nome}, soy Carlos, del estudio. Sé que esta decisión tiene su tiempo. Cuando quieras conversar, sin compromiso, escríbeme.","{nome}, no tengo ninguna prisa contigo. Si prefieres solo sacarte dudas ahora y pensarlo después, está perfecto."]}},
+
+tecnica:{pt:{areola:[
+  "{nome}, a pigmentação reconstrói a aréola só com pigmento, sem cirurgia e sem corte. Posso te explicar como funciona?",
+  "{nome}, o procedimento leva cerca de duas horas, e a maioria relata pouco ou nenhum desconforto por causa da perda de sensibilidade na região. Quer saber mais?",
+  "{nome}, eu monto a cor na hora, a partir de referência real, até chegar no tom mais próximo do seu. Quer entender o processo?",
+  "{nome}, normalmente se faz um retoque entre 30 e 60 dias pra fixar a cor — já está incluso. Quer o passo a passo?"]},
+ en:{areola:["{nome}, the pigmentation rebuilds the areola using pigment only — no surgery, no incision. Can I explain how it works?","{nome}, the session takes around two hours, and most patients report little to no discomfort due to reduced sensitivity in the area."]},
+ es:{areola:["{nome}, la pigmentación reconstruye la areola solo con pigmento, sin cirugía ni corte. ¿Te explico cómo funciona?","{nome}, el procedimiento dura unas dos horas, y la mayoría relata poca o ninguna molestia por la pérdida de sensibilidad en la zona."]}},
+
+medico:{pt:{areola:[
+  "{nome}, se preferir, converso com sua equipe médica antes. Só preciso da liberação do seu mastologista ou cirurgião.",
+  "{nome}, o ideal é esperar a alta do seu médico. Se ele já liberou, podemos começar a conversar.",
+  "{nome}, posso te mandar um material pra você levar na consulta e conversar com seu médico. Quer?"]},
+ en:{areola:["{nome}, if you prefer, I can speak with your medical team first. I just need clearance from your surgeon or oncologist.","{nome}, ideally we wait for your doctor's clearance. If you already have it, we can start talking."]},
+ es:{areola:["{nome}, si prefieres, hablo antes con tu equipo médico. Solo necesito la autorización de tu mastólogo o cirujano.","{nome}, lo ideal es esperar el alta de tu médico. Si ya te autorizó, podemos empezar a conversar."]}},
+
+semPressa:{pt:{areola:[
+  "{nome}, sem pressa nenhuma. Se hoje não for a hora, guarda meu contato.",
+  "{nome}, se preferir, respondo por áudio ou marcamos uma conversa por vídeo antes. Do jeito que for mais confortável pra você.",
+  "{nome}, se quiser conhecer o espaço antes de decidir qualquer coisa, é só avisar. Atendo em sala reservada."]},
+ en:{areola:["{nome}, no rush at all. If today isn't the moment, just keep my contact.","{nome}, if it's easier, I can reply by voice note or we can do a video call first — whatever feels most comfortable."]},
+ es:{areola:["{nome}, sin ninguna prisa. Si hoy no es el momento, guarda mi contacto.","{nome}, si prefieres, respondo por audio o hacemos una videollamada antes. Como te resulte más cómodo."]}}
+
+};
+
+/* ═══════════ MOTOR DE VARIAÇÃO ═══════════ */
+function ldHash(str){ var h=0; str=String(str||''); for(var i=0;i<str.length;i++)h=(h*31+str.charCodeAt(i))>>>0; return h; }
+function ldMes(){ try{ return new Date().toLocaleDateString('pt-BR',{month:'long'}); }catch(e){ return 'esse mês'; } }
+
+/* lista de variações já com as edições do tatuador aplicadas */
+function ldMsgList(g,idi,seg){
+  var ov=gobj('ct_leadmsgbank',{}), out=[];
+  var base=[];
+  try{ base=(LEAD_MSG_V2[g][idi]||{})[seg]||[]; }catch(e){ base=[]; }
+  if(!base.length){ try{ base=(LEAD_MSG_V2[g]['pt']||{})[seg]||[]; }catch(e){ base=[]; } }
+  if(!base.length){ try{ base=(LEAD_MSG_V2[g]['pt']||{})['tatuagem']||[]; }catch(e){ base=[]; } }
+  base.forEach(function(txt,i){
+    var k=g+'.'+idi+'.'+seg+'.'+i;
+    out.push(ov[k]!=null&&String(ov[k]).trim()!==''?ov[k]:txt);
+  });
+  return out;
+}
+function ldMsgSetVar(g,idi,seg,i,txt){ var ov=gobj('ct_leadmsgbank',{}); ov[g+'.'+idi+'.'+seg+'.'+i]=txt; sobj('ct_leadmsgbank',ov); }
+function ldMsgResetVar(g,idi,seg,i){ var ov=gobj('ct_leadmsgbank',{}); delete ov[g+'.'+idi+'.'+seg+'.'+i]; sobj('ct_leadmsgbank',ov); showToast('↩️ Restaurado ao padrão.'); }
+
+/* escolhe a variação: muda por lead E por tentativa — ninguém recebe texto igual */
+ldMsgGet=function(g,idi,seg,leadId){
+  var lst=ldMsgList(g,idi,seg);
+  if(!lst.length)return '';
+  if(lst.length===1)return lst[0];
+  var tent=(leadId&&typeof ldTentativas==='function')?ldTentativas(leadId):0;
+  var h=ldHash(String(leadId||'x')+'#'+g+'#'+tent);
+  return lst[h%lst.length];
+};
+
+/* {nome} e {mes} */
+ldTpl=function(txt,l){
+  return String(txt||'')
+    .replace(/\{nome\}/g, ldPrimeiroNome((typeof ctLiveNome==='function'?ctLiveNome(l):null)||l.nome))
+    .replace(/\{mes\}/g, ldMes());
+};
+
+/* ═══════════ POOL E ROTAÇÃO ═══════════ */
+/* aréola só recebe gatilho marcado como areola:true — urgência fica de fora */
+ldPool=function(l){
+  var seg=ldSeg(l), cli=ldEhCliente(l);
+  return LEAD_GATILHOS.filter(function(g){
+    if(g.soCliente && !cli)return false;
+    if(seg==='areola')return !!g.areola;
+    if(g.soAreola)return false;
+    return ldMsgList(g.k,ldIdi(l),seg).length>0;
+  });
+};
+
+/* fase do lead conforme a etapa real no funil */
+function ldFaseLead(l){
+  if(ldEhCliente(l))return 'cliente';
+  if(l.et==='orcamento'||l.et==='negociacao')return 'morno';
+  if(l.temp==='quente')return 'quente';
+  return 'frio';
+}
+
+/* gira de verdade: espalha pelos leads e nunca repete o último gatilho usado */
+ldProximoGatilho=function(l){
+  var pool=ldPool(l); if(!pool.length)return null;
+  var ult=(typeof ldUltimoEnvio==='function')?ldUltimoEnvio(l.id):null;
+  var ultK=ult?ult.gatilho:null;
+  var fase=ldFaseLead(l);
+  var pref=pool.filter(function(g){return (g.fase||'frio')===fase;});
+  if(!pref.length)pref=pool;
+  var opts=pref.filter(function(g){return g.k!==ultK;});
+  if(!opts.length)opts=pref;
+  var tent=(typeof ldTentativas==='function')?ldTentativas(l.id):0;
+  var h=ldHash(String(l.id||'')+'|'+fase+'|'+tent);
+  return opts[h%opts.length];
+};
+
+/* seletor agrupado por fase do funil */
+hjGatilhoOptions=function(l,gAtual){
+  var pool=ldPool(l), grupos={};
+  pool.forEach(function(g){ var f=g.fase||'frio'; (grupos[f]=grupos[f]||[]).push(g); });
+  return LEAD_FASE_ORDEM.filter(function(f){return grupos[f];}).map(function(f){
+    return '<optgroup label="'+LEAD_FASE_LB[f]+'">'+grupos[f].map(function(g){
+      return '<option value="'+g.k+'"'+(g.k===gAtual?' selected':'')+'>'+g.lb+'</option>';
+    }).join('')+'</optgroup>';
+  }).join('');
+};
+
+/* troca manual de gatilho — recarrega a variação certa daquele lead */
+hjLeadTrocarGatilho=function(leadId,gKey){
+  var l=gdb('ct_leads').find(function(x){return x.id===leadId;}); if(!l)return;
+  var ta=document.getElementById('hjTxt_'+leadId);
+  if(ta)ta.value=ldTpl(ldMsgGet(gKey,ldIdi(l),ldSeg(l),leadId),l);
+};
+
+/* card do lead — passa o id pra variação sair diferente em cada pessoa */
+hjRenderLeadCard=function(x){
+  var l=x.l, g=ldProximoGatilho(l);
+  var nome=(typeof ctLiveNome==='function'?ctLiveNome(l):null)||l.nome||'—';
+  if(!g){
+    var tel0=(x.tel||'').replace(/\D/g,'');
+    var wa0=tel0?'<a class="btn btn-success btn-xs" href="https://wa.me/55'+tel0+'" target="_blank">📲</a>':'';
+    return '<div class="hoje-item" id="hjCard_'+l.id+'"><div class="hoje-item-i"><strong>'+relEsc(nome)+'</strong><span>Lead parado · '+(l.est||'')+'</span></div><div class="hoje-item-a">'+wa0+' <button class="btn btn-ghost btn-xs" onclick="editLd(\''+l.id+'\')">✏️</button></div></div>';
+  }
+  var seg=ldSeg(l), idi=ldIdi(l);
+  var texto=ldTpl(ldMsgGet(g.k,idi,seg,l.id),l);
+  var tagCliente=ldEhCliente(l)?'👤 já é cliente':(x.fria?'🧊 base antiga':'🎯 lead ativo');
+  var tent=x.tent||0;
+  var selTent=tent>0?' · <b>'+(tent+1)+'ª tentativa</b>'+(x.dias!=null?' (últ. há '+x.dias+'d)':''):' · 1º contato';
+  var selo=(seg==='areola')?' <span class="bdg b-yellow" style="font-size:10px">🎗️ registro acolhedor</span>':'';
+  var info=(LEAD_SEG_LB[seg]||seg)+' · '+tagCliente+selTent;
+  return '<div class="hoje-item" id="hjCard_'+l.id+'" style="flex-direction:column;align-items:stretch;gap:6px">'+
+    '<div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap">'+
+      '<div class="hoje-item-i"><strong>'+relEsc(nome)+selo+'</strong><span>'+info+'</span></div>'+
+      '<select id="hjSel_'+l.id+'" onchange="hjLeadTrocarGatilho(\''+l.id+'\',this.value)" style="font-size:12px;padding:5px 8px;border:1px solid var(--brd2);border-radius:6px;font-family:inherit;background:var(--white);color:var(--tx2)">'+hjGatilhoOptions(l,g.k)+'</select>'+
+    '</div>'+
+    '<textarea id="hjTxt_'+l.id+'" rows="2" style="font-size:12px;color:var(--tx2);background:var(--goldb);border:1px solid var(--goldbrd);border-radius:8px;padding:7px 10px;width:100%;font-family:inherit;resize:vertical">'+relEsc(texto)+'</textarea>'+
+    '<div style="display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap">'+
+      '<button class="btn btn-success btn-xs" onclick="hjLeadEnviar(\''+l.id+'\')">📲 Enviar</button>'+
+      '<button class="btn btn-primary btn-xs" onclick="hjLeadRespondeu(\''+l.id+'\')">✅ Respondeu</button>'+
+      '<button class="btn btn-soft btn-xs" onclick="editLd(\''+l.id+'\')">✏️ Editar</button>'+
+      '<button class="btn btn-ghost btn-xs" onclick="hjLeadNaoInsistir(\''+l.id+'\')">🚫 Não insistir</button>'+
+    '</div>'+
+  '</div>';
+};
+
+/* ═══════════ EDITOR DO BANCO — agrupado por fase, com variações ═══════════ */
+ldBancoRender=function(){
+  var body=document.getElementById('ldBancoBody'); if(!body)return;
+  var seg=LD_BANCO_SEG, idi=LD_BANCO_IDI;
+  var pool=LEAD_GATILHOS.filter(function(g){
+    if(seg==='areola')return !!g.areola;
+    if(g.soAreola)return false;
+    return true;
+  }).filter(function(g){ return ldMsgList(g.k,idi,seg).length>0; });
+
+  var aviso=(seg==='areola')
+    ? '<div class="tut" style="margin-bottom:14px;border-left:3px solid var(--gold)">🎗️ <strong>Aréola tem registro próprio.</strong> Reconstrução pós-mastectomia não recebe escassez, urgência nem gatilho de venda — isso quebra a confiança e fecha a porta com mastologistas. Aqui o que converte é acolhimento, informação clara e respeito ao tempo da paciente.</div>'
+    : '<div class="tut" style="margin-bottom:14px">🔀 <strong>Cada gatilho tem várias variações.</strong> O sistema sorteia uma diferente por pessoa e troca a cada nova tentativa — é isso que evita bloqueio do WhatsApp por mensagem repetida. Use <code>{nome}</code> e <code>{mes}</code>.</div>';
+
+  var html=aviso, grupos={};
+  pool.forEach(function(g){ var f=g.fase||'frio'; (grupos[f]=grupos[f]||[]).push(g); });
+
+  LEAD_FASE_ORDEM.filter(function(f){return grupos[f];}).forEach(function(f){
+    html+='<div style="margin:18px 0 8px;font-family:\'Cinzel\',serif;font-size:14px;color:var(--gold);border-bottom:1px solid var(--goldbrd);padding-bottom:6px">'+LEAD_FASE_LB[f]+'</div>';
+    grupos[f].forEach(function(g){
+      var lst=ldMsgList(g.k,idi,seg);
+      html+='<div class="rel-bsec"><h4>'+g.lb+' <span style="font-weight:400;font-size:11px;color:var(--tx3)">'+lst.length+' variação'+(lst.length>1?'ões':'')+(g.soCliente?' · só para quem já é cliente':'')+'</span></h4>';
+      lst.forEach(function(txt,i){
+        var id='ldb_'+g.k+'_'+i;
+        html+='<div style="margin-bottom:10px">'+
+          '<div style="font-size:11px;color:var(--tx3);margin-bottom:3px">Variação '+(i+1)+'</div>'+
+          '<textarea class="fi" id="'+id+'" rows="2" style="margin-bottom:5px">'+relEsc(txt)+'</textarea>'+
+          '<div style="display:flex;gap:6px">'+
+            '<button class="btn btn-primary btn-xs" onclick="ldMsgSetVar(\''+g.k+'\',\''+idi+'\',\''+seg+'\','+i+',document.getElementById(\''+id+'\').value);showToast(\'✅ Salva!\')">💾 Salvar</button>'+
+            '<button class="btn btn-soft btn-xs" onclick="ldMsgResetVar(\''+g.k+'\',\''+idi+'\',\''+seg+'\','+i+');ldBancoRender()">↩️ Padrão</button>'+
+          '</div></div>';
+      });
+      html+='</div>';
+    });
+  });
+  body.innerHTML=html;
+};
+
+/* redesenha a Central se ela já estiver aberta, pra aplicar os textos novos */
+setTimeout(function(){
+  try{ var p=document.getElementById('p-hoje'); if(p&&p.classList.contains('on')&&typeof rHoje==='function')rHoje(); }catch(e){}
+},3000);
+</script>
+
 </body>
 </html>
