@@ -891,7 +891,7 @@ body.sb-aberta .hbg span:nth-child(3){transform:translateY(-7px) rotate(-45deg);
 
 <!-- ═══ LEADS ═══ -->
 <div class="panel" id="p-leads">
-  <div class="pg"><div class="pg-t"><h2>🎯 Pipeline de Leads</h2><p>Nenhuma oportunidade pode escapar</p></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-ghost" onclick="baixarModeloImportacao()">⬇️ Baixar Modelo de Planilha</button><button class="btn btn-ghost" onclick="document.getElementById('ldImportFile').click()">📤 Importar Planilha</button><input type="file" id="ldImportFile" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleImportPlanilha(event)"><button class="btn btn-ghost" id="btnImportLegado" onclick="importarLeadsLegado()">📥 Importar Lista Antiga</button><button class="btn btn-primary" onclick="novoLd()">+ Novo Lead</button></div></div>
+  <div class="pg"><div class="pg-t"><h2>🎯 Pipeline de Leads</h2><p>Nenhuma oportunidade pode escapar</p></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-ghost" onclick="baixarModeloImportacao()">⬇️ Baixar Modelo de Planilha</button><button class="btn btn-ghost" onclick="document.getElementById('ldImportFile').click()">📤 Importar Planilha</button><input type="file" id="ldImportFile" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleImportPlanilha(event)"><button class="btn btn-ghost" id="btnImportLegado" onclick="importarLeadsLegado()">📥 Importar Lista Antiga</button><button class="btn btn-ghost" onclick="verLeadsArquivados()">🗄️ Arquivados</button><button class="btn btn-ghost" onclick="arquivarLeadsAntigos()">🧹 Arquivar antigos</button><button class="btn btn-primary" onclick="novoLd()">+ Novo Lead</button></div></div>
   <div class="tut">💡 <strong>ETAPA:</strong> 1.Contato | 2.Orçamento | 3.Negociação | 4.Agendado | 5.Fechado ✅ | 6.Perdido ❌. <strong>TEMPERATURA:</strong> 🔥 Quente | ⚡ Morno | ❄️ Frio.</div>
   <div class="kpi-grid" id="ldKpi"></div>
   <div class="card" style="margin-bottom:16px">
@@ -3185,6 +3185,38 @@ function novoLd(){['ldId','ldNome','ldTel','ldEmail','ldVal','ldProx','ldPasso']
 function editLd(id){const l=gdb('ct_leads').find(x=>x.id===id);if(!l)return;fillCliSelect('ldCliCrm','','— começar do zero / novo lead —');document.getElementById('ldId').value=l.id;document.getElementById('ldNome').value=l.nome||'';document.getElementById('ldTel').value=l.tel||'';document.getElementById('ldEmail').value=l.email||'';document.getElementById('ldEst').value=l.est||'';document.getElementById('ldTam').value=l.tam||'';document.getElementById('ldVal').value=l.val||'';document.getElementById('ldEt').value=l.et||'contato';document.getElementById('ldTemp').value=l.temp||'quente';document.getElementById('ldOri').value=l.ori||'Instagram';document.getElementById('ldProx').value=l.prox||'';document.getElementById('ldPasso').value=l.passo||'';document.getElementById('ldSeg').value=l.seg||'tatuagem';document.getElementById('ldIdi').value=l.idi||'pt';document.getElementById('ldJaCli').value=l.jaCli||'Não';document.getElementById('mLdT').textContent='Editar Lead';openM('mLd');}
 function delLd(id){ctDel('ct_leads',id,'Lead','',rLd);}
 function converterLeadCliente(id){const l=gdb('ct_leads').find(x=>x.id===id);if(!l)return;const cls=gdb('ct_clientes');const dup=cls.find(c=>(c.nome||'').trim().toLowerCase()===(l.nome||'').trim().toLowerCase());if(dup){showToast('ℹ️ "'+(l.nome||'')+'" já está no Clientes CRM.');if(typeof verCliente==='function')verCliente(dup.id);return;}if(!confirm('Converter "'+(l.nome||'lead')+'" em cliente no Clientes CRM?'))return;const novo={id:uid(),nome:l.nome||'',tel:l.tel||'',email:l.email||'',insta:'',nasc:'',cid:'',est:l.est||'',stat:'🟢 Ativo',ind:'',ori:l.ori||'Instagram',ret:'',obs:'Convertido do funil de Leads.'+(l.tam?' Tamanho: '+l.tam+'.':'')+(l.passo?' Próximo passo: '+l.passo+'.':''),local:'',valor:l.val||'',sinal:'',projSt:'',cpf:'',endr:'',alerg:'',med:'',saude:'',emerg:'',img:'',contrato:'',lang:'pt',respNome:'',respCpf:'',sinalReg:0,ultContato:hoje(),criadoEm:new Date().toISOString()};cls.push(novo);sdb('ct_clientes',cls);const lds=gdb('ct_leads'),li=lds.findIndex(x=>x.id===id);if(li>=0){lds[li].et='fechado';sdb('ct_leads',lds);}try{updDl();ctPVClientes();fillCliSelect('fuCli');fillCliSelect('pjCli');fillCliSelect('ctCli');}catch(e){}rLd();try{if(typeof rCl==='function')rCl();}catch(e){}showToast('✅ "'+(l.nome||'Lead')+'" agora está no Clientes CRM (lead marcado como Fechado).');}
+// ── ITEM 5: ARQUIVAMENTO DE LEADS (enxuga o blob ct_leads) ──
+function ctLeadDiasSC(l){var d=l.ultContato||(l.criadoEm?String(l.criadoEm).slice(0,10):null);if(!d)return 9999;var t=new Date(d+'T00:00:00').getTime();if(isNaN(t))return 9999;return Math.floor((Date.now()-t)/86400000);}
+function ctLeadArquivavel(l){return l.et==='fechado'||ctLeadDiasSC(l)>90;}
+function arquivarLeadsAntigos(){
+  var ativos=gdb('ct_leads');
+  var mover=ativos.filter(ctLeadArquivavel);
+  if(!mover.length){showToast('👍 Nenhum lead para arquivar (convertidos ou +90d sem contato).');return;}
+  var nConv=mover.filter(function(l){return l.et==='fechado';}).length, nFrio=mover.length-nConv;
+  if(!confirm('Arquivar '+mover.length+' lead(s)?\n\n• '+nConv+' convertido(s) em cliente\n• '+nFrio+' frio(s) (+90 dias sem contato)\n\nEles saem da lista ativa e vão para o arquivo — dá para restaurar quando quiser.'))return;
+  var restantes=ativos.filter(function(l){return !ctLeadArquivavel(l);});
+  var arq=gdb('ct_leads_arq');
+  var bkpA=ativos, bkpArq=arq;
+  var marcados=mover.map(function(l){var c=Object.assign({},l);c.arqEm=new Date().toISOString();return c;});
+  sdb('ct_leads',restantes);sdb('ct_leads_arq',arq.concat(marcados));
+  ctLog('arquivou','Leads',mover.length+' lead(s) ('+nConv+' conv. + '+nFrio+' frios)');
+  try{rLd();}catch(e){}
+  ctToastUndo('🗄️ '+mover.length+' leads arquivados.',function(){sdb('ct_leads',bkpA);sdb('ct_leads_arq',bkpArq);try{rLd();}catch(e){}showToast('↩️ Arquivamento desfeito.');});
+}
+function verLeadsArquivados(){
+  var arq=gdb('ct_leads_arq');
+  var m=document.getElementById('ldArqModal');
+  if(!m){m=document.createElement('div');m.id='ldArqModal';m.className='modal-wrap';m.innerHTML='<div class="modal" style="max-width:640px"><div class="modal-head"><h3>🗄️ Leads Arquivados</h3><button class="modal-close" onclick="closeM(\'ldArqModal\')">✕</button></div><div class="modal-body" id="ldArqBody" style="max-height:60vh;overflow:auto"></div><div class="modal-foot"><button class="btn btn-primary btn-sm" onclick="closeM(\'ldArqModal\')">Fechar</button></div></div>';document.body.appendChild(m);m.addEventListener('click',function(e){if(e.target===m)closeM('ldArqModal');});}
+  document.getElementById('ldArqBody').innerHTML=arq.length?('<div style="font-size:12px;color:var(--tx3);margin-bottom:8px">'+arq.length+' lead(s) no arquivo</div>'+arq.slice().reverse().map(function(l){var tag=l.et==='fechado'?'<span style="color:var(--grn);font-size:11px">· convertido</span>':'<span style="color:var(--tx3);font-size:11px">· frio +90d</span>';return '<div style="display:flex;gap:10px;align-items:center;padding:9px 4px;border-bottom:1px solid var(--brd);font-size:13px"><div style="flex:1"><strong>'+(l.nome||'—')+'</strong> '+tag+'<div style="font-size:11px;color:var(--tx4);margin-top:2px">'+(l.tel||'')+(l.est?' · '+l.est:'')+'</div></div><button class="btn btn-ghost btn-xs" onclick="restaurarLeadArq(\''+l.id+'\')">↩️ Restaurar</button></div>';}).join('')):'<p style="text-align:center;color:var(--tx4);padding:30px">Nenhum lead arquivado ainda.</p>';
+  openM('ldArqModal');
+}
+function restaurarLeadArq(id){
+  var arq=gdb('ct_leads_arq'),i=arq.findIndex(function(x){return x.id===id;});if(i<0)return;
+  var l=arq[i];arq.splice(i,1);sdb('ct_leads_arq',arq);
+  var at=gdb('ct_leads');if(!at.some(function(x){return x.id===id;})){delete l.arqEm;at.push(l);sdb('ct_leads',at);}
+  ctLog('restaurou','Leads',l.nome||'lead');verLeadsArquivados();try{rLd();}catch(e){}showToast('↩️ Lead restaurado para a lista ativa.');
+}
+
 
 /* ═══════════════════ CAMPANHAS DE LEADS — ROTAÇÃO SEMANAL (7 em 7 dias) ═══════════════════ */
 var LEAD_GATILHOS=[
