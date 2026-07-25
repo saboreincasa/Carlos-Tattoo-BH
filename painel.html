@@ -974,7 +974,7 @@ const CATALOGO = [
     nome: 'Ebook Estratégia Digital – Tráfego Tattoo',
     desc: 'Do zero ao anúncio de sucesso. Alavanque seu estúdio com Meta Ads.',
     icone: '📊',
-    arquivo: 'ebook-trafego-tattoo.html',
+    arquivo: 'ebook-trafego-iniciante.html',
     acao: 'ebook',
     thumb: 'imagens/thumb-ebook-trafego.jpg'
   },
@@ -1020,7 +1020,7 @@ const CATALOGO = [
     nome: 'Contrato Digital Profissional',
     desc: 'Um contrato seguro para proteger você de clientes difíceis e problemas legais.',
     icone: '📋',
-    arquivo: 'ebook-contrato.html',
+    arquivo: 'ebook-contrato-digital.html',
     acao: 'ebook',
     thumb: 'imagens/thumb-ebook-contrato.jpg'
   },
@@ -1397,14 +1397,16 @@ document.getElementById('modalCentralTattoo').addEventListener('click', function
   if (e.target === this) window.fecharModal();
 });
 
+// Mapa por ID (estável) — os nomes mudam, os IDs não.
+// Converte o id do catálogo no slug esperado por pagamento.html.
 const SLUG_MAP_PAINEL = {
-  'Central Tattoo Pro — Sistema de Gestão': 'central-tattoo',
-  'Ebook Iniciante — Tráfego Tattoo':       'ebook-trafego',
-  'Ebook Instagram — Tattoo que Vende':     'ebook-instagram',
-  'Ebook Avançado — Posicionamento':        'ebook-posicionamento',
-  'Pack Templates — Tatuadores':            'pack-templates',
-  'Contrato Digital — Tatuadores':          'contrato-digital',
-  'Mentoria VIP 1:1':                       'mentoria-vip',
+  'central-tattoo':      'central-tattoo',
+  'ebook-trafego':       'ebook-trafego',
+  'ebook-instagram':     'ebook-instagram',
+  'ebook-posicionamento':'ebook-posicionamento',
+  'ebook-templates':     'pack-templates',
+  'ebook-contrato':      'contrato-digital',
+  'curso-mentoria':      'mentoria-vip',
 };
 
 window.abrirCheckoutPainel = async function(nomeProd, idProd) {
@@ -1418,7 +1420,7 @@ window.abrirCheckoutPainel = async function(nomeProd, idProd) {
   } catch(e) { /* silencioso */ }
 
   // Detecta país pelo timezone e redireciona para pagamento.html
-  const slug = SLUG_MAP_PAINEL[nomeProd] || 'ebook-trafego';
+  const slug = SLUG_MAP_PAINEL[idProd] || SLUG_MAP_PAINEL[nomeProd] || 'ebook-trafego';
   let url = `pagamento.html?prod=${slug}`;
   try {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';

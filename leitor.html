@@ -504,7 +504,7 @@ function garantirIframe() {
   wrap.innerHTML = `<iframe
     class="ebook-frame"
     id="ebookFrame"
-    sandbox="allow-same-origin allow-scripts"
+    sandbox="allow-same-origin allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"
     onload="frameCarregado()"
   ></iframe>`;
   document.getElementById('readerContent').appendChild(wrap);
@@ -524,6 +524,13 @@ function carregarCapitulo() {
     // O browser faz o scroll nativo ao carregar a página via hash.
     arquivoAtual  = cap.arquivo;
     pendingAncora = cap.ancora;
+
+    // ── LIBERAÇÃO DE ACESSO ──
+    // Cada ebook tem um "guardião" no topo que redireciona pra página de
+    // vendas se não encontrar esta flag. O leitor precisa setá-la ANTES de
+    // carregar o iframe — senão o ebook mostra a vitrine em vez do conteúdo.
+    // Libera TODOS os arquivos deste ebook (capa/módulos podem ser o mesmo).
+    ebook.capitulos.forEach(c => sessionStorage.setItem('ct_ok_' + c.arquivo, '1'));
 
     if (wrap) { wrap.classList.add('fading'); }
     setTimeout(() => {
