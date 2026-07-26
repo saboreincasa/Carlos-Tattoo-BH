@@ -2,554 +2,535 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contrato Digital Profissional — Modelo Editável + Gerador | Carlos Tattoo BH</title>
+<meta name="description" content="Contrato de tatuagem profissional editável, versão para aceite por WhatsApp e gerador que monta o documento com seus dados. Proteção jurídica prática para o seu estúdio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cinzel+Decorative:wght@700;900&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#F5EEDC;          /* fundo pergaminho claro */
+  --ink-2:#FFFDF7;        /* cartão claro (quase branco) */
+  --ink-3:#FBF5E7;        /* superfície creme suave */
+  --line:#E4D8BB;         /* fio de cabelo */
+  --parch:#2A2012;        /* texto principal (charcoal quente) */
+  --parch-dim:#5C4A30;    /* texto secundário */
+  --parch-faint:#8C7550;  /* texto fraco */
+  --gold:#8A6D1F;         /* ouro para rótulos/eyebrows */
+  --gold-bright:#9A7A1E;  /* ouro destaque (títulos, valores, links) */
+  --gold-deep:#7A5C14;    /* ouro profundo (bordas) */
+  --green:#3C7A3A;        /* excelência */
+  --amber:#A9772A;        /* atenção */
+  --red:#B24A34;          /* alerta */
+  --shadow:0 20px 48px -30px rgba(120,90,30,.30);
+  --serif:'Lora',Georgia,serif;
+  --disp:'Cinzel',serif;
+  --deco:'Cinzel Decorative',serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);
+  color:var(--parch);
+  font-family:var(--serif);
+  font-size:18px;line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(201,168,76,.10), transparent 60%),
+    radial-gradient(900px 500px at -10% 100%, rgba(201,168,76,.06), transparent 55%);
+}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+h1,h2,h3,h4,.disp{font-family:var(--disp);letter-spacing:.02em;line-height:1.2}
+a{color:var(--gold-bright);text-decoration:none}
+img{max-width:100%}
+
+/* ---------- COVER ---------- */
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 24px;position:relative}
+.cover .brand{font-family:var(--disp);font-weight:600;letter-spacing:.42em;font-size:13px;color:var(--gold);text-transform:uppercase;margin-bottom:40px}
+.cover .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.35em;color:var(--parch-faint);text-transform:uppercase;margin-bottom:26px}
+.cover h1{font-family:var(--deco);font-weight:900;font-size:clamp(42px,9vw,86px);color:var(--parch);line-height:1.02;text-shadow:0 2px 30px rgba(0,0,0,.5)}
+.cover h1 .g{color:var(--gold-bright)}
+.cover .sub{font-size:clamp(17px,2.4vw,22px);color:var(--parch-dim);font-style:italic;max-width:600px;margin:28px auto 0}
+.cover .seal{margin:52px auto 0;width:132px;height:132px;border-radius:50%;border:1px solid var(--gold-deep);display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;background:radial-gradient(circle at 50% 30%,rgba(201,168,76,.14),transparent 70%)}
+.cover .seal::before{content:"";position:absolute;inset:9px;border-radius:50%;border:1px dashed rgba(201,168,76,.35)}
+.cover .seal .n{font-family:var(--deco);font-weight:900;font-size:34px;color:var(--gold-bright);line-height:1}
+.cover .seal .l{font-family:var(--mono);font-size:8.5px;letter-spacing:.2em;color:var(--parch-dim);text-transform:uppercase;margin-top:5px;max-width:96px}
+.cover .scroll{margin-top:60px;font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--parch-faint);text-transform:uppercase;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(7px);opacity:1}}
+
+/* ---------- SECTION SHELL ---------- */
+.section{padding:70px 0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.32em;color:var(--gold);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--gold-deep)}
+h2.big{font-size:clamp(28px,5vw,42px);color:var(--parch);margin-bottom:8px}
+.lead{font-size:20px;color:var(--parch-dim);font-style:italic;margin-bottom:8px}
+p{margin:0 0 18px}
+p+p{margin-top:-2px}
+.section p, .section li{color:var(--parch)}
+strong{color:var(--gold-bright);font-weight:600}
+.rule{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:60px 0}
+
+/* ---------- MANIFESTO ---------- */
+.manifesto{background:var(--ink-2);border:1px solid var(--line);border-radius:16px;padding:44px 40px;box-shadow:var(--shadow)}
+.manifesto h3{font-size:24px;color:var(--gold-bright);margin-bottom:18px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:26px}
+.pillar{background:var(--ink-3);border:1px solid var(--line);border-radius:12px;padding:22px}
+.pillar .t{font-family:var(--disp);font-weight:600;font-size:15px;letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px}
+.pillar.stable .t{color:var(--green)}
+.pillar.change .t{color:var(--amber)}
+.pillar p{font-size:15.5px;line-height:1.6;margin:0;color:var(--parch-dim)}
+
+/* ---------- INTERFACE WARNING ---------- */
+.iface{border-left:3px solid var(--amber);background:rgba(217,164,65,.07);border-radius:0 10px 10px 0;padding:16px 20px;margin:26px 0;font-size:15.5px;line-height:1.6}
+.iface .h{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:6px;display:block}
+
+/* ---------- CARLOS PLAYBOOK BOX ---------- */
+.playbook{position:relative;background:linear-gradient(160deg,#211c15,#171310);border:1px solid var(--gold-deep);border-radius:16px;padding:30px 32px;margin:34px 0;box-shadow:var(--shadow)}
+.playbook::before{content:"O PLAYBOOK DO CARLOS";position:absolute;top:-11px;left:26px;background:var(--gold);color:#161206;font-family:var(--mono);font-weight:700;font-size:10px;letter-spacing:.22em;padding:4px 12px;border-radius:20px}
+.playbook h4{color:var(--gold-bright);font-size:19px;margin:8px 0 12px}
+.playbook p{font-size:16px;color:var(--parch-dim);margin-bottom:12px}
+.playbook .stat-row{display:flex;flex-wrap:wrap;gap:18px;margin-top:16px}
+.playbook .stat{flex:1;min-width:120px;background:rgba(0,0,0,.3);border:1px solid var(--line);border-radius:10px;padding:14px 16px;text-align:center}
+.playbook .stat .v{font-family:var(--deco);font-weight:900;font-size:26px;color:var(--gold-bright);line-height:1}
+.playbook .stat .k{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--parch-faint);margin-top:7px;display:block}
+
+/* ---------- STEPS ---------- */
+.step{display:flex;gap:18px;margin:20px 0;align-items:flex-start}
+.step .num{flex:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--gold-deep);color:var(--gold-bright);font-family:var(--disp);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:16px;background:var(--ink-3)}
+.step .body{flex:1}
+.step .body .st{font-family:var(--disp);font-weight:600;color:var(--parch);font-size:17px;letter-spacing:.02em;margin-bottom:4px}
+.step .body p{font-size:16px;margin:0;color:var(--parch-dim)}
+.field{font-family:var(--mono);font-size:13.5px;background:var(--ink-3);border:1px solid var(--line);border-radius:6px;padding:2px 8px;color:var(--gold-bright)}
+
+/* ---------- CALLOUT / TIP ---------- */
+.tip{border-left:3px solid var(--gold);background:rgba(201,168,76,.06);border-radius:0 10px 10px 0;padding:16px 20px;margin:24px 0;font-size:16px}
+.tip .h{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;display:block}
+
+/* ---------- SCRIPT BLOCK ---------- */
+.script{background:var(--ink-3);border:1px solid var(--line);border-left:3px solid var(--gold-deep);border-radius:10px;padding:20px 22px;margin:20px 0;font-size:15.5px;line-height:1.65}
+.script .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--parch-faint);margin-bottom:10px;display:block}
+.script em{color:var(--parch-faint);font-style:italic}
+.copybtn{margin-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:1px solid var(--gold-deep);color:var(--gold);padding:7px 14px;border-radius:20px;cursor:pointer;transition:.2s}
+.copybtn:hover{background:var(--gold);color:#161206}
+
+/* ---------- TABLE ---------- */
+.table-wrap{overflow-x:auto;margin:24px 0;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:15px;min-width:440px}
+th{background:var(--ink-3);color:var(--gold);font-family:var(--disp);font-weight:600;text-align:left;padding:13px 16px;letter-spacing:.03em;border-bottom:1px solid var(--line)}
+td{padding:12px 16px;border-bottom:1px solid var(--line);color:var(--parch-dim)}
+tr:last-child td{border-bottom:none}
+td strong{color:var(--parch)}
+
+/* ---------- WIDGET / PAINEL ---------- */
+.widget{background:linear-gradient(165deg,#1c1811,#141009);border:1px solid var(--gold-deep);border-radius:18px;padding:30px;margin:34px 0;box-shadow:var(--shadow)}
+.widget .wtag{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.widget .wtag .dot{width:7px;height:7px;border-radius:50%;background:var(--gold-bright);box-shadow:0 0 10px var(--gold-bright);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.widget h3{font-size:22px;color:var(--parch);margin-bottom:6px}
+.widget .wsub{font-size:15px;color:var(--parch-faint);margin-bottom:22px}
+.ctrl{margin-bottom:18px}
+.ctrl label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--parch-dim);margin-bottom:8px}
+.ctrl input[type=number],.ctrl input[type=range]{width:100%}
+.ctrl input[type=number]{background:var(--ink);border:1px solid var(--line);border-radius:8px;color:var(--gold-bright);font-family:var(--mono);font-size:18px;padding:11px 14px;font-weight:500}
+.ctrl input[type=number]:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.18)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+input[type=range]{-webkit-appearance:none;height:6px;border-radius:6px;background:var(--ink-3);border:1px solid var(--line);cursor:pointer;margin-top:6px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--gold-bright);border:2px solid #161206;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.5)}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--gold-bright);border:2px solid #161206;cursor:pointer}
+.rangeval{font-family:var(--mono);color:var(--gold-bright);font-size:16px;float:right}
+.readout{background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:12px;padding:22px;margin-top:22px}
+.readout .row{display:flex;justify-content:space-between;align-items:baseline;padding:9px 0;border-bottom:1px dashed var(--line)}
+.readout .row:last-child{border-bottom:none}
+.readout .row .k{font-size:15px;color:var(--parch-dim)}
+.readout .row .v{font-family:var(--mono);font-weight:700;font-size:20px;color:var(--gold-bright)}
+.verdict{margin-top:18px;border-radius:12px;padding:18px 20px;font-size:16px;line-height:1.55;border:1px solid var(--line)}
+.verdict.g{background:rgba(95,160,90,.12);border-color:rgba(95,160,90,.5)}
+.verdict.a{background:rgba(217,164,65,.10);border-color:rgba(217,164,65,.5)}
+.verdict.r{background:rgba(192,86,62,.12);border-color:rgba(192,86,62,.5)}
+.verdict .vh{font-family:var(--disp);font-weight:700;font-size:16px;letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;display:block}
+.verdict.g .vh{color:var(--green)}
+.verdict.a .vh{color:var(--amber)}
+.verdict.r .vh{color:var(--red)}
+
+/* CPR meter */
+.meter{height:16px;border-radius:10px;margin:18px 0 8px;background:linear-gradient(90deg,var(--green) 0%,var(--green) 33%,var(--amber) 33%,var(--amber) 66%,var(--red) 66%,var(--red) 100%);position:relative;border:1px solid var(--line)}
+.meter .pin{position:absolute;top:-7px;width:3px;height:30px;background:var(--parch);border-radius:2px;box-shadow:0 0 8px rgba(0,0,0,.8);transition:left .35s ease}
+.meter-labels{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--parch-faint);text-transform:uppercase}
+
+/* ---------- CHECKLIST ---------- */
+.checklist{background:var(--ink-2);border:1px solid var(--line);border-radius:16px;padding:28px 30px;margin:30px 0}
+.progress-bar{height:8px;border-radius:8px;background:var(--ink);border:1px solid var(--line);overflow:hidden;margin:12px 0 4px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold-deep),var(--gold-bright));width:0%;transition:width .4s ease}
+.progress-txt{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.1em}
+.phase{margin-top:24px}
+.phase h4{font-size:15px;color:var(--gold);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+.check{display:flex;gap:12px;align-items:flex-start;padding:9px 0;cursor:pointer;border-bottom:1px dashed var(--line)}
+.check:last-child{border-bottom:none}
+.check input{flex:none;width:20px;height:20px;margin-top:3px;accent-color:var(--gold-bright);cursor:pointer}
+.check span{font-size:15.5px;color:var(--parch-dim);transition:.2s}
+.check input:checked + span{color:var(--parch-faint);text-decoration:line-through}
+.reset{margin-top:18px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:1px solid var(--line);color:var(--parch-faint);padding:7px 14px;border-radius:20px;cursor:pointer}
+.reset:hover{border-color:var(--red);color:var(--red)}
+
+/* ---------- TOC ---------- */
+.toc{background:var(--ink-2);border:1px solid var(--line);border-radius:16px;padding:8px 8px}
+.toc a{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:14px 20px;border-radius:10px;color:var(--parch);font-family:var(--serif);transition:.2s;border-bottom:1px solid transparent}
+.toc a:hover{background:var(--ink-3);color:var(--gold-bright)}
+.toc a .mn{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.1em;flex:none}
+.toc a .tt{flex:1}
+.toc a .dg{font-size:13px;color:var(--parch-faint);font-style:italic;flex:none}
+
+/* ---------- MODULE HEADER ---------- */
+.modhead{text-align:center;padding:50px 0 30px;position:relative}
+.modhead .mnum{font-family:var(--deco);font-weight:900;font-size:clamp(70px,16vw,120px);color:transparent;-webkit-text-stroke:1px var(--gold-deep);line-height:.85;opacity:.6}
+.modhead .mtitle{font-size:clamp(24px,5vw,36px);color:var(--parch);margin-top:-14px}
+.modhead .mdesc{font-size:16px;color:var(--parch-dim);font-style:italic;max-width:540px;margin:14px auto 0}
+
+/* ---------- FUNNEL / ECOSYSTEM ---------- */
+.eco{background:linear-gradient(165deg,#1c1811,#120f09);border:1px solid var(--gold-deep);border-radius:18px;padding:40px 34px;box-shadow:var(--shadow)}
+.eco h3{font-size:26px;color:var(--gold-bright);text-align:center;margin-bottom:8px}
+.eco .esub{text-align:center;color:var(--parch-dim);font-style:italic;margin-bottom:30px}
+.flow{display:flex;flex-direction:column;gap:14px}
+.node{display:flex;gap:16px;align-items:center;background:var(--ink-3);border:1px solid var(--line);border-radius:12px;padding:16px 20px}
+.node .ic{flex:none;width:42px;height:42px;border-radius:10px;background:rgba(201,168,76,.12);border:1px solid var(--gold-deep);display:flex;align-items:center;justify-content:center;font-family:var(--deco);font-weight:900;color:var(--gold-bright);font-size:20px}
+.node .nt{flex:1}
+.node .nt .nn{font-family:var(--disp);font-weight:600;color:var(--parch);font-size:16px}
+.node .nt .nd{font-size:14px;color:var(--parch-faint)}
+.node.active{border-color:var(--gold);background:rgba(201,168,76,.08)}
+.arrow{text-align:center;color:var(--gold-deep);font-size:20px;line-height:.5}
+
+/* ---------- CTA ---------- */
+.cta{display:inline-block;background:linear-gradient(135deg,var(--gold),var(--gold-bright));color:#161206;font-family:var(--disp);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:14px;padding:16px 34px;border-radius:40px;margin-top:8px;transition:.25s;box-shadow:0 12px 30px -12px rgba(201,168,76,.6)}
+.cta:hover{transform:translateY(-2px);box-shadow:0 18px 40px -12px rgba(201,168,76,.75)}
+
+/* ---------- FOOTER ---------- */
+footer{text-align:center;padding:60px 24px 50px;border-top:1px solid var(--line);margin-top:40px}
+footer .fb{font-family:var(--disp);letter-spacing:.3em;color:var(--gold);font-size:13px;text-transform:uppercase}
+footer .fc{font-size:13px;color:var(--parch-faint);margin-top:12px;font-family:var(--mono)}
+
+/* print button */
+.printbar{position:fixed;right:18px;bottom:18px;z-index:50;background:linear-gradient(135deg,var(--gold),var(--gold-bright));color:#161206;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:none;padding:12px 18px;border-radius:40px;cursor:pointer;box-shadow:0 10px 26px -10px rgba(0,0,0,.7);transition:.2s}
+.printbar:hover{transform:translateY(-2px)}
+@media (max-width:640px){.printbar{right:12px;bottom:12px;padding:10px 14px;font-size:10px}}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:640px){
+  body{font-size:16.5px}
+  .two-col,.grid2{grid-template-columns:1fr}
+  .manifesto,.playbook,.widget,.eco{padding:24px 20px}
+  .section{padding:48px 0}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+:focus-visible{outline:2px solid var(--gold-bright);outline-offset:3px;border-radius:4px}
+
+/* ===== TEMA CLARO CREME (tela): sobrescreve gradientes/sombras escuras ===== */
+.cover h1{text-shadow:none}
+.cover .seal{background:radial-gradient(circle at 50% 30%,rgba(201,168,76,.16),transparent 70%)}
+.playbook{background:linear-gradient(160deg,#FFFDF7,#FBF3E3)}
+.widget,.eco{background:linear-gradient(165deg,#FFFDF7,#FBF3E3)}
+.playbook .stat,.readout{background:#FBF5E6}
+.ctrl input[type=number]{background:#fff}
+.progress-bar{background:#F0E7CE}
+.node .ic{background:rgba(201,168,76,.16)}
+.cta{background:linear-gradient(135deg,#C9A84C,#E0B84A);color:#211703;box-shadow:0 12px 30px -14px rgba(160,120,40,.55)}
+.cta:hover{box-shadow:0 18px 40px -14px rgba(160,120,40,.7)}
+.progress-fill{background:linear-gradient(90deg,#B88A2A,#E0B84A)}
+input[type=range]::-webkit-slider-thumb{background:#C9A84C;border:2px solid #fff;box-shadow:0 2px 6px rgba(120,90,30,.4)}
+input[type=range]::-moz-range-thumb{background:#C9A84C;border:2px solid #fff}
+.widget .wtag .dot{background:#C9A84C;box-shadow:0 0 10px rgba(201,168,76,.7)}
+.meter .pin{background:#2A2012;box-shadow:0 0 6px rgba(0,0,0,.30)}
+.copybtn:hover{color:#211703}
+::selection{background:rgba(201,168,76,.3);color:#2A2012}
+/* ============ PRINT / SALVAR PDF — versão econômica de tinta ============ */
+@media print{
+  @page{margin:1.5cm}
+  html,body{background:#fff!important;color:#1c1c1c!important;font-size:11pt;line-height:1.5}
+  body::before{display:none!important}
+  .wrap{max-width:100%;padding:0}
+  *{box-shadow:none!important;text-shadow:none!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .widget,.checklist,.cover .scroll,.copybtn,.reset,.cta,.printbar{display:none!important}
+  .cover{min-height:auto;padding:10px 0 24px;page-break-after:always}
+  .cover .brand,.cover .kicker,.cover .seal .n,.eyebrow,.tip .h,.iface .h,.script .lbl2{color:#8a6d1f!important}
+  .cover h1,.cover .sub,h1,h2,h3,h4,.disp,.big,.modhead .mtitle,.step .body .st,.node .nt .nn,td strong{color:#141414!important}
+  .cover h1 .g,.cover .seal .l{color:#9a7a1e!important}
+  .lead,.mdesc,.esub,.pillar p,.playbook p,.step .body p,.node .nt .nd,.toc a .dg{color:#444!important}
+  p,li,.section p,.section li,td,.toc a{color:#222!important}
+  strong{color:#8a6d1f!important}
+  a{color:#7a5c14!important;text-decoration:none}
+  .eyebrow::before{background:#c9a84c!important}
+  .manifesto,.playbook,.pillar,.tip,.iface,.script,.eco,.node,.readout,.table-wrap,.toc{
+    background:#fff!important;border:1px solid #d9cfae!important;border-radius:8px!important}
+  .playbook::before{background:#c9a84c!important;color:#161206!important}
+  .pillar.stable .t{color:#3c7a3a!important}.pillar.change .t{color:#a9772a!important}
+  .playbook .stat{background:#faf6ea!important;border:1px solid #e0d5b5!important}
+  .playbook .stat .v{color:#9a7a1e!important}.playbook .stat .k{color:#555!important}
+  .modhead .mnum{-webkit-text-stroke:1px #c9a84c!important;color:transparent!important;opacity:.5}
+  th{background:#f2ead0!important;color:#7a5c14!important;border-bottom:1px solid #d9cfae!important}
+  td{border-bottom:1px solid #e6ddc4!important}
+  table{min-width:0}
+  .step .num{background:#faf6ea!important;border-color:#c9a84c!important;color:#9a7a1e!important}
+  .field{background:#faf6ea!important;border:1px solid #e0d5b5!important;color:#8a6d1f!important}
+  .toc a .mn,.eco h3,.node .ic{color:#9a7a1e!important}
+  .node .ic{background:#faf6ea!important;border:1px solid #e0d5b5!important}
+  .rule{display:none}
+  footer{border-top:1px solid #d9cfae!important}
+  footer .fb{color:#8a6d1f!important}
+  .modhead{page-break-before:always}
+  h2,h3,h4{page-break-after:avoid}
+  .script,.playbook,.step,.tip,.iface,.table-wrap{page-break-inside:avoid}
+}
+</style>
 <script>
+/* ── CT: GUARDIÃO DE ACESSO + PONTE DO LEITOR ── */
 (function(){
-  var okKey = 'ct_ok_' + 'ebook-contrato-digital.html';
-  var liberado = sessionStorage.getItem(okKey) === '1';
-  var dentroDeFrame = window.self !== window.top;
-  if (!liberado || !dentroDeFrame) {
-    window.location.href = 'https://carlostattoobh.com.br/index.html#ebooks';
-  }
+  var FNAME='ebook-contrato-digital.html';
+  try{
+    // Aberto direto (fora do leitor) e sem liberação -> volta pro acesso.
+    if(sessionStorage.getItem('ct_ok_'+FNAME)!=='1'){
+      location.replace('acesso.html'); return;
+    }
+  }catch(e){}
+  // O leitor manda ct_scrollTo com a âncora do módulo clicado na barra lateral.
+  window.addEventListener('message',function(ev){
+    var d=ev.data||{};
+    if(d&&d.type==='ct_scrollTo'&&d.anchor){
+      var el=document.getElementById(d.anchor);
+      if(el){el.scrollIntoView({behavior:'smooth',block:'start'});}
+    }
+  });
 })();
 </script>
-
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>Contrato Digital Profissional — Carlos Tattoo BH</title>
-<link rel="canonical" href="https://carlostattoobh.com.br/ebook-contrato-digital.html">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg-page: #f5f7fb;
-  --white: #ffffff;
-  --text: #111827;
-  --text-muted: #6b7280;
-  --accent: #1a1a2e;
-  --gold: #c9973a;
-  --gold-light: #f0c04a;
-  --border: #e5e7eb;
-  --shadow: 0 4px 24px rgba(0,0,0,.07);
-  --shadow-lg: 0 8px 48px rgba(0,0,0,.12);
-  --radius: 16px;
-}
-
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Poppins', sans-serif;background:#f5f7fb;color:#111827;font-size:16px;line-height:1.8;}
-@media print{.no-print{display:none!important;}.pb{page-break-after:always;}body{background:#fff;font-size:11pt;}}
-.wm{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;}
-.wm-grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(7,1fr);}
-.wm-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transform:rotate(-25deg);opacity:.04;}
-.wm-cell img{width:52px;height:52px;object-fit:contain;}
-.wm-cell span{font-family:'Poppins', sans-serif;font-size:8px;letter-spacing:2px;color:#c9973a;text-transform:uppercase;white-space:nowrap;}
-.capa{background:linear-gradient(160deg,#06080f 0%,#0d0d1a 38%,#1a1a2e 65%,#06080f 100%);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;position:relative;overflow:hidden;}
-.capa::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 45%,rgba(201,151,58,.13) 0%,transparent 70%);}
-.c-line{position:absolute;left:50%;transform:translateX(-50%);width:220px;height:1px;background:linear-gradient(90deg,transparent,rgba(201,151,58,.5),transparent);}
-.c-line.top{top:36px;}.c-line.bot{bottom:36px;}
-.c-logo{height:90px;object-fit:contain;filter:drop-shadow(0 0 24px rgba(201,151,58,.55));margin-bottom:28px;position:relative;z-index:1;}
-.c-tag{display:inline-block;background:rgba(201,151,58,.1);border:1px solid rgba(201,151,58,.35);padding:7px 24px;font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:4px;color:#f0c04a;text-transform:uppercase;margin-bottom:24px;position:relative;z-index:1;}
-.c-h1{font-family:'Playfair Display', serif;font-size:clamp(28px,5vw,54px);color:#fff;line-height:1.05;margin-bottom:12px;position:relative;z-index:1;}
-.c-h1 b{color:#f0c04a;}
-.c-sub{font-family:'Poppins', sans-serif;font-size:13px;letter-spacing:3px;color:rgba(201,151,58,.90);margin-bottom:52px;position:relative;z-index:1;}
-.c-div{width:140px;height:1px;background:linear-gradient(90deg,transparent,#f0c04a,transparent);margin:0 auto 38px;}
-.c-autor-name{font-family:'Playfair Display', serif;font-size:20px;color:#f0c04a;margin-bottom:4px;position:relative;z-index:1;}
-.c-autor-role{font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:3px;color:rgba(201,151,58,.78);text-transform:uppercase;position:relative;z-index:1;}
-.c-badge{position:absolute;bottom:48px;right:48px;width:94px;height:94px;border-radius:50%;background:rgba(201,151,58,.09);border:1.5px solid rgba(201,151,58,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:1;}
-.c-badge b{font-family:'Playfair Display', serif;font-size:23px;color:#f0c04a;display:block;line-height:1;}
-.c-badge span{font-family:'Poppins', sans-serif;font-size:8px;letter-spacing:1px;color:rgba(201,151,58,.78);margin-top:3px;}
-.page{background:#fff;padding:68px 92px 84px;min-height:100vh;position:relative;}
-.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;padding-bottom:14px;border-bottom:2px solid #e5e7eb;}
-.ph img{height:30px;object-fit:contain;opacity:.65;}
-.ph span{font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:2px;color:#9ca3af;text-transform:uppercase;}
-.pf{position:absolute;bottom:30px;left:92px;right:92px;display:flex;justify-content:space-between;align-items:center;font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:1px;color:#b8862e;border-top:1px solid #e5e7eb;padding-top:12px;}
-.lbl{font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:4px;color:#c9973a;text-transform:uppercase;margin-bottom:8px;display:block;}
-.h2{font-family:'Playfair Display', serif;font-size:clamp(20px,2.8vw,34px);color:#111827;margin-bottom:16px;line-height:1.2;}
-.h2 b{color:#c9973a;}
-.h3{font-family:'Poppins', sans-serif;font-size:17px;color:#111827;font-weight:700;margin:28px 0 12px;}
-p{font-size:15px;color:#1f2937;line-height:1.9;margin-bottom:14px;}
-strong{color:#111827;}
-.box-warn{background:#fffbeb;border:1.5px solid #f59e0b;border-radius:10px;padding:18px 22px;margin:22px 0;display:flex;gap:14px;}
-.box-warn-i{font-size:22px;flex-shrink:0;}
-.box-warn p{font-size:14px;color:#78350f;line-height:1.75;margin:0;}
-.box-gold{background:linear-gradient(135deg,#f8faff,#e8edf8);border:1px solid rgba(201,151,58,.22);border-left:5px solid #c9973a;padding:20px 26px;margin:22px 0;border-radius:0 12px 12px 0;}
-.box-gold p{font-size:15px;color:#1f2937;margin:0;line-height:1.8;}
-/* CONTRATO */
-.contrato{background:#fff;border:2px solid #111827;padding:60px 72px;margin:20px 0;}
-.contrato-header{text-align:center;margin-bottom:48px;padding-bottom:28px;border-bottom:2px solid #111827;}
-.contrato-header img{height:70px;object-fit:contain;margin-bottom:16px;opacity:.8;}
-.contrato-titulo{font-family:'Playfair Display', serif;font-size:20px;color:#111827;margin-bottom:6px;}
-.contrato-subtitulo{font-family:'Poppins', sans-serif;font-size:11px;letter-spacing:3px;color:#5a3c18;text-transform:uppercase;}
-.cl{margin-bottom:24px;}
-.cl-titulo{font-family:'Poppins', sans-serif;font-size:14px;color:#111827;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;gap:10px;}
-.cl-titulo::before{content:'';width:20px;height:2px;background:#c9973a;flex-shrink:0;}
-.cl p{font-size:14px;color:#1f2937;line-height:1.9;text-align:justify;}
-.campo-contrato{border:none;border-bottom:1px solid #111827;padding:2px 4px;font-size:14px;color:#111827;font-family:'Poppins', sans-serif;min-width:150px;background:transparent;}
-.assinaturas{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px;padding-top:28px;border-top:2px solid #111827;}
-.ass-bloco{text-align:center;}
-.ass-linha{height:1px;background:#111827;margin-bottom:8px;}
-.ass-nome{font-family:'Poppins', sans-serif;font-size:11px;letter-spacing:2px;color:#5a3c18;text-transform:uppercase;}
-.ul{list-style:none;margin:10px 0 16px;}
-.ul li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:#1f2937;margin-bottom:10px;line-height:1.7;}
-.ul li::before{content:'◆';color:#c9973a;font-size:8px;flex-shrink:0;margin-top:6px;}
-.cback{background:linear-gradient(160deg,#06080f,#0d0d1a,#06080f);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;position:relative;}
-</style>
 </head>
 <body>
+<button class="printbar" onclick="window.print()" title="Versão limpa, econômica de tinta">🖨 Imprimir / PDF</button>
+<section class="cover">
+  <div class="brand">Carlos Tattoo BH</div>
+  <div class="kicker">Contrato Digital · Edição Definitiva</div>
+  <h1>Seu Estúdio<br><span class="g">Protegido</span></h1>
+  <p class="sub">Contrato profissional editável, versão rápida para WhatsApp e um gerador que monta o documento pronto pra você em segundos. Menos dor de cabeça, mais segurança jurídica.</p>
+  <div class="seal"><span class="n">§</span><span class="l">Contrato · Aceite · Proteção</span></div>
+  <div class="scroll">Comece a descer ↓</div>
+</section>
 
+<div class="wrap">
+<section class="section reveal">
+  <div class="eyebrow">Por que isto importa</div>
+  <h2 class="big">Um "concordo" documentado vale mais que qualquer discussão depois</h2>
+  <p class="lead">Cancelamento em cima da hora, cliente que nega ter aprovado o projeto, dúvida sobre uso da foto no portfólio. Tudo isso some quando existe um aceite claro, por escrito.</p>
+  <p>Contrato não é desconfiança — é profissionalismo. Ele protege você <em>e</em> o cliente, deixa as regras límpidas e passa a imagem de estúdio sério. Aqui você tem o modelo completo, a versão enxuta para WhatsApp e um gerador que monta tudo com seus dados.</p>
 
-
-<!-- MARCA D'ÁGUA -->
-<div class="wm" aria-hidden="true">
-  <div class="wm-grid">
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+  <div class="iface" style="border-left-color:var(--red);background:rgba(192,86,62,.08)">
+    <span class="h" style="color:var(--red)">⚠ Aviso jurídico importante</span>
+    Este material é um modelo profissional pronto para uso no dia a dia, mas não substitui um advogado. As cláusulas sensíveis — autorização de uso de imagem (LGPD), atendimento a menores de 18 anos e política de cancelamento/sinal — têm regras específicas na sua região. Antes de adotar como padrão definitivo, vale <strong>uma revisão com um advogado</strong> para adequar à sua realidade. É um investimento pequeno que blinda de vez.
   </div>
-</div>
+</section>
 
-<!-- CAPA -->
-<div class="capa pb">
-  <div class="c-line top"></div>
-  <div style="width:280px;border-radius:14px;overflow:hidden;margin:0 auto 28px;box-shadow:0 12px 48px rgba(0,0,0,.6),0 0 0 2px rgba(201,151,58,.3);position:relative;z-index:1;">
-</div>
-  <div class="c-tag">Material Jurídico · 2026 · Editável em Word</div>
-  <h1 class="c-h1">Contrato Digital<br><b>Profissional</b></h1>
-  <p class="c-sub">Modelo completo para proteger você e seu cliente — todas as cláusulas essenciais</p>
-  <div class="c-div"></div>
-  <div class="c-autor-name">Carlos Henrique</div>
-  <div class="c-autor-role">Tatuador · Mentor · @carlostattoo.bh</div>
-  <div class="c-badge"><b>★</b><span>Exclusivo</span></div>
-  <div class="c-line bot"></div>
-</div>
+<div class="rule"></div>
 
-<!-- BANNER DOWNLOAD CONTRATO -->
-<div class="no-print" style="background:linear-gradient(135deg,#0a0f1a 0%,#1E3A5F 100%);padding:52px 40px;text-align:center;color:#ffffff;position:relative;overflow:hidden;">
-  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(201,151,58,.1) 0%,transparent 70%);pointer-events:none;"></div>
+<!-- GERADOR -->
+<section class="section reveal">
+  <div class="eyebrow">Ferramenta ao vivo</div>
+  <h2 class="big" id="mod1">Gerador de contrato</h2>
+  <p>Preencha os campos do seu estúdio (e, se quiser, os da sessão). O contrato completo e a versão de WhatsApp são montados abaixo, prontos pra copiar. Nada sai do seu navegador.</p>
 
-  <div style="position:relative;z-index:1;max-width:600px;margin:0 auto;">
-    <div style="display:inline-block;background:rgba(201,151,58,.15);border:1px solid rgba(201,151,58,.3);border-radius:30px;padding:6px 20px;font-family:'Poppins',sans-serif;font-size:9px;letter-spacing:3px;color:#f0c04a;text-transform:uppercase;margin-bottom:18px;">
-      ✦ Produto Digital Exclusivo
+  <div class="widget">
+    <div class="wtag"><span class="dot"></span> Montador de documento</div>
+    <h3>Seus dados</h3>
+    <div class="wsub">Deixe em branco o que for preencher na hora — vira um espaço [assim].</div>
+    <div class="grid2">
+      <div class="ctrl"><label>Nome do estúdio</label><input type="text" id="c_estudio" value="Carlos Tattoo BH"></div>
+      <div class="ctrl"><label>Nome do tatuador responsável</label><input type="text" id="c_artista" value="Carlos Henrique"></div>
     </div>
-    
-    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);color:#ffffff;line-height:1.15;margin-bottom:10px;">
-      Seu Contrato Profissional<br>
-      <span style="color:#f0c04a;">Está Pronto para Baixar</span>
-    </h2>
-    
-    <p style="font-family:'Poppins',sans-serif;font-size:13px;color:rgba(237,228,212,.65);line-height:1.7;margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto;">
-      Baixe agora o contrato completo em Word (.docx) — editável, com todas as cláusulas de proteção jurídica e o Termo de Consentimento inclusos. Personalize com seus dados e use imediatamente.
-    </p>
-
-    <div style="display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;">
-      
-      <a href="data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,UEsDBAoAAAAAAFYktVwAAAAAAAAAAAAAAAAFAAAAd29yZC9QSwMECgAAAAAAViS1XAAAAAAAAAAAAAAAAAsAAAB3b3JkL19yZWxzL1BLAwQKAAAACABWJLVcWMsNbw8BAAAhBQAAHAAAAHdvcmQvX3JlbHMvZG9jdW1lbnQueG1sLnJlbHOtlM1OwzAQhF8l8p04KVAKqtsLQuoVhQdw7c2PiH9kbxF9e4zStC6qLA4+ztie+bRaeb39VmPxBc4PRjNSlxUpQAsjB90x8tG83a3IdrN+h5FjuOH7wfoiPNGekR7RvlDqRQ+K+9JY0OGkNU5xDNJ11HLxyTugi6paUhdnkOvMYicZcTtZk6I5WvhPtmnbQcCrEQcFGm9UUI/HEXxI5K4DZGTSZcgh9Hb9Ime9Pqg9uDDHC8HZSkHc54RojUFtMB7D2UpBPOSEAC3/MMxOCuEx6y4AYph7vA0nJ4WwzIkgjPo9ihBmJ4XwlBOhBy7BXQAmXaf6V7m3Me6fdLL/OW+/xobvR4gRTtYMQa/+us0PUEsDBAoAAAAIAFYktVyCpYFmeRYAAFv/AAARAAAAd29yZC9kb2N1bWVudC54bWztPU1v20iWf6XW2EMaUCxLdhTbmPSMIsuOGrbllZTM3BYlsiRVN8lSV5FyOqddLLCNPextFwvMLTuHRgbIqbEYYI7DfzK/ZN+rIilRomxJdhLHqiCwJLLqsfjq1fuuV7/57VvfIxMmFRfBi53K7t4OYYEjXB4MX+y87p0+PdwhKqSBSz0RsBc7PzG189tvf3N97Aon8lkQEt85bg0DIWnfg/vXlQNyXXlGrseVgx0CwAN1fD12XuyMwnB8XC4rZ8R8qnZ97kihxCDcdYRfFoMBd1j5Wki3XN2r7OlvYykcphSMpEGDCVUpOH8RmhizAG4OhPRpCD/lsOxT+UM0fgrQxzTkfe7x8CeAvVdLwYgXO5EMjhMQT7MBYZdjM6DkI+0hV3mu6XKSYEc/sSyZB2MQgRrx8fQ1NoUGN0cpkMlNLzHxvekUVA7uNgcnkl7DxxTgKsN3TSffMyO/GWJlb4UZQRBZj1WGkH9mOhKf8mD64I1QM4PcyrP1AFTnAYyHd5ucMymi8RQavxu0VvBDBgvX/BqwkkmefTV1t8F0R3ScrUDn7WrAErpDeAdlZ0RlyN5OYVTWBvKsfFQ+XARU3QAQvGC1sghqf21QtTKOagHQirQ8BwhGtQBpRaKeh1TwcrXNIFUXIT3fDNL+IqTDzSAtkBMwkh82AMWna4z6++7aEJ6XfeEyb3/KDCs1h624PNK1dpgs1rIzfR+Ew1ccTwqnlsHhs+PZbDAzAJQbuqO1oFRT3lzGvjSkI6pGsxDXY2ewXlNwP/mAI1R8+sL9CT/H+s+VxA81pg5MDLk+poOQgZ4AahS0ZCCI4IG1vZ0ytvregYsT6r3YcUCYM4lXyxkM8yf5fiqCUCE45XDg5mcMRBmnCNRRuZ+MqrCuOM1dHNUDNdNLP7xv/jaU/nSEJ2Q6msbR0fP9ummm3qVXn9XSKw2Vv1bOxhkiZvXbw2uOJVNMTtjOt41657zdJb16r9duk5evsEdo+pk3Xg9/d0ZfXXLqpcjLfkxRl11KEGd+G0TRcQHGai+fVw+TYU3Hrm9llzNEVg4XEWmu3YrIZrcX//Gk1SYnTcTm6/pZ84JcddqnrW631b6sn6+P2erDQe1SjE5R97wAdc9XQt0FDUL+Y8S4pCXyknmCvBKSv4PRM/L3f/kvcnFGyN/+QsjvHCo9ASZOGAqx2x/ditHxS1caPgA9/HRUqKp4TCMCXytbVAQHD4Ou6m9mkJUUvQmkhTk6zM2RQUvxdExRVV3EVHUlRN2VhB46d6tUKofV5/OUVS1YlNXVFmWjfdnr1Ht6UV51YInW45/jf9M/u83Om1b8M/C+mQW7PoIPH8wa5eZvEV6XrNjNmV1q5QoCgphAT+5Sl5HvIxl/dLlD9bI9Z5zq+zRkQfxL/CdBYKEzRaAlRYOByvtawSeVk2cnL9MVfLDOAq4VrJAHtIAXyevWwe0VjG5v8+GFfS/5SPr2vd8D3PCnMfR13+p1Dub90d5e8mBo8BI0MSaV/iXGS6eNRqGYTpru7LFBuE77WwijoIfkw9Faj+Cw0lz2av0ub1bvUs6jrZzH95nkLn4dwmdDeAbhtRTfuauHB3t7U4Bpx9BAcszfBK5TNI0Z1NApnsRABCwd+t7inBXczk9RQYPcjCzcL8+NRY1cuD3gnjcruQ239RiV6fAvqJwOff41D/NDX3Y7G/qyBunQi++XZ8YxqXt8GBTKhXRGZhnBFxEhN4jmU/3vHkXzPxQwm/KURm+n1JTSl5PqLWKisgH1rgbyZhZT0OUmGj9tnh41m/dP45XaXYm8Up2j8nla/vxkukSD3Fwkti6u2p1e/bLXnOo0mRYzlkIpNoz4DYrM57DIKqfVo/2Ft64cFeh3R6sZswpMLzdT8hjYXH3mMQcucsl4KBRhRPSBMCgodv8H2IB2EtU6MkaXm9oldZEqeSUyEU78Z1AFgwGXPiVg6hGPRSXsxAKXRQAMbjpA/0ZhDIULT4D/wPh8AcDOIgprg0TQ2Yl/HeMcaNjQHp5HiWKRIpINuQphSnaXs5aykYXlTK154MrX6sPbr+YGeJMyvTaL3IQHzrLVcMSdH5Ya3NVUA8p09JW43wI6Knurztfn4UXFvro7UAghjfP4X193X5/XSYuQHME8CmaLHJa0TpqXvdZpq5Ha6vUuuap3es3u+iskb9xV9r4ITRS6JSvN/fqzRX2qUoC7ykq4S1wd9ZM2edKjYURdIb+5F3/Gl1xD905il8Jnx59p6XzaN2loZyh5xQKJzlM71QVKTPxXl4tHNd097fzeKFDz2Oe7cXVablxeffdF5jvRge7vbf559X+WFBaWPlgVksW/PJK134koAQMbzB4wgs5FBLYQ2J+UNGT0rkT2nx+aMFkujPaKPCUXZ5Y05nH5+xENVX08JmXSgBeg4ZehkQfNL7Y+6rKFdgN6uJ40PI4+GWs3FNoN6Jsae8xyDBsY1B0eaGDw4FlhZDC9vGlkcAr2ttBg8i5JyIjcGiu8qX1x8PCmHoXRxOUd5kMvtwRVavn3mL99W0ilNjfIbQypgJ32mBnoXeOadp3ZdXYv5HlCQ20wBjhsHcjbzmW3EPOziotVXCxDtQx1XcbTY4A8mJdy6kPaTn5qV51ddZ/Tl//Up9zbzqW2oLpstQ8ui+pYR9zqjlmbJLbFSWKPN0us/fK7Ju7rapN0j9f6S6OIFmYz74GiR5+FPlZI5r0DvtpEf8fdlA4MWdJQkJD5yEQFEf3vgY8SqtuE1GzTchnBvhxYrc5zDjGfbAhdxrg5cybTjE5/XfaaJZ3iK6SvM6MNXPgyoa4gDOCE1BvpxGnlSJ1DTPuUvxXHd2RqXyQx1/oQrA/BWjPWmtkgKZEDD3VpxlQfsw5rnQh22T2IZXcuHOqRAC1HOX7UZqONg1gdxjJTy0w/ZRyE+jQYGePuLffBvNtOhmqXnV12n3HZ6XwORkZCUrQfFFMq/tOWLj2ry1hdxjJVy1TvzHjeUIQeihDMQ6orUHwhbeb+N439I7GajF10D3fRuYJgDRePjOlwC9ecze3IKbc6KJiEH0UWPyyTDhswGf85cDhVj1nXXVUBtukeNt1jabrH4833qF912m/SikBtLKyN+R8252Npzsfsvl6XOR6WSQMMkAlXoSgRCoKXK5OZkSVpTPnubNIHTdJHsMVCAogphScID+KPDhczjomiKmx2cnQMeALYjChXhHrw3mkJvUDMpM3EvyqSw2o2HUyFKCRV9D3jIQUYxBF9SYP4F0qoy6E5TO0ueUPhdRLIVIbxRxVyB5rzgEmmZ43q5+HZLYIECNIRATQKI3iIL0I+Eaa4nkTq8ZPUIBHh70jpnUWguFG9sWiDubaCaosF1ZtHK6e6rcv6OWkijzxpgbj676YuMH9VP6tfNC+txLpBYk2NQcw+jN/rREFh5A78n8x4agL0gIezbvBdAgCoB+10HiMmO7psosEAMPJjxDUc4HkD/Zhpz1IqxOAKjT/Ch6srnuraYVaILZuvUzy4TeWkAIEmKJKOyVXrD3hiRwMFj8kndeMPfQ5N8lcdGX9w8fITkDQO8xI4PnO5nkLtkUMxFX+YcPGNFTNWzKwhZh6vlGnULxvNcyNRQNh0mvWz5uXJphKm8AwTHiCBIYW+2Dk4fCBcrJhc7nCQyd//598/F5F8WnbcoMGUf+pDV8DQA04afwy4r3ntwaEOHasZcZdGkFNH7ISDup/xZK38B2AZpg0JGoNh/IEc7RFg0IV1ti2pbR+pwTezT+TgcIQGYmJM+kBALKk8QZ4E4qkaietvptQGhCRZyLXzIGRDST0/2aTim+4sUInVqd0OfU9gdUNtDYMlHLiYDQHDQjqddxxb0txK0uwwQxg3ssHRMdCT9LkmPTxSYMLeAYvzC/0olo62kY5yLG4MD9KnWiB/mfo+p4wstVYnwpsssrNUaO5rmUniv4aMbyI6rSWzxZbM4w3sXLXP4//stRp1dJN1mr32P71uWqfLrWGdkzYRAybxSJ7IRz0KdSMCXCeMUHdHhWwsQffiEr4l+noSVpjxfLl4bA8qVAqd/y7PIhHSx/AEemi4Q0PJ3xkNy7rDls/MwhxcYqxSYXjNwyMxcUr0YVHa/HKoEmqDnc9Wu/j6tQvMdYl8vTxRv8DVJyQWXk7jdbjuIjxSFZQPWLFPs9gfzHoAJhX2mIvEWkV1K0mp+XYsVJI2RUEfFZ62ZMAKDoEdSbxAJXEjqd3paEjL+KNwxb2wdktAXz8BgcXspSSgD2YO+UQf5qySYiEwn0AnyHGejDm8TEBLhMIF5nOqLZ1AwRW2QIebBGssQX39BNVI9EhDTiClmD7v0eUD7kQexvQI7SshkyaUhEBElDyBRl78K3dZyXRSzEG6Cp1dG/azxvJ6xvLjtZZPmo3zeifNg2ySbj3+44m1l9dKgyyBeOoTFRnxxXWGmxoLkGN97mnZV0KWZY2zrZRfeGrge3Ta9oXOtaRGWVY0/it8MBPcylJic24TlHNTpelHzKNMLTerDG0lMV3q4KVQKuLEFQxjS8a6F3QYeYnWjQYbVuVLk6hc9iOe3mpJZntJhmkmFCkaYM5iEPKEYLTrEOkFt2ZnpjvxMWPDoZZitp1ihjJ+j+Y7ZmFQXzMUJCFLGNtLGIn0oR6TQ671lZH2IJPE8lYl4kUTI5a8+H3I3iLxiCjEwJFPgRh4EgqyuoylJsNm0H5iA8bNRrH4vecI4SHZqKgPDf5Xb9YlY4ViK+QTmym4pSQT/wdwEI5b/RmpHIIiI4DboGhKzSfMm8mrMi5wncQcB1HGNOdBiWZyaajCjBt3E03ny5eMtg6ZeYcMNzZ0bkepi/5i6oH1LBf8MjoVS7JsW6M7YVJp0eUImexqhFZcFyFPWwmd6QetArTmUyfQpjEv61jeasfyI/YstzrNVq+tdyu2LupnzQvSJPXXvXanVSctWK3nzUbvdf3csrYlWDzcrZDXSmtE3Mc0ZHVM8uwulXR5hkfJQIRiKOmASsLKIB5hFfrwfWZ7Nobu4UGRZ9yRM7vB9SaNSOm9GcAdw0H8q8dFCVpjCFcJR2vvbEaTH0d9jzsc9DjJhdqdG+NYoLNT6BZUapcmPFqoMNkjrtj3wEP5JPKGMJSS5sjJeQ42OWw5aVTJCZfMHHqBVAATgdRRVG4h/kAwD10HJzzmwFUvn3hcMukdQzTixsyj5JxxcrRbq+yVjw7n5xMP+nDNozEwj5QyU14HbioWmaLYJYL7OQNjM8KAJINWbvSOSzzXw2cSSAlTBSRqcA6Ql5ypF6FrSzg629AKVStU1xCqrT88WpH6qnXWal42QY6+bLW73ebZ6079Mv65bvnkKunNadEaG4rdVvdBT6A3IOeGHDM5iKR4ChIrNNGQKOQolbClMklHysECA8Z5gFUgjHr01vEihTVt0AzEPDcWuHzT4jWWur5+6mpnRT6AvoIw/oBps/F7UyUJqGbEh5wFmWOKYXOgwmm2ZBKopUhlkmF4TsdbXOvu3FKKav4Y8bGJ4msKukI13dBKC5jNhLuoyz9pXrXUN4ZZzTCvNEc7FGkhNtCxLYPaYnJqp7JMCzG4HH90I6AUvW+eGrqZnrhIk21burJDPZhwhdvjPTATVZpoMuFD9JFaA80aaGsYaI/XPjttd7B6zkmre9XupsXaTluX9VbXmmhLEFdXZi88KD3AW5gPogpeWPskHeFT6ejCkC9xc9ordHYKlGlPycWZ8VS6XHKfo18RtHkd4/F4GH8ccqH3wEWBFoVaQ0/PqkVfZhBhSFknQ02jQzpHQTsg9WbVsQQJi/wO2SL6LdFVaX2SN+S5zpwHDDLFgQntS10R1idV8gSUFVBTJtxow3yIukvI0N1LdHitRAagKgdpDQ2dW+IT3CpkKOTxxWgf1vBSGXaLyMxLwEpVfzMPq8xLw5u1yMPVXrngjT/RfOSHV9lbWKoOqjvyS0hnOr5NimUvo28d7C0s7SJErobJeherkPZed+pdXRyu0b581Wy0TLW4E7h4Ve/0mpvIuOrNrPEz4vvTqgd5+VVKD3VARri0Vj/erO7pr8Wszx5R9UCPqKoWHlFVKz64qnrHg6uqq56hc8uRObeekHPbgTibnn+TvcCGB+DMjanwdvl62ek3axiYeclXW0fw1fKSpfaAJMsn5XsNKj1QwF+xQOL+pftQkR6CfKi9fF49XJCwleeLeDLXbsfTNEyFlmSCth4Fkhfk5SuLt2V4uzotNy6vvjsuEqMFWCtfr3E8We2Bc9Z5VramMrwWLqyYsWLm4YqZS+GbYooeVj2yYuY2MXPZ22CL/7bg6Op0TWlSvl7n4L0H4vQxrh6ZcbIxHbIU5IoEkTfeD+5MEmdM4JaylChmfk7JYuZiQhjplduYTnFM46AAtwcr6rb1znm7S3r1Xq/dXkVJsw62PMXcXTx9WopZIqZqBfiqrYSwXrNzoausAB/uNi97iQftvPWmg0l9zS7WYmk2Wif3debCF2HP3PwtwugSZr15bP5EOFFWm3vsMZ0wIzExOYtEuLqmuwqnJcmwL49/Eeq+Vmw+inywucZWe2gL9oEIq20PrUWl5W7i4n96IwVu7pBP6DdaNb46LYZRShJjdfVeE4kjHp9IpjPU8I7e3l1Kq9EA9ael8NO0kdnDErIko9weBF1cNEuPm3dvlAjbMCv3gdOnzZr6+rOmTrHUzsyW4WQzqCtwYSnRl2wuu65EwviDE3BdbnAmg6+U1EfIbZ7C2tkSFsg0cc8m520lmTVAf5GMBUmuCc3t34r8PGvF40ZoYE6D0M2zvXxK77XyyYTCwPU++eTIO3OuTgQ0OM4KaZbSqtDKlIXOPQOYPZXUCbHAb3bUa5J0utF5E5ZKv34qRWaYlBbPMUA1paSA4RZTsxk0OyAgryjMHj4MRKl1dyl8s+9Pl7R/6llGuKUk1uMTZH8C9dcoMGUaUDGl75hExjeMtBAtkrxEZ7vDTZh/6ifVHlxdqyFTbRUNuRrQMP4VXsiS2FaSWFOFuOVYxwpMgRiuHFF0lHmm0vHA8SKO0hnrX/GsgIhOpM/qh3jxBzlEUYkdBsxJro91xZr8GQ2zLHNB+CYGER7FnqupbzZSG9luaXcrabchggGXfqIlqrnaNMbTpYvTUHIyU5kGCbVrSs4+aXjx+wj0RYoFSJKNQxMmkZ651PaJcaaFduPZlhJZ3RQWwX1jkalAgiVFkDIm8UeXCWWS76f1QfSOxdkCITNHnpdm9hShLYIZ4cHUQfv40rq3xSuJCf/wwr7O9jcHGiYnFQbJ2YYzPvirvA++m/rg8UcvtQamWwaAfflMgb7m0vDxV2db5Ig289lmPtvMZ5uSlhuUTUn7elLS1s18/vKs/xMmNRe8fdlm4m6GC8v2LNt7uGxvLhOXlElnWnzZ22YuiMUTy+l5W8UJuOUV8kltEuEDtZyWEE5BtmBltWzB+SwZQv72F0J+5+jLob662x+Zqxd4pguoGRxPIysollCIZcWc0IxgxCjw7g7DA8ADh02ZKhvQyAt3iDzm7osd2XKTdTAQIlytQ+JNGw+77wx7rlSO9jQrHSEmDvcP8buJKcLbC4mnXYVpJ+DgRPNovVdYz7xm+/BzPzGh9TqY3jY+xvSuebEXO8/39GPMsLOfwyhMKCp53GXk9+A99C9XOGiTIEgesCseOjDg/SxDL0VeGYfg/qS/uEk24rf/D1BLAwQKAAAACABWJLVcR7XAXhwDAABKEQAADwAAAHdvcmQvc3R5bGVzLnhtbOVXW2+bMBT+K4j3lUBI2kZNqyxt1ErTVnWt9uwYE6yCzXxM0+zXzwZDUghL2tBO2p7CufD5fOeCT84unpPYeiICKGdj2z3q2RZhmAeULcb2w/3s04ltgUQsQDFnZGyvCNgX52fLEchVTMBK8OhmwbhA81hZl65vLd2BbSlUBqMEj+1IynTkOIAjkiA44ilhyhhykSCpRLFwEiQes/QT5kmKJJ3TmMqV4/V6wxJG7IPCw5BicslxlhAm8/cdQWKFyBlENIUSbbkP2pKLIBUcEwCViSQu8BJEWQXj+g2ghGLBgYfySJExEeVQ6nW3lz8l8Rpg8DoArwTQ6Q84viQhymIJWhS3wohGyn9mnEmwliMEmNKxPREUqeOXIwwbAkEgJ0DRhiqaMKj8HQ2FecyFsjyhWHWJ6554x4UBfpVar1dqpvBS55iInHqcaSUVXjVSeYspKLlKVW+lSKCFQGmkI8xNN8HYvqcyJnlGGEpIeW6hzcOZIyDBN1ZavuoiG1KMPMtt+p+zvBOcjVSuaQ6GTZqFboNmHt6+FK4J0uPmNlgYg+V2yeRFJb2rY//zoF7JvtekWOgOpOi1UvQ+mKK3pYpeF1Xst1LsvxtFd+ZfHp80KPpbKPodUPRbKfpdUqS5QKfQ/ACta3oglUErlcEHNOSBwQ9bgx9+QKu9NfjvUnC2aIRu1B3GPS+w8v55a7BfKMjbylKPWVuttXlX7OsY28PAkYLDkoiXBVc2EVP22Kx4Zdl2urlMqxD1PlA4ZvRWUC7UplX6np4aC4toQH5EhD0orNZG6A2G/am5mLJSqXel4t7dnfDtTGecS8YluSMhEWoRbV7tofGwROXSFXUgCb2mQUDYjkyofVlOYrqoToNMlQGwoKk8ZDZK9veqy9uJS23d1Wy6J0r9JuxUpf3wPKRmK0oR1t8btWGGqpKqKzQddTTRV00l3GX6vwHKJDfJMa83dqu9Vsg39VNFvZ7V0sHSHtY6O3u3U1uiO2u290zPFQv+PG2kcPgXh81w3zprJe1Xj9oG6H82aXXm9ZQaeydztlm6vztm5ROc/wZQSwMECgAAAAAAViS1XAAAAAAAAAAAAAAAAAkAAABkb2NQcm9wcy9QSwMECgAAAAgAViS1XE7D/Qk7AQAAgwIAABEAAABkb2NQcm9wcy9jb3JlLnhtbJWSXWvCMBSG/0rJfZt+qEhoI2zDqwmDKRu7C8lRw5o0JJnVf7+0aq3Mm10m75OH95y2XBxVHR3AOtnoCmVJiiLQvBFS7yq0WS/jOYqcZ1qwutFQoRM4tKAlN4Q3Ft5sY8B6CS4KHu0INxXae28Ixo7vQTGXBEKHcNtYxXw42h02jH+zHeA8TWdYgWeCeYY7YWwGI7ooBR+U5sfWvUBwDDUo0N7hLMnwjfVglXv4oE9GpJL+ZOAheg0H+ujkALZtm7RFj4b+Gf5cvb73o8ZSd5vigGgpOOEWmG8s3ehYMwWixKPLboE1c34VNr2VIJ5OI+5v1uEWDrL7SjTrieFYXoY+u0FEoSw5j3ZNPornl/US0TzNZ3E6jfNsnU5IMSGTaTLPi6+u2p3jJlWXEv+1FvOR9SqhffP7H4f+AlBLAwQKAAAACABWJLVcHinpWnACAABkDAAAEgAAAHdvcmQvbnVtYmVyaW5nLnhtbM2XS27bMBCGryJw71By5AeEKEHbIIWLvoCmB6Al2ibCF0hKis/QRXfttmfrSTqULPlRILBlBPDGtDgz3/wUOUPo5u5Z8KCkxjIlUxRdhSigMlM5k8sUfX98GExRYB2ROeFK0hStqUV3tzdVIgsxpwbcApEls6VUhsw5OFRRHFTRKKh0FKMA6NImlc5StHJOJxjbbEUFsVeCZUZZtXBXmRJYLRYso7hSJsfDMArrf9qojFoLOd4RWRLb4sT/NKWpBONCGUEcPJolFsQ8FXoAdE0cmzPO3BrY4bjFqBQVRiYbxKAT5EOSRtBmaCPMMXmbkHuVFYJKV2fEhnLQoKRdMb1dRl8aGFctpHxpEaXg2y2I4vP24N6QCoYt8Bj5eRMkeKP8ZWIUHrEjHtFFHCNhP2erRBAmt4l7vZqdlxuNTgMMDwF6ed7mvDeq0FsaO482k08dyxf9CazNJu8uzZ4n5tuKaIp8yyFz6wzJ3OdCBHtPsxxaF/JtJzEUupXxk013erNw1Lw1lDylKKwpouCOfaQl5Y9rTQFUEg4K13PD8k/exr0NYe/LSw4ODAYfXSdwUIZQyyX1Kb1Pna/FRE0cNMcH0U3OC86p64iP9Lkz/f39s5v/kLWznC427vqr8QOTOdj8dIomQ68kWRG5rJv09Tj0vnjjjGvWofjodcT/OFV8FMc91A9fRf2vP6eqH0bjHuqvL+TgDKfTHurjCzk5ILaH+tGFnJz4uk/Vji/k5IzCPlU7uRT1kz5VO70Q9eP4uKrFezfiRlVQ/zbX48ENOssPFgGUL/AhALcg3bnzuiXv2LZReC+sfpY+Od75Prj9B1BLAwQKAAAAAABWJLVcAAAAAAAAAAAAAAAABgAAAF9yZWxzL1BLAwQKAAAACABWJLVcH6OSluYAAADOAgAACwAAAF9yZWxzLy5yZWxzrZLPSgMxEIdfJcy9O9tWRKRpL1LoTaQ+QEhmd4PNHyZTrW9vKIpW6tpDj5n85ss3QxarQ9ipV+LiU9QwbVpQFG1yPvYanrfryR2slosn2hmpiTL4XFRtiUXDIJLvEYsdKJjSpEyx3nSJg5F65B6zsS+mJ5y17S3yTwacMtXGaeCNm4Lavme6hJ26zlt6SHYfKMqZJ34lKtlwT6LhLbFD91luKhbwvM3scpu/J8VAYpwRgzYxTTLXbhZP5VuoujzWcjkmxoTm11wPHYSiIzeuZHIeM7q5ppHdF0nhnxUdM19KePIxlx9QSwMECgAAAAgAViS1XNJ3/LdtAAAAewAAABsAAAB3b3JkL19yZWxzL2hlYWRlcjEueG1sLnJlbHNNjEEOAiEMRa9CuneKLowxw8xuDmD0AA1WIA6FUGI8vixd/rz3/rx+824+3DQVcXCcLBgWX55JgoPHfTtcYF3mG+/Uh6ExVTUjEXUQe69XRPWRM+lUKssgr9Iy9TFbwEr+TYHxZO0Z2/8H4PIDUEsDBAoAAAAIAFYktVzSd/y3bQAAAHsAAAAbAAAAd29yZC9fcmVscy9mb290ZXIxLnhtbC5yZWxzTYxBDgIhDEWvQrp3ii6MMcPMbg5g9AANViAOhVBiPL4sXf689/68fvNuPtw0FXFwnCwYFl+eSYKDx307XGBd5hvv1IehMVU1IxF1EHuvV0T1kTPpVCrLIK/SMvUxW8BK/k2B8WTtGdv/B+DyA1BLAwQKAAAACABWJLVc7Tb7DY4CAAAZCgAAEAAAAHdvcmQvaGVhZGVyMS54bWy1lt1O2zAUx18lyj04aSGUiBaVIrZJk0CjewDXcRuP2I5stwFeZxc8wu7Hi+3Y+ehHEEpb7cZO7HN+/v/j4yRX188881ZUaSbF0A9PA9+jgsiEicXQ/zm9Oxn416OrIk4T5UGo0HGRk6GfGpPHCGmSUo71KWdESS3n5pRIjuR8zghFhVQJ6gVh4K5yJQnVGrgTLFZY+xWOt2kypwIm51JxbOBWLRDH6mmZnwA9x4bNWMbMC7CDqMbIob9UIq4QJ40gmxKXgqquzlBd1i1TbiVZciqMWxEpmoEGKXTK8rWNQ2kwmdaQ1WcmVjzzmy0Iz47bg1uFC+jWwC7ykzKJZ6Xyz4lh0GFHLKLJ6CJhe81aCcdMrBc+6NFsPNzwfD9AbxeQL47bnC9KLvM1jR1H+yaeGpage7GqTd60po8T85jivDmB5LkbrKo7yztDJMXK0Oc1I9wbco4u0aAN6h0AAoO9sI3q742KkFXVAnWs5R0QqGqROhb1LukDc9FhpF6bdHEYqd8mDQ4jtcqpCCPCkv1qvD4kCDI3OHq/swbFVGH0CwdB9qObu+ZBue4mcf1MGiO5V8QrnA19e6YyOFBFTGQm4ZM2uby86I/tgH4d+pG7yDEBLWc+Gl2hNcgOQzYE4LmhkBoFNnpG4X0L4YENL+JfpF5KsUVqakapqWyq6zspjLY0TRi8ssaK4cwJ0xs3FGsz1gxvDKVjoZt4t+asbCfa9c5YLaKy5yb0az0aDuqRid4eQ40+Y3emfha5opqqFfVHk/GP7/eP3nQ8nd7fezdfPc/mmDLzP3rcchXdXPQGQctV9IGrqJOrv388bwJaFTbSS6j3ADMGv7+9/3a3jxDF3t+k3vKKXMEh9683+gdQSwMECgAAAAgAViS1XDgB8ic3AgAAMAcAABAAAAB3b3JkL2Zvb3RlcjEueG1s1ZXBctMwEIbPvIXGZxLbmTYUT5ySNNPCoUNnCieGg6LIsaikFZJiQ96mT8EdXgzJtpy0zHTS5sRFK692v/1XGzuT8x+Co4pqw0DmUTpMIkQlgRWT6zz6/OlycBadTyd1VliNXKg0Wa1IHpXWqiyODSmpwGYoGNFgoLBDAiKGomCExjXoVTxK0qTZKQ2EGuO4F1hW2EQdTvxLA0WlOyxAC2zdo17HAuu7jRo4usKWLRln9qdjJ+OAgTzaaJl1iEEvyKdkraDOhAx9SN02ZQFkI6i0TcVYU+40gDQlU7s2Xkpzh2WAVE81UQke9SNIT46bwULj2pkd8BD5qzZJ8Fb508Q0OWAiHtFnHCLhYc2gRGAmd4VfdDV7l5uePg8wegxQ6+OGc6Vho3Y0dhztg7zrWZI+i9UNeb81c5yY2xIrGvkPimqWG92Y+aqxFhSqswrzPPLB3L2rdUaAg3tXF+nidDH3DrPNo5NmozChfh9PJ/EeBS9NZwNNs3VpfYoC18DbZDTuckKsR7mKLgIXlrpyiY9eUvfbcxXGSSjR6m2Xbn8J0hqfaAhzo5pphnmj2+w9UGzszDC85ypn0vTxsUc1nQbJ4/mb0VnSHpht8Kbj4LkwD31xr8j6YYXLUZoaqit35+8I1hyMxdYCDJclQr9/IXSNpWXfN5Rp/BrNKQf0HjTbup4oGqDrq+aSWvp/2/mrmz/3ayYxetRMwVe3TChOHY9JY93Yv8DyGyUWfWzM1zD2ZnV/gdO/UEsDBAoAAAAIAFYktVxTUFcTrgEAADgJAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbLVWwW7bMAz9FcPXIVa6w1AMSXrY1uPaQ/cBikQ72ixRkOi0/ftSdmLAXZxma3Uz+fj4nkQK8OrmybbFHkI06NblVbUsC3AKtXHNuvz1cLu4Lm82q4dnD7HgUhfX5Y7IfxUiqh1YGSv04BipMVhJHIZGeKn+yAbE5+Xyi1DoCBwtKPUoN6vvUMuupeLbkE+t16Wxqd67pix+PHF6sJNicZbx28OU0if+mfMWZWv9hJHi84zG1BNGis8z4r75xPc4YXFuliW9b42SxIVi7/SrOSwOM6gCtH1N3Bkf/xJgNF6k8JqY4v90hnVtFGhUnWVKhdu6i1wN+pabTERQE/XXdscbGoyG9+g8YtA+oIIYebltW42IlcYNN3MvA/2UlnuLVC7GksNxs/iI9NxCPG1gwN4lf1wEhQEWLOwhkDmhxwbvGY0iFX7kgVUXCe1l0n3pR4pD2iYN+iJ5bp110q6zWwj8fXrYI5zVRI1IDmlu40Y4qwmeyRkPRzTvswMi/pp7eAc0qwWFNgEzFo5o5m3gRnLbwtw2HOCsJnYgNYTTDgbsKvuTmNMfsFFf9L9CmxdQSwMECgAAAAgAViS1XFh52yKSAAAA5AAAABMAAABkb2NQcm9wcy9jdXN0b20ueG1snc5BCsIwEIXhq5TZ21QXIqVpN+LaRXUf0mkbaGZCJi329kYED+Dy8cPHa7qXX4oNozgmDceyggLJ8uBo0vDob4cLFJIMDWZhQg07CnRtc48cMCaHUmSARMOcUqiVEjujN1LmTLmMHL1JecZJ8Tg6i1e2q0dK6lRVZ2VXSewP4cfB16u39C85sP28k2e/h+yp9g1QSwMECgAAAAgAViS1XOL8ndqTAAAA5gAAABAAAABkb2NQcm9wcy9hcHAueG1snc5BCsIwEIXhq4TsbaoLkdK0G3HtoroPybQNNDMhE0t7eyOCB3D5+OHjtf0WFrFCYk+o5bGqpQC05DxOWj6G2+EiBWeDziyEoOUOLPuuvSeKkLIHFgVA1nLOOTZKsZ0hGK5KxlJGSsHkMtOkaBy9hSvZVwDM6lTXZwVbBnTgDvEHyq/YrPlf1JH9/OPnsMfiqe4NUEsDBAoAAAAIAFYktVycicmRzgEAAK0GAAASAAAAd29yZC9mb290bm90ZXMueG1s1ZTNTuMwEMdfJfK9dVIBWkVNOYBA3BDdfQDjOI2F7bFsJ6Fvv5PETbosqgo9cYm/Zn7zn5nY69t3rZJWOC/BFCRbpiQRhkMpza4gf34/LH6RxAdmSqbAiILshSe3m3WXVwDBQBA+QYLxeWd5QeoQbE6p57XQzC+15A48VGHJQVOoKskF7cCVdJVm6TCzDrjwHsPdMdMyTyJO/08DKwweVuA0C7h0O6qZe2vsAumWBfkqlQx7ZKc3BwwUpHEmj4jFJKh3yUdBcTh4uHPiji73wBstTBgiUicUagDja2nnNL5Lw8P6AGlPJdFqRaYWZFeX9eDesQ6HGXiO/HJ00mpUfpqYpWd0pEdMHudI+DfmQYlm0syBv1Wao+Jm118DrD4C7O6y5jw6aOxMk5fRnszbxOov9hdYscnHqfnLxGxrZvEGap4/7Qw49qpQEbYswaon/W9Njp+cpMvD3qKFF5Y5FsAR3JJlQRbZYGiHz7PrB28ZxwhowKog8HanvbGSfc6rq2nx0vQhWROA0M2aTu7jJ863Ya/66C1TBXmIal5EJRy+mSI6RuNqPo77E26SPR3QQTOdvT5Nl4MJ0jTDK7P9mHr6EzL/NINTVTha+M1fUEsDBAoAAAAIAFYktVzSd/y3bQAAAHsAAAAdAAAAd29yZC9fcmVscy9mb290bm90ZXMueG1sLnJlbHNNjEEOAiEMRa9CuneKLowxw8xuDmD0AA1WIA6FUGI8vixd/rz3/rx+824+3DQVcXCcLBgWX55JgoPHfTtcYF3mG+/Uh6ExVTUjEXUQe69XRPWRM+lUKssgr9Iy9TFbwEr+TYHxZO0Z2/8H4PIDUEsDBAoAAAAIAFYktVw/So6NwQEAAJIGAAARAAAAd29yZC9lbmRub3Rlcy54bWzNlNtu4yAQhl/F4j7BjrrVyorTix5Wvaua3QegGMeowCDA9ubtd3wIzrZVlDY3vTGnmW/+mTGsb/5qlbTCeQmmINkyJYkwHEppdgX58/th8ZPcbNZdLkxpIAifoL3xeWd5QeoQbE6p57XQzC+15A48VGHJQVOoKskF7cCVdJVm6TCzDrjwHuG3zLTMkwmn39PACoOHFTjNAi7djmrmXhu7QLplQb5IJcMe2en1AQMFaZzJJ8QiCupd8lHQNBw83DlxR5c74I0WJgwRqRMKNYDxtbRzGl+l4WF9gLSnkmi1IrEF2dVlPbhzrMNhBp4jvxydtBqVnyZm6Rkd6RHR4xwJ/8c8KNFMmjnwl0pzVNzsx+cAq7cAu7usOb8cNHamyctoj+Y1soz4FGtq8nFq/jIx25pZvIGa5487A469KFSELUuw6kn/W5OjFyfp8rC3aOCFZY4FcAS3ZFmQRTbY2eHz5PrBW8YxABqwKgi83GlvrGSf8uoqLp6bPiJrAhC6WdPoPn6m+TbsVR+9Zaog96OYZ1EJh++jmPwmWxFPp+0Ii6LjAR0U0+j0UaocTJCmGR6Y7du00++f9Yf6T1RgnvvNP1BLAwQKAAAACABWJLVc0nf8t20AAAB7AAAAHAAAAHdvcmQvX3JlbHMvZW5kbm90ZXMueG1sLnJlbHNNjEEOAiEMRa9CuneKLowxw8xuDmD0AA1WIA6FUGI8vixd/rz3/rx+824+3DQVcXCcLBgWX55JgoPHfTtcYF3mG+/Uh6ExVTUjEXUQe69XRPWRM+lUKssgr9Iy9TFbwEr+TYHxZO0Z2/8H4PIDUEsDBAoAAAAIAFYktVxNn8rKoQEAAHMFAAARAAAAd29yZC9zZXR0aW5ncy54bWyllN1u2zAMhV/F0H0iu1iLwahbdCvW9WLYRbcHYCXZFiJRgiTby9uPjuO4P0CRNFeSQfE7R6TF69t/1mS9ClE7rFixzlmmUDipsanY3z8/Vl9ZFhOgBONQVWyrIru9uR7KqFKiQzEjAMZy8KJibUq+5DyKVlmIa6tFcNHVaS2c5a6utVB8cEHyi7zIdzsfnFAxEug7YA+R7XH2Pc15hRSsXbCQ6DM03ELYdH5FdA9JP2uj05bY+dWMcRXrApZ7xOpgaEwpJ0P7Zc4Ix+hOKfdOdFZh2inyoAx5cBhb7ZdrfJZGwXaG9B9doreGHVpQfDmvB/cBBloW4DH25ZRkzeT8Y2KRH9GREXHIOMbCa83ZiQWNi/CnSvOiuMXlaYCLtwDfnNech+A6v9D0ebRH3BxY47s+gbVv8surxfPMPLXg6QVaUT426AI8G3JELcuo6tn4W7Nx4kgdvYHtNxCbhmqBcpfGx5DqFd6h/C3lTwWSplk2lD2YitVgomK7M9OUWHZP0wCbTxaXjLYIlqRfDZRfTqox1IUTSj5K8kWTL/Py5j9QSwMECgAAAAgAViS1XIuGOcTFAQAAxggAABEAAAB3b3JkL2NvbW1lbnRzLnhtbKXU3XLiIBgG4FtxOFeSWFM307Qnne30eNsLoIDCNPwMoNG7X1IlSZedToJH6iTfk5fXwMPTSTSLIzWWK1mDfJWBBZVYES73NXh/+73cgoV1SBLUKElrcKYWPD0+tBVWQlDp7MID0lb4VAPmnK4gtJhRgexKcGyUVTu38vdCtdtxTCExqPU2LLL8DmKGjKMn0Bv5bGQDf8FtDBUJUJ7BIo+p9WyqhF2qCLpLgnyqSNqkSf9ZXJkmFbF0nyatY2mbJkWvk8ARpDSV/uJOGYGc/2n2UCDzedBLD2vk+AdvuDt7MysDg7j8TEjkp3pBrMls4R4KRWizJkFRNTgYWV3nl/18F726zF8/woSZsv7LyLPCh247f60cGtr4LpS0jGvb15mq+YssIMefFnEUTbiv1fnE7dIqQ7q+sq9v2ihMrfUdPl+qHMAp8a/9i+aS/Gcxzyb8Ix3RT0yJ8P2ZIYnwb+Hw4KRqRuXmEw+QABQRUGI68cAPxvZqQDzs0M7hE7dGcMre4WTkpIUZAZY4wmYpRegVdrPIIYYsG4t0XqhNz53FqCO9v20jvBh10IPGb9Neh2OtlfMWmJX/tq7tbWH+MKQpgI9/AVBLAwQKAAAACABWJLVc0nf8t20AAAB7AAAAHAAAAHdvcmQvX3JlbHMvY29tbWVudHMueG1sLnJlbHNNjEEOAiEMRa9CuneKLowxw8xuDmD0AA1WIA6FUGI8vixd/rz3/rx+824+3DQVcXCcLBgWX55JgoPHfTtcYF3mG+/Uh6ExVTUjEXUQe69XRPWRM+lUKssgr9Iy9TFbwEr+TYHxZO0Z2/8H4PIDUEsDBAoAAAAIAFYktVxj7V7WHQEAAEMDAAASAAAAd29yZC9mb250VGFibGUueG1sndHdbsIgFAfwVyHcK7WZjWms3ixLdr89AAK1RA6n4eDUtx+ttmvijd0VEPL/5Xxs91dw7McEsugrvlpmnBmvUFt/rPj318diwxlF6bV06E3Fb4b4fre9lDX6SCylPZWgKt7E2JZCkGoMSFpia3z6rDGAjOkZjgJkOJ3bhUJoZbQH62y8iTzLCv5gwisK1rVV5h3VGYyPfV4E45KInhrb0qBdXtEuGHQbUBmi1DG4uwfS+pFZvT1BYFVAwjouUzOPinoqxVdZfwP3B6znAfkTUChznWdsHoZIyalj9TynGB2rJ87/ipkApKNuZin5MFfRZWWUjaRmKpp5Ra1H7gbdjECVn0ePQR5cktLWWVoc62F2n1x3sPsy2NACF7tfUEsDBAoAAAAIAFYktVzSd/y3bQAAAHsAAAAdAAAAd29yZC9fcmVscy9mb250VGFibGUueG1sLnJlbHNNjEEOAiEMRa9CuneKLowxw8xuDmD0AA1WIA6FUGI8vixd/rz3/rx+824+3DQVcXCcLBgWX55JgoPHfTtcYF3mG+/Uh6ExVTUjEXUQe69XRPWRM+lUKssgr9Iy9TFbwEr+TYHxZO0Z2/8H4PIDUEsBAhQACgAAAAAAViS1XAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAQAAAAAAAAAHdvcmQvUEsBAhQACgAAAAAAViS1XAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAQAAAAIwAAAHdvcmQvX3JlbHMvUEsBAhQACgAAAAgAViS1XFjLDW8PAQAAIQUAABwAAAAAAAAAAAAAAAAATAAAAHdvcmQvX3JlbHMvZG9jdW1lbnQueG1sLnJlbHNQSwECFAAKAAAACABWJLVcgqWBZnkWAABb/wAAEQAAAAAAAAAAAAAAAACVAQAAd29yZC9kb2N1bWVudC54bWxQSwECFAAKAAAACABWJLVcR7XAXhwDAABKEQAADwAAAAAAAAAAAAAAAAA9GAAAd29yZC9zdHlsZXMueG1sUEsBAhQACgAAAAAAViS1XAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAQAAAAhhsAAGRvY1Byb3BzL1BLAQIUAAoAAAAIAFYktVxOw/0JOwEAAIMCAAARAAAAAAAAAAAAAAAAAK0bAABkb2NQcm9wcy9jb3JlLnhtbFBLAQIUAAoAAAAIAFYktVweKelacAIAAGQMAAASAAAAAAAAAAAAAAAAABcdAAB3b3JkL251bWJlcmluZy54bWxQSwECFAAKAAAAAABWJLVcAAAAAAAAAAAAAAAABgAAAAAAAAAAABAAAAC3HwAAX3JlbHMvUEsBAhQACgAAAAgAViS1XB+jkpbmAAAAzgIAAAsAAAAAAAAAAAAAAAAA2x8AAF9yZWxzLy5yZWxzUEsBAhQACgAAAAgAViS1XNJ3/LdtAAAAewAAABsAAAAAAAAAAAAAAAAA6iAAAHdvcmQvX3JlbHMvaGVhZGVyMS54bWwucmVsc1BLAQIUAAoAAAAIAFYktVzSd/y3bQAAAHsAAAAbAAAAAAAAAAAAAAAAAJAhAAB3b3JkL19yZWxzL2Zvb3RlcjEueG1sLnJlbHNQSwECFAAKAAAACABWJLVc7Tb7DY4CAAAZCgAAEAAAAAAAAAAAAAAAAAA2IgAAd29yZC9oZWFkZXIxLnhtbFBLAQIUAAoAAAAIAFYktVw4AfInNwIAADAHAAAQAAAAAAAAAAAAAAAAAPIkAAB3b3JkL2Zvb3RlcjEueG1sUEsBAhQACgAAAAgAViS1XFNQVxOuAQAAOAkAABMAAAAAAAAAAAAAAAAAVycAAFtDb250ZW50X1R5cGVzXS54bWxQSwECFAAKAAAACABWJLVcWHnbIpIAAADkAAAAEwAAAAAAAAAAAAAAAAA2KQAAZG9jUHJvcHMvY3VzdG9tLnhtbFBLAQIUAAoAAAAIAFYktVzi/J3akwAAAOYAAAAQAAAAAAAAAAAAAAAAAPkpAABkb2NQcm9wcy9hcHAueG1sUEsBAhQACgAAAAgAViS1XJyJyZHOAQAArQYAABIAAAAAAAAAAAAAAAAAuioAAHdvcmQvZm9vdG5vdGVzLnhtbFBLAQIUAAoAAAAIAFYktVzSd/y3bQAAAHsAAAAdAAAAAAAAAAAAAAAAALgsAAB3b3JkL19yZWxzL2Zvb3Rub3Rlcy54bWwucmVsc1BLAQIUAAoAAAAIAFYktVw/So6NwQEAAJIGAAARAAAAAAAAAAAAAAAAAGAtAAB3b3JkL2VuZG5vdGVzLnhtbFBLAQIUAAoAAAAIAFYktVzSd/y3bQAAAHsAAAAcAAAAAAAAAAAAAAAAAFAvAAB3b3JkL19yZWxzL2VuZG5vdGVzLnhtbC5yZWxzUEsBAhQACgAAAAgAViS1XE2fysqhAQAAcwUAABEAAAAAAAAAAAAAAAAA9y8AAHdvcmQvc2V0dGluZ3MueG1sUEsBAhQACgAAAAgAViS1XIuGOcTFAQAAxggAABEAAAAAAAAAAAAAAAAAxzEAAHdvcmQvY29tbWVudHMueG1sUEsBAhQACgAAAAgAViS1XNJ3/LdtAAAAewAAABwAAAAAAAAAAAAAAAAAuzMAAHdvcmQvX3JlbHMvY29tbWVudHMueG1sLnJlbHNQSwECFAAKAAAACABWJLVcY+1e1h0BAABDAwAAEgAAAAAAAAAAAAAAAABiNAAAd29yZC9mb250VGFibGUueG1sUEsBAhQACgAAAAgAViS1XNJ3/LdtAAAAewAAAB0AAAAAAAAAAAAAAAAArzUAAHdvcmQvX3JlbHMvZm9udFRhYmxlLnhtbC5yZWxzUEsFBgAAAAAaABoAigYAAFc2AAAAAA==" download
-        style="display:inline-flex;align-items:center;gap:12px;
-          background:linear-gradient(135deg,#A07830,#C9973A 40%,#f0c04a);
-          color:#0a0500;padding:16px 32px;border-radius:50px;
-          font-family:'Poppins',sans-serif;font-size:13px;font-weight:800;letter-spacing:1px;
-          text-decoration:none;box-shadow:0 8px 32px rgba(201,151,58,.45);
-          transition:all .25s;"
-        onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 14px 40px rgba(201,151,58,.6)'"
-        onmouseout="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(201,151,58,.45)'">
-        <span style="font-size:20px;">📄</span>
-        Baixar Contrato em Word
-      </a>
-
-      <button onclick="window.print()"
-        style="display:inline-flex;align-items:center;gap:10px;
-          background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);
-          color:rgba(255,255,255,.85);padding:15px 28px;border-radius:50px;
-          font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;
-          cursor:pointer;transition:all .2s;"
-        onmouseover="this.style.background='rgba(255,255,255,.14)'"
-        onmouseout="this.style.background='rgba(255,255,255,.08)'">
-        <span style="font-size:18px;">🖨️</span>
-        Salvar como PDF
-      </button>
+    <div class="grid2">
+      <div class="ctrl"><label>CNPJ/CPF (opcional)</label><input type="text" id="c_doc" value=""></div>
+      <div class="ctrl"><label>Endereço do estúdio</label><input type="text" id="c_end" value="Rua Maria de Lourdes da Cruz, 378 — BH/MG"></div>
+    </div>
+    <div class="grid2">
+      <div class="ctrl"><label>Dias de garantia de retoque</label><input type="number" id="c_retoque" value="90" min="0" step="15"></div>
+      <div class="ctrl"><label>Prazo p/ cancelar sem perder sinal (horas)</label><input type="number" id="c_cancel" value="48" min="0" step="12"></div>
+    </div>
+    <div style="text-align:center;margin-top:8px">
+      <button class="copybtn" id="c_gen" style="font-size:12px;padding:10px 20px">Gerar documento ↓</button>
     </div>
 
-    <!-- CHIPS DE INFO -->
-    <div style="display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:24px;">
-      <span style="display:inline-flex;align-items:center;gap:6px;font-family:'Poppins',sans-serif;font-size:11px;color:rgba(201,151,58,.7);">✓ Formato .docx — editável no Word e Google Docs</span>
-      <span style="display:inline-flex;align-items:center;gap:6px;font-family:'Poppins',sans-serif;font-size:11px;color:rgba(201,151,58,.7);">✓ 10 cláusulas completas + Termo de Consentimento</span>
-      <span style="display:inline-flex;align-items:center;gap:6px;font-family:'Poppins',sans-serif;font-size:11px;color:rgba(201,151,58,.7);">✓ Validade jurídica — Lei 9.610/98</span>
+    <div class="readout" style="margin-top:22px">
+      <div style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">Contrato completo</div>
+      <pre id="c_out_full" style="white-space:pre-wrap;font-family:var(--serif);font-size:14.5px;line-height:1.6;color:var(--parch-dim);margin:0">Clique em "Gerar documento".</pre>
+      <button class="copybtn" onclick="copyPre('c_out_full',this)" style="margin-top:14px">Copiar contrato</button>
+    </div>
+
+    <div class="readout" style="margin-top:16px">
+      <div style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">Versão WhatsApp (aceite rápido)</div>
+      <pre id="c_out_wa" style="white-space:pre-wrap;font-family:var(--serif);font-size:14.5px;line-height:1.6;color:var(--parch-dim);margin:0">Clique em "Gerar documento".</pre>
+      <button class="copybtn" onclick="copyPre('c_out_wa',this)" style="margin-top:14px">Copiar versão WhatsApp</button>
     </div>
   </div>
-</div>
-<!-- /BANNER DOWNLOAD -->
+</section>
 
-<!-- GUIA DE USO -->
-<div class="page pb" id="mod1">
-  <div class="ph"><span>Guia de uso do contrato</span></div>
-  <span class="lbl">Antes de usar</span>
-  <h2 class="h2">Como usar este <b>contrato corretamente</b></h2>
+<div class="rule"></div>
 
-  <div class="box-warn">
-    <span class="box-warn-i">⚖️</span>
-    <p><strong>Aviso importante:</strong> Este contrato é um modelo profissional baseado nas melhores práticas do mercado tattoo. Para casos específicos ou disputas judiciais, recomendamos consultar um advogado. Este material é educativo e não substitui assessoria jurídica especializada.</p>
+<!-- COMO USAR -->
+<section class="section reveal">
+  <h2 class="big" id="mod2">Como usar na prática</h2>
+  <div class="step"><div class="num">1</div><div class="body"><div class="st">Personalize uma vez</div><p>Gere o documento com os dados fixos do estúdio. Salve. Esse vira seu modelo padrão.</p></div></div>
+  <div class="step"><div class="num">2</div><div class="body"><div class="st">Preencha os dados da sessão</div><p>A cada cliente, complete os campos [entre colchetes]: nome, data, valor, local do corpo, sinal.</p></div></div>
+  <div class="step"><div class="num">3</div><div class="body"><div class="st">Colha o aceite</div><p>Presencial: impressão assinada. Remoto: mande a versão WhatsApp e peça a resposta "LI E CONCORDO".</p></div></div>
+  <div class="step"><div class="num">4</div><div class="body"><div class="st">Guarde a prova</div><p>Tire print da conversa com data/hora visíveis. Salve numa pasta por nome do cliente. Esse print é seu comprovante de aceite digital.</p></div></div>
+
+  <h2 class="big" id="mod3" style="margin-top:44px">Dicas extras de proteção</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Situação</th><th>Como se proteger</th></tr>
+    <tr><td>Projeto aprovado</td><td>Fotografe SEMPRE o desenho aprovado antes de começar. Evita "não era isso que eu pedi".</td></tr>
+    <tr><td>Uso da foto no portfólio</td><td>Cláusula de imagem no contrato + confirmação. Sem aceite, não publique com rosto identificável.</td></tr>
+    <tr><td>Menor de 18 anos</td><td>Exija presença e autorização do responsável. Em caso de dúvida legal, recuse — a responsabilidade é sua.</td></tr>
+    <tr><td>Saúde do cliente</td><td>Declaração de saúde no contrato (gravidez, anticoagulantes, alergias). Protege você e o cliente.</td></tr>
+    <tr><td>No-show / cancelamento</td><td>Sinal + regra de cancelamento clara. Confirme na véspera pra reduzir falta.</td></tr>
+  </table></div>
+  <div class="tip"><span class="h">Combine com o resto do arsenal</span> O contrato fecha com chave de ouro o atendimento que você aprende no ebook de Posicionamento. E o Central Tattoo guarda cada aceite, cada cliente e cada sessão organizados — sem print perdido no meio da galeria do celular.</div>
+</section>
+
+<div class="rule"></div>
+
+<section class="section reveal">
+  <div class="eyebrow">O próximo passo</div>
+  <h2 class="big">Protegido. Agora organize tudo num só lugar.</h2>
+  <div class="eco"><h3>Seu arsenal completo</h3><p class="esub">Onde você está e para onde ir.</p>
+    <div class="flow">
+      <div class="node"><div class="ic">↗</div><div class="nt"><div class="nn">Tráfego + Instagram</div><div class="nd">Enchem sua agenda de conversas</div></div></div>
+      <div class="arrow">↓</div>
+      <div class="node"><div class="ic">$</div><div class="nt"><div class="nn">Posicionamento de Alto Valor</div><div class="nd">Fecha alto valor com segurança</div></div></div>
+      <div class="arrow">↓</div>
+      <div class="node active"><div class="ic">✓</div><div class="nt"><div class="nn">Contrato Digital — você está aqui</div><div class="nd">Formaliza e protege cada fechamento</div></div></div>
+      <div class="arrow">↓</div>
+      <div class="node"><div class="ic">★</div><div class="nt"><div class="nn">Central Tattoo — o cérebro</div><div class="nd">Guarda contratos, clientes e sessões sem bagunça</div></div></div>
+    </div>
+    <div style="text-align:center;margin-top:30px"><a class="cta" href="https://carlostattoobh.com.br" target="_blank" rel="noopener">Conhecer o Central Tattoo</a></div>
   </div>
-
-  <h3 class="h3">Por que usar contrato é essencial</h3>
-  <ul class="ul">
-    <li>Protege você contra clientes que mudam de ideia após a sessão</li>
-    <li>Define claramente as responsabilidades de cada parte</li>
-    <li>Documenta que o cliente aprovou o projeto antes de tatuar</li>
-    <li>Estabelece política de sinal, cancelamento e retoque</li>
-    <li>Autoriza o uso das fotos para portfólio e marketing</li>
-    <li>Declara que o cliente está em boas condições de saúde</li>
-    <li>Protege seus direitos autorais sobre o projeto criado</li>
-  </ul>
-
-  <h3 class="h3">Como personalizar o contrato</h3>
-  <p>Substitua todos os campos entre colchetes <strong>[COMO ESTE]</strong> com as informações reais:</p>
-  <ul class="ul">
-    <li><strong>[NOME DO ESTÚDIO]:</strong> preencha com o nome do seu estúdio antes de enviar ao cliente</li>
-    <li><strong>[NOME DO TATUADOR]:</strong> preencha com seu nome antes de enviar ao cliente</li>
-    <li><strong>[CPF DO TATUADOR]:</strong> Seu CPF</li>
-    <li><strong>[CNPJ]:</strong> Seu CNPJ (se tiver empresa)</li>
-    <li><strong>[ENDEREÇO DO ESTÚDIO]:</strong> preencha com o endereço do seu estúdio antes de enviar ao cliente</li>
-    <li><strong>[CONTATO]:</strong> Seu WhatsApp</li>
-  </ul>
-
-  <h3 class="h3">Como usar na prática</h3>
-  <ul class="ul">
-    <li><strong>Opção A — Digital:</strong> Envie o contrato preenchido por WhatsApp ou email. Peça para o cliente responder "Li e concordo com todos os termos" antes da sessão. Guarde essa mensagem — ela tem validade como aceite digital.</li>
-    <li><strong>Opção B — Impresso:</strong> Imprima em duas vias. Assine os dois, dê uma ao cliente e guarde a outra.</li>
-    <li><strong>Opção C — Assinatura digital:</strong> Use DocuSign (gratuito para uso limitado) ou similar para assinatura digital com validade jurídica.</li>
-  </ul>
-
-  <div class="box-gold">
-    <p><strong>Dica prática:</strong> Envie o contrato junto com a confirmação do sinal. "Aqui está o comprovante do sinal e o contrato da nossa sessão. Leia, e se concordar com todos os termos, responda com 'Concordo' para confirmar." Simples, profissional e juridicamente válido.</p>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Contrato Digital Profissional 2026</span><span>Guia de uso</span></div>
+</section>
 </div>
 
-<!-- CONTRATO COMPLETO -->
-<div class="page pb" id="mod2">
-  <div class="ph"><span>Contrato de Prestação de Serviços — Tatuagem</span></div>
+<footer>
+  <div class="fb">Carlos Tattoo BH</div>
+  <div class="fc">carlostattoobh.com.br · @carlostattoo.bh · WhatsApp +55 31 98339-1576</div>
+  <div class="fc" style="margin-top:6px;color:var(--gold-deep)">Contrato Digital · Edição Definitiva · 2026</div>
+</footer>
 
-  <div class="contrato">
-    <div class="contrato-header">
-</div>
-      <div class="contrato-titulo">Contrato de Prestação de Serviços de Tatuagem</div>
-      <div class="contrato-subtitulo">Documento de compromisso entre tatuador e cliente</div>
-    </div>
-
-    <div class="cl">
-      <div class="cl-titulo">Identificação das Partes</div>
-      <p><strong>CONTRATADO (Tatuador):</strong><br>
-      Nome: <input class="campo-contrato" placeholder="Seu nome completo"><br>
-      Estúdio: <input class="campo-contrato" placeholder="Nome do seu estúdio"><br>
-      CPF/CNPJ: <input class="campo-contrato" placeholder="[SEU CPF/CNPJ]"><br>
-      Endereço: <input class="campo-contrato" style="min-width:300px;" placeholder="Seu endereço completo"><br>
-      Contato: <input class="campo-contrato" placeholder="[SEU WHATSAPP]"></p>
-
-      <p style="margin-top:16px;"><strong>CONTRATANTE (Cliente):</strong><br>
-      Nome completo: <input class="campo-contrato" style="min-width:250px;" placeholder="Nome do cliente"><br>
-      CPF: <input class="campo-contrato" placeholder="000.000.000-00"><br>
-      Data de nascimento: <input class="campo-contrato" type="date"><br>
-      Telefone/WhatsApp: <input class="campo-contrato" placeholder="(00) 0 0000-0000"><br>
-      Email: <input class="campo-contrato" style="min-width:200px;" placeholder="email@email.com"><br>
-      Endereço: <input class="campo-contrato" style="min-width:300px;" placeholder="Endereço completo"></p>
-    </div>
-
-    <div class="cl">
-      <div class="cl-titulo">Cláusula 1 — Objeto do Contrato</div>
-      <p>O presente contrato tem como objeto a prestação de serviços de tatuagem pelo CONTRATADO ao CONTRATANTE, conforme projeto aprovado e detalhes descritos abaixo:</p>
-      <p>
-      Estilo: <input class="campo-contrato" placeholder="Realismo / Fineline / Cobertura / etc"><br>
-      Local do corpo: <input class="campo-contrato" placeholder="Braço, perna, costas, etc"><br>
-      Tamanho aproximado: <input class="campo-contrato" placeholder="Ex: 15cm x 10cm"><br>
-      Valor total acordado: R$ <input class="campo-contrato" placeholder="0,00"><br>
-      Valor do sinal pago: R$ <input class="campo-contrato" placeholder="0,00"><br>
-      Data e horário da sessão: <input class="campo-contrato" type="datetime-local">
-      </p>
-    </div>
-
-    <div class="cl">
-      <div class="cl-titulo">Cláusula 2 — Aprovação do Projeto</div>
-      <p>O CONTRATANTE declara ter visto, analisado e aprovado o projeto de tatuagem apresentado pelo CONTRATADO antes do início da sessão. Qualquer alteração significativa no projeto após o início da tatuagem está sujeita a cobrança adicional, a ser acordada entre as partes.</p>
-      <p>O CONTRATANTE entende que pequenas variações entre o projeto aprovado e o resultado final são inerentes à natureza artística do processo de tatuagem e não constituem motivo para reclamação ou recusa de pagamento.</p>
-    </div>
-
-    <div class="cl">
-      <div class="cl-titulo">Cláusula 3 — Sinal e Condições de Pagamento</div>
-      <p>O CONTRATANTE realizou o pagamento de sinal no valor descrito na Cláusula 1, que será descontado do valor total na data da sessão. O pagamento restante deverá ser realizado ao final da sessão, antes da saída do estúdio.</p>
-      <p>Formas de pagamento aceitas: PIX, cartão de débito, cartão de crédito (parcelamento sujeito a acordo prévio).</p>
-    </div>
-
-    <div class="cl">
-      <div class="cl-titulo">Cláusula 4 — Cancelamento e Reagendamento</div>
-      <p><strong>4.1</strong> Cancelamento com aviso mínimo de 48 horas antes da sessão: o sinal será convertido em crédito para uso em sessão futura dentro de 90 dias.</p>
-      <p><strong>4.2</strong> Cancelamento com menos de 48 horas de aviso ou não comparecimento (no-show): o sinal não será devolvido, sendo retido como compensação pelo bloqueio da agenda e preparação do projeto.</p>
-      <p><strong>4.3</strong> Reagendamento com aviso mínimo de 48 horas: permitido uma vez sem cobrança adicional. Reagendamentos subsequentes ou com prazo inferior a 48h poderão estar sujeitos a nova cobrança de sinal.</p>
-      <p><strong>4.4</strong> Cancelamento por parte do CONTRATADO: o sinal será devolvido integralmente ao CONTRATANTE em até 3 dias úteis.</p>
-    </div>
-
-    <div class="cl">
-      <div class="cl-titulo">Cláusula 5 — Retoque</div>
-      <p>O CONTRATADO oferece um retoque gratuito nos primeiros <input class="campo-contrato" placeholder="90" style="min-width:40px;"> dias após a sessão, caso necessário e dentro das condições normais de cicatrização.</p>
-      <p>O retoque gratuito não se aplica nos seguintes casos:</p>
-      <p>a) O CONTRATANTE não seguiu as orientações de cuidado pós-tatuagem fornecidas;<br>
-      b) A tatuagem foi exposta excessivamente ao sol sem protetor durante a cicatrização;<br>
-      c) O CONTRATANTE realizou atividades contraindicadas durante o período de cicatrização (piscina, academia excessiva, exposição ao sol);<br>
-      d) O CONTRATANTE possui condição de pele que dificulta a absorção de tinta (quelóide, pele muito seca, etc.), condição informada ou não previamente.</p>
-    </div>
-
-    <div class="cl">
-      <div class="cl-titulo">Cláusula 6 — Declaração de Saúde</div>
-      <p>O CONTRATANTE declara que:</p>
-      <p>a) Está em bom estado de saúde e não apresenta condições que contraindiquem a realização de tatuagem;<br>
-      b) Não possui doenças que afetem a coagulação do sangue sem tratamento adequado;<br>
-      c) Não está em uso de medicamentos anticoagulantes sem autorização médica;<br>
-      d) Não está grávida ou amamentando;<br>
-      e) Não possui alergia conhecida a materiais utilizados em tatuagem (tintas, luvas de látex, etc.);<br>
-      f) Não está sob efeito de álcool ou substâncias psicoativas;<br>
-      g) É maior de 18 anos, ou apresentará autorização dos pais/responsáveis se menor de idade.</p>
-      <p>O CONTRATANTE isenta o CONTRATADO de qualquer responsabilidade por reações adversas decorrentes de informações omitidas nesta declaração.</p>
-    </div>
-
-    <div class="cl">
-      <div class="cl-titulo">Cláusula 7 — Direitos de Imagem e Autoria</div>
-      <p><strong>7.1 Uso de imagens:</strong> O CONTRATANTE autoriza o CONTRATADO a fotografar e/ou filmar o processo e o resultado da tatuagem para uso em portfólio, redes sociais, material publicitário e outros fins comerciais do CONTRATADO. O CONTRATANTE poderá solicitar que seu rosto não seja divulgado, devendo fazer essa solicitação expressamente.</p>
-      <p><strong>7.2 Direitos autorais do projeto:</strong> O projeto de tatuagem criado pelo CONTRATADO é obra intelectual de sua autoria, protegida pela Lei 9.610/98. O CONTRATANTE tem direito ao uso do projeto em seu corpo, porém não pode reproduzir, comercializar ou ceder o projeto a terceiros sem autorização expressa do CONTRATADO.</p>
-    </div>
-
-    <div class="cl">
-      <div class="cl-titulo">Cláusula 8 — Higiene e Biossegurança</div>
-      <p>O CONTRATADO declara que:</p>
-      <p>a) Todos os materiais perfuro-cortantes utilizados são descartáveis e utilizados exclusivamente no atendimento do CONTRATANTE;<br>
-      b) O estúdio mantém práticas de higienização e esterilização adequadas;<br>
-      c) Utiliza Equipamentos de Proteção Individual (EPI) durante todo o procedimento;<br>
-      d) O descarte de resíduos é realizado conforme normas da Anvisa e legislação vigente.</p>
-    </div>
-
-    <div class="cl">
-      <div class="cl-titulo">Cláusula 9 — Cuidados Pós-Tatuagem</div>
-      <p>O CONTRATANTE declara ter recebido e compreendido as orientações de cuidado pós-tatuagem fornecidas pelo CONTRATADO. O não cumprimento dessas orientações é de responsabilidade exclusiva do CONTRATANTE e pode comprometer o resultado final da tatuagem, não cabendo ao CONTRATADO qualquer responsabilidade por resultados insatisfatórios decorrentes de cuidados inadequados.</p>
-      <p><strong>Orientações básicas:</strong> Lavar com água e sabonete neutro 3x ao dia; não esfregar; secar com papel toalha limpo; aplicar hidratante sem perfume 3-4x ao dia; evitar sol direto por 30 dias; evitar piscina, mar e academia por 15 dias; não arrancar a casca durante a descamação.</p>
-    </div>
-
-    <div class="cl">
-      <div class="cl-titulo">Cláusula 10 — Disposições Gerais</div>
-      <p><strong>10.1</strong> Este contrato é regido pelas leis brasileiras, especialmente o Código de Defesa do Consumidor (Lei 8.078/90).</p>
-      <p><strong>10.2</strong> Fica eleito o foro da comarca de Belo Horizonte/MG para dirimir quaisquer dúvidas ou litígios decorrentes deste contrato.</p>
-      <p><strong>10.3</strong> Qualquer alteração a este contrato deve ser feita por escrito e assinada por ambas as partes.</p>
-      <p><strong>10.4</strong> A aceitação digital (resposta de "Concordo" por WhatsApp ou email) tem a mesma validade jurídica da assinatura física, conforme art. 10 da Medida Provisória 2.200-2/2001.</p>
-    </div>
-
-    <p style="text-align:center;margin:24px 0;">Belo Horizonte, <input class="campo-contrato" style="min-width:60px;" placeholder="dia"> de <input class="campo-contrato" placeholder="mês"> de <input class="campo-contrato" style="min-width:50px;" placeholder="ano">.</p>
-
-    <div class="assinaturas">
-      <div class="ass-bloco">
-        <div class="ass-linha"></div>
-        <div class="ass-nome">________________________________<br>Tatuador — Contratado</div>
-      </div>
-      <div class="ass-bloco">
-        <div class="ass-linha"></div>
-        <div class="ass-nome">_________________________<br>Cliente — Contratante</div>
-      </div>
-    </div>
-  </div>
-  <div class="pf"><span>Contrato Digital Profissional 2026</span><span>Modelo editável</span></div>
-</div>
-
-<!-- VERSÃO SIMPLIFICADA WHATSAPP -->
-<div class="page pb" id="mod3">
-  <div class="ph"><span>Versão simplificada para WhatsApp</span></div>
-  <span class="lbl">Versão rápida</span>
-  <h2 class="h2">Contrato simplificado <b>para WhatsApp</b></h2>
-  <p>Para clientes que preferem algo mais rápido, este modelo resumido tem os pontos essenciais e pode ser enviado por WhatsApp para aceite digital.</p>
-
-  <div style="background:#f8faff;border:2px solid rgba(201,151,58,.2);border-radius:14px;padding:28px 32px;margin:20px 0;">
-    <span class="lbl">Modelo de mensagem — copie e envie pelo WhatsApp</span>
-    <p style="font-size:14px;color:#1f2937;line-height:1.9;">
-      📋 <strong>CONFIRMAÇÃO DE SESSÃO — CARLOS TATTOO BH</strong><br><br>
-      Olá, [NOME DO CLIENTE]! Para confirmar sua sessão, preciso que você leia e confirme os termos abaixo respondendo <strong>"Concordo"</strong>.<br><br>
-      <strong>📅 SESSÃO AGENDADA</strong><br>
-      Data: [DATA]<br>
-      Horário: [HORÁRIO]<br>
-      Estilo: [ESTILO]<br>
-      Local: [LOCAL DO CORPO]<br>
-      Valor total: R$ [VALOR]<br>
-      Sinal pago: R$ [SINAL]<br><br>
-      <strong>✅ TERMOS QUE VOCÊ ESTÁ CONFIRMANDO:</strong><br><br>
-      1. Vi e aprovei o projeto antes da sessão<br>
-      2. Estou em bom estado de saúde, não grávida e sem uso de anticoagulantes<br>
-      3. Tenho 18 anos ou mais (ou tenho autorização dos responsáveis)<br>
-      4. Entendo que cancelamento com menos de 48h resulta em perda do sinal<br>
-      5. Seguirei as orientações de cuidado pós-tatuagem<br>
-      6. Autorizo o uso das fotos para portfólio do [SEU ESTÚDIO]<br>
-      7. Estou ciente que retoques dentro de 90 dias são gratuitos, desde que os cuidados sejam seguidos<br><br>
-      Para confirmar, responda: <strong>LI E CONCORDO COM TODOS OS TERMOS ✅</strong><br><br>
-      Qualquer dúvida, pode perguntar! Te vejo na [DATA]! 🎨
-    </p>
-  </div>
-
-  <div class="box-gold">
-    <p><strong>Como guardar o aceite:</strong> Após o cliente responder "Concordo", tire um print da conversa com data e hora visíveis. Salve em uma pasta organizada por nome de cliente e data. Esse print é seu comprovante de aceite digital em caso de qualquer disputa futura.</p>
-  </div>
-
-  <h3 class="h3">Dicas extras de proteção jurídica</h3>
-  <ul class="ul">
-    <li><strong>Fotografe SEMPRE o projeto aprovado</strong> antes de começar — isso comprova o que foi acordado</li>
-    <li><strong>Filme o início da sessão</strong> por 10 segundos — mostra que o cliente entrou no estúdio conscientemente</li>
-    <li><strong>Guarde todas as conversas do WhatsApp</strong> por pelo menos 1 ano após a sessão</li>
-    <li><strong>Nunca delete conversas</strong> com clientes mesmo após anos — podem ser necessárias</li>
-    <li><strong>Se o cliente reclamar do resultado</strong>, ofereça o retoque antes de qualquer discussão. 90% dos problemas se resolvem com boa vontade</li>
-    <li><strong>Para projetos acima de R$1.500</strong>, sempre use o contrato completo — não só a versão de WhatsApp</li>
-  </ul>
-  <div class="pf"><span>Carlos Tattoo BH — Contrato Digital Profissional 2026</span><span>Versão simplificada</span></div>
-</div>
-
-<!-- CONTRACAPA -->
-
-<!-- ═══════════ FUNIL CRUZADO — COMPLETE SEU ARSENAL ═══════════ -->
-<style>
-.xsell-sec{background:linear-gradient(165deg,#0a0c14 0%,#12121f 50%,#0a0c14 100%);padding:72px 40px 80px;position:relative;overflow:hidden;}
-.xsell-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 50% 40%,rgba(201,151,58,.10) 0%,transparent 70%);pointer-events:none;}
-.xsell-wrap{max-width:1000px;margin:0 auto;position:relative;z-index:2;}
-.xsell-eyebrow{display:inline-block;font-family:'Poppins',sans-serif;font-size:10px;letter-spacing:4px;color:#f0c04a;text-transform:uppercase;border:1px solid rgba(201,151,58,.35);background:rgba(201,151,58,.08);padding:7px 22px;border-radius:30px;margin-bottom:22px;}
-.xsell-h2{font-family:'Playfair Display',serif;font-size:clamp(24px,3.4vw,38px);color:#fff;line-height:1.18;margin-bottom:14px;max-width:640px;}
-.xsell-h2 b{color:#f0c04a;}
-.xsell-sub{font-family:'Poppins',sans-serif;font-size:15px;color:rgba(229,231,235,.82);line-height:1.75;max-width:600px;margin-bottom:44px;}
-.xsell-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.xsell-card{display:flex;flex-direction:column;background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid rgba(201,151,58,.22);border-radius:16px;padding:26px 24px 22px;transition:all .22s ease;position:relative;}
-.xsell-card:hover{transform:translateY(-4px);border-color:rgba(240,192,74,.6);box-shadow:0 18px 40px rgba(0,0,0,.4),0 0 0 1px rgba(240,192,74,.15);background:linear-gradient(160deg,rgba(201,151,58,.10),rgba(255,255,255,.02));}
-.xsell-ic{width:52px;height:52px;border-radius:13px;background:linear-gradient(135deg,rgba(201,151,58,.2),rgba(240,192,74,.08));border:1px solid rgba(201,151,58,.3);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px;}
-.xsell-cat{font-family:'Poppins',sans-serif;font-size:9px;letter-spacing:2px;color:#c9973a;text-transform:uppercase;font-weight:700;margin-bottom:7px;}
-.xsell-nome{font-family:'Playfair Display',serif;font-size:20px;color:#fff;line-height:1.2;margin-bottom:11px;}
-.xsell-benef{font-family:'Poppins',sans-serif;font-size:13px;color:rgba(229,231,235,.75);line-height:1.65;margin-bottom:20px;flex:1;}
-.xsell-foot{display:flex;align-items:center;justify-content:flex-end;padding-top:16px;border-top:1px solid rgba(201,151,58,.15);}
-.xsell-preco{font-family:'Playfair Display',serif;font-size:22px;color:#f0c04a;font-weight:700;}
-.xsell-cta{font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;letter-spacing:.5px;color:#0a0500;background:linear-gradient(135deg,#f0c04a,#c9973a);padding:9px 16px;border-radius:8px;white-space:nowrap;transition:.2s;}
-.xsell-card:hover .xsell-cta{box-shadow:0 6px 18px rgba(240,192,74,.35);}
-.xsell-note{text-align:center;font-family:'Poppins',sans-serif;font-size:12px;color:rgba(201,151,58,.7);margin-top:38px;letter-spacing:.5px;}
-.xsell-note a{color:#f0c04a;text-decoration:underline;}
-@media(max-width:820px){.xsell-grid{grid-template-columns:1fr;}.xsell-sec{padding:56px 22px 64px;}}
-@media print{.xsell-sec{display:none!important;}}
-</style>
-<div class="xsell-sec pb">
-  <div class="xsell-wrap">
-    <span class="xsell-eyebrow">O Ecossistema Carlos Tattoo BH</span>
-    <h2 class="xsell-h2">Seu estúdio agora está protegido juridicamente.<br><b>Complete seu arsenal.</b></h2>
-    <p class="xsell-sub">Com a base segura, é hora de crescer com estratégia. Estes são os próximos passos naturais.</p>
-    <div class="xsell-grid">
-      <a href="pagamento.html?prod=ebook-posicionamento" target="_top" class="xsell-card" style="text-decoration:none;">
-        <div class="xsell-ic">🏆</div>
-        <div class="xsell-cat">AVANÇADO · PREÇO</div>
-        <div class="xsell-nome">Posicionamento Premium</div>
-        <div class="xsell-benef">Agora que está protegido, cobre com segurança o que seu trabalho vale — sem medo de cliente difícil.</div>
-        <div class="xsell-foot">
-          <span class="xsell-cta">Ver oferta&nbsp;→</span>
-        </div>
-      </a>
-      <a href="pagamento.html?prod=ebook-trafego" target="_top" class="xsell-card" style="text-decoration:none;">
-        <div class="xsell-ic">📊</div>
-        <div class="xsell-cat">MÉTODO · META ADS</div>
-        <div class="xsell-nome">Tráfego Tattoo do Zero</div>
-        <div class="xsell-benef">Proteção + agenda cheia. Aprenda a rodar anúncios que trazem clientes qualificados todos os meses.</div>
-        <div class="xsell-foot">
-          <span class="xsell-cta">Ver oferta&nbsp;→</span>
-        </div>
-      </a>
-      <a href="pagamento.html?prod=central-tattoo" target="_top" class="xsell-card" style="text-decoration:none;">
-        <div class="xsell-ic">⚙️</div>
-        <div class="xsell-cat">SISTEMA · GESTÃO</div>
-        <div class="xsell-nome">Central Tattoo Pro</div>
-        <div class="xsell-benef">Contratos, agenda, clientes e financeiro organizados num sistema só, feito pra estúdio de tatuagem.</div>
-        <div class="xsell-foot">
-          <span class="xsell-cta">Ver oferta&nbsp;→</span>
-        </div>
-      </a>
-    </div>
-    <p class="xsell-note">Já adquiriu algum desses? Acesse direto pelo <a href="painel.html" target="_top">seu Painel de Membros</a>.</p>
-  </div>
-</div>
-
-<div class="cback">
-  <div style="position:relative;z-index:2;text-align:center;">
-    
-    <h2 style="font-family:'Playfair Display', serif;font-size:28px;color:#f0c04a;margin-bottom:12px;">Protegido.<br>Agora cresça.</h2>
-    <div style="background:rgba(201,151,58,.07);border:1px solid rgba(201,151,58,.28);border-radius:18px;padding:36px 44px;max-width:520px;margin:0 auto;">
-      <h3 style="font-family:'Playfair Display', serif;font-size:20px;color:#ffffff;margin-bottom:8px;">Kit Completo de Conhecimento</h3>
-      <p style="font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:2px;color:#ffffff;margin-bottom:20px;">TODOS OS EBOOKS + PACK TEMPLATES</p>
-      <ul style="list-style:none;text-align:left;margin-bottom:24px;">
-        <li style="color:#ffffff;font-size:14px;margin-bottom:8px;display:flex;gap:8px;"><span style="color:#f0c04a;">✓</span>Ebook Tráfego Pago — Tutorial completo</li>
-        <li style="color:#ffffff;font-size:14px;margin-bottom:8px;display:flex;gap:8px;"><span style="color:#f0c04a;">✓</span>Ebook Instagram — Do zero ao avançado</li>
-        <li style="color:#ffffff;font-size:14px;margin-bottom:8px;display:flex;gap:8px;"><span style="color:#f0c04a;">✓</span>Ebook Posicionamento — Scripts e precificação</li>
-        <li style="color:#ffffff;font-size:14px;margin-bottom:8px;display:flex;gap:8px;"><span style="color:#f0c04a;">✓</span>Pack Templates — 30+ artes no Canva</li>
-        <li style="color:#ffffff;font-size:14px;margin-bottom:8px;display:flex;gap:8px;"><span style="color:#f0c04a;">✓</span>Contrato Digital — Modelo completo</li>
-      </ul>
-      <p style="font-family:'Poppins', sans-serif;font-size:13px;letter-spacing:1px;color:#f0c04a;margin-bottom:8px;">Kit completo — valores em R$, US$ e € na oferta atual</p>
-    </div>
-    <p style="font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:2px;color:rgba(201,151,58,.75);margin-top:44px;">© 2026 Carlos Tattoo BH · @carlostattoo.bh · Belo Horizonte, MG</p>
-  </div>
-</div>
-
-<!-- BOTÕES FIXOS DE DOWNLOAD -->
-<div class="no-print" style="position:fixed;bottom:28px;right:28px;z-index:1000;display:flex;flex-direction:column;gap:10px;align-items:flex-end;">
-  
-  <!-- WORD -->
-  <a href="data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,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" download
-    style="display:inline-flex;align-items:center;gap:10px;
-      background:linear-gradient(135deg,#1E3A5F,#2563EB);
-      color:#fff;padding:13px 22px;border-radius:50px;
-      font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;
-      text-decoration:none;box-shadow:0 6px 24px rgba(37,99,235,.45);
-      transition:all .2s;"
-    onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 32px rgba(37,99,235,.55)'"
-    onmouseout="this.style.transform='';this.style.boxShadow='0 6px 24px rgba(37,99,235,.45)'">
-    <span style="font-size:16px;">📄</span>
-    Baixar Contrato em Word
-  </a>
-  
-  <!-- PDF -->
-  <button onclick="window.print()"
-    style="display:inline-flex;align-items:center;gap:10px;
-      background:linear-gradient(135deg,#A07830,#f0c04a);
-      color:#0a0500;border:none;padding:13px 22px;border-radius:50px;
-      font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;
-      cursor:pointer;box-shadow:0 6px 24px rgba(201,151,58,.45);
-      transition:all .2s;"
-    onmouseover="this.style.transform='translateY(-2px)'"
-    onmouseout="this.style.transform=''">
-    <span style="font-size:16px;">🖨️</span>
-    Salvar como PDF
-  </button>
-
-</div>
 <script>
-window.addEventListener("message", function(e) {
-  if (e.data && e.data.type === "ct_scrollTo") {
-    var el = document.getElementById(e.data.anchor);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-});
+(function(){
+  "use strict";
+  var BRL=function(n){if(!isFinite(n))n=0;return "R$ "+n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});};
+  var BRL0=function(n){if(!isFinite(n))n=0;return "R$ "+Math.round(n).toLocaleString("pt-BR");};
+  var num=function(id){var e=document.getElementById(id);var v=parseFloat((e&&e.value||"").replace(",","."));return isNaN(v)?0:v;};
+  var set=function(id,t){var e=document.getElementById(id);if(e)e.textContent=t;};
+  window.__BRL=BRL;window.__BRL0=BRL0;window.__num=num;window.__set=set;
+
+  /* copy buttons */
+  window.cp=function(btn){
+    var block=btn.closest(".script");var clone=block.cloneNode(true);
+    var b=clone.querySelector(".copybtn");if(b)b.remove();
+    var l=clone.querySelector(".lbl");if(l)l.remove();
+    var text=clone.innerText.replace(/\s*\[.*?\]\s*/g," ").replace(/\n{3,}/g,"\n\n").trim();
+    var done=function(){var o=btn.textContent;btn.textContent="Copiado \u2713";setTimeout(function(){btn.textContent=o;},1600);};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done).catch(done);}
+    else{var ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");}catch(e){}ta.remove();done();}
+  };
+
+  /* checklist */
+  var KEY="ct_contrato_x";
+  var boxes=Array.prototype.slice.call(document.querySelectorAll("[data-ck]"));
+  function updateProg(){var d=boxes.filter(function(b){return b.checked;}).length;var pct=boxes.length?Math.round(d/boxes.length*100):0;var f=document.getElementById("pfill");if(f)f.style.width=pct+"%";var t=document.getElementById("ptxt");if(t)t.textContent=pct+"% concluído · "+d+" de "+boxes.length;}
+  function saveCk(){var st={};boxes.forEach(function(b,i){if(b.checked)st[i]=1;});try{localStorage.setItem(KEY,JSON.stringify(st));}catch(e){}updateProg();}
+  if(boxes.length){var saved={};try{saved=JSON.parse(localStorage.getItem(KEY)||"{}");}catch(e){}boxes.forEach(function(b,i){if(saved[i])b.checked=true;b.addEventListener("change",saveCk);});
+    var rb=document.getElementById("ckreset");if(rb)rb.addEventListener("click",function(){boxes.forEach(function(b){b.checked=false;});try{localStorage.removeItem(KEY);}catch(e){}updateProg();});updateProg();}
+
+  /* reveal */
+  if("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target);}});},{threshold:.12});
+    document.querySelectorAll(".reveal").forEach(function(el){io.observe(el);});
+  }else{document.querySelectorAll(".reveal").forEach(function(el){el.classList.add("in");});}
+
+  /* ebook-specific */
+  var val=function(id){var e=document.getElementById(id);return (e&&e.value||"").trim();};
+window.copyPre=function(id,btn){
+  var t=document.getElementById(id).innerText;
+  var done=function(){var o=btn.textContent;btn.textContent="Copiado \u2713";setTimeout(function(){btn.textContent=o;},1600);};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done).catch(done);}
+  else{var ta=document.createElement("textarea");ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");}catch(e){}ta.remove();done();}
+};
+function gen(){
+  var est=val("c_estudio")||"[NOME DO ESTÚDIO]";
+  var art=val("c_artista")||"[TATUADOR RESPONSÁVEL]";
+  var doc=val("c_doc");
+  var end=val("c_end")||"[ENDEREÇO DO ESTÚDIO]";
+  var ret=val("c_retoque")||"90";
+  var can=val("c_cancel")||"48";
+  var docLine = doc ? (", inscrito(a) sob o documento "+doc) : "";
+
+  var full=
+"CONTRATO DE PRESTAÇÃO DE SERVIÇO DE TATUAGEM\n"+
+"— "+est+" —\n\n"+
+"CONTRATADO: "+art+docLine+", responsável pelo estúdio "+est+", situado em "+end+".\n"+
+"CONTRATANTE: [NOME COMPLETO DO CLIENTE], CPF [CPF], residente em [ENDEREÇO].\n\n"+
+"1. OBJETO\n"+
+"Prestação de serviço de tatuagem conforme projeto previamente apresentado e aprovado pelo CONTRATANTE.\n"+
+"Local do corpo: [LOCAL] · Estilo: [ESTILO] · Data agendada: [DATA] · Horário: [HORA].\n\n"+
+"2. VALOR E PAGAMENTO\n"+
+"Valor total: R$ [VALOR]. Sinal de reserva: R$ [SINAL], abatido do total. Restante pago na data da sessão.\n\n"+
+"3. SINAL E CANCELAMENTO\n"+
+"O sinal reserva a data. Cancelamento ou remarcação com menos de "+can+" horas de antecedência implica perda do sinal, destinado a cobrir o horário reservado.\n\n"+
+"4. DECLARAÇÃO DE SAÚDE\n"+
+"O CONTRATANTE declara estar em boas condições de saúde, não estar gestante, não fazer uso de anticoagulantes e não possuir condição que contraindique o procedimento, responsabilizando-se pela veracidade destas informações.\n\n"+
+"5. MAIORIDADE\n"+
+"O CONTRATANTE declara ter 18 anos ou mais. Menores de idade só serão atendidos na presença e com autorização assinada do responsável legal.\n\n"+
+"6. GARANTIA DE RETOQUE\n"+
+"Retoque gratuito em até "+ret+" dias, desde que seguidos os cuidados pós-tatuagem orientados. A não observância dos cuidados exclui a garantia.\n\n"+
+"7. USO DE IMAGEM (LGPD)\n"+
+"O CONTRATANTE autoriza o uso de fotos e vídeos da tatuagem para portfólio e divulgação do "+est+", nos termos da Lei 13.709/2018 (LGPD). Esta autorização pode ser revogada por escrito a qualquer momento. [ ] Autorizo  [ ] Não autorizo\n\n"+
+"8. CUIDADOS PÓS-PROCEDIMENTO\n"+
+"O CONTRATANTE compromete-se a seguir as orientações de cuidado fornecidas, essenciais para a boa cicatrização.\n\n"+
+"9. FORO\n"+
+"Fica eleito o foro da comarca de [CIDADE] para dirimir eventuais questões.\n\n"+
+"Local e data: ______________________, ____/____/______\n\n"+
+"_______________________________        _______________________________\n"+
+"CONTRATANTE (Cliente)                              CONTRATADO ("+art+")";
+
+  var wa=
+"📋 CONFIRMAÇÃO DE SESSÃO — "+est.toUpperCase()+"\n\n"+
+"Olá, [NOME DO CLIENTE]! Para confirmar sua sessão, leia e responda \"CONCORDO\".\n\n"+
+"📅 SESSÃO\n"+
+"Data: [DATA]  ·  Horário: [HORA]\n"+
+"Estilo: [ESTILO]  ·  Local: [LOCAL DO CORPO]\n"+
+"Valor total: R$ [VALOR]  ·  Sinal pago: R$ [SINAL]\n\n"+
+"✅ AO RESPONDER, VOCÊ CONFIRMA:\n"+
+"1. Vi e aprovei o projeto antes da sessão\n"+
+"2. Estou em boas condições de saúde, não gestante e sem uso de anticoagulantes\n"+
+"3. Tenho 18 anos ou mais (ou autorização do responsável)\n"+
+"4. Cancelamento com menos de "+can+"h resulta em perda do sinal\n"+
+"5. Seguirei os cuidados pós-tatuagem\n"+
+"6. Autorizo o uso das fotos para o portfólio do "+est+"\n"+
+"7. Retoques em até "+ret+" dias são gratuitos, se os cuidados forem seguidos\n\n"+
+"Para confirmar, responda: LI E CONCORDO COM TODOS OS TERMOS ✅\n"+
+"Qualquer dúvida, é só perguntar! Te vejo na [DATA] 🎨";
+
+  document.getElementById("c_out_full").textContent=full;
+  document.getElementById("c_out_wa").textContent=wa;
+}
+var gb=document.getElementById("c_gen");if(gb)gb.addEventListener("click",gen);
+gen();
+
+})();
 </script>
 </body>
 </html>

@@ -2,800 +2,592 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Posicionamento de Alto Valor — Do Bom Tatuador à Referência | Carlos Tattoo BH</title>
+<meta name="description" content="O único guia de precificação e vendas premium feito para tatuadores — com calculadora de preço ao vivo, scripts de fechamento e plano de reposicionamento de 90 dias.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cinzel+Decorative:wght@700;900&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#F5EEDC;          /* fundo pergaminho claro */
+  --ink-2:#FFFDF7;        /* cartão claro (quase branco) */
+  --ink-3:#FBF5E7;        /* superfície creme suave */
+  --line:#E4D8BB;         /* fio de cabelo */
+  --parch:#2A2012;        /* texto principal (charcoal quente) */
+  --parch-dim:#5C4A30;    /* texto secundário */
+  --parch-faint:#8C7550;  /* texto fraco */
+  --gold:#8A6D1F;         /* ouro para rótulos/eyebrows */
+  --gold-bright:#9A7A1E;  /* ouro destaque (títulos, valores, links) */
+  --gold-deep:#7A5C14;    /* ouro profundo (bordas) */
+  --green:#3C7A3A;        /* excelência */
+  --amber:#A9772A;        /* atenção */
+  --red:#B24A34;          /* alerta */
+  --shadow:0 20px 48px -30px rgba(120,90,30,.30);
+  --serif:'Lora',Georgia,serif;
+  --disp:'Cinzel',serif;
+  --deco:'Cinzel Decorative',serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);
+  color:var(--parch);
+  font-family:var(--serif);
+  font-size:18px;line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(201,168,76,.10), transparent 60%),
+    radial-gradient(900px 500px at -10% 100%, rgba(201,168,76,.06), transparent 55%);
+}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+h1,h2,h3,h4,.disp{font-family:var(--disp);letter-spacing:.02em;line-height:1.2}
+a{color:var(--gold-bright);text-decoration:none}
+img{max-width:100%}
+
+/* ---------- COVER ---------- */
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 24px;position:relative}
+.cover .brand{font-family:var(--disp);font-weight:600;letter-spacing:.42em;font-size:13px;color:var(--gold);text-transform:uppercase;margin-bottom:40px}
+.cover .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.35em;color:var(--parch-faint);text-transform:uppercase;margin-bottom:26px}
+.cover h1{font-family:var(--deco);font-weight:900;font-size:clamp(42px,9vw,86px);color:var(--parch);line-height:1.02;text-shadow:0 2px 30px rgba(0,0,0,.5)}
+.cover h1 .g{color:var(--gold-bright)}
+.cover .sub{font-size:clamp(17px,2.4vw,22px);color:var(--parch-dim);font-style:italic;max-width:600px;margin:28px auto 0}
+.cover .seal{margin:52px auto 0;width:132px;height:132px;border-radius:50%;border:1px solid var(--gold-deep);display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;background:radial-gradient(circle at 50% 30%,rgba(201,168,76,.14),transparent 70%)}
+.cover .seal::before{content:"";position:absolute;inset:9px;border-radius:50%;border:1px dashed rgba(201,168,76,.35)}
+.cover .seal .n{font-family:var(--deco);font-weight:900;font-size:34px;color:var(--gold-bright);line-height:1}
+.cover .seal .l{font-family:var(--mono);font-size:8.5px;letter-spacing:.2em;color:var(--parch-dim);text-transform:uppercase;margin-top:5px;max-width:96px}
+.cover .scroll{margin-top:60px;font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--parch-faint);text-transform:uppercase;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(7px);opacity:1}}
+
+/* ---------- SECTION SHELL ---------- */
+.section{padding:70px 0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.32em;color:var(--gold);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--gold-deep)}
+h2.big{font-size:clamp(28px,5vw,42px);color:var(--parch);margin-bottom:8px}
+.lead{font-size:20px;color:var(--parch-dim);font-style:italic;margin-bottom:8px}
+p{margin:0 0 18px}
+p+p{margin-top:-2px}
+.section p, .section li{color:var(--parch)}
+strong{color:var(--gold-bright);font-weight:600}
+.rule{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:60px 0}
+
+/* ---------- MANIFESTO ---------- */
+.manifesto{background:var(--ink-2);border:1px solid var(--line);border-radius:16px;padding:44px 40px;box-shadow:var(--shadow)}
+.manifesto h3{font-size:24px;color:var(--gold-bright);margin-bottom:18px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:26px}
+.pillar{background:var(--ink-3);border:1px solid var(--line);border-radius:12px;padding:22px}
+.pillar .t{font-family:var(--disp);font-weight:600;font-size:15px;letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px}
+.pillar.stable .t{color:var(--green)}
+.pillar.change .t{color:var(--amber)}
+.pillar p{font-size:15.5px;line-height:1.6;margin:0;color:var(--parch-dim)}
+
+/* ---------- INTERFACE WARNING ---------- */
+.iface{border-left:3px solid var(--amber);background:rgba(217,164,65,.07);border-radius:0 10px 10px 0;padding:16px 20px;margin:26px 0;font-size:15.5px;line-height:1.6}
+.iface .h{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:6px;display:block}
+
+/* ---------- CARLOS PLAYBOOK BOX ---------- */
+.playbook{position:relative;background:linear-gradient(160deg,#211c15,#171310);border:1px solid var(--gold-deep);border-radius:16px;padding:30px 32px;margin:34px 0;box-shadow:var(--shadow)}
+.playbook::before{content:"O PLAYBOOK DO CARLOS";position:absolute;top:-11px;left:26px;background:var(--gold);color:#161206;font-family:var(--mono);font-weight:700;font-size:10px;letter-spacing:.22em;padding:4px 12px;border-radius:20px}
+.playbook h4{color:var(--gold-bright);font-size:19px;margin:8px 0 12px}
+.playbook p{font-size:16px;color:var(--parch-dim);margin-bottom:12px}
+.playbook .stat-row{display:flex;flex-wrap:wrap;gap:18px;margin-top:16px}
+.playbook .stat{flex:1;min-width:120px;background:rgba(0,0,0,.3);border:1px solid var(--line);border-radius:10px;padding:14px 16px;text-align:center}
+.playbook .stat .v{font-family:var(--deco);font-weight:900;font-size:26px;color:var(--gold-bright);line-height:1}
+.playbook .stat .k{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--parch-faint);margin-top:7px;display:block}
+
+/* ---------- STEPS ---------- */
+.step{display:flex;gap:18px;margin:20px 0;align-items:flex-start}
+.step .num{flex:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--gold-deep);color:var(--gold-bright);font-family:var(--disp);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:16px;background:var(--ink-3)}
+.step .body{flex:1}
+.step .body .st{font-family:var(--disp);font-weight:600;color:var(--parch);font-size:17px;letter-spacing:.02em;margin-bottom:4px}
+.step .body p{font-size:16px;margin:0;color:var(--parch-dim)}
+.field{font-family:var(--mono);font-size:13.5px;background:var(--ink-3);border:1px solid var(--line);border-radius:6px;padding:2px 8px;color:var(--gold-bright)}
+
+/* ---------- CALLOUT / TIP ---------- */
+.tip{border-left:3px solid var(--gold);background:rgba(201,168,76,.06);border-radius:0 10px 10px 0;padding:16px 20px;margin:24px 0;font-size:16px}
+.tip .h{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;display:block}
+
+/* ---------- SCRIPT BLOCK ---------- */
+.script{background:var(--ink-3);border:1px solid var(--line);border-left:3px solid var(--gold-deep);border-radius:10px;padding:20px 22px;margin:20px 0;font-size:15.5px;line-height:1.65}
+.script .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--parch-faint);margin-bottom:10px;display:block}
+.script em{color:var(--parch-faint);font-style:italic}
+.copybtn{margin-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:1px solid var(--gold-deep);color:var(--gold);padding:7px 14px;border-radius:20px;cursor:pointer;transition:.2s}
+.copybtn:hover{background:var(--gold);color:#161206}
+
+/* ---------- TABLE ---------- */
+.table-wrap{overflow-x:auto;margin:24px 0;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:15px;min-width:440px}
+th{background:var(--ink-3);color:var(--gold);font-family:var(--disp);font-weight:600;text-align:left;padding:13px 16px;letter-spacing:.03em;border-bottom:1px solid var(--line)}
+td{padding:12px 16px;border-bottom:1px solid var(--line);color:var(--parch-dim)}
+tr:last-child td{border-bottom:none}
+td strong{color:var(--parch)}
+
+/* ---------- WIDGET / PAINEL ---------- */
+.widget{background:linear-gradient(165deg,#1c1811,#141009);border:1px solid var(--gold-deep);border-radius:18px;padding:30px;margin:34px 0;box-shadow:var(--shadow)}
+.widget .wtag{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.widget .wtag .dot{width:7px;height:7px;border-radius:50%;background:var(--gold-bright);box-shadow:0 0 10px var(--gold-bright);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.widget h3{font-size:22px;color:var(--parch);margin-bottom:6px}
+.widget .wsub{font-size:15px;color:var(--parch-faint);margin-bottom:22px}
+.ctrl{margin-bottom:18px}
+.ctrl label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--parch-dim);margin-bottom:8px}
+.ctrl input[type=number],.ctrl input[type=range]{width:100%}
+.ctrl input[type=number]{background:var(--ink);border:1px solid var(--line);border-radius:8px;color:var(--gold-bright);font-family:var(--mono);font-size:18px;padding:11px 14px;font-weight:500}
+.ctrl input[type=number]:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.18)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+input[type=range]{-webkit-appearance:none;height:6px;border-radius:6px;background:var(--ink-3);border:1px solid var(--line);cursor:pointer;margin-top:6px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--gold-bright);border:2px solid #161206;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.5)}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--gold-bright);border:2px solid #161206;cursor:pointer}
+.rangeval{font-family:var(--mono);color:var(--gold-bright);font-size:16px;float:right}
+.readout{background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:12px;padding:22px;margin-top:22px}
+.readout .row{display:flex;justify-content:space-between;align-items:baseline;padding:9px 0;border-bottom:1px dashed var(--line)}
+.readout .row:last-child{border-bottom:none}
+.readout .row .k{font-size:15px;color:var(--parch-dim)}
+.readout .row .v{font-family:var(--mono);font-weight:700;font-size:20px;color:var(--gold-bright)}
+.verdict{margin-top:18px;border-radius:12px;padding:18px 20px;font-size:16px;line-height:1.55;border:1px solid var(--line)}
+.verdict.g{background:rgba(95,160,90,.12);border-color:rgba(95,160,90,.5)}
+.verdict.a{background:rgba(217,164,65,.10);border-color:rgba(217,164,65,.5)}
+.verdict.r{background:rgba(192,86,62,.12);border-color:rgba(192,86,62,.5)}
+.verdict .vh{font-family:var(--disp);font-weight:700;font-size:16px;letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;display:block}
+.verdict.g .vh{color:var(--green)}
+.verdict.a .vh{color:var(--amber)}
+.verdict.r .vh{color:var(--red)}
+
+/* CPR meter */
+.meter{height:16px;border-radius:10px;margin:18px 0 8px;background:linear-gradient(90deg,var(--green) 0%,var(--green) 33%,var(--amber) 33%,var(--amber) 66%,var(--red) 66%,var(--red) 100%);position:relative;border:1px solid var(--line)}
+.meter .pin{position:absolute;top:-7px;width:3px;height:30px;background:var(--parch);border-radius:2px;box-shadow:0 0 8px rgba(0,0,0,.8);transition:left .35s ease}
+.meter-labels{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--parch-faint);text-transform:uppercase}
+
+/* ---------- CHECKLIST ---------- */
+.checklist{background:var(--ink-2);border:1px solid var(--line);border-radius:16px;padding:28px 30px;margin:30px 0}
+.progress-bar{height:8px;border-radius:8px;background:var(--ink);border:1px solid var(--line);overflow:hidden;margin:12px 0 4px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold-deep),var(--gold-bright));width:0%;transition:width .4s ease}
+.progress-txt{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.1em}
+.phase{margin-top:24px}
+.phase h4{font-size:15px;color:var(--gold);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+.check{display:flex;gap:12px;align-items:flex-start;padding:9px 0;cursor:pointer;border-bottom:1px dashed var(--line)}
+.check:last-child{border-bottom:none}
+.check input{flex:none;width:20px;height:20px;margin-top:3px;accent-color:var(--gold-bright);cursor:pointer}
+.check span{font-size:15.5px;color:var(--parch-dim);transition:.2s}
+.check input:checked + span{color:var(--parch-faint);text-decoration:line-through}
+.reset{margin-top:18px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:1px solid var(--line);color:var(--parch-faint);padding:7px 14px;border-radius:20px;cursor:pointer}
+.reset:hover{border-color:var(--red);color:var(--red)}
+
+/* ---------- TOC ---------- */
+.toc{background:var(--ink-2);border:1px solid var(--line);border-radius:16px;padding:8px 8px}
+.toc a{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:14px 20px;border-radius:10px;color:var(--parch);font-family:var(--serif);transition:.2s;border-bottom:1px solid transparent}
+.toc a:hover{background:var(--ink-3);color:var(--gold-bright)}
+.toc a .mn{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.1em;flex:none}
+.toc a .tt{flex:1}
+.toc a .dg{font-size:13px;color:var(--parch-faint);font-style:italic;flex:none}
+
+/* ---------- MODULE HEADER ---------- */
+.modhead{text-align:center;padding:50px 0 30px;position:relative}
+.modhead .mnum{font-family:var(--deco);font-weight:900;font-size:clamp(70px,16vw,120px);color:transparent;-webkit-text-stroke:1px var(--gold-deep);line-height:.85;opacity:.6}
+.modhead .mtitle{font-size:clamp(24px,5vw,36px);color:var(--parch);margin-top:-14px}
+.modhead .mdesc{font-size:16px;color:var(--parch-dim);font-style:italic;max-width:540px;margin:14px auto 0}
+
+/* ---------- FUNNEL / ECOSYSTEM ---------- */
+.eco{background:linear-gradient(165deg,#1c1811,#120f09);border:1px solid var(--gold-deep);border-radius:18px;padding:40px 34px;box-shadow:var(--shadow)}
+.eco h3{font-size:26px;color:var(--gold-bright);text-align:center;margin-bottom:8px}
+.eco .esub{text-align:center;color:var(--parch-dim);font-style:italic;margin-bottom:30px}
+.flow{display:flex;flex-direction:column;gap:14px}
+.node{display:flex;gap:16px;align-items:center;background:var(--ink-3);border:1px solid var(--line);border-radius:12px;padding:16px 20px}
+.node .ic{flex:none;width:42px;height:42px;border-radius:10px;background:rgba(201,168,76,.12);border:1px solid var(--gold-deep);display:flex;align-items:center;justify-content:center;font-family:var(--deco);font-weight:900;color:var(--gold-bright);font-size:20px}
+.node .nt{flex:1}
+.node .nt .nn{font-family:var(--disp);font-weight:600;color:var(--parch);font-size:16px}
+.node .nt .nd{font-size:14px;color:var(--parch-faint)}
+.node.active{border-color:var(--gold);background:rgba(201,168,76,.08)}
+.arrow{text-align:center;color:var(--gold-deep);font-size:20px;line-height:.5}
+
+/* ---------- CTA ---------- */
+.cta{display:inline-block;background:linear-gradient(135deg,var(--gold),var(--gold-bright));color:#161206;font-family:var(--disp);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:14px;padding:16px 34px;border-radius:40px;margin-top:8px;transition:.25s;box-shadow:0 12px 30px -12px rgba(201,168,76,.6)}
+.cta:hover{transform:translateY(-2px);box-shadow:0 18px 40px -12px rgba(201,168,76,.75)}
+
+/* ---------- FOOTER ---------- */
+footer{text-align:center;padding:60px 24px 50px;border-top:1px solid var(--line);margin-top:40px}
+footer .fb{font-family:var(--disp);letter-spacing:.3em;color:var(--gold);font-size:13px;text-transform:uppercase}
+footer .fc{font-size:13px;color:var(--parch-faint);margin-top:12px;font-family:var(--mono)}
+
+/* print button */
+.printbar{position:fixed;right:18px;bottom:18px;z-index:50;background:linear-gradient(135deg,var(--gold),var(--gold-bright));color:#161206;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:none;padding:12px 18px;border-radius:40px;cursor:pointer;box-shadow:0 10px 26px -10px rgba(0,0,0,.7);transition:.2s}
+.printbar:hover{transform:translateY(-2px)}
+@media (max-width:640px){.printbar{right:12px;bottom:12px;padding:10px 14px;font-size:10px}}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:640px){
+  body{font-size:16.5px}
+  .two-col,.grid2{grid-template-columns:1fr}
+  .manifesto,.playbook,.widget,.eco{padding:24px 20px}
+  .section{padding:48px 0}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+:focus-visible{outline:2px solid var(--gold-bright);outline-offset:3px;border-radius:4px}
+
+/* ===== TEMA CLARO CREME (tela): sobrescreve gradientes/sombras escuras ===== */
+.cover h1{text-shadow:none}
+.cover .seal{background:radial-gradient(circle at 50% 30%,rgba(201,168,76,.16),transparent 70%)}
+.playbook{background:linear-gradient(160deg,#FFFDF7,#FBF3E3)}
+.widget,.eco{background:linear-gradient(165deg,#FFFDF7,#FBF3E3)}
+.playbook .stat,.readout{background:#FBF5E6}
+.ctrl input[type=number]{background:#fff}
+.progress-bar{background:#F0E7CE}
+.node .ic{background:rgba(201,168,76,.16)}
+.cta{background:linear-gradient(135deg,#C9A84C,#E0B84A);color:#211703;box-shadow:0 12px 30px -14px rgba(160,120,40,.55)}
+.cta:hover{box-shadow:0 18px 40px -14px rgba(160,120,40,.7)}
+.progress-fill{background:linear-gradient(90deg,#B88A2A,#E0B84A)}
+input[type=range]::-webkit-slider-thumb{background:#C9A84C;border:2px solid #fff;box-shadow:0 2px 6px rgba(120,90,30,.4)}
+input[type=range]::-moz-range-thumb{background:#C9A84C;border:2px solid #fff}
+.widget .wtag .dot{background:#C9A84C;box-shadow:0 0 10px rgba(201,168,76,.7)}
+.meter .pin{background:#2A2012;box-shadow:0 0 6px rgba(0,0,0,.30)}
+.copybtn:hover{color:#211703}
+::selection{background:rgba(201,168,76,.3);color:#2A2012}
+/* ============ PRINT / SALVAR PDF — versão econômica de tinta ============ */
+@media print{
+  @page{margin:1.5cm}
+  html,body{background:#fff!important;color:#1c1c1c!important;font-size:11pt;line-height:1.5}
+  body::before{display:none!important}
+  .wrap{max-width:100%;padding:0}
+  *{box-shadow:none!important;text-shadow:none!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .widget,.checklist,.cover .scroll,.copybtn,.reset,.cta,.printbar{display:none!important}
+  .cover{min-height:auto;padding:10px 0 24px;page-break-after:always}
+  .cover .brand,.cover .kicker,.cover .seal .n,.eyebrow,.tip .h,.iface .h,.script .lbl2{color:#8a6d1f!important}
+  .cover h1,.cover .sub,h1,h2,h3,h4,.disp,.big,.modhead .mtitle,.step .body .st,.node .nt .nn,td strong{color:#141414!important}
+  .cover h1 .g,.cover .seal .l{color:#9a7a1e!important}
+  .lead,.mdesc,.esub,.pillar p,.playbook p,.step .body p,.node .nt .nd,.toc a .dg{color:#444!important}
+  p,li,.section p,.section li,td,.toc a{color:#222!important}
+  strong{color:#8a6d1f!important}
+  a{color:#7a5c14!important;text-decoration:none}
+  .eyebrow::before{background:#c9a84c!important}
+  .manifesto,.playbook,.pillar,.tip,.iface,.script,.eco,.node,.readout,.table-wrap,.toc{
+    background:#fff!important;border:1px solid #d9cfae!important;border-radius:8px!important}
+  .playbook::before{background:#c9a84c!important;color:#161206!important}
+  .pillar.stable .t{color:#3c7a3a!important}.pillar.change .t{color:#a9772a!important}
+  .playbook .stat{background:#faf6ea!important;border:1px solid #e0d5b5!important}
+  .playbook .stat .v{color:#9a7a1e!important}.playbook .stat .k{color:#555!important}
+  .modhead .mnum{-webkit-text-stroke:1px #c9a84c!important;color:transparent!important;opacity:.5}
+  th{background:#f2ead0!important;color:#7a5c14!important;border-bottom:1px solid #d9cfae!important}
+  td{border-bottom:1px solid #e6ddc4!important}
+  table{min-width:0}
+  .step .num{background:#faf6ea!important;border-color:#c9a84c!important;color:#9a7a1e!important}
+  .field{background:#faf6ea!important;border:1px solid #e0d5b5!important;color:#8a6d1f!important}
+  .toc a .mn,.eco h3,.node .ic{color:#9a7a1e!important}
+  .node .ic{background:#faf6ea!important;border:1px solid #e0d5b5!important}
+  .rule{display:none}
+  footer{border-top:1px solid #d9cfae!important}
+  footer .fb{color:#8a6d1f!important}
+  .modhead{page-break-before:always}
+  h2,h3,h4{page-break-after:avoid}
+  .script,.playbook,.step,.tip,.iface,.table-wrap{page-break-inside:avoid}
+}
+</style>
 <script>
+/* ── CT: GUARDIÃO DE ACESSO + PONTE DO LEITOR ── */
 (function(){
-  var okKey = 'ct_ok_' + 'ebook-posicionamento-avancado.html';
-  var liberado = sessionStorage.getItem(okKey) === '1';
-  var dentroDeFrame = window.self !== window.top;
-  if (!liberado || !dentroDeFrame) {
-    window.location.href = 'https://carlostattoobh.com.br/index.html#ebooks';
-  }
+  var FNAME='ebook-posicionamento-avancado.html';
+  try{
+    // Aberto direto (fora do leitor) e sem liberação -> volta pro acesso.
+    if(sessionStorage.getItem('ct_ok_'+FNAME)!=='1'){
+      location.replace('acesso.html'); return;
+    }
+  }catch(e){}
+  // O leitor manda ct_scrollTo com a âncora do módulo clicado na barra lateral.
+  window.addEventListener('message',function(ev){
+    var d=ev.data||{};
+    if(d&&d.type==='ct_scrollTo'&&d.anchor){
+      var el=document.getElementById(d.anchor);
+      if(el){el.scrollIntoView({behavior:'smooth',block:'start'});}
+    }
+  });
 })();
 </script>
-
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>Posicionamento de Alta Valor — Tutorial Completo 2026 | Carlos Tattoo BH</title>
-<link rel="canonical" href="https://carlostattoobh.com.br/ebook-posicionamento-avancado.html">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg-page: #f5f7fb;
-  --white: #ffffff;
-  --text: #111827;
-  --text-muted: #6b7280;
-  --accent: #1a1a2e;
-  --gold: #c9973a;
-  --gold-light: #f0c04a;
-  --border: #e5e7eb;
-  --shadow: 0 4px 24px rgba(0,0,0,.07);
-  --shadow-lg: 0 8px 48px rgba(0,0,0,.12);
-  --radius: 16px;
-}
-
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Poppins', sans-serif;background:#f5f7fb;color:#111827;font-size:16px;line-height:1.8;}
-@media print{.no-print{display:none!important;}.pb{page-break-after:always;}body{background:#fff;font-size:11pt;}}
-.wm{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;}
-.wm-grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(7,1fr);}
-.wm-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transform:rotate(-25deg);opacity:.04;}
-.wm-cell img{width:52px;height:52px;object-fit:contain;}
-.wm-cell span{font-family:'Poppins', sans-serif;font-size:8px;letter-spacing:2px;color:#c9973a;text-transform:uppercase;white-space:nowrap;}
-.capa{background:linear-gradient(160deg,#06080f 0%,#0d0d1a 38%,#1a1a2e 65%,#06080f 100%);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;position:relative;overflow:hidden;}
-.capa::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 45%,rgba(201,151,58,.15) 0%,rgba(139,26,26,.08) 60%,transparent 100%);}
-.c-line{position:absolute;left:50%;transform:translateX(-50%);width:220px;height:1px;background:linear-gradient(90deg,transparent,rgba(201,151,58,.5),transparent);}
-.c-line.top{top:36px;}.c-line.bot{bottom:36px;}
-.c-logo{height:90px;object-fit:contain;filter:drop-shadow(0 0 24px rgba(201,151,58,.6));margin-bottom:28px;position:relative;z-index:1;}
-.c-tag{display:inline-block;background:rgba(201,151,58,.1);border:1px solid rgba(201,151,58,.4);padding:7px 24px;font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:4px;color:#f0c04a;text-transform:uppercase;margin-bottom:24px;position:relative;z-index:1;}
-.c-h1{font-family:'Playfair Display', serif;font-size:clamp(28px,5vw,56px);color:#fff;line-height:1.05;margin-bottom:12px;position:relative;z-index:1;}
-.c-h1 b{color:#f0c04a;}
-.c-sub{font-family:'Poppins', sans-serif;font-size:13px;letter-spacing:3px;color:rgba(201,151,58,.90);margin-bottom:52px;position:relative;z-index:1;}
-.c-div{width:140px;height:1px;background:linear-gradient(90deg,transparent,#f0c04a,transparent);margin:0 auto 38px;}
-.c-autor-name{font-family:'Playfair Display', serif;font-size:20px;color:#f0c04a;margin-bottom:4px;position:relative;z-index:1;}
-.c-autor-role{font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:3px;color:rgba(201,151,58,.78);text-transform:uppercase;position:relative;z-index:1;}
-.c-badge{position:absolute;bottom:48px;right:48px;width:94px;height:94px;border-radius:50%;background:rgba(201,151,58,.09);border:1.5px solid rgba(201,151,58,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:1;}
-.c-badge b{font-family:'Playfair Display', serif;font-size:23px;color:#f0c04a;display:block;line-height:1;}
-.c-badge span{font-family:'Poppins', sans-serif;font-size:8px;letter-spacing:1px;color:rgba(201,151,58,.78);margin-top:3px;}
-.c-pages{position:absolute;bottom:52px;left:48px;font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:2px;color:rgba(201,151,58,.75);text-transform:uppercase;z-index:1;}
-.indice{background:#f8faff;padding:72px 96px;min-height:100vh;}
-.mh{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);padding:56px 96px 48px;position:relative;overflow:hidden;border-bottom:3px solid #c9973a;}
-.mh::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 80% 50%,rgba(201,151,58,.08) 0%,transparent 70%);}
-.mh-bg-n{font-family:'Playfair Display', serif;font-size:130px;color:rgba(201,151,58,.05);position:absolute;right:56px;top:10px;line-height:1;}
-.mh-lbl{font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:4px;color:rgba(201,151,58,.75);text-transform:uppercase;margin-bottom:10px;position:relative;z-index:1;}
-.mh-title{font-family:'Playfair Display', serif;font-size:clamp(24px,3.5vw,42px);color:#fff;position:relative;z-index:1;line-height:1.15;}
-.mh-title b{color:#f0c04a;}
-.mh-desc{font-size:16px;color:rgba(229,231,235,.88);margin-top:14px;position:relative;z-index:1;max-width:620px;line-height:1.7;}
-.mh-logo{position:absolute;right:96px;bottom:24px;height:44px;opacity:.5;z-index:1;}
-.page{background:#fff;padding:68px 92px 84px;min-height:100vh;position:relative;}
-.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;padding-bottom:14px;border-bottom:2px solid #e5e7eb;}
-.ph img{height:30px;object-fit:contain;opacity:.65;}
-.ph span{font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:2px;color:#9ca3af;text-transform:uppercase;}
-.pf{position:absolute;bottom:30px;left:92px;right:92px;display:flex;justify-content:space-between;align-items:center;font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:1px;color:#b8862e;border-top:1px solid #e5e7eb;padding-top:12px;}
-.bg-n{font-family:'Playfair Display', serif;font-size:120px;color:rgba(201,151,58,.05);position:absolute;top:56px;right:76px;line-height:1;pointer-events:none;}
-.lbl{font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:4px;color:#c9973a;text-transform:uppercase;margin-bottom:8px;display:block;}
-.h2{font-family:'Playfair Display', serif;font-size:clamp(20px,2.8vw,34px);color:#111827;margin-bottom:16px;line-height:1.2;}
-.h2 b{color:#c9973a;}
-.h3{font-family:'Poppins', sans-serif;font-size:17px;color:#111827;font-weight:700;margin:32px 0 14px;display:flex;align-items:center;gap:10px;}
-.h3::before{content:'◆';color:#c9973a;font-size:9px;flex-shrink:0;}
-p{font-size:15px;color:#1f2937;line-height:1.9;margin-bottom:16px;}
-strong{color:#111827;}
-.steps{display:flex;flex-direction:column;gap:14px;margin:18px 0;}
-.step{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1.5px solid rgba(201,151,58,.16);border-radius:12px;padding:20px 22px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
-.sn{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#A07830,#f0c04a);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display', serif;font-size:14px;color:#1a1a2e;flex-shrink:0;font-weight:900;}
-.st h4{font-family:'Poppins', sans-serif;font-size:14px;color:#111827;font-weight:700;margin-bottom:6px;}
-.st p{font-size:14px;color:#374151;line-height:1.75;margin:0;}
-.code{background:#0d0d1a;border-radius:8px;padding:14px 18px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:#f0c04a;letter-spacing:.5px;border-left:3px solid #c9973a;}
-.box-warn{background:#fffbeb;border:1.5px solid #f59e0b;border-radius:10px;padding:18px 22px;margin:22px 0;display:flex;gap:14px;}
-.box-warn-i{font-size:22px;flex-shrink:0;}
-.box-warn p{font-size:14px;color:#78350f;line-height:1.75;margin:0;}
-.box-tip{background:#eff6ff;border:1.5px solid #60a5fa;border-radius:10px;padding:18px 22px;margin:22px 0;display:flex;gap:14px;}
-.box-tip-i{font-size:22px;flex-shrink:0;}
-.box-tip p{font-size:14px;color:#1e3a5f;line-height:1.75;margin:0;}
-.box-ok{background:#f0fdf4;border:1.5px solid #4ade80;border-radius:10px;padding:18px 22px;margin:22px 0;display:flex;gap:14px;}
-.box-ok-i{font-size:22px;flex-shrink:0;}
-.box-ok p{font-size:14px;color:#14532d;line-height:1.75;margin:0;}
-.box-gold{background:linear-gradient(135deg,#f8faff,#e8edf8);border:1px solid rgba(201,151,58,.22);border-left:5px solid #c9973a;padding:20px 26px;margin:22px 0;border-radius:0 12px 12px 0;}
-.box-gold p{font-size:15px;color:#1f2937;margin:0;line-height:1.8;}
-.box-dark{background:linear-gradient(135deg,#0d0d1a,#0a0a18);border-radius:14px;padding:26px 30px;margin:22px 0;border:1px solid rgba(201,151,58,.18);}
-.box-dark p,.box-dark li{color:#e5e7eb;font-size:15px;line-height:1.85;margin-bottom:10px;}
-.box-dark h4{font-family:'Poppins', sans-serif;font-size:15px;color:#f0c04a;margin-bottom:14px;}
-.ul{list-style:none;margin:14px 0 22px;}
-.ul li{display:flex;align-items:flex-start;gap:12px;font-size:15px;color:#1f2937;margin-bottom:13px;line-height:1.75;}
-.ul li::before{content:'◆';color:#c9973a;font-size:8px;flex-shrink:0;margin-top:7px;}
-.ol{list-style:none;margin:14px 0 22px;counter-reset:n;}
-.ol li{display:flex;align-items:flex-start;gap:14px;font-size:15px;color:#1f2937;margin-bottom:14px;line-height:1.75;counter-increment:n;}
-.ol li::before{content:counter(n);min-width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#A07830,#c9973a);color:#fff;font-family:'Playfair Display', serif;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
-.tb{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px;}
-.tb th{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);color:#c9973a;font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:13px 16px;text-align:left;}
-.tb td{padding:11px 16px;border-bottom:1px solid #e5e7eb;color:#1f2937;line-height:1.6;}
-.tb tr:hover td{background:#f8faff;}
-.tb tr:last-child td{border-bottom:none;}
-.script{background:#0d0d1a;border-radius:12px;padding:24px 28px;margin:18px 0;}
-.script-lbl{font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:3px;color:#c9973a;text-transform:uppercase;margin-bottom:14px;display:block;}
-.sl{font-size:14px;color:#e5e7eb;line-height:1.9;margin-bottom:10px;}
-.sl b{color:#f0c04a;}
-.sl em{color:rgba(201,151,58,.85);font-style:italic;}
-.ck{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);border-radius:16px;padding:30px;margin:22px 0;}
-.ck h4{font-family:'Playfair Display', serif;font-size:17px;color:#f0c04a;margin-bottom:20px;}
-.ck-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.ci{display:flex;align-items:center;gap:10px;background:rgba(201,151,58,.04);border:1px solid rgba(201,151,58,.1);border-radius:7px;padding:11px 14px;font-size:14px;color:#e5e7eb;line-height:1.5;}
-.cbox{width:18px;height:18px;border:2px solid rgba(201,151,58,.4);border-radius:4px;flex-shrink:0;}
-.idx-mod{margin-bottom:26px;}
-.idx-mod-lbl{font-family:'Playfair Display', serif;font-size:12px;color:#c9973a;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:10px;}
-.idx-mod-lbl::after{content:'';flex:1;height:1px;background:rgba(201,151,58,.2);}
-.idx-item{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid rgba(160,120,56,.1);}
-.idx-n{font-family:'Playfair Display', serif;font-size:17px;color:#c9973a;min-width:30px;}
-.idx-t{flex:1;}
-.idx-t h3{font-family:'Poppins', sans-serif;font-size:14px;color:#111827;font-weight:700;}
-.idx-t p{font-size:11px;color:#9ca3af;margin-top:2px;}
-.idx-pg{font-family:'Poppins', sans-serif;font-size:10px;color:#c9973a;}
-.cback{background:linear-gradient(160deg,#06080f,#0d0d1a,#06080f);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;position:relative;}
-.preco-destaque{background:linear-gradient(135deg,#f8faff,#e8edf8);border:2px solid rgba(201,151,58,.3);border-radius:14px;padding:24px 28px;margin:22px 0;text-align:center;}
-.preco-destaque .antes{font-size:14px;color:#9ca3af;text-decoration:line-through;}
-.preco-destaque .preco{font-family:'Playfair Display', serif;font-size:44px;color:#A07830;line-height:1;}
-.preco-destaque .parcelas{font-family:'Poppins', sans-serif;font-size:12px;color:#9ca3af;}
-</style>
 </head>
 <body>
+<button class="printbar" onclick="window.print()" title="Versão limpa, econômica de tinta">🖨 Imprimir / PDF</button>
+<section class="cover">
+  <div class="brand">Carlos Tattoo BH</div>
+  <div class="kicker">Posicionamento · Edição Definitiva</div>
+  <h1>Do Bom Tatuador<br>à <span class="g">Referência</span></h1>
+  <p class="sub">Pare de cobrar barato por medo. Aprenda a precificar, vender e se posicionar como o profissional que o cliente certo procura — com calculadora de preço ao vivo e os scripts que fecham alto valor.</p>
+  <div class="seal"><span class="n">$</span><span class="l">Preço · Vendas · Autoridade</span></div>
+  <div class="scroll">Comece a descer ↓</div>
+</section>
 
+<div class="wrap">
+<section class="section reveal">
+  <div class="eyebrow">A virada</div>
+  <h2 class="big">Você não cobra barato por falta de técnica. Cobra por falta de posicionamento.</h2>
+  <p class="lead">Existe tatuador excelente ganhando mal e tatuador mediano ganhando bem. A diferença raramente é a mão — é como cada um se posiciona, precifica e vende.</p>
+  <p>Este material não te ensina a tatuar melhor. Ensina a fazer o mercado enxergar o valor do que você já faz — e a cobrar por isso sem culpa e sem perder o cliente certo.</p>
 
-<!-- MARCA D'ÁGUA -->
-<div class="wm" aria-hidden="true">
-  <div class="wm-grid">
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><img src="IPJP8350.JPG" alt=""><span>Carlos Tattoo BH</span></div>
-  </div>
-</div>
-
-<!-- CAPA -->
-<div class="capa pb">
-  <div class="c-line top"></div>
-  <div style="width:320px;border-radius:16px;overflow:hidden;margin:0 auto 32px;box-shadow:0 16px 56px rgba(0,0,0,.7),0 0 0 2px rgba(201,151,58,.35);position:relative;z-index:1;">
-<img src="imagens/thumb-ebook-posicionamento.jpg" style="width:100%;display:block;"></div>
-  <div class="c-tag">Nível Avançado · 2026 · 200+ Páginas</div>
-  <h1 class="c-h1">Posicionamento de<br><b>Alta Valor</b></h1>
-  <p class="c-sub">Como cobrar mais caro, ter fila de espera e ser referência no mercado</p>
-  <div class="c-div"></div>
-  <div class="c-autor-name">Carlos Henrique</div>
-  <div class="c-autor-role">Tatuador · Mentor · @carlostattoo.bh · Belo Horizonte, MG</div>
-  <div class="c-badge"><b>★</b><span>Exclusivo</span></div>
-  <div class="c-pages">200+ páginas de conteúdo avançado</div>
-  <div class="c-line bot"></div>
-</div>
-
-<!-- ÍNDICE -->
-<div class="indice pb">
-  <img src="IPJP8350.JPG" style="height:44px;object-fit:contain;opacity:.6;margin-bottom:28px;display:block;" alt="">
-  <span class="lbl">Sumário</span>
-  <h2 class="h2" style="color:#111827;margin-bottom:38px;">Do tatuador bom ao <b>referência de mercado</b></h2>
-
-  <div class="idx-mod">
-    <div class="idx-mod-lbl">Módulo 1 — Mentalidade e Identidade Premium</div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod1').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">01</span><div class="idx-t"><h3>Por que você está cobrando barato</h3><p>A psicologia do preço e como o mercado percebe seu valor</p></div><span class="idx-pg">06</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod1').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">02</span><div class="idx-t"><h3>Construindo sua identidade de marca</h3><p>Nome, logo, paleta, fontes — como criar visual profissional</p></div><span class="idx-pg">12</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod1').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">03</span><div class="idx-t"><h3>Escolhendo sua especialidade e se tornando referência</h3><p>Por que generalista tem preço médio e especialista tem preço premium</p></div><span class="idx-pg">18</span></div>
-  </div>
-  <div class="idx-mod">
-    <div class="idx-mod-lbl">Módulo 2 — Precificação Estratégica</div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod2').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">04</span><div class="idx-t"><h3>Como calcular seu preço real</h3><p>Custo por hora, materiais, overhead, margem — cálculo completo</p></div><span class="idx-pg">24</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod2').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">05</span><div class="idx-t"><h3>Tabela de preços premium por estilo e tamanho</h3><p>Referências de mercado premium em 2026</p></div><span class="idx-pg">30</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod2').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">06</span><div class="idx-t"><h3>Como reajustar preços sem perder clientes</h3><p>Estratégia de aumento gradual e comunicação correta</p></div><span class="idx-pg">36</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod2').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">07</span><div class="idx-t"><h3>Sinal, parcelamento e política de cancelamento</h3><p>Como estruturar financeiramente seu negócio</p></div><span class="idx-pg">42</span></div>
-  </div>
-  <div class="idx-mod">
-    <div class="idx-mod-lbl">Módulo 3 — Scripts VIP de Atendimento</div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod3').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">08</span><div class="idx-t"><h3>O sistema completo de atendimento premium</h3><p>Da primeira mensagem ao pós-sessão — cada etapa detalhada</p></div><span class="idx-pg">50</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod3').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">09</span><div class="idx-t"><h3>Scripts para cada situação — 20 modelos prontos</h3><p>Primeira mensagem, orçamento, objeções, follow-up, pós-venda</p></div><span class="idx-pg">58</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod3').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">10</span><div class="idx-t"><h3>Como fechar orçamentos de alto valor</h3><p>A psicologia da decisão de compra para serviços premium</p></div><span class="idx-pg">66</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod3').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">11</span><div class="idx-t"><h3>Lidando com objeções — scripts testados</h3><p>Respostas para "tá caro", "vou pensar", "vi mais barato"</p></div><span class="idx-pg">72</span></div>
-  </div>
-  <div class="idx-mod">
-    <div class="idx-mod-lbl">Módulo 4 — Branding Premium</div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod4').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">12</span><div class="idx-t"><h3>Criando experiência premium do primeiro contato</h3><p>Como cada touchpoint comunica valor antes da sessão</p></div><span class="idx-pg">80</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod4').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">13</span><div class="idx-t"><h3>O estúdio como ferramenta de vendas</h3><p>Ambiente, materiais e apresentação que justificam preço alto</p></div><span class="idx-pg">86</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod4').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">14</span><div class="idx-t"><h3>Como criar escassez real e fila de espera</h3><p>Estratégias de agenda fechada e lista VIP</p></div><span class="idx-pg">92</span></div>
-  </div>
-  <div class="idx-mod">
-    <div class="idx-mod-lbl">Módulo 5 — Funil de Vendas Completo</div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod5').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">15</span><div class="idx-t"><h3>Mapeando a jornada do cliente premium</h3><p>Do primeiro contato ao cliente fidelizado — cada etapa</p></div><span class="idx-pg">100</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod5').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">16</span><div class="idx-t"><h3>Sistema de follow-up que não parece desesperado</h3><p>Como acompanhar leads sem pressionar</p></div><span class="idx-pg">106</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod5').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">17</span><div class="idx-t"><h3>Fidelização — transformando cliente em fã</h3><p>Como fazer cada cliente voltar e indicar outros</p></div><span class="idx-pg">112</span></div>
-  </div>
-  <div class="idx-mod">
-    <div class="idx-mod-lbl">Módulo 6 — Gestão e Expansão</div>
-    <div class="idx-item"><span class="idx-n">18</span><div class="idx-t"><h3>Gestão financeira do estúdio</h3><p>Controle de receita, despesas, metas e reserva</p></div><span class="idx-pg">120</span></div>
-    <div class="idx-item"><span class="idx-n">19</span><div class="idx-t"><h3>Como contratar e treinar um assistente</h3><p>Quando e como expandir sem perder qualidade</p></div><span class="idx-pg">126</span></div>
-    <div class="idx-item"><span class="idx-n">20</span><div class="idx-t"><h3>Construindo autoridade no mercado tattoo</h3><p>Eventos, colaborações, mídia e presença estratégica</p></div><span class="idx-pg">132</span></div>
-  </div>
-  <div class="idx-mod">
-    <div class="idx-mod-lbl">Módulo 7 — Plano de Ação e Bônus</div>
-    <div class="idx-item"><span class="idx-n">21</span><div class="idx-t"><h3>Plano de reposicionamento 90 dias</h3><p>Como migrar de preço médio para preço premium sem perder clientes</p></div><span class="idx-pg">140</span></div>
-    <div class="idx-item"><span class="idx-n">22</span><div class="idx-t"><h3>Contrato de tatuagem completo — modelo editável</h3><p>Cláusulas essenciais, direitos e responsabilidades</p></div><span class="idx-pg">148</span></div>
-    <div class="idx-item"><span class="idx-n">23</span><div class="idx-t"><h3>Planilha de controle financeiro</h3><p>Como organizar suas finanças do estúdio</p></div><span class="idx-pg">158</span></div>
-    <div class="idx-item"><span class="idx-n">24</span><div class="idx-t"><h3>Checklist completo do profissional premium</h3><p>Tudo que precisa estar no lugar para cobrar mais caro</p></div><span class="idx-pg">165</span></div>
-  </div>
-</div>
-
-<!-- MÓDULO 1 -->
-<div class="mh pb" id="mod1">
-  <div class="mh-bg-n">01</div>
-  <div class="mh-lbl">Módulo 01</div>
-  <div class="mh-title">Mentalidade e<br><b>Identidade Premium</b></div>
-  <div class="mh-desc">Você não cobra mais caro aprendendo uma técnica nova. Você cobra mais caro mudando como o mercado te percebe. Este módulo é sobre construir a base de uma marca premium.</div>
-  <img src="IPJP8350.JPG" class="mh-logo" alt="">
-</div>
-
-<!-- CAP 1 -->
-<div class="page pb">
-  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Módulo 01 · Capítulo 01</span></div>
-  <div class="bg-n">01</div>
-  <span class="lbl">Capítulo 01</span>
-  <h2 class="h2">Por que você está <b>cobrando barato</b></h2>
-  <p>A maioria dos tatuadores precifica baseado no que o vizinho cobra. Isso cria uma corrida para o fundo — todo mundo vai diminuindo o preço para não perder o cliente, e todo mundo perde no final.</p>
-  <p>O preço que você cobra é uma comunicação. Ele diz ao cliente o que esperar antes de ele ver seu trabalho. Um preço baixo comunica: "meu trabalho não é assim tão especial". Um preço alto comunica: "o que faço tem valor e quem me escolhe sabe disso."</p>
-
-  <h3 class="h3">As 5 crenças que te mantêm cobrando barato</h3>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>"Meu trabalho não é bom o suficiente para cobrar mais"</h4><p>Falso. Sempre existe um mercado para cada nível de técnica. A questão não é ser o melhor tatuador do mundo — é se posicionar corretamente para o público que valoriza o que você faz. Hoje você pode ter clientes pagando R$200 enquanto outros tatuadores com técnica similar cobram R$500 pelo mesmo trabalho.</p></div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>"Se eu subir o preço, vou perder clientes"</h4><p>Você vai perder clientes sensíveis a preço — que são exatamente os que mais dão trabalho, mais reclamam e menos indicam. E vai atrair clientes que valorizam qualidade, respeitam seu trabalho e ficam satisfeitos mais facilmente.</p></div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><h4>"Concorrência cobra menos — não posso cobrar mais"</h4><p>Ferrari e Chevrolet vendem carros na mesma cidade. Restaurante estrelado e lanchonete ficam na mesma rua. O mercado tem espaço para todos os níveis de preço. A questão é qual nível você quer ocupar.</p></div></div>
-    <div class="step"><div class="sn">4</div><div class="st"><h4>"Clientes de BH não pagam caro por tatuagem"</h4><p>BH tem estúdios cobrando R$1.000+/hora com agenda fechada meses à frente. O problema nunca é a cidade — é o posicionamento.</p></div></div>
-    <div class="step"><div class="sn">5</div><div class="st"><h4>"Preciso de mais seguidores para cobrar mais"</h4><p>Não precisa. Conheço tatuadores com 2.000 seguidores cobrando R$800/sessão e tatuadores com 50.000 seguidores que ainda cobram R$150. Seguidores não vendem — posicionamento vende.</p></div></div>
-  </div>
-
-  <h3 class="h3">A equação do preço percebido</h3>
-  <div class="box-dark">
-    <h4>Preço percebido = Qualidade + Apresentação + Escassez + Prova social</h4>
-    <ul class="ul">
-      <li><strong>Qualidade:</strong> Seu trabalho técnico — o que você pode melhorar continuamente</li>
-      <li><strong>Apresentação:</strong> Como você se apresenta ao mundo — perfil, estúdio, comunicação</li>
-      <li><strong>Escassez:</strong> Quanto você é difícil de conseguir — agenda aberta vs lista de espera</li>
-      <li><strong>Prova social:</strong> O que outros dizem sobre você — avaliações, depoimentos, portfólio</li>
-    </ul>
-    <p>Você pode ter qualidade 10/10 mas se apresentação, escassez e prova social estiverem em 4/10, seu preço percebido vai ser de nível médio. <strong>Todos os 4 elementos precisam estar alinhados.</strong></p>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Posicionamento de Alta Valor 2026</span><span>Página 06-11</span></div>
-</div>
-
-<!-- CAP 2 - IDENTIDADE DE MARCA -->
-<div class="page pb">
-  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Módulo 01 · Capítulo 02</span></div>
-  <div class="bg-n">02</div>
-  <span class="lbl">Capítulo 02</span>
-  <h2 class="h2">Construindo sua <b>identidade de marca</b></h2>
-  <p>Marca não é só logo. É a sensação que as pessoas têm quando pensam em você. É o que faz alguém escolher você mesmo pagando mais caro — porque confiam, porque admiram, porque se identificam.</p>
-
-  <h3 class="h3">Os elementos da identidade visual</h3>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>Nome profissional</h4><p>Seu nome de marca deve ser fácil de lembrar, fácil de buscar e consistente em todos os canais. Seja seu nome pessoal + especialidade ou o nome do estúdio. O importante é escolher e manter — não mudar toda hora.</p><p><strong>Exemplos que funcionam:</strong> "Carlos Tattoo BH", "Carlos | Realismo BH", "Carlos Henrique Tattoo". Simples, direto, com localização.</p></div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>Paleta de cores</h4><p>Escolha 3-4 cores e use em tudo: Instagram, site, cartão de visita, embalagem do sinal, fundo das fotos. Consistência visual cria reconhecimento de marca. Quando alguém rolar o feed e ver sua post, deve reconhecer antes de ler o @.</p><p><strong>Para tattoo premium:</strong> Preto, dourado e branco é uma combinação que comunica luxo e expertise. Preto e vermelho comunica poder e tradição.</p></div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><h4>Tipografia consistente</h4><p>Escolha 2 fontes no máximo: uma para títulos (serifada, mais formal) e uma para textos (sans-serif, mais limpa). Use as mesmas em todo o material visual. Misturar muitas fontes passa imagem de amadorismo.</p></div></div>
-    <div class="step"><div class="sn">4</div><div class="st"><h4>Tom de voz</h4><p>Como você escreve suas legendas, como você responde DMs, como você atende no telefone — tudo isso é seu tom de voz. Defina: você é mais formal ou informal? Mais técnico ou mais emocional? Mais sério ou mais descontraído? Escolha e mantenha consistente.</p></div></div>
-    <div class="step"><div class="sn">5</div><div class="st"><h4>Logo profissional</h4><p>Uma logo bem feita valida sua profissionalidade. Se você não tem, não invente uma ruim. Contrate um designer no Workana ou 99Freelas (R$200-500 para um logo decente). Uma logo profissional se paga na primeira sessão de cliente que chegou pela credibilidade visual.</p></div></div>
-  </div>
-
-  <div class="box-tip">
-    <span class="box-tip-i">💡</span>
-    <p><strong>Ação prática:</strong> Abra o Canva e crie um arquivo chamado "Identidade Visual". Defina sua paleta (anote os códigos hexadecimais), suas fontes e cole exemplos do tom de voz que você quer ter. Compartilhe esse arquivo com qualquer designer ou agência que você contratar — isso acelera muito o processo e garante consistência.</p>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Posicionamento de Alta Valor 2026</span><span>Página 12-17</span></div>
-</div>
-
-<!-- MÓDULO 2 -->
-<div class="mh pb" id="mod2">
-  <div class="mh-bg-n">02</div>
-  <div class="mh-lbl">Módulo 02</div>
-  <div class="mh-title">Precificação<br><b>Estratégica</b></div>
-  <div class="mh-desc">Aqui você aprende a calcular o preço real do seu trabalho, a tabela premium do mercado em 2026 e como reajustar preços sem drama.</div>
-  <img src="IPJP8350.JPG" class="mh-logo" alt="">
-</div>
-
-<!-- CAP 4 - CALCULANDO PREÇO -->
-<div class="page pb">
-  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Módulo 02 · Capítulo 04</span></div>
-  <div class="bg-n">04</div>
-  <span class="lbl">Capítulo 04</span>
-  <h2 class="h2">Como calcular seu <b>preço real</b></h2>
-  <p>A maioria dos tatuadores nunca fez essa conta. Eles cobram o que acham justo, sem saber se estão tendo lucro ou prejuízo. Vamos mudar isso agora.</p>
-
-  <h3 class="h3">Fórmula completa de precificação</h3>
-  <div class="box-dark">
-    <h4>Preço mínimo por sessão = (Custos fixos mensais ÷ Sessões por mês) + Custo variável da sessão + Sua hora de trabalho + Margem de lucro</h4>
-  </div>
-
-  <h3 class="h3">Calculando cada componente</h3>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>Custos fixos mensais</h4><p>Some tudo que você paga todo mês independente de quantas sessões fizer:</p>
-      <ul class="ul" style="margin-top:8px;">
-        <li>Aluguel do estúdio ou sua parte proporcional</li>
-        <li>Energia elétrica, água, internet</li>
-        <li>Software (agendamento, edição, etc)</li>
-        <li>Seguro do equipamento</li>
-        <li>Contador</li>
-        <li>Marketing (anúncios, etc)</li>
-        <li>Salário de funcionários (se tiver)</li>
-      </ul>
-      <p><strong>Exemplo:</strong> R$2.800/mês em custos fixos ÷ 20 sessões/mês = R$140 de custo fixo por sessão</p>
-    </div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>Custo variável por sessão</h4><p>O que você gasta especificamente em cada sessão:</p>
-      <ul class="ul" style="margin-top:8px;">
-        <li>Agulhas (R$5-15 dependendo da sessão)</li>
-        <li>Tinta (R$10-30 para sessões coloridas)</li>
-        <li>EPI (luvas, máscaras, plástico filme)</li>
-        <li>Creme de cicatrização que você dá para o cliente</li>
-        <li>Papel e impressão do projeto</li>
-      </ul>
-      <p><strong>Média:</strong> R$30-60 por sessão padrão</p>
-    </div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><h4>Sua hora de trabalho</h4><p>Defina quanto você quer ganhar por hora de trabalho. Para referência: um tatuador técnico médio em BH deveria ganhar pelo menos R$80-150/hora. Um especialista premium, R$200-400/hora.</p><p>Multiplique pela duração da sessão. Sessão de 3 horas a R$120/hora = R$360 só pela sua hora.</p></div></div>
-    <div class="step"><div class="sn">4</div><div class="st"><h4>Margem de lucro do negócio</h4><p>Adicione 20-30% sobre o total calculado. Isso é o lucro do negócio — diferente do seu salário. Esse dinheiro vai para reserva, reinvestimento em equipamentos e expansão.</p></div></div>
-  </div>
-
-  <h3 class="h3">Exemplo prático completo</h3>
-  <div class="box-gold">
-    <p><strong>Sessão de realismo de 4 horas:</strong><br><br>
-    Custo fixo proporcional: R$140<br>
-    Custo variável: R$50<br>
-    Sua hora (R$120 × 4h): R$480<br>
-    Subtotal: R$670<br>
-    Margem de lucro (25%): R$167<br>
-    <strong>Preço mínimo: R$837 → Arredonde para R$850-900</strong><br><br>
-    Se você está cobrando R$300-400 por esse mesmo trabalho, está trabalhando de graça ou com prejuízo.</p>
-  </div>
-
-  <span class="lbl" style="margin-top:28px;">Capítulo 05</span>
-  <h2 class="h2">Tabela de preços <b>premium 2026</b></h2>
-  <div class="tb">
-    <table class="tb">
-      <tr><th>Estilo</th><th>Tamanho</th><th>Mercado básico</th><th>Mercado médio</th><th>Mercado premium</th></tr>
-      <tr><td><strong>Fineline</strong></td><td>5-10cm</td><td>R$100-180</td><td>R$200-350</td><td>R$400-600</td></tr>
-      <tr><td><strong>Black & Grey</strong></td><td>10-20cm</td><td>R$250-400</td><td>R$450-700</td><td>R$750-1.200</td></tr>
-      <tr><td><strong>Realismo</strong></td><td>15-25cm</td><td>R$400-600</td><td>R$700-1.100</td><td>R$1.200-2.500</td></tr>
-      <tr><td><strong>Cover Up</strong></td><td>variável</td><td>R$300-500</td><td>R$600-900</td><td>R$1.000-2.000</td></tr>
-      <tr><td><strong>Colorida</strong></td><td>15-25cm</td><td>R$350-550</td><td>R$600-900</td><td>R$1.000-1.800</td></tr>
-      <tr><td><strong>Manga completa</strong></td><td>full arm</td><td>R$1.500-3.000</td><td>R$3.500-6.000</td><td>R$7.000-15.000</td></tr>
-    </table>
-  </div>
-
-  <div class="box-warn">
-    <span class="box-warn-i">⚠️</span>
-    <p><strong>Importante:</strong> Esses valores são referências do mercado, não verdades absolutas. Preço premium não é só sobre valor — é sobre percepção de valor. Você pode cobrar R$1.500 num realismo e não conseguir fechar, ou cobrar R$1.500 e ter fila de espera. A diferença está no posicionamento, não no número.</p>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Posicionamento de Alta Valor 2026</span><span>Página 24-41</span></div>
-</div>
-
-<!-- CAP 6 - REAJUSTE DE PREÇOS -->
-<div class="page pb">
-  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Módulo 02 · Capítulo 06</span></div>
-  <div class="bg-n">06</div>
-  <span class="lbl">Capítulo 06</span>
-  <h2 class="h2">Como reajustar preços <b>sem perder clientes</b></h2>
-  <p>Aumentar preço é assustador. Mas é necessário — tanto pelo crescimento natural do negócio quanto pela inflação dos custos. A estratégia certa garante que você suba de patamar sem perder os bons clientes.</p>
-
-  <h3 class="h3">A estratégia dos 3 passos</h3>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>Aumento gradual a cada 3-4 meses</h4><p>Nunca aumente 50% de uma vez. Aumentos graduais de 10-15% a cada 3-4 meses são quase imperceptíveis para o cliente mas fazem diferença enorme ao longo de 12 meses. De R$300 para R$340 em 3 meses parece pouco. Mas em 12 meses você vai de R$300 para R$466 — um aumento de 55%.</p></div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>Comunicação proativa com clientes frequentes</h4><p>Para clientes que voltam com frequência, comunique o reajuste com antecedência:</p>
-      <div class="script" style="margin-top:10px;">
-        <span class="script-lbl">Mensagem de comunicação de reajuste</span>
-        <div class="sl">Olá, <b>[nome]</b>! 😊 Passando para te avisar que a partir de [data], vou reajustar meus valores para acompanhar os custos de materiais e manter a qualidade que você já conhece.</div>
-        <div class="sl">Se você quiser agendar antes do reajuste, ainda consigo atender pelo valor atual até [data]. 🙏</div>
-      </div>
-      <p>Isso faz dois milagres: o cliente se sente valorizado por ter sido avisado antes, e muitos aproveitam e agendam logo — você enche a agenda antes mesmo do aumento entrar.</p>
-    </div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><h4>Justifique com melhorias tangíveis</h4><p>Sempre que subir o preço, adicione algo que o cliente perceba como upgrade: novos materiais importados, nova iluminação no estúdio, novo equipamento, curso que você fez. Isso torna o aumento lógico e aceitável.</p></div></div>
-  </div>
-
-  <span class="lbl" style="margin-top:28px;">Capítulo 07</span>
-  <h2 class="h2">Sinal, parcelamento e <b>política de cancelamento</b></h2>
-
-  <h3 class="h3">Sistema de sinal</h3>
-  <p>Cobrar sinal não é opcional — é profissional. O sinal serve para:</p>
-  <ul class="ul">
-    <li>Confirmar que o cliente é sério sobre o agendamento</li>
-    <li>Compensar sua preparação caso o cliente não apareça</li>
-    <li>Criar comprometimento — quem pagou não some</li>
-    <li>Separar clientes que valorizam seu tempo dos que não valorizam</li>
-  </ul>
-
-  <div class="box-dark">
-    <h4>Política de sinal recomendada</h4>
-    <ul class="ul">
-      <li><strong>Valor:</strong> 20-30% do valor total da sessão ou R$100-200 mínimo</li>
-      <li><strong>Prazo:</strong> Sinal deve ser pago em 48h após o agendamento — se não, a vaga é liberada</li>
-      <li><strong>Cancelamento com aviso:</strong> Sinal pode ser usado como crédito para reagendamento</li>
-      <li><strong>Cancelamento sem aviso (no-show):</strong> Sinal não é devolvido — é sua compensação</li>
-      <li><strong>Cancelamento por sua parte:</strong> Devolva o sinal integralmente e peça desculpas — sua reputação vale mais</li>
-    </ul>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Mensagem pedindo sinal</span>
-    <div class="sl">Perfeito! Para confirmar sua vaga, trabalho com sinal de <b>R$[X]</b> — esse valor é descontado integralmente no total no dia da sessão. 😊</div>
-    <div class="sl">Chave PIX: <b>[sua chave]</b><br>Após o pagamento, me manda o comprovante que confirmo sua vaga!</div>
-    <div class="sl">Caso precise remarcar, o sinal vira crédito para a nova data. Combinado?</div>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Posicionamento de Alta Valor 2026</span><span>Página 36-49</span></div>
-</div>
-
-<!-- MÓDULO 3 -->
-<div class="mh pb" id="mod3">
-  <div class="mh-bg-n">03</div>
-  <div class="mh-lbl">Módulo 03</div>
-  <div class="mh-title">Scripts VIP de<br><b>Atendimento</b></div>
-  <div class="mh-desc">O atendimento é onde a venda acontece. Scripts testados para cada situação — da primeira mensagem ao cliente que diz que está caro. 20 modelos prontos para copiar e adaptar.</div>
-  <img src="IPJP8350.JPG" class="mh-logo" alt="">
-</div>
-
-<!-- CAP 9 - 20 SCRIPTS -->
-<div class="page pb">
-  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Módulo 03 · Capítulo 09</span></div>
-  <div class="bg-n">09</div>
-  <span class="lbl">Capítulo 09</span>
-  <h2 class="h2">20 scripts prontos — <b>cada situação coberta</b></h2>
-
-  <div class="script">
-    <span class="script-lbl">Script 1 — Primeira mensagem (cliente chegou pelo Instagram)</span>
-    <div class="sl">Olá, <b>[nome]</b>! 👋 Que bom que curtiu o trabalho!</div>
-    <div class="sl">Para eu entender melhor o que você está buscando e montar o melhor projeto pra você, me conta:</div>
-    <div class="sl">1️⃣ Qual estilo você está pensando?<br>2️⃣ Em qual parte do corpo?<br>3️⃣ Tem alguma referência de imagem? (pode me mandar!)</div>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Script 2 — Resposta após receber referência</span>
-    <div class="sl">Que referência incrível! Esse estilo fica muito bem no local que você mencionou. 😍</div>
-    <div class="sl">Tenho projetos similares no meu portfólio — aqui vai um que se aproxima do que você está buscando: <b>[manda a foto]</b></div>
-    <div class="sl">Antes de qualquer sessão, criamos um projeto exclusivo pra você aprovar — sem custo adicional. Você vê exatamente como vai ficar antes de tatuar.</div>
-    <div class="sl">Para esse projeto, minha estimativa é de <b>R$[X]</b>. Isso inclui projeto + sessão completa + retoque em até 3 meses. O que você acha?</div>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Script 3 — Quando cliente pergunta preço antes de dar detalhes</span>
-    <div class="sl">Boa pergunta! Os valores variam bastante de acordo com o estilo, tamanho e local do corpo — uma fineline pequena e uma manga completa têm preços bem diferentes. 😊</div>
-    <div class="sl">Para te dar um orçamento preciso e justo, me conta: o que você tem em mente? Pode me mandar uma referência de imagem?</div>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Script 4 — Apresentando orçamento premium com confiança</span>
-    <div class="sl">Com base no projeto que discutimos, o investimento para essa sessão é de <b>R$[X]</b>.</div>
-    <div class="sl">Esse valor inclui: desenvolvimento do projeto personalizado, materiais premium, a sessão completa e retoque gratuito nos primeiros 3 meses.</div>
-    <div class="sl">Tenho disponibilidade na <b>[data]</b> ou na <b>[data]</b>. Qual funciona melhor para você?</div>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Script 5 — "Tá caro" objeção de preço</span>
-    <div class="sl">Entendo! Tatuagem é um investimento e é natural comparar valores. 😊</div>
-    <div class="sl">A diferença no preço está na técnica, nos materiais importados e principalmente no resultado — que fica na sua pele para sempre.</div>
-    <div class="sl">Posso te mostrar como ficaram projetos similares que fiz? Assim você consegue comparar a qualidade antes de decidir.</div>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Script 6 — "Vi mais barato em outro lugar"</span>
-    <div class="sl">Faz sentido pesquisar! O mercado tem uma variação grande de preços. 😊</div>
-    <div class="sl">Minha recomendação: compare o portfólio, não só o preço. Peça para ver trabalhos cicatrizados — não só as fotos frescas que ficam melhores.</div>
-    <div class="sl">Tatuagem é para sempre. O preço que você paga hoje vai estar na sua pele por décadas. Vale a pena considerar a qualidade total.</div>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Script 7 — "Vou pensar e te aviso"</span>
-    <div class="sl">Claro, sem pressão! 😊</div>
-    <div class="sl">Só uma informação: trabalho com agenda limitada e as vagas do próximo mês já estão praticamente preenchidas.</div>
-    <div class="sl">Se quiser garantir sua vaga antes de alguém ocupar, posso reservar com um sinal de R$[X] — se você não confirmar, devolvo. Quer que eu reserve enquanto você pensa?</div>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Script 8 — "Pode fazer mais barato?"</span>
-    <div class="sl">Não consigo mexer no valor porque ele reflete o tempo de projeto, materiais premium e a técnica que garantem o resultado que você viu no meu portfólio. 😊</div>
-    <div class="sl">O que posso fazer é adaptar o tamanho ou a complexidade do projeto para caber no seu orçamento — sem comprometer a qualidade.</div>
-    <div class="sl">Quanto você tem disponível? Vejo o que consigo criar dentro desse valor.</div>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Script 9 — Follow-up para lead que sumiu (48h depois)</span>
-    <div class="sl">Oi <b>[nome]</b>! Tudo bem? 😊</div>
-    <div class="sl">Fiquei pensando no projeto que conversamos. Tive uma janela na agenda essa semana — o que raramente acontece.</div>
-    <div class="sl">Antes de abrir para outros clientes, queria te dar a prioridade. Ainda tem interesse? 🙏</div>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Script 10 — Follow-up para lead frio (7-14 dias depois)</span>
-    <div class="sl">Oi <b>[nome]</b>! 😊 Acabei de finalizar um projeto de [estilo similar ao que ele queria] que ficou incrível.</div>
-    <div class="sl">Lembrei de você e do projeto que conversamos. Manda uma mensagem se ainda tiver interesse — ainda tenho uma vaga disponível este mês.</div>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Posicionamento de Alta Valor 2026</span><span>Página 58-71</span></div>
-</div>
-
-<!-- MAIS SCRIPTS + CAP 11 -->
-<div class="page pb">
-  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Módulo 03 · Scripts 11-20</span></div>
-
-  <div class="script">
-    <span class="script-lbl">Script 11 — Pós-sessão (enviado no dia seguinte)</span>
-    <div class="sl">Oi <b>[nome]</b>! 😊 Como você está? Espero que tenha descansado bem!</div>
-    <div class="sl">Queria mandar as orientações de cuidado para os primeiros dias:</div>
-    <div class="sl">✓ Lave com água e sabonete neutro 3x ao dia<br>✓ Não esfregue — bata levemente com papel toalha<br>✓ Hidrate com Bepantol ou similar 3-4x ao dia<br>✓ Evite sol direto, piscina e academia por 15 dias</div>
-    <div class="sl">Qualquer dúvida, manda mensagem! E se tiver uma foto da tattoo cicatrizada em 30-45 dias, adoraria ver. 📸</div>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Script 12 — Pedindo avaliação no Google</span>
-    <div class="sl">Oi <b>[nome]</b>! Como ficou a tattoo? 😊</div>
-    <div class="sl">Se você ficou satisfeito com o resultado, ia adorar se você deixasse uma avaliação no Google — ajuda muito outros clientes que estão nos conhecendo pela primeira vez.</div>
-    <div class="sl">É rapidinho: <b>[link do Google Meu Negócio]</b> 🙏</div>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Script 13 — Reativação de cliente antigo</span>
-    <div class="sl">Oi <b>[nome]</b>! Faz um tempo que não nos vemos! 😊</div>
-    <div class="sl">Acabei de abrir vagas para o próximo mês — lembrei de você e fiquei curioso: como está a sua tattoo? Cicatrizou bem?</div>
-    <div class="sl">Se estiver pensando em fazer mais alguma coisa, pode me chamar! Para clientes que já passaram por aqui, tenho condições especiais. 🙏</div>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Script 14 — Cliente que cancelou sem avisar (no-show)</span>
-    <div class="sl">Oi <b>[nome]</b>! Tudo bem? Hoje estava esperando você por aqui e não te vi chegar. Aconteceu algum imprevisto?</div>
-    <div class="sl">Fica tranquilo(a) — entendo que imprevistos acontecem. 😊 O sinal fica retido conforme nossa política, mas posso reagendar para uma nova data.</div>
-    <div class="sl">Quando quiser remarcar, é só chamar!</div>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Script 15 — Recusando um projeto</span>
-    <div class="sl">Olá! Obrigado por entrar em contato e pela confiança. 😊</div>
-    <div class="sl">Analisando o projeto, sinto que não seria justo nem para você nem para mim aceitar — não me sinto confortável para garantir o resultado que você merece nesse estilo específico.</div>
-    <div class="sl">Para esse tipo de trabalho, te indico o <b>[nome do colega tatuador]</b> que é especialista e vai te atender muito bem. Qualquer outro projeto, pode me chamar! 🙏</div>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Script 16 — Abertura de agenda (Story ou post)</span>
-    <div class="sl">📅 Agenda aberta para <b>[mês]!</b></div>
-    <div class="sl">Tenho apenas <b>X vagas</b> disponíveis este mês. Prioridade para os projetos que mais me desafiam tecnicamente.</div>
-    <div class="sl">Para garantir sua vaga: manda mensagem com sua ideia + referência de imagem. Aviso: vagas costumam preencher em menos de 48h. 👇</div>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Posicionamento de Alta Valor 2026</span><span>Página 72-79</span></div>
-</div>
-
-<!-- MÓDULO 4 - BRANDING -->
-<div class="mh pb" id="mod4">
-  <div class="mh-bg-n">04</div>
-  <div class="mh-lbl">Módulo 04</div>
-  <div class="mh-title">Branding Premium<br><b>e Escassez</b></div>
-  <div class="mh-desc">Branding premium é criar a sensação de que ser atendido por você é um privilégio — não uma commodity. Aqui você aprende a criar essa percepção em cada detalhe.</div>
-  <img src="IPJP8350.JPG" class="mh-logo" alt="">
-</div>
-
-<!-- CAP 14 - ESCASSEZ -->
-<div class="page pb">
-  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Módulo 04 · Capítulo 14</span></div>
-  <div class="bg-n">14</div>
-  <span class="lbl">Capítulo 14</span>
-  <h2 class="h2">Criando <b>escassez real</b> e fila de espera</h2>
-  <p>A escassez é o fator de precificação mais poderoso que existe. Quando você é difícil de conseguir, seu preço sobe automaticamente — não por arrogância, mas pela lei da oferta e demanda.</p>
-
-  <h3 class="h3">Como criar escassez real — não artificial</h3>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>Limite seu número de sessões por mês</h4><p>Defina um número máximo de sessões por mês — não para parecer ocupado, mas porque você só consegue entregar qualidade até certo ponto. Se você faz 25 sessões por mês com qualidade, não faça 35 só para ganhar mais. A qualidade cai, a reputação cai junto.</p><p>Com número limitado de sessões, quando sua agenda estiver cheia, ela estará cheia de verdade. E pessoas que não conseguem vaga querem ainda mais.</p></div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>Abra agenda em datas específicas</h4><p>Em vez de ter agenda aberta o tempo todo, abra no dia 1 de cada mês para o mês seguinte. Anuncie nos Stories: "Agenda de [mês] abre segunda-feira às 10h." Crie antecipação. Quando abrir, as vagas somem em horas — isso cria o ciclo virtuoso da escassez.</p></div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><h4>Crie lista de espera VIP</h4><p>Para quem não conseguiu vaga, ofereça a lista de espera. Quando surgir cancelamento, você tem uma lista de pessoas prontas para entrar. Isso elimina o problema de cancelamentos de última hora.</p>
-      <div class="script" style="margin-top:10px;">
-        <span class="script-lbl">Mensagem de lista de espera</span>
-        <div class="sl">Infelizmente as vagas de <b>[mês]</b> já estão preenchidas! 😊</div>
-        <div class="sl">Mas posso te colocar na lista de espera — se surgir algum cancelamento, você será o primeiro a saber. Interesse?</div>
-      </div>
-    </div></div>
-    <div class="step"><div class="sn">4</div><div class="st"><h4>Selecione projetos (quando puder)</h4><p>Tatuadores premium não aceitam qualquer projeto. Eles escolhem o que tatuar. Quando você começa a recusar projetos que não te interessam, sinaliza para o mercado que você tem opções — que sua agenda não está vazia.</p><p>Comece aos poucos: recuse projetos muito fora do seu estilo. Com o tempo, só pegue projetos que você realmente quer fazer. Isso melhora seu portfólio e sua satisfação no trabalho.</p></div></div>
-  </div>
-
-  <div class="box-tip">
-    <span class="box-tip-i">💡</span>
-    <p><strong>A frase que posiciona:</strong> "Trabalho com agenda fechada e lista de espera. Quando abrir novas vagas, aviso aqui no Instagram primeiro — me segue para não perder!" Coloque isso nos Stories regularmente. É a frase mais poderosa de posicionamento que você pode usar.</p>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Posicionamento de Alta Valor 2026</span><span>Página 92-99</span></div>
-</div>
-
-<!-- MÓDULO 5 - FUNIL -->
-<div class="mh pb" id="mod5">
-  <div class="mh-bg-n">05</div>
-  <div class="mh-lbl">Módulo 05</div>
-  <div class="mh-title">Funil Completo<br><b>e Fidelização</b></div>
-  <div class="mh-desc">Um cliente fidelizado vale 5x mais do que um cliente novo. Aqui você aprende a transformar cada cliente em um embaixador da sua marca.</div>
-  <img src="IPJP8350.JPG" class="mh-logo" alt="">
-</div>
-
-<!-- CAP 17 - FIDELIZAÇÃO -->
-<div class="page pb">
-  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Módulo 05 · Capítulo 17</span></div>
-  <div class="bg-n">17</div>
-  <span class="lbl">Capítulo 17</span>
-  <h2 class="h2">Fidelização — <b>transformando cliente em fã</b></h2>
-
-  <h3 class="h3">O sistema de fidelização em 5 etapas</h3>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>Durante a sessão — a experiência que gera indicação</h4><p>A sessão não é só tatuagem — é uma experiência. Música boa, ambiente climatizado, conversa genuína, água e lanche disponíveis, explicação de cada etapa. Quanto mais confortável o cliente se sentir, mais ele vai falar sobre você.</p></div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>Pós-sessão imediato — o kit de cicatrização</h4><p>Entregue uma sacola pequena com: orientações impressas de cuidado, creme cicatrizante para os primeiros dias, seu cartão de visita. Esse gesto simples custa R$15-20 e gera impressão de profissionalismo que vale muito mais.</p></div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><h4>30 dias depois — o check-in de cicatrização</h4><p>Mande uma mensagem 30 dias depois perguntando como ficou a cicatrização e pedindo uma foto. Esse gesto mostra que você se importa além da venda — e gera material de portfólio com fotos cicatrizadas.</p></div></div>
-    <div class="step"><div class="sn">4</div><div class="st"><h4>Aniversário do cliente — a surpresa que fideliza</h4><p>Salve a data de aniversário do cliente (você já coleta no formulário do site). Mande uma mensagem no dia com um cupom de desconto para a próxima sessão. Simples, pessoal e poderoso.</p></div></div>
-    <div class="step"><div class="sn">5</div><div class="st"><h4>Programa de indicação</h4><p>Crie um programa simples: "Indicou um amigo que tatuou? Ganhe 10% de desconto na sua próxima sessão." Comunique isso no pós-sessão. Clientes satisfeitos adoram indicar — você só precisa dar um motivo extra.</p></div></div>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Posicionamento de Alta Valor 2026</span><span>Página 112-119</span></div>
-</div>
-
-<!-- MÓDULO 7 - PLANO E CHECKLIST -->
-<div class="mh pb" id="mod6">
-  <div class="mh-bg-n">07</div>
-  <div class="mh-lbl">Módulo 07</div>
-  <div class="mh-title">Plano 90 Dias<br><b>e Checklist Final</b></div>
-  <div class="mh-desc">O plano completo de reposicionamento — de onde você está para onde quer chegar, semana a semana, com o checklist de tudo que precisa estar no lugar.</div>
-  <img src="IPJP8350.JPG" class="mh-logo" alt="">
-</div>
-
-<!-- CAP 21 - PLANO 90 DIAS -->
-<div class="page pb">
-  <div class="ph"><img src="IPJP8350.JPG" alt=""><span>Módulo 07 · Capítulo 21</span></div>
-  <div class="bg-n">21</div>
-  <span class="lbl">Capítulo 21</span>
-  <h2 class="h2">Plano de reposicionamento <b>90 dias</b></h2>
-
-  <div class="tb">
-    <table class="tb">
-      <tr><th>Semana</th><th>O que fazer</th><th>Resultado esperado</th></tr>
-      <tr><td><strong>S1-2</strong></td><td>Calcular preço real. Definir identidade visual. Atualizar bio do Instagram. Tirar fotos profissionais do estúdio.</td><td>Base sólida</td></tr>
-      <tr><td><strong>S3-4</strong></td><td>Criar policy de sinal e cancelamento. Configurar respostas rápidas no WhatsApp. Criar kit pós-sessão.</td><td>Processos profissionais</td></tr>
-      <tr><td><strong>S5-6</strong></td><td>Primeiro reajuste de preço (+10%). Comunicar clientes frequentes. Criar sistema de lista de espera.</td><td>Primeiros clientes no novo patamar</td></tr>
-      <tr><td><strong>S7-8</strong></td><td>Criar destaques do Instagram com novas fotos. Começar sistema de depoimentos. Pedir avaliações Google.</td><td>Prova social crescendo</td></tr>
-      <tr><td><strong>S9-10</strong></td><td>Segundo reajuste (+10%). Definir nicho principal. Começar a recusar projetos fora do nicho.</td><td>Especialização reconhecida</td></tr>
-      <tr><td><strong>S11-12</strong></td><td>Analisar resultados. Calcular novo preço médio. Planejar próximos 90 dias com meta de receita.</td><td>Reposicionamento consolidado</td></tr>
-    </table>
-  </div>
-
-  <span class="lbl" style="margin-top:24px;">Capítulo 24</span>
-  <h2 class="h2">Checklist do <b>profissional premium</b></h2>
-
-  <div class="ck">
-    <h4>✓ Tudo que precisa estar no lugar para cobrar mais caro</h4>
-    <div class="ck-grid">
-      <div class="ci"><div class="cbox"></div>Preço calculado corretamente</div>
-      <div class="ci"><div class="cbox"></div>Identidade visual definida</div>
-      <div class="ci"><div class="cbox"></div>Logo profissional criada</div>
-      <div class="ci"><div class="cbox"></div>Paleta de cores definida</div>
-      <div class="ci"><div class="cbox"></div>Bio do Instagram otimizada</div>
-      <div class="ci"><div class="cbox"></div>Destaques do Instagram criados</div>
-      <div class="ci"><div class="cbox"></div>Fotos profissionais do estúdio</div>
-      <div class="ci"><div class="cbox"></div>Portfólio atualizado com cicatrizadas</div>
-      <div class="ci"><div class="cbox"></div>Política de sinal definida</div>
-      <div class="ci"><div class="cbox"></div>Política de cancelamento definida</div>
-      <div class="ci"><div class="cbox"></div>Respostas rápidas no WhatsApp</div>
-      <div class="ci"><div class="cbox"></div>Script de atendimento salvo</div>
-      <div class="ci"><div class="cbox"></div>Kit pós-sessão preparado</div>
-      <div class="ci"><div class="cbox"></div>Contrato de tatuagem criado</div>
-      <div class="ci"><div class="cbox"></div>Sistema de follow-up ativo</div>
-      <div class="ci"><div class="cbox"></div>Programa de indicação comunicado</div>
-      <div class="ci"><div class="cbox"></div>Avaliações Google solicitadas</div>
-      <div class="ci"><div class="cbox"></div>Agenda com vagas limitadas</div>
+  <div class="manifesto">
+    <h3>Princípio × tática</h3>
+    <div class="two-col">
+      <div class="pillar stable"><div class="t">◆ O que nunca muda</div><p>Preço é percepção de valor. Cliente não paga pela hora — paga pela transformação, pela segurança e pela história. Isso vale sempre.</p></div>
+      <div class="pillar change"><div class="t">◆ O que muda</div><p>Números de tabela, custo de material, referência de mercado da sua cidade. Atualize com a sua realidade — a calculadora aqui faz isso por você.</p></div>
     </div>
   </div>
-  <div class="pf"><span>Carlos Tattoo BH — Posicionamento de Alta Valor 2026</span><span>Página 140-167</span></div>
-</div>
+</section>
 
-<!-- CONTRACAPA -->
+<div class="rule"></div>
 
-<!-- ═══════════ FUNIL CRUZADO — COMPLETE SEU ARSENAL ═══════════ -->
-<style>
-.xsell-sec{background:linear-gradient(165deg,#0a0c14 0%,#12121f 50%,#0a0c14 100%);padding:72px 40px 80px;position:relative;overflow:hidden;}
-.xsell-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 50% 40%,rgba(201,151,58,.10) 0%,transparent 70%);pointer-events:none;}
-.xsell-wrap{max-width:1000px;margin:0 auto;position:relative;z-index:2;}
-.xsell-eyebrow{display:inline-block;font-family:'Poppins',sans-serif;font-size:10px;letter-spacing:4px;color:#f0c04a;text-transform:uppercase;border:1px solid rgba(201,151,58,.35);background:rgba(201,151,58,.08);padding:7px 22px;border-radius:30px;margin-bottom:22px;}
-.xsell-h2{font-family:'Playfair Display',serif;font-size:clamp(24px,3.4vw,38px);color:#fff;line-height:1.18;margin-bottom:14px;max-width:640px;}
-.xsell-h2 b{color:#f0c04a;}
-.xsell-sub{font-family:'Poppins',sans-serif;font-size:15px;color:rgba(229,231,235,.82);line-height:1.75;max-width:600px;margin-bottom:44px;}
-.xsell-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.xsell-card{display:flex;flex-direction:column;background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid rgba(201,151,58,.22);border-radius:16px;padding:26px 24px 22px;transition:all .22s ease;position:relative;}
-.xsell-card:hover{transform:translateY(-4px);border-color:rgba(240,192,74,.6);box-shadow:0 18px 40px rgba(0,0,0,.4),0 0 0 1px rgba(240,192,74,.15);background:linear-gradient(160deg,rgba(201,151,58,.10),rgba(255,255,255,.02));}
-.xsell-ic{width:52px;height:52px;border-radius:13px;background:linear-gradient(135deg,rgba(201,151,58,.2),rgba(240,192,74,.08));border:1px solid rgba(201,151,58,.3);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px;}
-.xsell-cat{font-family:'Poppins',sans-serif;font-size:9px;letter-spacing:2px;color:#c9973a;text-transform:uppercase;font-weight:700;margin-bottom:7px;}
-.xsell-nome{font-family:'Playfair Display',serif;font-size:20px;color:#fff;line-height:1.2;margin-bottom:11px;}
-.xsell-benef{font-family:'Poppins',sans-serif;font-size:13px;color:rgba(229,231,235,.75);line-height:1.65;margin-bottom:20px;flex:1;}
-.xsell-foot{display:flex;align-items:center;justify-content:flex-end;padding-top:16px;border-top:1px solid rgba(201,151,58,.15);}
-.xsell-preco{font-family:'Playfair Display',serif;font-size:22px;color:#f0c04a;font-weight:700;}
-.xsell-cta{font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;letter-spacing:.5px;color:#0a0500;background:linear-gradient(135deg,#f0c04a,#c9973a);padding:9px 16px;border-radius:8px;white-space:nowrap;transition:.2s;}
-.xsell-card:hover .xsell-cta{box-shadow:0 6px 18px rgba(240,192,74,.35);}
-.xsell-note{text-align:center;font-family:'Poppins',sans-serif;font-size:12px;color:rgba(201,151,58,.7);margin-top:38px;letter-spacing:.5px;}
-.xsell-note a{color:#f0c04a;text-decoration:underline;}
-@media(max-width:820px){.xsell-grid{grid-template-columns:1fr;}.xsell-sec{padding:56px 22px 64px;}}
-@media print{.xsell-sec{display:none!important;}}
-</style>
-<div class="xsell-sec pb">
-  <div class="xsell-wrap">
-    <span class="xsell-eyebrow">O Ecossistema Carlos Tattoo BH</span>
-    <h2 class="xsell-h2">Você se posicionou como referência premium.<br><b>Complete seu arsenal.</b></h2>
-    <p class="xsell-sub">Referência de verdade tem sistema, estratégia sob medida e escala. Estes são os próximos degraus do topo.</p>
-    <div class="xsell-grid">
-      <a href="pagamento.html?prod=central-tattoo" target="_top" class="xsell-card" style="text-decoration:none;">
-        <div class="xsell-ic">⚙️</div>
-        <div class="xsell-cat">SISTEMA · GESTÃO</div>
-        <div class="xsell-nome">Central Tattoo Pro</div>
-        <div class="xsell-benef">Gestão premium exige um sistema premium: agenda, CRM, financeiro e metas num só lugar, sem mensalidade.</div>
-        <div class="xsell-foot">
-          <span class="xsell-cta">Ver oferta&nbsp;→</span>
-        </div>
-      </a>
-      <a href="pagamento.html?prod=mentoria-vip" target="_top" class="xsell-card" style="text-decoration:none;">
-        <div class="xsell-ic">💎</div>
-        <div class="xsell-cat">EXCLUSIVO · 1:1</div>
-        <div class="xsell-nome">Mentoria VIP 1:1</div>
-        <div class="xsell-benef">Quer acelerar anos em semanas? Estratégia 1:1 com o Carlos, plano de ação personalizado e suporte direto.</div>
-        <div class="xsell-foot">
-          <span class="xsell-cta">Ver oferta&nbsp;→</span>
-        </div>
-      </a>
-      <a href="pagamento.html?prod=ebook-trafego" target="_top" class="xsell-card" style="text-decoration:none;">
-        <div class="xsell-ic">📊</div>
-        <div class="xsell-cat">MÉTODO · META ADS</div>
-        <div class="xsell-nome">Tráfego Tattoo do Zero</div>
-        <div class="xsell-benef">Posicionamento define quanto você cobra. Tráfego pago define quantos chegam. Junte os dois e escale de verdade.</div>
-        <div class="xsell-foot">
-          <span class="xsell-cta">Ver oferta&nbsp;→</span>
-        </div>
-      </a>
+<!-- M1 -->
+<div id="m1"><div class="modhead reveal"><div class="mnum">01</div><div class="mtitle">Mentalidade</div><div class="mdesc">O teto do seu preço começa na sua cabeça, não na do cliente.</div></div>
+<section class="section reveal">
+  <h2 class="big">1.1 · As 5 crenças que te mantêm barato</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Crença que trava</th><th>A verdade</th></tr>
+    <tr><td>"Ninguém vai pagar isso aqui"</td><td>Sempre há quem pague por qualidade. Você só não estava falando com essas pessoas.</td></tr>
+    <tr><td>"Preciso encher a agenda de qualquer jeito"</td><td>Agenda cheia de preço baixo é trabalhar muito e lucrar pouco. Menos sessões caras > muitas baratas.</td></tr>
+    <tr><td>"Se eu subir, perco cliente"</td><td>Você perde o cliente errado e atrai o certo. Reposicionamento é uma troca, não uma perda.</td></tr>
+    <tr><td>"Cobrar caro é ser ganancioso"</td><td>Cobrar o justo é sustentar seu negócio, sua saúde e a qualidade do trabalho.</td></tr>
+    <tr><td>"O mercado define o preço"</td><td>O mercado tem faixas. Onde você se coloca dentro delas é escolha sua — sustentada por posicionamento.</td></tr>
+  </table></div>
+  <div class="tip"><span class="h">A equação do preço percebido</span> Valor percebido = (Resultado + Confiança + Experiência) ÷ Risco percebido. Você sobe o preço subindo o numerador e reduzindo o risco — não baixando o número.</div>
+</section></div>
+
+<!-- M2 -->
+<div id="m2"><div class="modhead reveal"><div class="mnum">02</div><div class="mtitle">Precificação</div><div class="mdesc">O número certo não é chute nem "o que o vizinho cobra". É conta.</div></div>
+<section class="section reveal">
+  <h2 class="big">2.1 · A fórmula do seu preço mínimo</h2>
+  <p>Todo preço abaixo disto é prejuízo disfarçado. A fórmula:</p>
+  <div class="script"><span class="lbl2" style="font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--gold);text-transform:uppercase">Fórmula</span><br><strong>Preço mínimo</strong> = (Custos fixos ÷ sessões no mês) + custo variável da sessão + (sua hora × duração) + margem de lucro do negócio</div>
+
+  <h2 class="big" style="margin-top:44px">2.2 · Calculadora de preço ao vivo</h2>
+  <p>Preencha com a realidade do seu estúdio. O painel calcula seu preço mínimo por sessão na hora — e te diz se você está deixando dinheiro na mesa.</p>
+
+  <div class="widget">
+    <div class="wtag"><span class="dot"></span> Calculadora de precificação</div>
+    <h3>Seu preço mínimo por sessão</h3>
+    <div class="wsub">Nenhum dado sai do seu navegador. Ajuste e veja o número real.</div>
+    <div class="grid2">
+      <div class="ctrl"><label>Custos fixos do mês (R$)</label><input type="number" id="p_fix" value="2800" min="0" step="100"></div>
+      <div class="ctrl"><label>Sessões que você faz por mês</label><input type="number" id="p_sess" value="20" min="1" step="1"></div>
     </div>
-    <p class="xsell-note">Já adquiriu algum desses? Acesse direto pelo <a href="painel.html" target="_top">seu Painel de Membros</a>.</p>
-  </div>
-</div>
-
-<div class="cback">
-  <div style="position:relative;z-index:2;text-align:center;">
-    <img src="IPJP8350.JPG" style="height:80px;object-fit:contain;filter:drop-shadow(0 0 22px rgba(201,151,58,.55));margin-bottom:28px;" alt="">
-    <h2 style="font-family:'Playfair Display', serif;font-size:28px;color:#f0c04a;margin-bottom:12px;">Posicionado.<br>Agora escale.</h2>
-    <p style="font-family:'Poppins', sans-serif;font-size:13px;letter-spacing:2px;color:#ffffff;margin-bottom:44px;">Combine posicionamento com tráfego pago</p>
-    <div style="background:rgba(201,151,58,.07);border:1px solid rgba(201,151,58,.28);border-radius:18px;padding:36px 44px;max-width:520px;margin:0 auto;">
-      <h3 style="font-family:'Playfair Display', serif;font-size:22px;color:#ffffff;margin-bottom:8px;">Mentoria VIP 1:1 com Carlos</h3>
-      <p style="font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:3px;color:#ffffff;margin-bottom:22px;">ESTRATÉGIA PERSONALIZADA</p>
-      <ul class="ul" style="text-align:left;margin-bottom:24px;">
-        <li style="color:#ffffff;">2h de mentoria individual focada no seu estúdio</li>
-        <li style="color:#ffffff;">Análise completa do seu perfil e precificação</li>
-        <li style="color:#ffffff;">Plano de ação personalizado 30/60/90 dias</li>
-        <li style="color:#ffffff;">Suporte via WhatsApp por 30 dias</li>
-        <li style="color:#ffffff;">Acesso a todos os cursos e ebooks</li>
-      </ul>
-      <p style="font-family:'Poppins', sans-serif;font-size:13px;letter-spacing:1px;color:#f0c04a;margin-bottom:8px;">Valores em R$, US$ e € — consulte a oferta atual</p>
+    <div class="grid2">
+      <div class="ctrl"><label>Custo de material por sessão (R$)</label><input type="number" id="p_var" value="50" min="0" step="5"></div>
+      <div class="ctrl"><label>Quanto você quer ganhar por hora (R$)</label><input type="number" id="p_hora" value="120" min="0" step="10"></div>
     </div>
-    <p style="font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:2px;color:rgba(201,151,58,.75);margin-top:44px;">© 2026 Carlos Tattoo BH · @carlostattoo.bh · Belo Horizonte, MG</p>
+    <div class="grid2">
+      <div class="ctrl"><label>Duração da sessão (horas)</label><input type="number" id="p_dur" value="4" min="0.5" step="0.5"></div>
+      <div class="ctrl"><label>Margem de lucro do negócio <span class="rangeval" id="p_marginval">25%</span></label><input type="range" id="p_margin" min="10" max="50" value="25" step="5"></div>
+    </div>
+    <div class="readout">
+      <div class="row"><span class="k">Custo fixo por sessão</span><span class="v" id="p_r_fix">—</span></div>
+      <div class="row"><span class="k">Sua mão de obra</span><span class="v" id="p_r_hora">—</span></div>
+      <div class="row"><span class="k">Subtotal (custos + trabalho)</span><span class="v" id="p_r_sub">—</span></div>
+      <div class="row"><span class="k" style="color:var(--gold-bright);font-weight:600">Preço mínimo justo</span><span class="v" id="p_r_min" style="font-size:24px">—</span></div>
+    </div>
+    <div class="verdict a" id="p_verdict"><span class="vh">Sua meta de cobrança</span><span id="p_txt">—</span></div>
   </div>
+
+  <div class="playbook">
+    <h4>O que eu digo pra quem cobra R$300 numa peça dessas</h4>
+    <p>Uma sessão de realismo de 4h com custo fixo de R$140, material R$50, sua hora a R$120 e 25% de margem dá <strong>~R$850–900</strong>. Se você cobra R$300–400 pelo mesmo trabalho, você está tatuando de graça — ou pagando pra trabalhar. Não é falta de cliente. É preço que não fecha a conta.</p>
+  </div>
+
+  <h2 class="big" style="margin-top:44px">2.3 · Tabela de preços premium 2026 (referência)</h2>
+  <p>Faixas de referência. Ajuste ao seu custo real (a calculadora acima é a fonte da verdade), à sua cidade e ao seu nível.</p>
+  <div class="table-wrap"><table>
+    <tr><th>Estilo</th><th>Tamanho</th><th>Faixa básica</th><th>Faixa premium</th></tr>
+    <tr><td>Fineline</td><td>Pequeno</td><td>R$250–400</td><td>R$500–800</td></tr>
+    <tr><td>Realismo P&G</td><td>Médio</td><td>R$600–900</td><td>R$1.200–2.000</td></tr>
+    <tr><td>Realismo P&G</td><td>Grande (sessão)</td><td>R$900–1.400</td><td>R$1.800–3.000</td></tr>
+    <tr><td>Cobertura</td><td>Médio/Grande</td><td>R$800–1.500</td><td>R$2.000–4.000</td></tr>
+    <tr><td>Fechamento de perna</td><td>Projeto (por sessão)</td><td>R$1.000–1.500</td><td>R$2.000–3.500</td></tr>
+    <tr><td>Pele especial / cicatriz</td><td>Sob consulta</td><td>Premium por técnica</td><td>Premium por técnica</td></tr>
+  </table></div>
+
+  <h2 class="big" style="margin-top:44px">2.4 · Reajustar sem perder o cliente certo</h2>
+  <div class="step"><div class="num">1</div><div class="body"><div class="st">Avise com antecedência</div><p>Comunique o reajuste 30–60 dias antes. "A partir de [mês], meus valores serão atualizados." Quem valoriza você agenda antes; quem só queria preço se despede — e tudo bem.</p></div></div>
+  <div class="step"><div class="num">2</div><div class="body"><div class="st">Suba junto com valor visível</div><p>Reajuste acompanhado de melhoria: melhor ambiente, melhor foto, garantia clara, atendimento premium. Preço novo com experiência antiga gera atrito; com experiência melhor, faz sentido.</p></div></div>
+  <div class="step"><div class="num">3</div><div class="body"><div class="st">Suba em degraus</div><p>Não pule 100% de uma vez. 15–25% por rodada, algumas vezes ao ano, até chegar no seu preço-alvo. O mercado se acostuma; você não assusta.</p></div></div>
+
+  <h2 class="big" style="margin-top:44px">2.5 · Sinal, parcelamento e cancelamento</h2>
+  <p>Sinal não é desconfiança — é compromisso. Padrão: <strong>30% de sinal</strong> para reservar a data, abatido do valor total. Cancelamento com menos de 48h = perda do sinal. Isso protege sua agenda de "furos" e filtra quem não é sério. Use o modelo de contrato do ebook Contrato Digital para formalizar.</p>
+</section></div>
+
+<div class="rule"></div>
+
+<!-- M3 -->
+<div id="m3"><div class="modhead reveal"><div class="mnum">03</div><div class="mtitle">Vendas Premium</div><div class="mdesc">Fechar alto valor não é empurrar. É conduzir com segurança até o "sim".</div></div>
+<section class="section reveal">
+  <h2 class="big">3.1 · Scripts prontos para cada situação</h2>
+  <p>Copie, ajuste com sua voz e use. Toque em <em>copiar</em>.</p>
+
+  <div class="script"><span class="lbl">Abertura premium (ao receber o lead)</span>Que bom que você chamou! Trabalho com projetos pensados pra durar e pra ter a ver com você — não faço "tatuagem de catálogo". Me conta a ideia e o que ela significa pra você que eu penso no melhor caminho. <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">Ancorar valor antes do preço</span>Antes do valor, deixa eu te explicar o que está incluso: desenho exclusivo feito pra você, sessão sem pressa num ambiente reservado, e retoque de garantia. Não é o preço de uma tatuagem qualquer — é o de um trabalho que você não vai precisar refazer. <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">Apresentar preço com firmeza</span>Para esse projeto, o investimento é de R$[VALOR], com R$[SINAL] de sinal pra reservar a data. Trabalho com agenda enxuta justamente pra cada peça sair impecável — por isso as datas são limitadas. <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">"Está caro"</span>Entendo, e é justo pensar bem — tatuagem é pra vida toda. O que cobro reflete um trabalho que não borra e não precisa ser refeito. Sai mais barato fazer certo uma vez. Inclusive, boa parte do que faço hoje é cobrir tatuagem barata que deu errado. <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">"Fulano faz mais barato"</span>Faz, e respeito. A diferença está no que vai pra sua pele: técnica, durabilidade e um projeto sob medida. Sem pressão — quando quiser algo pra durar de verdade, tô aqui. <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">"Vou pensar"</span>Claro, pensa com calma! Só te aviso que minha agenda fecha rápido. Se bater o sim, me chama que eu seguro uma data. Qualquer dúvida sobre o projeto, tô por aqui. <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">Fechar orçamento de alto valor (parcelado)</span>Pra facilitar, posso dividir o projeto em [X] sessões, o que também deixa o investimento mais tranquilo no seu mês. Reservamos a primeira data com o sinal e seguimos no seu ritmo. Qual semana funciona melhor pra começar? <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">Cliente sumiu (follow-up sem desespero)</span>Oi [NOME]! Passando pra saber se você ainda pensa em fazer aquele projeto. Sem pressa nenhuma — só não quero que você perca a janela de agenda desse mês. Se quiser retomar, é só me chamar. <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+</section></div>
+
+<div class="rule"></div>
+
+<!-- M4 -->
+<div id="m4"><div class="modhead reveal"><div class="mnum">04</div><div class="mtitle">Experiência</div><div class="mdesc">O que justifica o preço premium não é só o traço — é tudo ao redor dele.</div></div>
+<section class="section reveal">
+  <h2 class="big">4.1 · O estúdio como ferramenta de venda</h2>
+  <p>Ambiente limpo, cheiro agradável, música certa, uma água oferecida, o projeto impresso e apresentado com orgulho. Cada detalhe diz "aqui você está em boas mãos". Premium se sente antes da agulha tocar a pele.</p>
+
+  <h2 class="big" style="margin-top:40px">4.2 · Escassez real (nunca artificial)</h2>
+  <p>Escassez de verdade vem do seu posicionamento, não de um cronômetro falso. Você tem agenda limitada porque faz poucas peças bem-feitas — isso é real e é premium. Fila de espera não é marketing, é consequência de qualidade.</p>
+  <div class="tip"><span class="h">Regra do seu ecossistema</span> Nada de contador falso, "restam 2 vagas" mentiroso ou notificação de compra fabricada. Premium não implora — premium tem lista de espera de verdade.</div>
+
+  <h2 class="big" style="margin-top:40px">4.3 · Fidelização — de cliente a fã</h2>
+  <div class="step"><div class="num">1</div><div class="body"><div class="st">Pós-sessão que encanta</div><p>Guia de cuidados claro (use o cuidados.html do seu sistema), mensagem no dia seguinte perguntando como está cicatrizando. Cuidado gera indicação.</p></div></div>
+  <div class="step"><div class="num">2</div><div class="body"><div class="st">Retoque de garantia</div><p>Ofereça retoque gratuito em até 90 dias com cuidados seguidos. Isso não é custo — é o que transforma cliente satisfeito em promotor.</p></div></div>
+  <div class="step"><div class="num">3</div><div class="body"><div class="st">Convite para a próxima</div><p>Todo cliente é um projeto futuro. "Quando quiser continuar/fechar, você tem prioridade na minha agenda." Fã volta e traz gente.</p></div></div>
+</section></div>
+
+<div class="rule"></div>
+
+<!-- M5 -->
+<div id="m5"><div class="modhead reveal"><div class="mnum">05</div><div class="mtitle">Escala &amp; Autoridade</div><div class="mdesc">Referência não é quem tatua melhor — é quem o mercado lembra primeiro.</div></div>
+<section class="section reveal">
+  <h2 class="big">5.1 · Gestão financeira mínima</h2>
+  <p>Separe fundos de cada faturamento: reserva/capital de giro, reinvestimento em equipamento, marketing. Sem isso, mês bom vira gasto e mês fraco vira desespero. Um sistema como o Central Tattoo faz esse controle sozinho.</p>
+
+  <h2 class="big" style="margin-top:40px">5.2 · Construindo autoridade</h2>
+  <div class="step"><div class="num">1</div><div class="body"><div class="st">Escolha uma bandeira</div><p>Seja "o cara do realismo que dura", "o especialista em cobertura" ou "o que tatua pele que ninguém aceita". Especialista cobra mais e é lembrado.</p></div></div>
+  <div class="step"><div class="num">2</div><div class="body"><div class="st">Mostre o pensamento, não só o resultado</div><p>Explique por que fez cada escolha. Autoridade nasce quando o público entende que você pensa em décadas, não em curtidas.</p></div></div>
+  <div class="step"><div class="num">3</div><div class="body"><div class="st">Consistência bate genialidade</div><p>Aparecer com qualidade toda semana constrói mais autoridade do que um post viral isolado.</p></div></div>
+
+  <h2 class="big" style="margin-top:40px">5.3 · Plano de reposicionamento — 90 dias</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Fase</th><th>Foco</th></tr>
+    <tr><td><strong>Mês 1</strong></td><td>Rodar a calculadora, definir preço-alvo, escolher a bandeira, alinhar bio e comunicação.</td></tr>
+    <tr><td><strong>Mês 2</strong></td><td>Reajuste em degrau (15–25%), melhorar experiência do estúdio, formalizar sinal e contrato.</td></tr>
+    <tr><td><strong>Mês 3</strong></td><td>Consolidar autoridade no conteúdo, criar lista de espera real, medir ticket médio novo.</td></tr>
+  </table></div>
+
+  <div class="checklist">
+    <div class="progress-bar"><div class="progress-fill" id="pfill"></div></div>
+    <div class="progress-txt" id="ptxt">0% concluído</div>
+    <div class="phase"><h4>Fundamentos</h4>
+      <label class="check"><input type="checkbox" data-ck><span>Rodei a calculadora e sei meu preço mínimo real</span></label>
+      <label class="check"><input type="checkbox" data-ck><span>Defini meu preço-alvo (acima do mínimo)</span></label>
+      <label class="check"><input type="checkbox" data-ck><span>Escolhi minha bandeira/especialidade</span></label>
+    </div>
+    <div class="phase"><h4>Execução</h4>
+      <label class="check"><input type="checkbox" data-ck><span>Sistema de sinal (30%) e política de cancelamento ativos</span></label>
+      <label class="check"><input type="checkbox" data-ck><span>Contrato formalizado</span></label>
+      <label class="check"><input type="checkbox" data-ck><span>Reajuste comunicado com antecedência</span></label>
+      <label class="check"><input type="checkbox" data-ck><span>Experiência do estúdio elevada</span></label>
+    </div>
+    <div class="phase"><h4>Consolidação</h4>
+      <label class="check"><input type="checkbox" data-ck><span>Fundos financeiros separados por faturamento</span></label>
+      <label class="check"><input type="checkbox" data-ck><span>Pós-venda e retoque de garantia padronizados</span></label>
+      <label class="check"><input type="checkbox" data-ck><span>Lista de espera real começando a se formar</span></label>
+    </div>
+    <button class="reset" id="ckreset">Limpar progresso</button>
+  </div>
+</section></div>
+
+<div class="rule"></div>
+
+<section class="section reveal">
+  <div class="eyebrow">O próximo passo</div>
+  <h2 class="big">Posicionado. Agora sustente com sistema.</h2>
+  <p>Cobrar bem é o começo. Sustentar preço premium exige controle: cada cliente lembrado, cada follow-up feito, cada fundo separado, cada retoque agendado.</p>
+  <div class="eco">
+    <h3>Seu arsenal completo</h3><p class="esub">Onde você está e para onde ir.</p>
+    <div class="flow">
+      <div class="node"><div class="ic">↗</div><div class="nt"><div class="nn">Tráfego Tattoo</div><div class="nd">Enche o topo com conversas qualificadas</div></div></div>
+      <div class="arrow">↓</div>
+      <div class="node active"><div class="ic">✓</div><div class="nt"><div class="nn">Posicionamento — você está aqui</div><div class="nd">Sobe seu ticket e o valor percebido</div></div></div>
+      <div class="arrow">↓</div>
+      <div class="node"><div class="ic">§</div><div class="nt"><div class="nn">Contrato Digital + Templates</div><div class="nd">Protege e agiliza o fechamento premium</div></div></div>
+      <div class="arrow">↓</div>
+      <div class="node"><div class="ic">★</div><div class="nt"><div class="nn">Central Tattoo — o cérebro</div><div class="nd">Sustenta preço premium com controle total de clientes e finanças</div></div></div>
+    </div>
+    <div style="text-align:center;margin-top:30px"><a class="cta" href="https://carlostattoobh.com.br" target="_blank" rel="noopener">Conhecer o Central Tattoo</a></div>
+  </div>
+</section>
 </div>
 
+<footer>
+  <div class="fb">Carlos Tattoo BH</div>
+  <div class="fc">carlostattoobh.com.br · @carlostattoo.bh · WhatsApp +55 31 98339-1576</div>
+  <div class="fc" style="margin-top:6px;color:var(--gold-deep)">Posicionamento · Edição Definitiva · 2026</div>
+</footer>
 
 <script>
-window.addEventListener("message", function(e) {
-  if (e.data && e.data.type === "ct_scrollTo") {
-    var el = document.getElementById(e.data.anchor);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-});
+(function(){
+  "use strict";
+  var BRL=function(n){if(!isFinite(n))n=0;return "R$ "+n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});};
+  var BRL0=function(n){if(!isFinite(n))n=0;return "R$ "+Math.round(n).toLocaleString("pt-BR");};
+  var num=function(id){var e=document.getElementById(id);var v=parseFloat((e&&e.value||"").replace(",","."));return isNaN(v)?0:v;};
+  var set=function(id,t){var e=document.getElementById(id);if(e)e.textContent=t;};
+  window.__BRL=BRL;window.__BRL0=BRL0;window.__num=num;window.__set=set;
+
+  /* copy buttons */
+  window.cp=function(btn){
+    var block=btn.closest(".script");var clone=block.cloneNode(true);
+    var b=clone.querySelector(".copybtn");if(b)b.remove();
+    var l=clone.querySelector(".lbl");if(l)l.remove();
+    var text=clone.innerText.replace(/\s*\[.*?\]\s*/g," ").replace(/\n{3,}/g,"\n\n").trim();
+    var done=function(){var o=btn.textContent;btn.textContent="Copiado \u2713";setTimeout(function(){btn.textContent=o;},1600);};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done).catch(done);}
+    else{var ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");}catch(e){}ta.remove();done();}
+  };
+
+  /* checklist */
+  var KEY="ct_posic_checklist_v1";
+  var boxes=Array.prototype.slice.call(document.querySelectorAll("[data-ck]"));
+  function updateProg(){var d=boxes.filter(function(b){return b.checked;}).length;var pct=boxes.length?Math.round(d/boxes.length*100):0;var f=document.getElementById("pfill");if(f)f.style.width=pct+"%";var t=document.getElementById("ptxt");if(t)t.textContent=pct+"% concluído · "+d+" de "+boxes.length;}
+  function saveCk(){var st={};boxes.forEach(function(b,i){if(b.checked)st[i]=1;});try{localStorage.setItem(KEY,JSON.stringify(st));}catch(e){}updateProg();}
+  if(boxes.length){var saved={};try{saved=JSON.parse(localStorage.getItem(KEY)||"{}");}catch(e){}boxes.forEach(function(b,i){if(saved[i])b.checked=true;b.addEventListener("change",saveCk);});
+    var rb=document.getElementById("ckreset");if(rb)rb.addEventListener("click",function(){boxes.forEach(function(b){b.checked=false;});try{localStorage.removeItem(KEY);}catch(e){}updateProg();});updateProg();}
+
+  /* reveal */
+  if("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target);}});},{threshold:.12});
+    document.querySelectorAll(".reveal").forEach(function(el){io.observe(el);});
+  }else{document.querySelectorAll(".reveal").forEach(function(el){el.classList.add("in");});}
+
+  /* ebook-specific */
+  function pcalc(){
+  var fix=num("p_fix"),sess=num("p_sess"),vr=num("p_var"),hora=num("p_hora"),dur=num("p_dur"),margin=num("p_margin");
+  set("p_marginval",margin+"%");
+  var fixPer=sess>0?fix/sess:0;
+  var mao=hora*dur;
+  var sub=fixPer+vr+mao;
+  var minP=sub*(1+margin/100);
+  set("p_r_fix",BRL(fixPer));
+  set("p_r_hora",BRL(mao));
+  set("p_r_sub",BRL(sub));
+  set("p_r_min",BRL0(minP));
+  var alvo=minP*1.15;
+  var v=document.getElementById("p_verdict");
+  v.className="verdict g";
+  set("p_txt","Nunca cobre abaixo de "+BRL0(minP)+" nessa sessão — isso é o seu ponto de equilíbrio com lucro. Preço-alvo saudável de venda: a partir de "+BRL0(alvo)+". Arredonde pra cima, nunca pra baixo.");
+}
+["p_fix","p_sess","p_var","p_hora","p_dur","p_margin"].forEach(function(id){var e=document.getElementById(id);if(e)e.addEventListener("input",pcalc);});
+pcalc();
+
+})();
 </script>
 </body>
 </html>

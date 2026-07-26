@@ -2,16 +2,6 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<script>
-(function(){
-  var okKey = 'ct_ok_' + 'ebook-pack-templates.html';
-  var liberado = sessionStorage.getItem(okKey) === '1';
-  var dentroDeFrame = window.self !== window.top;
-  if (!liberado || !dentroDeFrame) {
-    window.location.href = 'https://carlostattoobh.com.br/index.html#ebooks';
-  }
-})();
-</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pack Scripts & Templates Premium — Legendas, Anúncios e Calendário | Carlos Tattoo BH</title>
 <meta name="description" content="O mês inteiro de conteúdo pronto para tatuadores: gerador de legenda, biblioteca de copiar-e-colar, packs de hashtags e calendário de 30 dias. Copie, ajuste e publique.">
@@ -20,20 +10,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cinzel+Decorative:wght@700;900&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#14110E;          /* charcoal base */
-  --ink-2:#1D1915;        /* raised charcoal */
-  --ink-3:#272119;        /* card */
-  --line:#3A3125;         /* hairline */
-  --parch:#F4ECD8;        /* parchment text */
-  --parch-dim:#C9BFA6;    /* muted parchment */
-  --parch-faint:#8A8067;  /* faint */
-  --gold:#C9A84C;         /* primary gold */
-  --gold-bright:#E8B800;  /* accent gold */
-  --gold-deep:#8C6E22;    /* deep gold */
-  --green:#5FA05A;        /* excelência */
-  --amber:#D9A441;        /* atenção */
-  --red:#C0563E;          /* alerta */
-  --shadow:0 24px 60px -30px rgba(0,0,0,.8);
+  --ink:#F5EEDC;          /* fundo pergaminho claro */
+  --ink-2:#FFFDF7;        /* cartão claro (quase branco) */
+  --ink-3:#FBF5E7;        /* superfície creme suave */
+  --line:#E4D8BB;         /* fio de cabelo */
+  --parch:#2A2012;        /* texto principal (charcoal quente) */
+  --parch-dim:#5C4A30;    /* texto secundário */
+  --parch-faint:#8C7550;  /* texto fraco */
+  --gold:#8A6D1F;         /* ouro para rótulos/eyebrows */
+  --gold-bright:#9A7A1E;  /* ouro destaque (títulos, valores, links) */
+  --gold-deep:#7A5C14;    /* ouro profundo (bordas) */
+  --green:#3C7A3A;        /* excelência */
+  --amber:#A9772A;        /* atenção */
+  --red:#B24A34;          /* alerta */
+  --shadow:0 20px 48px -30px rgba(120,90,30,.30);
   --serif:'Lora',Georgia,serif;
   --disp:'Cinzel',serif;
   --deco:'Cinzel Decorative',serif;
@@ -245,6 +235,24 @@ footer .fc{font-size:13px;color:var(--parch-faint);margin-top:12px;font-family:v
 }
 :focus-visible{outline:2px solid var(--gold-bright);outline-offset:3px;border-radius:4px}
 
+/* ===== TEMA CLARO CREME (tela): sobrescreve gradientes/sombras escuras ===== */
+.cover h1{text-shadow:none}
+.cover .seal{background:radial-gradient(circle at 50% 30%,rgba(201,168,76,.16),transparent 70%)}
+.playbook{background:linear-gradient(160deg,#FFFDF7,#FBF3E3)}
+.widget,.eco{background:linear-gradient(165deg,#FFFDF7,#FBF3E3)}
+.playbook .stat,.readout{background:#FBF5E6}
+.ctrl input[type=number]{background:#fff}
+.progress-bar{background:#F0E7CE}
+.node .ic{background:rgba(201,168,76,.16)}
+.cta{background:linear-gradient(135deg,#C9A84C,#E0B84A);color:#211703;box-shadow:0 12px 30px -14px rgba(160,120,40,.55)}
+.cta:hover{box-shadow:0 18px 40px -14px rgba(160,120,40,.7)}
+.progress-fill{background:linear-gradient(90deg,#B88A2A,#E0B84A)}
+input[type=range]::-webkit-slider-thumb{background:#C9A84C;border:2px solid #fff;box-shadow:0 2px 6px rgba(120,90,30,.4)}
+input[type=range]::-moz-range-thumb{background:#C9A84C;border:2px solid #fff}
+.widget .wtag .dot{background:#C9A84C;box-shadow:0 0 10px rgba(201,168,76,.7)}
+.meter .pin{background:#2A2012;box-shadow:0 0 6px rgba(0,0,0,.30)}
+.copybtn:hover{color:#211703}
+::selection{background:rgba(201,168,76,.3);color:#2A2012}
 /* ============ PRINT / SALVAR PDF — versão econômica de tinta ============ */
 @media print{
   @page{margin:1.5cm}
@@ -284,6 +292,26 @@ footer .fc{font-size:13px;color:var(--parch-faint);margin-top:12px;font-family:v
   .script,.playbook,.step,.tip,.iface,.table-wrap{page-break-inside:avoid}
 }
 </style>
+<script>
+/* ── CT: GUARDIÃO DE ACESSO + PONTE DO LEITOR ── */
+(function(){
+  var FNAME='ebook-pack-templates.html';
+  try{
+    // Aberto direto (fora do leitor) e sem liberação -> volta pro acesso.
+    if(sessionStorage.getItem('ct_ok_'+FNAME)!=='1'){
+      location.replace('acesso.html'); return;
+    }
+  }catch(e){}
+  // O leitor manda ct_scrollTo com a âncora do módulo clicado na barra lateral.
+  window.addEventListener('message',function(ev){
+    var d=ev.data||{};
+    if(d&&d.type==='ct_scrollTo'&&d.anchor){
+      var el=document.getElementById(d.anchor);
+      if(el){el.scrollIntoView({behavior:'smooth',block:'start'});}
+    }
+  });
+})();
+</script>
 </head>
 <body>
 <button class="printbar" onclick="window.print()" title="Versão limpa, econômica de tinta">🖨 Imprimir / PDF</button>
@@ -308,9 +336,9 @@ footer .fc{font-size:13px;color:var(--parch-faint);margin-top:12px;font-family:v
 <div class="rule"></div>
 
 <!-- GERADOR -->
-<section class="section reveal" id="mod1">
+<section class="section reveal">
   <div class="eyebrow">Ferramenta ao vivo</div>
-  <h2 class="big">Gerador de legenda</h2>
+  <h2 class="big" id="mod1">Gerador de legenda</h2>
   <p>Escolha o serviço e o objetivo. O gerador monta uma legenda pronta com gancho, corpo e CTA. Gerou fraca? Clica de novo — ele varia.</p>
   <div class="widget">
     <div class="wtag"><span class="dot"></span> Montador de legenda</div>
@@ -346,9 +374,9 @@ footer .fc{font-size:13px;color:var(--parch-faint);margin-top:12px;font-family:v
 <div class="rule"></div>
 
 <!-- BIBLIOTECA -->
-<div class="modhead reveal"><div class="mnum">◆</div><div class="mtitle">A Biblioteca</div><div class="mdesc">Blocos prontos pra cada momento. Toque em copiar e use.</div></div>
+<div class="modhead reveal" id="mod2"><div class="mnum">◆</div><div class="mtitle">A Biblioteca</div><div class="mdesc">Blocos prontos pra cada momento. Toque em copiar e use.</div></div>
 
-<section class="section reveal" id="mod2">
+<section class="section reveal">
   <h2 class="big">Legendas de post</h2>
   <div class="script"><span class="lbl">Transformação</span>Ela escondeu essa marca por anos. Hoje é a parte que ela mais mostra. 🖤<br>Cobertura não apaga o passado — reescreve. Quer ver o que dá pra fazer com a sua? Manda a foto no WhatsApp (link na bio). <button class="copybtn" onclick="cp(this)">Copiar</button></div>
   <div class="script"><span class="lbl">Autoridade</span>Faço tatuagem pensando em como ela vai estar daqui a 10 anos — não em como fica no feed de hoje.<br>É por isso que meu preto e cinza não borra. Se você quer algo pra vida toda, a gente precisa conversar. 👇 <button class="copybtn" onclick="cp(this)">Copiar</button></div>
@@ -377,8 +405,8 @@ footer .fc{font-size:13px;color:var(--parch-faint);margin-top:12px;font-family:v
 <div class="rule"></div>
 
 <!-- CALENDÁRIO -->
-<section class="section reveal" id="mod3">
-  <h2 class="big">Calendário de conteúdo — 30 dias prontos</h2>
+<section class="section reveal">
+  <h2 class="big" id="mod3">Calendário de conteúdo — 30 dias prontos</h2>
   <p>Siga a linha. Cada dia já tem o tipo de post definido — é só encaixar sua foto/vídeo e a legenda da biblioteca.</p>
   <div class="table-wrap"><table>
     <tr><th>Dia</th><th>Post</th><th>Dia</th><th>Post</th></tr>
@@ -403,7 +431,7 @@ footer .fc{font-size:13px;color:var(--parch-faint);margin-top:12px;font-family:v
 
 <div class="rule"></div>
 
-<section class="section reveal" id="mod4">
+<section class="section reveal">
   <div class="eyebrow">O próximo passo</div>
   <h2 class="big">Conteúdo pronto. Agora faça ele trabalhar mais.</h2>
   <p>Template resolve o "o que postar". Mas colocar o melhor post na frente de milhares de pessoas certas, transformar seguidor em cliente e organizar cada lead — isso é o resto do arsenal.</p>
@@ -495,15 +523,6 @@ document.getElementById("g_obj").addEventListener("change",gen);
 gen();
 
 })();
-</script>
-
-<script>
-window.addEventListener("message", function(e) {
-  if (e.data && e.data.type === "ct_scrollTo") {
-    var el = document.getElementById(e.data.anchor);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-});
 </script>
 </body>
 </html>

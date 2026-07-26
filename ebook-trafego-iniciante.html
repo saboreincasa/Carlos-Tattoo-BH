@@ -2,1329 +2,985 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tráfego Tattoo — O Sistema Completo | Carlos Tattoo BH</title>
+<meta name="description" content="O único guia de tráfego pago escrito por um tatuador com 2.400+ trabalhos e campanhas reais rodando. Painel interativo, dados reais e o playbook que não existe no YouTube.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cinzel+Decorative:wght@700;900&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#F5EEDC;          /* fundo pergaminho claro */
+  --ink-2:#FFFDF7;        /* cartão claro (quase branco) */
+  --ink-3:#FBF5E7;        /* superfície creme suave */
+  --line:#E4D8BB;         /* fio de cabelo */
+  --parch:#2A2012;        /* texto principal (charcoal quente) */
+  --parch-dim:#5C4A30;    /* texto secundário */
+  --parch-faint:#8C7550;  /* texto fraco */
+  --gold:#8A6D1F;         /* ouro para rótulos/eyebrows */
+  --gold-bright:#9A7A1E;  /* ouro destaque (títulos, valores, links) */
+  --gold-deep:#7A5C14;    /* ouro profundo (bordas) */
+  --green:#3C7A3A;        /* excelência */
+  --amber:#A9772A;        /* atenção */
+  --red:#B24A34;          /* alerta */
+  --shadow:0 20px 48px -30px rgba(120,90,30,.30);
+  --serif:'Lora',Georgia,serif;
+  --disp:'Cinzel',serif;
+  --deco:'Cinzel Decorative',serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);
+  color:var(--parch);
+  font-family:var(--serif);
+  font-size:18px;line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(201,168,76,.10), transparent 60%),
+    radial-gradient(900px 500px at -10% 100%, rgba(201,168,76,.06), transparent 55%);
+}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+h1,h2,h3,h4,.disp{font-family:var(--disp);letter-spacing:.02em;line-height:1.2}
+a{color:var(--gold-bright);text-decoration:none}
+img{max-width:100%}
+
+/* ---------- COVER ---------- */
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 24px;position:relative}
+.cover .brand{font-family:var(--disp);font-weight:600;letter-spacing:.42em;font-size:13px;color:var(--gold);text-transform:uppercase;margin-bottom:40px}
+.cover .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.35em;color:var(--parch-faint);text-transform:uppercase;margin-bottom:26px}
+.cover h1{font-family:var(--deco);font-weight:900;font-size:clamp(42px,9vw,86px);color:var(--parch);line-height:1.02;text-shadow:0 2px 30px rgba(0,0,0,.5)}
+.cover h1 .g{color:var(--gold-bright)}
+.cover .sub{font-size:clamp(17px,2.4vw,22px);color:var(--parch-dim);font-style:italic;max-width:600px;margin:28px auto 0}
+.cover .seal{margin:52px auto 0;width:132px;height:132px;border-radius:50%;border:1px solid var(--gold-deep);display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;background:radial-gradient(circle at 50% 30%,rgba(201,168,76,.14),transparent 70%)}
+.cover .seal::before{content:"";position:absolute;inset:9px;border-radius:50%;border:1px dashed rgba(201,168,76,.35)}
+.cover .seal .n{font-family:var(--deco);font-weight:900;font-size:34px;color:var(--gold-bright);line-height:1}
+.cover .seal .l{font-family:var(--mono);font-size:8.5px;letter-spacing:.2em;color:var(--parch-dim);text-transform:uppercase;margin-top:5px;max-width:96px}
+.cover .scroll{margin-top:60px;font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--parch-faint);text-transform:uppercase;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(7px);opacity:1}}
+
+/* ---------- SECTION SHELL ---------- */
+.section{padding:70px 0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.32em;color:var(--gold);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--gold-deep)}
+h2.big{font-size:clamp(28px,5vw,42px);color:var(--parch);margin-bottom:8px}
+.lead{font-size:20px;color:var(--parch-dim);font-style:italic;margin-bottom:8px}
+p{margin:0 0 18px}
+p+p{margin-top:-2px}
+.section p, .section li{color:var(--parch)}
+strong{color:var(--gold-bright);font-weight:600}
+.rule{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:60px 0}
+
+/* ---------- MANIFESTO ---------- */
+.manifesto{background:var(--ink-2);border:1px solid var(--line);border-radius:16px;padding:44px 40px;box-shadow:var(--shadow)}
+.manifesto h3{font-size:24px;color:var(--gold-bright);margin-bottom:18px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:26px}
+.pillar{background:var(--ink-3);border:1px solid var(--line);border-radius:12px;padding:22px}
+.pillar .t{font-family:var(--disp);font-weight:600;font-size:15px;letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px}
+.pillar.stable .t{color:var(--green)}
+.pillar.change .t{color:var(--amber)}
+.pillar p{font-size:15.5px;line-height:1.6;margin:0;color:var(--parch-dim)}
+
+/* ---------- INTERFACE WARNING ---------- */
+.iface{border-left:3px solid var(--amber);background:rgba(217,164,65,.07);border-radius:0 10px 10px 0;padding:16px 20px;margin:26px 0;font-size:15.5px;line-height:1.6}
+.iface .h{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:6px;display:block}
+
+/* ---------- CARLOS PLAYBOOK BOX ---------- */
+.playbook{position:relative;background:linear-gradient(160deg,#211c15,#171310);border:1px solid var(--gold-deep);border-radius:16px;padding:30px 32px;margin:34px 0;box-shadow:var(--shadow)}
+.playbook::before{content:"O PLAYBOOK DO CARLOS";position:absolute;top:-11px;left:26px;background:var(--gold);color:#161206;font-family:var(--mono);font-weight:700;font-size:10px;letter-spacing:.22em;padding:4px 12px;border-radius:20px}
+.playbook h4{color:var(--gold-bright);font-size:19px;margin:8px 0 12px}
+.playbook p{font-size:16px;color:var(--parch-dim);margin-bottom:12px}
+.playbook .stat-row{display:flex;flex-wrap:wrap;gap:18px;margin-top:16px}
+.playbook .stat{flex:1;min-width:120px;background:rgba(0,0,0,.3);border:1px solid var(--line);border-radius:10px;padding:14px 16px;text-align:center}
+.playbook .stat .v{font-family:var(--deco);font-weight:900;font-size:26px;color:var(--gold-bright);line-height:1}
+.playbook .stat .k{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--parch-faint);margin-top:7px;display:block}
+
+/* ---------- STEPS ---------- */
+.step{display:flex;gap:18px;margin:20px 0;align-items:flex-start}
+.step .num{flex:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--gold-deep);color:var(--gold-bright);font-family:var(--disp);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:16px;background:var(--ink-3)}
+.step .body{flex:1}
+.step .body .st{font-family:var(--disp);font-weight:600;color:var(--parch);font-size:17px;letter-spacing:.02em;margin-bottom:4px}
+.step .body p{font-size:16px;margin:0;color:var(--parch-dim)}
+.field{font-family:var(--mono);font-size:13.5px;background:var(--ink-3);border:1px solid var(--line);border-radius:6px;padding:2px 8px;color:var(--gold-bright)}
+
+/* ---------- CALLOUT / TIP ---------- */
+.tip{border-left:3px solid var(--gold);background:rgba(201,168,76,.06);border-radius:0 10px 10px 0;padding:16px 20px;margin:24px 0;font-size:16px}
+.tip .h{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;display:block}
+
+/* ---------- SCRIPT BLOCK ---------- */
+.script{background:var(--ink-3);border:1px solid var(--line);border-left:3px solid var(--gold-deep);border-radius:10px;padding:20px 22px;margin:20px 0;font-size:15.5px;line-height:1.65}
+.script .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--parch-faint);margin-bottom:10px;display:block}
+.script em{color:var(--parch-faint);font-style:italic}
+.copybtn{margin-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:1px solid var(--gold-deep);color:var(--gold);padding:7px 14px;border-radius:20px;cursor:pointer;transition:.2s}
+.copybtn:hover{background:var(--gold);color:#161206}
+
+/* ---------- TABLE ---------- */
+.table-wrap{overflow-x:auto;margin:24px 0;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:15px;min-width:440px}
+th{background:var(--ink-3);color:var(--gold);font-family:var(--disp);font-weight:600;text-align:left;padding:13px 16px;letter-spacing:.03em;border-bottom:1px solid var(--line)}
+td{padding:12px 16px;border-bottom:1px solid var(--line);color:var(--parch-dim)}
+tr:last-child td{border-bottom:none}
+td strong{color:var(--parch)}
+
+/* ---------- WIDGET / PAINEL ---------- */
+.widget{background:linear-gradient(165deg,#1c1811,#141009);border:1px solid var(--gold-deep);border-radius:18px;padding:30px;margin:34px 0;box-shadow:var(--shadow)}
+.widget .wtag{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.widget .wtag .dot{width:7px;height:7px;border-radius:50%;background:var(--gold-bright);box-shadow:0 0 10px var(--gold-bright);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.widget h3{font-size:22px;color:var(--parch);margin-bottom:6px}
+.widget .wsub{font-size:15px;color:var(--parch-faint);margin-bottom:22px}
+.ctrl{margin-bottom:18px}
+.ctrl label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--parch-dim);margin-bottom:8px}
+.ctrl input[type=number],.ctrl input[type=range]{width:100%}
+.ctrl input[type=number]{background:var(--ink);border:1px solid var(--line);border-radius:8px;color:var(--gold-bright);font-family:var(--mono);font-size:18px;padding:11px 14px;font-weight:500}
+.ctrl input[type=number]:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.18)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+input[type=range]{-webkit-appearance:none;height:6px;border-radius:6px;background:var(--ink-3);border:1px solid var(--line);cursor:pointer;margin-top:6px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--gold-bright);border:2px solid #161206;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.5)}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--gold-bright);border:2px solid #161206;cursor:pointer}
+.rangeval{font-family:var(--mono);color:var(--gold-bright);font-size:16px;float:right}
+.readout{background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:12px;padding:22px;margin-top:22px}
+.readout .row{display:flex;justify-content:space-between;align-items:baseline;padding:9px 0;border-bottom:1px dashed var(--line)}
+.readout .row:last-child{border-bottom:none}
+.readout .row .k{font-size:15px;color:var(--parch-dim)}
+.readout .row .v{font-family:var(--mono);font-weight:700;font-size:20px;color:var(--gold-bright)}
+.verdict{margin-top:18px;border-radius:12px;padding:18px 20px;font-size:16px;line-height:1.55;border:1px solid var(--line)}
+.verdict.g{background:rgba(95,160,90,.12);border-color:rgba(95,160,90,.5)}
+.verdict.a{background:rgba(217,164,65,.10);border-color:rgba(217,164,65,.5)}
+.verdict.r{background:rgba(192,86,62,.12);border-color:rgba(192,86,62,.5)}
+.verdict .vh{font-family:var(--disp);font-weight:700;font-size:16px;letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;display:block}
+.verdict.g .vh{color:var(--green)}
+.verdict.a .vh{color:var(--amber)}
+.verdict.r .vh{color:var(--red)}
+
+/* CPR meter */
+.meter{height:16px;border-radius:10px;margin:18px 0 8px;background:linear-gradient(90deg,var(--green) 0%,var(--green) 33%,var(--amber) 33%,var(--amber) 66%,var(--red) 66%,var(--red) 100%);position:relative;border:1px solid var(--line)}
+.meter .pin{position:absolute;top:-7px;width:3px;height:30px;background:var(--parch);border-radius:2px;box-shadow:0 0 8px rgba(0,0,0,.8);transition:left .35s ease}
+.meter-labels{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--parch-faint);text-transform:uppercase}
+
+/* ---------- CHECKLIST ---------- */
+.checklist{background:var(--ink-2);border:1px solid var(--line);border-radius:16px;padding:28px 30px;margin:30px 0}
+.progress-bar{height:8px;border-radius:8px;background:var(--ink);border:1px solid var(--line);overflow:hidden;margin:12px 0 4px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold-deep),var(--gold-bright));width:0%;transition:width .4s ease}
+.progress-txt{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.1em}
+.phase{margin-top:24px}
+.phase h4{font-size:15px;color:var(--gold);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+.check{display:flex;gap:12px;align-items:flex-start;padding:9px 0;cursor:pointer;border-bottom:1px dashed var(--line)}
+.check:last-child{border-bottom:none}
+.check input{flex:none;width:20px;height:20px;margin-top:3px;accent-color:var(--gold-bright);cursor:pointer}
+.check span{font-size:15.5px;color:var(--parch-dim);transition:.2s}
+.check input:checked + span{color:var(--parch-faint);text-decoration:line-through}
+.reset{margin-top:18px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:1px solid var(--line);color:var(--parch-faint);padding:7px 14px;border-radius:20px;cursor:pointer}
+.reset:hover{border-color:var(--red);color:var(--red)}
+
+/* ---------- TOC ---------- */
+.toc{background:var(--ink-2);border:1px solid var(--line);border-radius:16px;padding:8px 8px}
+.toc a{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:14px 20px;border-radius:10px;color:var(--parch);font-family:var(--serif);transition:.2s;border-bottom:1px solid transparent}
+.toc a:hover{background:var(--ink-3);color:var(--gold-bright)}
+.toc a .mn{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.1em;flex:none}
+.toc a .tt{flex:1}
+.toc a .dg{font-size:13px;color:var(--parch-faint);font-style:italic;flex:none}
+
+/* ---------- MODULE HEADER ---------- */
+.modhead{text-align:center;padding:50px 0 30px;position:relative}
+.modhead .mnum{font-family:var(--deco);font-weight:900;font-size:clamp(70px,16vw,120px);color:transparent;-webkit-text-stroke:1px var(--gold-deep);line-height:.85;opacity:.6}
+.modhead .mtitle{font-size:clamp(24px,5vw,36px);color:var(--parch);margin-top:-14px}
+.modhead .mdesc{font-size:16px;color:var(--parch-dim);font-style:italic;max-width:540px;margin:14px auto 0}
+
+/* ---------- FUNNEL / ECOSYSTEM ---------- */
+.eco{background:linear-gradient(165deg,#1c1811,#120f09);border:1px solid var(--gold-deep);border-radius:18px;padding:40px 34px;box-shadow:var(--shadow)}
+.eco h3{font-size:26px;color:var(--gold-bright);text-align:center;margin-bottom:8px}
+.eco .esub{text-align:center;color:var(--parch-dim);font-style:italic;margin-bottom:30px}
+.flow{display:flex;flex-direction:column;gap:14px}
+.node{display:flex;gap:16px;align-items:center;background:var(--ink-3);border:1px solid var(--line);border-radius:12px;padding:16px 20px}
+.node .ic{flex:none;width:42px;height:42px;border-radius:10px;background:rgba(201,168,76,.12);border:1px solid var(--gold-deep);display:flex;align-items:center;justify-content:center;font-family:var(--deco);font-weight:900;color:var(--gold-bright);font-size:20px}
+.node .nt{flex:1}
+.node .nt .nn{font-family:var(--disp);font-weight:600;color:var(--parch);font-size:16px}
+.node .nt .nd{font-size:14px;color:var(--parch-faint)}
+.node.active{border-color:var(--gold);background:rgba(201,168,76,.08)}
+.arrow{text-align:center;color:var(--gold-deep);font-size:20px;line-height:.5}
+
+/* ---------- CTA ---------- */
+.cta{display:inline-block;background:linear-gradient(135deg,var(--gold),var(--gold-bright));color:#161206;font-family:var(--disp);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:14px;padding:16px 34px;border-radius:40px;margin-top:8px;transition:.25s;box-shadow:0 12px 30px -12px rgba(201,168,76,.6)}
+.cta:hover{transform:translateY(-2px);box-shadow:0 18px 40px -12px rgba(201,168,76,.75)}
+
+/* ---------- FOOTER ---------- */
+footer{text-align:center;padding:60px 24px 50px;border-top:1px solid var(--line);margin-top:40px}
+footer .fb{font-family:var(--disp);letter-spacing:.3em;color:var(--gold);font-size:13px;text-transform:uppercase}
+footer .fc{font-size:13px;color:var(--parch-faint);margin-top:12px;font-family:var(--mono)}
+
+/* print button */
+.printbar{position:fixed;right:18px;bottom:18px;z-index:50;background:linear-gradient(135deg,var(--gold),var(--gold-bright));color:#161206;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:none;padding:12px 18px;border-radius:40px;cursor:pointer;box-shadow:0 10px 26px -10px rgba(0,0,0,.7);transition:.2s}
+.printbar:hover{transform:translateY(-2px)}
+@media (max-width:640px){.printbar{right:12px;bottom:12px;padding:10px 14px;font-size:10px}}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:640px){
+  body{font-size:16.5px}
+  .two-col,.grid2{grid-template-columns:1fr}
+  .manifesto,.playbook,.widget,.eco{padding:24px 20px}
+  .section{padding:48px 0}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+:focus-visible{outline:2px solid var(--gold-bright);outline-offset:3px;border-radius:4px}
+
+/* ===== TEMA CLARO CREME (tela): sobrescreve gradientes/sombras escuras ===== */
+.cover h1{text-shadow:none}
+.cover .seal{background:radial-gradient(circle at 50% 30%,rgba(201,168,76,.16),transparent 70%)}
+.playbook{background:linear-gradient(160deg,#FFFDF7,#FBF3E3)}
+.widget,.eco{background:linear-gradient(165deg,#FFFDF7,#FBF3E3)}
+.playbook .stat,.readout{background:#FBF5E6}
+.ctrl input[type=number]{background:#fff}
+.progress-bar{background:#F0E7CE}
+.node .ic{background:rgba(201,168,76,.16)}
+.cta{background:linear-gradient(135deg,#C9A84C,#E0B84A);color:#211703;box-shadow:0 12px 30px -14px rgba(160,120,40,.55)}
+.cta:hover{box-shadow:0 18px 40px -14px rgba(160,120,40,.7)}
+.progress-fill{background:linear-gradient(90deg,#B88A2A,#E0B84A)}
+input[type=range]::-webkit-slider-thumb{background:#C9A84C;border:2px solid #fff;box-shadow:0 2px 6px rgba(120,90,30,.4)}
+input[type=range]::-moz-range-thumb{background:#C9A84C;border:2px solid #fff}
+.widget .wtag .dot{background:#C9A84C;box-shadow:0 0 10px rgba(201,168,76,.7)}
+.meter .pin{background:#2A2012;box-shadow:0 0 6px rgba(0,0,0,.30)}
+.copybtn:hover{color:#211703}
+::selection{background:rgba(201,168,76,.3);color:#2A2012}
+/* ============ PRINT / SALVAR PDF — versão econômica de tinta ============ */
+@media print{
+  @page{margin:1.5cm}
+  html,body{background:#fff!important;color:#1c1c1c!important;font-size:11pt;line-height:1.5}
+  body::before{display:none!important}
+  .wrap{max-width:100%;padding:0}
+  *{box-shadow:none!important;text-shadow:none!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .widget,.checklist,.cover .scroll,.copybtn,.reset,.cta,.printbar{display:none!important}
+  .cover{min-height:auto;padding:10px 0 24px;page-break-after:always}
+  .cover .brand,.cover .kicker,.cover .seal .n,.eyebrow,.tip .h,.iface .h,.script .lbl2{color:#8a6d1f!important}
+  .cover h1,.cover .sub,h1,h2,h3,h4,.disp,.big,.modhead .mtitle,.step .body .st,.node .nt .nn,td strong{color:#141414!important}
+  .cover h1 .g,.cover .seal .l{color:#9a7a1e!important}
+  .lead,.mdesc,.esub,.pillar p,.playbook p,.step .body p,.node .nt .nd,.toc a .dg{color:#444!important}
+  p,li,.section p,.section li,td,.toc a{color:#222!important}
+  strong{color:#8a6d1f!important}
+  a{color:#7a5c14!important;text-decoration:none}
+  .eyebrow::before{background:#c9a84c!important}
+  .manifesto,.playbook,.pillar,.tip,.iface,.script,.eco,.node,.readout,.table-wrap,.toc{
+    background:#fff!important;border:1px solid #d9cfae!important;border-radius:8px!important}
+  .playbook::before{background:#c9a84c!important;color:#161206!important}
+  .pillar.stable .t{color:#3c7a3a!important}.pillar.change .t{color:#a9772a!important}
+  .playbook .stat{background:#faf6ea!important;border:1px solid #e0d5b5!important}
+  .playbook .stat .v{color:#9a7a1e!important}.playbook .stat .k{color:#555!important}
+  .modhead .mnum{-webkit-text-stroke:1px #c9a84c!important;color:transparent!important;opacity:.5}
+  th{background:#f2ead0!important;color:#7a5c14!important;border-bottom:1px solid #d9cfae!important}
+  td{border-bottom:1px solid #e6ddc4!important}
+  table{min-width:0}
+  .step .num{background:#faf6ea!important;border-color:#c9a84c!important;color:#9a7a1e!important}
+  .field{background:#faf6ea!important;border:1px solid #e0d5b5!important;color:#8a6d1f!important}
+  .toc a .mn,.eco h3,.node .ic{color:#9a7a1e!important}
+  .node .ic{background:#faf6ea!important;border:1px solid #e0d5b5!important}
+  .rule{display:none}
+  footer{border-top:1px solid #d9cfae!important}
+  footer .fb{color:#8a6d1f!important}
+  .modhead{page-break-before:always}
+  h2,h3,h4{page-break-after:avoid}
+  .script,.playbook,.step,.tip,.iface,.table-wrap{page-break-inside:avoid}
+}
+</style>
 <script>
+/* ── CT: GUARDIÃO DE ACESSO + PONTE DO LEITOR ── */
 (function(){
-  var okKey = 'ct_ok_' + 'ebook-trafego-iniciante.html';
-  var liberado = sessionStorage.getItem(okKey) === '1';
-  var dentroDeFrame = window.self !== window.top;
-  if (!liberado || !dentroDeFrame) {
-    window.location.href = 'https://carlostattoobh.com.br/index.html#ebooks';
-  }
+  var FNAME='ebook-trafego-iniciante.html';
+  try{
+    // Aberto direto (fora do leitor) e sem liberação -> volta pro acesso.
+    if(sessionStorage.getItem('ct_ok_'+FNAME)!=='1'){
+      location.replace('acesso.html'); return;
+    }
+  }catch(e){}
+  // O leitor manda ct_scrollTo com a âncora do módulo clicado na barra lateral.
+  window.addEventListener('message',function(ev){
+    var d=ev.data||{};
+    if(d&&d.type==='ct_scrollTo'&&d.anchor){
+      var el=document.getElementById(d.anchor);
+      if(el){el.scrollIntoView({behavior:'smooth',block:'start'});}
+    }
+  });
 })();
 </script>
-
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>Tráfego Tattoo do Zero — Tutorial Completo 2026 | Carlos Tattoo BH</title>
-<link rel="canonical" href="https://carlostattoobh.com.br/ebook-trafego-iniciante.html">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg-page: #f5f7fb;
-  --white: #ffffff;
-  --text: #111827;
-  --text-muted: #6b7280;
-  --accent: #1a1a2e;
-  --gold: #c9973a;
-  --gold-light: #f0c04a;
-  --border: #e5e7eb;
-  --shadow: 0 4px 24px rgba(0,0,0,.07);
-  --shadow-lg: 0 8px 48px rgba(0,0,0,.12);
-  --radius: 16px;
-}
-
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Poppins', sans-serif;background:#f5f7fb;color:#111827;font-size:16px;line-height:1.8;}
-@media print{
-  .no-print{display:none!important;}
-  .pb{page-break-after:always;}
-  .pbi{page-break-inside:avoid;}
-  body{background:#fff;font-size:11pt;}
-}
-/* MARCA D'ÁGUA */
-.wm{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;}
-.wm-grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(7,1fr);}
-.wm-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transform:rotate(-25deg);opacity:.045;}
-.wm-cell img{width:52px;height:52px;object-fit:contain;}
-.wm-cell span{font-family:'Poppins', sans-serif;font-size:8px;letter-spacing:2px;color:#c9973a;text-transform:uppercase;white-space:nowrap;}
-/* CAPA */
-.capa{background:linear-gradient(160deg,#06080f 0%,#0d0d1a 38%,#1a1a2e 65%,#06080f 100%);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;position:relative;overflow:hidden;}
-.capa::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 45%,rgba(201,151,58,.13) 0%,transparent 70%);}
-.c-line{position:absolute;left:50%;transform:translateX(-50%);width:220px;height:1px;background:linear-gradient(90deg,transparent,rgba(201,151,58,.5),transparent);}
-.c-line.top{top:36px;}.c-line.bot{bottom:36px;}
-.c-logo{height:96px;object-fit:contain;filter:drop-shadow(0 0 24px rgba(201,151,58,.55));margin-bottom:30px;position:relative;z-index:1;}
-.c-tag{display:inline-block;background:rgba(201,151,58,.1);border:1px solid rgba(201,151,58,.35);padding:7px 24px;font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:4px;color:#f0c04a;text-transform:uppercase;margin-bottom:26px;position:relative;z-index:1;}
-.c-h1{font-family:'Playfair Display', serif;font-size:clamp(32px,5.5vw,60px);color:#fff;line-height:1.05;margin-bottom:12px;position:relative;z-index:1;text-shadow:0 0 80px rgba(201,151,58,.2);}
-.c-h1 b{color:#f0c04a;}
-.c-sub{font-family:'Poppins', sans-serif;font-size:13px;letter-spacing:3px;color:rgba(201,151,58,.90);margin-bottom:56px;position:relative;z-index:1;}
-.c-div{width:140px;height:1px;background:linear-gradient(90deg,transparent,#f0c04a,transparent);margin:0 auto 40px;}
-.c-autor-name{font-family:'Playfair Display', serif;font-size:21px;color:#f0c04a;margin-bottom:4px;position:relative;z-index:1;}
-.c-autor-role{font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:3px;color:rgba(201,151,58,.78);text-transform:uppercase;position:relative;z-index:1;}
-.c-badge{position:absolute;bottom:48px;right:48px;width:94px;height:94px;border-radius:50%;background:rgba(201,151,58,.09);border:1.5px solid rgba(201,151,58,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:1;}
-.c-badge b{font-family:'Playfair Display', serif;font-size:23px;color:#f0c04a;display:block;line-height:1;}
-.c-badge span{font-family:'Poppins', sans-serif;font-size:8px;letter-spacing:1px;color:rgba(201,151,58,.78);margin-top:3px;}
-.c-pages{position:absolute;bottom:52px;left:48px;font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:2px;color:rgba(201,151,58,.75);text-transform:uppercase;z-index:1;}
-/* ÍNDICE */
-.indice{background:#f8faff;padding:72px 96px;min-height:100vh;position:relative;}
-/* MÓDULO HEADER */
-.mh{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);padding:56px 96px 48px;position:relative;overflow:hidden;border-bottom:3px solid #c9973a;}
-.mh::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 80% 50%,rgba(201,151,58,.07) 0%,transparent 70%);}
-.mh-bg-n{font-family:'Playfair Display', serif;font-size:130px;color:rgba(201,151,58,.05);position:absolute;right:56px;top:10px;line-height:1;}
-.mh-lbl{font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:4px;color:rgba(201,151,58,.75);text-transform:uppercase;margin-bottom:10px;position:relative;z-index:1;}
-.mh-title{font-family:'Playfair Display', serif;font-size:clamp(24px,3.5vw,42px);color:#fff;position:relative;z-index:1;line-height:1.15;}
-.mh-title b{color:#f0c04a;}
-.mh-desc{font-size:16px;color:rgba(229,231,235,.88);margin-top:14px;position:relative;z-index:1;max-width:620px;line-height:1.7;font-family:'Poppins', sans-serif;}
-.mh-logo{position:absolute;right:96px;bottom:24px;height:44px;opacity:.5;z-index:1;}
-/* PÁGINA */
-.page{background:#fff;padding:68px 92px 84px;min-height:100vh;position:relative;}
-.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;padding-bottom:14px;border-bottom:2px solid #e5e7eb;}
-.ph img{height:30px;object-fit:contain;opacity:.65;}
-.ph span{font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:2px;color:#9ca3af;text-transform:uppercase;}
-.pf{position:absolute;bottom:30px;left:92px;right:92px;display:flex;justify-content:space-between;align-items:center;font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:1px;color:#b8862e;border-top:1px solid #e5e7eb;padding-top:12px;}
-.bg-n{font-family:'Playfair Display', serif;font-size:120px;color:rgba(201,151,58,.05);position:absolute;top:56px;right:76px;line-height:1;pointer-events:none;}
-/* TIPOGRAFIA */
-.lbl{font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:4px;color:#c9973a;text-transform:uppercase;margin-bottom:8px;display:block;}
-.h2{font-family:'Playfair Display', serif;font-size:clamp(20px,2.8vw,34px);color:#111827;margin-bottom:16px;line-height:1.2;}
-.h2 b{color:#c9973a;}
-.h3{font-family:'Poppins', sans-serif;font-size:17px;color:#111827;font-weight:700;margin:32px 0 14px;display:flex;align-items:center;gap:10px;}
-.h3::before{content:'◆';color:#c9973a;font-size:9px;flex-shrink:0;}
-.h4{font-family:'Poppins', sans-serif;font-size:14px;color:#1f2937;font-weight:700;margin:20px 0 8px;}
-p{font-size:15px;color:#1f2937;line-height:1.9;margin-bottom:16px;}
-strong{color:#111827;}
-/* TUTORIAL BOXES */
-.tut-box{background:#fff;border:2px solid rgba(201,151,58,.2);border-radius:14px;overflow:hidden;margin:22px 0;box-shadow:0 4px 18px rgba(0,0,0,.06);}
-.tut-header{background:linear-gradient(135deg,#f8faff,#e8edf8);padding:13px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(201,151,58,.15);}
-.tut-dot{width:10px;height:10px;border-radius:50%;background:#c9973a;flex-shrink:0;}
-.tut-header-title{font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:2px;color:#a07830;text-transform:uppercase;font-weight:700;}
-.tut-body{padding:22px 24px;}
-.tut-body p{font-size:14px;color:#374151;line-height:1.85;margin-bottom:12px;}
-.tut-body p:last-child{margin-bottom:0;}
-/* PASSO A PASSO */
-.steps{display:flex;flex-direction:column;gap:14px;margin:18px 0;}
-.step{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1.5px solid rgba(201,151,58,.16);border-radius:12px;padding:20px 22px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
-.sn{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#A07830,#f0c04a);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display', serif;font-size:14px;color:#1a1a2e;flex-shrink:0;font-weight:900;box-shadow:0 3px 10px rgba(201,151,58,.3);}
-.st h4{font-family:'Poppins', sans-serif;font-size:14px;color:#111827;font-weight:700;margin-bottom:6px;}
-.st p{font-size:14px;color:#374151;line-height:1.75;margin:0;}
-.st .path{font-family:'Poppins', sans-serif;font-size:11px;letter-spacing:1px;color:#c9973a;background:rgba(201,151,58,.06);border:1px solid rgba(201,151,58,.2);padding:4px 10px;border-radius:4px;display:inline-block;margin:6px 0;}
-/* CÓDIGO / CAMINHO */
-.code{background:#0d0d1a;border-radius:8px;padding:14px 18px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:#f0c04a;letter-spacing:.5px;border-left:3px solid #c9973a;}
-/* ATENÇÃO / DICA / IMPORTANTE */
-.box-warn{background:#fffbeb;border:1.5px solid #f59e0b;border-radius:10px;padding:18px 22px;margin:22px 0;display:flex;gap:14px;}
-.box-warn-i{font-size:22px;flex-shrink:0;}
-.box-warn p{font-size:14px;color:#78350f;line-height:1.75;margin:0;}
-.box-tip{background:#eff6ff;border:1.5px solid #60a5fa;border-radius:10px;padding:18px 22px;margin:22px 0;display:flex;gap:14px;}
-.box-tip-i{font-size:22px;flex-shrink:0;}
-.box-tip p{font-size:14px;color:#1e3a5f;line-height:1.75;margin:0;}
-.box-ok{background:#f0fdf4;border:1.5px solid #4ade80;border-radius:10px;padding:18px 22px;margin:22px 0;display:flex;gap:14px;}
-.box-ok-i{font-size:22px;flex-shrink:0;}
-.box-ok p{font-size:14px;color:#14532d;line-height:1.75;margin:0;}
-.box-gold{background:linear-gradient(135deg,#f8faff,#e8edf8);border:1px solid rgba(201,151,58,.22);border-left:5px solid #c9973a;padding:20px 26px;margin:22px 0;border-radius:0 12px 12px 0;}
-.box-gold p{font-size:15px;color:#1f2937;margin:0;line-height:1.8;}
-.box-dark{background:linear-gradient(135deg,#0d0d1a,#0a0a18);border-radius:14px;padding:26px 30px;margin:22px 0;border:1px solid rgba(201,151,58,.18);}
-.box-dark p,.box-dark li{color:#e5e7eb;font-size:15px;line-height:1.85;margin-bottom:10px;}
-.box-dark h4{font-family:'Poppins', sans-serif;font-size:15px;color:#f0c04a;margin-bottom:14px;}
-/* LISTAS */
-.ul{list-style:none;margin:14px 0 22px;}
-.ul li{display:flex;align-items:flex-start;gap:12px;font-size:15px;color:#1f2937;margin-bottom:13px;line-height:1.75;}
-.ul li::before{content:'◆';color:#c9973a;font-size:8px;flex-shrink:0;margin-top:7px;}
-.ol{list-style:none;margin:14px 0 22px;counter-reset:n;}
-.ol li{display:flex;align-items:flex-start;gap:14px;font-size:15px;color:#1f2937;margin-bottom:14px;line-height:1.75;counter-increment:n;}
-.ol li::before{content:counter(n);min-width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#A07830,#c9973a);color:#fff;font-family:'Playfair Display', serif;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
-/* TABELA */
-.tb{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px;}
-.tb th{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);color:#c9973a;font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:13px 16px;text-align:left;}
-.tb td{padding:11px 16px;border-bottom:1px solid #e5e7eb;color:#1f2937;line-height:1.6;}
-.tb tr:hover td{background:#f8faff;}
-.tb tr:last-child td{border-bottom:none;}
-/* SCRIPT */
-.script{background:#0d0d1a;border-radius:12px;padding:24px 28px;margin:18px 0;}
-.script-lbl{font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:3px;color:#c9973a;text-transform:uppercase;margin-bottom:14px;display:block;}
-.sl{font-size:14px;color:#e5e7eb;line-height:1.9;margin-bottom:10px;}
-.sl b{color:#f0c04a;}
-.sl em{color:rgba(201,151,58,.85);font-style:italic;}
-/* CHECKLIST */
-.ck{background:linear-gradient(135deg,#0d0d1a,#0a0a18);border-radius:16px;padding:30px;margin:22px 0;}
-.ck h4{font-family:'Playfair Display', serif;font-size:17px;color:#f0c04a;margin-bottom:20px;}
-.ck-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.ci{display:flex;align-items:center;gap:10px;background:rgba(201,151,58,.04);border:1px solid rgba(201,151,58,.1);border-radius:7px;padding:11px 14px;font-size:14px;color:#e5e7eb;line-height:1.5;}
-.cbox{width:18px;height:18px;border:2px solid rgba(201,151,58,.4);border-radius:4px;flex-shrink:0;}
-/* STAT CARDS */
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0;}
-.sc{background:#f8faff;border:1px solid rgba(201,151,58,.2);border-radius:12px;padding:18px;text-align:center;}
-.sc b{font-family:'Playfair Display', serif;font-size:32px;color:#c9973a;display:block;line-height:1;}
-.sc span{font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:2px;color:#9ca3af;text-transform:uppercase;margin-top:5px;display:block;}
-/* ÍNDICE ITEMS */
-.idx-mod{margin-bottom:26px;}
-.idx-mod-lbl{font-family:'Playfair Display', serif;font-size:12px;color:#c9973a;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:10px;}
-.idx-mod-lbl::after{content:'';flex:1;height:1px;background:rgba(201,151,58,.2);}
-.idx-item{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid rgba(160,120,56,.1);}
-.idx-n{font-family:'Playfair Display', serif;font-size:17px;color:#c9973a;min-width:30px;}
-.idx-t{flex:1;}
-.idx-t h3{font-family:'Poppins', sans-serif;font-size:14px;color:#111827;font-weight:700;}
-.idx-t p{font-size:11px;color:#9ca3af;margin-top:2px;}
-.idx-pg{font-family:'Poppins', sans-serif;font-size:10px;color:#c9973a;}
-/* CONTRACAPA */
-.cback{background:linear-gradient(160deg,#06080f,#0d0d1a,#06080f);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;position:relative;}
-.cback::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(139,26,26,.1) 0%,transparent 70%);}
-/* SEPARADOR */
-.sep{display:flex;align-items:center;gap:14px;margin:32px 0;}
-.sep::before,.sep::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(201,151,58,.25),transparent);}
-.sep span{font-family:'Poppins', sans-serif;font-size:9px;letter-spacing:3px;color:rgba(201,151,58,.80);text-transform:uppercase;}
-/* RESULTADO REAL */
-.resultado{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #4ade80;border-radius:14px;padding:24px 28px;margin:22px 0;}
-.resultado h4{font-family:'Poppins', sans-serif;font-size:13px;letter-spacing:2px;color:#15803d;text-transform:uppercase;margin-bottom:12px;}
-.resultado p{font-size:14px;color:#14532d;line-height:1.8;margin-bottom:8px;}
-/* CAMPO TUTORIAL */
-.campo{background:#fff;border:1px solid rgba(201,151,58,.2);border-radius:8px;padding:16px 18px;margin:10px 0;display:flex;gap:14px;align-items:flex-start;}
-.campo-icon{font-size:18px;flex-shrink:0;margin-top:2px;}
-.campo-body h5{font-family:'Poppins', sans-serif;font-size:12px;letter-spacing:1px;color:#a07830;text-transform:uppercase;font-weight:700;margin-bottom:4px;}
-.campo-body p{font-size:13px;color:#374151;margin:0;line-height:1.7;}
-.campo-body .val{font-family:'Poppins', sans-serif;font-size:12px;color:#c9973a;background:rgba(201,151,58,.06);padding:3px 8px;border-radius:4px;display:inline-block;margin-top:5px;}
-</style>
 </head>
 <body>
+<button class="printbar" onclick="window.print()" title="Versão limpa, econômica de tinta">🖨 Imprimir / PDF</button>
 
-
-
-<!-- MARCA D'ÁGUA -->
-<div class="wm" aria-hidden="true">
-  <div class="wm-grid">
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
-    <div class="wm-cell"><span>Carlos Tattoo BH</span></div>
+<!-- ============ COVER ============ -->
+<section class="cover">
+  <div class="brand">Carlos Tattoo BH</div>
+  <div class="kicker">Sistema de Aquisição · Edição Definitiva</div>
+  <h1>Tráfego <span class="g">Tattoo</span><br>do Zero ao Domínio</h1>
+  <p class="sub">O único manual de anúncios escrito por quem fez 2.400+ tatuagens e roda campanhas de verdade — com painel interativo, números reais e o que ninguém mostra no YouTube.</p>
+  <div class="seal">
+    <span class="n">7</span>
+    <span class="l">Módulos · Ferramentas ao vivo</span>
   </div>
-</div>
+  <div class="scroll">Comece a descer ↓</div>
+</section>
 
-<!-- ══════════════ CAPA ══════════════ -->
-<div class="capa pb">
-  <div class="c-line top"></div>
-  <div style="width:320px;border-radius:16px;overflow:hidden;margin:0 auto 32px;box-shadow:0 16px 56px rgba(0,0,0,.7),0 0 0 2px rgba(201,151,58,.35);position:relative;z-index:1;">
-<img src="imagens/thumb-ebook-trafego.jpg" style="width:100%;display:block;"></div>
-  <div class="c-tag">Tutorial Completo · 2026 · 200+ Páginas</div>
-  <h1 class="c-h1">Tráfego Pago para<br>Tatuadores —<br><b>Do Zero ao Avançado</b></h1>
-  <p class="c-sub">Cada clique, cada campo, cada configuração — sem pular nada</p>
-  <div class="c-div"></div>
-  <div class="c-autor-name">Carlos Henrique</div>
-  <div class="c-autor-role">Tatuador · Mentor · @carlostattoo.bh · Belo Horizonte, MG</div>
-  <div class="c-line bot"></div>
-</div>
-  <div class="c-badge"><b>★</b><span>Exclusivo</span></div>
-  <div class="c-pages">200+ páginas de tutorial real</div>
-  <div class="c-line bot"></div>
-</div>
+<!-- ============ WHY / MANIFESTO ============ -->
+<div class="wrap">
+<section class="section reveal">
+  <div class="eyebrow">Antes de tudo</div>
+  <h2 class="big">Por que este material não é mais um vídeo de YouTube</h2>
+  <p class="lead">Tutorial de tráfego não falta. O que falta é tráfego pensado para <em>tatuador</em> — e escrito por quem tem a pele na jogada.</p>
+  <p>O YouTube te ensina a apertar botões. Aqui você aprende a <strong>tomar decisões</strong>: quanto um lead de tatuagem pode custar, quando escalar sem queimar dinheiro, que criativo faz alguém agendar uma sessão de 4 horas na sua pele. Isso não sai de um vídeo genérico de e-commerce — sai de campanha real, rodando, com número real na tela.</p>
 
-<!-- ══════════════ ÍNDICE ══════════════ -->
-<div class="indice pb">
-  
-  <span class="lbl">Sumário</span>
-  <h2 class="h2" style="color:#111827;margin-bottom:40px;">Tutorial completo — <b>passo a passo</b></h2>
-
-  <div class="idx-mod">
-    <div class="idx-mod-lbl">Módulo 1 — Configuração Completa da Conta</div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod1').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">01</span><div class="idx-t"><h3>Criando e configurando sua Página no Facebook do zero</h3><p>Cada campo, cada configuração, cada detalhe que faz diferença</p></div><span class="idx-pg">06</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod1').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">02</span><div class="idx-t"><h3>Business Manager — tutorial campo por campo</h3><p>Como criar, configurar e organizar sem errar</p></div><span class="idx-pg">12</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod1').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">03</span><div class="idx-t"><h3>Gerenciador de Anúncios — primeiros passos</h3><p>Navegando na plataforma, configurando conta e método de pagamento</p></div><span class="idx-pg">18</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod1').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">04</span><div class="idx-t"><h3>Instalando e verificando o Pixel — tutorial técnico</h3><p>Instalação, verificação com Meta Pixel Helper e eventos</p></div><span class="idx-pg">24</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod1').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">05</span><div class="idx-t"><h3>Conectando Instagram e WhatsApp Business</h3><p>Vinculação passo a passo e configuração profissional</p></div><span class="idx-pg">30</span></div>
-  </div>
-
-  <div class="idx-mod">
-    <div class="idx-mod-lbl">Módulo 2 — Criando sua Primeira Campanha</div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod2').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">06</span><div class="idx-t"><h3>Criando campanha de Mensagens para WhatsApp</h3><p>Cada opção de cada tela explicada com o que clicar</p></div><span class="idx-pg">37</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod2').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">07</span><div class="idx-t"><h3>Configurando o Conjunto de Anúncios</h3><p>Público, localização, orçamento, programação — campo a campo</p></div><span class="idx-pg">44</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod2').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">08</span><div class="idx-t"><h3>Criando o Anúncio — imagens, vídeos e textos</h3><p>Upload de mídia, texto principal, título, CTA e link do WhatsApp</p></div><span class="idx-pg">50</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod2').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">09</span><div class="idx-t"><h3>Revisando e publicando — checklist antes de ativar</h3><p>O que verificar antes de gastar o primeiro real</p></div><span class="idx-pg">56</span></div>
-  </div>
-
-  <div class="idx-mod">
-    <div class="idx-mod-lbl">Módulo 3 — Criativos com Celular</div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod3').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">10</span><div class="idx-t"><h3>Filmando o processo de tatuagem com o celular</h3><p>Iluminação, enquadramento, estabilidade e áudio — tutorial prático</p></div><span class="idx-pg">62</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod3').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">11</span><div class="idx-t"><h3>Editando vídeos no CapCut — tutorial completo</h3><p>Cortes, timelapse, música, texto, filtros e exportação</p></div><span class="idx-pg">68</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod3').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">12</span><div class="idx-t"><h3>Criando carrossel antes/depois no Canva</h3><p>Template, tamanhos, cores, texto e exportação correta</p></div><span class="idx-pg">74</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod3').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">13</span><div class="idx-t"><h3>12 textos prontos de anúncio por estilo</h3><p>Cobertura, realismo, fineline, floral, colorida — copie e use</p></div><span class="idx-pg">80</span></div>
-  </div>
-
-  <div class="idx-mod">
-    <div class="idx-mod-lbl">Módulo 4 — Públicos Avançados</div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod4').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">14</span><div class="idx-t"><h3>Criando públicos personalizados de visitantes do site</h3><p>Como usar o Pixel para fazer remarketing de quem visitou</p></div><span class="idx-pg">88</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod4').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">15</span><div class="idx-t"><h3>Públicos de engajamento do Instagram</h3><p>Pessoas que viram seus vídeos, curtiram, salvaram</p></div><span class="idx-pg">94</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod4').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">16</span><div class="idx-t"><h3>Lookalike 1% a 10% — qual usar e quando</h3><p>Tutorial de criação e quando cada porcentagem faz sentido</p></div><span class="idx-pg">100</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod4').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">17</span><div class="idx-t"><h3>Campanha de remarketing para leads que não fecharam</h3><p>Como recuperar pessoas que mandaram mensagem mas não agendaram</p></div><span class="idx-pg">106</span></div>
-  </div>
-
-  <div class="idx-mod">
-    <div class="idx-mod-lbl">Módulo 5 — Análise e Otimização</div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod5').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">18</span><div class="idx-t"><h3>Lendo o Gerenciador de Anúncios — coluna por coluna</h3><p>O que cada número significa e o que fazer com cada informação</p></div><span class="idx-pg">113</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod5').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">19</span><div class="idx-t"><h3>Quando pausar, quando escalar, quando testar</h3><p>Regras claras com exemplos reais de quando agir</p></div><span class="idx-pg">119</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod5').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">20</span><div class="idx-t"><h3>Fazendo teste A/B correto no Meta Ads</h3><p>Como criar, o que testar e como interpretar o resultado</p></div><span class="idx-pg">125</span></div>
-  </div>
-
-  <div class="idx-mod">
-    <div class="idx-mod-lbl">Módulo 6 — Atendimento e Fechamento</div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod6').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">21</span><div class="idx-t"><h3>Configurando o WhatsApp Business como CRM</h3><p>Etiquetas, respostas rápidas, listas e organização de leads</p></div><span class="idx-pg">132</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod6').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">22</span><div class="idx-t"><h3>O script completo de atendimento — 6 etapas</h3><p>Da recepção ao fechamento — cada mensagem detalhada</p></div><span class="idx-pg">138</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod6').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">23</span><div class="idx-t"><h3>Como lidar com objeções de preço</h3><p>Scripts testados para cada situação difícil</p></div><span class="idx-pg">144</span></div>
-  </div>
-
-  <div class="idx-mod">
-    <div class="idx-mod-lbl">Módulo 7 — Plano 90 Dias + Bônus</div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod7').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">24</span><div class="idx-t"><h3>Plano de ação semana a semana — 90 dias</h3><p>O que fazer em cada semana para chegar com agenda lotada</p></div><span class="idx-pg">150</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod7').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">25</span><div class="idx-t"><h3>Checklist completo + Planilha de controle</h3><p>Tudo organizado para você nunca perder o fio da meada</p></div><span class="idx-pg">156</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod7').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">26</span><div class="idx-t"><h3>Os 15 erros mais comuns e como corrigir</h3><p>Troubleshooting completo para cada problema que pode aparecer</p></div><span class="idx-pg">162</span></div>
-    <div class="idx-item" style="cursor:pointer;transition:background .15s;" onclick="document.getElementById('mod7').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.background='rgba(201,151,58,.07)'" onmouseout="this.style.background=''"><span class="idx-n">27</span><div class="idx-t"><h3>Glossário técnico — 50 termos explicados</h3><p>Tudo que você vai encontrar na plataforma com explicação simples</p></div><span class="idx-pg">170</span></div>
-  </div>
-</div>
-
-<!-- ══════════════ MÓDULO 1 ══════════════ -->
-<div class="mh pb" id="mod1">
-  <div class="mh-bg-n">01</div>
-  <div class="mh-lbl">Módulo 01</div>
-  <div class="mh-title">Configuração Completa<br><b>da Conta</b></div>
-  <div class="mh-desc">Antes de criar qualquer anúncio, você precisa ter sua estrutura configurada corretamente. Este módulo te leva por cada tela, cada campo e cada configuração — sem pular nada.</div>
-  
-</div>
-
-<!-- CAP 1 - PÁGINA FACEBOOK -->
-<div class="page pb">
-  <div class="ph"><span>Módulo 01 · Capítulo 01</span></div>
-  <div class="bg-n">01</div>
-  <span class="lbl">Capítulo 01</span>
-  <h2 class="h2">Criando sua <b>Página no Facebook</b> do zero</h2>
-  <p>Antes de qualquer coisa: você vai criar uma Página do Facebook para o seu estúdio. Não confunda com seu perfil pessoal — são coisas completamente diferentes. A Página é a identidade profissional do seu negócio na Meta.</p>
-
-  <h3 class="h3">Passo a passo — Criando a Página</h3>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>Acesse o criador de páginas</h4><p>No seu navegador, acesse:</p><div class="code">facebook.com/pages/create</div><p>Faça login com sua conta pessoal do Facebook. A Página será vinculada à sua conta mas ficará separada — seus amigos não vão ver suas atividades profissionais no feed pessoal.</p></div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>Escolha o tipo de Página</h4><p>Vai aparecer uma tela com o campo "Nome da Página". Preencha com o nome exato do seu estúdio. Abaixo, no campo "Categoria", comece a digitar:</p><div class="code">Tatuagem</div><p>Selecione a opção <strong>"Tatuagem e Piercing"</strong> que aparece na lista. Esta categoria ajuda o algoritmo a entender seu negócio e mostra sua página em buscas relevantes.</p></div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><h4>Foto de perfil da Página</h4><p>Clique em "Adicionar foto de perfil". Use sua logo em fundo preto — o tamanho mínimo é <strong>500x500px</strong>. Não use foto sua aqui, use a logo. O perfil vai aparecer nos anúncios e precisa ser reconhecível mesmo em tamanho pequeno. Salve.</p></div></div>
-    <div class="step"><div class="sn">4</div><div class="st"><h4>Foto de capa</h4><p>Clique em "Adicionar foto de capa". O tamanho ideal é <strong>1640x856px</strong>. Use seu melhor trabalho ou uma foto profissional do estúdio. Não coloque texto com informações de contato na capa — o Facebook pode reprovar.</p></div></div>
-    <div class="step"><div class="sn">5</div><div class="st"><h4>Complete as informações</h4><p>Clique em "Editar informações da Página" e preencha TODOS os campos:</p>
-      <ul class="ul" style="margin-top:10px;">
-        <li><strong>Endereço:</strong> Seu endereço completo com CEP</li>
-        <li><strong>Cidade:</strong> Belo Horizonte</li>
-        <li><strong>Horário de funcionamento:</strong> Segunda a Sábado 10h-19h</li>
-        <li><strong>Número de telefone:</strong> Seu número profissional</li>
-        <li><strong>Site:</strong> URL do seu site</li>
-        <li><strong>Descrição curta:</strong> "Estúdio de tatuagem premium em BH — realismo, cobertura, fineline e muito mais. @carlostattoo.bh"</li>
-      </ul>
-    </div></div>
-    <div class="step"><div class="sn">6</div><div class="st"><h4>Publique a Página</h4><p>Clique em "Publicar Página". Pronto — sua Página está criada. Antes de avançar, faça uma última verificação: abra a Página em outra aba e veja como ela aparece para o público. Está profissional? Foto de perfil clara? Descrição completa? Se sim, pode avançar.</p></div></div>
-  </div>
-
-  <div class="box-ok">
-    <span class="box-ok-i">✅</span>
-    <p><strong>Verificação rápida:</strong> Acesse sua Página e cheque — foto de perfil aparece clara em tamanho pequeno? Categoria está correta? Endereço preenchido? Se tudo sim, você está pronto para o próximo passo.</p>
-  </div>
-
-  <div class="box-warn">
-    <span class="box-warn-i">⚠️</span>
-    <p><strong>Erro comum:</strong> Muitos tatuadores criam a Página mas não preenchem todos os campos achando que não importa. Uma Página incompleta reduz sua relevância no algoritmo e passa imagem de desleixo para quem visita antes de entrar em contato.</p>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Tráfego Tattoo do Zero 2026</span><span>Página 06-11</span></div>
-</div>
-
-<!-- CAP 2 - BUSINESS MANAGER -->
-<div class="page pb">
-  <div class="ph"><span>Módulo 01 · Capítulo 02</span></div>
-  <div class="bg-n">02</div>
-  <span class="lbl">Capítulo 02</span>
-  <h2 class="h2"><b>Business Manager</b> — tutorial campo por campo</h2>
-  <p>O Business Manager é o painel central que vai gerenciar tudo — sua Página, sua conta de anúncios, seu Pixel, seu Instagram e seu WhatsApp. Pense nele como o "quartel general" do seu marketing digital.</p>
-
-  <h3 class="h3">Criando sua conta no Business Manager</h3>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>Acesse o Business Manager</h4><div class="code">business.facebook.com</div><p>Importante: use um <strong>email profissional</strong> dedicado ao seu negócio. Nunca misture com email pessoal. Se ainda não tem, crie um agora: nomedoseuestudio@gmail.com por exemplo.</p></div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>Clique em "Criar conta"</h4><p>Vai aparecer um formulário. Preencha assim:</p>
-      <div class="campo"><div class="campo-icon">🏢</div><div class="campo-body"><h5>Nome da empresa</h5><p>Exatamente o nome do seu estúdio como está na sua Página</p><div class="val">Exemplo: Carlos Tattoo BH</div></div></div>
-      <div class="campo"><div class="campo-icon">👤</div><div class="campo-body"><h5>Seu nome</h5><p>Seu nome completo — aparece como administrador</p></div></div>
-      <div class="campo"><div class="campo-icon">📧</div><div class="campo-body"><h5>Email comercial</h5><p>O email profissional que você criou — não o pessoal</p><div class="val">Exemplo: contato@carlostattoo.com.br</div></div></div>
-    </div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><h4>Verifique o email</h4><p>O Facebook vai mandar um email de confirmação. Abra, clique no botão de confirmação e volte ao Business Manager. Esse passo é obrigatório — sem verificar o email, algumas funções ficam bloqueadas.</p></div></div>
-    <div class="step"><div class="sn">4</div><div class="st"><h4>Vincule sua Página do Facebook</h4><p>No menu lateral esquerdo, clique em <strong>"Configurações do Business"</strong>. Na coluna da esquerda, clique em <strong>"Páginas"</strong>. Clique no botão azul <strong>"Adicionar"</strong>. Selecione <strong>"Adicionar uma Página"</strong>. Digite o nome da sua Página e clique em <strong>"Adicionar Página"</strong>. Confirma na próxima tela.</p></div></div>
-    <div class="step"><div class="sn">5</div><div class="st"><h4>Configure as informações do negócio</h4><p>Ainda em Configurações do Business, clique em <strong>"Informações do negócio"</strong>. Preencha:</p>
-      <ul class="ul" style="margin-top:8px;">
-        <li><strong>Fuso horário:</strong> America/Sao_Paulo</li>
-        <li><strong>Moeda:</strong> BRL — Real Brasileiro</li>
-        <li><strong>Endereço:</strong> Endereço completo do estúdio</li>
-        <li><strong>Número de telefone:</strong> Com código do país +55</li>
-        <li><strong>Site:</strong> URL do seu site</li>
-      </ul>
-    </div></div>
-  </div>
-
-  <div class="box-warn">
-    <span class="box-warn-i">⚠️</span>
-    <p><strong>NUNCA faça isso:</strong> Não use seu perfil pessoal do Facebook para criar anúncios diretamente. Contas pessoais que tentam criar anúncios para negócios são detectadas e bloqueadas pela Meta sem aviso. Sempre use o Business Manager.</p>
-  </div>
-
-  <h3 class="h3">Adicionando você mesmo como administrador</h3>
-  <p>Em Configurações do Business → <strong>Usuários</strong> → <strong>Pessoas</strong>, você deve aparecer como administrador. Se não aparecer, clique em "Adicionar", insira seu email e marque <strong>"Acesso de administrador"</strong>. Isso garante que você nunca perca acesso à conta.</p>
-  <div class="pf"><span>Carlos Tattoo BH — Tráfego Tattoo do Zero 2026</span><span>Página 12-17</span></div>
-</div>
-
-<!-- CAP 3 - GERENCIADOR -->
-<div class="page pb">
-  <div class="ph"><span>Módulo 01 · Capítulo 03</span></div>
-  <div class="bg-n">03</div>
-  <span class="lbl">Capítulo 03</span>
-  <h2 class="h2"><b>Gerenciador de Anúncios</b> — primeiros passos</h2>
-
-  <h3 class="h3">Criando a conta de anúncios</h3>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>Acesse o Gerenciador</h4><p>Dentro do Business Manager, no menu lateral clique em <strong>"Configurações do Business"</strong> → <strong>"Contas de anúncios"</strong> → <strong>"Adicionar"</strong> → <strong>"Criar uma nova conta de anúncios"</strong>.</p></div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>Preencha as informações</h4>
-      <div class="campo"><div class="campo-icon">📝</div><div class="campo-body"><h5>Nome da conta</h5><p>Use o nome do estúdio + "Ads"</p><div class="val">Carlos Tattoo BH - Ads</div></div></div>
-      <div class="campo"><div class="campo-icon">🌍</div><div class="campo-body"><h5>Fuso horário</h5><p>Sempre Brasília — afeta quando seus anúncios são exibidos</p><div class="val">GMT-3 (Brasília)</div></div></div>
-      <div class="campo"><div class="campo-icon">💰</div><div class="campo-body"><h5>Moeda</h5><p>Real Brasileiro — afeta como você é cobrado</p><div class="val">BRL - Real Brasileiro</div></div></div>
-    </div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><h4>Defina o uso da conta</h4><p>Quando perguntado "Para quem você vai criar anúncios?", selecione <strong>"Meu negócio"</strong>. Nunca selecione "Outro negócio" — isso afeta como a Meta classifica sua conta.</p></div></div>
-  </div>
-
-  <h3 class="h3">Cadastrando método de pagamento</h3>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>Acesse as configurações de pagamento</h4><p>No Gerenciador de Anúncios (adsmanager.facebook.com), clique no ícone de menu <strong>☰</strong> no canto superior esquerdo → <strong>"Faturamento e pagamentos"</strong> → <strong>"Métodos de pagamento"</strong> → <strong>"Adicionar método de pagamento"</strong>.</p></div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>Escolha o método</h4><p>Em 2026, a Meta aceita no Brasil:</p>
-      <ul class="ul" style="margin-top:8px;">
-        <li><strong>Cartão de crédito:</strong> Melhor opção — cobrado mensalmente, sem juros se pago em dia</li>
-        <li><strong>PIX:</strong> Disponível para contas verificadas — precisa recarregar manualmente</li>
-        <li><strong>Boleto:</strong> Opção mas tem atraso de compensação — não recomendado</li>
-      </ul>
-      <p><strong>Recomendação:</strong> Use cartão de crédito. O PIX requer recarga manual e você pode parar campanhas por saldo zerado sem perceber.</p>
-    </div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><h4>Configure o limite de gastos da conta</h4><p>Em <strong>"Configurações de pagamento"</strong>, ative o <strong>"Limite de gasto da conta"</strong>. Defina um valor máximo para o primeiro mês — por exemplo R$500. Isso evita gastos inesperados enquanto você está aprendendo. Você pode remover esse limite depois.</p></div></div>
-  </div>
-
-  <div class="box-tip">
-    <span class="box-tip-i">💡</span>
-    <p><strong>Dica importante:</strong> Defina alertas de gasto. Em "Faturamento" → "Alertas de pagamento", configure para receber email quando gastar 50% e 90% do seu orçamento mensal. Assim você nunca se surpreende com a fatura.</p>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Tráfego Tattoo do Zero 2026</span><span>Página 18-23</span></div>
-</div>
-
-<!-- CAP 4 - PIXEL -->
-<div class="page pb">
-  <div class="ph"><span>Módulo 01 · Capítulo 04</span></div>
-  <div class="bg-n">04</div>
-  <span class="lbl">Capítulo 04</span>
-  <h2 class="h2">Instalando o <b>Pixel do Meta</b> — tutorial técnico</h2>
-  <p>O Pixel é um código JavaScript que você instala no seu site. Ele rastreia tudo que acontece lá — quem visitou, quanto tempo ficou, quais páginas acessou. Com esses dados você cria públicos de remarketing e melhora drasticamente a precisão dos seus anúncios.</p>
-
-  <h3 class="h3">Criando o Pixel</h3>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>Acesse o Gerenciador de Eventos</h4><p>No Business Manager, clique no menu de hambúrguer ☰ → <strong>"Gerenciador de Eventos"</strong>. Ou acesse diretamente:</p><div class="code">business.facebook.com/events_manager</div></div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>Conecte uma nova fonte de dados</h4><p>Clique no botão verde <strong>"Conectar fontes de dados"</strong>. Na janela que abre, selecione <strong>"Web"</strong> → clique em <strong>"Conectar"</strong>.</p></div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><h4>Escolha o método de conexão</h4><p>O Meta vai perguntar como você quer conectar. Selecione <strong>"Pixel do Meta"</strong> → <strong>"Criar Pixel"</strong>. Dê um nome ao Pixel — use o nome do estúdio:</p><div class="code">Pixel - Carlos Tattoo BH</div></div></div>
-    <div class="step"><div class="sn">4</div><div class="st"><h4>Instale o código manualmente</h4><p>Clique em <strong>"Instalar código manualmente"</strong>. O Meta vai mostrar um bloco de código JavaScript. Copie todo esse código. Agora você precisa colar ele no cabeçalho (entre as tags <code>&lt;head&gt;</code> e <code>&lt;/head&gt;</code>) de todas as páginas do seu site.</p><p>Se seu site é HTML puro (como o site que você tem), abra o arquivo index.html, encontre a tag <code>&lt;/head&gt;</code> e cole o código logo acima dela.</p></div></div>
-    <div class="step"><div class="sn">5</div><div class="st"><h4>Verifique a instalação</h4><p>Instale a extensão <strong>"Meta Pixel Helper"</strong> no Google Chrome (gratuita). Após instalar, acesse seu site. O ícone da extensão vai ficar verde se o Pixel estiver funcionando. Se ficar vermelho, o código não está instalado corretamente.</p></div></div>
-  </div>
-
-  <div class="box-dark">
-    <h4>Eventos que você deve configurar no Pixel</h4>
-    <ul class="ul">
-      <li><strong>PageView (automático):</strong> Registrado toda vez que alguém visita qualquer página — configurado automaticamente</li>
-      <li><strong>ViewContent:</strong> Quando alguém vê uma página de serviço específico (cobertura, realismo, etc)</li>
-      <li><strong>Lead:</strong> Quando alguém preenche o formulário de agendamento — mais valioso para otimização</li>
-      <li><strong>Contact:</strong> Quando alguém clica para ir ao WhatsApp — sinaliza intenção de compra</li>
-    </ul>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Tráfego Tattoo do Zero 2026</span><span>Página 24-29</span></div>
-</div>
-
-<!-- CAP 5 - INSTAGRAM E WHATSAPP -->
-<div class="page pb">
-  <div class="ph"><span>Módulo 01 · Capítulo 05</span></div>
-  <div class="bg-n">05</div>
-  <span class="lbl">Capítulo 05</span>
-  <h2 class="h2">Conectando <b>Instagram</b> e <b>WhatsApp Business</b></h2>
-
-  <h3 class="h3">Conectando o Instagram ao Business Manager</h3>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>Converta para conta profissional</h4><p>No Instagram, vá em <strong>Configurações</strong> (ícone de três linhas) → <strong>"Conta"</strong> → <strong>"Mudar para conta profissional"</strong>. Selecione <strong>"Empresa"</strong> (não criador). Categoria: "Tatuagem e Piercing". Conecte à sua Página do Facebook quando solicitado.</p></div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>Vincule ao Business Manager</h4><p>No Business Manager → <strong>Configurações do Business</strong> → <strong>"Contas do Instagram"</strong> → <strong>"Adicionar"</strong>. Clique em <strong>"Conectar sua conta do Instagram"</strong>. Faça login com as credenciais do Instagram e autorize.</p></div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><h4>Verifique a conexão</h4><p>Sua conta deve aparecer listada em "Contas do Instagram" com o status <strong>"Ativo"</strong> em verde. Se aparecer com aviso, clique sobre ela e siga as instruções de resolução.</p></div></div>
-  </div>
-
-  <h3 class="h3">Configurando o WhatsApp Business profissionalmente</h3>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>Instale o WhatsApp Business</h4><p>Baixe o app <strong>WhatsApp Business</strong> (diferente do WhatsApp normal — tem ícone de maleta). Instale e cadastre o número profissional do estúdio — não seu número pessoal.</p></div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>Configure o perfil comercial completo</h4>
-      <div class="campo"><div class="campo-icon">🖼️</div><div class="campo-body"><h5>Foto de perfil</h5><p>Use sua logo em fundo preto — mesmo padrão da Página do Facebook</p></div></div>
-      <div class="campo"><div class="campo-icon">📝</div><div class="campo-body"><h5>Nome do negócio</h5><div class="val">Carlos Tattoo BH</div></div></div>
-      <div class="campo"><div class="campo-icon">📋</div><div class="campo-body"><h5>Descrição</h5><p>Escreva seus estilos e diferenciais em até 256 caracteres</p><div class="val">Estúdio premium de tatuagem em BH. Realismo, cobertura, fineline e muito mais. 7 anos transformando ideias em arte. Seg-Sáb 10h-19h 📍 Mantiqueira</div></div></div>
-      <div class="campo"><div class="campo-icon">🕐</div><div class="campo-body"><h5>Horário de atendimento</h5><div class="val">Segunda a Sábado: 10:00 - 19:00</div></div></div>
-    </div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><h4>Configure as Respostas Rápidas</h4><p>Vá em <strong>Configurações</strong> → <strong>"Ferramentas comerciais"</strong> → <strong>"Respostas rápidas"</strong>. Crie atalhos para as mensagens mais enviadas:</p>
-      <div class="script" style="margin-top:12px;">
-        <span class="script-lbl">Atalho: /oi — Mensagem de boas-vindas</span>
-        <div class="sl">Olá! 👋 Seja bem-vindo(a) ao Carlos Tattoo BH! Vi que você entrou em contato. Para eu preparar o melhor projeto pra você, pode me contar mais sobre sua ideia de tatuagem?</div>
+  <div class="manifesto">
+    <h3>O manual que não envelhece</h3>
+    <p style="color:var(--parch-dim)">Todo tutorial clique-a-clique tem um inimigo: a Meta muda a interface e o passo a passo quebra. Este material foi construído em duas camadas — para você nunca ficar na mão quando um botão mudar de lugar.</p>
+    <div class="two-col">
+      <div class="pillar stable">
+        <div class="t">◆ O que nunca muda</div>
+        <p>Os princípios: como um leilão de anúncios funciona, por que público quente converte mais barato, o que torna um criativo de tattoo irresistível, a matemática de um lead lucrativo. Isso é o corpo do material. Vale em 2026, vale em 2030.</p>
       </div>
-      <div class="script">
-        <span class="script-lbl">Atalho: /preco — Resposta sobre preço</span>
-        <div class="sl">Os valores variam de acordo com o tamanho, estilo e local do corpo. Para te dar um orçamento preciso, preciso entender melhor seu projeto. Me manda uma referência de imagem ou descreve o que você está pensando! 😊</div>
+      <div class="pillar change">
+        <div class="t">◆ O que muda com o tempo</div>
+        <p>Nomes de botões, telas e menus. Sempre que um passo depender da interface, você verá um aviso amarelo. A regra: entenda o <em>objetivo</em> do passo — o caminho até ele pode mudar, o objetivo não.</p>
       </div>
-      <div class="script">
-        <span class="script-lbl">Atalho: /agenda — Disponibilidade</span>
-        <div class="sl">Tenho disponibilidade na próxima semana! Para confirmar sua vaga, trabalho com sinal de R$100 (descontado no total). Qual dia da semana funciona melhor para você?</div>
+    </div>
+  </div>
+
+  <div class="iface">
+    <span class="h">⚠ Aviso de interface</span>
+    Quando você ver este box, é sinal de que a Meta pode ter mudado a tela desde a escrita. O botão pode estar com outro nome ou noutro canto — procure pela <strong>função</strong>, não pela palavra exata.
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ============ FIRST WIDGET: quanto vale um cliente ============ -->
+<section class="section reveal">
+  <div class="eyebrow">Ferramenta ao vivo</div>
+  <h2 class="big">Quanto você pode pagar por um cliente?</h2>
+  <p>Antes de gastar R$1 em anúncio, você precisa saber esse número. É ele que decide se sua campanha dá lucro ou prejuízo. Ajuste os valores abaixo com a realidade do seu estúdio — o painel calcula sozinho.</p>
+
+  <div class="widget">
+    <div class="wtag"><span class="dot"></span> Calculadora de lucro por cliente</div>
+    <h3>Painel do teto de custo</h3>
+    <div class="wsub">Descubra quanto pode custar cada lead e cada cliente fechado sem sair do lucro.</div>
+    <div class="grid2">
+      <div class="ctrl">
+        <label>Seu ticket médio por sessão (R$)</label>
+        <input type="number" id="w1_ticket" value="850" min="0" step="50">
       </div>
-    </div></div>
-    <div class="step"><div class="sn">4</div><div class="st"><h4>Configure a Mensagem de Ausência</h4><p>Em Ferramentas Comerciais → <strong>"Mensagem de ausência"</strong>, ative e configure:</p>
-      <div class="script" style="margin-top:10px;">
-        <span class="script-lbl">Mensagem de ausência — fora do horário</span>
-        <div class="sl">Oi! 🎨 Obrigado por entrar em contato com o Carlos Tattoo BH! Nosso horário de atendimento é de segunda a sábado das 10h às 19h. Vou responder assim que possível! Enquanto isso, confira nosso portfolio: instagram.com/carlostattoo.bh</div>
+      <div class="ctrl">
+        <label>De cada 10 orçamentos, quantos fecham?</label>
+        <input type="number" id="w1_close" value="3" min="1" max="10" step="1">
       </div>
-    </div></div>
-    <div class="step"><div class="sn">5</div><div class="st"><h4>Vincule o WhatsApp ao Business Manager</h4><p>No Business Manager → Configurações → <strong>"Contas do WhatsApp"</strong> → <strong>"Adicionar"</strong>. Insira o número no formato internacional:</p><div class="code">+55 31 9 8339-1576</div><p>Siga o processo de verificação por SMS ou ligação. Após verificado, o número aparece vinculado e você pode usar como destino nas campanhas de Mensagens.</p></div></div>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Tráfego Tattoo do Zero 2026</span><span>Página 30-36</span></div>
-</div>
-
-<!-- MÓDULO 2 -->
-<div class="mh pb" id="mod2">
-  <div class="mh-bg-n">02</div>
-  <div class="mh-lbl">Módulo 02</div>
-  <div class="mh-title">Criando sua<br><b>Primeira Campanha</b></div>
-  <div class="mh-desc">Agora que sua estrutura está configurada, vamos criar sua primeira campanha do zero. Cada tela, cada campo, cada configuração será explicada — você não vai precisar adivinhar nada.</div>
-  
-</div>
-
-<!-- CAP 6 - CRIANDO CAMPANHA -->
-<div class="page pb">
-  <div class="ph"><span>Módulo 02 · Capítulo 06</span></div>
-  <div class="bg-n">06</div>
-  <span class="lbl">Capítulo 06</span>
-  <h2 class="h2">Criando campanha de <b>Mensagens para WhatsApp</b></h2>
-  <p>Vamos criar a campanha mais eficaz para tatuadores: objetivo Mensagens, destino WhatsApp. Quando o cliente clicar no anúncio, uma conversa vai abrir direto no WhatsApp do seu estúdio — sem intermediários.</p>
-
-  <h3 class="h3">Acessando o Gerenciador de Anúncios</h3>
-  <p>Acesse:</p>
-  <div class="code">adsmanager.facebook.com</div>
-  <p>Você vai ver o painel principal com campanhas, conjuntos e anúncios. Clique no botão verde <strong>"+ Criar"</strong> no canto superior esquerdo.</p>
-
-  <h3 class="h3">Nível 1 — Campanha: configurando o objetivo</h3>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>Escolha o objetivo</h4><p>Uma lista de objetivos vai aparecer. Você vai ver: Reconhecimento, Tráfego, Engajamento, Leads, Promoção de app, Vendas e <strong>Engajamento</strong>. Procure e clique em <strong>"Engajamento"</strong>. Na próxima tela, no campo "Tipo de engajamento", selecione <strong>"Mensagens"</strong>.</p></div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>Dê um nome à campanha</h4><p>No campo "Nome da campanha", use um nome descritivo que você vai entender quando tiver várias campanhas rodando:</p><div class="code">Tattoo BH - Mensagens WPP - [Estilo] - [Data]</div><p>Exemplo: <em>Tattoo BH - Mensagens WPP - Cobertura - Jan2026</em></p></div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><h4>Teste A/B e Orçamento de Campanha</h4><p><strong>Teste A/B:</strong> Deixe desativado por agora — vamos aprender isso no Módulo 4.</p><p><strong>Orçamento da Campanha:</strong> Deixe <strong>desativado</strong> também. Vamos definir o orçamento no nível do Conjunto de Anúncios — isso dá mais controle sobre quanto cada público gasta.</p></div></div>
-    <div class="step"><div class="sn">4</div><div class="st"><h4>Clique em "Avançar"</h4><p>Você vai para o nível do Conjunto de Anúncios.</p></div></div>
+    </div>
+    <div class="ctrl">
+      <label>Margem que você quer proteger no anúncio <span class="rangeval" id="w1_marginval">30%</span></label>
+      <input type="range" id="w1_margin" min="10" max="70" value="30" step="5">
+    </div>
+    <div class="readout">
+      <div class="row"><span class="k">Teto por cliente fechado</span><span class="v" id="w1_cac">—</span></div>
+      <div class="row"><span class="k">Teto por lead (conversa no WhatsApp)</span><span class="v" id="w1_cpl">—</span></div>
+      <div class="row"><span class="k">Leads para fechar 1 cliente</span><span class="v" id="w1_ratio">—</span></div>
+    </div>
+    <div class="verdict a" id="w1_verdict"><span class="vh">Como ler isso</span><span id="w1_txt">Ajuste os campos acima com seus números reais.</span></div>
   </div>
 
-  <div class="box-tip">
-    <span class="box-tip-i">💡</span>
-    <p><strong>Por que objetivo Mensagens e não Tráfego?</strong> Com objetivo Tráfego, você paga por clique — mas o clique pode ser de alguém apenas curioso. Com Mensagens, você paga por conversa iniciada — ou seja, só paga quando alguém demonstra intenção real de contato. Muito mais eficiente para tattoo.</p>
+  <div class="playbook">
+    <h4>Os números que eu persigo nas minhas campanhas</h4>
+    <p>Rodando campanha de <strong>Fechamento de Perna</strong> com objetivo de conversa no WhatsApp, esses são os meus parâmetros de custo por conversa iniciada (CPR). Use-os como bússola, não como lei — seu nicho e sua cidade mexem no número.</p>
+    <div class="stat-row">
+      <div class="stat"><span class="v">R$2,80<span style="font-size:14px">–3,50</span></span><span class="k">CPR de excelência</span></div>
+      <div class="stat"><span class="v">R$4,50</span><span class="k">Teto aceitável</span></div>
+      <div class="stat"><span class="v">7 dias</span><span class="k">Mínimo antes de mexer</span></div>
+    </div>
   </div>
-  <div class="pf"><span>Carlos Tattoo BH — Tráfego Tattoo do Zero 2026</span><span>Página 37-43</span></div>
+</section>
 </div>
 
-<!-- CAP 7 - CONJUNTO DE ANÚNCIOS -->
-<div class="page pb">
-  <div class="ph"><span>Módulo 02 · Capítulo 07</span></div>
-  <div class="bg-n">07</div>
-  <span class="lbl">Capítulo 07</span>
-  <h2 class="h2">Configurando o <b>Conjunto de Anúncios</b></h2>
-  <p>O Conjunto de Anúncios é onde você define PARA QUEM mostrar seu anúncio, QUANDO mostrar e QUANTO gastar. É o nível mais estratégico da campanha.</p>
+<div class="wrap">
+<div class="rule"></div>
 
-  <h3 class="h3">Configurando campo por campo</h3>
+<!-- ============ TOC ============ -->
+<section class="section reveal">
+  <div class="eyebrow">O caminho completo</div>
+  <h2 class="big">Os 7 módulos</h2>
+  <p class="lead">Do primeiro botão à agenda lotada. Cada módulo é uma decisão a menos que você toma no escuro.</p>
+  <div class="toc">
+    <a href="#mod1"><span class="mn">01</span><span class="tt">Fundação — conta, Business Manager e Pixel sem erro</span><span class="dg">a base</span></a>
+    <a href="#mod2"><span class="mn">02</span><span class="tt">A campanha de WhatsApp que enche a agenda</span><span class="dg">execução</span></a>
+    <a href="#mod3"><span class="mn">03</span><span class="tt">Criativo — filmar, editar e escrever o que faz agendar</span><span class="dg">o que converte</span></a>
+    <a href="#mod4"><span class="mn">04</span><span class="tt">Públicos — clonar seus melhores clientes e recuperar leads</span><span class="dg">precisão</span></a>
+    <a href="#mod5"><span class="mn">05</span><span class="tt">Ler os números — quando pausar, escalar ou testar</span><span class="dg">inteligência</span></a>
+    <a href="#mod6"><span class="mn">06</span><span class="tt">Atendimento — transformar conversa em sessão marcada</span><span class="dg">o fechamento</span></a>
+    <a href="#mod7"><span class="mn">07</span><span class="tt">Plano de 90 dias, checklist vivo e diagnóstico</span><span class="dg">o mapa</span></a>
+  </div>
+</section>
+</div>
 
-  <div class="tut-box">
-    <div class="tut-header"><div class="tut-dot"></div><div class="tut-header-title">Campo: Nome do conjunto</div></div>
-    <div class="tut-body">
-      <p>Use um nome que identifique o público deste conjunto. Exemplo:</p>
-      <div class="code">Público - BH 20-40 - Interesse Tattoo</div>
-      <p>Quando você tiver vários conjuntos, esse nome vai te ajudar a identificar qual público está dentro de cada um.</p>
+<!-- ============ MODULE 1 ============ -->
+<div class="wrap" id="mod1">
+<div class="modhead reveal">
+  <div class="mnum">01</div>
+  <div class="mtitle">Fundação</div>
+  <div class="mdesc">A estrutura invisível. Ninguém vê, mas é o que decide se seus anúncios vão longe ou travam no primeiro dia.</div>
+</div>
+
+<section class="section reveal">
+  <h2 class="big">1.1 · Página, Business Manager e as três contas que você confunde</h2>
+  <p>90% dos tatuadores travam aqui porque misturam três coisas diferentes. Grave isto: <strong>Perfil pessoal</strong> é você. <strong>Página</strong> é o estúdio. <strong>Business Manager</strong> é o cofre que guarda tudo (Página, conta de anúncios, Pixel, Instagram). Você anuncia a partir da Página, dentro do Business Manager, usando uma conta de anúncios. Três camadas, um sistema.</p>
+
+  <div class="tip"><span class="h">Por que isso importa</span> Se você anunciar direto do perfil pessoal ou de uma Página solta, perde histórico, perde o Pixel e um bloqueio de conta leva tudo junto. Business Manager é o que separa amador de profissional.</div>
+
+  <h3 style="color:var(--parch);font-size:20px;margin:30px 0 10px">Criando a Página do estúdio</h3>
+  <div class="step"><div class="num">1</div><div class="body"><div class="st">Crie a Página</div><p>Acesse a criação de Páginas logado na sua conta pessoal. A Página fica vinculada a você, mas seus amigos não veem sua atividade profissional no feed.</p></div></div>
+  <div class="step"><div class="num">2</div><div class="body"><div class="st">Categoria certa</div><p>No campo de categoria, digite "Tatuagem" e escolha <span class="field">Tatuagem e Piercing</span>. Isso ensina o algoritmo o que você é e ajuda em buscas.</p></div></div>
+  <div class="step"><div class="num">3</div><div class="body"><div class="st">Foto de perfil = logo, nunca rosto</div><p>Use a logo em fundo escuro, mínimo <span class="field">500×500px</span>. Ela vai aparecer minúscula nos anúncios — precisa ser reconhecível no tamanho de uma moeda.</p></div></div>
+  <div class="step"><div class="num">4</div><div class="body"><div class="st">Capa sem texto de contato</div><p>Ideal <span class="field">1640×856px</span>. Use seu melhor trabalho. Não escreva telefone/endereço na imagem — o Meta reprova anúncios com muito texto sobreposto.</p></div></div>
+
+  <div class="iface"><span class="h">⚠ Aviso de interface</span> A Meta migra a criação de Páginas de tempos em tempos (às vezes fica dentro das Configurações do Business Manager). Se o link direto não abrir, procure por "Criar Página" dentro do Gerenciador de Negócios — o objetivo é o mesmo.</div>
+
+  <h2 class="big" style="margin-top:50px">1.2 · Business Manager campo por campo</h2>
+  <p>É o painel administrativo do seu negócio na Meta. Aqui você centraliza Página, conta de anúncios, Pixel e acessos.</p>
+  <div class="step"><div class="num">1</div><div class="body"><div class="st">Crie a conta de negócios</div><p>Preencha nome do negócio (o nome real do estúdio), seu nome e e-mail comercial — de preferência o <span class="field">carlostattoobh@gmail.com</span>, não um pessoal aleatório.</p></div></div>
+  <div class="step"><div class="num">2</div><div class="body"><div class="st">Adicione a Página ao cofre</div><p>Em Ativos → Páginas → Adicionar. Escolha "Adicionar uma Página que já é sua". Reivindicar sua própria Página é diferente de pedir acesso à de outro — não erre isso.</p></div></div>
+  <div class="step"><div class="num">3</div><div class="body"><div class="st">Adicione-se como administrador</div><p>Garanta que você tenha controle total. Se um dia contratar um gestor de tráfego, você adiciona ele como parceiro — sem nunca entregar sua senha.</p></div></div>
+  <div class="tip"><span class="h">Regra de ouro</span> Nunca dê sua senha para um gestor de tráfego. Adicione-o pelo Business Manager. Quando a parceria acabar, você remove o acesso em 5 segundos e continua dono de tudo.</div>
+
+  <h2 class="big" style="margin-top:50px">1.3 · Conta de anúncios e pagamento</h2>
+  <p>Dentro do Business Manager, crie a conta de anúncios. Nome sugerido: "Estúdio — Anúncios". Fuso <span class="field">GMT-3 Brasília</span>, moeda <span class="field">BRL</span>. <strong>Cuidado:</strong> fuso e moeda não podem ser mudados depois. Erre aqui e você cria conta nova.</p>
+  <div class="step"><div class="num">1</div><div class="body"><div class="st">Cadastre o pagamento</div><p>Cartão de crédito de preferência empresarial. Comece com limite de gasto de conta baixo (ex.: R$500) enquanto testa — é um freio de segurança contra erro de configuração.</p></div></div>
+
+  <h2 class="big" style="margin-top:50px">1.4 · O Pixel — o olho da sua campanha</h2>
+  <p>O Pixel é um código no seu site que conta ao Meta o que as pessoas fazem: quem visitou, quem clicou no WhatsApp, quem viu a página de agendamento. Sem ele, você anuncia cego. Com ele, você constrói públicos de ouro (Módulo 4).</p>
+  <div class="step"><div class="num">1</div><div class="body"><div class="st">Crie o Pixel (Conjunto de dados)</div><p>Em Gerenciador de Eventos → Conectar fonte de dados → Web. Dê o nome do estúdio. A Meta hoje chama isso de "Conjunto de dados" — é o mesmo Pixel de sempre.</p></div></div>
+  <div class="step"><div class="num">2</div><div class="body"><div class="st">Instale no site</div><p>Se seu site é HTML puro (como o seu), cole o código base antes do <span class="field">&lt;/head&gt;</span> de todas as páginas. Se usa plataforma, há integração pronta.</p></div></div>
+  <div class="step"><div class="num">3</div><div class="body"><div class="st">Verifique com o Meta Pixel Helper</div><p>Instale a extensão no Chrome, abra seu site: o ícone fica azul e mostra "PageView" disparando. Verde = funcionando. Não pule esta conferência.</p></div></div>
+  <div class="playbook">
+    <h4>Meu Pixel na prática</h4>
+    <p>O Pixel <span class="field">1151853265430926</span> roda no meu site desde o início. É ele que me deixa criar público de quem visitou a página de perna, ou de quem chegou até o agendamento e não fechou — e reimpactar essas pessoas por centavos. Público quente fecha 3 a 5× mais barato que frio. O Pixel é o que constrói esse público sozinho enquanto você tatua.</p>
+  </div>
+
+  <h2 class="big" style="margin-top:50px">1.5 · Conectando Instagram e WhatsApp Business</h2>
+  <p>Para rodar campanha que abre conversa no WhatsApp, os três precisam estar amarrados: Página, Instagram profissional e um número de WhatsApp Business.</p>
+  <div class="step"><div class="num">1</div><div class="body"><div class="st">Instagram profissional no Business Manager</div><p>Converta o @ para conta profissional e vincule à Página em Ativos → Contas do Instagram. Isso libera anunciar aparecendo pelo seu @.</p></div></div>
+  <div class="step"><div class="num">2</div><div class="body"><div class="st">WhatsApp Business configurado como vitrine</div><p>Foto = logo. Nome = estúdio. Recado/descrição, horário, endereço, catálogo com fotos de trabalhos e faixas de preço. Mensagem de saudação automática. O WhatsApp é onde a venda acontece — trate como loja, não como chat.</p></div></div>
+  <div class="tip"><span class="h">Checagem final do módulo</span> Business Manager criado ✓ Página dentro dele ✓ Conta de anúncios com pagamento ✓ Pixel verde no Pixel Helper ✓ Instagram e WhatsApp conectados ✓. Só avance para campanha com os cinco marcados.</div>
+</section>
+</div>
+
+<!-- ============ MODULE 2 ============ -->
+<div class="wrap" id="mod2">
+<div class="modhead reveal">
+  <div class="mnum">02</div>
+  <div class="mtitle">A Campanha</div>
+  <div class="mdesc">Objetivo, público e anúncio. A estrutura de três níveis que transforma orçamento em conversas de WhatsApp.</div>
+</div>
+
+<section class="section reveal">
+  <p class="lead">Toda campanha tem 3 níveis: <strong>Campanha</strong> (o objetivo), <strong>Conjunto</strong> (para quem e quanto), <strong>Anúncio</strong> (o que ele vê). Errar o nível certo do ajuste é o erro nº1 de iniciante.</p>
+
+  <h2 class="big">2.1 · Nível Campanha — o objetivo certo</h2>
+  <p>Para tatuador, o objetivo quase sempre é <strong>Interações → conversa por mensagem</strong>, destino WhatsApp. Você paga por conversa iniciada, não por clique vago. Cada real vira alguém falando com você.</p>
+  <div class="step"><div class="num">1</div><div class="body"><div class="st">Escolha o objetivo</div><p>Selecione <span class="field">Interações</span> (em versões antigas: "Mensagens"). No local da conversa, escolha WhatsApp.</p></div></div>
+  <div class="step"><div class="num">2</div><div class="body"><div class="st">Nome que você entende em 6 meses</div><p>Padrão: <span class="field">[Objetivo] · [Serviço] · [Mês]</span> — ex.: "Msg · Fechamento de Perna · Jul". Nomear bem hoje é não se perder quando tiver 20 campanhas.</p></div></div>
+  <div class="step"><div class="num">3</div><div class="body"><div class="st">Orçamento na campanha (Advantage/CBO)</div><p>Deixe o Meta distribuir o orçamento entre os conjuntos. Comece com <strong>R$20–30/dia</strong> por campanha. Dá para começar com menos, mas abaixo de R$15/dia o algoritmo demora demais para aprender.</p></div></div>
+
+  <div class="iface"><span class="h">⚠ Aviso de interface</span> "Interações" já se chamou "Mensagens" e "Engajamento". Se o nome mudar de novo, procure o objetivo cuja descrição fala em <strong>conversas por mensagem / WhatsApp</strong>. É esse, não importa o rótulo.</div>
+
+  <h2 class="big" style="margin-top:50px">2.2 · Nível Conjunto — para quem, onde e quanto</h2>
+  <div class="step"><div class="num">1</div><div class="body"><div class="st">Local da conversa: WhatsApp</div><p>Confirme que a conversa cai no seu número Business, não no Direct.</p></div></div>
+  <div class="step"><div class="num">2</div><div class="body"><div class="st">Público — comece com o raio geográfico</div><p>Belo Horizonte + raio de 15–20km. Idade 22–45 (quem tem renda para tattoo premium). Deixe interesses <em>abertos</em> no início — o algoritmo acha o cliente melhor que você quando o criativo é bom. Interesse é muleta; criativo é o filtro real.</p></div></div>
+  <div class="step"><div class="num">3</div><div class="body"><div class="st">Posicionamentos automáticos</div><p>Deixe automático (Advantage+). O Meta acha os lugares mais baratos: Reels, Stories, Feed. Você limita só se tiver motivo forte.</p></div></div>
+  <div class="playbook">
+    <h4>Como eu monto o público de perna</h4>
+    <p>Nas campanhas de fechamento de perna eu não começo pelo interesse — começo pelo <strong>criativo específico do serviço</strong> num público amplo de BH. Para escalar, eu ligo meus públicos de valor: a base de <strong>100 mil contatos</strong> (que casa 1,5–1,7 milhão de alcance) e os <strong>lookalikes de 1%, 1–2% e 2–3%</strong> em cima dela. Frio para descobrir, semelhante para escalar. Isso está detalhado no Módulo 4.</p>
+  </div>
+
+  <h2 class="big" style="margin-top:50px">2.3 · Nível Anúncio — o que a pessoa vê</h2>
+  <div class="step"><div class="num">1</div><div class="body"><div class="st">Identidade: seu @</div><p>Anúncio pela Página, aparecendo também pelo Instagram do estúdio. Prova social junto = mais confiança.</p></div></div>
+  <div class="step"><div class="num">2</div><div class="body"><div class="st">Mídia: vídeo &gt; carrossel &gt; imagem</div><p>Para tattoo, <strong>vídeo do processo vence quase sempre</strong> — movimento da agulha prende. Segundo lugar: carrossel antes/depois. Módulo 3 ensina a produzir os dois no celular.</p></div></div>
+  <div class="step"><div class="num">3</div><div class="body"><div class="st">Texto principal e primeira linha</div><p>As duas primeiras linhas decidem tudo (o resto fica escondido atrás do "ver mais"). Comece pela dor ou pelo desejo, não por "olá, somos o estúdio X". 12 textos prontos no Módulo 3.</p></div></div>
+  <div class="step"><div class="num">4</div><div class="body"><div class="st">Botão e mensagem pré-preenchida</div><p>Botão <span class="field">Enviar mensagem</span>. Configure a mensagem automática que a pessoa envia ao clicar — ex.: "Vi o anúncio da tatuagem e quero um orçamento". Isso já qualifica e organiza seu WhatsApp.</p></div></div>
+
+  <h2 class="big" style="margin-top:50px">2.4 · Revisar e publicar — checklist antes de gastar</h2>
+  <p>Antes de clicar em publicar, confira em voz alta:</p>
+  <div class="table-wrap"><table>
+    <tr><th>Item</th><th>O que verificar</th></tr>
+    <tr><td><strong>Objetivo</strong></td><td>Conversa por WhatsApp, não tráfego solto</td></tr>
+    <tr><td><strong>Orçamento</strong></td><td>No nível certo, valor que você aguenta 7 dias</td></tr>
+    <tr><td><strong>Público</strong></td><td>Cidade + raio corretos, idade coerente</td></tr>
+    <tr><td><strong>Criativo</strong></td><td>Vídeo carrega, primeira linha forte, sem texto demais na imagem</td></tr>
+    <tr><td><strong>Destino</strong></td><td>Cai no WhatsApp Business certo, mensagem pré-preenchida ok</td></tr>
+    <tr><td><strong>Pixel</strong></td><td>Ativo e verde</td></tr>
+  </table></div>
+  <div class="tip"><span class="h">Depois de publicar</span> Vai para análise (até 24h). Não mexa em nada nos primeiros dias — cada edição zera o aprendizado do algoritmo. Publicou, respira, deixa aprender. Paciência aqui é dinheiro.</div>
+</section>
+</div>
+
+<!-- ============ MODULE 3 ============ -->
+<div class="wrap" id="mod3">
+<div class="modhead reveal">
+  <div class="mnum">03</div>
+  <div class="mtitle">O Criativo</div>
+  <div class="mdesc">O anúncio é 80% do resultado. Público bom não salva criativo ruim — mas criativo excelente perdoa público mediano.</div>
+</div>
+
+<section class="section reveal">
+  <h2 class="big">3.1 · Filmando com o celular (resultado de estúdio)</h2>
+  <p>Você não precisa de câmera profissional. Precisa de luz, estabilidade e enquadramento. É assim que eu faço todo o meu conteúdo — iPhone na mão.</p>
+  <div class="step"><div class="num">1</div><div class="body"><div class="st">Trave a exposição e o foco</div><p>Toque e segure na tatuagem até travar (AE/AF Lock). Isso evita o vídeo "respirando" de foco enquanto você trabalha. Grave em 4K se der, 1080p 60fps no mínimo.</p></div></div>
+  <div class="step"><div class="num">2</div><div class="body"><div class="st">Luz é o fator nº1</div><p>Uma luz forte e lateral (ring light ou softbox barata) revela o relevo da pele e o preto e cinza. Luz de teto direta achata tudo. Se só tiver janela, filme de dia com a pele voltada para ela.</p></div></div>
+  <div class="step"><div class="num">3</div><div class="body"><div class="st">Enquadramentos que funcionam</div><p>Close da agulha entrando na pele (hipnótico), mão em movimento, detalhe do traço surgindo, e o reveal final limpo. Grave sempre 3× mais material do que precisa — sobra é liberdade na edição.</p></div></div>
+
+  <h2 class="big" style="margin-top:50px">3.2 · Editando no CapCut</h2>
+  <p>App gratuito, no celular. A receita do Reel de processo que converte:</p>
+  <div class="step"><div class="num">1</div><div class="body"><div class="st">Gancho nos primeiros 2 segundos</div><p>Abra com o momento mais forte — a agulha ou o antes/depois — não com introdução. Se não prender em 2s, a pessoa rola.</p></div></div>
+  <div class="step"><div class="num">2</div><div class="body"><div class="st">Corte no ritmo</div><p>Trocas de cena a cada 1–2s. Acelere trechos longos (2×–4×). Tédio mata retenção, e retenção é o que baixa seu custo.</p></div></div>
+  <div class="step"><div class="num">3</div><div class="body"><div class="st">Legenda sempre</div><p>A maioria assiste sem som. Ative legendas automáticas e revise. Uma frase de texto na tela contando a transformação ("cicatriz que ela escondia há 8 anos") multiplica o impacto.</p></div></div>
+  <div class="iface"><span class="h">⚠ Aviso de interface</span> CapCut muda menus com frequência. Os nomes das ferramentas podem variar — o que não muda é a receita: gancho forte, cortes rápidos, legenda, reveal final.</div>
+
+  <h2 class="big" style="margin-top:50px">3.3 · Carrossel antes/depois no Canva</h2>
+  <p>Para cobertura e reforma, o antes/depois estático converte muito. No Canva: formato <span class="field">1080×1350</span>, slide 1 = "antes" com uma seta ou tarja "ANTES", slide 2 = resultado, slide 3 = CTA ("Manda a foto da sua no WhatsApp"). Mantenha o Estilo A: fundo escuro, dourado discreto, sem poluição.</p>
+
+  <h2 class="big" style="margin-top:50px">3.4 · 12 textos de anúncio prontos — por estilo</h2>
+  <p>Copie, ajuste o que estiver entre colchetes e teste. Nunca rode um texto sozinho: teste 2 a 3 por vez (Módulo 5). Toque em <em>copiar</em> em cada um.</p>
+
+  <div class="script"><span class="lbl">01 · Cobertura / Cover-up</span>Aquela tatuagem que você esconde tem conserto. <br>Transformo cobertura em arte que você vai querer mostrar. Realismo em preto e cinza, projeto sob medida pra tampar de vez o que te incomoda.<br>Manda a foto da tattoo atual aqui no WhatsApp que eu te digo o que dá pra fazer. <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">02 · Realismo preto e cinza</span>Realismo que envelhece bem — não borra em 5 anos.<br>Cada sombra pensada pra pele, não pro Instagram de hoje. Se você quer uma peça pra vida inteira, e não uma moda, a gente precisa conversar.<br>Chama no WhatsApp com sua ideia e a região do corpo. <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">03 · Fechamento de perna</span>Fechar a perna não é juntar tatuagens soltas. É um projeto.<br>Fluxo, ritmo, história — feito pra fazer sentido de cima a baixo. Faço em etapas, no seu tempo e no seu bolso.<br>Me manda o que você já tem (ou uma foto da perna limpa) que eu desenho o plano. <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">04 · Pele com cicatriz / especial</span>Cicatriz não é o fim da sua pele. Pode ser o começo de uma arte.<br>Trabalho com pele que muitos recusam — cicatrizes, estrias, marcas. Técnica específica, expectativa honesta, resultado real.<br>Manda a foto da região no WhatsApp que eu te falo com franqueza o que é possível. <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">05 · Fineline</span>Traço fino não perdoa mão tremida.<br>Linha limpa, delicada, feita pra durar sem engrossar. Se você quer algo sutil e bem-feito, o detalhe está em quem faz.<br>Chama no WhatsApp com a referência que eu te oriento. <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">06 · Primeira tatuagem</span>Primeira tattoo dá frio na barriga — e tem que dar certo.<br>Te explico cada passo, tiro suas dúvidas, e faço num ambiente onde você se sente seguro. Sem pressão, sem susto.<br>Manda sua ideia no WhatsApp que a gente conversa com calma. <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">07 · Reforma / retoque de tattoo antiga</span>Tatuagem apagada tem vida nova.<br>Reforço, reformo e devolvo o impacto que o tempo tirou. Às vezes um retoque; às vezes um recomeço. Eu te digo qual é o seu caso.<br>Foto da tattoo atual no WhatsApp e eu avalio. <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">08 · Autoestima / significado</span>A tatuagem certa não cobre a pele. Ela devolve algo.<br>Confiança, memória, uma virada. Não vendo tinta — construo o que você vai olhar no espelho e gostar.<br>Me conta sua história no WhatsApp. O desenho vem depois. <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">09 · Autoridade / anos de experiência</span>7 anos, 2.400+ tatuagens, e ainda trato cada uma como se fosse a única.<br>Experiência não é só técnica — é saber o que vai ficar bom na SUA pele, daqui a 10 anos.<br>Traz sua ideia pro WhatsApp que eu te dou uma opinião de verdade. <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">10 · Urgência real (agenda)</span>Não trabalho com correria. Por isso a agenda é limitada.<br>Prefiro poucas peças bem-feitas a muitas atropeladas. Se você quer um projeto sério, vale garantir seu horário antes de fechar o mês.<br>Chama no WhatsApp pra ver as datas abertas. <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">11 · Orçamento fácil (baixa fricção)</span>Quer saber quanto custa sua ideia? É rápido.<br>Manda 3 coisas no WhatsApp: foto da região, tamanho aproximado e uma referência. Em minutos eu te passo uma estimativa honesta.<br>Sem compromisso — só pra você ter o número. <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">12 · Prova social / resultado</span>"Escondi essa cicatriz por 8 anos. Hoje é minha parte favorita."<br>Transformações assim são o que me move. Realismo, cobertura e pele especial — feitos pra mudar como você se vê.<br>Quer ver o seu caso? Manda a foto no WhatsApp. <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+</section>
+</div>
+
+<!-- ============ MODULE 4 ============ -->
+<div class="wrap" id="mod4">
+<div class="modhead reveal">
+  <div class="mnum">04</div>
+  <div class="mtitle">Públicos</div>
+  <div class="mdesc">Onde o dinheiro barato mora. Público certo é o que separa quem gasta de quem investe.</div>
+</div>
+
+<section class="section reveal">
+  <p class="lead">Existem 3 temperaturas: <strong>frio</strong> (nunca te viu), <strong>morno</strong> (já interagiu), <strong>quente</strong> (visitou seu site/WhatsApp). Quanto mais quente, mais barato fecha. Sua meta é sempre transformar frio em quente — e reimpactar o quente.</p>
+
+  <h2 class="big">4.1 · Públicos personalizados — sua base de ouro</h2>
+  <p>São listas construídas a partir de quem já teve contato com você. O Pixel do Módulo 1 alimenta isso sozinho.</p>
+  <div class="step"><div class="num">1</div><div class="body"><div class="st">Visitantes do site</div><p>Crie um público de "todos que visitaram nos últimos 180 dias". Depois refine: quem viu a página de perna, quem chegou no agendamento. Esses são leads quentes esquecidos.</p></div></div>
+  <div class="step"><div class="num">2</div><div class="body"><div class="st">Engajamento do Instagram e Página</div><p>Público de quem curtiu, comentou, salvou ou mandou DM nos últimos 365 dias. Gente que já te conhece e confia um pouco — converte barato.</p></div></div>
+  <div class="step"><div class="num">3</div><div class="body"><div class="st">Lista de contatos (CSV)</div><p>Exporte os telefones/e-mails dos seus clientes e suba como público personalizado. A Meta cruza com as contas e monta um público dos seus melhores clientes reais.</p></div></div>
+
+  <h2 class="big" style="margin-top:50px">4.2 · Lookalike — clonando quem já te paga</h2>
+  <p>A partir de um público personalizado bom (clientes reais, visitantes que fecharam), o Meta encontra pessoas <em>parecidas</em> que ainda não te conhecem. É a forma mais inteligente de escalar frio.</p>
+  <div class="step"><div class="num">1</div><div class="body"><div class="st">Escolha a fonte certa</div><p>Fonte ruim = clone ruim. Use sua lista de clientes ou quem realmente fechou. Quanto melhor a semente, melhor a colheita.</p></div></div>
+  <div class="step"><div class="num">2</div><div class="body"><div class="st">Percentual: comece apertado</div><p><strong>1%</strong> = os mais parecidos (menor alcance, mais preciso). <strong>2–3%</strong> = mais amplo, menos preciso. Comece no 1%, escale para 1–2% e 2–3% conforme o orçamento cresce.</p></div></div>
+  <div class="playbook">
+    <h4>Minha escada de públicos</h4>
+    <p>Eu mantenho lookalikes prontos em três camadas — <strong>1%, 1–2% e 2–3%</strong> — em cima da minha base de <strong>100 mil contatos</strong> (que casa 1,5–1,7M de alcance). Fluxo: descubro com criativo forte no frio amplo, encontro o que funciona, e escalo mandando esse criativo vencedor para os lookalikes. Nunca escalo um criativo que ainda não provou no frio. Testar barato, escalar o vencedor.</p>
+  </div>
+
+  <h2 class="big" style="margin-top:50px">4.3 · Remarketing — recuperando quem não fechou</h2>
+  <p>A maioria não fecha na primeira. Remarketing é lembrar essas pessoas — e é onde está o dinheiro mais barato da sua conta.</p>
+  <div class="step"><div class="num">1</div><div class="body"><div class="st">Público de quem chegou perto</div><p>Visitou a página de serviço OU iniciou conversa no WhatsApp e sumiu, nos últimos 30 dias.</p></div></div>
+  <div class="step"><div class="num">2</div><div class="body"><div class="st">Criativo de reforço, não de descoberta</div><p>Para quem já te viu, mude a mensagem: prova social, um antes/depois forte, ou uma condição de agenda. "Vi que você se interessou — ainda dá tempo esse mês." Nunca repita o mesmo anúncio do frio.</p></div></div>
+  <div class="tip"><span class="h">Regra da temperatura</span> 70% do orçamento no frio (encher o topo), 20% no morno, 10% no remarketing quente. Sem topo, não há o que reimpactar. Sem remarketing, você deixa dinheiro na mesa.</div>
+</section>
+</div>
+
+<!-- ============ MODULE 5 ============ -->
+<div class="wrap" id="mod5">
+<div class="modhead reveal">
+  <div class="mnum">05</div>
+  <div class="mtitle">Ler os Números</div>
+  <div class="mdesc">Anunciar sem ler métrica é dirigir de olhos fechados. Aqui você aprende a decidir com dado, não com achismo.</div>
+</div>
+
+<section class="section reveal">
+  <h2 class="big">5.1 · As 5 métricas que importam (esqueça o resto)</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Métrica</th><th>O que é</th><th>O que fazer</th></tr>
+    <tr><td><strong>CPR</strong></td><td>Custo por conversa iniciada</td><td>Sua métrica-rainha. Persiga R$2,80–3,50</td></tr>
+    <tr><td><strong>CTR</strong></td><td>% que clica no anúncio</td><td>Baixo = criativo fraco. Troca o criativo</td></tr>
+    <tr><td><strong>CPM</strong></td><td>Custo por mil impressões</td><td>Subiu muito? Público saturado ou criativo cansado</td></tr>
+    <tr><td><strong>Frequência</strong></td><td>Vezes que a mesma pessoa viu</td><td>Passou de 3–4? Renove o criativo ou amplie o público</td></tr>
+    <tr><td><strong>Conversas</strong></td><td>Total de gente falando com você</td><td>O número que paga a conta. Cruze com fechamentos</td></tr>
+  </table></div>
+  <div class="tip"><span class="h">O erro clássico</span> Olhar curtidas e alcance e ignorar CPR e fechamento. Alcance não paga aluguel. Conversa que vira sessão, sim. Configure suas colunas no gerenciador para ver CPR, CTR, frequência e conversas juntos.</div>
+
+  <h2 class="big" style="margin-top:50px">5.2 · Diagnóstico de CPR ao vivo</h2>
+  <p>Pega o CPR da sua campanha no gerenciador e joga aqui. O painel usa os meus parâmetros reais de referência para te dizer em que zona você está.</p>
+
+  <div class="widget">
+    <div class="wtag"><span class="dot"></span> Termômetro de campanha</div>
+    <h3>Diagnóstico de CPR</h3>
+    <div class="wsub">Referência: excelência até R$3,50 · teto R$4,50 (campanhas de conversa no WhatsApp).</div>
+    <div class="ctrl">
+      <label>Seu CPR atual (R$)</label>
+      <input type="number" id="cpr_in" value="3.20" min="0" step="0.10">
+    </div>
+    <div class="meter"><div class="pin" id="cpr_pin" style="left:35%"></div></div>
+    <div class="meter-labels"><span>R$0</span><span>R$3,50 excelência</span><span>R$4,50 teto</span><span>R$6+</span></div>
+    <div class="verdict g" id="cpr_verdict"><span class="vh" id="cpr_vh">Zona de excelência</span><span id="cpr_txt">—</span></div>
+  </div>
+
+  <h2 class="big" style="margin-top:50px">5.3 · Planejador de orçamento e retorno</h2>
+  <p>Antes de subir o orçamento, veja o que ele deve gerar. Ajuste e enxergue leads, clientes, faturamento e retorno estimado do mês.</p>
+
+  <div class="widget">
+    <div class="wtag"><span class="dot"></span> Simulador de ROI mensal</div>
+    <h3>Planejador de investimento</h3>
+    <div class="wsub">Estimativa realista com base no seu CPR, taxa de fechamento e ticket.</div>
+    <div class="grid2">
+      <div class="ctrl"><label>Investimento no mês (R$)</label><input type="number" id="roi_budget" value="1000" min="0" step="100"></div>
+      <div class="ctrl"><label>CPR esperado (R$)</label><input type="number" id="roi_cpr" value="3.50" min="0.5" step="0.10"></div>
+    </div>
+    <div class="grid2">
+      <div class="ctrl"><label>De 10 conversas, quantas fecham?</label><input type="number" id="roi_close" value="2" min="1" max="10" step="1"></div>
+      <div class="ctrl"><label>Ticket médio (R$)</label><input type="number" id="roi_ticket" value="850" min="0" step="50"></div>
+    </div>
+    <div class="readout">
+      <div class="row"><span class="k">Conversas no mês</span><span class="v" id="roi_convos">—</span></div>
+      <div class="row"><span class="k">Clientes fechados</span><span class="v" id="roi_clients">—</span></div>
+      <div class="row"><span class="k">Faturamento estimado</span><span class="v" id="roi_rev">—</span></div>
+      <div class="row"><span class="k">Retorno sobre o anúncio (ROAS)</span><span class="v" id="roi_roas">—</span></div>
+    </div>
+    <div class="verdict a" id="roi_verdict"><span class="vh">Leitura</span><span id="roi_txt">Ajuste os campos com seus números.</span></div>
+  </div>
+  <div class="iface"><span class="h">⚠ Estimativa, não promessa</span> O simulador projeta com base nos números que VOCÊ inseriu. Realidade varia com criativo, oferta e atendimento. Use para planejar, não como garantia.</div>
+
+  <h2 class="big" style="margin-top:50px">5.4 · Quando pausar, quando escalar, quando testar</h2>
+  <div class="step"><div class="num">1</div><div class="body"><div class="st">Espere o aprendizado — mínimo 7 dias</div><p>Não julgue nem mexa nos primeiros dias. O algoritmo precisa de dados. <strong>Regra:</strong> só tome decisão de orçamento depois de 7 dias e de pelo menos ~50 resultados.</p></div></div>
+  <div class="step"><div class="num">2</div><div class="body"><div class="st">Escale devagar — 20% por vez</div><p>Campanha boa (CPR na zona verde)? Aumente o orçamento em no máximo <strong>20% a cada 3–4 dias</strong>. Salto grande reseta o aprendizado e o custo dispara. Escala é maratona, não sprint.</p></div></div>
+  <div class="step"><div class="num">3</div><div class="body"><div class="st">Pause com critério</div><p>CPR acima do teto (R$4,50) de forma consistente após o aprendizado = intervenção. Primeiro troque o <strong>criativo</strong> (é ele em 80% dos casos), depois o público. Pausar é o último recurso.</p></div></div>
+
+  <h2 class="big" style="margin-top:50px">5.5 · Teste A/B do jeito certo</h2>
+  <p>Testar é o que faz seu custo cair mês a mês. A regra: <strong>mude uma variável por vez</strong>. Se trocar criativo E público juntos, nunca vai saber o que funcionou.</p>
+  <div class="step"><div class="num">1</div><div class="body"><div class="st">Teste criativo primeiro</div><p>É a variável de maior impacto. Rode 2–3 vídeos/textos diferentes no mesmo público. Deixe o vencedor claro antes de mexer em qualquer outra coisa.</p></div></div>
+  <div class="step"><div class="num">2</div><div class="body"><div class="st">Depois teste oferta e público</div><p>Com o criativo vencedor fixo, teste a primeira linha do texto, depois o público. Um degrau por vez, sempre.</p></div></div>
+</section>
+</div>
+
+<!-- ============ MODULE 6 ============ -->
+<div class="wrap" id="mod6">
+<div class="modhead reveal">
+  <div class="mnum">06</div>
+  <div class="mtitle">O Fechamento</div>
+  <div class="mdesc">Anúncio bom que morre num atendimento ruim é dinheiro jogado fora. Aqui a conversa vira sessão marcada.</div>
+</div>
+
+<section class="section reveal">
+  <p class="lead">O anúncio traz a conversa. O <strong>atendimento</strong> traz o cliente. É o elo mais barato de melhorar e o mais ignorado. Um CPR de R$3 não vale nada se você perde a venda no "quanto custa?".</p>
+
+  <h2 class="big">6.1 · WhatsApp Business como CRM</h2>
+  <p>Organize os leads com o sistema de etiquetas do próprio WhatsApp Business:</p>
+  <div class="table-wrap"><table>
+    <tr><th>Etiqueta</th><th>Quando usar</th></tr>
+    <tr><td><strong>🆕 Novo lead</strong></td><td>Acabou de chamar, ainda não respondeu tudo</td></tr>
+    <tr><td><strong>💬 Em orçamento</strong></td><td>Você já passou valor, aguardando decisão</td></tr>
+    <tr><td><strong>📅 Agendado</strong></td><td>Fechou e marcou sessão</td></tr>
+    <tr><td><strong>❄️ Frio / follow-up</strong></td><td>Sumiu — entra na régua de reativação</td></tr>
+    <tr><td><strong>✅ Cliente</strong></td><td>Já tatuou — vira base de fidelização e lookalike</td></tr>
+  </table></div>
+  <div class="tip"><span class="h">Rotina diária</span> 2 horários fixos por dia para responder (ex.: 11h e 18h). Responder na hora, entre uma tatuagem e outra, gera atendimento atropelado. Bloco dedicado = resposta melhor e fechamento maior.</div>
+
+  <h2 class="big" style="margin-top:50px">6.2 · O script de atendimento — 6 etapas</h2>
+  <p>Não é robô. É um trilho para você conduzir sem perder o cliente. Adapte com sua voz.</p>
+
+  <div class="script"><span class="lbl">Etapa 1 · Acolher e qualificar</span>Opa, tudo bem? Que bom que chamou! 🙌 Pra eu te passar um orçamento certeiro, me manda 3 coisinhas: <br>1) Foto da região que você quer tatuar<br>2) Tamanho aproximado (mais ou menos em cm)<br>3) Uma referência ou a ideia que você tem<br><em>[Já filtra curioso de cliente real e te dá base pra orçar.]</em> <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">Etapa 2 · Valorizar antes de precificar</span>Adorei a ideia! Esse tipo de trabalho eu faço com foco em [realismo/cobertura/durabilidade] — pensando pra ficar bonito não só agora, mas daqui a 10 anos na sua pele. Deixa eu te explicar como funciona o projeto…<br><em>[Nunca solte o preço seco. Ancore valor primeiro.]</em> <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">Etapa 3 · Apresentar o valor com segurança</span>Pra esse projeto, o investimento fica em R$[VALOR]. Isso inclui o desenho personalizado, a sessão e o retoque de garantia em até 90 dias. Trabalho com agenda enxuta justamente pra cada peça sair impecável.<br><em>[Diga o preço com firmeza. Hesitou você, hesita o cliente.]</em> <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">Etapa 4 · Conduzir para a data</span>Faz sentido pra você? Se sim, eu tenho horário [dia] e [dia] essa semana. Qual encaixa melhor? Pra garantir a data eu peço um sinal de R$[SINAL].<br><em>[Assuma a venda. Ofereça datas, não pergunte "quer marcar?".]</em> <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">Etapa 5 · Confirmar com o contrato leve</span>Fechado! 🎉 Vou te mandar os termos rapidinho pra confirmar (data, valor, cuidados). É só você responder "concordo".<br><em>[Use o modelo do ebook Contrato Digital — aceite por print protege você.]</em> <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">Etapa 6 · Reduzir o no-show (véspera)</span>Oi [NOME]! Tudo certo pra amanhã às [HORA]? 😊 Vem alimentado, bem descansado e evita álcool hoje. Qualquer coisa me chama. Tô ansioso pra fazer sua peça!<br><em>[Confirmação na véspera derruba falta e reforça a experiência premium.]</em> <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <h2 class="big" style="margin-top:50px">6.3 · Objeções de preço — o que responder</h2>
+  <div class="script"><span class="lbl">"Tá caro"</span>Entendo! E é justo você pensar bem, tatuagem é pra vida toda. O que eu cobro reflete um trabalho que não borra, não precisa refazer e você não vai se arrepender depois. Sai mais barato fazer certo uma vez do que corrigir depois — inclusive metade dos meus clientes hoje vem justamente cobrir tatuagem barata que deu errado. <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">"Fulano faz mais barato"</span>Faz sim, e respeito. A diferença tá no que você leva pra pele: técnica, durabilidade e o cuidado de fazer sob medida pra você. Se o mais barato resolvesse, ninguém me procurava pra cobrir o mais barato 🙂 Mas sem pressão — quando quiser fazer algo pra durar, tô aqui. <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+
+  <div class="script"><span class="lbl">"Vou pensar"</span>Claro, pensa com calma! Só te adianto que minha agenda fecha rápido, então se bater o sim, me avisa que eu seguro uma data pra você. Enquanto isso, qualquer dúvida sobre o projeto, tô por aqui. <button class="copybtn" onclick="cp(this)">Copiar</button></div>
+  <div class="tip"><span class="h">Princípio</span> Objeção de preço quase nunca é sobre preço — é sobre valor percebido e confiança. Você não baixa o preço; você sobe o valor. Quem compete por ser o mais barato perde para o próximo mais barato.</div>
+</section>
+</div>
+
+<!-- ============ MODULE 7 ============ -->
+<div class="wrap" id="mod7">
+<div class="modhead reveal">
+  <div class="mnum">07</div>
+  <div class="mtitle">O Mapa</div>
+  <div class="mdesc">Do dia 1 à agenda lotada. Plano, diagnóstico e o checklist que guarda seu progresso neste navegador.</div>
+</div>
+
+<section class="section reveal">
+  <h2 class="big">7.1 · Plano de 90 dias, semana a semana</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Fase</th><th>Foco</th></tr>
+    <tr><td><strong>Sem. 1</strong></td><td>Fundação: Business Manager, Pixel, WhatsApp. Gravar 3 vídeos de processo.</td></tr>
+    <tr><td><strong>Sem. 2</strong></td><td>Primeira campanha de conversa, R$20/dia, público amplo BH, 2 criativos.</td></tr>
+    <tr><td><strong>Sem. 3</strong></td><td>Só observar. Deixar aprender. Organizar WhatsApp com etiquetas.</td></tr>
+    <tr><td><strong>Sem. 4</strong></td><td>Primeira leitura de métrica. Pausar criativo fraco, reforçar o que puxa CPR bom.</td></tr>
+    <tr><td><strong>Mês 2</strong></td><td>Criar públicos personalizados e primeiro lookalike 1%. Testar criativo novo por semana. Escalar 20%.</td></tr>
+    <tr><td><strong>Mês 3</strong></td><td>Ligar remarketing. Escalar o vencedor para lookalikes. Refinar script de atendimento pelos "nãos" que ouviu.</td></tr>
+  </table></div>
+
+  <h2 class="big" style="margin-top:50px">7.2 · Está funcionando? Diagnóstico honesto</h2>
+  <p>Compare sua realidade com esta tabela. Ela usa os meus parâmetros — é o espelho que te diz se o problema é criativo, oferta ou atendimento.</p>
+  <div class="table-wrap"><table>
+    <tr><th>Sintoma</th><th>Provável causa</th><th>Ação</th></tr>
+    <tr><td>CTR baixo, poucos cliques</td><td>Criativo fraco</td><td>Troque o vídeo/primeira linha</td></tr>
+    <tr><td>Muitos cliques, CPR alto</td><td>Público errado ou destino confuso</td><td>Refine público, revise mensagem pré-preenchida</td></tr>
+    <tr><td>CPR bom, poucos fecham</td><td>Atendimento ou preço</td><td>Revise o script do Módulo 6</td></tr>
+    <tr><td>Começou bom, piorou</td><td>Frequência alta / criativo cansado</td><td>Renove criativo, amplie público</td></tr>
+    <tr><td>Conversas de curiosos</td><td>Oferta larga demais</td><td>Especifique o serviço no anúncio</td></tr>
+  </table></div>
+
+  <h2 class="big" style="margin-top:50px">7.3 · Checklist de lançamento — salva sozinho</h2>
+  <p>Marque conforme executa. O progresso fica guardado neste navegador — pode fechar e voltar depois.</p>
+
+  <div class="checklist">
+    <div class="progress-bar"><div class="progress-fill" id="pfill"></div></div>
+    <div class="progress-txt" id="ptxt">0% concluído</div>
+
+    <div class="phase">
+      <h4>Fase 1 · Fundação</h4>
+      <label class="check"><input type="checkbox" data-ck><span>Business Manager criado com Página dentro</span></label>
+      <label class="check"><input type="checkbox" data-ck><span>Conta de anúncios com pagamento e limite de segurança</span></label>
+      <label class="check"><input type="checkbox" data-ck><span>Pixel instalado e verde no Pixel Helper</span></label>
+      <label class="check"><input type="checkbox" data-ck><span>Instagram e WhatsApp Business conectados e completos</span></label>
+    </div>
+    <div class="phase">
+      <h4>Fase 2 · Criativo</h4>
+      <label class="check"><input type="checkbox" data-ck><span>3 vídeos de processo gravados e editados no CapCut</span></label>
+      <label class="check"><input type="checkbox" data-ck><span>1 carrossel antes/depois montado</span></label>
+      <label class="check"><input type="checkbox" data-ck><span>2–3 textos escolhidos entre os 12 prontos</span></label>
+    </div>
+    <div class="phase">
+      <h4>Fase 3 · Campanha</h4>
+      <label class="check"><input type="checkbox" data-ck><span>Campanha de conversa criada, R$20–30/dia</span></label>
+      <label class="check"><input type="checkbox" data-ck><span>Público de BH + raio configurado</span></label>
+      <label class="check"><input type="checkbox" data-ck><span>Mensagem pré-preenchida no WhatsApp ativa</span></label>
+      <label class="check"><input type="checkbox" data-ck><span>Checklist final revisado antes de publicar</span></label>
+    </div>
+    <div class="phase">
+      <h4>Fase 4 · Otimização</h4>
+      <label class="check"><input type="checkbox" data-ck><span>Colunas do gerenciador configuradas (CPR, CTR, freq.)</span></label>
+      <label class="check"><input type="checkbox" data-ck><span>WhatsApp organizado com etiquetas</span></label>
+      <label class="check"><input type="checkbox" data-ck><span>Públicos personalizados e 1 lookalike criados</span></label>
+      <label class="check"><input type="checkbox" data-ck><span>Remarketing ligado após 30 dias de dados</span></label>
+    </div>
+    <button class="reset" id="ckreset">Limpar progresso</button>
+  </div>
+
+  <h2 class="big" style="margin-top:50px">7.4 · Os 15 erros que queimam dinheiro</h2>
+  <div class="table-wrap"><table>
+    <tr><th>#</th><th>Erro</th><th>Correção</th></tr>
+    <tr><td>1</td><td>Anunciar do perfil pessoal</td><td>Sempre pela Página no Business Manager</td></tr>
+    <tr><td>2</td><td>Sem Pixel instalado</td><td>Instale e verifique antes de gastar</td></tr>
+    <tr><td>3</td><td>Mexer na campanha todo dia</td><td>Deixe aprender, mínimo 7 dias</td></tr>
+    <tr><td>4</td><td>Escalar com salto grande</td><td>Máximo 20% a cada 3–4 dias</td></tr>
+    <tr><td>5</td><td>Criativo estático de foto parada</td><td>Vídeo de processo vence</td></tr>
+    <tr><td>6</td><td>Primeira linha genérica</td><td>Abra com dor/desejo, não com "olá"</td></tr>
+    <tr><td>7</td><td>Texto demais na imagem</td><td>Meta reprova; texto vai na legenda</td></tr>
+    <tr><td>8</td><td>Público estreito demais no início</td><td>Comece amplo, deixe o criativo filtrar</td></tr>
+    <tr><td>9</td><td>Olhar curtida em vez de CPR</td><td>CPR e fechamento são o placar</td></tr>
+    <tr><td>10</td><td>Não organizar o WhatsApp</td><td>Etiquetas + horários fixos</td></tr>
+    <tr><td>11</td><td>Soltar o preço seco</td><td>Ancore valor antes do número</td></tr>
+    <tr><td>12</td><td>Não fazer follow-up</td><td>Régua de reativação para quem sumiu</td></tr>
+    <tr><td>13</td><td>Testar tudo de uma vez</td><td>Uma variável por vez</td></tr>
+    <tr><td>14</td><td>Desistir na 1ª semana ruim</td><td>Otimização é mês a mês</td></tr>
+    <tr><td>15</td><td>Não ter oferta/serviço claro</td><td>Anuncie UM serviço por campanha</td></tr>
+  </table></div>
+
+  <h2 class="big" style="margin-top:50px">7.5 · Glossário essencial</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Termo</th><th>Tradução prática</th></tr>
+    <tr><td><strong>CPR</strong></td><td>Custo por conversa iniciada — sua métrica-rainha</td></tr>
+    <tr><td><strong>CPM</strong></td><td>Custo por mil impressões — o "preço do aluguel" do público</td></tr>
+    <tr><td><strong>CTR</strong></td><td>% de gente que clica — mede a força do criativo</td></tr>
+    <tr><td><strong>Frequência</strong></td><td>Vezes que a mesma pessoa viu o anúncio</td></tr>
+    <tr><td><strong>Pixel</strong></td><td>Código no site que rastreia e alimenta públicos</td></tr>
+    <tr><td><strong>Lookalike</strong></td><td>Público de gente parecida com seus clientes</td></tr>
+    <tr><td><strong>Remarketing</strong></td><td>Reimpactar quem já te viu e não fechou</td></tr>
+    <tr><td><strong>CBO / Advantage</strong></td><td>Meta distribui o orçamento sozinho entre conjuntos</td></tr>
+    <tr><td><strong>Aprendizado</strong></td><td>Fase inicial em que o algoritmo calibra — não mexa</td></tr>
+    <tr><td><strong>ROAS</strong></td><td>Retorno sobre o gasto em anúncio (faturamento ÷ investido)</td></tr>
+  </table></div>
+</section>
+</div>
+
+<!-- ============ ECOSYSTEM / FUNNEL ============ -->
+<div class="wrap">
+<div class="rule"></div>
+<section class="section reveal">
+  <div class="eyebrow">O próximo passo</div>
+  <h2 class="big">Você domina a atração. Agora conecte o sistema inteiro.</h2>
+  <p>Tráfego enche seu WhatsApp de conversa. Mas conversa sem sistema vira caos: lead perdido, follow-up esquecido, agenda bagunçada. Cada peça do arsenal resolve um elo da corrente.</p>
+
+  <div class="eco">
+    <h3>Seu arsenal completo</h3>
+    <p class="esub">Onde você está e para onde ir.</p>
+    <div class="flow">
+      <div class="node active"><div class="ic">✓</div><div class="nt"><div class="nn">Tráfego Tattoo — você está aqui</div><div class="nd">Enche o topo do funil com conversas qualificadas</div></div></div>
+      <div class="arrow">↓</div>
+      <div class="node"><div class="ic">IG</div><div class="nt"><div class="nn">Instagram que Atrai e Vende</div><div class="nd">Aquece o público orgânico que o anúncio descobre</div></div></div>
+      <div class="arrow">↓</div>
+      <div class="node"><div class="ic">$</div><div class="nt"><div class="nn">Posicionamento de Alto Valor</div><div class="nd">Sobe seu ticket pra cada cliente valer mais</div></div></div>
+      <div class="arrow">↓</div>
+      <div class="node"><div class="ic">§</div><div class="nt"><div class="nn">Contrato Digital + Pack de Templates</div><div class="nd">Protege e agiliza o fechamento</div></div></div>
+      <div class="arrow">↓</div>
+      <div class="node"><div class="ic">★</div><div class="nt"><div class="nn">Central Tattoo — o cérebro</div><div class="nd">CRM que organiza cada lead, follow-up e sessão. O tráfego traz; o Central segura.</div></div></div>
+    </div>
+    <div style="text-align:center;margin-top:30px">
+      <a class="cta" href="https://carlostattoobh.com.br" target="_blank" rel="noopener">Conhecer o Central Tattoo</a>
     </div>
   </div>
 
-  <div class="tut-box">
-    <div class="tut-header"><div class="tut-dot"></div><div class="tut-header-title">Campo: Destino das mensagens</div></div>
-    <div class="tut-body">
-      <p>Aqui você define para onde o cliente vai quando clicar. Selecione <strong>"WhatsApp"</strong>. O número vinculado ao Business Manager vai aparecer. Selecione o número do estúdio.</p>
-      <p><strong>Mensagem de abertura:</strong> Configure uma mensagem pré-preenchida que o cliente vai enviar automaticamente quando iniciar a conversa. Sugestão:</p>
-      <div class="code">Olá! Vi seu anúncio e quero saber mais sobre tatuagem. 😊</div>
-    </div>
-  </div>
-
-  <div class="tut-box">
-    <div class="tut-header"><div class="tut-dot"></div><div class="tut-header-title">Campo: Orçamento e programação</div></div>
-    <div class="tut-body">
-      <p><strong>Tipo de orçamento:</strong> Selecione <strong>"Orçamento diário"</strong> — mais previsível e fácil de controlar do que orçamento vitalício.</p>
-      <p><strong>Valor:</strong> Para começar, coloque <strong>R$ 10,00</strong> por dia.</p>
-      <p><strong>Data de início:</strong> Hoje (ou amanhã se quiser revisar antes).</p>
-      <p><strong>Data de término:</strong> Deixe <strong>sem data de término</strong> — você pausa manualmente quando quiser.</p>
-      <p><strong>Programação de anúncios:</strong> Selecione <strong>"Exibir anúncios o tempo todo"</strong>. Não tente restringir horários no começo — deixe o algoritmo aprender quando seu público está mais ativo.</p>
-    </div>
-  </div>
-
-  <div class="tut-box">
-    <div class="tut-header"><div class="tut-dot"></div><div class="tut-header-title">Campo: Público — Localização</div></div>
-    <div class="tut-body">
-      <p>Clique em "Locais" → "Adicionar locais". Digite "Belo Horizonte" e selecione a cidade. Depois clique no ícone de raio (📍) e defina:</p>
-      <div class="code">Belo Horizonte + 20km de raio</div>
-      <p><strong>Tipo de localização:</strong> Mantenha "Pessoas que vivem ou estiveram recentemente neste local". Isso inclui moradores e visitantes frequentes — perfeito para BH.</p>
-    </div>
-  </div>
-
-  <div class="tut-box">
-    <div class="tut-header"><div class="tut-dot"></div><div class="tut-header-title">Campo: Público — Idade e Gênero</div></div>
-    <div class="tut-body">
-      <p><strong>Faixa etária:</strong> De 18 a 40 anos. A faixa 21-35 tem a maior conversão para tattoo premium, mas comece com 18-40 para dar mais dados ao algoritmo.</p>
-      <p><strong>Gênero:</strong> Todos — homens e mulheres tatua em proporção similar. Não restrinja.</p>
-      <p><strong>Idiomas:</strong> Português (Brasil) — filtra perfis estrangeiros.</p>
-    </div>
-  </div>
-
-  <div class="tut-box">
-    <div class="tut-header"><div class="tut-dot"></div><div class="tut-header-title">Campo: Público — Segmentação detalhada (Interesses)</div></div>
-    <div class="tut-body">
-      <p>Clique em "Segmentação detalhada" → "Adicionar dados demográficos, interesses ou comportamentos".</p>
-      <p>Digite cada um dos seguintes e clique para adicionar:</p>
-      <div class="code">Tatuagem</div>
-      <div class="code">Tattoo</div>
-      <div class="code">Body art</div>
-      <div class="code">Tattoo artist</div>
-      <div class="code">Tattoo design</div>
-      <p>Depois clique em <strong>"Excluir pessoas"</strong> e adicione para excluir:</p>
-      <div class="code">Tattoo machine</div>
-      <div class="code">Tattoo supply</div>
-      <p>Isso exclui outros tatuadores que não são seus clientes.</p>
-      <p><strong>Tamanho do público estimado:</strong> O Meta vai mostrar um número estimado de pessoas. Para uma campanha de tattoo em BH, um público entre 150.000 e 800.000 pessoas é ideal — nem muito pequeno nem muito amplo.</p>
-    </div>
-  </div>
-
-  <div class="tut-box">
-    <div class="tut-header"><div class="tut-dot"></div><div class="tut-header-title">Campo: Posicionamentos</div></div>
-    <div class="tut-body">
-      <p>Selecione <strong>"Posicionamentos manuais"</strong>. Desmarque tudo e deixe marcado apenas:</p>
-      <ul class="ul" style="margin-top:8px;">
-        <li>Facebook: <strong>Feed</strong> e <strong>Stories</strong></li>
-        <li>Instagram: <strong>Feed</strong>, <strong>Stories</strong> e <strong>Reels</strong></li>
-      </ul>
-      <p>Desmarque Messenger, Audience Network e outros — eles tendem a gerar cliques de baixa qualidade para o mercado tattoo.</p>
-    </div>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Tráfego Tattoo do Zero 2026</span><span>Página 44-49</span></div>
+  <div class="tip" style="margin-top:34px"><span class="h">A verdade que ninguém conta</span> Tráfego não é sobre gastar mais — é sobre um sistema onde cada real vira conversa, cada conversa tem um trilho, e cada cliente vira base para o próximo. Você acabou de montar a primeira peça. Execute o checklist. O resto é consequência.</div>
+</section>
 </div>
 
-<!-- CAP 8 - CRIANDO O ANÚNCIO -->
-<div class="page pb">
-  <div class="ph"><span>Módulo 02 · Capítulo 08</span></div>
-  <div class="bg-n">08</div>
-  <span class="lbl">Capítulo 08</span>
-  <h2 class="h2">Criando o <b>Anúncio</b> — imagens, vídeos e textos</h2>
-
-  <h3 class="h3">Nível 3 — O Anúncio: configurando cada campo</h3>
-
-  <div class="tut-box">
-    <div class="tut-header"><div class="tut-dot"></div><div class="tut-header-title">Campo: Nome do anúncio</div></div>
-    <div class="tut-body">
-      <p>Use um nome que identifique exatamente o criativo:</p>
-      <div class="code">Video-Cobertura-AvantApres-Jan2026</div>
-    </div>
-  </div>
-
-  <div class="tut-box">
-    <div class="tut-header"><div class="tut-dot"></div><div class="tut-header-title">Campo: Identidade</div></div>
-    <div class="tut-body">
-      <p>Em "Página do Facebook", selecione sua Página. Em "Conta do Instagram", selecione seu @. O anúncio vai aparecer como postado por esses dois perfis simultaneamente.</p>
-    </div>
-  </div>
-
-  <div class="tut-box">
-    <div class="tut-header"><div class="tut-dot"></div><div class="tut-header-title">Campo: Formato do anúncio</div></div>
-    <div class="tut-body">
-      <p>Para começar, selecione <strong>"Imagem ou vídeo único"</strong>. É o mais simples de configurar e performa muito bem para tattoo.</p>
-      <p>Clique em "Adicionar mídia" → "Adicionar vídeo" (ou imagem). Formatos aceitos:</p>
-      <ul class="ul" style="margin-top:8px;">
-        <li><strong>Vídeo:</strong> MP4, máx 4GB, mínimo 1 segundo, máximo 241 minutos (use 15-60s)</li>
-        <li><strong>Imagem:</strong> JPG ou PNG, mínimo 1080x1080px para feed quadrado</li>
-        <li><strong>Proporção recomendada:</strong> 9:16 vertical para stories/reels, 1:1 quadrado para feed</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="tut-box">
-    <div class="tut-header"><div class="tut-dot"></div><div class="tut-header-title">Campo: Texto principal</div></div>
-    <div class="tut-body">
-      <p>Este é o texto que aparece acima da imagem/vídeo no feed. Limite: 125 caracteres antes do "ver mais". Use um dos modelos do Capítulo 13 deste ebook. Exemplo:</p>
-      <div class="code">Você ainda esconde aquela tatuagem debaixo da manga? Em 7 anos nunca recusei uma cobertura. Avaliação gratuita. 👇</div>
-    </div>
-  </div>
-
-  <div class="tut-box">
-    <div class="tut-header"><div class="tut-dot"></div><div class="tut-header-title">Campo: Título (headline)</div></div>
-    <div class="tut-body">
-      <p>Aparece em negrito abaixo da mídia. Máximo 40 caracteres. Use algo direto:</p>
-      <div class="code">Carlos Tattoo BH — Consulta Gratuita</div>
-    </div>
-  </div>
-
-  <div class="tut-box">
-    <div class="tut-header"><div class="tut-dot"></div><div class="tut-header-title">Campo: Botão de call-to-action</div></div>
-    <div class="tut-body">
-      <p>Clique no dropdown e selecione <strong>"Enviar mensagem"</strong>. Este botão vai abrir o WhatsApp quando clicado. É o botão que mais converte para serviços locais.</p>
-    </div>
-  </div>
-
-  <div class="tut-box">
-    <div class="tut-header"><div class="tut-dot"></div><div class="tut-header-title">Campo: Prévia do anúncio</div></div>
-    <div class="tut-body">
-      <p>No lado direito da tela, você vê a prévia de como o anúncio vai aparecer em cada posicionamento — Feed do Facebook, Stories do Instagram, Reels, etc. Clique em cada um e verifique:</p>
-      <ul class="ul" style="margin-top:8px;">
-        <li>O texto está sendo cortado em lugar inoportuno?</li>
-        <li>O vídeo/imagem está bem enquadrado?</li>
-        <li>O botão "Enviar mensagem" está visível?</li>
-        <li>A página que aparece é a correta?</li>
-      </ul>
-    </div>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Tráfego Tattoo do Zero 2026</span><span>Página 50-55</span></div>
-</div>
-
-<!-- CAP 9 - REVISÃO E PUBLICAÇÃO -->
-<div class="page pb">
-  <div class="ph"><span>Módulo 02 · Capítulo 09</span></div>
-  <div class="bg-n">09</div>
-  <span class="lbl">Capítulo 09</span>
-  <h2 class="h2">Revisando e <b>publicando</b> — checklist final</h2>
-
-  <div class="box-warn">
-    <span class="box-warn-i">⚠️</span>
-    <p><strong>Leia antes de publicar:</strong> Uma vez que o anúncio entra em revisão, ele demora de 30 minutos a 24 horas para ser aprovado. Erros após a publicação significam pausar, corrigir e reentrar em revisão — perdendo tempo e dados do algoritmo.</p>
-  </div>
-
-  <div class="ck">
-    <h4>✓ Checklist antes de clicar em "Publicar"</h4>
-    <div class="ck-grid">
-      <div class="ci"><div class="cbox"></div>Página do Facebook selecionada</div>
-      <div class="ci"><div class="cbox"></div>Conta do Instagram selecionada</div>
-      <div class="ci"><div class="cbox"></div>Objetivo: Mensagens para WhatsApp</div>
-      <div class="ci"><div class="cbox"></div>Número do WhatsApp correto</div>
-      <div class="ci"><div class="cbox"></div>Localização: BH + 20km raio</div>
-      <div class="ci"><div class="cbox"></div>Idade: 18-40 anos</div>
-      <div class="ci"><div class="cbox"></div>Interesses de tattoo adicionados</div>
-      <div class="ci"><div class="cbox"></div>Tatuadores excluídos do público</div>
-      <div class="ci"><div class="cbox"></div>Posicionamentos: Feed + Stories + Reels</div>
-      <div class="ci"><div class="cbox"></div>Orçamento: R$10/dia sem data fim</div>
-      <div class="ci"><div class="cbox"></div>Vídeo/imagem em alta resolução</div>
-      <div class="ci"><div class="cbox"></div>Texto principal escrito e revisado</div>
-      <div class="ci"><div class="cbox"></div>Título preenchido</div>
-      <div class="ci"><div class="cbox"></div>Botão "Enviar mensagem" selecionado</div>
-      <div class="ci"><div class="cbox"></div>Prévia revisada em todos os formatos</div>
-      <div class="ci"><div class="cbox"></div>WhatsApp Business aberto e funcionando</div>
-    </div>
-  </div>
-
-  <h3 class="h3">O que acontece após publicar</h3>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>Status: Em revisão (30min - 24h)</h4><p>O Meta vai analisar se seu anúncio segue as políticas deles. Tatuagens são permitidas, mas evite mostrar sangue excessivo, nudez ou textos com muita promessa de resultado.</p></div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>Status: Ativo</h4><p>Seu anúncio está rodando! Neste momento, NÃO FAÇA NENHUMA ALTERAÇÃO. O algoritmo está na fase de aprendizado — qualquer mudança reinicia esse processo.</p></div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><h4>Dias 1-7: Fase de aprendizado</h4><p>Você vai ver poucos resultados nos primeiros dias. Isso é normal. O algoritmo está testando diferentes perfis de pessoas para ver quem converte. Seja paciente.</p></div></div>
-    <div class="step"><div class="sn">4</div><div class="st"><h4>Dia 7+: Primeiras análises</h4><p>Após 7 dias, você tem dados suficientes para a primeira análise. Veremos isso em detalhe no Módulo 5.</p></div></div>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Tráfego Tattoo do Zero 2026</span><span>Página 56-61</span></div>
-</div>
-
-<!-- MÓDULO 3 -->
-<div class="mh pb" id="mod3">
-  <div class="mh-bg-n">03</div>
-  <div class="mh-lbl">Módulo 03</div>
-  <div class="mh-title">Criativos Profissionais<br><b>com Celular</b></div>
-  <div class="mh-desc">Você não precisa de câmera profissional nem de editor de vídeo pago. Com o celular e os apps certos, você cria conteúdo que compete com qualquer estúdio profissional. Tutorial completo aqui.</div>
-  
-</div>
-
-<!-- CAP 10 - FILMAGEM -->
-<div class="page pb">
-  <div class="ph"><span>Módulo 03 · Capítulo 10</span></div>
-  <div class="bg-n">10</div>
-  <span class="lbl">Capítulo 10</span>
-  <h2 class="h2">Filmando com <b>celular</b> — resultado profissional</h2>
-
-  <h3 class="h3">Configurando o celular para filmar</h3>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>Configurações da câmera</h4><p>No app de câmera, acesse as configurações e configure:</p>
-      <ul class="ul" style="margin-top:8px;">
-        <li><strong>Resolução de vídeo:</strong> 4K se disponível, mínimo 1080p (Full HD)</li>
-        <li><strong>Frame rate:</strong> 60fps para timelapse suave, 30fps para vídeo normal</li>
-        <li><strong>Estabilização:</strong> Ative o OIS (estabilização ótica) se seu celular tiver</li>
-        <li><strong>Foco:</strong> Configure para foco automático contínuo</li>
-        <li><strong>Exposição:</strong> Bloqueie a exposição (segure na tela) para evitar variações de brilho</li>
-      </ul>
-    </div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>Limpeza da lente</h4><p>Parece óbvio mas é o erro mais comum — limpe a lente com um pano macio antes de filmar. Impressões digitais na lente deixam o vídeo levemente embaçado e reduzem a qualidade mesmo em câmeras boas.</p></div></div>
-  </div>
-
-  <h3 class="h3">Iluminação — o fator mais importante</h3>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>Opção 1 — Luz natural (gratuita)</h4><p>Posicione seu cliente perto de uma janela grande. A luz deve vir <strong>de lado</strong> — não de frente (deixa sem sombra, parece plano) nem de trás (silhueta). Luz lateral realça os detalhes da tattoo. Nublado? Ainda melhor — luz mais suave e uniforme.</p></div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>Opção 2 — Ring light (R$80-150)</h4><p>Compre um ring light de 10 polegadas. Posicione a 50-70cm do ponto de tatuagem. A luz deve iluminar a área de trabalho sem criar reflexos excessivos na pele. Temperatura de cor: 5500K (branco neutro) para cores fiéis.</p></div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><h4>O que NUNCA fazer na iluminação</h4>
-      <ul class="ul" style="margin-top:8px;">
-        <li>Nunca filmar contra a luz — a tattoo vai ficar escura</li>
-        <li>Nunca usar a lanterna do celular como iluminação principal — cria sombras duras e feias</li>
-        <li>Nunca misturar luz amarela (incandescente) com luz branca (LED) no mesmo plano</li>
-        <li>Nunca filmar com lâmpada fluorescente como única fonte — cria tom esverdeado na pele</li>
-      </ul>
-    </div></div>
-  </div>
-
-  <h3 class="h3">Enquadramentos que funcionam para tattoo</h3>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>Close extremo na tattoo sendo feita</h4><p>A câmera focada na agulha entrando na pele, a tinta se formando no traço. É o plano que mais retém atenção — as pessoas ficam presas assistindo. Posicione o celular a 15-20cm da área sendo tatuada. Use o foco manual para garantir nitidez.</p></div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>Plano médio — suas mãos trabalhando</h4><p>Enquadramento mostrando suas mãos, a máquina e parte do corpo. Mostra a técnica e o profissionalismo. Inclua o ambiente do estúdio ao fundo — desfocado mas visível.</p></div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><h4>Antes e depois lado a lado</h4><p>Filme a área antes (tattoo antiga ou pele limpa), depois a tattoo pronta. Corte direto entre os dois — sem transição fancy. A mudança brusca é mais impactante.</p></div></div>
-    <div class="step"><div class="sn">4</div><div class="st"><h4>Reação do cliente</h4><p>Quando o cliente vê o resultado, filme a reação dele. Não peça para ele "reagir" — espere a reação natural. Esse é o plano mais poderoso para gerar confiança. Uma lágrima, um sorriso, o "caramba..." — vale mais que qualquer copy.</p></div></div>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Tráfego Tattoo do Zero 2026</span><span>Página 62-67</span></div>
-</div>
-
-<!-- CAP 11 - CAPCUT -->
-<div class="page pb">
-  <div class="ph"><span>Módulo 03 · Capítulo 11</span></div>
-  <div class="bg-n">11</div>
-  <span class="lbl">Capítulo 11</span>
-  <h2 class="h2">Editando no <b>CapCut</b> — tutorial completo</h2>
-  <p>O CapCut é gratuito, está disponível para iOS e Android, e tem todos os recursos que você vai precisar. Veja o tutorial completo.</p>
-
-  <h3 class="h3">Criando um Reel/Reels de processo</h3>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>Criando o projeto</h4><p>Abra o CapCut → <strong>"Novo projeto"</strong>. Selecione os vídeos que filmou na ordem em que quer que apareçam. Clique em <strong>"Adicionar"</strong>.</p><p><strong>Proporção:</strong> O CapCut vai perguntar. Selecione <strong>9:16</strong> para Reels/Stories ou <strong>1:1</strong> para feed quadrado. Para anúncios de Reels, use 9:16.</p></div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>Cortando e organizando os clipes</h4><p>Na linha do tempo (timeline) na parte inferior, toque no clipe para selecioná-lo. Aparece um menu com opções. Para cortar:</p>
-      <ul class="ul" style="margin-top:8px;">
-        <li>Arraste as extremidades do clipe para cortar o início/fim</li>
-        <li>Posicione o cursor onde quer cortar e toque em <strong>"Dividir"</strong></li>
-        <li>Toque no clipe que sobrou e aperte a lixeira para deletar</li>
-      </ul>
-      <p><strong>Duração ideal:</strong> Vídeo de anúncio entre 15-30 segundos. Corte tudo que não é essencial.</p>
-    </div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><h4>Criando timelapse do processo</h4><p>Selecione o clipe de processo de tatuagem. Toque em <strong>"Velocidade"</strong> no menu inferior. Selecione <strong>"Curva"</strong> (mais controle) ou <strong>"Normal"</strong> (mais simples). Aumente para <strong>8x ou 10x</strong> para timelapse. O clipe vai encurtar automaticamente.</p></div></div>
-    <div class="step"><div class="sn">4</div><div class="st"><h4>Adicionando música</h4><p>Na parte inferior, toque em <strong>"Áudio"</strong> → <strong>"Músicas"</strong>. Na aba <strong>"Em alta"</strong>, você vê as músicas mais usadas no momento. Escolha uma que combine com o clima (energética para processo, mais suave para resultado). <strong>IMPORTANTE:</strong> Sempre use músicas da biblioteca do CapCut ou do próprio Instagram — músicas com copyright podem travar o anúncio.</p></div></div>
-    <div class="step"><div class="sn">5</div><div class="st"><h4>Adicionando texto na tela</h4><p>Toque em <strong>"Texto"</strong> → <strong>"Adicionar texto"</strong>. Para o gancho inicial (0-3s), escreva algo impactante em letras grandes:</p>
-      <div class="code">VOCÊ AINDA ESCONDE ESSA TATTOO?</div>
-      <p>Para o final, escreva o CTA:</p>
-      <div class="code">AGENDE SUA CONSULTA GRATUITA ⬇️</div>
-      <p><strong>Fonte:</strong> Use fontes limpas e legíveis — Impact, Bebas Neue ou qualquer fonte em negrito. Cor branca com sombra preta garante leitura em qualquer fundo.</p>
-    </div></div>
-    <div class="step"><div class="sn">6</div><div class="st"><h4>Exportando o vídeo</h4><p>Toque na seta de exportar no canto superior direito. Configure:</p>
-      <ul class="ul" style="margin-top:8px;">
-        <li><strong>Resolução:</strong> 1080p (Full HD) — suficiente para anúncios</li>
-        <li><strong>Frame rate:</strong> 30fps</li>
-        <li><strong>Qualidade:</strong> Recomendado</li>
-      </ul>
-      <p>Toque em <strong>"Exportar"</strong>. O vídeo vai para a galeria do celular. Pronto para fazer upload no Gerenciador de Anúncios.</p>
-    </div></div>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Tráfego Tattoo do Zero 2026</span><span>Página 68-73</span></div>
-</div>
-
-<!-- CAP 13 - TEXTOS PRONTOS -->
-<div class="page pb">
-  <div class="ph"><span>Módulo 03 · Capítulo 13</span></div>
-  <div class="bg-n">13</div>
-  <span class="lbl">Capítulo 13</span>
-  <h2 class="h2">12 textos prontos <b>por estilo</b></h2>
-  <p>Copie, adapte com os dados do seu estúdio e use. Todos testados e validados.</p>
-
-  <div class="script">
-    <span class="script-lbl">Texto 1 — Cobertura (alta conversão)</span>
-    <div class="sl">Você ainda esconde aquela tatuagem debaixo da manga todos os dias? 😬</div>
-    <div class="sl">Em <b>7 anos</b>, nunca recusei uma cobertura. Nenhuma tattoo antiga é impossível de transformar.</div>
-    <div class="sl">✓ Avaliação <b>100% gratuita</b> — traga uma foto da sua tattoo</div>
-    <div class="sl">✓ Projeto exclusivo criado para a sua cobertura</div>
-    <div class="sl">✓ Estúdio premium em BH — Bairro Mantiqueira</div>
-    <div class="sl">👇 Manda mensagem e descubra o que posso fazer pela sua tattoo</div>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Texto 2 — Homenagem / Ente querido</span>
-    <div class="sl">Você quer eternizar alguém especial na sua pele mas tem medo de escolher o profissional errado?</div>
-    <div class="sl">Retratos realistas são arte — e merece ser tratado com o respeito que essa memória merece.</div>
-    <div class="sl">✓ Projeto apresentado <b>antes de tatuar</b> — você aprova cada detalhe</div>
-    <div class="sl">✓ Realismo com <b>7 anos de aperfeiçoamento</b></div>
-    <div class="sl">✓ +2.400 tatuagens realizadas em BH · 5⭐ Google</div>
-    <div class="sl">💬 Manda mensagem — vamos criar juntos essa homenagem</div>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Texto 3 — Fineline</span>
-    <div class="sl">Você busca uma tatuagem delicada que represente quem você é sem precisar gritar? ✨</div>
-    <div class="sl">Fineline é arte que parece desenhada a caneta — traços finos, precisos, atemporais.</div>
-    <div class="sl">✓ Projetos minimalistas e florais</div>
-    <div class="sl">✓ Consulta gratuita · Projeto exclusivo</div>
-    <div class="sl">✓ Estúdio premium em BH</div>
-    <div class="sl">👇 Manda mensagem e veja nosso portfólio</div>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Texto 4 — Realismo</span>
-    <div class="sl">Retrato realista na pele — onde arte e emoção se encontram. 🖤</div>
-    <div class="sl">Cada detalhe, cada sombra, cada traço criado para impressionar.</div>
-    <div class="sl">✓ Realismo preto e cinza ou colorido</div>
-    <div class="sl">✓ Pessoas, animais, paisagens, objetos</div>
-    <div class="sl">✓ 7 anos de técnica aperfeiçoada em BH</div>
-    <div class="sl">📩 Manda a referência que você quer e orçamos</div>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Texto 5 — Urgência / Vaga limitada</span>
-    <div class="sl">⚡ Últimas <b>3 vagas</b> disponíveis para este mês no Carlos Tattoo BH</div>
-    <div class="sl">✓ Realismo · Fineline · Black & Grey · Cover Up · Colorida</div>
-    <div class="sl">✓ Projeto personalizado antes de cada sessão</div>
-    <div class="sl">✓ +2.400 tatuagens · 5⭐ Google · BH</div>
-    <div class="sl">📅 Reserve sua vaga agora antes que esgote</div>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Texto 6 — Primeira tatuagem</span>
-    <div class="sl">Você quer sua primeira tatuagem mas não sabe por onde começar? 🤔</div>
-    <div class="sl">Aqui você não vai ser julgado. Explicamos tudo, tiramos todas as dúvidas e fazemos no seu ritmo.</div>
-    <div class="sl">✓ Consulta gratuita sem compromisso</div>
-    <div class="sl">✓ Ambiente acolhedor e higienizado</div>
-    <div class="sl">✓ Encontramos o estilo perfeito para você</div>
-    <div class="sl">💬 Manda mensagem — sem pressão</div>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Tráfego Tattoo do Zero 2026</span><span>Página 80-87</span></div>
-</div>
-
-<!-- MÓDULO 4 -->
-<div class="mh pb" id="mod4">
-  <div class="mh-bg-n">04</div>
-  <div class="mh-lbl">Módulo 04</div>
-  <div class="mh-title">Públicos Avançados<br><b>e Remarketing</b></div>
-  <div class="mh-desc">Após 30 dias rodando campanhas básicas, você tem dados suficientes para criar públicos muito mais precisos. Aqui você aprende a criar remarketing, lookalike e públicos de engajamento — passo a passo.</div>
-  
-</div>
-
-<!-- CAP 14 - PÚBLICOS PERSONALIZADOS -->
-<div class="page pb">
-  <div class="ph"><span>Módulo 04 · Capítulo 14</span></div>
-  <div class="bg-n">14</div>
-  <span class="lbl">Capítulo 14</span>
-  <h2 class="h2">Públicos personalizados <b>de visitantes do site</b></h2>
-  <p>Qualquer pessoa que visitou seu site já demonstrou interesse — ela foi até lá por algum motivo. Mostrar anúncios novamente para essas pessoas é o remarketing, e converte 3-4x mais do que público frio.</p>
-
-  <h3 class="h3">Criando o público de visitantes do site</h3>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>Acesse o Gerenciador de Públicos</h4><p>No Gerenciador de Anúncios, clique no menu ☰ → <strong>"Públicos"</strong>. Ou acesse:</p><div class="code">adsmanager.facebook.com/audiences</div></div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>Crie um público personalizado</h4><p>Clique em <strong>"Criar público"</strong> → <strong>"Público personalizado"</strong>.</p></div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><h4>Selecione a fonte</h4><p>Vai aparecer uma lista de fontes. Clique em <strong>"Site"</strong>. Isso vai usar os dados do seu Pixel.</p></div></div>
-    <div class="step"><div class="sn">4</div><div class="st"><h4>Configure as regras</h4>
-      <div class="campo"><div class="campo-icon">🎯</div><div class="campo-body"><h5>Evento</h5><p>Selecione "Todos os visitantes do site"</p></div></div>
-      <div class="campo"><div class="campo-icon">📅</div><div class="campo-body"><h5>Janela de retenção</h5><p>30 dias — o público se atualiza automaticamente com quem visitou nos últimos 30 dias</p></div></div>
-      <div class="campo"><div class="campo-icon">📝</div><div class="campo-body"><h5>Nome do público</h5><div class="val">Visitantes Site - 30 dias</div></div></div>
-    </div></div>
-    <div class="step"><div class="sn">5</div><div class="st"><h4>Crie variações por página</h4><p>Repita o processo mas desta vez em "Evento" selecione "Pessoas que visitaram páginas específicas". Cole a URL da sua página de cobertura. Assim você cria um público só de pessoas que viram a página de cobertura — altamente qualificado para anúncio de cobertura.</p></div></div>
-  </div>
-
-  <div class="box-warn">
-    <span class="box-warn-i">⚠️</span>
-    <p><strong>Tamanho mínimo:</strong> Públicos com menos de 1.000 pessoas são muito pequenos para o algoritmo otimizar bem. Se seu público de visitantes for pequeno, aumente a janela para 60 ou 90 dias.</p>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Tráfego Tattoo do Zero 2026</span><span>Página 88-93</span></div>
-</div>
-
-<!-- CAP 16 - LOOKALIKE -->
-<div class="page pb">
-  <div class="ph"><span>Módulo 04 · Capítulo 16</span></div>
-  <div class="bg-n">16</div>
-  <span class="lbl">Capítulo 16</span>
-  <h2 class="h2">Lookalike — <b>clonando seus melhores clientes</b></h2>
-  <p>Lookalike (Público Semelhante) é o recurso mais poderoso do Meta Ads. Você fornece uma lista de seus melhores clientes, e o algoritmo encontra pessoas com perfil similar em todo o Brasil.</p>
-
-  <h3 class="h3">Criando um público lookalike</h3>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>Acesse Públicos</h4><p>Em Gerenciador de Anúncios → <strong>"Públicos"</strong> → <strong>"Criar público"</strong> → <strong>"Público semelhante"</strong>.</p></div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>Escolha a fonte</h4><p>Em "Selecionar sua fonte", escolha o público base. Quanto mais qualificada a fonte, mais preciso o lookalike. Opções em ordem de qualidade:</p>
-      <ul class="ul" style="margin-top:8px;">
-        <li><strong>🥇 Melhor:</strong> Lista de clientes que compraram (upload de CSV com emails/telefones)</li>
-        <li><strong>🥈 Ótimo:</strong> Público de quem acionou o evento "Lead" no Pixel</li>
-        <li><strong>🥉 Bom:</strong> Visitantes do site (30 dias)</li>
-        <li><strong>OK:</strong> Engajamento com o Instagram</li>
-      </ul>
-    </div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><h4>Configure a localização e porcentagem</h4>
-      <div class="campo"><div class="campo-icon">🌍</div><div class="campo-body"><h5>Localização da audiência</h5><p>Brasil (não restrinja à cidade — deixe o algoritmo trabalhar em escala nacional)</p></div></div>
-      <div class="campo"><div class="campo-icon">📊</div><div class="campo-body"><h5>Tamanho do público</h5><p>Arraste para 1% — representa 1% da população brasileira mais parecida com sua fonte. É o mais preciso. Para mais alcance, use 2-3%.</p></div></div>
-    </div></div>
-    <div class="step"><div class="sn">4</div><div class="st"><h4>Restrinja por localização no Conjunto de Anúncios</h4><p>O público lookalike vai ter pessoas de todo o Brasil. Quando usar esse público em uma campanha, adicione a restrição de localização (BH + raio) no nível do Conjunto de Anúncios — não no público. Assim o público fica amplo para o lookalike funcionar, mas os anúncios só aparecem na sua área de atendimento.</p></div></div>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Tráfego Tattoo do Zero 2026</span><span>Página 100-105</span></div>
-</div>
-
-<!-- MÓDULO 5 -->
-<div class="mh pb" id="mod5">
-  <div class="mh-bg-n">05</div>
-  <div class="mh-lbl">Módulo 05</div>
-  <div class="mh-title">Análise e<br><b>Otimização Real</b></div>
-  <div class="mh-desc">Saber ler os dados é o que separa quem cresce de quem perde dinheiro. Aqui você aprende a navegar no Gerenciador de Anúncios, interpretar cada coluna e tomar decisões corretas com base em dados reais.</div>
-  
-</div>
-
-<!-- CAP 18 - LENDO O GERENCIADOR -->
-<div class="page pb">
-  <div class="ph"><span>Módulo 05 · Capítulo 18</span></div>
-  <div class="bg-n">18</div>
-  <span class="lbl">Capítulo 18</span>
-  <h2 class="h2">Lendo o Gerenciador — <b>coluna por coluna</b></h2>
-
-  <h3 class="h3">Configurando colunas personalizadas para tattoo</h3>
-  <p>Por padrão, o Gerenciador mostra colunas genéricas. Vamos configurar para mostrar exatamente o que importa para o seu negócio:</p>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>Acesse as colunas</h4><p>No Gerenciador de Anúncios, clique em <strong>"Colunas"</strong> (canto superior direito da tabela) → <strong>"Personalizar colunas"</strong>.</p></div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>Selecione estas colunas (na ordem)</h4>
-      <ul class="ul" style="margin-top:8px;">
-        <li>Nome da campanha / conjunto / anúncio</li>
-        <li><strong>Entrega</strong> (status ativo/pausado)</li>
-        <li><strong>Alcance</strong> (pessoas únicas)</li>
-        <li><strong>Impressões</strong> (total de exibições)</li>
-        <li><strong>CPM</strong> (custo por mil)</li>
-        <li><strong>CTR (link)</strong> — taxa de clique</li>
-        <li><strong>Cliques no link</strong></li>
-        <li><strong>Conversas iniciadas</strong> (leads para WhatsApp)</li>
-        <li><strong>Custo por conversa iniciada</strong> (seu CPL)</li>
-        <li><strong>Valor usado</strong> (gasto total)</li>
-        <li><strong>Frequência</strong> (vezes que mesma pessoa viu)</li>
-      </ul>
-      <p>Clique em <strong>"Aplicar"</strong> e <strong>"Salvar como predefinição"</strong> com o nome "Tattoo Dashboard".</p>
-    </div></div>
-  </div>
-
-  <h3 class="h3">Interpretando cada métrica</h3>
-  <div class="tb">
-    <table class="tb">
-      <tr><th>Métrica</th><th>Referência ideal</th><th>Se estiver ruim — faça isso</th></tr>
-      <tr><td><strong>CPM</strong></td><td>R$8 - R$20</td><td>Acima de R$30: público muito concorrido ou pequeno demais. Amplie localização ou troque interesses.</td></tr>
-      <tr><td><strong>CTR (link)</strong></td><td>Acima de 1,5%</td><td>Abaixo de 0,8%: criativo fraco. Teste novo vídeo com gancho diferente nos primeiros 3 segundos.</td></tr>
-      <tr><td><strong>CPL</strong></td><td>R$8 - R$20</td><td>Acima de R$35: revise o texto do anúncio ou o CTA. Certifique que o WhatsApp está abrindo corretamente.</td></tr>
-      <tr><td><strong>Frequência</strong></td><td>2 - 4 por semana</td><td>Acima de 5: seu público está saturado. Amplie o público ou crie novo criativo urgente.</td></tr>
-      <tr><td><strong>Alcance vs Impressões</strong></td><td>Impressões = 2-4x o alcance</td><td>Se impressões for 8x+ o alcance: público muito pequeno ou frequência alta demais.</td></tr>
-    </table>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Tráfego Tattoo do Zero 2026</span><span>Página 113-118</span></div>
-</div>
-
-<!-- MÓDULO 6 -->
-<div class="mh pb" id="mod6">
-  <div class="mh-bg-n">06</div>
-  <div class="mh-lbl">Módulo 06</div>
-  <div class="mh-title">Atendimento que<br><b>Converte</b></div>
-  <div class="mh-desc">Você pode ter as melhores campanhas do mundo, mas se o atendimento no WhatsApp for ruim, não fecha nada. Aqui está o sistema completo de atendimento que transforma mensagem em agendamento.</div>
-  
-</div>
-
-<!-- CAP 21 - WHATSAPP CRM -->
-<div class="page pb">
-  <div class="ph"><span>Módulo 06 · Capítulo 21</span></div>
-  <div class="bg-n">21</div>
-  <span class="lbl">Capítulo 21</span>
-  <h2 class="h2">WhatsApp Business <b>como CRM</b></h2>
-  <p>CRM significa "Gerenciamento de Relacionamento com o Cliente". No WhatsApp Business, você tem ferramentas nativas para organizar e acompanhar cada lead — gratuitamente.</p>
-
-  <h3 class="h3">Sistema de etiquetas para organizar leads</h3>
-  <p>Vá em Configurações → <strong>"Ferramentas comerciais"</strong> → <strong>"Etiquetas"</strong>. Crie as seguintes etiquetas com cores diferentes:</p>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>🟡 NOVO LEAD</h4><p>Aplique assim que receber uma nova mensagem vinda dos anúncios. Isso indica que você ainda não qualificou esse lead.</p></div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>🔵 EM CONVERSA</h4><p>Lead que você já respondeu e está em processo de qualificação/orçamento.</p></div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><h4>🟠 ORÇAMENTO ENVIADO</h4><p>Lead que recebeu o orçamento mas ainda não confirmou o agendamento.</p></div></div>
-    <div class="step"><div class="sn">4</div><div class="st"><h4>🟢 AGENDADO</h4><p>Lead que confirmou a sessão e pagou o sinal.</p></div></div>
-    <div class="step"><div class="sn">5</div><div class="st"><h4>🔴 PERDIDO</h4><p>Lead que sumiu ou disse que não vai fazer. Guarde para tentar novamente em 30 dias.</p></div></div>
-    <div class="step"><div class="sn">6</div><div class="st"><h4>⭐ CLIENTE VIP</h4><p>Clientes que já fecharam e têm alto potencial de voltar. Prioridade máxima no atendimento.</p></div></div>
-  </div>
-
-  <h3 class="h3">Rotina diária de atendimento</h3>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><h4>Manhã (10h) — Verificar novos leads</h4><p>Filtre pelos leads com etiqueta "NOVO LEAD". Responda todos dentro de 30 minutos. Use a resposta rápida /oi como base e personalize com o nome da pessoa.</p></div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><h4>Tarde (15h) — Follow-up de orçamentos</h4><p>Filtre por "ORÇAMENTO ENVIADO". Veja quem está há mais de 48h sem resposta. Envie o follow-up de reativação.</p></div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><h4>Sexta-feira — Revisão semanal</h4><p>Conte quantos leads chegaram, quantos viraram orçamento, quantos agendaram. Essa taxa de conversão vai te dizer se o problema está nos anúncios ou no atendimento.</p></div></div>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Tráfego Tattoo do Zero 2026</span><span>Página 132-137</span></div>
-</div>
-
-<!-- CAP 23 - OBJEÇÕES -->
-<div class="page pb">
-  <div class="ph"><span>Módulo 06 · Capítulo 23</span></div>
-  <div class="bg-n">23</div>
-  <span class="lbl">Capítulo 23</span>
-  <h2 class="h2">Como lidar com <b>objeções de preço</b></h2>
-
-  <div class="script">
-    <span class="script-lbl">Situação 1 — "Achei caro, vi mais barato em outro lugar"</span>
-    <div class="sl">Entendo! O mercado tem preços bem variados. 😊</div>
-    <div class="sl">A diferença está na técnica, nos materiais importados que usamos e principalmente no resultado final — que fica na sua pele pra sempre.</div>
-    <div class="sl">Posso te mostrar trabalhos similares que fizemos para você comparar a qualidade? Me manda a referência que você quer.</div>
-    <div class="sl"><em>[Nunca desça o preço na primeira objeção. Mostre valor primeiro.]</em></div>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Situação 2 — "Posso parcelar?"</span>
-    <div class="sl">Para projetos maiores, trabalhamos com divisão da sessão em etapas — você paga cada sessão separadamente. 😊</div>
-    <div class="sl">Para pagamento único, aceitamos cartão de débito, crédito e PIX. Cartão de crédito você pode parcelar diretamente com seu banco.</div>
-    <div class="sl">Qual forma de pagamento funciona melhor para você?</div>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Situação 3 — "Vou pensar e te aviso"</span>
-    <div class="sl">Claro, sem pressão! 😊</div>
-    <div class="sl">Só te aviso que trabalho com agenda fechada e as vagas do próximo mês já estão praticamente esgotadas.</div>
-    <div class="sl">Se quiser garantir sua vaga antes de alguém ocupar, posso reservar com um sinal de R$100 (descontado no total). Se não fechar, devolvemos. Quer que eu reserve?</div>
-  </div>
-
-  <div class="script">
-    <span class="script-lbl">Situação 4 — "Você consegue fazer mais barato?"</span>
-    <div class="sl">Não consigo mexer no valor porque ele reflete o tempo de projeto, materiais premium e a técnica que garantem o resultado que você viu no portfólio. 😊</div>
-    <div class="sl">O que posso fazer é adaptar o tamanho ou a complexidade do projeto para caber no seu orçamento — sem comprometer a qualidade.</div>
-    <div class="sl">Quanto você tem disponível? Vejo o que consigo criar dentro desse valor.</div>
-  </div>
-
-  <div class="box-gold">
-    <p><strong>Regra de ouro:</strong> Nunca peça desculpas pelo seu preço. "Desculpa, eu sei que é caro mas..." transmite insegurança e desvaloriza seu trabalho. Apresente o preço com confiança, justifique o valor e deixe o cliente decidir.</p>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Tráfego Tattoo do Zero 2026</span><span>Página 144-149</span></div>
-</div>
-
-<!-- MÓDULO 7 -->
-<div class="mh pb" id="mod7">
-  <div class="mh-bg-n">07</div>
-  <div class="mh-lbl">Módulo 07</div>
-  <div class="mh-title">Plano 90 Dias,<br><b>Checklist e Erros</b></div>
-  <div class="mh-desc">O módulo final reúne seu plano de ação completo semana a semana, os erros mais comuns com solução e o glossário técnico para você nunca mais ficar em dúvida sobre um termo.</div>
-  
-</div>
-
-<!-- CAP 24 - PLANO 90 DIAS -->
-<div class="page pb">
-  <div class="ph"><span>Módulo 07 · Capítulo 24</span></div>
-  <div class="bg-n">24</div>
-  <span class="lbl">Capítulo 24</span>
-  <h2 class="h2">Plano de ação <b>semana a semana — 90 dias</b></h2>
-
-  <div class="tb">
-    <table class="tb">
-      <tr><th>Semana</th><th>O que fazer</th><th>Meta</th></tr>
-      <tr><td><strong>S1</strong></td><td>Configurar Business Manager, Pixel, WhatsApp. Criar 2 vídeos. Lançar primeira campanha com R$10/dia. NÃO TOCAR por 7 dias.</td><td>Campanha ativa</td></tr>
-      <tr><td><strong>S2</strong></td><td>Analisar primeiros dados. CTR acima de 1,5%? Ótimo — mantenha. Abaixo? Crie novo criativo. Responder TODOS os leads com script.</td><td>5-8 leads</td></tr>
-      <tr><td><strong>S3</strong></td><td>Criar segundo anúncio (formato diferente — se usou vídeo, teste carrossel). Manter campanha vencedora. Organizar leads no WhatsApp com etiquetas.</td><td>3-5 leads/semana</td></tr>
-      <tr><td><strong>S4</strong></td><td>Analisar mês 1. Calcular CPL e taxa de conversão. Se CPL abaixo de R$20 — escale para R$15/dia. Se acima — revise o criativo.</td><td>1-3 clientes fechados</td></tr>
-      <tr><td><strong>S5-6</strong></td><td>Criar público personalizado de visitantes do site. Criar campanha de remarketing para esses visitantes com orçamento de R$5/dia.</td><td>CPL 20% menor</td></tr>
-      <tr><td><strong>S7-8</strong></td><td>Escalar campanha principal para R$20/dia. Criar anúncio específico para cobertura (se não criou ainda). Testar novo público (ampliado).</td><td>15-20 leads/mês</td></tr>
-      <tr><td><strong>S9-10</strong></td><td>Criar lookalike 1% baseado em leads do Pixel. Pausar criativos com CTR abaixo de 0,8%. Testar novo vídeo com roteiro diferente.</td><td>20-25 leads/mês</td></tr>
-      <tr><td><strong>S11-12</strong></td><td>Analisar 90 dias completos. Calcular ROI total. Planejar escalagem para mês 4. Criar campanha separada para cursos/ebooks se aplicável.</td><td>Agenda 70%+ cheia</td></tr>
-    </table>
-  </div>
-
-  <div class="ck" style="margin-top:28px;">
-    <h4>✓ Checklist completo antes de começar</h4>
-    <div class="ck-grid">
-      <div class="ci"><div class="cbox"></div>Página Facebook completa</div>
-      <div class="ci"><div class="cbox"></div>Business Manager configurado</div>
-      <div class="ci"><div class="cbox"></div>Gerenciador de Anúncios criado</div>
-      <div class="ci"><div class="cbox"></div>Método de pagamento cadastrado</div>
-      <div class="ci"><div class="cbox"></div>Pixel instalado e verificado</div>
-      <div class="ci"><div class="cbox"></div>Instagram Business conectado</div>
-      <div class="ci"><div class="cbox"></div>WhatsApp Business configurado</div>
-      <div class="ci"><div class="cbox"></div>Respostas rápidas criadas</div>
-      <div class="ci"><div class="cbox"></div>Mensagem de ausência ativada</div>
-      <div class="ci"><div class="cbox"></div>WhatsApp vinculado ao Business Manager</div>
-      <div class="ci"><div class="cbox"></div>2+ vídeos editados no CapCut</div>
-      <div class="ci"><div class="cbox"></div>Textos de anúncio escritos</div>
-      <div class="ci"><div class="cbox"></div>Público configurado com interesses certos</div>
-      <div class="ci"><div class="cbox"></div>Posicionamentos: Feed+Stories+Reels</div>
-      <div class="ci"><div class="cbox"></div>Orçamento R$10/dia sem data fim</div>
-      <div class="ci"><div class="cbox"></div>Script de atendimento salvo no WhatsApp</div>
-      <div class="ci"><div class="cbox"></div>Etiquetas de CRM criadas</div>
-      <div class="ci"><div class="cbox"></div>Colunas personalizadas no Gerenciador</div>
-    </div>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Tráfego Tattoo do Zero 2026</span><span>Página 150-161</span></div>
-</div>
-
-<!-- CAP 26 - ERROS E TROUBLESHOOTING -->
-<div class="page pb">
-  <div class="ph"><span>Módulo 07 · Capítulo 26</span></div>
-  <div class="bg-n">26</div>
-  <span class="lbl">Capítulo 26</span>
-  <h2 class="h2">Troubleshooting — <b>15 problemas e soluções</b></h2>
-
-  <div class="tb">
-    <table class="tb">
-      <tr><th>Problema</th><th>Causa provável</th><th>Solução</th></tr>
-      <tr><td>Anúncio reprovado</td><td>Texto com "garantia de resultado", imagem com mais de 20% de texto, conteúdo sensível</td><td>Revise o texto removendo promessas absolutas. Reduza texto na imagem. Use a ferramenta de verificação de texto do Meta.</td></tr>
-      <tr><td>Conta bloqueada / suspensa</td><td>Pagamento recusado, comportamento suspeito, política violada</td><td>Acesse "Suporte" no Business Manager. Se bloqueio por pagamento, atualize o cartão. Se por política, leia o email de reprovação e faça a correção solicitada.</td></tr>
-      <tr><td>CTR abaixo de 0,5%</td><td>Criativo não está parando o scroll nos primeiros 3 segundos</td><td>Crie novo vídeo começando direto com o resultado mais impressionante. Sem logo, sem introdução. Mostre a tattoo pronta nos primeiros 2 segundos.</td></tr>
-      <tr><td>Muitos cliques, poucas mensagens</td><td>WhatsApp não está abrindo corretamente, ou número errado</td><td>Teste o fluxo completo: clique no seu próprio anúncio e veja se o WhatsApp abre. Verifique se o número está correto com +55.</td></tr>
-      <tr><td>CPL acima de R$40</td><td>Público muito pequeno, criativo fraco ou texto sem CTA claro</td><td>Amplie o raio de localização para 30km. Troque o texto do anúncio. Verifique se o botão CTA está como "Enviar mensagem".</td></tr>
-      <tr><td>Campanha em aprendizado por mais de 14 dias</td><td>Volume de conversões insuficiente para sair do aprendizado</td><td>Mude o evento de otimização para algo com mais volume: "Visualização de conteúdo" em vez de "Lead". Volte para "Lead" quando tiver mais dados.</td></tr>
-      <tr><td>Público esgotado (frequência alta)</td><td>Público muito pequeno para o orçamento</td><td>Amplie a localização, aumente a faixa etária, ou crie público lookalike para ter mais pessoas para atingir.</td></tr>
-      <tr><td>Anúncio ativo mas com pouquíssima entrega</td><td>Lance de leilão muito baixo, criativo de baixa qualidade</td><td>Suba o orçamento temporariamente para R$20 por 3 dias para "engordar" o leilão. Se o criativo for ruim, troque antes.</td></tr>
-    </table>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Tráfego Tattoo do Zero 2026</span><span>Página 162-169</span></div>
-</div>
-
-<!-- CAP 27 - GLOSSÁRIO -->
-<div class="page pb">
-  <div class="ph"><span>Módulo 07 · Capítulo 27 — Glossário</span></div>
-  <span class="lbl">Capítulo 27</span>
-  <h2 class="h2"><b>Glossário técnico</b> — 50 termos explicados</h2>
-  <div class="tb">
-    <table class="tb">
-      <tr><th>Termo</th><th>Significado prático</th></tr>
-      <tr><td><strong>Alcance</strong></td><td>Número de pessoas ÚNICAS que viram seu anúncio</td></tr>
-      <tr><td><strong>Anúncio</strong></td><td>O criativo (imagem/vídeo + texto) que o público vê</td></tr>
-      <tr><td><strong>Audience Network</strong></td><td>Rede de sites/apps parceiros da Meta — geralmente baixa qualidade para tattoo</td></tr>
-      <tr><td><strong>Business Manager</strong></td><td>Painel central que gerencia toda sua presença de anúncios na Meta</td></tr>
-      <tr><td><strong>CAC</strong></td><td>Custo de Aquisição de Cliente — quanto gastou em anúncios para fechar 1 cliente</td></tr>
-      <tr><td><strong>Call to Action (CTA)</strong></td><td>A ação que você pede ao cliente ("Mande mensagem", "Agende agora")</td></tr>
-      <tr><td><strong>Campanha</strong></td><td>Nível mais alto — onde você define o objetivo</td></tr>
-      <tr><td><strong>Conjunto de Anúncios</strong></td><td>Nível do meio — onde você define público, orçamento e programação</td></tr>
-      <tr><td><strong>Conversão</strong></td><td>Quando o usuário realiza a ação desejada (manda mensagem, preenche formulário)</td></tr>
-      <tr><td><strong>CPL</strong></td><td>Custo Por Lead — quanto você pagou para receber 1 mensagem/contato</td></tr>
-      <tr><td><strong>CPM</strong></td><td>Custo Por Mil impressões — quanto custou mostrar para 1.000 pessoas</td></tr>
-      <tr><td><strong>CRM</strong></td><td>Sistema de gerenciamento de relacionamento com clientes</td></tr>
-      <tr><td><strong>Criativo</strong></td><td>A imagem ou vídeo do anúncio — o visual que o público vê</td></tr>
-      <tr><td><strong>CTR</strong></td><td>Click Through Rate — % de pessoas que clicaram após ver o anúncio</td></tr>
-      <tr><td><strong>Fase de aprendizado</strong></td><td>Primeiros 7 dias — algoritmo coletando dados para otimizar</td></tr>
-      <tr><td><strong>Feed</strong></td><td>A linha do tempo principal do Facebook e Instagram</td></tr>
-      <tr><td><strong>Follow-up</strong></td><td>Mensagem de acompanhamento enviada para lead que não respondeu</td></tr>
-      <tr><td><strong>Frequência</strong></td><td>Quantas vezes a mesma pessoa viu seu anúncio</td></tr>
-      <tr><td><strong>Funil</strong></td><td>O caminho do cliente do primeiro contato até fechar</td></tr>
-      <tr><td><strong>Gancho</strong></td><td>Os primeiros 3 segundos do vídeo — o que prende atenção</td></tr>
-      <tr><td><strong>Impressões</strong></td><td>Total de vezes que seu anúncio foi exibido (conta repetições)</td></tr>
-      <tr><td><strong>Lead</strong></td><td>Pessoa que demonstrou interesse — no nosso caso, mandou mensagem</td></tr>
-      <tr><td><strong>Lookalike</strong></td><td>Público Semelhante — Meta encontra pessoas parecidas com seus melhores clientes</td></tr>
-      <tr><td><strong>Objetivo</strong></td><td>O que você quer que aconteça com a campanha (mensagens, vendas, tráfego)</td></tr>
-      <tr><td><strong>Pixel</strong></td><td>Código JavaScript que rastreia visitantes do seu site</td></tr>
-      <tr><td><strong>Posicionamento</strong></td><td>Onde o anúncio vai aparecer (feed, stories, reels, etc)</td></tr>
-      <tr><td><strong>Público personalizado</strong></td><td>Lista de pessoas que já interagiram com você (visitantes do site, engajamento)</td></tr>
-      <tr><td><strong>Remarketing</strong></td><td>Mostrar anúncio para quem já teve contato anterior com você</td></tr>
-      <tr><td><strong>ROI</strong></td><td>Return on Investment — quanto você ganhou sobre o que investiu</td></tr>
-      <tr><td><strong>Segmentação</strong></td><td>Como você define quem vai ver o anúncio (interesses, comportamentos, localização)</td></tr>
-      <tr><td><strong>Teste A/B</strong></td><td>Testar duas versões de um anúncio para ver qual performa melhor</td></tr>
-    </table>
-  </div>
-  <div class="pf"><span>Carlos Tattoo BH — Tráfego Tattoo do Zero 2026</span><span>Página 170-180</span></div>
-</div>
-
-<!-- CONTRACAPA -->
-
-<!-- ═══════════ FUNIL CRUZADO — COMPLETE SEU ARSENAL ═══════════ -->
-<style>
-.xsell-sec{background:linear-gradient(165deg,#0a0c14 0%,#12121f 50%,#0a0c14 100%);padding:72px 40px 80px;position:relative;overflow:hidden;}
-.xsell-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 50% 40%,rgba(201,151,58,.10) 0%,transparent 70%);pointer-events:none;}
-.xsell-wrap{max-width:1000px;margin:0 auto;position:relative;z-index:2;}
-.xsell-eyebrow{display:inline-block;font-family:'Poppins',sans-serif;font-size:10px;letter-spacing:4px;color:#f0c04a;text-transform:uppercase;border:1px solid rgba(201,151,58,.35);background:rgba(201,151,58,.08);padding:7px 22px;border-radius:30px;margin-bottom:22px;}
-.xsell-h2{font-family:'Playfair Display',serif;font-size:clamp(24px,3.4vw,38px);color:#fff;line-height:1.18;margin-bottom:14px;max-width:640px;}
-.xsell-h2 b{color:#f0c04a;}
-.xsell-sub{font-family:'Poppins',sans-serif;font-size:15px;color:rgba(229,231,235,.82);line-height:1.75;max-width:600px;margin-bottom:44px;}
-.xsell-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.xsell-card{display:flex;flex-direction:column;background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid rgba(201,151,58,.22);border-radius:16px;padding:26px 24px 22px;transition:all .22s ease;position:relative;}
-.xsell-card:hover{transform:translateY(-4px);border-color:rgba(240,192,74,.6);box-shadow:0 18px 40px rgba(0,0,0,.4),0 0 0 1px rgba(240,192,74,.15);background:linear-gradient(160deg,rgba(201,151,58,.10),rgba(255,255,255,.02));}
-.xsell-ic{width:52px;height:52px;border-radius:13px;background:linear-gradient(135deg,rgba(201,151,58,.2),rgba(240,192,74,.08));border:1px solid rgba(201,151,58,.3);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px;}
-.xsell-cat{font-family:'Poppins',sans-serif;font-size:9px;letter-spacing:2px;color:#c9973a;text-transform:uppercase;font-weight:700;margin-bottom:7px;}
-.xsell-nome{font-family:'Playfair Display',serif;font-size:20px;color:#fff;line-height:1.2;margin-bottom:11px;}
-.xsell-benef{font-family:'Poppins',sans-serif;font-size:13px;color:rgba(229,231,235,.75);line-height:1.65;margin-bottom:20px;flex:1;}
-.xsell-foot{display:flex;align-items:center;justify-content:flex-end;padding-top:16px;border-top:1px solid rgba(201,151,58,.15);}
-.xsell-preco{font-family:'Playfair Display',serif;font-size:22px;color:#f0c04a;font-weight:700;}
-.xsell-cta{font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;letter-spacing:.5px;color:#0a0500;background:linear-gradient(135deg,#f0c04a,#c9973a);padding:9px 16px;border-radius:8px;white-space:nowrap;transition:.2s;}
-.xsell-card:hover .xsell-cta{box-shadow:0 6px 18px rgba(240,192,74,.35);}
-.xsell-note{text-align:center;font-family:'Poppins',sans-serif;font-size:12px;color:rgba(201,151,58,.7);margin-top:38px;letter-spacing:.5px;}
-.xsell-note a{color:#f0c04a;text-decoration:underline;}
-@media(max-width:820px){.xsell-grid{grid-template-columns:1fr;}.xsell-sec{padding:56px 22px 64px;}}
-@media print{.xsell-sec{display:none!important;}}
-</style>
-<div class="xsell-sec pb">
-  <div class="xsell-wrap">
-    <span class="xsell-eyebrow">O Ecossistema Carlos Tattoo BH</span>
-    <h2 class="xsell-h2">Você já sabe atrair clientes com anúncios.<br><b>Complete seu arsenal.</b></h2>
-    <p class="xsell-sub">Agora feche o ciclo: atraia de graça, cobre mais e organize tudo. Cada produto abaixo multiplica o que você acabou de aprender.</p>
-    <div class="xsell-grid">
-      <a href="pagamento.html?prod=ebook-instagram" target="_top" class="xsell-card" style="text-decoration:none;">
-        <div class="xsell-ic">📱</div>
-        <div class="xsell-cat">MÉTODO · ORGÂNICO</div>
-        <div class="xsell-nome">Instagram que Atrai e Vende</div>
-        <div class="xsell-benef">Enquanto os anúncios rodam, o Instagram te traz clientes de graça todo dia. É o par perfeito do tráfego pago.</div>
-        <div class="xsell-foot">
-          <span class="xsell-cta">Ver oferta&nbsp;→</span>
-        </div>
-      </a>
-      <a href="pagamento.html?prod=ebook-posicionamento" target="_top" class="xsell-card" style="text-decoration:none;">
-        <div class="xsell-ic">🏆</div>
-        <div class="xsell-cat">AVANÇADO · PREÇO</div>
-        <div class="xsell-nome">Posicionamento Premium</div>
-        <div class="xsell-benef">De nada adianta encher a agenda cobrando barato. Aprenda a cobrar o que seu trabalho vale e lucrar mais por cliente.</div>
-        <div class="xsell-foot">
-          <span class="xsell-cta">Ver oferta&nbsp;→</span>
-        </div>
-      </a>
-      <a href="pagamento.html?prod=central-tattoo" target="_top" class="xsell-card" style="text-decoration:none;">
-        <div class="xsell-ic">⚙️</div>
-        <div class="xsell-cat">SISTEMA · GESTÃO</div>
-        <div class="xsell-nome">Central Tattoo Pro</div>
-        <div class="xsell-benef">Os leads dos anúncios vão chegar em massa. Organize cada um, acompanhe o funil e não perca nenhuma venda.</div>
-        <div class="xsell-foot">
-          <span class="xsell-cta">Ver oferta&nbsp;→</span>
-        </div>
-      </a>
-    </div>
-    <p class="xsell-note">Já adquiriu algum desses? Acesse direto pelo <a href="painel.html" target="_top">seu Painel de Membros</a>.</p>
-  </div>
-</div>
-
-<div class="cback">
-  <div style="position:relative;z-index:2;text-align:center;">
-    
-    <h2 style="font-family:'Playfair Display', serif;font-size:30px;color:#f0c04a;margin-bottom:12px;">Dominando o básico?</h2>
-    <p style="font-family:'Poppins', sans-serif;font-size:13px;letter-spacing:2px;color:rgba(201,151,58,.90);margin-bottom:44px;">O próximo passo é o curso completo em vídeo</p>
-    <div style="background:rgba(201,151,58,.07);border:1px solid rgba(201,151,58,.28);border-radius:18px;padding:36px 44px;max-width:520px;margin:0 auto;">
-      <h3 style="font-family:'Playfair Display', serif;font-size:22px;color:#ffffff;margin-bottom:8px;">Tráfego Pago para Tatuadores</h3>
-      <p style="font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:3px;color:#ffffff;margin-bottom:22px;">CURSO COMPLETO EM VÍDEO — 2026</p>
-      <ul class="ul" style="text-align:left;margin-bottom:24px;">
-        <li style="color:#ffffff;">Todas as aulas em vídeo com tela compartilhada</li>
-        <li style="color:#ffffff;">Campanhas criadas ao vivo do zero</li>
-        <li style="color:#ffffff;">Planilha de controle de campanhas exclusiva</li>
-        <li style="color:#ffffff;">Templates de criativos prontos no Canva</li>
-        <li style="color:#ffffff;">Grupo de suporte com o Carlos</li>
-        <li style="color:#ffffff;">Atualizações gratuitas por 12 meses</li>
-        <li style="color:#ffffff;">Certificado de conclusão</li>
-      </ul>
-      <p style="font-family:'Poppins', sans-serif;font-size:13px;letter-spacing:1px;color:#f0c04a;margin-bottom:8px;">Valores em R$, US$ e € — consulte a oferta atual</p>
-    </div>
-    <p style="font-family:'Poppins', sans-serif;font-size:10px;letter-spacing:2px;color:rgba(201,151,58,.75);margin-top:44px;">© 2026 Carlos Tattoo BH · Material protegido por direitos autorais<br>@carlostattoo.bh · Belo Horizonte, MG · Todos os direitos reservados</p>
-  </div>
-</div>
-
+<footer>
+  <div class="fb">Carlos Tattoo BH</div>
+  <div class="fc">carlostattoobh.com.br · @carlostattoo.bh · WhatsApp +55 31 98339-1576</div>
+  <div class="fc" style="margin-top:6px;color:var(--gold-deep)">Sistema de Aquisição · Edição Definitiva · 2026</div>
+</footer>
 
 <script>
-window.addEventListener("message", function(e) {
-  if (e.data && e.data.type === "ct_scrollTo") {
-    var el = document.getElementById(e.data.anchor);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+(function(){
+  "use strict";
+  var BRL = function(n){ if(!isFinite(n)) n=0; return "R$ "+n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}); };
+  var BRL0 = function(n){ if(!isFinite(n)) n=0; return "R$ "+Math.round(n).toLocaleString("pt-BR"); };
+  var num = function(id){ var e=document.getElementById(id); var v=parseFloat((e&&e.value||"").replace(",",".")); return isNaN(v)?0:v; };
+  var set = function(id,t){ var e=document.getElementById(id); if(e) e.textContent=t; };
+
+  /* ---- Widget 1: teto de custo por cliente ---- */
+  function w1(){
+    var ticket=num("w1_ticket"), closeN=num("w1_close"), margin=num("w1_margin");
+    set("w1_marginval", margin+"%");
+    var ratio = closeN>0 ? (10/closeN) : 0;              // leads por cliente
+    var maxCAC = ticket*(1-margin/100);                  // teto por cliente fechado
+    var maxCPL = ratio>0 ? maxCAC/ratio : 0;             // teto por lead
+    set("w1_cac", BRL(maxCAC));
+    set("w1_cpl", BRL(maxCPL));
+    set("w1_ratio", ratio.toFixed(1).replace(".",",")+" leads");
+    var v=document.getElementById("w1_verdict"), t="";
+    if(maxCPL>=4.5){ v.className="verdict g"; t="Folga confortável. Você pode pagar até "+BRL(maxCPL)+" por conversa e ainda proteger sua margem. Mira nos R$2,80–3,50 e o lucro é gordo."; }
+    else if(maxCPL>=3){ v.className="verdict a"; t="Zona apertada mas viável. Seu teto por conversa é "+BRL(maxCPL)+". Fique disciplinado no criativo e no atendimento pra não estourar."; }
+    else { v.className="verdict r"; t="Teto baixo demais ("+BRL(maxCPL)+" por conversa). Ou você sobe o ticket, ou melhora a taxa de fechamento — senão o anúncio não fecha a conta. Veja o ebook de Posicionamento."; }
+    v.querySelector(".vh").textContent = maxCPL>=4.5?"Você tem folga":maxCPL>=3?"Dá, com disciplina":"Cuidado com a conta";
+    set("w1_txt", t);
   }
-});
+  ["w1_ticket","w1_close","w1_margin"].forEach(function(id){ var e=document.getElementById(id); if(e){ e.addEventListener("input",w1); } });
+  w1();
+
+  /* ---- CPR diagnostic meter ---- */
+  function cpr(){
+    var c=num("cpr_in");
+    var pct = Math.max(0, Math.min(100, (c/6)*100));
+    var pin=document.getElementById("cpr_pin"); if(pin) pin.style.left=pct+"%";
+    var v=document.getElementById("cpr_verdict"), h="", t="";
+    if(c<=3.5){ v.className="verdict g"; h="Zona de excelência"; t="CPR de "+BRL(c)+". Está no meu alvo. Segura o criativo, deixa rodar e comece a pensar em escalar 20% a cada 3–4 dias."; }
+    else if(c<=4.5){ v.className="verdict a"; h="Zona aceitável"; t="CPR de "+BRL(c)+". Dá pra viver, mas há espaço. Teste um criativo novo pra puxar pra baixo antes de escalar."; }
+    else { v.className="verdict r"; h="Acima do teto"; t="CPR de "+BRL(c)+" passou dos R$4,50. Depois do aprendizado, isso pede intervenção: troque o criativo primeiro (culpado em 80% dos casos), depois o público."; }
+    document.getElementById("cpr_vh").textContent=h;
+    set("cpr_txt", t);
+  }
+  var cprIn=document.getElementById("cpr_in"); if(cprIn){ cprIn.addEventListener("input",cpr); } cpr();
+
+  /* ---- ROI planner ---- */
+  function roi(){
+    var budget=num("roi_budget"), cprv=num("roi_cpr"), closeN=num("roi_close"), ticket=num("roi_ticket");
+    var convos = cprv>0 ? budget/cprv : 0;
+    var clients = convos*(closeN/10);
+    var rev = clients*ticket;
+    var roas = budget>0 ? rev/budget : 0;
+    set("roi_convos", Math.round(convos)+" conversas");
+    set("roi_clients", (Math.round(clients*10)/10).toString().replace(".",",")+" clientes");
+    set("roi_rev", BRL0(rev));
+    set("roi_roas", (Math.round(roas*10)/10).toString().replace(".",",")+"×");
+    var v=document.getElementById("roi_verdict"), t="";
+    if(roas>=5){ v.className="verdict g"; t="Retorno forte: cada R$1 investido volta como "+BRL(roas)+". Esse é o tipo de conta que justifica escalar com segurança."; }
+    else if(roas>=2.5){ v.className="verdict a"; t="Retorno saudável de "+(Math.round(roas*10)/10).toString().replace(".",",")+"×. Melhore fechamento ou ticket pra abrir mais folga."; }
+    else if(roas>0){ v.className="verdict r"; t="Retorno apertado ("+(Math.round(roas*10)/10).toString().replace(".",",")+"×). O gargalo costuma ser fechamento ou ticket baixo, não o anúncio. Revise Módulos 6 e o ebook de Posicionamento."; }
+    else { v.className="verdict a"; t="Preencha os campos com seus números."; }
+    set("roi_txt", t);
+  }
+  ["roi_budget","roi_cpr","roi_close","roi_ticket"].forEach(function(id){ var e=document.getElementById(id); if(e){ e.addEventListener("input",roi); } });
+  roi();
+
+  /* ---- Copy buttons ---- */
+  window.cp = function(btn){
+    var block = btn.closest(".script");
+    var clone = block.cloneNode(true);
+    var b = clone.querySelector(".copybtn"); if(b) b.remove();
+    var lbl = clone.querySelector(".lbl"); if(lbl) lbl.remove();
+    var text = clone.innerText.replace(/\s*\[.*?\]\s*/g,"").trim();
+    var done=function(){ var o=btn.textContent; btn.textContent="Copiado ✓"; setTimeout(function(){btn.textContent=o;},1600); };
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(done); }
+    else { var ta=document.createElement("textarea"); ta.value=text; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy");}catch(e){} ta.remove(); done(); }
+  };
+
+  /* ---- Checklist with localStorage ---- */
+  var KEY="ct_trafego_checklist_v1";
+  var boxes = Array.prototype.slice.call(document.querySelectorAll("[data-ck]"));
+  function loadCk(){
+    var saved={}; try{ saved=JSON.parse(localStorage.getItem(KEY)||"{}"); }catch(e){}
+    boxes.forEach(function(b,i){ if(saved[i]) b.checked=true; });
+  }
+  function saveCk(){
+    var st={}; boxes.forEach(function(b,i){ if(b.checked) st[i]=1; });
+    try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){}
+    updateProg();
+  }
+  function updateProg(){
+    var done=boxes.filter(function(b){return b.checked;}).length;
+    var pct = boxes.length? Math.round(done/boxes.length*100):0;
+    var f=document.getElementById("pfill"); if(f) f.style.width=pct+"%";
+    var t=document.getElementById("ptxt"); if(t) t.textContent=pct+"% concluído · "+done+" de "+boxes.length;
+  }
+  boxes.forEach(function(b){ b.addEventListener("change",saveCk); });
+  var rb=document.getElementById("ckreset");
+  if(rb){ rb.addEventListener("click",function(){ boxes.forEach(function(b){b.checked=false;}); try{localStorage.removeItem(KEY);}catch(e){} updateProg(); }); }
+  loadCk(); updateProg();
+
+  /* ---- Reveal on scroll ---- */
+  if("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    var io=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add("in"); io.unobserve(x.target); } }); },{threshold:.12});
+    document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll(".reveal").forEach(function(el){ el.classList.add("in"); });
+  }
+})();
 </script>
 </body>
 </html>
